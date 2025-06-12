@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paragraph Jumbles - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            background: #e0f2fe;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .paragraph {
+            background: white;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+        
+        .paragraph:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+        
+        .paragraph.dragging {
+            opacity: 0.5;
+            border: 2px dashed #3b82f6;
+        }
+        
+        .paragraph-container {
+            min-height: 200px;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0f9ff;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .check-answer {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .check-answer:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Paragraph Jumbles
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of arranging jumbled paragraphs in the correct order.
+                Practice with our comprehensive collection of paragraph jumble questions.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search questions..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Business</span>
+                    <span class="filter-tag">Technology</span>
+                    <span class="filter-tag">Environment</span>
+                    <span class="filter-tag">Social</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <section id="questions" class="card p-8">
+                <h2 class="section-title">Practice Questions</h2>
+                
+                <!-- Question 1 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container1">
+                        <div class="paragraph" draggable="true" data-order="A">A. The advent of the Internet has revolutionized the way businesses operate.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. Online platforms now facilitate easier communication, product promotion, and customer engagement.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Over time, these platforms have enabled companies to reach global audiences and expand their reach.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. In the last decade, the role of e-commerce has increased, contributing immensely to the digital economy.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. As a result, businesses are increasingly relying on digital strategies to stay competitive in the market.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(1, ['A', 'B', 'D', 'C', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, D, C, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with the introduction of the Internet's impact (A), followed by its effects on business operations (B). Then it discusses the growth of e-commerce (D), its global reach (C), and concludes with the current business reliance on digital strategies (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card" data-category="environment">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container2">
+                        <div class="paragraph" draggable="true" data-order="A">A. By adopting sustainable practices, companies can create a positive environmental impact.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. Sustainable development helps reduce carbon footprints and conserve natural resources for future generations.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. The concept of sustainability has gained increasing attention in recent years.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. It is essential for businesses to integrate green initiatives into their operations.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. This approach not only benefits the environment but also enhances brand reputation and customer loyalty.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(2, ['C', 'A', 'B', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: C, A, B, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with the introduction of sustainability (C), followed by its implementation in companies (A), its benefits (B), the need for integration (D), and concludes with the business advantages (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card" data-category="environment">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container3">
+                        <div class="paragraph" draggable="true" data-order="A">A. Climate change poses a significant threat to global ecosystems and human societies.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. Governments, corporations, and individuals all need to collaborate in mitigating the adverse effects of climate change.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. In recent years, environmental organizations have raised awareness about the importance of reducing greenhouse gas emissions.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Sustainable energy solutions, such as wind and solar power, offer viable alternatives to fossil fuels.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. There is an urgent need for global action to address the climate crisis and reduce environmental degradation.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(3, ['A', 'E', 'C', 'D', 'B'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, E, C, D, B</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with the problem statement (A), emphasizes the urgency (E), discusses awareness efforts (C), presents solutions (D), and concludes with the need for collaboration (B).</p>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card" data-category="technology">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container4">
+                        <div class="paragraph" draggable="true" data-order="A">A. Artificial intelligence (AI) is transforming industries by automating processes and enhancing decision-making capabilities.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. AI-powered systems can analyze vast amounts of data and provide insights that were previously impossible to obtain.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. As a result, businesses can operate more efficiently and make informed decisions in real time.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. The rapid advancements in AI technology have led to innovations in fields such as healthcare, finance, and manufacturing.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. However, with AI's growing influence, ethical concerns around data privacy and job displacement are also emerging.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(4, ['A', 'B', 'D', 'E', 'C'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, D, E, C</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with AI's impact (A), explains its capabilities (B), discusses advancements (D), addresses concerns (E), and concludes with benefits (C).</p>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container5">
+                        <div class="paragraph" draggable="true" data-order="A">A. The global economy has experienced significant fluctuations due to various factors such as political instability and market speculation.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. These events have led to increased uncertainty in international trade and investment.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Governments must adopt policies that foster economic stability and growth during turbulent times.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Despite these challenges, some countries have managed to maintain steady growth by diversifying their economies.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. The importance of global cooperation and coordination has never been more evident in such a dynamic environment.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(5, ['A', 'B', 'E', 'C', 'D'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, E, C, D</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with economic challenges (A), their impact (B), emphasizes cooperation (E), discusses policy needs (C), and concludes with positive examples (D).</p>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card" data-category="social">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container6">
+                        <div class="paragraph" draggable="true" data-order="A">A. The emergence of social media platforms has greatly influenced communication patterns across the world.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. Social media networks offer a platform for people to share ideas, voice opinions, and engage with others.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. However, the rise of fake news and misinformation has raised concerns about the credibility of information.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Despite these challenges, social media remains an essential tool for personal and professional networking.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. Governments and organizations are now working to develop strategies to combat online misinformation and ensure accurate communication.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(6, ['A', 'B', 'D', 'C', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, D, C, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with the impact of social media (A), explains its benefits (B), acknowledges its importance (D), discusses challenges (C), and concludes with solutions (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card" data-category="environment">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container7">
+                        <div class="paragraph" draggable="true" data-order="A">A. Renewable energy sources are becoming increasingly popular as concerns about climate change continue to rise.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. Solar, wind, and hydroelectric power provide sustainable alternatives to fossil fuels, which are major contributors to environmental pollution.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. The transition to renewable energy is essential for reducing carbon emissions and combating global warming.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Governments around the world are investing in renewable energy infrastructure and promoting green policies.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. In the coming decades, renewable energy is expected to play a crucial role in powering the global economy.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(7, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with the growing popularity of renewables (A), explains their benefits (B), emphasizes their importance (C), discusses government actions (D), and concludes with future prospects (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-card" data-category="technology">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container8">
+                        <div class="paragraph" draggable="true" data-order="A">A. With the rapid growth of the tech industry, there has been an increasing demand for skilled workers in areas such as coding and software development.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. As a result, educational institutions are focusing on developing specialized programs to meet this demand.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Moreover, online platforms and coding boot camps have made learning tech skills more accessible to a wider audience.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. The technological revolution is reshaping the global job market, with automation and AI transforming many traditional roles.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. However, this shift also raises concerns about the displacement of workers and the need for retraining in emerging fields.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(8, ['A', 'D', 'E', 'B', 'C'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, D, E, B, C</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with the demand for tech skills (A), discusses market changes (D), addresses concerns (E), explains educational responses (B), and concludes with learning accessibility (C).</p>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-card" data-category="social">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container9">
+                        <div class="paragraph" draggable="true" data-order="A">A. Higher education plays a key role in developing the skills necessary for success in the modern workforce.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. However, the rising cost of education is becoming a major barrier for many students.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. In response, governments are exploring alternative models of education such as vocational training and online learning platforms.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Many students are now seeking more affordable and flexible ways to pursue their educational goals.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. The growing demand for lifelong learning and skill development has led to a shift in how we view education.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(9, ['A', 'E', 'B', 'D', 'C'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, E, B, D, C</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with education's importance (A), discusses changing needs (E), addresses challenges (B), explains student responses (D), and concludes with government solutions (C).</p>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container10">
+                        <div class="paragraph" draggable="true" data-order="A">A. The rise of online shopping has led to significant changes in consumer behavior, with many people now preferring to shop from home.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. E-commerce platforms have capitalized on this shift by offering convenience, variety, and competitive prices.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Traditional brick-and-mortar stores, however, are finding ways to adapt by integrating online and offline shopping experiences.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Additionally, the availability of faster shipping options and easy returns has made online shopping more appealing.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. This trend is expected to continue growing, with e-commerce sales set to dominate the global retail market.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(10, ['A', 'B', 'D', 'C', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, D, C, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with changing consumer behavior (A), explains e-commerce response (B), discusses additional benefits (D), addresses traditional stores (C), and concludes with future trends (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-card" data-category="health">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container11">
+                        <div class="paragraph" draggable="true" data-order="A">A. Mental health awareness has gained significant attention in recent years, with more people recognizing its importance.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. The stigma surrounding mental health issues is gradually decreasing as public discussions become more open.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Many organizations are now implementing workplace wellness programs to support employee mental health.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Additionally, schools are incorporating mental health education into their curriculum to help young people develop coping strategies.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. This shift in perspective is leading to better access to mental health resources and support systems.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(11, ['A', 'B', 'E', 'C', 'D'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, E, C, D</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with growing awareness (A), discusses reduced stigma (B), explains positive outcomes (E), describes workplace initiatives (C), and concludes with educational efforts (D).</p>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-card" data-category="technology">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container12">
+                        <div class="paragraph" draggable="true" data-order="A">A. The development of 5G technology is revolutionizing the way we connect and communicate.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. This new network infrastructure offers significantly faster speeds and lower latency than previous generations.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. As a result, industries such as healthcare and transportation are exploring innovative applications of 5G.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. However, the implementation of 5G networks requires substantial investment in infrastructure and equipment.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. Despite these challenges, the potential benefits of 5G technology make it a crucial development for future technological advancement.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(12, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with 5G introduction (A), explains its features (B), discusses applications (C), addresses challenges (D), and concludes with future importance (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question-card" data-category="environment">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container13">
+                        <div class="paragraph" draggable="true" data-order="A">A. Plastic pollution has become one of the most pressing environmental challenges of our time.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. Millions of tons of plastic waste end up in oceans each year, threatening marine ecosystems.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. In response, many countries have implemented bans on single-use plastics and promoted recycling initiatives.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Additionally, researchers are developing biodegradable alternatives to traditional plastic materials.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. These combined efforts are crucial for reducing plastic waste and protecting our planet's ecosystems.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(13, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with the problem (A), explains its impact (B), discusses government actions (C), describes research efforts (D), and concludes with the importance of these measures (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question-card" data-category="social">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container14">
+                        <div class="paragraph" draggable="true" data-order="A">A. Remote work has become increasingly common in the modern workplace, especially after recent global events.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. This shift has led to significant changes in how companies operate and how employees balance work and life.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Many organizations have adopted hybrid work models that combine remote and in-office work.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. However, this new work arrangement presents challenges in terms of team collaboration and communication.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. Companies are investing in digital tools and platforms to overcome these challenges and maintain productivity.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(14, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with remote work trend (A), explains its impact (B), describes company responses (C), addresses challenges (D), and concludes with solutions (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container15">
+                        <div class="paragraph" draggable="true" data-order="A">A. The gig economy has transformed traditional employment patterns, offering new opportunities for flexible work.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. Platforms like Uber and Airbnb have created new ways for people to earn income through sharing economy models.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. However, this shift has raised concerns about job security and worker benefits in the gig economy.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Governments are now working to develop regulations that protect gig workers while maintaining flexibility.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. The future of work will likely involve a balance between traditional employment and gig-based opportunities.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(15, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with gig economy introduction (A), explains platforms (B), discusses concerns (C), describes government actions (D), and concludes with future outlook (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="question-card" data-category="technology">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container16">
+                        <div class="paragraph" draggable="true" data-order="A">A. Artificial intelligence is increasingly being integrated into various aspects of our daily lives.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. From virtual assistants to recommendation systems, AI technologies are becoming more sophisticated and useful.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. However, concerns about privacy and data security have emerged as AI systems collect and process vast amounts of information.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Companies and governments are implementing stricter regulations to protect user data and ensure ethical AI use.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. The responsible development and deployment of AI will be crucial for maximizing its benefits while minimizing risks.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(16, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with AI integration (A), explains applications (B), discusses concerns (C), describes regulations (D), and concludes with responsible development (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="question-card" data-category="health">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container17">
+                        <div class="paragraph" draggable="true" data-order="A">A. Telemedicine has emerged as a crucial tool in modern healthcare delivery.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. This technology allows patients to consult with healthcare providers remotely, improving access to medical care.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Many healthcare providers have adopted telemedicine platforms to reach patients in remote areas.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. However, challenges such as digital literacy and internet access can limit its effectiveness in some communities.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. Despite these challenges, telemedicine is expected to play an increasingly important role in healthcare delivery.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(17, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with telemedicine introduction (A), explains its benefits (B), describes adoption (C), addresses challenges (D), and concludes with future importance (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="question-card" data-category="environment">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container18">
+                        <div class="paragraph" draggable="true" data-order="A">A. Sustainable agriculture practices are gaining momentum as concerns about food security and environmental impact grow.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. These practices focus on reducing chemical inputs and promoting soil health through natural methods.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Many farmers are adopting techniques such as crop rotation and organic farming to improve sustainability.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Additionally, technological innovations are helping farmers monitor and optimize resource usage.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. The combination of traditional knowledge and modern technology is key to achieving sustainable food production.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(18, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with sustainable agriculture (A), explains practices (B), describes adoption (C), discusses technology (D), and concludes with future approach (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="question-card" data-category="social">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container19">
+                        <div class="paragraph" draggable="true" data-order="A">A. Digital literacy has become an essential skill in today's technology-driven world.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. The ability to navigate and evaluate online information is crucial for personal and professional success.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Schools and educational institutions are incorporating digital skills into their curriculum.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. However, there remains a significant digital divide between different socioeconomic groups.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. Efforts to bridge this gap through community programs and public access initiatives are ongoing.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(19, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph starts with digital literacy importance (A), explains its significance (B), describes educational efforts (C), addresses challenges (D), and concludes with solutions (E).</p>
+                    </div>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        Arrange the following sentences in the correct order to form a coherent paragraph:
+                    </div>
+                    <div class="paragraph-container" id="container20">
+                        <div class="paragraph" draggable="true" data-order="A">A. Corporate social responsibility has become a key focus for businesses worldwide.</div>
+                        <div class="paragraph" draggable="true" data-order="B">B. Companies are increasingly recognizing the importance of sustainable and ethical business practices.</div>
+                        <div class="paragraph" draggable="true" data-order="C">C. Many organizations have implemented environmental and social initiatives to demonstrate their commitment.</div>
+                        <div class="paragraph" draggable="true" data-order="D">D. Consumers are actively supporting businesses that align with their values and demonstrate social responsibility.</div>
+                        <div class="paragraph" draggable="true" data-order="E">E. This shift in business priorities reflects a growing awareness of the need for sustainable development.</div>
+                    </div>
+                    <button class="check-answer" onclick="checkAnswer(20, ['A', 'B', 'C', 'D', 'E'])">Check Answer</button>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Order: A, B, C, D, E</p>
+                        <p class="text-gray-700 mt-2">The paragraph begins with CSR introduction (A), explains business recognition (B), describes initiatives (C), discusses consumer response (D), and concludes with broader significance (E).</p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Drag and Drop functionality
+        document.querySelectorAll('.paragraph').forEach(paragraph => {
+            paragraph.addEventListener('dragstart', e => {
+                e.target.classList.add('dragging');
+            });
+
+            paragraph.addEventListener('dragend', e => {
+                e.target.classList.remove('dragging');
+            });
+        });
+
+        document.querySelectorAll('.paragraph-container').forEach(container => {
+            container.addEventListener('dragover', e => {
+                e.preventDefault();
+                const dragging = container.querySelector('.dragging');
+                const paragraphs = [...container.querySelectorAll('.paragraph:not(.dragging)')];
+                
+                const afterElement = paragraphs.reduce((closest, child) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = e.clientY - box.top - box.height / 2;
+                    
+                    if (offset < 0 && offset > closest.offset) {
+                        return { offset: offset, element: child };
+                    } else {
+                        return closest;
+                    }
+                }, { offset: Number.NEGATIVE_INFINITY }).element;
+
+                if (afterElement) {
+                    container.insertBefore(dragging, afterElement);
+                } else {
+                    container.appendChild(dragging);
+                }
+            });
+        });
+
+        // Check Answer functionality
+        function checkAnswer(questionNumber, correctOrder) {
+            const container = document.getElementById(`container${questionNumber}`);
+            const paragraphs = container.querySelectorAll('.paragraph');
+            const currentOrder = Array.from(paragraphs).map(p => p.dataset.order);
+            const explanation = container.parentElement.querySelector('.explanation');
+            
+            if (JSON.stringify(currentOrder) === JSON.stringify(correctOrder)) {
+                explanation.classList.add('show');
+            } else {
+                alert('Incorrect order. Please try again!');
+            }
+        }
+
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        const questionCards = document.querySelectorAll('.question-card');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            questionCards.forEach(card => {
+                const questionText = card.querySelector('.question-text').textContent.toLowerCase();
+                const paragraphs = Array.from(card.querySelectorAll('.paragraph')).map(p => p.textContent.toLowerCase());
+                
+                if (questionText.includes(searchTerm) || paragraphs.some(p => p.includes(searchTerm))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter tags functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                filterTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                
+                const filter = tag.textContent.toLowerCase();
+                
+                questionCards.forEach(card => {
+                    const category = card.dataset.category;
+                    if (filter === 'all' || category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

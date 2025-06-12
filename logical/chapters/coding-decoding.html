@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding & Decoding - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .code-box {
+            background: #f8fafc;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .example-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+        
+        .answer.show {
+            display: block;
+        }
+
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .code-table th, .code-table td {
+            border: 1px solid #e5e7eb;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .code-table th {
+            background: #f3f4f6;
+        }
+
+        .pattern-diagram {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .pattern-box {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Coding & Decoding
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of coding and decoding with our comprehensive guide.
+                From basic letter coding to complex pattern recognition.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#types" class="nav-link block">2. Types of Coding</a>
+                        <a href="#letter" class="nav-link block">3. Letter Coding</a>
+                        <a href="#number" class="nav-link block">4. Number Coding</a>
+                        <a href="#symbol" class="nav-link block">5. Symbol Coding</a>
+                        <a href="#mixed" class="nav-link block">6. Mixed Coding</a>
+                        <a href="#patterns" class="nav-link block">7. Pattern Recognition</a>
+                        <a href="#practice" class="nav-link block">8. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">9. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">🔤 Introduction to Coding & Decoding</h2>
+                    <p class="text-gray-600 mb-4">
+                        Coding and Decoding is a logical reasoning concept where words, numbers, or symbols are transformed
+                        according to specific rules or patterns. It tests your ability to identify patterns and apply logical rules.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why is it important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Frequently asked in competitive exams (CAT, GMAT, Bank PO)</li>
+                            <li>Develops pattern recognition skills</li>
+                            <li>Enhances logical thinking and problem-solving abilities</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Types of Coding -->
+                <section id="types" class="content-section card p-6">
+                    <h2 class="section-title">📝 Types of Coding</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="example-box">
+                            <h3 class="font-semibold mb-2">1. Letter Coding</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Alphabet shifting</li>
+                                <li>Letter substitution</li>
+                                <li>Word formation</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <h3 class="font-semibold mb-2">2. Number Coding</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Position-based coding</li>
+                                <li>Mathematical operations</li>
+                                <li>Number patterns</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <h3 class="font-semibold mb-2">3. Symbol Coding</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Symbol substitution</li>
+                                <li>Symbol patterns</li>
+                                <li>Mixed symbols</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <h3 class="font-semibold mb-2">4. Mixed Coding</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Letter-number combinations</li>
+                                <li>Symbol-letter patterns</li>
+                                <li>Complex patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Letter Coding -->
+                <section id="letter" class="content-section card p-6">
+                    <h2 class="section-title">🔤 Letter Coding</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Alphabet Shifting</h3>
+                            <div class="code-box">
+                                <pre>
+Original: A B C D E F G H I J K L M
+Shift +2: C D E F G H I J K L M N O
+
+Example:
+HELLO → JGNNQ (shift +2)
+                                </pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Letter Substitution</h3>
+                            <div class="code-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Original</th>
+                                            <th>Coded</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>APPLE</td>
+                                            <td>ZKKOB</td>
+                                            <td>Opposite letter</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BANANA</td>
+                                            <td>YZMZMZ</td>
+                                            <td>Previous letter</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Word Formation</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">If "CAT" is coded as "TAC", then "DOG" is coded as "GOD"</p>
+                                <p class="text-sm text-gray-500">Rule: Reverse the word</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Number Coding -->
+                <section id="number" class="content-section card p-6">
+                    <h2 class="section-title">🔢 Number Coding</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Position-Based Coding</h3>
+                            <div class="code-box">
+                                <pre>
+A = 1, B = 2, C = 3, ..., Z = 26
+
+Example:
+HELLO → 8 5 12 12 15
+                                </pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Mathematical Operations</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">If A=1, B=2, C=3, then:</p>
+                                <p class="mb-2">ABC = 1×2×3 = 6</p>
+                                <p class="mb-2">DEF = 4×5×6 = 120</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Number Patterns</h3>
+                            <div class="code-box">
+                                <pre>
+Original: 1 2 3 4 5
+Pattern: +2, ×2, +2, ×2, +2
+Result:  3 4 5 8 7
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Symbol Coding -->
+                <section id="symbol" class="content-section card p-6">
+                    <h2 class="section-title">🔣 Symbol Coding</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Symbol Substitution</h3>
+                            <div class="code-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Letter</th>
+                                            <th>Symbol</th>
+                                            <th>Rule</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>A</td>
+                                            <td>@</td>
+                                            <td>First letter</td>
+                                        </tr>
+                                        <tr>
+                                            <td>E</td>
+                                            <td>#</td>
+                                            <td>Vowel</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Z</td>
+                                            <td>%</td>
+                                            <td>Last letter</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Symbol Patterns</h3>
+                            <div class="pattern-diagram">
+                                <div class="pattern-box">A</div>
+                                <div class="pattern-box">@</div>
+                                <div class="pattern-box">B</div>
+                                <div class="pattern-box">#</div>
+                                <div class="pattern-box">C</div>
+                                <div class="pattern-box">$</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mixed Coding -->
+                <section id="mixed" class="content-section card p-6">
+                    <h2 class="section-title">🔄 Mixed Coding</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Letter-Number Combinations</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">A1B2C3 → 1A2B3C (Alternate pattern)</p>
+                                <p class="mb-2">XYZ123 → 123XYZ (Group pattern)</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Symbol-Letter Patterns</h3>
+                            <div class="code-box">
+                                <pre>
+Original: A B C D E
+Pattern: @ # $ % &
+Result:  @A #B $C %D &E
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pattern Recognition -->
+                <section id="patterns" class="content-section card p-6">
+                    <h2 class="section-title">🔍 Pattern Recognition</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Common Patterns</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Alternating patterns (ABAB)</li>
+                                <li>Progressive patterns (A, AB, ABC)</li>
+                                <li>Reverse patterns (ABC → CBA)</li>
+                                <li>Mathematical patterns (n, n+2, n+4)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <h3 class="font-semibold mb-2">Pattern Examples</h3>
+                            <div class="code-box">
+                                <pre>
+Alternating: A1B2C3
+Progressive: A, AB, ABC, ABCD
+Reverse: HELLO → OLLEH
+Math: 2, 4, 6, 8, 10
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">📝 Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Easy</h3>
+                                <span class="difficulty-badge difficulty-easy">Easy</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                If "HELLO" is coded as "KHOOR", what is the coding pattern?
+                            </p>
+                            <button onclick="toggleAnswer('answer1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm font-semibold">Shift of +3 letters in the alphabet</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Advanced</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                If "APPLE" is coded as "ZKKOB", what is "BANANA" coded as?
+                            </p>
+                            <button onclick="toggleAnswer('answer2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm font-semibold">YZMZMZ (Previous letter in alphabet)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">💡 Pro Tips for Success</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">General Tips</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Look for patterns in the given examples</li>
+                                <li>Start with simple letter shifts</li>
+                                <li>Check for mathematical relationships</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Common Mistakes</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Ignoring case sensitivity</li>
+                                <li>Missing special characters</li>
+                                <li>Overlooking reverse patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <p class="text-gray-700 italic">
+                            "The key to solving coding-decoding problems is to identify the pattern and apply it consistently."
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

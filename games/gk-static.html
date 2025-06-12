@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇳 Indian GK Challenge</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+    }
+    
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .option-btn {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+        padding: 12px 20px;
+        line-height: 1.4;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        background: white;
+        border: 1px solid #e2e8f0;
+        color: #1e293b;
+        font-weight: 500;
+        width: 100%;
+        border-radius: 1rem;
+    }
+    
+    .option-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-color: #3b82f6;
+        background: #f8fafc;
+    }
+    
+    .option-btn.correct {
+        background: #10B981;
+        color: white;
+        border: none;
+        font-weight: 600;
+    }
+    
+    .option-btn.wrong {
+        background: #EF4444;
+        color: white;
+        border: none;
+        font-weight: 600;
+    }
+    
+    .correct-answer {
+        animation: pulse 0.6s ease;
+    }
+    
+    .wrong-answer {
+        animation: shake 0.5s ease;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-8px); }
+        80% { transform: translateX(8px); }
+    }
+    
+    .streak-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f59e0b;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        animation: pulse 1s infinite;
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stats-card {
+        background: white;
+        border: 1px solid #e2e8f0;
+    }
+
+    .next-btn {
+        background: #3B82F6;
+        transition: all 0.3s ease;
+        color: white;
+        font-weight: 600;
+    }
+
+    .next-btn:hover {
+        background: #2563EB;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .question-text {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid #e2e8f0;
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+    .feedback-text {
+        font-weight: 600;
+    }
+
+    .feedback-text.correct {
+        color: #10B981;
+    }
+
+    .feedback-text.wrong {
+        color: #EF4444;
+    }
+
+    .level-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .level-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body class="min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="card p-6 relative">
+            <!-- Header -->
+            <header class="text-center mb-8">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    🇮🇳 Indian GK Challenge
+                </h1>
+                <p class="text-gray-600 mt-2">Test your knowledge of India!</p>
+            </header>
+
+            <!-- Game screen -->
+            <div id="gameScreen">
+                <!-- Game stats -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-left">
+                        <div class="text-sm text-gray-600">Lives Left</div>
+                        <div class="text-xl font-bold text-gray-800" id="lives">3</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Score</div>
+                        <div class="text-xl font-bold text-gray-800" id="score">0</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Questions</div>
+                        <div class="text-xl font-bold text-gray-800" id="questionCount">0/60</div>
+                    </div>
+                </div>
+                
+                <!-- Question area -->
+                <div class="text-center mb-6">
+                    <p class="text-gray-700 text-lg" id="question">Loading question...</p>
+                </div>
+                
+                <!-- Options area -->
+                <div class="space-y-3 mb-6" id="options"></div>
+                
+                <!-- Feedback area -->
+                <div id="feedback" class="text-center min-h-[24px] mb-4"></div>
+                
+                <!-- Next button -->
+                <button id="nextBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium hidden transition transform hover:scale-105">
+                    Next Question
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let lives = 3;
+        let questions = [
+            {
+                question: "Who was the first Prime Minister of India?",
+                options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Sardar Vallabhbhai Patel", "Subhas Chandra Bose"],
+                answer: "Jawaharlal Nehru"
+            },
+            {
+                question: "In which year did India gain independence?",
+                options: ["1945", "1946", "1947", "1948"],
+                answer: "1947"
+            },
+            {
+                question: "Who is known as the 'Father of the Indian Constitution'?",
+                options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Dr. B.R. Ambedkar", "Sardar Patel"],
+                answer: "Dr. B.R. Ambedkar"
+            },
+            {
+                question: "Which was the first civilization in India?",
+                options: ["Mauryan", "Gupta", "Indus Valley", "Vedic"],
+                answer: "Indus Valley"
+            },
+            {
+                question: "Who was the first woman Prime Minister of India?",
+                options: ["Sonia Gandhi", "Indira Gandhi", "Pratibha Patil", "Sarojini Naidu"],
+                answer: "Indira Gandhi"
+            },
+            {
+                question: "Which is the highest mountain peak in India?",
+                options: ["K2", "Kanchenjunga", "Nanda Devi", "Mount Everest"],
+                answer: "Kanchenjunga"
+            },
+            {
+                question: "Which is the longest river in India?",
+                options: ["Ganga", "Yamuna", "Brahmaputra", "Godavari"],
+                answer: "Ganga"
+            },
+            {
+                question: "Which state has the longest coastline in India?",
+                options: ["Maharashtra", "Gujarat", "Tamil Nadu", "Kerala"],
+                answer: "Gujarat"
+            },
+            {
+                question: "Which is the largest state in India by area?",
+                options: ["Maharashtra", "Madhya Pradesh", "Rajasthan", "Uttar Pradesh"],
+                answer: "Rajasthan"
+            },
+            {
+                question: "Which is the smallest state in India by area?",
+                options: ["Goa", "Sikkim", "Tripura", "Mizoram"],
+                answer: "Goa"
+            },
+            {
+                question: "Which classical dance form originated in Kerala?",
+                options: ["Bharatanatyam", "Kathakali", "Odissi", "Manipuri"],
+                answer: "Kathakali"
+            },
+            {
+                question: "Which festival is known as the 'Festival of Lights'?",
+                options: ["Holi", "Diwali", "Dussehra", "Raksha Bandhan"],
+                answer: "Diwali"
+            },
+            {
+                question: "Which is the national flower of India?",
+                options: ["Rose", "Lotus", "Sunflower", "Marigold"],
+                answer: "Lotus"
+            },
+            {
+                question: "Which is the national animal of India?",
+                options: ["Lion", "Tiger", "Elephant", "Leopard"],
+                answer: "Tiger"
+            },
+            {
+                question: "Which is the national bird of India?",
+                options: ["Peacock", "Eagle", "Parrot", "Sparrow"],
+                answer: "Peacock"
+            },
+            {
+                question: "Who is known as the 'Missile Man of India'?",
+                options: ["Homi Bhabha", "A.P.J. Abdul Kalam", "Vikram Sarabhai", "C.V. Raman"],
+                answer: "A.P.J. Abdul Kalam"
+            },
+            {
+                question: "Which Indian scientist won the Nobel Prize in Physics?",
+                options: ["C.V. Raman", "Homi Bhabha", "Satyendra Nath Bose", "Jagadish Chandra Bose"],
+                answer: "C.V. Raman"
+            },
+            {
+                question: "When was ISRO founded?",
+                options: ["1962", "1969", "1972", "1975"],
+                answer: "1969"
+            },
+            {
+                question: "Which was India's first satellite?",
+                options: ["Aryabhata", "Bhaskara", "Rohini", "INSAT"],
+                answer: "Aryabhata"
+            },
+            {
+                question: "Who is known as the 'Father of Indian Space Program'?",
+                options: ["Homi Bhabha", "Vikram Sarabhai", "A.P.J. Abdul Kalam", "Satish Dhawan"],
+                answer: "Vikram Sarabhai"
+            },
+            {
+                question: "Which Indian won the first individual Olympic gold medal?",
+                options: ["Abhinav Bindra", "Neeraj Chopra", "P.V. Sindhu", "Sakshi Malik"],
+                answer: "Abhinav Bindra"
+            },
+            {
+                question: "Which Indian won the first Olympic gold medal in athletics?",
+                options: ["Abhinav Bindra", "Neeraj Chopra", "P.T. Usha", "Milkha Singh"],
+                answer: "Neeraj Chopra"
+            },
+            {
+                question: "Which Indian won the first Olympic medal in badminton?",
+                options: ["P.V. Sindhu", "Saina Nehwal", "Prakash Padukone", "Gopichand"],
+                answer: "Saina Nehwal"
+            },
+            {
+                question: "Which Indian won the first Olympic medal in wrestling?",
+                options: ["Sushil Kumar", "Yogeshwar Dutt", "Sakshi Malik", "Bajrang Punia"],
+                answer: "Sushil Kumar"
+            },
+            {
+                question: "Which Indian won the first Olympic medal in boxing?",
+                options: ["Vijender Singh", "Mary Kom", "Akhil Kumar", "Vikas Krishan"],
+                answer: "Vijender Singh"
+            },
+            {
+                question: "Who wrote 'Gitanjali'?",
+                options: ["Rabindranath Tagore", "Bankim Chandra Chatterjee", "Sarojini Naidu", "Mahatma Gandhi"],
+                answer: "Rabindranath Tagore"
+            },
+            {
+                question: "Who wrote 'Godan'?",
+                options: ["Premchand", "Rabindranath Tagore", "Bankim Chandra", "R.K. Narayan"],
+                answer: "Premchand"
+            },
+            {
+                question: "Who wrote 'The Discovery of India'?",
+                options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Sardar Patel"],
+                answer: "Jawaharlal Nehru"
+            },
+            {
+                question: "Who wrote 'Anand Math'?",
+                options: ["Bankim Chandra Chatterjee", "Rabindranath Tagore", "Premchand", "R.K. Narayan"],
+                answer: "Bankim Chandra Chatterjee"
+            },
+            {
+                question: "Who wrote 'The Guide'?",
+                options: ["R.K. Narayan", "Mulk Raj Anand", "Raja Rao", "Anita Desai"],
+                answer: "R.K. Narayan"
+            },
+            {
+                question: "Who was the first President of India?",
+                options: ["Rajendra Prasad", "S. Radhakrishnan", "Zakir Husain", "V.V. Giri"],
+                answer: "Rajendra Prasad"
+            },
+            {
+                question: "Who was the first woman President of India?",
+                options: ["Sonia Gandhi", "Pratibha Patil", "Indira Gandhi", "Sarojini Naidu"],
+                answer: "Pratibha Patil"
+            },
+            {
+                question: "Who was the first woman Chief Minister of an Indian state?",
+                options: ["Jayalalithaa", "Mamata Banerjee", "Sucheta Kripalani", "Mayawati"],
+                answer: "Sucheta Kripalani"
+            },
+            {
+                question: "Which state was the first to implement Panchayati Raj?",
+                options: ["Gujarat", "Rajasthan", "Maharashtra", "Karnataka"],
+                answer: "Rajasthan"
+            },
+            {
+                question: "Who was the first woman Speaker of Lok Sabha?",
+                options: ["Meira Kumar", "Sumitra Mahajan", "Sushma Swaraj", "Mamata Banerjee"],
+                answer: "Meira Kumar"
+            },
+            {
+                question: "Which is the largest stock exchange in India?",
+                options: ["BSE", "NSE", "MCX", "NCDEX"],
+                answer: "NSE"
+            },
+            {
+                question: "Which is the largest bank in India?",
+                options: ["SBI", "HDFC Bank", "ICICI Bank", "PNB"],
+                answer: "SBI"
+            },
+            {
+                question: "Which is the largest company in India by market capitalization?",
+                options: ["TCS", "Reliance Industries", "HDFC Bank", "Infosys"],
+                answer: "Reliance Industries"
+            },
+            {
+                question: "Which is the largest IT company in India?",
+                options: ["TCS", "Infosys", "Wipro", "HCL"],
+                answer: "TCS"
+            },
+            {
+                question: "Which is the largest automobile company in India?",
+                options: ["Maruti Suzuki", "Tata Motors", "Mahindra", "Hyundai"],
+                answer: "Maruti Suzuki"
+            },
+            {
+                question: "Who directed the movie 'Mother India'?",
+                options: ["Mehboob Khan", "Raj Kapoor", "Guru Dutt", "Bimal Roy"],
+                answer: "Mehboob Khan"
+            },
+            {
+                question: "Who won the first Oscar for an Indian film?",
+                options: ["Satyajit Ray", "A.R. Rahman", "Gulzar", "Resul Pookutty"],
+                answer: "Satyajit Ray"
+            },
+            {
+                question: "Which was the first Indian film to win an Oscar?",
+                options: ["Mother India", "Salaam Bombay", "Lagaan", "Slumdog Millionaire"],
+                answer: "Salaam Bombay"
+            },
+            {
+                question: "Who is known as the 'Father of Indian Cinema'?",
+                options: ["Dadasaheb Phalke", "Raj Kapoor", "Guru Dutt", "Satyajit Ray"],
+                answer: "Dadasaheb Phalke"
+            },
+            {
+                question: "Which was the first Indian talkie film?",
+                options: ["Raja Harishchandra", "Alam Ara", "Devdas", "Mother India"],
+                answer: "Alam Ara"
+            },
+            {
+                question: "Which is the largest democracy in the world?",
+                options: ["USA", "India", "Indonesia", "Brazil"],
+                answer: "India"
+            },
+            {
+                question: "Which is the largest film industry in the world?",
+                options: ["Hollywood", "Bollywood", "Tollywood", "Kollywood"],
+                answer: "Bollywood"
+            },
+            {
+                question: "Which is the largest producer of milk in the world?",
+                options: ["USA", "China", "India", "Brazil"],
+                answer: "India"
+            },
+            {
+                question: "Which is the largest producer of spices in the world?",
+                options: ["China", "India", "Indonesia", "Thailand"],
+                answer: "India"
+            },
+            {
+                question: "Which is the largest producer of tea in the world?",
+                options: ["China", "India", "Sri Lanka", "Kenya"],
+                answer: "China"
+            }
+        ];
+
+        // Shuffle questions
+        questions = questions.sort(() => Math.random() - 0.5);
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                endGame();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            document.getElementById('question').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            // Shuffle options
+            const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
+            
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('questionCount').textContent = `${currentQuestionIndex + 1}/${questions.length}`;
+        }
+
+        function checkAnswer(selectedOption) {
+            const question = questions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach(option => {
+                option.disabled = true;
+                if (option.textContent === question.answer) {
+                    option.classList.add('correct');
+                } else if (option.textContent === selectedOption && selectedOption !== question.answer) {
+                    option.classList.add('wrong');
+                }
+            });
+
+            const feedback = document.getElementById('feedback');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (selectedOption === question.answer) {
+                score += 10;
+                feedback.innerHTML = '<p class="text-green-600 font-semibold">Correct! +10 points</p>';
+            } else {
+                lives--;
+                feedback.innerHTML = `<p class="text-red-600 font-semibold">Wrong! The correct answer is: ${question.answer}</p>`;
+            }
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('lives').textContent = lives;
+            
+            nextBtn.classList.remove('hidden');
+
+            if (lives <= 0) {
+                endGame();
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+                document.getElementById('feedback').innerHTML = '';
+                document.getElementById('nextBtn').classList.add('hidden');
+            } else {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            const questionArea = document.getElementById('question');
+            const optionsArea = document.getElementById('options');
+            const feedback = document.getElementById('feedback');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            questionArea.innerHTML = '<h2 class="text-3xl font-bold mb-4">Game Over!</h2>';
+            optionsArea.innerHTML = `<p class="text-xl mb-4">Final Score: ${score}</p>`;
+            feedback.innerHTML = '';
+            nextBtn.innerHTML = 'Play Again';
+            nextBtn.onclick = () => location.reload();
+        }
+
+        // Initialize game
+        document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+        loadQuestion();
+    </script>
+</body>
+</html>

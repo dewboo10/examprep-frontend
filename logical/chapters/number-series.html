@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Series - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .series-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+        
+        .answer.show {
+            display: block;
+        }
+        
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .solving-steps {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .solving-steps ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+        .solving-steps li {
+            margin: 8px 0;
+            color: #4b5563;
+        }
+
+        .pattern-box {
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .pattern-box pre {
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Number Series
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of solving number series with our comprehensive guide.
+                Learn various patterns, solving methods, and practice with real examples.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#arithmetic" class="nav-link block">2. Arithmetic Series</a>
+                        <a href="#geometric" class="nav-link block">3. Geometric Series</a>
+                        <a href="#mixed" class="nav-link block">4. Mixed Series</a>
+                        <a href="#alternating" class="nav-link block">5. Alternating Series</a>
+                        <a href="#special" class="nav-link block">6. Special Series</a>
+                        <a href="#practice" class="nav-link block">7. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">8. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">Introduction to Number Series</h2>
+                    <p class="text-gray-600 mb-4">
+                        Number Series is a sequence of numbers following a specific pattern or rule.
+                        Understanding these patterns is crucial for solving various logical reasoning problems.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why is it important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Frequently asked in competitive exams (CAT, GMAT, Bank PO, SSC, UPSC)</li>
+                            <li>Improves pattern recognition skills</li>
+                            <li>Enhances logical thinking and problem-solving abilities</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Arithmetic Series -->
+                <section id="arithmetic" class="content-section card p-6">
+                    <h2 class="section-title">Arithmetic Series</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Simple Arithmetic Progression</h3>
+                            <div class="series-box">
+                                <p>2, 5, 8, 11, 14, ?</p>
+                                <p>Common Difference: +3</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Find the difference between consecutive terms</li>
+                                    <li>Verify if the difference is constant</li>
+                                    <li>Add the common difference to the last term</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Arithmetic Series with Varying Difference</h3>
+                            <div class="series-box">
+                                <p>2, 4, 7, 11, 16, ?</p>
+                                <p>Differences: +2, +3, +4, +5, +6</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Find differences between consecutive terms</li>
+                                    <li>Identify the pattern in differences</li>
+                                    <li>Apply the next difference to the last term</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Geometric Series -->
+                <section id="geometric" class="content-section card p-6">
+                    <h2 class="section-title">Geometric Series</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Simple Geometric Progression</h3>
+                            <div class="series-box">
+                                <p>2, 4, 8, 16, 32, ?</p>
+                                <p>Common Ratio: ×2</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Find the ratio between consecutive terms</li>
+                                    <li>Verify if the ratio is constant</li>
+                                    <li>Multiply the last term by the common ratio</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Geometric Series with Varying Ratio</h3>
+                            <div class="series-box">
+                                <p>2, 6, 24, 120, 720, ?</p>
+                                <p>Ratios: ×3, ×4, ×5, ×6, ×7</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Find ratios between consecutive terms</li>
+                                    <li>Identify the pattern in ratios</li>
+                                    <li>Apply the next ratio to the last term</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mixed Series -->
+                <section id="mixed" class="content-section card p-6">
+                    <h2 class="section-title">Mixed Series</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Arithmetic-Geometric Series</h3>
+                            <div class="series-box">
+                                <p>2, 5, 10, 17, 26, ?</p>
+                                <p>Pattern: +3, +5, +7, +9, +11 (increasing odd numbers)</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Find differences between terms</li>
+                                    <li>Identify the pattern in differences</li>
+                                    <li>Apply the next difference to the last term</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Square-Cube Series</h3>
+                            <div class="series-box">
+                                <p>1, 4, 9, 16, 25, ?</p>
+                                <p>Pattern: 1², 2², 3², 4², 5², 6²</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Check if terms are perfect squares/cubes</li>
+                                    <li>Identify the base number pattern</li>
+                                    <li>Apply the next base number</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alternating Series -->
+                <section id="alternating" class="content-section card p-6">
+                    <h2 class="section-title">Alternating Series</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Two-Pattern Series</h3>
+                            <div class="series-box">
+                                <p>2, 3, 5, 6, 8, 9, ?</p>
+                                <p>Pattern: +1, +2, +1, +2, +1, +2</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Separate odd and even positions</li>
+                                    <li>Identify patterns in each position</li>
+                                    <li>Apply the appropriate pattern</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Multiple-Pattern Series</h3>
+                            <div class="series-box">
+                                <p>2, 3, 5, 7, 11, 13, ?</p>
+                                <p>Pattern: Prime numbers</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Identify the type of numbers</li>
+                                    <li>Find the next number in the sequence</li>
+                                    <li>Verify the pattern</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Special Series -->
+                <section id="special" class="content-section card p-6">
+                    <h2 class="section-title">Special Series</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Fibonacci Series</h3>
+                            <div class="series-box">
+                                <p>1, 1, 2, 3, 5, 8, 13, ?</p>
+                                <p>Pattern: Sum of previous two terms</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Check if each term is sum of previous two</li>
+                                    <li>Verify the pattern</li>
+                                    <li>Add the last two terms</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Factorial Series</h3>
+                            <div class="series-box">
+                                <p>1, 2, 6, 24, 120, ?</p>
+                                <p>Pattern: 1!, 2!, 3!, 4!, 5!, 6!</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Check if terms are factorials</li>
+                                    <li>Identify the base number pattern</li>
+                                    <li>Calculate the next factorial</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 1</h3>
+                                <span class="difficulty-badge difficulty-easy">Easy</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                Find the next number in the series:
+                                2, 4, 8, 16, 32, ?
+                            </p>
+                            <button onclick="toggleAnswer('answer1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">This is a geometric series with common ratio 2.</p>
+                                <p class="text-sm text-gray-500">2 × 2 = 4</p>
+                                <p class="text-sm text-gray-500">4 × 2 = 8</p>
+                                <p class="text-sm text-gray-500">8 × 2 = 16</p>
+                                <p class="text-sm text-gray-500">16 × 2 = 32</p>
+                                <p class="text-sm text-gray-500">32 × 2 = 64</p>
+                                <p class="text-sm font-semibold">Answer: 64</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 2</h3>
+                                <span class="difficulty-badge difficulty-medium">Medium</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                Find the next number in the series:
+                                2, 3, 5, 9, 17, ?
+                            </p>
+                            <button onclick="toggleAnswer('answer2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">Differences between terms:</p>
+                                <p class="text-sm text-gray-500">3 - 2 = 1</p>
+                                <p class="text-sm text-gray-500">5 - 3 = 2</p>
+                                <p class="text-sm text-gray-500">9 - 5 = 4</p>
+                                <p class="text-sm text-gray-500">17 - 9 = 8</p>
+                                <p class="text-sm text-gray-500">Next difference = 16</p>
+                                <p class="text-sm text-gray-500">17 + 16 = 33</p>
+                                <p class="text-sm font-semibold">Answer: 33</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">Pro Tips</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">1. Look for Common Patterns</h3>
+                            <p class="text-gray-700">Start by checking for arithmetic and geometric progressions.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">2. Check Differences and Ratios</h3>
+                            <p class="text-gray-700">Calculate differences and ratios between consecutive terms.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">3. Consider Special Series</h3>
+                            <p class="text-gray-700">Look for Fibonacci, factorial, or other special number patterns.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">4. Verify Your Answer</h3>
+                            <p class="text-gray-700">Always check if your answer fits the pattern of the series.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

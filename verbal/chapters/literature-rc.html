@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literature Reading Comprehension - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .strategy-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-passage {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-passage:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .passage-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .philosophy-box {
+            background: #f3e8ff;
+            border: 1px solid #d8b4fe;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Literature Reading Comprehension</h1>
+            <p class="text-lg text-gray-600">Master the art of understanding and analyzing literary and philosophical texts</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block text-gray-600 hover:text-blue-600">Introduction</a>
+                        <a href="#philosophy" class="nav-link block text-gray-600 hover:text-blue-600">Philosophical Concepts</a>
+                        <a href="#literary-movements" class="nav-link block text-gray-600 hover:text-blue-600">Literary Movements</a>
+                        <a href="#question-types" class="nav-link block text-gray-600 hover:text-blue-600">Question Types</a>
+                        <a href="#practice" class="nav-link block text-gray-600 hover:text-blue-600">Practice Passages</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Introduction Section -->
+                <section id="introduction" class="card p-8 mb-8">
+                    <h2 class="section-title">Introduction to Literature RC</h2>
+                    <p class="text-gray-700 mb-4">
+                        Literature Reading Comprehension tests your ability to understand, analyze, and interpret literary and philosophical texts. These passages often contain complex ideas, philosophical concepts, and literary devices that require careful reading and analysis.
+                    </p>
+                    
+                    <div class="note-box">
+                        <h3 class="subsection-title">Key Skills Required</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Understanding philosophical concepts and terminology</li>
+                            <li>Analyzing literary devices and techniques</li>
+                            <li>Identifying themes and motifs</li>
+                            <li>Understanding author's perspective and tone</li>
+                            <li>Interpreting symbolic meanings</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Philosophical Concepts Section -->
+                <section id="philosophy" class="card p-8 mb-8">
+                    <h2 class="section-title">Philosophical Concepts</h2>
+                    
+                    <div class="philosophy-box">
+                        <h3 class="subsection-title">Major Branches of Philosophy</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Metaphysics</h4>
+                            <p class="text-gray-700">The study of fundamental nature of reality and existence.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Nature of reality and existence</li>
+                                <li>Time and space</li>
+                                <li>Causality</li>
+                                <li>Free will vs. determinism</li>
+                                <li>Mind-body relationship</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Epistemology</h4>
+                            <p class="text-gray-700">The theory of knowledge, especially regarding its methods, validity, and scope.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Nature of knowledge</li>
+                                <li>Sources of knowledge</li>
+                                <li>Truth and belief</li>
+                                <li>Justification of knowledge</li>
+                                <li>Limits of knowledge</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Ethics</h4>
+                            <p class="text-gray-700">The study of moral principles and how individuals should behave.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Moral principles</li>
+                                <li>Right and wrong</li>
+                                <li>Justice and virtue</li>
+                                <li>Moral dilemmas</li>
+                                <li>Duty and responsibility</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Logic</h4>
+                            <p class="text-gray-700">The study of reasoning and argumentation.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Deductive reasoning</li>
+                                <li>Inductive reasoning</li>
+                                <li>Logical fallacies</li>
+                                <li>Formal systems</li>
+                                <li>Argument analysis</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Aesthetics</h4>
+                            <p class="text-gray-700">The philosophy of beauty, art, and taste.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Nature of beauty</li>
+                                <li>Art interpretation</li>
+                                <li>Creativity</li>
+                                <li>Perception of art</li>
+                                <li>Artistic value</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Political Philosophy</h4>
+                            <p class="text-gray-700">The study of concepts like justice, liberty, and authority.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Justice and rights</li>
+                                <li>Liberty and freedom</li>
+                                <li>Power and authority</li>
+                                <li>Democracy and governance</li>
+                                <li>Social contract theory</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Philosophy of Science</h4>
+                            <p class="text-gray-700">The study of foundations, methods, and implications of science.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Scientific method</li>
+                                <li>Theory and observation</li>
+                                <li>Scientific realism</li>
+                                <li>Causality in science</li>
+                                <li>Scientific explanation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="philosophy-box mt-8">
+                        <h3 class="subsection-title">Major Philosophical Schools</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Stoicism</h4>
+                            <p class="text-gray-700">A philosophy teaching self-control and fortitude to overcome destructive emotions.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Acceptance of present moment</li>
+                                <li>Control over emotions</li>
+                                <li>Focus on controllable aspects</li>
+                                <li>Virtue as highest good</li>
+                                <li>Key figures: Zeno, Epictetus, Marcus Aurelius</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Existentialism</h4>
+                            <p class="text-gray-700">A philosophy emphasizing individual existence, freedom, and choice.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Individual responsibility</li>
+                                <li>Freedom of choice</li>
+                                <li>Authenticity in living</li>
+                                <li>Meaning through action</li>
+                                <li>Key figures: Sartre, Camus, Kierkegaard</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Nihilism</h4>
+                            <p class="text-gray-700">A philosophy rejecting religious and moral principles, suggesting life's meaninglessness.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Rejection of objective meaning</li>
+                                <li>Questioning of moral values</li>
+                                <li>Emphasis on individual perspective</li>
+                                <li>Freedom from constraints</li>
+                                <li>Key figures: Nietzsche, Schopenhauer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Literary Movements Section -->
+                <section id="literary-movements" class="card p-8 mb-8">
+                    <h2 class="section-title">Literary Movements and Types</h2>
+                    
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Major Literary Types</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Classical Literature</h4>
+                            <p class="text-gray-700">Literature from ancient civilizations, including Greek, Roman, and Sanskrit works.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Ancient myths and epics</li>
+                                <li>Tragedies and comedies</li>
+                                <li>Key works: Iliad, Odyssey, Ramayana</li>
+                                <li>Historical significance</li>
+                                <li>Cultural influence</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Modern Literature</h4>
+                            <p class="text-gray-700">Literature from the 19th and 20th centuries, dealing with modern themes.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Individualism and alienation</li>
+                                <li>Modern themes and concerns</li>
+                                <li>Key authors: Joyce, Woolf, Kafka</li>
+                                <li>Stream of consciousness</li>
+                                <li>Modern narrative techniques</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Postmodern Literature</h4>
+                            <p class="text-gray-700">Literature after World War II, characterized by experimental techniques.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Non-linear narratives</li>
+                                <li>Experimental language</li>
+                                <li>Key authors: Pynchon, Vonnegut</li>
+                                <li>Self-referentiality</li>
+                                <li>Playfulness with form</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="strategy-box mt-8">
+                        <h3 class="subsection-title">Literary Genres</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Fiction</h4>
+                            <p class="text-gray-700">Narrative works created from imagination.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Novels</li>
+                                <li>Short stories</li>
+                                <li>Novellas</li>
+                                <li>Character development</li>
+                                <li>Plot structure</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Non-fiction</h4>
+                            <p class="text-gray-700">Prose writing based on facts and reality.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Biographies</li>
+                                <li>Essays</li>
+                                <li>Historical accounts</li>
+                                <li>Journalism</li>
+                                <li>Academic writing</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Poetry</h4>
+                            <p class="text-gray-700">Literary work focusing on rhythm, sound, and emotional expression.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Sonnets</li>
+                                <li>Haikus</li>
+                                <li>Free verse</li>
+                                <li>Ballads</li>
+                                <li>Poetic devices</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Drama</h4>
+                            <p class="text-gray-700">Literature meant to be performed, involving dialogue and action.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Plays</li>
+                                <li>Monologues</li>
+                                <li>Dialogues</li>
+                                <li>Character interaction</li>
+                                <li>Stage directions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="strategy-box mt-8">
+                        <h3 class="subsection-title">Special Literary Forms</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Satire</h4>
+                            <p class="text-gray-700">Literature using humor and irony to criticize society.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Social criticism</li>
+                                <li>Political commentary</li>
+                                <li>Key works: Gulliver's Travels, Animal Farm</li>
+                                <li>Irony and wit</li>
+                                <li>Moral lessons</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Gothic Literature</h4>
+                            <p class="text-gray-700">Literature involving horror, mystery, and supernatural elements.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Horror elements</li>
+                                <li>Supernatural themes</li>
+                                <li>Key works: Frankenstein, Dracula</li>
+                                <li>Dark atmosphere</li>
+                                <li>Psychological elements</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Romantic Literature</h4>
+                            <p class="text-gray-700">Literature emphasizing emotion, nature, and individualism.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Emotional expression</li>
+                                <li>Nature themes</li>
+                                <li>Key authors: Wordsworth, Coleridge</li>
+                                <li>Individualism</li>
+                                <li>Imagination</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-2">Realism</h4>
+                            <p class="text-gray-700">Literature focusing on accurate depiction of life without idealization.</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Life-like portrayal</li>
+                                <li>Social issues</li>
+                                <li>Key works: Oliver Twist, War and Peace</li>
+                                <li>Character development</li>
+                                <li>Social commentary</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Question Types Section -->
+                <section id="question-types" class="card p-8 mb-8">
+                    <h2 class="section-title">Question Types</h2>
+                    
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Common Question Types</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Main Idea and Theme Questions</li>
+                            <li>Philosophical Concept Analysis</li>
+                            <li>Literary Device Identification</li>
+                            <li>Author's Perspective Questions</li>
+                            <li>Inference and Implication Questions</li>
+                            <li>Tone and Style Analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example Questions</h3>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">What is the main philosophical concept discussed in the passage?</p>
+                        
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">How does the author's use of metaphor contribute to the overall theme?</p>
+                        
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Which of the following best describes the author's attitude toward the philosophical concept presented?</p>
+                    </div>
+                </section>
+
+                <!-- Practice Passages Section -->
+                <section id="practice" class="card p-8 mb-8">
+                    <h2 class="section-title">Practice Passages</h2>
+                    
+                    <div class="practice-passage">
+                        <h3 class="subsection-title">Practice Passage 1: Stoicism</h3>
+                        <div class="passage-text">
+                            <p>Stoicism, founded by Zeno of Citium in the 3rd century BCE, teaches that virtue is the highest good and that we should focus on what we can control while accepting what we cannot. The philosophy emphasizes the development of self-control and fortitude to overcome destructive emotions.</p>
+                            
+                            <p>Modern applications of Stoicism can be seen in cognitive behavioral therapy and mindfulness practices. The philosophy's emphasis on personal responsibility and emotional control has made it increasingly relevant in contemporary society, where individuals face constant challenges to their mental well-being.</p>
+                        </div>
+
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">What is the main focus of Stoic philosophy according to the passage?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">The passage emphasizes that Stoicism focuses on virtue as the highest good and the development of self-control to manage emotions, while accepting what cannot be controlled.</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">How has Stoicism been applied in modern times?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">The passage mentions that Stoicism has been applied in cognitive behavioral therapy and mindfulness practices, and its principles of personal responsibility and emotional control remain relevant in contemporary society.</p>
+                    </div>
+
+                    <div class="practice-passage">
+                        <h3 class="subsection-title">Practice Passage 2: Existentialism</h3>
+                        <div class="passage-text">
+                            <p>Existentialism, as developed by philosophers like Jean-Paul Sartre and Albert Camus, emphasizes individual existence, freedom, and choice. The philosophy suggests that individuals are responsible for creating meaning in their lives through their actions and decisions.</p>
+                            
+                            <p>This philosophical movement gained prominence after World War II, as people grappled with questions of meaning and purpose in a world that seemed increasingly chaotic and uncertain. Existentialist ideas continue to influence contemporary thought, particularly in discussions about personal identity and moral responsibility.</p>
+                        </div>
+
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">What is the central idea of existentialism as presented in the passage?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">The passage presents existentialism as a philosophy that emphasizes individual responsibility for creating meaning through personal choices and actions.</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Why did existentialism become prominent after World War II?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">The passage suggests that existentialism gained prominence as people sought to find meaning and purpose in a world that appeared chaotic and uncertain after the war.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

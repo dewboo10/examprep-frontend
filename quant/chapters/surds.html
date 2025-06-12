@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surds - Quantitative Aptitude</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: white;
+            color: #1e40af;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #e5e7eb;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 60px; /* Height of header */
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            padding: 1.5rem;
+            border-right: 1px solid #e5e7eb;
+            position: fixed;
+            top: 60px; /* Height of header */
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 900;
+        }
+
+        .sidebar h3 {
+            color: #1e40af;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .sidebar li {
+            margin: 0.5rem 0;
+        }
+
+        .sidebar a {
+            color: #4b5563;
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            background: #f3f4f6;
+            color: #1e40af;
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: #1e40af;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            margin-left: 280px; /* Width of sidebar */
+            max-width: calc(100% - 280px);
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+        }
+
+        .section h2 {
+            color: #1e40af;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .formula-box {
+            background: #f8fafc;
+            border-left: 4px solid #1e40af;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .formula-box h3 {
+            color: #1e40af;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .example-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .example-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .question-number {
+            color: #1e40af;
+            font-weight: bold;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .question-text {
+            color: #1f2937;
+            margin: 0.75rem 0;
+            font-size: 1.05rem;
+        }
+
+        .solution-label {
+            color: #059669;
+            font-weight: bold;
+            margin: 1.25rem 0 0.75rem 0;
+            font-size: 1.1rem;
+        }
+
+        .solution-text {
+            color: #4b5563;
+            margin: 0.75rem 0;
+            line-height: 1.7;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e40af;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1e3a8a;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+                max-width: calc(100% - 240px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                border-right: none;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .header {
+                position: relative;
+            }
+            .container {
+                padding-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Surds</h1>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#introduction">Introduction to Surds</a></li>
+                <li><a href="#basic-operations">Basic Operations</a></li>
+                <li><a href="#rationalization">Rationalization</a></li>
+                <li><a href="#conjugate-pairs">Conjugate Pairs</a></li>
+                <li><a href="#simplification">Simplification</a></li>
+                <li><a href="#applications">Applications</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="section" id="introduction">
+                <h2>Introduction to Surds</h2>
+                <p>A surd is an irrational number that cannot be expressed as a simple fraction. It is typically written in the form √n, where n is a positive integer that is not a perfect square.</p>
+
+                <div class="formula-box">
+                    <h3>Basic Definition</h3>
+                    <p>A surd is a number of the form:</p>
+                    <p>√n where n is a positive integer and √n is irrational</p>
+                    <p>Examples: √2, √3, √5, √7, etc.</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 1</p>
+                    <p class="question-text">Identify which of the following are surds:</p>
+                    <p class="question-text">a) √4</p>
+                    <p class="question-text">b) √5</p>
+                    <p class="question-text">c) √9</p>
+                    <p class="question-text">d) √7</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">a) √4 = 2 (not a surd, as it's rational)</p>
+                    <p class="solution-text">b) √5 ≈ 2.236... (is a surd, as it's irrational)</p>
+                    <p class="solution-text">c) √9 = 3 (not a surd, as it's rational)</p>
+                    <p class="solution-text">d) √7 ≈ 2.645... (is a surd, as it's irrational)</p>
+                </div>
+            </div>
+
+            <div class="section" id="basic-operations">
+                <h2>Basic Operations with Surds</h2>
+                <p>Surds can be added, subtracted, multiplied, and divided following specific rules.</p>
+
+                <div class="formula-box">
+                    <h3>Addition and Subtraction</h3>
+                    <p>Surds can only be added or subtracted if they have the same radicand (number under the root).</p>
+                    <p>a√n ± b√n = (a ± b)√n</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 2</p>
+                    <p class="question-text">Simplify: 3√2 + 5√2 - 2√2</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">3√2 + 5√2 - 2√2 = (3 + 5 - 2)√2</p>
+                    <p class="solution-text">= 6√2</p>
+                </div>
+
+                <div class="formula-box">
+                    <h3>Multiplication</h3>
+                    <p>√a × √b = √(a × b)</p>
+                    <p>a√n × b√m = ab√(n × m)</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 3</p>
+                    <p class="question-text">Simplify: 2√3 × 3√2</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">2√3 × 3√2 = (2 × 3)√(3 × 2)</p>
+                    <p class="solution-text">= 6√6</p>
+                </div>
+
+                <div class="formula-box">
+                    <h3>Division</h3>
+                    <p>√a ÷ √b = √(a/b)</p>
+                    <p>a√n ÷ b√m = (a/b)√(n/m)</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 4</p>
+                    <p class="question-text">Simplify: 6√8 ÷ 2√2</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">6√8 ÷ 2√2 = (6/2)√(8/2)</p>
+                    <p class="solution-text">= 3√4</p>
+                    <p class="solution-text">= 3 × 2</p>
+                    <p class="solution-text">= 6</p>
+                </div>
+            </div>
+
+            <div class="section" id="rationalization">
+                <h2>Rationalization</h2>
+                <p>Rationalization is the process of eliminating surds from the denominator of a fraction.</p>
+
+                <div class="formula-box">
+                    <h3>Rationalizing Single Surd</h3>
+                    <p>To rationalize a denominator containing a single surd, multiply both numerator and denominator by the surd.</p>
+                    <p>a/√b = (a√b)/b</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 5</p>
+                    <p class="question-text">Rationalize: 3/√5</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">3/√5 = (3 × √5)/(√5 × √5)</p>
+                    <p class="solution-text">= 3√5/5</p>
+                </div>
+
+                <div class="formula-box">
+                    <h3>Rationalizing Binomial Surd</h3>
+                    <p>To rationalize a denominator containing a binomial surd, multiply both numerator and denominator by the conjugate of the denominator.</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 6</p>
+                    <p class="question-text">Rationalize: 1/(√3 + √2)</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">1/(√3 + √2) = 1/(√3 + √2) × (√3 - √2)/(√3 - √2)</p>
+                    <p class="solution-text">= (√3 - √2)/(3 - 2)</p>
+                    <p class="solution-text">= √3 - √2</p>
+                </div>
+            </div>
+
+            <div class="section" id="conjugate-pairs">
+                <h2>Conjugate Pairs</h2>
+                <p>Conjugate pairs are expressions that differ only in the sign between terms.</p>
+
+                <div class="formula-box">
+                    <h3>Definition</h3>
+                    <p>For a binomial surd a + b√n, its conjugate is a - b√n</p>
+                    <p>The product of a binomial surd and its conjugate is always rational.</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 7</p>
+                    <p class="question-text">Find the conjugate of 2 + 3√5 and verify their product is rational.</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">Conjugate = 2 - 3√5</p>
+                    <p class="solution-text">Product = (2 + 3√5)(2 - 3√5)</p>
+                    <p class="solution-text">= 4 - (3√5)²</p>
+                    <p class="solution-text">= 4 - 9 × 5</p>
+                    <p class="solution-text">= 4 - 45</p>
+                    <p class="solution-text">= -41 (rational)</p>
+                </div>
+            </div>
+
+            <div class="section" id="simplification">
+                <h2>Simplification of Surds</h2>
+                <p>Surds can be simplified by expressing them in their simplest form.</p>
+
+                <div class="formula-box">
+                    <h3>Simplification Rules</h3>
+                    <p>1. √(a²b) = a√b</p>
+                    <p>2. √(a/b) = √a/√b</p>
+                    <p>3. √(a²) = |a|</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 8</p>
+                    <p class="question-text">Simplify: √50</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">√50 = √(25 × 2)</p>
+                    <p class="solution-text">= √25 × √2</p>
+                    <p class="solution-text">= 5√2</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 9</p>
+                    <p class="question-text">Simplify: √(18/2)</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">√(18/2) = √9</p>
+                    <p class="solution-text">= 3</p>
+                </div>
+            </div>
+
+            <div class="section" id="applications">
+                <h2>Applications of Surds</h2>
+                <p>Surds are commonly used in various mathematical and real-world applications.</p>
+
+                <div class="formula-box">
+                    <h3>Common Applications</h3>
+                    <ul>
+                        <li>Pythagorean Theorem</li>
+                        <li>Trigonometric Ratios</li>
+                        <li>Quadratic Equations</li>
+                        <li>Geometry Problems</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 10</p>
+                    <p class="question-text">In a right triangle, if the other two sides are 1 unit each, find the hypotenuse.</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">Using Pythagorean Theorem:</p>
+                    <p class="solution-text">h² = 1² + 1²</p>
+                    <p class="solution-text">h² = 2</p>
+                    <p class="solution-text">h = √2</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in sidebar
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sidebar a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixtures & Alligations - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Mixtures & Alligations
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of mixtures and allegations with our comprehensive guide.
+                Learn about weighted averages, replacement problems, and complex problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#alligation" class="nav-link block">2. Alligation Rule</a>
+                        <a href="#weighted" class="nav-link block">3. Weighted Averages</a>
+                        <a href="#replacement" class="nav-link block">4. Replacement Problems</a>
+                        <a href="#multiple" class="nav-link block">5. Multiple Mixtures</a>
+                        <a href="#profit" class="nav-link block">6. Profit & Loss</a>
+                        <a href="#advanced" class="nav-link block">7. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Mixtures</h3>
+                        <p class="text-gray-600">Understanding the basic concepts of mixtures and their properties.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Key Terms:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Mixture: Combination of two or more substances</li>
+                                <li>Alligation: Rule to find the ratio of quantities in a mixture</li>
+                                <li>Weighted Average: Average considering the weights of components</li>
+                                <li>Replacement: Process of removing and adding components</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-box">
+                            <p class="font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Mixture problems involve finding quantities or ratios</li>
+                                <li>Alligation rule helps find the ratio of mixing</li>
+                                <li>Weighted average is used for unequal quantities</li>
+                                <li>Replacement problems involve removing and adding components</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Mixture</p>
+                            <p>Two types of rice: ₹30/kg and ₹40/kg</p>
+                            <p>Mixed in ratio 2:3</p>
+                            <p>Find average cost per kg</p>
+                            <p>Solution:</p>
+                            <p>Average = (30×2 + 40×3)/(2+3) = ₹36/kg</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alligation Rule -->
+                <section id="alligation" class="content-section card p-6">
+                    <h2 class="section-title">2. Alligation Rule</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Alligation Method</h3>
+                        <p class="text-gray-600">Using the alligation rule to find mixing ratios.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Alligation Rule:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Cheaper Quantity : Dearer Quantity = (d - m) : (m - c)</li>
+                                <li>Where:</li>
+                                <li>c = Cost of cheaper item</li>
+                                <li>d = Cost of dearer item</li>
+                                <li>m = Mean price</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Alligation</p>
+                            <p>Cheaper rice = ₹30/kg</p>
+                            <p>Dearer rice = ₹40/kg</p>
+                            <p>Mean price = ₹36/kg</p>
+                            <p>Find mixing ratio</p>
+                            <p>Solution:</p>
+                            <p>Ratio = (40-36):(36-30) = 4:6 = 2:3</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Weighted Averages -->
+                <section id="weighted" class="content-section card p-6">
+                    <h2 class="section-title">3. Weighted Averages</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Weighted Average Calculations</h3>
+                        <p class="text-gray-600">Calculating weighted averages for mixtures.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Weighted Average = Σ(Value × Weight)/Σ(Weight)</li>
+                                <li>For two components:</li>
+                                <li>Average = (a₁w₁ + a₂w₂)/(w₁ + w₂)</li>
+                                <li>Where:</li>
+                                <li>a₁, a₂ = Values</li>
+                                <li>w₁, w₂ = Weights</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Weighted Average</p>
+                            <p>Component A: 20% (3 kg)</p>
+                            <p>Component B: 30% (2 kg)</p>
+                            <p>Find weighted average</p>
+                            <p>Solution:</p>
+                            <p>Average = (20×3 + 30×2)/(3+2) = 24%</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Replacement Problems -->
+                <section id="replacement" class="content-section card p-6">
+                    <h2 class="section-title">4. Replacement Problems</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Replacement Calculations</h3>
+                        <p class="text-gray-600">Solving problems involving replacement of components.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Final Quantity = Initial Quantity × (1 - r)^n</li>
+                                <li>Where:</li>
+                                <li>r = Replacement ratio</li>
+                                <li>n = Number of replacements</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Replacement</p>
+                            <p>Initial mixture: 40L (20% alcohol)</p>
+                            <p>Replace 25% with water</p>
+                            <p>Find final concentration</p>
+                            <p>Solution:</p>
+                            <p>Final alcohol = 40 × 0.2 × 0.75 = 6L</p>
+                            <p>Final concentration = (6/40) × 100 = 15%</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Multiple Mixtures -->
+                <section id="multiple" class="content-section card p-6">
+                    <h2 class="section-title">5. Multiple Mixtures</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Multiple Mixture Problems</h3>
+                        <p class="text-gray-600">Solving problems involving multiple mixtures.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>For n components:</li>
+                                <li>Average = Σ(aᵢwᵢ)/Σ(wᵢ)</li>
+                                <li>Where:</li>
+                                <li>aᵢ = Value of component i</li>
+                                <li>wᵢ = Weight of component i</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Multiple Mixtures</p>
+                            <p>Mixture A: 20% (2 kg)</p>
+                            <p>Mixture B: 30% (3 kg)</p>
+                            <p>Mixture C: 40% (1 kg)</p>
+                            <p>Find final concentration</p>
+                            <p>Solution:</p>
+                            <p>Average = (20×2 + 30×3 + 40×1)/(2+3+1) = 28.33%</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profit & Loss -->
+                <section id="profit" class="content-section card p-6">
+                    <h2 class="section-title">6. Profit & Loss</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Profit & Loss in Mixtures</h3>
+                        <p class="text-gray-600">Solving profit and loss problems involving mixtures.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Profit = Selling Price - Cost Price</li>
+                                <li>Profit % = (Profit/Cost Price) × 100</li>
+                                <li>Cost Price = Σ(Cost × Quantity)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 6: Profit & Loss</p>
+                            <p>Component A: ₹30/kg (2 kg)</p>
+                            <p>Component B: ₹40/kg (3 kg)</p>
+                            <p>Selling price = ₹38/kg</p>
+                            <p>Find profit percentage</p>
+                            <p>Solution:</p>
+                            <p>Cost price = (30×2 + 40×3)/5 = ₹36/kg</p>
+                            <p>Profit = 38 - 36 = ₹2/kg</p>
+                            <p>Profit % = (2/36) × 100 = 5.56%</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">7. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>If a mixture of n components has values a₁, a₂, ..., aₙ and weights w₁, w₂, ..., wₙ:
+                                    <br>Average = Σ(aᵢwᵢ)/Σ(wᵢ)</li>
+                                <li>For replacement problems:
+                                    <br>Final Quantity = Initial Quantity × (1 - r)^n</li>
+                                <li>For alligation:
+                                    <br>Cheaper : Dearer = (d - m) : (m - c)</li>
+                                <li>For profit and loss:
+                                    <br>Profit % = ((SP - CP)/CP) × 100</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Complex Problem</p>
+                            <p>Initial mixture: 60L (30% alcohol)</p>
+                            <p>Replace 20% with water</p>
+                            <p>Add 10L of 40% alcohol</p>
+                            <p>Find final concentration</p>
+                            <p>Solution:</p>
+                            <p>After replacement: 60 × 0.3 × 0.8 = 14.4L alcohol</p>
+                            <p>After adding: 14.4 + (10 × 0.4) = 18.4L alcohol</p>
+                            <p>Final volume = 60 × 0.8 + 10 = 58L</p>
+                            <p>Final concentration = (18.4/58) × 100 = 31.72%</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Special Cases</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Special Scenarios:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>When all components have same weight:
+                                    <br>Average = (a₁ + a₂ + ... + aₙ)/n</li>
+                                <li>When replacement ratio is constant:
+                                    <br>Final = Initial × (1 - r)^n</li>
+                                <li>When mixing equal quantities:
+                                    <br>Average = (a₁ + a₂)/2</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 8: Special Case</p>
+                            <p>Equal quantities of 20%, 30%, and 40% solutions</p>
+                            <p>Find final concentration</p>
+                            <p>Solution:</p>
+                            <p>Average = (20 + 30 + 40)/3 = 30%</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

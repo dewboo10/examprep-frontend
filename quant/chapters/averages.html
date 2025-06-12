@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Averages - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Averages
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of averages with our comprehensive guide.
+                Learn about arithmetic mean, weighted averages, and complex problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#arithmetic" class="nav-link block">2. Arithmetic Mean</a>
+                        <a href="#weighted" class="nav-link block">3. Weighted Averages</a>
+                        <a href="#geometric" class="nav-link block">4. Geometric Mean</a>
+                        <a href="#harmonic" class="nav-link block">5. Harmonic Mean</a>
+                        <a href="#advanced" class="nav-link block">6. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Averages</h3>
+                        <p class="text-gray-600">Understanding the basic concepts of averages and their properties.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Key Terms:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Average: Sum of all values divided by number of values</li>
+                                <li>Arithmetic Mean: Most common type of average</li>
+                                <li>Weighted Average: Average considering weights of values</li>
+                                <li>Geometric Mean: nth root of product of n values</li>
+                                <li>Harmonic Mean: Reciprocal of average of reciprocals</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-box">
+                            <p class="font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Average = Sum of values/Number of values</li>
+                                <li>Sum of values = Average × Number of values</li>
+                                <li>If all values are increased by x, average increases by x</li>
+                                <li>If all values are multiplied by x, average is multiplied by x</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Average</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">Find the average of 15, 20, 25, 30, 35</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Sum of numbers = 15 + 20 + 25 + 30 + 35 = 125</p>
+                            <p class="solution-text">Number of terms = 5</p>
+                            <p class="solution-text">Average = 125/5 = 25</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">The average of 5 numbers is 20. If one number is removed, the average becomes 18. Find the removed number.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Sum of 5 numbers = 20 × 5 = 100</p>
+                            <p class="solution-text">Sum of 4 numbers = 18 × 4 = 72</p>
+                            <p class="solution-text">Removed number = 100 - 72 = 28</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The average age of a class of 30 students is 15 years. If the teacher's age is included, the average becomes 16 years. Find the teacher's age.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Sum of students' ages = 15 × 30 = 450</p>
+                            <p class="solution-text">Sum including teacher = 16 × 31 = 496</p>
+                            <p class="solution-text">Teacher's age = 496 - 450 = 46 years</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The average of 8 numbers is 25. If each number is increased by 5, find the new average.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">When each number is increased by 5, the average also increases by 5</p>
+                            <p class="solution-text">New average = 25 + 5 = 30</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Arithmetic Mean -->
+                <section id="arithmetic" class="content-section card p-6">
+                    <h2 class="section-title">2. Arithmetic Mean</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Arithmetic Mean Problems</h3>
+                        <p class="text-gray-600">Solving problems involving arithmetic mean.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Arithmetic Mean = Sum of values/Number of values</li>
+                                <li>Sum of values = Mean × Number of values</li>
+                                <li>Number of values = Sum of values/Mean</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Arithmetic Mean</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">The average of 6 numbers is 30. If one number is excluded, the average becomes 28. Find the excluded number.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Sum of 6 numbers = 30 × 6 = 180</p>
+                            <p class="solution-text">Sum of 5 numbers = 28 × 5 = 140</p>
+                            <p class="solution-text">Excluded number = 180 - 140 = 40</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">The average of 10 numbers is 25. If each number is multiplied by 2, find the new average.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">When each number is multiplied by 2, the average is also multiplied by 2</p>
+                            <p class="solution-text">New average = 25 × 2 = 50</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The average of 7 numbers is 20. If the average of first 4 numbers is 18 and the average of last 4 numbers is 22, find the 4th number.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Sum of 7 numbers = 20 × 7 = 140</p>
+                            <p class="solution-text">Sum of first 4 numbers = 18 × 4 = 72</p>
+                            <p class="solution-text">Sum of last 4 numbers = 22 × 4 = 88</p>
+                            <p class="solution-text">4th number = 72 + 88 - 140 = 20</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The average of 5 numbers is 15. If the average of first 3 numbers is 12 and the average of last 3 numbers is 18, find the 3rd number.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Sum of 5 numbers = 15 × 5 = 75</p>
+                            <p class="solution-text">Sum of first 3 numbers = 12 × 3 = 36</p>
+                            <p class="solution-text">Sum of last 3 numbers = 18 × 3 = 54</p>
+                            <p class="solution-text">3rd number = 36 + 54 - 75 = 15</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Weighted Averages -->
+                <section id="weighted" class="content-section card p-6">
+                    <h2 class="section-title">3. Weighted Averages</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Weighted Average Problems</h3>
+                        <p class="text-gray-600">Solving problems involving weighted averages.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Weighted Average = Σ(Value × Weight)/Σ(Weight)</li>
+                                <li>For two components:</li>
+                                <li>Average = (a₁w₁ + a₂w₂)/(w₁ + w₂)</li>
+                                <li>Where:</li>
+                                <li>a₁, a₂ = Values</li>
+                                <li>w₁, w₂ = Weights</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Weighted Average</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">A student scored 80 in Math (weight 4), 75 in Science (weight 3), and 90 in English (weight 2). Find the weighted average.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Weighted sum = (80 × 4) + (75 × 3) + (90 × 2)</p>
+                            <p class="solution-text">Weighted sum = 320 + 225 + 180 = 725</p>
+                            <p class="solution-text">Total weight = 4 + 3 + 2 = 9</p>
+                            <p class="solution-text">Weighted average = 725/9 = 80.56</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">In a class, 20 students scored an average of 75 marks, and 30 students scored an average of 85 marks. Find the overall average.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Total marks of first group = 75 × 20 = 1500</p>
+                            <p class="solution-text">Total marks of second group = 85 × 30 = 2550</p>
+                            <p class="solution-text">Total marks = 1500 + 2550 = 4050</p>
+                            <p class="solution-text">Total students = 20 + 30 = 50</p>
+                            <p class="solution-text">Overall average = 4050/50 = 81</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">A company has 40 employees with an average salary of ₹30,000 and 60 employees with an average salary of ₹40,000. Find the average salary of all employees.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Total salary of first group = 30000 × 40 = ₹12,00,000</p>
+                            <p class="solution-text">Total salary of second group = 40000 × 60 = ₹24,00,000</p>
+                            <p class="solution-text">Total salary = ₹36,00,000</p>
+                            <p class="solution-text">Total employees = 100</p>
+                            <p class="solution-text">Average salary = ₹36,00,000/100 = ₹36,000</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">A student's final grade is based on: Midterm (30%), Final (50%), and Projects (20%). If the student scored 85, 90, and 95 respectively, find the final grade.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Weighted sum = (85 × 0.3) + (90 × 0.5) + (95 × 0.2)</p>
+                            <p class="solution-text">Weighted sum = 25.5 + 45 + 19 = 89.5</p>
+                            <p class="solution-text">Final grade = 89.5</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Geometric Mean -->
+                <section id="geometric" class="content-section card p-6">
+                    <h2 class="section-title">4. Geometric Mean</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Geometric Mean Problems</h3>
+                        <p class="text-gray-600">Solving problems involving geometric mean.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Geometric Mean = nth root of (a₁ × a₂ × ... × aₙ)</li>
+                                <li>For two numbers:</li>
+                                <li>GM = √(a₁ × a₂)</li>
+                                <li>For three numbers:</li>
+                                <li>GM = ∛(a₁ × a₂ × a₃)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Geometric Mean</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">Find the geometric mean of the numbers 4 and 9.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">GM = √(4 × 9) = √36 = 6</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">Find the geometric mean of 2, 4, and 8.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">GM = ∛(2 × 4 × 8) = ∛64 = 4</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The geometric mean of two numbers is 6 and their arithmetic mean is 6.5. Find the numbers.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let numbers be a and b</p>
+                            <p class="solution-text">√(ab) = 6 ⇒ ab = 36</p>
+                            <p class="solution-text">(a + b)/2 = 6.5 ⇒ a + b = 13</p>
+                            <p class="solution-text">Solving: a = 4, b = 9</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The geometric mean of three numbers is 4 and their arithmetic mean is 4.5. If two numbers are 2 and 8, find the third number.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let third number be x</p>
+                            <p class="solution-text">∛(2 × 8 × x) = 4 ⇒ 16x = 64 ⇒ x = 4</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Harmonic Mean -->
+                <section id="harmonic" class="content-section card p-6">
+                    <h2 class="section-title">5. Harmonic Mean</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Harmonic Mean Problems</h3>
+                        <p class="text-gray-600">Solving problems involving harmonic mean.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Harmonic Mean = n/(1/a₁ + 1/a₂ + ... + 1/aₙ)</li>
+                                <li>For two numbers:</li>
+                                <li>HM = 2ab/(a + b)</li>
+                                <li>For three numbers:</li>
+                                <li>HM = 3abc/(ab + bc + ca)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Harmonic Mean</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">Find the harmonic mean of 2 and 3.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">HM = 2(2)(3)/(2 + 3) = 12/5 = 2.4</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">Find the harmonic mean of 1, 2, and 3.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">HM = 3(1)(2)(3)/(1×2 + 2×3 + 3×1) = 18/11 ≈ 1.636</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The harmonic mean of two numbers is 4 and their geometric mean is 4.5. Find the numbers.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let numbers be a and b</p>
+                            <p class="solution-text">2ab/(a + b) = 4 ⇒ ab = 2(a + b)</p>
+                            <p class="solution-text">√(ab) = 4.5 ⇒ ab = 20.25</p>
+                            <p class="solution-text">Solving: a = 4.5, b = 4.5</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The harmonic mean of three numbers is 3 and their arithmetic mean is 4. If two numbers are 2 and 4, find the third number.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let third number be x</p>
+                            <p class="solution-text">3(2)(4)(x)/(2×4 + 4×x + x×2) = 3</p>
+                            <p class="solution-text">24x/(8 + 4x + 2x) = 3</p>
+                            <p class="solution-text">24x = 24 + 18x</p>
+                            <p class="solution-text">6x = 24</p>
+                            <p class="solution-text">x = 4</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">6. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>For any set of positive numbers:
+                                    <br>AM ≥ GM ≥ HM</li>
+                                <li>For two numbers a and b:
+                                    <br>AM = (a + b)/2</br>
+                                    <br>GM = √(ab)</br>
+                                    <br>HM = 2ab/(a + b)</li>
+                                <li>For n numbers:
+                                    <br>AM = Σaᵢ/n</br>
+                                    <br>GM = nth root of Πaᵢ</br>
+                                    <br>HM = n/Σ(1/aᵢ)</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 6: Complex Problems</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">The arithmetic mean of 5 numbers is 20. If each number is increased by 2, find the new arithmetic mean.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">When each number is increased by 2, the mean also increases by 2</p>
+                            <p class="solution-text">New mean = 20 + 2 = 22</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">The geometric mean of 4 numbers is 8. If each number is multiplied by 3, find the new geometric mean.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">When each number is multiplied by 3, the geometric mean is also multiplied by 3</p>
+                            <p class="solution-text">New geometric mean = 8 × 3 = 24</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The harmonic mean of 3 numbers is 6. If each number is divided by 2, find the new harmonic mean.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">When each number is divided by 2, the harmonic mean is also divided by 2</p>
+                            <p class="solution-text">New harmonic mean = 6/2 = 3</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The arithmetic mean of 6 numbers is 15. If the average of first 3 numbers is 12 and the average of last 3 numbers is 18, find the 3rd number.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Sum of 6 numbers = 15 × 6 = 90</p>
+                            <p class="solution-text">Sum of first 3 numbers = 12 × 3 = 36</p>
+                            <p class="solution-text">Sum of last 3 numbers = 18 × 3 = 54</p>
+                            <p class="solution-text">3rd number = 36 + 54 - 90 = 0</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Special Cases</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Special Scenarios:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>When all numbers are equal:
+                                    <br>AM = GM = HM</li>
+                                <li>When numbers are in geometric progression:
+                                    <br>GM = √(first × last)</li>
+                                <li>When numbers are in arithmetic progression:
+                                    <br>AM = (first + last)/2</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Special Cases</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">Find the arithmetic mean of numbers in AP: 2, 5, 8, 11, 14</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">AM = (2 + 14)/2 = 8</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">Find the geometric mean of numbers in GP: 2, 4, 8, 16</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">GM = √(2 × 16) = √32 = 4√2</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">If AM = GM = HM for two numbers, find the numbers.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">When AM = GM = HM, the numbers must be equal</p>
+                            <p class="solution-text">Let the numbers be x and x</p>
+                            <p class="solution-text">AM = (x + x)/2 = x</p>
+                            <p class="solution-text">GM = √(x × x) = x</p>
+                            <p class="solution-text">HM = 2x²/(x + x) = x</p>
+                            <p class="solution-text">Therefore, the numbers are equal</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The arithmetic mean of 5 numbers is 20. If the geometric mean is 18, find the harmonic mean.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">For 5 numbers, we know:</p>
+                            <p class="solution-text">AM ≥ GM ≥ HM</p>
+                            <p class="solution-text">20 ≥ 18 ≥ HM</p>
+                            <p class="solution-text">Therefore, HM ≤ 18</p>
+                            <p class="solution-text">Without more information, we cannot determine the exact value of HM</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

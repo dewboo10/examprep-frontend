@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exam Prep - Start Your Journey</title>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --secondary: #f59e0b;
+      --saffron: #FF9933;
+      --white: #FFFFFF;
+      --green: #138808;
+      --dark-blue: #000080;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .hindi-font {
+      font-family: 'Tiro Devanagari Hindi', serif;
+    }
+    
+    .floating-element {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.15;
+      animation: float 20s infinite  linear;
+      color: var(--dark-blue);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+      z-index: 0;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+      10% { opacity: 0.2; }
+      90% { opacity: 0.2; }
+      100% { transform: translateY(-100vh) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+    
+    .gradient-text {
+      background: linear-gradient(45deg, var(--saffron), var(--dark-blue), var(--green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .tricolor-border {
+      border-image: linear-gradient(to right, var(--saffron), var(--white), var(--green)) 1;
+      border-width: 3px;
+      border-style: solid;
+    }
+    
+    .monument-button {
+      background-image: url('https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .monument-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 50, 0.4);
+    }
+    
+    .monument-button:hover::after {
+      background: rgba(0, 0, 50, 0.2);
+    }
+    
+    .shine-effect {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .shine-effect::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 100%
+      );
+      transform: skewX(-25deg);
+      animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+      0% { left: -100%; }
+      100% { left: 150%; }
+    }
+    
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    }
+    
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    .math-symbol {
+      font-size: 2.5rem;
+      color: var(--dark-blue);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+      margin: 0 5px;
+    }
+  </style>
+</head>
+
+<body class="relative flex items-center justify-center min-h-screen overflow-hidden">
+  <!-- Floating Elements -->
+  <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+    <script>
+      const symbols = [
+        {char: '∑', class: 'text-4xl text-red-600'},
+        {char: 'π', class: 'text-3xl text-blue-800'}, 
+        {char: '√', class: 'text-3xl text-green-700'},
+        {char: '∞', class: 'text-4xl text-purple-700'},
+        {char: '∫', class: 'text-3xl text-orange-600'},
+        {char: 'Δ', class: 'text-3xl text-indigo-700'},
+        {char: 'θ', class: 'text-3xl text-yellow-600'},
+        {char: 'α', class: 'text-3xl text-pink-600'},
+        {char: 'β', class: 'text-3xl text-teal-600'},
+        {char: 'γ', class: 'text-3xl text-amber-700'}
+      ];
+      
+      for (let i = 0; i < 25; i++) {
+        const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+        const top = Math.floor(Math.random() * 100);
+        const left = Math.floor(Math.random() * 100);
+        const delay = Math.random() * 10;
+        const duration = 15 + Math.random() * 20;
+        const size = 1 + Math.random();
+        
+        document.write(`
+          <div class='floating-element ${symbol.class}' 
+            style='top:${top}vh; left:${left}vw; 
+                   animation-delay:${delay}s;
+                   animation-duration:${duration}s;
+                   font-size:${size * 1.5}rem;'>
+            ${symbol.char}
+          </div>
+        `);
+      }
+    </script>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-4 py-12 z-10 text-center">
+    <div class="animate__animated animate__fadeInDown">
+      <h1 class="text-5xl md:text-7xl font-extrabold gradient-text mb-6">
+        Welcome to <span class="hindi-font">परीक्षा</span> Prep
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-800 mb-8 font-medium animate__animated animate__fadeIn animate__delay-1s">
+        Your journey to success begins here
+        <span class="math-symbol">=</span> 
+        <span class="math-symbol">∫</span> 
+        <span class="math-symbol">∑</span>
+      </p>
+    </div>
+
+    <div class="relative inline-block animate__animated animate__zoomIn animate__delay-2s">
+      <a href="select-exam.html" id="startButton" class="text-blue-900 text-xl px-12 py-5 font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105">
+        <span class="relative z-10 flex items-center justify-center">
+          <span class="mr-3" >Start Your Journey</span>
+          <i class="fas fa-arrow-right"></i>
+        </span>
+      </a>
+      <div class="absolute -inset-2 rounded-full bg-gradient-to-r from-saffron-500 to-green-500 opacity-30 blur-md -z-10 animate__animated animate__pulse animate__infinite animate__slow"></div>
+    </div>
+
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-3s">
+      <div class="bg-white p-4 rounded-xl shadow-md tricolor-border">
+        <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-2xl mx-auto mb-3">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <p class="font-bold text-gray-800">100+ Exams</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow-md tricolor-border">
+        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-2xl mx-auto mb-3">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <p class="font-bold text-gray-800">10,000+ Questions</p>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow-md tricolor-border">
+        <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-2xl mx-auto mb-3">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <p class="font-bold text-gray-800">Smart Analytics</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Ripple effect for button
+    document.getElementById('startButton').addEventListener('click', function(e) {
+      const x = e.clientX - e.target.getBoundingClientRect().left;
+      const y = e.clientY - e.target.getBoundingClientRect().top;
+      
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple');
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      
+      this.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+
+    // Add particles on click
+    document.addEventListener('click', function(e) {
+      if (Math.random() > 0.7) {
+        const colors = ['#FF9933', '#138808', '#000080', '#4f46e5', '#f59e0b'];
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.borderRadius = '50%';
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.width = '8px';
+        particle.style.height = '8px';
+        particle.style.left = `${e.clientX}px`;
+        particle.style.top = `${e.clientY}px`;
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '100';
+        particle.style.transform = 'scale(0)';
+        particle.style.animation = 'pop 0.5s forwards';
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+          particle.remove();
+        }, 500);
+      }
+    });
+  </script>
+</body>
+</html>

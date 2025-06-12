@@ -1,0 +1,184 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Exam Prep</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg animate__animated animate__fadeIn">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-indigo-700 mb-2">Get Started 🚀</h1>
+      <p class="text-gray-600">Create your account to begin your journey</p>
+    </div>
+
+    <form id="register-form" class="space-y-6">
+      <!-- Error Message Container -->
+      <div id="error-message" class="hidden p-3 rounded-lg bg-red-100 text-red-700 text-sm"></div>
+
+      <div class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+          <div class="relative">
+            <input type="text" id="name" placeholder="JohnDoe123" 
+                   class="w-full px-4 py-3 pl-11 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                   required />
+            <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          </div>
+          <span class="text-red-500 text-sm hidden mt-1" id="name-error"></span>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <div class="relative">
+            <input type="email" id="email" placeholder="student@example.com" 
+                   class="w-full px-4 py-3 pl-11 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                   required />
+            <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          </div>
+          <span class="text-red-500 text-sm hidden mt-1" id="email-error"></span>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <div class="relative">
+            <input type="password" id="password" placeholder="••••••••" 
+                   class="w-full px-4 py-3 pl-11 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                   required />
+            <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <span class="text-red-500 text-sm hidden mt-1" id="password-error"></span>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition 
+                                  flex items-center justify-center gap-2" id="submit-btn">
+        <span>Create Account</span>
+        <div id="spinner" class="hidden animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div>
+      </button>
+
+      <div class="mt-6 text-center text-sm text-gray-600">
+        <p>Already have an account? 
+          <a href="login.html" class="text-indigo-600 font-semibold hover:underline ml-1">Sign in here</a>
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Password visibility toggle
+    document.getElementById('toggle-password').addEventListener('click', function() {
+      const passwordField = document.getElementById('password');
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+      this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+
+    // Form validation and submission
+    document.getElementById("register-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      const spinner = document.getElementById('spinner');
+      const errorMessage = document.getElementById('error-message');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      spinner.classList.remove('hidden');
+      submitBtn.querySelector('span').textContent = 'Creating Account...';
+      errorMessage.classList.add('hidden');
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      try {
+        if (!validateForm()) throw new Error('Please fix form errors');
+
+        const res = await fetch("http://localhost:5050/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+        
+        if (res.ok) {
+          // Show success feedback
+          errorMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+          errorMessage.classList.add('bg-green-100', 'text-green-700');
+          errorMessage.textContent = "✓ Account created! Redirecting to login...";
+          
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 1500);
+        } else {
+          throw new Error(data.message || 'Registration failed. Please try again.');
+        }
+      } catch (error) {
+        errorMessage.textContent = error.message;
+        errorMessage.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        spinner.classList.add('hidden');
+        submitBtn.querySelector('span').textContent = 'Create Account';
+      }
+    });
+
+    // Real-time validations
+    document.getElementById('name').addEventListener('input', validateName);
+    document.getElementById('email').addEventListener('input', validateEmail);
+    document.getElementById('password').addEventListener('input', validatePassword);
+
+    function validateForm() {
+      return validateName() && validateEmail() && validatePassword();
+    }
+
+    function validateName() {
+      const name = document.getElementById('name').value;
+      const errorElement = document.getElementById('name-error');
+      
+      if (name.length < 3) {
+        errorElement.textContent = 'Username must be at least 3 characters';
+        errorElement.classList.remove('hidden');
+        return false;
+      }
+      errorElement.classList.add('hidden');
+      return true;
+    }
+
+    function validateEmail() {
+      const email = document.getElementById('email').value;
+      const errorElement = document.getElementById('email-error');
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (!regex.test(email)) {
+        errorElement.textContent = 'Please enter a valid email address';
+        errorElement.classList.remove('hidden');
+        return false;
+      }
+      errorElement.classList.add('hidden');
+      return true;
+    }
+
+    function validatePassword() {
+      const password = document.getElementById('password').value;
+      const errorElement = document.getElementById('password-error');
+      
+      if (password.length < 6) {
+        errorElement.textContent = 'Password must be at least 6 characters';
+        errorElement.classList.remove('hidden');
+        return false;
+      }
+      errorElement.classList.add('hidden');
+      return true;
+    }
+  </script>
+</body>
+</html>

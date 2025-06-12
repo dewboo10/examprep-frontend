@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mental Math Challenge – BrainGames | Exam Prep</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 3s ease-in-out infinite',
+            'tada': 'tada 1s ease'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            tada: {
+              '0%': { transform: 'scale(1)' },
+              '10%, 20%': { transform: 'scale(0.9) rotate(-3deg)' },
+              '30%, 50%, 70%, 90%': { transform: 'scale(1.1) rotate(3deg)' },
+              '40%, 60%, 80%': { transform: 'scale(1.1) rotate(-3deg)' },
+              '100%': { transform: 'scale(1) rotate(0)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .neon-border {
+      position: relative;
+      overflow: visible;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .neon-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #60a5fa, #8b5cf6, #ec4899, #f59e0b);
+      background-size: 400% 400%;
+      z-index: -1;
+      border-radius: 16px;
+      animation: gradientBorder 3s ease infinite;
+      opacity: 0.7;
+    }
+    
+    @keyframes gradientBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .pulse-ring {
+      animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+    
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      80%, 100% { transform: scale(1.5); opacity: 0; }
+    }
+    
+    .progress-ring {
+      transition: stroke-dashoffset 0.5s linear;
+    }
+    
+    .game-card {
+      transition: all 0.3s ease;
+      transform: translateY(0);
+      cursor: pointer;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .correct-animation {
+      animation: tada 0.8s;
+    }
+    
+    .incorrect-animation {
+      animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    .decor {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.1;
+      z-index: -1;
+    }
+    
+    .difficulty-btn {
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .difficulty-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+    }
+    
+    .glow {
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    }
+    
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #e0e0e0;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      transition: width 1s linear;
+    }
+    
+    .level-badge {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: linear-gradient(45deg, #8b5cf6, #ec4899);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+      z-index: 20;
+    }
+    
+    .streak-display {
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      background: rgba(251, 191, 36, 0.2);
+      border: 2px solid rgba(251, 191, 36, 0.5);
+      color: #f59e0b;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 20;
+    }
+    
+    @keyframes floatScore {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+    }
+    
+    .score-float {
+      position: absolute;
+      font-weight: bold;
+      font-size: 24px;
+      color: #10b981;
+      animation: floatScore 1s ease-out forwards;
+      z-index: 10;
+      pointer-events: none;
+    }
+    
+    #best-score {
+      position: relative;
+      z-index: 20;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen flex items-center justify-center text-gray-800 p-4">
+  <!-- Decorative elements -->
+  <div class="decor bg-blue-200 w-96 h-96 top-10 left-10"></div>
+  <div class="decor bg-purple-200 w-80 h-80 bottom-20 right-10"></div>
+  
+  <div class="w-full max-w-4xl">
+    <!-- Game Container -->
+    <div class="neon-border p-6 mb-6 relative">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-3xl font-bold text-blue-700 flex items-center gap-2">
+            <i class="fas fa-brain text-blue-500"></i>
+            Mental Math Challenge
+          </h1>
+          <p class="text-gray-600">Sharpen your arithmetic skills under pressure</p>
+        </div>
+        <div id="best-score" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
+          Current Score: <span id="current-score-display">0</span>
+        </div>
+      </div>
+      
+      <div id="gameScreen">
+        <!-- Level selection will be shown here initially -->
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-trophy text-yellow-500"></i> Tips for Success
+        </h3>
+        <ul class="text-sm space-y-1">
+          <li>• Practice multiplication tables daily</li>
+          <li>• Break complex problems into smaller steps</li>
+          <li>• Use shortcuts for common operations</li>
+          <li>• Improve your number sense with estimation</li>
+        </ul>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-chart-line text-green-500"></i> Progress
+        </h3>
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-sm">Current Level</span>
+          <span id="currentLevel" class="font-bold">-</span>
+        </div>
+        <div class="progress-bar">
+          <div id="levelProgress" class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-bolt text-purple-500"></i> Streak
+        </h3>
+        <div class="flex items-center justify-center">
+          <div class="relative">
+            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+              <span id="streakCounter">0</span>
+            </div>
+            <div class="pulse-ring absolute inset-0 border-4 border-yellow-400 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Game state
+    let score = 0;
+    let timeLeft = 0;
+    let correctAnswer = 0;
+    let timerInterval = null;
+    let streak = 0;
+    let currentLevel = null;
+    let levelProgress = 0;
+    let questionsAnswered = 0;
+    let levelTarget = 10; // Questions to complete a level
+    
+    const levels = {
+      beginner: {
+        name: "Beginner",
+        min: 1,
+        max: 10,
+        operators: ["+", "-"],
+        time: 180
+      },
+      intermediate: {
+        name: "Intermediate",
+        min: 1,
+        max: 20,
+        operators: ["+", "-", "*"],
+        time: 120
+      },
+      advanced: {
+        name: "Advanced",
+        min: 1,
+        max: 30,
+        operators: ["+", "-", "*", "/"],
+        time: 90
+      },
+      expert: {
+        name: "Expert",
+        min: 1,
+        max: 50,
+        operators: ["+", "-", "*", "/"],
+        time: 60
+      }
+    };
+
+    // DOM Elements
+    const gameScreen = document.getElementById("gameScreen");
+    const bestScoreEl = document.getElementById("best-score");
+    const streakCounter = document.getElementById("streakCounter");
+    const currentLevelEl = document.getElementById("currentLevel");
+    const levelProgressEl = document.getElementById("levelProgress");
+    const currentScoreDisplay = document.getElementById("current-score-display");
+
+    // Initialize game
+    function initGame() {
+      showLevelSelection();
+    }
+    
+    // Show level selection screen
+    function showLevelSelection() {
+      gameScreen.innerHTML = `
+        <div class="text-center py-8">
+          <div class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Select Difficulty Level</h2>
+            <p class="text-gray-600 max-w-lg mx-auto">Challenge yourself with increasingly difficult math problems. Each level has unique constraints and time limits.</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="difficulty-btn bg-gradient-to-br from-green-100 to-green-50 border border-green-200 p-6 rounded-xl cursor-pointer" data-level="beginner">
+              <div class="text-5xl mb-4 text-green-600">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Beginner</h3>
+              <p class="text-sm mb-4">Addition & Subtraction<br>Numbers 1-10</p>
+              <div class="text-xs bg-green-600 text-white px-3 py-1 rounded-full inline-block">${levels.beginner.time}s</div>
+            </div>
+            
+            <div class="difficulty-btn bg-gradient-to-br from-blue-100 to-blue-50 border border-blue-200 p-6 rounded-xl cursor-pointer" data-level="intermediate">
+              <div class="text-5xl mb-4 text-blue-600">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+              <p class="text-sm mb-4">Add, Subtract, Multiply<br>Numbers 1-20</p>
+              <div class="text-xs bg-blue-600 text-white px-3 py-1 rounded-full inline-block">${levels.intermediate.time}s</div>
+            </div>
+            
+            <div class="difficulty-btn bg-gradient-to-br from-purple-100 to-purple-50 border border-purple-200 p-6 rounded-xl cursor-pointer" data-level="advanced">
+              <div class="text-5xl mb-4 text-purple-600">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Advanced</h3>
+              <p class="text-sm mb-4">All operations<br>Numbers 1-30</p>
+              <div class="text-xs bg-purple-600 text-white px-3 py-1 rounded-full inline-block">${levels.advanced.time}s</div>
+            </div>
+            
+            <div class="difficulty-btn bg-gradient-to-br from-red-100 to-red-50 border border-red-200 p-6 rounded-xl cursor-pointer" data-level="expert">
+              <div class="text-5xl mb-4 text-red-600">
+                <i class="fas fa-fire"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Expert</h3>
+              <p class="text-sm mb-4">All operations<br>Numbers 1-50</p>
+              <div class="text-xs bg-red-600 text-white px-3 py-1 rounded-full inline-block">${levels.expert.time}s</div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Add event listeners to level buttons
+      document.querySelectorAll('.difficulty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const level = btn.getAttribute('data-level');
+          startGame(level);
+        });
+      });
+    }
+    
+    // Start the game with selected level
+    function startGame(level) {
+      currentLevel = level;
+      const config = levels[level];
+      
+      // Reset game state
+      score = 0;
+      timeLeft = config.time;
+      streak = 0;
+      levelProgress = 0;
+      questionsAnswered = 0;
+      currentLevelEl.textContent = config.name;
+      currentScoreDisplay.textContent = score;
+      updateLevelProgress();
+      
+      // Render game UI
+      gameScreen.innerHTML = `
+        <div class="text-center">
+          <div class="flex justify-between items-center mb-8">
+            <div class="streak-display">
+              <i class="fas fa-bolt"></i> Streak: <span id="streakDisplay">0</span>
+            </div>
+            <div class="level-badge">
+              Level: ${config.name}
+            </div>
+          </div>
+          
+          <div class="relative mb-8">
+            <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+              <div id="timerProgress" class="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-1000" style="width: 100%"></div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+              <span id="timerDisplay" class="text-xs font-bold">${timeLeft}s</span>
+            </div>
+          </div>
+          
+          <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl p-8 mb-6 relative">
+            <div id="questionDisplay" class="text-4xl font-bold text-gray-800 mb-4">Loading...</div>
+            <div class="text-sm text-gray-500">Enter your answer below</div>
+          </div>
+          
+          <div class="mb-6">
+            <input 
+              id="answerInput" 
+              type="number" 
+              class="w-full max-w-xs p-4 text-2xl border-2 border-gray-300 rounded-xl text-center focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+              placeholder="Your answer"
+              autofocus
+            />
+          </div>
+          
+          <button id="submitBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-8 rounded-xl text-lg transition transform hover:scale-105 shadow-lg">
+            Submit Answer
+          </button>
+          
+          <div class="mt-8 text-sm text-gray-600">
+            Press Enter to submit your answer
+          </div>
+        </div>
+      `;
+      
+      // Generate first question
+      generateQuestion();
+      
+      // Start timer
+      startTimer();
+      
+      // Set up event listeners
+      document.getElementById('submitBtn').addEventListener('click', checkAnswer);
+      document.getElementById('answerInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkAnswer();
+      });
+      
+      document.getElementById('answerInput').focus();
+    }
+    
+    // Generate a new question based on current level
+    function generateQuestion() {
+      const config = levels[currentLevel];
+      let num1, num2, operator, expression;
+      
+      // Generate numbers based on level
+      num1 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
+      num2 = Math.floor(Math.random() * (config.max - config.min + 1)) + config.min;
+      
+      // Select operator
+      operator = config.operators[Math.floor(Math.random() * config.operators.length)];
+      
+      // For division, ensure we get an integer result
+      if (operator === '/') {
+        // Make sure we don't divide by zero
+        if (num2 === 0) num2 = 1;
+        
+        // Create a divisible pair
+        const product = num1 * num2;
+        num1 = product;
+        correctAnswer = num2;
+        expression = `${num1} ÷ ${num2}`;
+      } else {
+        // For other operators
+        expression = `${num1} ${operator} ${num2}`;
+        correctAnswer = eval(expression);
+      }
+      
+      // Display the question
+      document.getElementById('questionDisplay').textContent = expression + " = ?";
+    }
+    
+    // Start the timer
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timerDisplay').textContent = `${timeLeft}s`;
+        
+        // Update progress bar
+        const config = levels[currentLevel];
+        const progressPercent = (timeLeft / config.time) * 100;
+        document.getElementById('timerProgress').style.width = `${progressPercent}%`;
+        
+        // Change color when time is low
+        if (timeLeft <= 10) {
+          document.getElementById('timerProgress').classList.add('bg-red-500');
+          document.getElementById('timerProgress').classList.remove('bg-gradient-to-r', 'from-blue-500', 'to-indigo-600');
+        }
+        
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+    
+    // Create floating score animation
+    function createScoreAnimation(points, x, y) {
+      const scoreFloat = document.createElement('div');
+      scoreFloat.classList.add('score-float');
+      scoreFloat.textContent = `+${points}`;
+      scoreFloat.style.left = `${x}px`;
+      scoreFloat.style.top = `${y}px`;
+      document.body.appendChild(scoreFloat);
+      
+      // Remove element after animation completes
+      setTimeout(() => {
+        scoreFloat.remove();
+      }, 1000);
+    }
+    
+    // Check user's answer
+    function checkAnswer() {
+      const answerInput = document.getElementById('answerInput');
+      const userAnswer = parseInt(answerInput.value.trim());
+      
+      if (!isNaN(userAnswer)) {
+        questionsAnswered++;
+        
+        if (userAnswer === correctAnswer) {
+          // Correct answer
+          const points = streak >= 3 ? 10 + streak * 2 : 10;
+          score += points;
+          streak++;
+          
+          // Create floating score animation
+          const inputRect = answerInput.getBoundingClientRect();
+          createScoreAnimation(points, inputRect.left + inputRect.width/2, inputRect.top);
+          
+          // Animation
+          document.getElementById('questionDisplay').classList.add('correct-animation');
+          
+        } else {
+          // Incorrect answer
+          streak = 0;
+          document.getElementById('questionDisplay').classList.add('incorrect-animation');
+        }
+        
+        // Update displays
+        document.getElementById('streakDisplay').textContent = streak;
+        streakCounter.textContent = streak;
+        currentScoreDisplay.textContent = score;
+        
+        // Remove animation classes after delay
+        setTimeout(() => {
+          document.getElementById('questionDisplay').classList.remove('correct-animation', 'incorrect-animation');
+        }, 800);
+        
+        // Update level progress
+        levelProgress = Math.min(100, Math.floor((questionsAnswered / levelTarget) * 100));
+        updateLevelProgress();
+        
+        // Check for level up
+        if (questionsAnswered >= levelTarget) {
+          levelUp();
+          return;
+        }
+        
+        // Clear input and generate new question
+        answerInput.value = '';
+        answerInput.focus();
+        generateQuestion();
+      }
+    }
+    
+    // Update level progress display
+    function updateLevelProgress() {
+      levelProgressEl.style.width = `${levelProgress}%`;
+    }
+    
+    // Handle level progression
+    function levelUp() {
+      clearInterval(timerInterval);
+      
+      // Get next level
+      const levelKeys = Object.keys(levels);
+      const currentIndex = levelKeys.indexOf(currentLevel);
+      let nextLevel = currentLevel;
+      
+      if (currentIndex < levelKeys.length - 1) {
+        nextLevel = levelKeys[currentIndex + 1];
+      }
+      
+      gameScreen.innerHTML = `
+        <div class="text-center py-10">
+          <div class="mb-6">
+            <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-trophy text-white text-5xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-blue-800 mb-2">Level Complete!</h2>
+            <p class="text-gray-600 mb-6">You answered ${questionsAnswered} questions with ${streak} consecutive correct answers.</p>
+          </div>
+          
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 mb-8">
+            <div class="text-4xl font-bold text-blue-700 mb-2">${score}</div>
+            <div class="text-gray-600">Final Score</div>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button id="retryBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Play Again
+            </button>
+            <button id="nextLevelBtn" class="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Next Level
+            </button>
+            <button id="changeLevelBtn" class="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Change Level
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Add event listeners
+      document.getElementById('retryBtn').addEventListener('click', () => startGame(currentLevel));
+      document.getElementById('nextLevelBtn').addEventListener('click', () => startGame(nextLevel));
+      document.getElementById('changeLevelBtn').addEventListener('click', showLevelSelection);
+    }
+    
+    // End game when time runs out
+    function endGame() {
+      clearInterval(timerInterval);
+      
+      gameScreen.innerHTML = `
+        <div class="text-center py-10">
+          <div class="mb-6">
+            <div class="w-24 h-24 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-hourglass-end text-white text-5xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-blue-800 mb-2">Time's Up!</h2>
+            <p class="text-gray-600 mb-6">You answered ${questionsAnswered} questions with ${streak} consecutive correct answers.</p>
+          </div>
+          
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 mb-8">
+            <div class="text-4xl font-bold text-blue-700 mb-2">${score}</div>
+            <div class="text-gray-600">Final Score</div>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button id="retryBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Play Again
+            </button>
+            <button id="changeLevelBtn" class="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Change Level
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Add event listeners
+      document.getElementById('retryBtn').addEventListener('click', () => startGame(currentLevel));
+      document.getElementById('changeLevelBtn').addEventListener('click', showLevelSelection);
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initGame();
+    });
+  </script>
+</body>
+</html>

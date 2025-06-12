@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock Tests - Exam Prep</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- <script src="js/mock-tests.js" defer></script>  -->
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Sidebar placeholder -->
+  <aside class="fixed top-0 left-0 w-64 h-full bg-white shadow z-30 p-6 hidden md:block">
+    <h1 class="text-2xl font-bold mb-6">Exam Prep</h1>
+    <nav class="space-y-3">
+      <a href="dashboard.html" onclick="location.reload()" class="block text-gray-700 hover:text-indigo-600 font-medium">
+        <i class="fas fa-home mr-2"></i> Dashboard
+      </a>
+      <a href="mock-tests.html" class="block text-indigo-600 font-semibold">
+        <i class="fas fa-clipboard-check mr-2"></i> Practice Tests
+      </a>
+      <a href="braingames.html" class="block text-gray-700 hover:text-indigo-600 font-medium">
+        <i class="fas fa-gamepad mr-2"></i> Brain Games
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="md:ml-64 p-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold mb-6">Mock Tests</h2>
+      <p class="text-gray-600 mb-8">Take full-length mocks that simulate the actual exam experience.</p>
+
+      <div id="mock-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Mocks will be injected here by JS -->
+      </div>
+    </div>
+  </main>
+  
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  const mockList = document.getElementById('mock-list');
+  const selectedExam = localStorage.getItem('selectedExam') || 'CAT';
+
+  let submittedMocks = [];
+
+  // ✅ Step 1: Fetch submitted mocks from backend
+  try {
+    const res = await fetch("http://localhost:5050/api/mock", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const result = await res.json();
+    if (result.success) {
+      submittedMocks = result.mocks.filter(m => m.exam === selectedExam).map(m => m.day);
+    }
+  } catch (err) {
+    console.error("❌ Failed to fetch submission status", err);
+  }
+
+  // ✅ Step 2: Generate mock cards
+  for (let i = 1; i <= 50; i++) {
+    const isCompleted = submittedMocks.includes(i);
+    const btnLabel = isCompleted ? 'Review' : 'Start';
+    const btnClass = isCompleted ? 'bg-green-600 hover:bg-green-700' : 'bg-indigo-600 hover:bg-indigo-700';
+    const btnLink = isCompleted
+      ? `review.html?exam=${selectedExam}&day=${i}`
+      : `mock.html?exam=${selectedExam}&day=${i}`;
+
+    const card = document.createElement('div');
+    card.className = 'bg-white p-5 rounded-xl shadow-sm border-t-4 border-indigo-500 animate__animated animate__fadeInUp';
+    card.innerHTML = `
+      <h3 class="text-xl font-bold text-gray-800 mb-2">${selectedExam} Mock ${i}</h3>
+      <p class="text-sm text-gray-500 mb-4">Duration: 120 mins</p>
+      <p class="text-xs text-gray-400 mb-4">Status: <span class="font-medium text-gray-700">${isCompleted ? 'completed' : 'not started'}</span></p>
+      <a href="${btnLink}" class="${btnClass} text-white px-4 py-2 rounded-lg text-sm font-medium inline-block transition">
+        ${btnLabel}
+      </a>
+    `;
+    mockList.appendChild(card);
+  }
+});
+// Fix for browser back/forward navigation (to re-trigger fetch)
+window.onpageshow = function (event) {
+  if (event.persisted) {
+    location.reload();
+  }
+};
+
+</script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>

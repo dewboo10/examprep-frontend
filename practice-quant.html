@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantitative Aptitude - ExamPrep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Logo Animation */
+        .logo {
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .logo:hover {
+            transform: rotate(-5deg) scale(1.05);
+        }
+        
+        /* Card Styles */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateY(0);
+            will-change: transform;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        .topic-card {
+            transition: all 0.3s ease;
+            padding: 0.75rem !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .icon-container {
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+        }
+        
+        .topic-card h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.1rem;
+        }
+        
+        .topic-card p {
+            font-size: 0.8rem;
+        }
+        
+        /* Decorations */
+        .decor {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .decor:nth-child(2) {
+            animation-delay: 1s;
+            animation-duration: 8s;
+        }
+        
+        .decor:nth-child(3) {
+            animation-delay: 2s;
+            animation-duration: 7s;
+        }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(0) translateX(20px);
+            }
+            75% {
+                transform: translateY(10px) translateX(-10px);
+            }
+        }
+        
+        /* Header Text */
+        .header-text {
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .header-text:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* Section Animations */
+        section {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        
+        footer {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        footer.visible {
+            opacity: 1;
+        }
+
+        /* Remove more-topics related styles */
+        .more-topics {
+            display: none;
+        }
+
+        /* Update fade-in animation */
+        .fade-in {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Decorative elements -->
+    <div class="decor bg-blue-200 w-96 h-96 top-10 left-10" style="position:fixed;"></div>
+    <div class="decor bg-purple-200 w-80 h-80 bottom-20 right-10" style="position:fixed;"></div>
+    <div class="decor bg-indigo-200 w-64 h-64 top-1/3 right-1/4" style="position:fixed;"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar fixed w-full z-50 py-3 px-4 md:px-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center logo">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                    <i class="fas fa-brain text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">ExamPrep</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="dashboard.html" class="nav-link text-gray-700 hover:text-blue-600">Dashboard</a>
+                <a href="practice-quant.html" class="nav-link active text-blue-600 font-medium">Quant</a>
+                <a href="practice-logical.html" class="nav-link text-gray-700 hover:text-blue-600">Logical</a>
+                <a href="practice-verbal.html" class="nav-link text-gray-700 hover:text-blue-600">Verbal</a>
+                <a href="practice-gk.html" class="nav-link text-gray-700 hover:text-blue-600">GK</a>
+                <a href="resources.html" class="nav-link text-gray-700 hover:text-blue-600">Resources</a>
+            </div>
+            
+            <button class="md:hidden text-gray-700">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto px-4 py-8 pt-24">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                <span class="header-text">
+                    <i class="fas fa-calculator mr-2"></i>Quantitative Aptitude
+                </span>
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                Master quantitative aptitude with comprehensive study materials and practice questions.
+                Perfect for competitive exams and aptitude tests.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="space-y-12">
+            <!-- Arithmetic -->
+            <section id="arithmetic">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Arithmetic</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <a href="quant/chapters/numbers.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-sort-numeric-up text-blue-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Numbers</h3>
+                                <p class="text-sm text-gray-500">Number Systems</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="quant/chapters/percentages.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-percentage text-green-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Percentages</h3>
+                                <p class="text-sm text-gray-500">Profit & Loss</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="quant/chapters/time-work.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-clock text-purple-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Time & Work</h3>
+                                <p class="text-sm text-gray-500">Pipes & Cisterns</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/ratio.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-balance-scale text-yellow-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Ratio & Proportion</h3>
+                                <p class="text-sm text-gray-500">Proportional Relationships</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/interest.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-coins text-red-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Simple & Compound Interest</h3>
+                                <p class="text-sm text-gray-500">Interest Calculations</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/speed.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-tachometer-alt text-indigo-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Time-Speed-Distance</h3>
+                                <p class="text-sm text-gray-500">Motion Problems</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/trains.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-train text-blue-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Problems on Trains</h3>
+                                <p class="text-sm text-gray-500">Train Motion</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/boats.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-ship text-green-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Boats & Streams</h3>
+                                <p class="text-sm text-gray-500">Water Motion</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/mixtures.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-flask text-purple-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Mixtures & Alligations</h3>
+                                <p class="text-sm text-gray-500">Mixture Problems</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/averages.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chart-bar text-yellow-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Averages</h3>
+                                <p class="text-sm text-gray-500">Mean Calculations</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/age.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-user text-red-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Age Problems</h3>
+                                <p class="text-sm text-gray-500">Age Calculations</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/partnership.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-handshake text-indigo-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Partnership</h3>
+                                <p class="text-sm text-gray-500">Business Partnerships</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Algebra -->
+            <section id="algebra">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Algebra</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <a href="quant/chapters/equations.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-equals text-red-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Equations</h3>
+                                <p class="text-sm text-gray-500">Linear & Quadratic</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="quant/chapters/inequalities.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-less-than-equal text-yellow-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Inequalities</h3>
+                                <p class="text-sm text-gray-500">Algebraic Inequalities</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="quant/chapters/functions.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-function text-indigo-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Functions</h3>
+                                <p class="text-sm text-gray-500">Mathematical Functions</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/sequences.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-sort-numeric-down text-blue-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Sequences & Series</h3>
+                                <p class="text-sm text-gray-500">Number Patterns</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/logarithms.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-calculator text-green-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Logarithms</h3>
+                                <p class="text-sm text-gray-500">Log Calculations</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/surds.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-square-root-alt text-purple-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Surds & Indices</h3>
+                                <p class="text-sm text-gray-500">Roots & Powers</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/polynomials.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-superscript text-yellow-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Polynomials</h3>
+                                <p class="text-sm text-gray-500">Polynomial Functions</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/identities.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-square text-red-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Algebraic Identities</h3>
+                                <p class="text-sm text-gray-500">Mathematical Identities</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="quant/chapters/maxima.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chart-line text-indigo-600 text-lg"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Maxima/Minima</h3>
+                                <p class="text-sm text-gray-500">Optimization Problems</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Geometry -->
+            <section id="geometry">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Geometry</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="quant/chapters/triangles.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-triangle text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Triangles</h3>
+                                <p class="text-sm text-gray-500">Properties & Theorems</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="quant/chapters/circles.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-circle text-green-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Circles</h3>
+                                <p class="text-sm text-gray-500">Properties & Theorems</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="quant/chapters/coordinate.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-map-marked-alt text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Coordinate Geometry</h3>
+                                <p class="text-sm text-gray-500">Lines & Curves</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Statistics & Probability -->
+            <section id="statistics">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Statistics & Probability</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="quant/chapters/statistics.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chart-bar text-red-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Statistics</h3>
+                                <p class="text-sm text-gray-500">Mean, Median, Mode</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="quant/chapters/probability.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-dice text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Probability</h3>
+                                <p class="text-sm text-gray-500">Basic Probability</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="quant/chapters/permutations.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-random text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Permutations & Combinations</h3>
+                                <p class="text-sm text-gray-500">Counting Methods</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center text-gray-600 text-sm mt-12 py-8 border-t border-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-center space-x-6 mb-4">
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <p>© 2024 ExamPrep. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Remove the intersection observer since we want everything visible
+        document.querySelectorAll('section').forEach(el => {
+            el.classList.add('fade-in');
+        });
+    </script>
+</body>
+</html>

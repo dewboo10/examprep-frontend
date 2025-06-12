@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venn Challenge - Brain Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #818cf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .level-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .level-card.easy { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-color: #10b981; }
+        .level-card.medium { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #f59e0b; }
+        .level-card.hard { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-color: #ef4444; }
+        
+        .venn-diagram {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .venn-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .venn-circle.left {
+            width: 180px;
+            height: 180px;
+            background: rgba(79, 70, 229, 0.2);
+            border: 2px solid #4f46e5;
+            left: 40px;
+            top: 60px;
+        }
+        
+        .venn-circle.right {
+            width: 180px;
+            height: 180px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            right: 40px;
+            top: 60px;
+        }
+        
+        .venn-label {
+            position: absolute;
+            font-weight: 600;
+            font-size: 1rem;
+            white-space: nowrap;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .venn-label.left { 
+            left: 20px; 
+            top: 20px;
+            text-align: left;
+        }
+        
+        .venn-label.right { 
+            right: 20px; 
+            top: 20px;
+            text-align: right;
+        }
+        
+        .option-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+            padding: 12px 20px;
+            line-height: 1.4;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .correct-answer {
+            animation: pulse 0.6s ease;
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+        
+        .wrong-answer {
+            animation: shake 0.5s ease;
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #f472b6;
+            border-radius: 50%;
+            animation: fall linear forwards;
+            z-index: 20;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .heart-beat {
+            animation: heartBeat 0.8s ease;
+        }
+        
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .streak-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f59e0b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="min-h-screen py-8 px-4">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <i class="fas fa-project-diagram mr-3"></i>Venn Challenge
+                </h1>
+                <p class="text-lg text-gray-600 mt-3">Master the art of set theory and logical reasoning!</p>
+            </header>
+            
+            <!-- Main content -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Game area -->
+                <div class="lg:col-span-2">
+                    <div class="card p-6 relative overflow-hidden">
+                        <!-- Level selection -->
+                        <div id="levelScreen" class="text-center">
+                            <h2 class="text-2xl font-bold mb-6 text-primary">Select Difficulty Level</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="level-card easy p-6 rounded-2xl text-center" data-level="easy">
+                                    <div class="text-5xl mb-4">🌱</div>
+                                    <h3 class="font-bold text-xl mb-2">Beginner</h3>
+                                    <p class="text-gray-600 mb-3">Basic set operations</p>
+                                    <div class="text-sm text-gray-700">20 questions</div>
+                                </div>
+                                
+                                <div class="level-card medium p-6 rounded-2xl text-center" data-level="medium">
+                                    <div class="text-5xl mb-4">🌿</div>
+                                    <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+                                    <p class="text-gray-600 mb-3">Complex set relationships</p>
+                                    <div class="text-sm text-gray-700">20 questions</div>
+                                </div>
+                                
+                                <div class="level-card hard p-6 rounded-2xl text-center" data-level="hard">
+                                    <div class="text-5xl mb-4">🔥</div>
+                                    <h3 class="font-bold text-xl mb-2">Advanced</h3>
+                                    <p class="text-gray-600 mb-3">Advanced set theory</p>
+                                    <div class="text-sm text-gray-700">20 questions</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Game screen -->
+                        <div id="gameScreen" class="hidden">
+                            <!-- Progress indicators -->
+                            <div class="flex justify-between relative mb-10 py-4">
+                                <div class="progress-track w-full"></div>
+                                <div class="progress-track-fill w-0" id="progressTrackFill"></div>
+                                
+                                <div class="progress-indicator active" id="indicator1">1</div>
+                                <div class="progress-indicator" id="indicator2">2</div>
+                                <div class="progress-indicator" id="indicator3">3</div>
+                                <div class="progress-indicator" id="indicator4">4</div>
+                                <div class="progress-indicator" id="indicator5">5</div>
+                                <div class="progress-indicator" id="indicator6">6</div>
+                                <div class="progress-indicator" id="indicator7">7</div>
+                                <div class="progress-indicator" id="indicator8">8</div>
+                                <div class="progress-indicator" id="indicator9">9</div>
+                                <div class="progress-indicator" id="indicator10">10</div>
+                            </div>
+                            
+                            <!-- Game header -->
+                            <div class="flex justify-between items-center mb-8">
+                                <div>
+                                    <h2 class="text-xl font-bold" id="levelIndicator">Level: Beginner</h2>
+                                    <div class="flex items-center mt-1">
+                                        <span class="text-sm mr-2">Question:</span>
+                                        <span class="font-medium" id="questionCounter">1/20</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xl font-bold"><span id="score">0</span> <span class="text-blue-600">pts</span></div>
+                                    <div class="flex items-center justify-end mt-1">
+                                        <i class="fas fa-heart text-red-500 mr-1 heart-beat"></i>
+                                        <span id="lives">3</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Venn diagram area -->
+                            <div class="venn-diagram mb-8" id="vennDiagram">
+                                <div class="venn-circle left"></div>
+                                <div class="venn-circle right"></div>
+                                <div class="venn-label left" id="leftLabel">Set A</div>
+                                <div class="venn-label right" id="rightLabel">Set B</div>
+                            </div>
+                            
+                            <!-- Question area -->
+                            <div class="text-center mb-8">
+                                <p class="text-gray-600 mb-2" id="questionText">What is the relationship between Set A and Set B?</p>
+                            </div>
+                            
+                            <!-- Game area -->
+                            <div id="gameArea" class="min-h-[200px]">
+                                <!-- Content will be loaded dynamically -->
+                            </div>
+                            
+                            <!-- Feedback area -->
+                            <div id="feedbackArea" class="text-center mt-6 min-h-[50px]"></div>
+                            
+                            <!-- Streak indicator -->
+                            <div id="streakIndicator" class="streak-indicator hidden">
+                                <i class="fas fa-fire"></i> <span id="streakCount">0</span> streak!
+                            </div>
+                        </div>
+                        
+                        <!-- Results screen -->
+                        <div id="resultsScreen" class="hidden text-center py-10">
+                            <div class="text-6xl mb-4">🎉</div>
+                            <h2 class="text-3xl font-bold mb-4">Level Complete!</h2>
+                            <div class="text-5xl font-bold text-blue-600 mb-6"><span id="finalScore">0</span> pts</div>
+                            
+                            <div class="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
+                                <div class="bg-blue-50 p-4 rounded-xl">
+                                    <div class="text-2xl mb-2"><span id="correctCount">0</span>/<span id="totalQuestions">0</span></div>
+                                    <div class="text-sm text-gray-600">Correct Answers</div>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-xl">
+                                    <div class="text-2xl mb-2"><span id="accuracy">0</span>%</div>
+                                    <div class="text-sm text-gray-600">Accuracy</div>
+                                </div>
+                                <div class="bg-yellow-50 p-4 rounded-xl">
+                                    <div class="text-2xl mb-2"><span id="bonus">0</span></div>
+                                    <div class="text-sm text-gray-600">Bonus Points</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-center gap-4">
+                                <a href="venn-challenge.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 inline-block">
+                                    <i class="fas fa-redo mr-2"></i> Restart Game
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats panel -->
+                <div>
+                    <!-- User stats -->
+                    <div class="card p-6 mb-8 bg-gradient-to-br from-blue-50 to-indigo-50">
+                        <h2 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-chart-line mr-2 text-blue-600"></i> Your Progress
+                        </h2>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Current Level Progress</span>
+                                    <span id="currentProgress">0%</span>
+                                </div>
+                                <div class="progress-bar bg-gray-200 w-full">
+                                    <div class="progress-fill bg-blue-600" id="currentProgressBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Set Theory Mastery</span>
+                                    <span id="theoryMastery">0%</span>
+                                </div>
+                                <div class="progress-bar bg-gray-200 w-full">
+                                    <div class="progress-fill bg-green-600" id="theoryMasteryBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center mr-3">
+                                        <i class="fas fa-medal text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Highest Score</div>
+                                        <div class="text-2xl"><span id="highScore">0</span> <span class="text-sm">pts</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Game info -->
+                    <div class="card p-6">
+                        <h2 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-info-circle mr-2 text-blue-600"></i> Game Guide
+                        </h2>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-star text-xs"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">How to Play</h3>
+                                    <p class="text-sm text-gray-600">Analyze the Venn diagram and answer questions about set relationships.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-heart text-xs"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Lives System</h3>
+                                    <p class="text-sm text-gray-600">You start with 3 lives. Incorrect answers cost you one life.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-trophy text-xs"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Scoring</h3>
+                                    <p class="text-sm text-gray-600">+100 for correct answers, +20 bonus for quick answers!</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 pt-4 border-t border-gray-100">
+                            <h3 class="font-bold mb-2">Tips</h3>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Look for overlapping regions</li>
+                                <li><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Consider set operations</li>
+                                <li><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Analyze cardinality</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game data with 20 questions per level
+        const gameData = {
+            levels: {
+                easy: {
+                    name: "Beginner",
+                    icon: "🌱",
+                    questions: [
+                        // Basic set relationships
+                        {
+                            type: "relationship",
+                            leftSet: "Animals",
+                            rightSet: "Mammals",
+                            question: "What is the relationship between Animals and Mammals?",
+                            options: [
+                                "Mammals is a subset of Animals",
+                                "Animals is a subset of Mammals",
+                                "They are disjoint sets",
+                                "They are equal sets"
+                            ],
+                            answer: 0
+                        },
+                        {
+                            type: "relationship",
+                            leftSet: "Fruits",
+                            rightSet: "Vegetables",
+                            question: "What is the relationship between Fruits and Vegetables?",
+                            options: [
+                                "They are disjoint sets",
+                                "Fruits is a subset of Vegetables",
+                                "Vegetables is a subset of Fruits",
+                                "They have some overlap"
+                            ],
+                            answer: 3
+                        },
+                        // Basic set operations
+                        {
+                            type: "operation",
+                            leftSet: "Even Numbers",
+                            rightSet: "Multiples of 3",
+                            question: "What is the intersection of Even Numbers and Multiples of 3?",
+                            options: [
+                                "Multiples of 6",
+                                "Multiples of 2",
+                                "Multiples of 3",
+                                "Empty set"
+                            ],
+                            answer: 0
+                        },
+                        // Cardinality questions
+                        {
+                            type: "cardinality",
+                            leftSet: "A = {1,2,3}",
+                            rightSet: "B = {3,4,5}",
+                            question: "What is |A ∪ B|?",
+                            options: ["3", "4", "5", "6"],
+                            answer: 2
+                        }
+                    ]
+                },
+                medium: {
+                    name: "Intermediate",
+                    icon: "🌿",
+                    questions: [
+                        // Complex set relationships
+                        {
+                            type: "relationship",
+                            leftSet: "Prime Numbers",
+                            rightSet: "Odd Numbers",
+                            question: "What is the relationship between Prime Numbers and Odd Numbers?",
+                            options: [
+                                "Prime Numbers is a subset of Odd Numbers",
+                                "Odd Numbers is a subset of Prime Numbers",
+                                "They have some overlap",
+                                "They are disjoint sets"
+                            ],
+                            answer: 2
+                        },
+                        // Complex set operations
+                        {
+                            type: "operation",
+                            leftSet: "A = {1,2,3,4,5}",
+                            rightSet: "B = {4,5,6,7,8}",
+                            question: "What is (A ∩ B) ∪ (A - B)?",
+                            options: [
+                                "{1,2,3,4,5}",
+                                "{4,5}",
+                                "{1,2,3,4,5,6,7,8}",
+                                "{1,2,3}"
+                            ],
+                            answer: 0
+                        },
+                        // Set properties
+                        {
+                            type: "property",
+                            leftSet: "A = {x | x is even}",
+                            rightSet: "B = {x | x is divisible by 4}",
+                            question: "Which property is true?",
+                            options: [
+                                "A is a subset of B",
+                                "B is a subset of A",
+                                "A and B are equal",
+                                "A and B are disjoint"
+                            ],
+                            answer: 1
+                        }
+                    ]
+                },
+                hard: {
+                    name: "Advanced",
+                    icon: "🔥",
+                    questions: [
+                        // Advanced set theory
+                        {
+                            type: "theory",
+                            leftSet: "A = {x | x² < 4}",
+                            rightSet: "B = {x | |x| < 2}",
+                            question: "What is the relationship between A and B?",
+                            options: [
+                                "A = B",
+                                "A is a proper subset of B",
+                                "B is a proper subset of A",
+                                "They are disjoint"
+                            ],
+                            answer: 0
+                        },
+                        // Complex operations
+                        {
+                            type: "operation",
+                            leftSet: "A = {x | x is prime}",
+                            rightSet: "B = {x | x is odd}",
+                            question: "What is |A ∩ B|?",
+                            options: [
+                                "Finite",
+                                "Infinite",
+                                "Empty",
+                                "Cannot be determined"
+                            ],
+                            answer: 1
+                        },
+                        // Set theory proofs
+                        {
+                            type: "proof",
+                            leftSet: "A = {x | x is rational}",
+                            rightSet: "B = {x | x is real}",
+                            question: "Which statement is true?",
+                            options: [
+                                "A is countable, B is uncountable",
+                                "Both A and B are countable",
+                                "Both A and B are uncountable",
+                                "A is uncountable, B is countable"
+                            ],
+                            answer: 0
+                        }
+                    ]
+                }
+            },
+            
+            // Game state
+            currentLevel: null,
+            currentQuestion: 0,
+            score: 0,
+            lives: 3,
+            correctAnswers: 0,
+            startTime: null,
+            progressIndicators: [],
+            currentStreak: 0
+        };
+
+        // DOM Elements
+        const levelScreen = document.getElementById('levelScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const resultsScreen = document.getElementById('resultsScreen');
+        const levelCards = document.querySelectorAll('.level-card');
+        const levelIndicator = document.getElementById('levelIndicator');
+        const questionText = document.getElementById('questionText');
+        const gameArea = document.getElementById('gameArea');
+        const feedbackArea = document.getElementById('feedbackArea');
+        const scoreElement = document.getElementById('score');
+        const livesElement = document.getElementById('lives');
+        const questionCounter = document.getElementById('questionCounter');
+        const finalScore = document.getElementById('finalScore');
+        const correctCount = document.getElementById('correctCount');
+        const totalQuestions = document.getElementById('totalQuestions');
+        const accuracy = document.getElementById('accuracy');
+        const bonus = document.getElementById('bonus');
+        const streakIndicator = document.getElementById('streakIndicator');
+        const streakCount = document.getElementById('streakCount');
+        const leftLabel = document.getElementById('leftLabel');
+        const rightLabel = document.getElementById('rightLabel');
+
+        // Initialize game
+        function initGame() {
+            // Add event listeners to level cards
+            levelCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const level = card.dataset.level;
+                    startLevel(level);
+                });
+            });
+            
+            // Initialize progress indicators
+            for (let i = 1; i <= 10; i++) {
+                gameData.progressIndicators.push(document.getElementById(`indicator${i}`));
+            }
+            
+            // Load high score from localStorage
+            const savedHighScore = localStorage.getItem('vennChallengeHighScore') || 0;
+            highScore.textContent = savedHighScore;
+            
+            // Initialize theory mastery
+            updateTheoryMastery();
+        }
+
+        // Start a new level
+        function startLevel(level) {
+            gameData.currentLevel = level;
+            gameData.currentQuestion = 0;
+            gameData.score = 0;
+            gameData.lives = 3;
+            gameData.correctAnswers = 0;
+            gameData.currentStreak = 0;
+            
+            // Hide streak indicator
+            streakIndicator.classList.add('hidden');
+            
+            // Reset progress indicators
+            gameData.progressIndicators.forEach((indicator, index) => {
+                indicator.classList.remove('active', 'completed');
+                if (index === 0) indicator.classList.add('active');
+            });
+            
+            // Reset progress bar
+            progressTrackFill.style.width = '0%';
+            
+            // Update UI
+            levelScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            resultsScreen.classList.add('hidden');
+            
+            levelIndicator.textContent = `Level: ${gameData.levels[level].name}`;
+            scoreElement.textContent = gameData.score;
+            livesElement.textContent = gameData.lives;
+            questionCounter.textContent = `1/${gameData.levels[level].questions.length}`;
+            
+            // Load the first question
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            const level = gameData.levels[gameData.currentLevel];
+            const question = level.questions[gameData.currentQuestion];
+            
+            // Update question counter
+            questionCounter.textContent = `${gameData.currentQuestion + 1}/${level.questions.length}`;
+            
+            // Update progress bar
+            const progressPercent = (gameData.currentQuestion / (level.questions.length - 1)) * 100;
+            currentProgress.textContent = `${Math.round(progressPercent)}%`;
+            currentProgressBar.style.width = `${progressPercent}%`;
+            
+            // Update Venn diagram labels
+            leftLabel.textContent = question.leftSet;
+            rightLabel.textContent = question.rightSet;
+            
+            // Update question text
+            questionText.textContent = question.question;
+            
+            // Clear game area and feedback
+            gameArea.innerHTML = '';
+            feedbackArea.innerHTML = '';
+            
+            // Render options
+            renderOptions(question.options);
+            
+            // Record start time for bonus calculation
+            gameData.startTime = new Date();
+        }
+
+        // Render options
+        function renderOptions(options) {
+            gameArea.innerHTML = `
+                <div class="grid grid-cols-1 gap-4">
+                    ${options.map((option, index) => `
+                        <button class="option-btn bg-white border border-gray-200 rounded-xl py-4 px-6 text-lg font-medium transition" data-choice="${index}">
+                            ${option}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Add event listeners to options
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const selected = parseInt(btn.dataset.choice);
+                    checkAnswer(selected === gameData.levels[gameData.currentLevel].questions[gameData.currentQuestion].answer, btn);
+                });
+            });
+        }
+
+        // Check answer
+        function checkAnswer(isCorrect, element) {
+            // Disable all interactions
+            document.querySelectorAll('button, input').forEach(el => {
+                el.disabled = true;
+            });
+            
+            let feedbackMessage = '';
+            let feedbackClass = '';
+            let feedbackIcon = '';
+            
+            if (isCorrect) {
+                // Correct answer
+                element.classList.add('correct-answer');
+                gameData.score += 100;
+                gameData.correctAnswers++;
+                gameData.currentStreak++;
+                
+                // Add time bonus (max 20 points)
+                const timeTaken = (new Date() - gameData.startTime) / 1000; // in seconds
+                const timeBonus = Math.max(0, 20 - Math.floor(timeTaken / 2));
+                gameData.score += timeBonus;
+                
+                // Add streak bonus
+                if (gameData.currentStreak >= 3) {
+                    const streakBonus = gameData.currentStreak * 10;
+                    gameData.score += streakBonus;
+                    streakCount.textContent = gameData.currentStreak;
+                    streakIndicator.classList.remove('hidden');
+                }
+                
+                scoreElement.textContent = gameData.score;
+                
+                // Show feedback
+                feedbackMessage = `Correct! +${100 + timeBonus} points`;
+                if (gameData.currentStreak >= 3) {
+                    feedbackMessage += ` +${gameData.currentStreak * 10} streak bonus!`;
+                }
+                feedbackClass = 'text-green-600';
+                feedbackIcon = '✅';
+            } else {
+                // Wrong answer
+                element.classList.add('wrong-answer');
+                gameData.lives--;
+                gameData.currentStreak = 0;
+                streakIndicator.classList.add('hidden');
+                
+                livesElement.textContent = gameData.lives;
+                livesElement.classList.add('heart-beat');
+                setTimeout(() => livesElement.classList.remove('heart-beat'), 800);
+                
+                // Show feedback with correct answer
+                const correctAnswer = gameData.levels[gameData.currentLevel].questions[gameData.currentQuestion].options[
+                    gameData.levels[gameData.currentLevel].questions[gameData.currentQuestion].answer
+                ];
+                feedbackMessage = `Incorrect! The correct answer was: ${correctAnswer}`;
+                feedbackClass = 'text-red-600';
+                feedbackIcon = '❌';
+                
+                if (gameData.lives <= 0) {
+                    // Game over
+                    setTimeout(endGame, 1500);
+                }
+            }
+            
+            // Update progress indicators
+            const indicatorIndex = Math.floor(gameData.currentQuestion / 2);
+            if (indicatorIndex < 10) {
+                gameData.progressIndicators[indicatorIndex].classList.add('completed');
+                if (indicatorIndex < 9) {
+                    gameData.progressIndicators[indicatorIndex + 1].classList.add('active');
+                }
+                
+                // Update progress track
+                const trackPercent = ((gameData.currentQuestion + 1) / gameData.levels[gameData.currentLevel].questions.length) * 100;
+                progressTrackFill.style.width = `${trackPercent}%`;
+            }
+            
+            // Show feedback
+            feedbackArea.innerHTML = `
+                <div class="text-xl font-bold ${feedbackClass} fade-in">
+                    ${feedbackIcon} ${feedbackMessage}
+                </div>
+            `;
+            
+            // Move to next question after delay
+            setTimeout(() => {
+                nextQuestion();
+            }, 1500);
+        }
+
+        // Next question
+        function nextQuestion() {
+            gameData.currentQuestion++;
+            
+            if (gameData.currentQuestion < gameData.levels[gameData.currentLevel].questions.length) {
+                loadQuestion();
+            } else {
+                endGame();
+            }
+        }
+
+        // End game
+        function endGame() {
+            gameScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            
+            // Calculate results
+            const total = gameData.levels[gameData.currentLevel].questions.length;
+            const accuracyPercent = Math.round((gameData.correctAnswers / total) * 100);
+            
+            finalScore.textContent = gameData.score;
+            correctCount.textContent = gameData.correctAnswers;
+            totalQuestions.textContent = total;
+            accuracy.textContent = accuracyPercent;
+            bonus.textContent = gameData.score - (gameData.correctAnswers * 100);
+            
+            // Create confetti effect
+            createConfetti();
+            
+            // Update high score if needed
+            const savedHighScore = parseInt(localStorage.getItem('vennChallengeHighScore') || 0);
+            if (gameData.score > savedHighScore) {
+                localStorage.setItem('vennChallengeHighScore', gameData.score);
+                highScore.textContent = gameData.score;
+            }
+            
+            // Update theory mastery
+            updateTheoryMastery();
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const container = document.querySelector('.card');
+            const colors = ['#f472b6', '#4f46e5', '#10b981', '#f59e0b', '#ef4444'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = `${Math.random() * 10 + 5}px`;
+                confetti.style.height = confetti.style.width;
+                container.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        // Update theory mastery
+        function updateTheoryMastery() {
+            const savedMastery = parseInt(localStorage.getItem('theoryMastery') || 0);
+            const newMastery = Math.min(100, savedMastery + 5);
+            
+            localStorage.setItem('theoryMastery', newMastery);
+            theoryMastery.textContent = newMastery;
+            theoryMasteryBar.style.width = `${newMastery}%`;
+        }
+
+        // Initialize the game when the page loads
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>

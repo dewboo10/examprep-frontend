@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .graph-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .graph-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .graph-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th {
+            background: #3b82f6;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .data-table tr:hover {
+            background: #f8fafc;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Statistics</h1>
+            <p class="text-lg text-gray-600">Master the fundamentals of statistical analysis and probability</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block text-gray-600 hover:text-blue-600">Introduction</a>
+                        <a href="#central-tendency" class="nav-link block text-gray-600 hover:text-blue-600">Measures of Central Tendency</a>
+                        <a href="#dispersion" class="nav-link block text-gray-600 hover:text-blue-600">Measures of Dispersion</a>
+                        <a href="#probability" class="nav-link block text-gray-600 hover:text-blue-600">Probability</a>
+                        <a href="#distributions" class="nav-link block text-gray-600 hover:text-blue-600">Probability Distributions</a>
+                        <a href="#correlation" class="nav-link block text-gray-600 hover:text-blue-600">Correlation and Regression</a>
+                        <a href="#practice" class="nav-link block text-gray-600 hover:text-blue-600">Practice Questions</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Introduction Section -->
+                <section id="introduction" class="card p-8 mb-8">
+                    <h2 class="section-title">Introduction to Statistics</h2>
+                    <p class="text-gray-700 mb-4">
+                        Statistics is the science of collecting, analyzing, interpreting, and presenting data. It helps us make sense of numerical information and draw meaningful conclusions.
+                    </p>
+                    
+                    <div class="note-box">
+                        <h3 class="subsection-title">Key Concepts</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Population: The entire group being studied</li>
+                            <li>Sample: A subset of the population</li>
+                            <li>Variable: A characteristic that can take different values</li>
+                            <li>Data: The values of variables collected for analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Basic Statistical Terms</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Frequency: Number of times a value occurs</li>
+                            <li>Relative Frequency: Frequency divided by total observations</li>
+                            <li>Cumulative Frequency: Sum of frequencies up to a point</li>
+                            <li>Class Interval: Range of values in grouped data</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Measures of Central Tendency Section -->
+                <section id="central-tendency" class="card p-8 mb-8">
+                    <h2 class="section-title">Measures of Central Tendency</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Mean (Arithmetic Average)</h3>
+                        <p class="text-gray-700 mb-2">For ungrouped data:</p>
+                        <p class="text-center font-mono">Mean = Σx/n</p>
+                        <p class="text-gray-700 mt-2">For grouped data:</p>
+                        <p class="text-center font-mono">Mean = Σ(fx)/Σf</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Median</h3>
+                        <p class="text-gray-700 mb-2">For ungrouped data:</p>
+                        <p class="text-center font-mono">Median = (n+1)/2 th observation</p>
+                        <p class="text-gray-700 mt-2">For grouped data:</p>
+                        <p class="text-center font-mono">Median = L + (n/2 - cf)/f × h</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Mode</h3>
+                        <p class="text-gray-700 mb-2">For ungrouped data:</p>
+                        <p class="text-center font-mono">Mode = Most frequent value</p>
+                        <p class="text-gray-700 mt-2">For grouped data:</p>
+                        <p class="text-center font-mono">Mode = L + (f₁ - f₀)/(2f₁ - f₀ - f₂) × h</p>
+                    </div>
+
+                    <div class="graph-container">
+                        <div class="graph-title">Comparison of Mean, Median, and Mode</div>
+                        <div id="centralTendencyGraph" style="height: 400px;"></div>
+                    </div>
+                </section>
+
+                <!-- Measures of Dispersion Section -->
+                <section id="dispersion" class="card p-8 mb-8">
+                    <h2 class="section-title">Measures of Dispersion</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Range</h3>
+                        <p class="text-center font-mono">Range = Maximum Value - Minimum Value</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Variance</h3>
+                        <p class="text-gray-700 mb-2">For ungrouped data:</p>
+                        <p class="text-center font-mono">σ² = Σ(x - μ)²/n</p>
+                        <p class="text-gray-700 mt-2">For grouped data:</p>
+                        <p class="text-center font-mono">σ² = Σf(x - μ)²/Σf</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Standard Deviation</h3>
+                        <p class="text-center font-mono">σ = √Variance</p>
+                    </div>
+
+                    <div class="graph-container">
+                        <div class="graph-title">Normal Distribution with Standard Deviations</div>
+                        <div id="normalDistributionGraph" style="height: 400px;"></div>
+                    </div>
+                </section>
+
+                <!-- Probability Section -->
+                <section id="probability" class="card p-8 mb-8">
+                    <h2 class="section-title">Probability</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Basic Probability</h3>
+                        <p class="text-center font-mono">P(A) = n(A)/n(S)</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>P(A) is the probability of event A</li>
+                            <li>n(A) is the number of favorable outcomes</li>
+                            <li>n(S) is the total number of possible outcomes</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Addition Rule</h3>
+                        <p class="text-center font-mono">P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Multiplication Rule</h3>
+                        <p class="text-center font-mono">P(A ∩ B) = P(A) × P(B|A)</p>
+                    </div>
+
+                    <div class="graph-container">
+                        <div class="graph-title">Probability Tree Diagram</div>
+                        <div id="probabilityTreeGraph" style="height: 400px;"></div>
+                    </div>
+                </section>
+
+                <!-- Probability Distributions Section -->
+                <section id="distributions" class="card p-8 mb-8">
+                    <h2 class="section-title">Probability Distributions</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Binomial Distribution</h3>
+                        <p class="text-center font-mono">P(X = r) = nCr × p^r × (1-p)^(n-r)</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>n is the number of trials</li>
+                            <li>r is the number of successes</li>
+                            <li>p is the probability of success</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Normal Distribution</h3>
+                        <p class="text-center font-mono">f(x) = (1/σ√2π) × e^(-(x-μ)²/2σ²)</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>μ is the mean</li>
+                            <li>σ is the standard deviation</li>
+                        </ul>
+                    </div>
+
+                    <div class="graph-container">
+                        <div class="graph-title">Binomial vs Normal Distribution</div>
+                        <div id="distributionComparisonGraph" style="height: 400px;"></div>
+                    </div>
+                </section>
+
+                <!-- Correlation and Regression Section -->
+                <section id="correlation" class="card p-8 mb-8">
+                    <h2 class="section-title">Correlation and Regression</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Correlation Coefficient</h3>
+                        <p class="text-center font-mono">r = Σ((x-μx)(y-μy))/(nσxσy)</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Regression Line</h3>
+                        <p class="text-center font-mono">y = mx + b</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>m = r(σy/σx)</li>
+                            <li>b = μy - mμx</li>
+                        </ul>
+                    </div>
+
+                    <div class="graph-container">
+                        <div class="graph-title">Scatter Plot with Regression Line</div>
+                        <div id="regressionGraph" style="height: 400px;"></div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions Section -->
+                <section id="practice" class="card p-8 mb-8">
+                    <h2 class="section-title">Practice Questions</h2>
+
+                    <!-- Central Tendency Questions -->
+                    <h3 class="subsection-title">Measures of Central Tendency</h3>
+                    
+                    <!-- Mean Questions -->
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Arithmetic Mean</div>
+                        <div class="question-text">
+                            Find the arithmetic mean of the following data set: 12, 15, 18, 20, 25, 30, 35
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Mean = (12 + 15 + 18 + 20 + 25 + 30 + 35)/7</p>
+                            <p>= 155/7 = 22.14</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Weighted Mean</div>
+                        <div class="question-text">
+                            Calculate the weighted mean of the following data:
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <tr>
+                                        <th>Value</th>
+                                        <th>Weight</th>
+                                    </tr>
+                                    <tr>
+                                        <td>80</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>85</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>90</td>
+                                        <td>4</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Weighted Mean = (80×2 + 85×3 + 90×4)/(2 + 3 + 4)</p>
+                            <p>= (160 + 255 + 360)/9 = 775/9 = 86.11</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Geometric Mean</div>
+                        <div class="question-text">
+                            Find the geometric mean of the numbers: 2, 4, 8, 16
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Geometric Mean = (2 × 4 × 8 × 16)^(1/4)</p>
+                            <p>= (1024)^(1/4) = 5.66</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Combined Mean</div>
+                        <div class="question-text">
+                            The mean of 20 numbers is 15. If 5 more numbers with mean 20 are added, find the new mean.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Total of first 20 numbers = 20 × 15 = 300</p>
+                            <p>Total of 5 new numbers = 5 × 20 = 100</p>
+                            <p>New mean = (300 + 100)/25 = 16</p>
+                        </div>
+                    </div>
+
+                    <!-- Median Questions -->
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Simple Median</div>
+                        <div class="question-text">
+                            Find the median of: 7, 3, 9, 5, 11, 2, 8
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Arranged order: 2, 3, 5, 7, 8, 9, 11</p>
+                            <p>Median = 7 (middle value)</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Even Number of Terms</div>
+                        <div class="question-text">
+                            Find the median of: 12, 15, 18, 20, 25, 30
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Median = (18 + 20)/2 = 19</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Grouped Data Median</div>
+                        <div class="question-text">
+                            Find the median for the following grouped data:
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <tr>
+                                        <th>Class Interval</th>
+                                        <th>Frequency</th>
+                                    </tr>
+                                    <tr>
+                                        <td>0-10</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10-20</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20-30</td>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <td>30-40</td>
+                                        <td>7</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Total frequency = 32</p>
+                            <p>Median class = 20-30</p>
+                            <p>Median = 20 + (16-13)/12 × 10 = 22.5</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Missing Value</div>
+                        <div class="question-text">
+                            The median of 5 numbers is 8. If one number is removed, the median becomes 7. Find the removed number.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Original numbers: a, b, 8, c, d</p>
+                            <p>After removal: a, b, c, d</p>
+                            <p>Median = (b + c)/2 = 7</p>
+                            <p>Therefore, b + c = 14</p>
+                            <p>Since 8 was the median, it must be the removed number</p>
+                        </div>
+                    </div>
+
+                    <!-- Mode Questions -->
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Simple Mode</div>
+                        <div class="question-text">
+                            Find the mode of: 3, 5, 7, 5, 9, 5, 11, 7
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Mode = 5 (appears most frequently)</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Bimodal Data</div>
+                        <div class="question-text">
+                            Find the mode of: 2, 3, 4, 4, 5, 6, 6, 7
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Modes = 4 and 6 (both appear twice)</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Grouped Data Mode</div>
+                        <div class="question-text">
+                            Find the mode for the following grouped data:
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <tr>
+                                        <th>Class Interval</th>
+                                        <th>Frequency</th>
+                                    </tr>
+                                    <tr>
+                                        <td>0-10</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10-20</td>
+                                        <td>12</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20-30</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>30-40</td>
+                                        <td>3</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Modal class = 10-20</p>
+                            <p>Mode = 10 + (12-5)/(2×12-5-8) × 10 = 16.36</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Missing Frequency</div>
+                        <div class="question-text">
+                            In a frequency distribution, the mode is 25 and the frequency of the modal class is 15. If the frequency of the class preceding the modal class is 8, find the frequency of the class succeeding the modal class.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Let f₂ be the required frequency</p>
+                            <p>Mode = 25 = L + (15-8)/(2×15-8-f₂) × h</p>
+                            <p>Solving: f₂ = 10</p>
+                        </div>
+                    </div>
+
+                    <!-- Measures of Dispersion Questions -->
+                    <h3 class="subsection-title">Measures of Dispersion</h3>
+                    
+                    <!-- Range Questions -->
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Simple Range</div>
+                        <div class="question-text">
+                            Find the range of: 5, 8, 12, 15, 20, 25
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Range = Maximum - Minimum</p>
+                            <p>= 25 - 5 = 20</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Coefficient of Range</div>
+                        <div class="question-text">
+                            Find the coefficient of range for the data: 10, 15, 20, 25, 30
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Range = 30 - 10 = 20</p>
+                            <p>Coefficient of Range = (30-10)/(30+10) = 0.5</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Range with Outliers</div>
+                        <div class="question-text">
+                            Find the range of: 2, 5, 7, 8, 9, 50
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Range = 50 - 2 = 48</p>
+                            <p>Note: The value 50 is an outlier</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Range in Grouped Data</div>
+                        <div class="question-text">
+                            Find the range for the following grouped data:
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <tr>
+                                        <th>Class Interval</th>
+                                        <th>Frequency</th>
+                                    </tr>
+                                    <tr>
+                                        <td>0-10</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10-20</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20-30</td>
+                                        <td>12</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Range = Upper limit of highest class - Lower limit of lowest class</p>
+                            <p>= 30 - 0 = 30</p>
+                        </div>
+                    </div>
+
+                    <!-- Standard Deviation Questions -->
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Simple Standard Deviation</div>
+                        <div class="question-text">
+                            Find the standard deviation of: 2, 4, 6, 8, 10
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Mean = 6</p>
+                            <p>Variance = ((2-6)² + (4-6)² + (6-6)² + (8-6)² + (10-6)²)/5 = 8</p>
+                            <p>Standard Deviation = √8 = 2.83</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Coefficient of Variation</div>
+                        <div class="question-text">
+                            Find the coefficient of variation for the data: 10, 15, 20, 25, 30
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Mean = 20</p>
+                            <p>Standard Deviation = 7.07</p>
+                            <p>Coefficient of Variation = (7.07/20) × 100 = 35.35%</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Combined Standard Deviation</div>
+                        <div class="question-text">
+                            Two groups have means 20 and 30, standard deviations 5 and 6, and sizes 50 and 40 respectively. Find the combined standard deviation.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Combined mean = (20×50 + 30×40)/90 = 24.44</p>
+                            <p>Combined variance = ((50×25 + 40×36) + (50×4.44² + 40×5.56²))/90 = 30.44</p>
+                            <p>Combined SD = √30.44 = 5.52</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Standard Deviation with Frequency</div>
+                        <div class="question-text">
+                            Find the standard deviation for the following data:
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <tr>
+                                        <th>Value</th>
+                                        <th>Frequency</th>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>4</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Mean = (5×2 + 10×3 + 15×4)/9 = 11.11</p>
+                            <p>Variance = (2×(5-11.11)² + 3×(10-11.11)² + 4×(15-11.11)²)/9 = 15.43</p>
+                            <p>Standard Deviation = √15.43 = 3.93</p>
+                        </div>
+                    </div>
+
+                    <!-- Probability Questions -->
+                    <h3 class="subsection-title">Probability</h3>
+                    
+                    <!-- Basic Probability Questions -->
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Simple Probability</div>
+                        <div class="question-text">
+                            A bag contains 5 red, 3 blue, and 2 green balls. What is the probability of drawing a red ball?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Total balls = 10</p>
+                            <p>Red balls = 5</p>
+                            <p>Probability = 5/10 = 0.5</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Compound Probability</div>
+                        <div class="question-text">
+                            Two dice are rolled. What is the probability of getting a sum of 7?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Favorable outcomes: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1)</p>
+                            <p>Total outcomes = 36</p>
+                            <p>Probability = 6/36 = 1/6</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Conditional Probability</div>
+                        <div class="question-text">
+                            In a class of 30 students, 20 are boys and 10 are girls. 5 boys and 3 girls wear glasses. What is the probability that a student wears glasses given that they are a boy?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(Glasses|Boy) = 5/20 = 0.25</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Independent Events</div>
+                        <div class="question-text">
+                            A coin is tossed twice. What is the probability of getting heads both times?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(First head) = 1/2</p>
+                            <p>P(Second head) = 1/2</p>
+                            <p>P(Both heads) = (1/2) × (1/2) = 1/4</p>
+                        </div>
+                    </div>
+
+                    <!-- Probability Distribution Questions -->
+                    <h3 class="subsection-title">Probability Distributions</h3>
+                    
+                    <!-- Binomial Distribution Questions -->
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Binomial Probability</div>
+                        <div class="question-text">
+                            A fair coin is tossed 5 times. What is the probability of getting exactly 3 heads?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>n = 5, r = 3, p = 0.5</p>
+                            <p>P(X=3) = 5C3 × (0.5)³ × (0.5)² = 0.3125</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Binomial Mean and Variance</div>
+                        <div class="question-text">
+                            For a binomial distribution with n=10 and p=0.3, find the mean and variance.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Mean = np = 10 × 0.3 = 3</p>
+                            <p>Variance = npq = 10 × 0.3 × 0.7 = 2.1</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Normal Distribution</div>
+                        <div class="question-text">
+                            For a normal distribution with mean 50 and standard deviation 10, find the probability that X is between 40 and 60.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Z₁ = (40-50)/10 = -1</p>
+                            <p>Z₂ = (60-50)/10 = 1</p>
+                            <p>P(-1 < Z < 1) = 0.6826</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Normal Approximation</div>
+                        <div class="question-text">
+                            A fair coin is tossed 100 times. Using normal approximation, find the probability of getting between 45 and 55 heads.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Mean = np = 50</p>
+                            <p>SD = √(npq) = 5</p>
+                            <p>P(45 < X < 55) = P(-1 < Z < 1) = 0.6826</p>
+                        </div>
+                    </div>
+
+                    <!-- Correlation and Regression Questions -->
+                    <h3 class="subsection-title">Correlation and Regression</h3>
+                    
+                    <!-- Correlation Questions -->
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Correlation Coefficient</div>
+                        <div class="question-text">
+                            Calculate the correlation coefficient for the following data:
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <tr>
+                                        <th>X</th>
+                                        <th>Y</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>8</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>r = 1 (Perfect positive correlation)</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Regression Line</div>
+                        <div class="question-text">
+                            Find the regression line of Y on X for the data in Question 1.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Slope = 2</p>
+                            <p>Y-intercept = 0</p>
+                            <p>Regression line: Y = 2X</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Prediction</div>
+                        <div class="question-text">
+                            Using the regression line from Question 2, predict Y when X = 5.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Y = 2 × 5 = 10</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Coefficient of Determination</div>
+                        <div class="question-text">
+                            Calculate the coefficient of determination for the data in Question 1.
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>r² = 1 (100% of variation in Y is explained by X)</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize graphs
+        function initGraphs() {
+            // Central Tendency Graph
+            const centralTendencyData = [{
+                x: [1, 2, 3, 4, 5, 6, 7, 8],
+                y: [2, 3, 3, 4, 5, 6, 7, 8],
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: 'Data',
+                line: {color: '#3b82f6'}
+            }];
+
+            const centralTendencyLayout = {
+                title: 'Data Distribution',
+                xaxis: {title: 'Values'},
+                yaxis: {title: 'Frequency'},
+                showlegend: true,
+                annotations: [{
+                    x: 4.5,
+                    y: 8,
+                    text: 'Mean',
+                    showarrow: true
+                }, {
+                    x: 4,
+                    y: 8,
+                    text: 'Median',
+                    showarrow: true
+                }, {
+                    x: 3,
+                    y: 8,
+                    text: 'Mode',
+                    showarrow: true
+                }]
+            };
+
+            Plotly.newPlot('centralTendencyGraph', centralTendencyData, centralTendencyLayout);
+
+            // Normal Distribution Graph
+            const x = Array.from({length: 100}, (_, i) => i/10);
+            const normalData = [{
+                x: x,
+                y: x.map(x => Math.exp(-Math.pow(x-5, 2)/2)/Math.sqrt(2*Math.PI)),
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Normal Distribution',
+                line: {color: '#3b82f6'}
+            }];
+
+            const normalLayout = {
+                title: 'Normal Distribution',
+                xaxis: {title: 'X'},
+                yaxis: {title: 'Probability Density'},
+                showlegend: true
+            };
+
+            Plotly.newPlot('normalDistributionGraph', normalData, normalLayout);
+
+            // Probability Tree Graph
+            const treeData = [{
+                type: 'scatter',
+                x: [0, 1, 1, 2, 2],
+                y: [0, 1, -1, 2, 0],
+                mode: 'lines+markers+text',
+                text: ['Start', '0.6', '0.4', '0.7', '0.3'],
+                textposition: 'top center',
+                line: {color: '#3b82f6'}
+            }];
+
+            const treeLayout = {
+                title: 'Probability Tree',
+                xaxis: {showticklabels: false},
+                yaxis: {showticklabels: false},
+                showlegend: false
+            };
+
+            Plotly.newPlot('probabilityTreeGraph', treeData, treeLayout);
+
+            // Distribution Comparison Graph
+            const binomData = [{
+                x: Array.from({length: 11}, (_, i) => i),
+                y: Array.from({length: 11}, (_, i) => 
+                    Math.pow(0.5, 10) * Math.pow(2, i) * Math.pow(1, 10-i)),
+                type: 'bar',
+                name: 'Binomial',
+                marker: {color: '#3b82f6'}
+            }];
+
+            const normData = [{
+                x: Array.from({length: 100}, (_, i) => i/10),
+                y: Array.from({length: 100}, (_, i) => 
+                    Math.exp(-Math.pow(i/10-5, 2)/2)/Math.sqrt(2*Math.PI)),
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Normal',
+                line: {color: '#ef4444'}
+            }];
+
+            const comparisonLayout = {
+                title: 'Distribution Comparison',
+                xaxis: {title: 'X'},
+                yaxis: {title: 'Probability'},
+                showlegend: true
+            };
+
+            Plotly.newPlot('distributionComparisonGraph', [binomData, normData], comparisonLayout);
+
+            // Regression Graph
+            const regressionData = [{
+                x: [1, 2, 3, 4],
+                y: [2, 4, 6, 8],
+                type: 'scatter',
+                mode: 'markers',
+                name: 'Data Points',
+                marker: {color: '#3b82f6'}
+            }, {
+                x: [0, 5],
+                y: [0, 10],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Regression Line',
+                line: {color: '#ef4444'}
+            }];
+
+            const regressionLayout = {
+                title: 'Scatter Plot with Regression Line',
+                xaxis: {title: 'X'},
+                yaxis: {title: 'Y'},
+                showlegend: true
+            };
+
+            Plotly.newPlot('regressionGraph', regressionData, regressionLayout);
+        }
+
+        // Initialize graphs when the page loads
+        document.addEventListener('DOMContentLoaded', initGraphs);
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Active section highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

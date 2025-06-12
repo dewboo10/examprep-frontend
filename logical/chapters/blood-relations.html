@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Relations - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .relation-tree {
+            font-family: monospace;
+            line-height: 1.5;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+
+        .answer.show {
+            display: block;
+        }
+
+        .relation-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .relation-table th, .relation-table td {
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        .relation-table th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+
+        .relation-table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .family-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .generation {
+            display: flex;
+            gap: 40px;
+            position: relative;
+        }
+
+        .person {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            position: relative;
+        }
+
+        .person.male {
+            border-color: #3b82f6;
+        }
+
+        .person.female {
+            border-color: #ec4899;
+        }
+
+        .person::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: #94a3b8;
+            top: -20px;
+        }
+
+        .person::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: #94a3b8;
+            bottom: -20px;
+        }
+
+        .relationship-line {
+            position: absolute;
+            background: #94a3b8;
+            height: 2px;
+            width: 40px;
+            top: 50%;
+        }
+
+        .relationship-line.left {
+            left: -40px;
+        }
+
+        .relationship-line.right {
+            right: -40px;
+        }
+
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Blood Relations
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of solving blood relation puzzles with our comprehensive guide.
+                Learn various solving methods, understand family trees, and practice with real examples.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#basic-relations" class="nav-link block">2. Basic Relations</a>
+                        <a href="#solving-methods" class="nav-link block">3. Solving Methods</a>
+                        <a href="#family-trees" class="nav-link block">4. Family Trees</a>
+                        <a href="#complex-relations" class="nav-link block">5. Complex Relations</a>
+                        <a href="#practice" class="nav-link block">6. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">7. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">Introduction to Blood Relations</h2>
+                    <p class="text-gray-600 mb-4">
+                        Blood Relations is a logical reasoning topic that tests your ability to understand and analyze family relationships.
+                        It involves determining relationships between family members based on given information.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why is it important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Frequently asked in competitive exams (CAT, GMAT, Bank PO, SSC, UPSC)</li>
+                            <li>Tests logical reasoning and analytical skills</li>
+                            <li>Improves ability to handle complex relationships</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Basic Relations -->
+                <section id="basic-relations" class="content-section card p-6">
+                    <h2 class="section-title">Basic Relations</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">Common Relations</h3>
+                            <div class="relation-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Relation</th>
+                                            <th>Description</th>
+                                            <th>Example</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Father's Father</td>
+                                            <td>Paternal Grandfather</td>
+                                            <td>Grandpa</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mother's Father</td>
+                                            <td>Maternal Grandfather</td>
+                                            <td>Nana</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Father's Brother</td>
+                                            <td>Paternal Uncle</td>
+                                            <td>Uncle</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mother's Brother</td>
+                                            <td>Maternal Uncle</td>
+                                            <td>Mama</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Father's Sister</td>
+                                            <td>Paternal Aunt</td>
+                                            <td>Bua</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mother's Sister</td>
+                                            <td>Maternal Aunt</td>
+                                            <td>Mausi</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">Family Tree Basics</h3>
+                            <div class="family-tree">
+                                <div class="generation">
+                                    <div class="person male">Grandpa</div>
+                                    <div class="person female">Grandma</div>
+                                </div>
+                                <div class="generation">
+                                    <div class="person male">Father</div>
+                                    <div class="person female">Mother</div>
+                                </div>
+                                <div class="generation">
+                                    <div class="person male">Son</div>
+                                    <div class="person female">Daughter</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Solving Methods -->
+                <section id="solving-methods" class="content-section card p-6">
+                    <h2 class="section-title">Solving Methods</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Direct Relation Method</h3>
+                            <div class="tip-box p-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Steps:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Identify the direct relationship mentioned</li>
+                                    <li>Draw a simple family tree</li>
+                                    <li>Add known relationships</li>
+                                    <li>Deduce unknown relationships</li>
+                                </ol>
+                                <div class="example-box p-4 mt-4">
+                                    <p class="mb-2">Example:</p>
+                                    <p class="mb-2">If A is B's father and B is C's father, then A is C's grandfather.</p>
+                                    <div class="family-tree">
+                                        <div class="generation">
+                                            <div class="person male">A</div>
+                                        </div>
+                                        <div class="generation">
+                                            <div class="person male">B</div>
+                                        </div>
+                                        <div class="generation">
+                                            <div class="person male">C</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Reverse Relation Method</h3>
+                            <div class="tip-box p-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Steps:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Start from the person whose relation is asked</li>
+                                    <li>Work backwards through the family tree</li>
+                                    <li>Use reverse relationships (e.g., father → son)</li>
+                                    <li>Verify the relationship chain</li>
+                                </ol>
+                                <div class="example-box p-4 mt-4">
+                                    <p class="mb-2">Example:</p>
+                                    <p class="mb-2">If C is B's son and B is A's son, then A is C's grandfather.</p>
+                                    <div class="family-tree">
+                                        <div class="generation">
+                                            <div class="person male">A</div>
+                                        </div>
+                                        <div class="generation">
+                                            <div class="person male">B</div>
+                                        </div>
+                                        <div class="generation">
+                                            <div class="person male">C</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Relationship Chain Method</h3>
+                            <div class="tip-box p-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Steps:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Create a chain of relationships</li>
+                                    <li>Use arrows to show relationships</li>
+                                    <li>Simplify complex chains</li>
+                                    <li>Verify the final relationship</li>
+                                </ol>
+                                <div class="example-box p-4 mt-4">
+                                    <p class="mb-2">Example:</p>
+                                    <p class="mb-2">A → B (father) → C (son) → D (daughter)</p>
+                                    <p class="mb-2">Therefore, A is D's grandfather</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Family Trees -->
+                <section id="family-trees" class="content-section card p-6">
+                    <h2 class="section-title">Family Trees</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">Basic Family Tree</h3>
+                            <div class="family-tree">
+                                <div class="generation">
+                                    <div class="person male">Grandpa</div>
+                                    <div class="person female">Grandma</div>
+                                </div>
+                                <div class="generation">
+                                    <div class="person male">Uncle</div>
+                                    <div class="person male">Father</div>
+                                    <div class="person female">Aunt</div>
+                                </div>
+                                <div class="generation">
+                                    <div class="person male">Cousin</div>
+                                    <div class="person male">Brother</div>
+                                    <div class="person female">Sister</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">Extended Family Tree</h3>
+                            <div class="family-tree">
+                                <div class="generation">
+                                    <div class="person male">Great Grandpa</div>
+                                    <div class="person female">Great Grandma</div>
+                                </div>
+                                <div class="generation">
+                                    <div class="person male">Grandpa</div>
+                                    <div class="person female">Grandma</div>
+                                </div>
+                                <div class="generation">
+                                    <div class="person male">Father</div>
+                                    <div class="person female">Mother</div>
+                                </div>
+                                <div class="generation">
+                                    <div class="person male">Son</div>
+                                    <div class="person female">Daughter</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Complex Relations -->
+                <section id="complex-relations" class="content-section card p-6">
+                    <h2 class="section-title">Complex Relations</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Multiple Generations</h3>
+                            <div class="tip-box p-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Steps:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Draw a multi-level family tree</li>
+                                    <li>Mark known relationships</li>
+                                    <li>Use generation markers</li>
+                                    <li>Verify relationships across generations</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Mixed Relations</h3>
+                            <div class="tip-box p-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Steps:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Identify all relationship types</li>
+                                    <li>Create separate trees for each side</li>
+                                    <li>Connect the trees at common points</li>
+                                    <li>Verify the complete relationship</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 1</h3>
+                                <span class="difficulty-badge difficulty-easy">Easy</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                If A is B's father and B is C's father, then:
+                                a) A is C's grandfather
+                                b) A is C's uncle
+                                c) A is C's father
+                                d) None of these
+                            </p>
+                            <button onclick="toggleAnswer('answer1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <div class="family-tree">
+                                    <div class="generation">
+                                        <div class="person male">A</div>
+                                    </div>
+                                    <div class="generation">
+                                        <div class="person male">B</div>
+                                    </div>
+                                    <div class="generation">
+                                        <div class="person male">C</div>
+                                    </div>
+                                </div>
+                                <p class="text-sm font-semibold">Answer: a) A is C's grandfather</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 2</h3>
+                                <span class="difficulty-badge difficulty-medium">Medium</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                If A is B's mother's father and B is C's father, then:
+                                a) A is C's grandfather
+                                b) A is C's uncle
+                                c) A is C's father
+                                d) None of these
+                            </p>
+                            <button onclick="toggleAnswer('answer2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <div class="family-tree">
+                                    <div class="generation">
+                                        <div class="person male">A</div>
+                                    </div>
+                                    <div class="generation">
+                                        <div class="person female">B's Mother</div>
+                                    </div>
+                                    <div class="generation">
+                                        <div class="person male">B</div>
+                                    </div>
+                                    <div class="generation">
+                                        <div class="person male">C</div>
+                                    </div>
+                                </div>
+                                <p class="text-sm font-semibold">Answer: a) A is C's grandfather</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">Pro Tips</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">1. Always Draw a Family Tree</h3>
+                            <p class="text-gray-700">Visual representation helps in understanding complex relationships.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">2. Use Gender Markers</h3>
+                            <p class="text-gray-700">Clearly mark male and female members to avoid confusion.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">3. Break Complex Relations</h3>
+                            <p class="text-gray-700">Break down complex relationships into simpler ones.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">4. Verify Relationships</h3>
+                            <p class="text-gray-700">Always verify the relationship chain from both directions.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

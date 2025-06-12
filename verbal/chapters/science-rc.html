@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Reading Comprehension - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .strategy-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-passage {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-passage:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .passage-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Science Reading Comprehension</h1>
+            <p class="text-lg text-gray-600">Master the art of understanding and analyzing scientific passages</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block text-gray-600 hover:text-blue-600">Introduction</a>
+                        <a href="#types" class="nav-link block text-gray-600 hover:text-blue-600">Types of Science Passages</a>
+                        <a href="#question-types" class="nav-link block text-gray-600 hover:text-blue-600">Question Types</a>
+                        <a href="#strategies" class="nav-link block text-gray-600 hover:text-blue-600">Reading Strategies</a>
+                        <a href="#practice" class="nav-link block text-gray-600 hover:text-blue-600">Practice Passages</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Introduction Section -->
+                <section id="introduction" class="card p-8 mb-8">
+                    <h2 class="section-title">Introduction to Science RC</h2>
+                    <p class="text-gray-700 mb-4">
+                        Science Reading Comprehension tests your ability to understand, analyze, and interpret scientific texts. These passages often contain complex concepts, technical terms, and data that require careful reading and analysis.
+                    </p>
+                    
+                    <div class="note-box">
+                        <h3 class="subsection-title">Key Skills Required</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Understanding scientific concepts and terminology</li>
+                            <li>Identifying main ideas and supporting details</li>
+                            <li>Analyzing relationships between ideas</li>
+                            <li>Evaluating scientific arguments and evidence</li>
+                            <li>Drawing inferences and conclusions</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Common Challenges</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Complex scientific terminology</li>
+                            <li>Dense information and data</li>
+                            <li>Technical explanations and processes</li>
+                            <li>Multiple related concepts</li>
+                            <li>Time management</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Types of Science Passages Section -->
+                <section id="types" class="card p-8 mb-8">
+                    <h2 class="section-title">Types of Science Passages</h2>
+                    
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Biology</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Ecosystems and environmental science</li>
+                            <li>Human anatomy and physiology</li>
+                            <li>Genetics and evolution</li>
+                            <li>Microbiology and diseases</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Physics</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Mechanics and motion</li>
+                            <li>Energy and thermodynamics</li>
+                            <li>Waves and optics</li>
+                            <li>Electricity and magnetism</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Chemistry</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Atomic structure and bonding</li>
+                            <li>Chemical reactions and equations</li>
+                            <li>Solutions and mixtures</li>
+                            <li>Organic and inorganic chemistry</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Earth Science</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Geology and plate tectonics</li>
+                            <li>Weather and climate</li>
+                            <li>Astronomy and space science</li>
+                            <li>Natural resources and conservation</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Question Types Section -->
+                <section id="question-types" class="card p-8 mb-8">
+                    <h2 class="section-title">Common Question Types</h2>
+                    
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Main Idea Questions</h3>
+                        <p class="text-gray-700 mb-2">These questions ask about the primary purpose or main point of the passage.</p>
+                        <div class="example-box">
+                            <p class="font-semibold">Example:</p>
+                            <p>"What is the main purpose of this passage?"</p>
+                            <p>"Which of the following best summarizes the main idea?"</p>
+                        </div>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Detail Questions</h3>
+                        <p class="text-gray-700 mb-2">These questions ask about specific information stated in the passage.</p>
+                        <div class="example-box">
+                            <p class="font-semibold">Example:</p>
+                            <p>"According to the passage, what causes X?"</p>
+                            <p>"The passage states that..."</p>
+                        </div>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Inference Questions</h3>
+                        <p class="text-gray-700 mb-2">These questions ask you to draw conclusions based on the information provided.</p>
+                        <div class="example-box">
+                            <p class="font-semibold">Example:</p>
+                            <p>"It can be inferred from the passage that..."</p>
+                            <p>"The author would most likely agree that..."</p>
+                        </div>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Vocabulary Questions</h3>
+                        <p class="text-gray-700 mb-2">These questions test your understanding of scientific terms in context.</p>
+                        <div class="example-box">
+                            <p class="font-semibold">Example:</p>
+                            <p>"In line X, the word 'Y' most nearly means..."</p>
+                            <p>"The term 'Z' as used in the passage refers to..."</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reading Strategies Section -->
+                <section id="strategies" class="card p-8 mb-8">
+                    <h2 class="section-title">Reading Strategies</h2>
+                    
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Pre-reading</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Skim the questions first</li>
+                            <li>Identify key terms and concepts</li>
+                            <li>Note the passage structure</li>
+                            <li>Look for headings and subheadings</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Active Reading</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Underline key terms and concepts</li>
+                            <li>Mark important relationships</li>
+                            <li>Note examples and evidence</li>
+                            <li>Identify cause-effect relationships</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Post-reading</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Summarize main points</li>
+                            <li>Review marked information</li>
+                            <li>Check understanding of key concepts</li>
+                            <li>Relate information to questions</li>
+                        </ul>
+                    </div>
+
+                    <div class="note-box">
+                        <h3 class="subsection-title">Time Management Tips</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Allocate time for reading and questions</li>
+                            <li>Start with easier questions</li>
+                            <li>Mark difficult questions for review</li>
+                            <li>Keep track of time per passage</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Glossary Section -->
+                <section id="glossary" class="card p-8 mb-8">
+                    <h2 class="section-title">Common Science Terms and Complex Words</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="strategy-box">
+                            <h3 class="subsection-title">Biology Terms</h3>
+                            <ul class="space-y-2">
+                                <li><span class="font-semibold">Pathogen:</span> A microorganism that causes disease</li>
+                                <li><span class="font-semibold">Antibody:</span> A protein produced by the immune system to fight pathogens</li>
+                                <li><span class="font-semibold">Homeostasis:</span> The maintenance of stable internal conditions</li>
+                                <li><span class="font-semibold">Metabolism:</span> The chemical processes in living organisms</li>
+                                <li><span class="font-semibold">Enzyme:</span> A protein that speeds up chemical reactions</li>
+                                <li><span class="font-semibold">Mitosis:</span> Cell division for growth and repair</li>
+                                <li><span class="font-semibold">Meiosis:</span> Cell division for reproduction</li>
+                                <li><span class="font-semibold">Ecosystem:</span> A community of living organisms and their environment</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-box">
+                            <h3 class="subsection-title">Physics Terms</h3>
+                            <ul class="space-y-2">
+                                <li><span class="font-semibold">Quantum:</span> The smallest unit of physical property</li>
+                                <li><span class="font-semibold">Entropy:</span> A measure of disorder in a system</li>
+                                <li><span class="font-semibold">Kinetic:</span> Relating to motion</li>
+                                <li><span class="font-semibold">Potential:</span> Stored energy</li>
+                                <li><span class="font-semibold">Wavelength:</span> Distance between wave peaks</li>
+                                <li><span class="font-semibold">Frequency:</span> Number of wave cycles per second</li>
+                                <li><span class="font-semibold">Momentum:</span> Mass × velocity</li>
+                                <li><span class="font-semibold">Inertia:</span> Resistance to change in motion</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-box">
+                            <h3 class="subsection-title">Chemistry Terms</h3>
+                            <ul class="space-y-2">
+                                <li><span class="font-semibold">Catalyst:</span> Substance that speeds up reactions</li>
+                                <li><span class="font-semibold">Ion:</span> Charged atom or molecule</li>
+                                <li><span class="font-semibold">Isotope:</span> Variant of an element with different neutrons</li>
+                                <li><span class="font-semibold">Molecule:</span> Group of bonded atoms</li>
+                                <li><span class="font-semibold">Compound:</span> Substance made of different elements</li>
+                                <li><span class="font-semibold">Solution:</span> Homogeneous mixture</li>
+                                <li><span class="font-semibold">pH:</span> Measure of acidity/basicity</li>
+                                <li><span class="font-semibold">Oxidation:</span> Loss of electrons</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-box">
+                            <h3 class="subsection-title">Earth Science Terms</h3>
+                            <ul class="space-y-2">
+                                <li><span class="font-semibold">Tectonic:</span> Relating to Earth's crust movement</li>
+                                <li><span class="font-semibold">Sediment:</span> Material deposited by water/wind</li>
+                                <li><span class="font-semibold">Erosion:</span> Wearing away of land</li>
+                                <li><span class="font-semibold">Atmosphere:</span> Layer of gases around Earth</li>
+                                <li><span class="font-semibold">Biosphere:</span> Zone of life on Earth</li>
+                                <li><span class="font-semibold">Lithosphere:</span> Earth's solid outer layer</li>
+                                <li><span class="font-semibold">Hydrosphere:</span> All water on Earth</li>
+                                <li><span class="font-semibold">Stratosphere:</span> Upper atmosphere layer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Passages Section -->
+                <section id="practice" class="card p-8 mb-8">
+                    <h2 class="section-title">Practice Passages</h2>
+
+                    <!-- Biology Passages -->
+                    <h3 class="subsection-title">Biology Passages</h3>
+                    
+                    <!-- Passage 1 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Photosynthesis is the process by which plants convert light energy into chemical energy. This complex process involves multiple steps and various cellular components. The primary site of photosynthesis is the chloroplast, which contains the green pigment chlorophyll.</p>
+                            <p>The process begins when light energy is absorbed by chlorophyll molecules. This energy is used to split water molecules, releasing oxygen as a byproduct. The energy from this reaction is then used to convert carbon dioxide and water into glucose and oxygen.</p>
+                            <p>Photosynthesis is crucial for life on Earth as it provides the primary source of energy for most ecosystems. It also plays a vital role in the carbon cycle, helping to regulate atmospheric carbon dioxide levels.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('bio1q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="bio1q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the process of photosynthesis, its components, and its importance in ecosystems and the carbon cycle.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what is the role of chlorophyll in photosynthesis?
+                        </div>
+                        <button onclick="toggleSolution('bio1q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="bio1q2" class="solution-text hidden mt-4">
+                            <p>Chlorophyll absorbs light energy, which is then used to split water molecules and initiate the photosynthesis process.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 2 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>DNA replication is a fundamental process in cell division. It ensures that each new cell receives an exact copy of the genetic material. The process is highly accurate, with multiple proofreading mechanisms to prevent errors.</p>
+                            <p>The replication process begins when the double helix unwinds, creating two template strands. DNA polymerase then adds complementary nucleotides to each strand, following the base-pairing rules: adenine pairs with thymine, and guanine pairs with cytosine.</p>
+                            <p>Errors in DNA replication can lead to mutations, which may have various effects on the organism. Some mutations are harmless, while others can cause genetic disorders or contribute to the development of cancer.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Inference</div>
+                        <div class="question-text">
+                            What can be inferred about the importance of DNA replication accuracy?
+                        </div>
+                        <button onclick="toggleSolution('bio2q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="bio2q1" class="solution-text hidden mt-4">
+                            <p>The accuracy of DNA replication is crucial because errors can lead to mutations that may cause genetic disorders or cancer, highlighting the importance of the proofreading mechanisms.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Vocabulary</div>
+                        <div class="question-text">
+                            In the context of the passage, what does "template" most likely mean?
+                        </div>
+                        <button onclick="toggleSolution('bio2q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="bio2q2" class="solution-text hidden mt-4">
+                            <p>A template in this context refers to the original DNA strand that serves as a pattern for creating a new complementary strand during replication.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 3 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>The human nervous system is a complex network of specialized cells that coordinate body activities. It consists of two main parts: the central nervous system (CNS) and the peripheral nervous system (PNS). The CNS includes the brain and spinal cord, while the PNS consists of nerves that connect the CNS to the rest of the body.</p>
+                            <p>Neurons, the basic units of the nervous system, transmit electrical signals called action potentials. These signals travel along the neuron's axon and are transmitted to other neurons through specialized junctions called synapses. The transmission of signals between neurons involves both electrical and chemical processes.</p>
+                            <p>Neurotransmitters, chemical messengers released at synapses, play a crucial role in signal transmission. Different neurotransmitters have different effects on target cells, influencing various bodily functions from muscle movement to emotional responses.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('bio3q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="bio3q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the structure and function of the human nervous system, focusing on the role of neurons and neurotransmitters in signal transmission.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what are the two main components of the nervous system?
+                        </div>
+                        <button onclick="toggleSolution('bio3q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="bio3q2" class="solution-text hidden mt-4">
+                            <p>The two main components are the central nervous system (CNS) and the peripheral nervous system (PNS).</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 4 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Evolution by natural selection is a fundamental concept in biology that explains how species change over time. The process involves three key components: variation within populations, inheritance of traits, and differential survival and reproduction.</p>
+                            <p>Genetic mutations provide the raw material for evolution, creating variations in traits. These variations can be beneficial, harmful, or neutral to an organism's survival and reproduction. Over generations, beneficial traits become more common in the population, while harmful traits become less common.</p>
+                            <p>Natural selection acts on these variations, favoring traits that enhance survival and reproduction in a given environment. This process can lead to the development of new species through a process called speciation, where populations become genetically distinct from their ancestors.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Inference</div>
+                        <div class="question-text">
+                            What can be inferred about the role of mutations in evolution?
+                        </div>
+                        <button onclick="toggleSolution('bio4q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="bio4q1" class="solution-text hidden mt-4">
+                            <p>Mutations are essential for evolution as they create the genetic variations that natural selection acts upon, providing the raw material for evolutionary change.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Vocabulary</div>
+                        <div class="question-text">
+                            In the context of the passage, what does "speciation" most likely mean?
+                        </div>
+                        <button onclick="toggleSolution('bio4q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="bio4q2" class="solution-text hidden mt-4">
+                            <p>Speciation refers to the process by which populations become genetically distinct from their ancestors, potentially leading to the formation of new species.</p>
+                        </div>
+                    </div>
+
+                    <!-- Physics Passages -->
+                    <h3 class="subsection-title mt-8">Physics Passages</h3>
+                    
+                    <!-- Passage 1 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Special relativity, developed by Albert Einstein, revolutionized our understanding of space and time. The theory is based on two fundamental principles: the laws of physics are the same for all observers in uniform motion, and the speed of light is constant regardless of the observer's motion.</p>
+                            <p>One of the most famous consequences of special relativity is the equation E=mc², which shows the equivalence of mass and energy. This relationship has profound implications for nuclear physics and our understanding of the universe.</p>
+                            <p>The theory also predicts time dilation and length contraction, phenomena that become significant at speeds approaching the speed of light. These effects have been confirmed through various experiments and are crucial for modern technologies like GPS.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('phy1q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="phy1q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the fundamental principles of special relativity, its key consequences, and its practical applications in modern technology.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what are the two fundamental principles of special relativity?
+                        </div>
+                        <button onclick="toggleSolution('phy1q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="phy1q2" class="solution-text hidden mt-4">
+                            <p>The two principles are: 1) The laws of physics are the same for all observers in uniform motion, and 2) The speed of light is constant regardless of the observer's motion.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 2 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Electromagnetic waves are a form of energy that can travel through space. They consist of oscillating electric and magnetic fields that are perpendicular to each other and to the direction of wave propagation. The electromagnetic spectrum includes various types of waves, from radio waves to gamma rays, differing in wavelength and frequency.</p>
+                            <p>The speed of electromagnetic waves in a vacuum is constant, approximately 3 × 10⁸ meters per second. This speed is known as the speed of light. The wavelength and frequency of electromagnetic waves are inversely related: as wavelength increases, frequency decreases, and vice versa.</p>
+                            <p>Different types of electromagnetic waves have different applications. For example, radio waves are used for communication, microwaves for cooking, and X-rays for medical imaging. The energy carried by these waves increases with frequency, making high-frequency waves like gamma rays potentially dangerous to living organisms.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('phy2q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="phy2q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the nature of electromagnetic waves, their properties, and their various applications in different fields.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what is the relationship between wavelength and frequency in electromagnetic waves?
+                        </div>
+                        <button onclick="toggleSolution('phy2q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="phy2q2" class="solution-text hidden mt-4">
+                            <p>Wavelength and frequency are inversely related: as wavelength increases, frequency decreases, and vice versa.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 3 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Thermodynamics is the study of heat and its relationship to other forms of energy. The first law of thermodynamics states that energy cannot be created or destroyed, only converted from one form to another. The second law introduces the concept of entropy, which measures the disorder or randomness in a system.</p>
+                            <p>Heat engines, such as those in cars and power plants, operate based on these thermodynamic principles. They convert thermal energy into mechanical work by exploiting temperature differences. The efficiency of these engines is limited by the second law of thermodynamics, which states that some energy will always be lost as heat.</p>
+                            <p>Understanding thermodynamics is crucial for various applications, from designing more efficient engines to developing new energy technologies. It also has implications for our understanding of the universe's evolution and the ultimate fate of matter and energy.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Inference</div>
+                        <div class="question-text">
+                            What can be inferred about the efficiency of heat engines?
+                        </div>
+                        <button onclick="toggleSolution('phy3q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="phy3q1" class="solution-text hidden mt-4">
+                            <p>Heat engines can never be 100% efficient because the second law of thermodynamics requires that some energy be lost as heat during the conversion process.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Vocabulary</div>
+                        <div class="question-text">
+                            In the context of the passage, what does "entropy" most likely mean?
+                        </div>
+                        <button onclick="toggleSolution('phy3q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="phy3q2" class="solution-text hidden mt-4">
+                            <p>Entropy is a measure of the disorder or randomness in a system, as introduced by the second law of thermodynamics.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 4 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Quantum mechanics describes the behavior of matter and energy at the atomic and subatomic levels. One of its key principles is the uncertainty principle, formulated by Werner Heisenberg, which states that it is impossible to simultaneously know both the position and momentum of a particle with perfect precision.</p>
+                            <p>Another fundamental concept is wave-particle duality, which suggests that particles can exhibit both wave-like and particle-like properties. This duality is demonstrated in experiments like the double-slit experiment, where particles create interference patterns characteristic of waves.</p>
+                            <p>Quantum mechanics has led to numerous technological applications, including lasers, transistors, and quantum computers. It also provides the theoretical foundation for understanding atomic structure and chemical bonding.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('phy4q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="phy4q1" class="solution-text hidden mt-4">
+                            <p>The passage explains key principles of quantum mechanics, including the uncertainty principle and wave-particle duality, and their practical applications.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what is the uncertainty principle?
+                        </div>
+                        <button onclick="toggleSolution('phy4q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="phy4q2" class="solution-text hidden mt-4">
+                            <p>The uncertainty principle states that it is impossible to simultaneously know both the position and momentum of a particle with perfect precision.</p>
+                        </div>
+                    </div>
+
+                    <!-- Chemistry Passages -->
+                    <h3 class="subsection-title mt-8">Chemistry Passages</h3>
+                    
+                    <!-- Passage 1 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Chemical bonding is the process by which atoms combine to form molecules. There are three main types of chemical bonds: ionic, covalent, and metallic. Each type of bond has distinct properties and characteristics.</p>
+                            <p>Ionic bonds form when electrons are transferred between atoms, creating charged ions that attract each other. Covalent bonds occur when atoms share electrons, creating a stable electron configuration. Metallic bonds involve a "sea" of delocalized electrons that move freely between metal atoms.</p>
+                            <p>The type of bond formed depends on the electronegativity of the atoms involved and their tendency to gain or lose electrons. These bonds determine many physical and chemical properties of substances, including melting point, boiling point, and electrical conductivity.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('chem1q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="chem1q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the three main types of chemical bonds, how they form, and their influence on the properties of substances.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what determines the type of bond formed between atoms?
+                        </div>
+                        <button onclick="toggleSolution('chem1q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="chem1q2" class="solution-text hidden mt-4">
+                            <p>The type of bond formed depends on the electronegativity of the atoms involved and their tendency to gain or lose electrons.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 2 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Acids and bases are fundamental concepts in chemistry that describe the behavior of substances in solution. Acids are substances that donate hydrogen ions (H⁺), while bases accept hydrogen ions. The pH scale, ranging from 0 to 14, measures the acidity or basicity of a solution.</p>
+                            <p>Strong acids and bases completely dissociate in water, while weak acids and bases only partially dissociate. The strength of an acid or base is determined by its ability to donate or accept hydrogen ions. Buffer solutions, which contain both a weak acid and its conjugate base, resist changes in pH when small amounts of acid or base are added.</p>
+                            <p>Understanding acids and bases is crucial for various applications, from industrial processes to biological systems. The human body maintains a delicate pH balance, and deviations from this balance can have serious health consequences.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('chem2q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="chem2q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the concepts of acids and bases, their behavior in solution, and their importance in various applications.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what is the difference between strong and weak acids?
+                        </div>
+                        <button onclick="toggleSolution('chem2q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="chem2q2" class="solution-text hidden mt-4">
+                            <p>Strong acids completely dissociate in water, while weak acids only partially dissociate.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 3 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Chemical equilibrium is a state in which the rates of forward and reverse reactions are equal, resulting in no net change in the concentrations of reactants and products. This concept is described by the equilibrium constant, which relates the concentrations of products and reactants at equilibrium.</p>
+                            <p>Le Chatelier's principle states that when a system at equilibrium is disturbed, it will shift to counteract the disturbance and restore equilibrium. This principle is used to predict how changes in concentration, temperature, or pressure affect chemical reactions.</p>
+                            <p>Understanding chemical equilibrium is essential for various industrial processes, such as the Haber process for ammonia synthesis and the Contact process for sulfuric acid production. It also plays a crucial role in biological systems, where many reactions are reversible and must maintain equilibrium for proper function.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Inference</div>
+                        <div class="question-text">
+                            What can be inferred about the importance of chemical equilibrium in industrial processes?
+                        </div>
+                        <button onclick="toggleSolution('chem3q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="chem3q1" class="solution-text hidden mt-4">
+                            <p>Chemical equilibrium is crucial for industrial processes as it allows for the optimization of reaction conditions to maximize product yield and efficiency.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Vocabulary</div>
+                        <div class="question-text">
+                            In the context of the passage, what does "equilibrium constant" most likely mean?
+                        </div>
+                        <button onclick="toggleSolution('chem3q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="chem3q2" class="solution-text hidden mt-4">
+                            <p>The equilibrium constant is a value that relates the concentrations of products and reactants at equilibrium, indicating the extent to which a reaction proceeds.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 4 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Organic chemistry is the study of carbon-containing compounds and their reactions. Carbon's unique ability to form four covalent bonds allows it to create a vast array of structures, from simple molecules like methane to complex polymers like DNA.</p>
+                            <p>Functional groups, specific arrangements of atoms within molecules, determine the chemical properties and reactivity of organic compounds. Common functional groups include alcohols, aldehydes, ketones, and carboxylic acids. These groups can undergo various reactions, such as oxidation, reduction, and substitution.</p>
+                            <p>Understanding organic chemistry is essential for fields ranging from medicine to materials science. Many pharmaceuticals, plastics, and fuels are organic compounds, and their synthesis and modification rely on organic chemical principles.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('chem4q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="chem4q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the fundamentals of organic chemistry, focusing on carbon's bonding capabilities and the importance of functional groups in determining chemical properties.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what determines the chemical properties of organic compounds?
+                        </div>
+                        <button onclick="toggleSolution('chem4q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="chem4q2" class="solution-text hidden mt-4">
+                            <p>Functional groups, specific arrangements of atoms within molecules, determine the chemical properties and reactivity of organic compounds.</p>
+                        </div>
+                    </div>
+
+                    <!-- Earth Science Passages -->
+                    <h3 class="subsection-title mt-8">Earth Science Passages</h3>
+                    
+                    <!-- Passage 1 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Plate tectonics is the scientific theory that explains the movement of Earth's lithosphere. The lithosphere is divided into several large and small plates that float on the semi-fluid asthenosphere beneath them.</p>
+                            <p>These plates move due to convection currents in the mantle, driven by heat from Earth's core. The movement of plates can cause various geological phenomena, including earthquakes, volcanic eruptions, and the formation of mountain ranges.</p>
+                            <p>There are three main types of plate boundaries: divergent, where plates move apart; convergent, where plates collide; and transform, where plates slide past each other. Each type of boundary is associated with specific geological features and hazards.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('earth1q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="earth1q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the theory of plate tectonics, the movement of Earth's plates, and the geological phenomena associated with different types of plate boundaries.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what causes the movement of tectonic plates?
+                        </div>
+                        <button onclick="toggleSolution('earth1q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="earth1q2" class="solution-text hidden mt-4">
+                            <p>The movement of tectonic plates is caused by convection currents in the mantle, which are driven by heat from Earth's core.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 2 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>The water cycle, also known as the hydrologic cycle, describes the continuous movement of water on, above, and below the Earth's surface. This cycle involves several processes: evaporation, condensation, precipitation, and runoff.</p>
+                            <p>Water evaporates from oceans, lakes, and rivers, forming water vapor in the atmosphere. This vapor condenses to form clouds, which eventually release water as precipitation. Some of this water infiltrates the ground, while the rest flows over the surface as runoff, eventually returning to bodies of water.</p>
+                            <p>The water cycle is crucial for maintaining Earth's climate and supporting life. It distributes heat around the globe, shapes landscapes through erosion and deposition, and provides fresh water for plants, animals, and human use.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('earth2q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="earth2q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the water cycle, its processes, and its importance in maintaining Earth's climate and supporting life.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, what are the main processes involved in the water cycle?
+                        </div>
+                        <button onclick="toggleSolution('earth2q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="earth2q2" class="solution-text hidden mt-4">
+                            <p>The main processes are evaporation, condensation, precipitation, and runoff.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 3 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Climate change refers to long-term shifts in temperature and weather patterns. These changes can be natural, such as variations in solar radiation, or human-induced, primarily through the emission of greenhouse gases like carbon dioxide and methane.</p>
+                            <p>The greenhouse effect, a natural process that warms the Earth's surface, is enhanced by human activities. Increased concentrations of greenhouse gases trap more heat in the atmosphere, leading to global warming. This warming affects various aspects of the climate system, including sea levels, precipitation patterns, and the frequency of extreme weather events.</p>
+                            <p>Understanding climate change is crucial for developing strategies to mitigate its impacts and adapt to changing conditions. This includes reducing greenhouse gas emissions, developing renewable energy sources, and implementing policies to protect vulnerable ecosystems and communities.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Inference</div>
+                        <div class="question-text">
+                            What can be inferred about the role of human activities in climate change?
+                        </div>
+                        <button onclick="toggleSolution('earth3q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="earth3q1" class="solution-text hidden mt-4">
+                            <p>Human activities, particularly the emission of greenhouse gases, significantly contribute to climate change by enhancing the natural greenhouse effect.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Vocabulary</div>
+                        <div class="question-text">
+                            In the context of the passage, what does "greenhouse effect" most likely mean?
+                        </div>
+                        <button onclick="toggleSolution('earth3q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="earth3q2" class="solution-text hidden mt-4">
+                            <p>The greenhouse effect is a natural process that warms the Earth's surface by trapping heat in the atmosphere, similar to how a greenhouse traps heat.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passage 4 -->
+                    <div class="practice-passage">
+                        <div class="passage-text">
+                            <p>Rocks are naturally occurring solid aggregates of minerals. They are classified into three main types: igneous, sedimentary, and metamorphic. Each type forms through different geological processes and has distinct characteristics.</p>
+                            <p>Igneous rocks form from the cooling and solidification of magma or lava. Sedimentary rocks are created through the accumulation and cementation of mineral and organic particles. Metamorphic rocks result from the transformation of existing rocks under high pressure and temperature.</p>
+                            <p>The rock cycle describes how rocks can change from one type to another over geological time. This cycle is driven by various processes, including weathering, erosion, deposition, and tectonic activity. Understanding the rock cycle is essential for studying Earth's history and the formation of natural resources.</p>
+                        </div>
+
+                        <div class="question-number">Question 1: Main Idea</div>
+                        <div class="question-text">
+                            What is the main purpose of this passage?
+                        </div>
+                        <button onclick="toggleSolution('earth4q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="earth4q1" class="solution-text hidden mt-4">
+                            <p>The passage explains the classification of rocks into three main types, their formation processes, and the concept of the rock cycle.</p>
+                        </div>
+
+                        <div class="question-number mt-4">Question 2: Detail</div>
+                        <div class="question-text">
+                            According to the passage, how do metamorphic rocks form?
+                        </div>
+                        <button onclick="toggleSolution('earth4q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Click for Solution
+                        </button>
+                        <div id="earth4q2" class="solution-text hidden mt-4">
+                            <p>Metamorphic rocks form through the transformation of existing rocks under high pressure and temperature.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Active section highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Toggle solution visibility
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            solution.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html> 

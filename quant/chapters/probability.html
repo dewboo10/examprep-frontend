@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .venn-diagram {
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem auto;
+        }
+
+        .tree-diagram {
+            width: 100%;
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Probability</h1>
+            <p class="text-lg text-gray-600">Master the fundamentals of probability theory and its applications</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block text-gray-600 hover:text-blue-600">Introduction</a>
+                        <a href="#basic-concepts" class="nav-link block text-gray-600 hover:text-blue-600">Basic Concepts</a>
+                        <a href="#types-events" class="nav-link block text-gray-600 hover:text-blue-600">Types of Events</a>
+                        <a href="#probability-rules" class="nav-link block text-gray-600 hover:text-blue-600">Probability Rules</a>
+                        <a href="#conditional" class="nav-link block text-gray-600 hover:text-blue-600">Conditional Probability</a>
+                        <a href="#bayes" class="nav-link block text-gray-600 hover:text-blue-600">Bayes' Theorem</a>
+                        <a href="#practice" class="nav-link block text-gray-600 hover:text-blue-600">Practice Questions</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Introduction Section -->
+                <section id="introduction" class="card p-8 mb-8">
+                    <h2 class="section-title">Introduction to Probability</h2>
+                    <p class="text-gray-700 mb-4">
+                        Probability is the branch of mathematics that deals with the likelihood of events occurring. It helps us quantify uncertainty and make informed decisions based on data.
+                    </p>
+                    
+                    <div class="note-box">
+                        <h3 class="subsection-title">Key Concepts</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Experiment: A process that produces outcomes</li>
+                            <li>Sample Space: Set of all possible outcomes</li>
+                            <li>Event: Subset of the sample space</li>
+                            <li>Probability: Measure of likelihood (0 to 1)</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Basic Probability Formula</h3>
+                        <p class="text-center font-mono">P(A) = n(A)/n(S)</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>P(A) is the probability of event A</li>
+                            <li>n(A) is the number of favorable outcomes</li>
+                            <li>n(S) is the total number of possible outcomes</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Basic Concepts Section -->
+                <section id="basic-concepts" class="card p-8 mb-8">
+                    <h2 class="section-title">Basic Concepts</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Sample Space</h3>
+                        <p class="text-gray-700 mb-2">Examples:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Coin toss: S = {H, T}</li>
+                            <li>Die roll: S = {1, 2, 3, 4, 5, 6}</li>
+                            <li>Two coins: S = {HH, HT, TH, TT}</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Events</h3>
+                        <p class="text-gray-700 mb-2">Types of events:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Simple event: Single outcome</li>
+                            <li>Compound event: Multiple outcomes</li>
+                            <li>Impossible event: P(A) = 0</li>
+                            <li>Certain event: P(A) = 1</li>
+                        </ul>
+                    </div>
+
+                    <div class="venn-diagram">
+                        <div id="basicVennDiagram" style="height: 400px;"></div>
+                    </div>
+                </section>
+
+                <!-- Types of Events Section -->
+                <section id="types-events" class="card p-8 mb-8">
+                    <h2 class="section-title">Types of Events</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Mutually Exclusive Events</h3>
+                        <p class="text-gray-700 mb-2">Events that cannot occur simultaneously:</p>
+                        <p class="text-center font-mono">P(A ∩ B) = 0</p>
+                        <p class="text-center font-mono">P(A ∪ B) = P(A) + P(B)</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Independent Events</h3>
+                        <p class="text-gray-700 mb-2">Events where one does not affect the other:</p>
+                        <p class="text-center font-mono">P(A ∩ B) = P(A) × P(B)</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Complementary Events</h3>
+                        <p class="text-gray-700 mb-2">Events that are mutually exclusive and exhaustive:</p>
+                        <p class="text-center font-mono">P(A') = 1 - P(A)</p>
+                    </div>
+
+                    <div class="venn-diagram">
+                        <div id="eventsVennDiagram" style="height: 400px;"></div>
+                    </div>
+                </section>
+
+                <!-- Probability Rules Section -->
+                <section id="probability-rules" class="card p-8 mb-8">
+                    <h2 class="section-title">Probability Rules</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Addition Rule</h3>
+                        <p class="text-center font-mono">P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Multiplication Rule</h3>
+                        <p class="text-center font-mono">P(A ∩ B) = P(A) × P(B|A)</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Complement Rule</h3>
+                        <p class="text-center font-mono">P(A') = 1 - P(A)</p>
+                    </div>
+
+                    <div class="tree-diagram">
+                        <div id="probabilityTree" style="height: 400px;"></div>
+                    </div>
+                </section>
+
+                <!-- Conditional Probability Section -->
+                <section id="conditional" class="card p-8 mb-8">
+                    <h2 class="section-title">Conditional Probability</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Definition</h3>
+                        <p class="text-center font-mono">P(A|B) = P(A ∩ B)/P(B)</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Properties</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>0 ≤ P(A|B) ≤ 1</li>
+                            <li>P(S|B) = 1</li>
+                            <li>P(A'|B) = 1 - P(A|B)</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example</h3>
+                        <p class="text-gray-700">In a class of 30 students, 20 are boys and 10 are girls. 5 boys and 3 girls wear glasses. What is the probability that a student wears glasses given that they are a boy?</p>
+                        <p class="text-gray-700 mt-2">P(Glasses|Boy) = 5/20 = 0.25</p>
+                    </div>
+                </section>
+
+                <!-- Bayes' Theorem Section -->
+                <section id="bayes" class="card p-8 mb-8">
+                    <h2 class="section-title">Bayes' Theorem</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Formula</h3>
+                        <p class="text-center font-mono">P(A|B) = P(B|A) × P(A)/P(B)</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Law of Total Probability</h3>
+                        <p class="text-center font-mono">P(B) = Σ P(B|Aᵢ) × P(Aᵢ)</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example</h3>
+                        <p class="text-gray-700">A factory has two machines. Machine A produces 60% of items and Machine B produces 40%. 5% of items from Machine A are defective, while 3% from Machine B are defective. If an item is defective, what is the probability it came from Machine A?</p>
+                        <p class="text-gray-700 mt-2">P(A|D) = (0.05 × 0.6)/(0.05 × 0.6 + 0.03 × 0.4) = 0.714</p>
+                    </div>
+                </section>
+
+                <!-- Practice Questions Section -->
+                <section id="practice" class="card p-8 mb-8">
+                    <h2 class="section-title">Practice Questions</h2>
+
+                    <!-- Basic Probability Questions -->
+                    <h3 class="subsection-title">Basic Probability</h3>
+                    
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Simple Probability</div>
+                        <div class="question-text">
+                            A bag contains 5 red, 3 blue, and 2 green balls. What is the probability of drawing a red ball?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Total balls = 10</p>
+                            <p>Red balls = 5</p>
+                            <p>Probability = 5/10 = 0.5</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Multiple Events</div>
+                        <div class="question-text">
+                            Two dice are rolled. What is the probability of getting a sum of 7?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>Favorable outcomes: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1)</p>
+                            <p>Total outcomes = 36</p>
+                            <p>Probability = 6/36 = 1/6</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Complementary Events</div>
+                        <div class="question-text">
+                            The probability of rain tomorrow is 0.3. What is the probability that it will not rain?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(No rain) = 1 - P(Rain)</p>
+                            <p>= 1 - 0.3 = 0.7</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Combined Probability</div>
+                        <div class="question-text">
+                            A box contains 4 red and 6 blue marbles. Two marbles are drawn without replacement. What is the probability that both are red?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(First red) = 4/10</p>
+                            <p>P(Second red) = 3/9</p>
+                            <p>P(Both red) = (4/10) × (3/9) = 2/15</p>
+                        </div>
+                    </div>
+
+                    <!-- Conditional Probability Questions -->
+                    <h3 class="subsection-title">Conditional Probability</h3>
+                    
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Basic Conditional</div>
+                        <div class="question-text">
+                            In a class of 30 students, 20 are boys and 10 are girls. 5 boys and 3 girls wear glasses. What is the probability that a student wears glasses given that they are a boy?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(Glasses|Boy) = 5/20 = 0.25</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Multiple Conditions</div>
+                        <div class="question-text">
+                            A bag contains 3 red and 4 blue balls. Two balls are drawn without replacement. What is the probability that the second ball is red given that the first was blue?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>After first draw: 3 red, 3 blue balls</p>
+                            <p>P(Second red|First blue) = 3/6 = 0.5</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Independent Events</div>
+                        <div class="question-text">
+                            A coin is tossed twice. What is the probability of getting heads both times?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(First head) = 1/2</p>
+                            <p>P(Second head) = 1/2</p>
+                            <p>P(Both heads) = (1/2) × (1/2) = 1/4</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Dependent Events</div>
+                        <div class="question-text">
+                            A deck of 52 cards is shuffled. What is the probability of drawing two aces without replacement?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(First ace) = 4/52</p>
+                            <p>P(Second ace) = 3/51</p>
+                            <p>P(Two aces) = (4/52) × (3/51) = 1/221</p>
+                        </div>
+                    </div>
+
+                    <!-- Bayes' Theorem Questions -->
+                    <h3 class="subsection-title">Bayes' Theorem</h3>
+                    
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Basic Bayes</div>
+                        <div class="question-text">
+                            A factory has two machines. Machine A produces 60% of items and Machine B produces 40%. 5% of items from Machine A are defective, while 3% from Machine B are defective. If an item is defective, what is the probability it came from Machine A?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(A|D) = (0.05 × 0.6)/(0.05 × 0.6 + 0.03 × 0.4)</p>
+                            <p>= 0.714</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Multiple Sources</div>
+                        <div class="question-text">
+                            A company has three suppliers. Supplier A provides 50% of parts, B provides 30%, and C provides 20%. The defect rates are 2%, 3%, and 4% respectively. If a part is defective, what is the probability it came from Supplier B?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(B|D) = (0.03 × 0.3)/(0.02 × 0.5 + 0.03 × 0.3 + 0.04 × 0.2)</p>
+                            <p>= 0.333</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Medical Test</div>
+                        <div class="question-text">
+                            A medical test is 95% accurate. 1% of the population has the disease. If a person tests positive, what is the probability they actually have the disease?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(D|T+) = (0.95 × 0.01)/(0.95 × 0.01 + 0.05 × 0.99)</p>
+                            <p>= 0.161</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Weather Forecast</div>
+                        <div class="question-text">
+                            A weather forecast is 80% accurate. The probability of rain is 30%. If the forecast predicts rain, what is the probability it will actually rain?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>P(R|F) = (0.8 × 0.3)/(0.8 × 0.3 + 0.2 × 0.7)</p>
+                            <p>= 0.632</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize diagrams
+        function initDiagrams() {
+            // Basic Venn Diagram
+            const basicVennData = [{
+                type: 'scatter',
+                x: [0.5, 0.7],
+                y: [0.5, 0.5],
+                mode: 'markers+text',
+                text: ['A', 'B'],
+                textposition: 'top center',
+                marker: {size: 20, color: ['#3b82f6', '#ef4444']}
+            }];
+
+            const basicVennLayout = {
+                title: 'Basic Events',
+                xaxis: {range: [0, 1], showticklabels: false},
+                yaxis: {range: [0, 1], showticklabels: false},
+                shapes: [{
+                    type: 'circle',
+                    x0: 0.3,
+                    y0: 0.3,
+                    x1: 0.7,
+                    y1: 0.7,
+                    line: {color: '#3b82f6'}
+                }, {
+                    type: 'circle',
+                    x0: 0.5,
+                    y0: 0.3,
+                    x1: 0.9,
+                    y1: 0.7,
+                    line: {color: '#ef4444'}
+                }]
+            };
+
+            Plotly.newPlot('basicVennDiagram', basicVennData, basicVennLayout);
+
+            // Events Venn Diagram
+            const eventsVennData = [{
+                type: 'scatter',
+                x: [0.4, 0.6],
+                y: [0.5, 0.5],
+                mode: 'markers+text',
+                text: ['A', 'B'],
+                textposition: 'top center',
+                marker: {size: 20, color: ['#3b82f6', '#ef4444']}
+            }];
+
+            const eventsVennLayout = {
+                title: 'Event Relationships',
+                xaxis: {range: [0, 1], showticklabels: false},
+                yaxis: {range: [0, 1], showticklabels: false},
+                shapes: [{
+                    type: 'circle',
+                    x0: 0.2,
+                    y0: 0.3,
+                    x1: 0.6,
+                    y1: 0.7,
+                    line: {color: '#3b82f6'}
+                }, {
+                    type: 'circle',
+                    x0: 0.4,
+                    y0: 0.3,
+                    x1: 0.8,
+                    y1: 0.7,
+                    line: {color: '#ef4444'}
+                }]
+            };
+
+            Plotly.newPlot('eventsVennDiagram', eventsVennData, eventsVennLayout);
+
+            // Probability Tree
+            const treeData = [{
+                type: 'scatter',
+                x: [0, 1, 1, 2, 2],
+                y: [0, 1, -1, 2, 0],
+                mode: 'lines+markers+text',
+                text: ['Start', '0.6', '0.4', '0.7', '0.3'],
+                textposition: 'top center',
+                line: {color: '#3b82f6'}
+            }];
+
+            const treeLayout = {
+                title: 'Probability Tree',
+                xaxis: {showticklabels: false},
+                yaxis: {showticklabels: false},
+                showlegend: false
+            };
+
+            Plotly.newPlot('probabilityTree', treeData, treeLayout);
+        }
+
+        // Initialize diagrams when the page loads
+        document.addEventListener('DOMContentLoaded', initDiagrams);
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Active section highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

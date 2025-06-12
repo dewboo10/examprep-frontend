@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boats & Streams - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Boats & Streams
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of boats and streams with our comprehensive guide.
+                Learn about upstream, downstream, and complex problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#upstream" class="nav-link block">2. Upstream & Downstream</a>
+                        <a href="#speed" class="nav-link block">3. Speed Calculations</a>
+                        <a href="#distance" class="nav-link block">4. Distance Problems</a>
+                        <a href="#time" class="nav-link block">5. Time Problems</a>
+                        <a href="#round" class="nav-link block">6. Round Trip</a>
+                        <a href="#multiple" class="nav-link block">7. Multiple Boats</a>
+                        <a href="#advanced" class="nav-link block">8. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Fundamental Terms</h3>
+                        <p class="text-gray-600">Understanding the basic terms and concepts in boats and streams problems.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Key Terms:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Speed of Boat in Still Water (B)</li>
+                                <li>Speed of Stream/Current (S)</li>
+                                <li>Downstream Speed (B + S)</li>
+                                <li>Upstream Speed (B - S)</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-box">
+                            <p class="font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Downstream: Boat moves with the stream</li>
+                                <li>Upstream: Boat moves against the stream</li>
+                                <li>Speed of boat is always greater than speed of stream</li>
+                                <li>All speeds should be in same units (km/h or m/s)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Speed</p>
+                            <p>Boat speed in still water = 10 km/h</p>
+                            <p>Stream speed = 2 km/h</p>
+                            <p>Find downstream and upstream speeds</p>
+                            <p>Solution:</p>
+                            <p>Downstream speed = 10 + 2 = 12 km/h</p>
+                            <p>Upstream speed = 10 - 2 = 8 km/h</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Upstream & Downstream -->
+                <section id="upstream" class="content-section card p-6">
+                    <h2 class="section-title">2. Upstream & Downstream</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Speed Calculations</h3>
+                        <p class="text-gray-600">Calculating speeds in different directions.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Downstream Speed = B + S</li>
+                                <li>Upstream Speed = B - S</li>
+                                <li>Speed of Boat = (Downstream + Upstream)/2</li>
+                                <li>Speed of Stream = (Downstream - Upstream)/2</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Speed Calculation</p>
+                            <p>Downstream speed = 15 km/h</p>
+                            <p>Upstream speed = 9 km/h</p>
+                            <p>Find boat and stream speeds</p>
+                            <p>Solution:</p>
+                            <p>Boat speed = (15 + 9)/2 = 12 km/h</p>
+                            <p>Stream speed = (15 - 9)/2 = 3 km/h</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Speed Calculations -->
+                <section id="speed" class="content-section card p-6">
+                    <h2 class="section-title">3. Speed Calculations</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Finding Unknown Speeds</h3>
+                        <p class="text-gray-600">Solving problems with unknown speeds.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Key Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>If downstream and upstream times are given:
+                                    <br>B = (D/U + 1)/(D/U - 1) × S</li>
+                                <li>If downstream and upstream distances are given:
+                                    <br>B = (D₁ + D₂)/(T₁ + T₂)</li>
+                                <li>If downstream and upstream speeds are given:
+                                    <br>B = (D + U)/2</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Unknown Speeds</p>
+                            <p>Downstream time = 2 hours</p>
+                            <p>Upstream time = 3 hours</p>
+                            <p>Stream speed = 2 km/h</p>
+                            <p>Find boat speed</p>
+                            <p>Solution:</p>
+                            <p>B = (3/2 + 1)/(3/2 - 1) × 2</p>
+                            <p>B = (5/2)/(1/2) × 2 = 10 km/h</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Distance Problems -->
+                <section id="distance" class="content-section card p-6">
+                    <h2 class="section-title">4. Distance Problems</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Distance Calculations</h3>
+                        <p class="text-gray-600">Solving problems involving distances.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Distance = Speed × Time</li>
+                                <li>Time = Distance/Speed</li>
+                                <li>Speed = Distance/Time</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Distance Problem</p>
+                            <p>Boat speed = 12 km/h</p>
+                            <p>Stream speed = 3 km/h</p>
+                            <p>Distance = 30 km</p>
+                            <p>Find time for downstream and upstream</p>
+                            <p>Solution:</p>
+                            <p>Downstream time = 30/(12+3) = 2 hours</p>
+                            <p>Upstream time = 30/(12-3) = 3.33 hours</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Time Problems -->
+                <section id="time" class="content-section card p-6">
+                    <h2 class="section-title">5. Time Problems</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Time Calculations</h3>
+                        <p class="text-gray-600">Solving problems involving time.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Time = Distance/Speed</li>
+                                <li>Total Time = Downstream Time + Upstream Time</li>
+                                <li>Average Speed = Total Distance/Total Time</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Time Problem</p>
+                            <p>Distance = 24 km</p>
+                            <p>Downstream time = 2 hours</p>
+                            <p>Upstream time = 3 hours</p>
+                            <p>Find boat and stream speeds</p>
+                            <p>Solution:</p>
+                            <p>Downstream speed = 24/2 = 12 km/h</p>
+                            <p>Upstream speed = 24/3 = 8 km/h</p>
+                            <p>Boat speed = (12+8)/2 = 10 km/h</p>
+                            <p>Stream speed = (12-8)/2 = 2 km/h</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Round Trip -->
+                <section id="round" class="content-section card p-6">
+                    <h2 class="section-title">6. Round Trip</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Round Trip Calculations</h3>
+                        <p class="text-gray-600">Solving problems involving round trips.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Total Time = Downstream Time + Upstream Time</li>
+                                <li>Average Speed = 2 × (B² - S²)/B</li>
+                                <li>Total Distance = 2 × One-way Distance</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 6: Round Trip</p>
+                            <p>Boat speed = 10 km/h</p>
+                            <p>Stream speed = 2 km/h</p>
+                            <p>One-way distance = 24 km</p>
+                            <p>Find total time and average speed</p>
+                            <p>Solution:</p>
+                            <p>Downstream time = 24/(10+2) = 2 hours</p>
+                            <p>Upstream time = 24/(10-2) = 3 hours</p>
+                            <p>Total time = 5 hours</p>
+                            <p>Average speed = 2 × (10² - 2²)/10 = 9.6 km/h</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Multiple Boats -->
+                <section id="multiple" class="content-section card p-6">
+                    <h2 class="section-title">7. Multiple Boats</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Multiple Boat Problems</h3>
+                        <p class="text-gray-600">Solving problems involving multiple boats.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Relative Speed (Same Direction) = |B₁ - B₂|</li>
+                                <li>Relative Speed (Opposite Direction) = B₁ + B₂</li>
+                                <li>Time to Meet = Distance/Relative Speed</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Multiple Boats</p>
+                            <p>Boat₁ speed = 12 km/h</p>
+                            <p>Boat₂ speed = 8 km/h</p>
+                            <p>Stream speed = 2 km/h</p>
+                            <p>Distance = 40 km</p>
+                            <p>Find time to meet</p>
+                            <p>Solution:</p>
+                            <p>Downstream speed₁ = 14 km/h</p>
+                            <p>Upstream speed₂ = 6 km/h</p>
+                            <p>Relative speed = 14 + 6 = 20 km/h</p>
+                            <p>Time = 40/20 = 2 hours</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">8. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>If a boat takes time T₁ downstream and T₂ upstream for same distance:
+                                    <br>B = (T₁ + T₂)/(T₂ - T₁) × S</li>
+                                <li>If a boat takes time T₁ downstream and T₂ upstream for different distances:
+                                    <br>B = (D₁/T₁ + D₂/T₂)/2</li>
+                                <li>For round trip:
+                                    <br>Average Speed = 2 × (B² - S²)/B</li>
+                                <li>For multiple boats:
+                                    <br>Time to Meet = D/(B₁ ± B₂)</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 8: Complex Problem</p>
+                            <p>Boat takes 2 hours downstream and 3 hours upstream</p>
+                            <p>Stream speed = 2 km/h</p>
+                            <p>Find boat speed and distance</p>
+                            <p>Solution:</p>
+                            <p>B = (2+3)/(3-2) × 2 = 10 km/h</p>
+                            <p>Distance = (10+2) × 2 = 24 km</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Special Cases</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Special Scenarios:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>When stream speed is half of boat speed:
+                                    <br>Downstream speed = 3 × Upstream speed</li>
+                                <li>When stream speed equals boat speed:
+                                    <br>Upstream speed = 0 (boat cannot move upstream)</li>
+                                <li>When stream speed is zero:
+                                    <br>Downstream speed = Upstream speed = Boat speed</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 9: Special Case</p>
+                            <p>Boat speed = 10 km/h</p>
+                            <p>Stream speed = 5 km/h</p>
+                            <p>Find downstream and upstream speeds</p>
+                            <p>Solution:</p>
+                            <p>Downstream speed = 10 + 5 = 15 km/h</p>
+                            <p>Upstream speed = 10 - 5 = 5 km/h</p>
+                            <p>Ratio = 15:5 = 3:1</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

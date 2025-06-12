@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International General Knowledge - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .fact-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .fact-item:hover {
+            background: #e0f2fe;
+        }
+
+        .fact-title {
+            color: #1e40af;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .fact-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .fact-number {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                International General Knowledge
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Explore 200 key facts about geography, politics, history, culture, economy, and science.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search facts..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Geography</span>
+                    <span class="filter-tag">Politics</span>
+                    <span class="filter-tag">History</span>
+                    <span class="filter-tag">Economics</span>
+                    <span class="filter-tag">Science</span>
+                    <span class="filter-tag">Culture</span>
+                    <span class="filter-tag">Sports</span>
+                    <span class="filter-tag">Environment</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Geography -->
+            <section id="geography" class="card p-8">
+                <h2 class="section-title">Geography</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">Largest country by area</div>
+                    <div class="fact-content">Russia (17.1 million sq km)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Smallest country by area</div>
+                    <div class="fact-content">Vatican City (0.49 sq km)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Longest river</div>
+                    <div class="fact-content">Nile River (6,650 km)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest ocean</div>
+                    <div class="fact-content">Pacific Ocean</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Highest mountain</div>
+                    <div class="fact-content">Mount Everest (8,848.86 meters)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest desert</div>
+                    <div class="fact-content">Antarctica</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest continent</div>
+                    <div class="fact-content">Asia</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest island</div>
+                    <div class="fact-content">Greenland</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Most populous country</div>
+                    <div class="fact-content">China</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest island country</div>
+                    <div class="fact-content">Indonesia</div>
+                </div>
+            </section>
+
+            <!-- Capitals -->
+            <section id="capitals" class="card p-8">
+                <h2 class="section-title">Capitals</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">Capital of the United States</div>
+                    <div class="fact-content">Washington, D.C.</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of Japan</div>
+                    <div class="fact-content">Tokyo</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of the United Kingdom</div>
+                    <div class="fact-content">London</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of Canada</div>
+                    <div class="fact-content">Ottawa</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of Australia</div>
+                    <div class="fact-content">Canberra</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of India</div>
+                    <div class="fact-content">New Delhi</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of Brazil</div>
+                    <div class="fact-content">Brasília</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of South Africa</div>
+                    <div class="fact-content">Pretoria (administrative), Bloemfontein (judicial), Cape Town (legislative)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of Argentina</div>
+                    <div class="fact-content">Buenos Aires</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Capital of China</div>
+                    <div class="fact-content">Beijing</div>
+                </div>
+            </section>
+
+            <!-- Political Systems -->
+            <section id="politics" class="card p-8">
+                <h2 class="section-title">Political Systems</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">United Nations founded</div>
+                    <div class="fact-content">1945</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">United Nations Headquarters</div>
+                    <div class="fact-content">New York, USA</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">European Union formed</div>
+                    <div class="fact-content">1993 (Maastricht Treaty)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">NATO founded</div>
+                    <div class="fact-content">1949</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">NATO Headquarters</div>
+                    <div class="fact-content">Brussels, Belgium</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">World Trade Organization founded</div>
+                    <div class="fact-content">1995</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">WTO Headquarters</div>
+                    <div class="fact-content">Geneva, Switzerland</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">International Court of Justice (ICJ)</div>
+                    <div class="fact-content">The Hague, Netherlands</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">World Health Organization (WHO)</div>
+                    <div class="fact-content">Founded in 1948</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">WHO Headquarters</div>
+                    <div class="fact-content">Geneva, Switzerland</div>
+                </div>
+            </section>
+
+            <!-- History -->
+            <section id="history" class="card p-8">
+                <h2 class="section-title">History</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">World War I</div>
+                    <div class="fact-content">1914-1918</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">World War II</div>
+                    <div class="fact-content">1939-1945</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Indian Independence</div>
+                    <div class="fact-content">August 15, 1947</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First man in space</div>
+                    <div class="fact-content">Yuri Gagarin (1961)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First man on the Moon</div>
+                    <div class="fact-content">Neil Armstrong (1969)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Berlin Wall fell</div>
+                    <div class="fact-content">November 9, 1989</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Cold War period</div>
+                    <div class="fact-content">1947-1991</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">End of Apartheid in South Africa</div>
+                    <div class="fact-content">1994</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Fall of the Soviet Union</div>
+                    <div class="fact-content">1991</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Launch of the European Union (EU)</div>
+                    <div class="fact-content">1993 (Treaty of Maastricht)</div>
+                </div>
+            </section>
+
+            <!-- Economics -->
+            <section id="economics" class="card p-8">
+                <h2 class="section-title">Economics</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">Currency of the United States</div>
+                    <div class="fact-content">United States Dollar (USD)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Currency of the United Kingdom</div>
+                    <div class="fact-content">Pound Sterling (£)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Currency of Japan</div>
+                    <div class="fact-content">Japanese Yen (¥)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Currency of the European Union</div>
+                    <div class="fact-content">Euro (€)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Currency of India</div>
+                    <div class="fact-content">Indian Rupee (₹)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Currency of Russia</div>
+                    <div class="fact-content">Russian Ruble (₽)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Currency of China</div>
+                    <div class="fact-content">Chinese Yuan (¥)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Currency of Canada</div>
+                    <div class="fact-content">Canadian Dollar (C$)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Currency of Australia</div>
+                    <div class="fact-content">Australian Dollar (A$)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest economy by GDP</div>
+                    <div class="fact-content">United States</div>
+                </div>
+            </section>
+
+            <!-- Science & Technology -->
+            <section id="science" class="card p-8">
+                <h2 class="section-title">Science & Technology</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">NASA established</div>
+                    <div class="fact-content">July 29, 1958</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">NASA Headquarters</div>
+                    <div class="fact-content">Washington, D.C., USA</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First successful Moon landing</div>
+                    <div class="fact-content">Apollo 11, July 20, 1969</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First human to walk on the Moon</div>
+                    <div class="fact-content">Neil Armstrong (Apollo 11)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First artificial satellite</div>
+                    <div class="fact-content">Sputnik 1 (1957, USSR)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">India's first satellite</div>
+                    <div class="fact-content">Aryabhata (1975)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First manned mission to Mars</div>
+                    <div class="fact-content">NASA's Mars mission in 2020</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First vaccine developed</div>
+                    <div class="fact-content">Smallpox vaccine by Edward Jenner (1796)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Global Positioning System (GPS) launched</div>
+                    <div class="fact-content">1995</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First human genome sequenced</div>
+                    <div class="fact-content">2003</div>
+                </div>
+            </section>
+
+            <!-- Culture & Society -->
+            <section id="culture" class="card p-8">
+                <h2 class="section-title">Culture & Society</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">Largest religion in the world</div>
+                    <div class="fact-content">Christianity</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Second largest religion in the world</div>
+                    <div class="fact-content">Islam</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest Muslim population</div>
+                    <div class="fact-content">Indonesia</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest Hindu population</div>
+                    <div class="fact-content">India</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First Olympic Games</div>
+                    <div class="fact-content">776 BC, Greece</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Most-watched television event in history</div>
+                    <div class="fact-content">Super Bowl</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First film made</div>
+                    <div class="fact-content">The Horse in Motion (1887)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">World's oldest university</div>
+                    <div class="fact-content">University of Al-Qarawiyyin, Morocco (859 AD)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Longest-running Broadway show</div>
+                    <div class="fact-content">The Phantom of the Opera</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Best-selling book series</div>
+                    <div class="fact-content">Harry Potter by J.K. Rowling</div>
+                </div>
+            </section>
+
+            <!-- Sports -->
+            <section id="sports" class="card p-8">
+                <h2 class="section-title">Sports</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">Most successful football team in history</div>
+                    <div class="fact-content">Real Madrid (La Liga)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">World's most popular sport</div>
+                    <div class="fact-content">Football (Soccer)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Most Olympic gold medals</div>
+                    <div class="fact-content">USA (1180 golds)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest international football tournament</div>
+                    <div class="fact-content">FIFA World Cup</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Most successful tennis player</div>
+                    <div class="fact-content">Roger Federer</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First World Cup Winner</div>
+                    <div class="fact-content">Uruguay (1930)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Most successful country in the FIFA World Cup</div>
+                    <div class="fact-content">Brazil (5 titles)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First Indian cricketer to score a triple century</div>
+                    <div class="fact-content">Virender Sehwag</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First woman to win 5 Olympic golds</div>
+                    <div class="fact-content">Paavo Nurmi</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Olympics host city most times</div>
+                    <div class="fact-content">London (3 times)</div>
+                </div>
+            </section>
+
+            <!-- Environment -->
+            <section id="environment" class="card p-8">
+                <h2 class="section-title">Environment</h2>
+                
+                <div class="fact-item">
+                    <div class="fact-title">Largest polluter</div>
+                    <div class="fact-content">China</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest clean energy producer</div>
+                    <div class="fact-content">China</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">First climate change treaty</div>
+                    <div class="fact-content">Kyoto Protocol (1997)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Global warming mitigation agreement</div>
+                    <div class="fact-content">Paris Agreement (2015)</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Largest forest area</div>
+                    <div class="fact-content">Russia</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Global plastic pollution problem</div>
+                    <div class="fact-content">8 million tons dumped into oceans yearly</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Biggest source of freshwater</div>
+                    <div class="fact-content">The Amazon River</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">World's largest renewable energy producer</div>
+                    <div class="fact-content">China</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Global carbon dioxide emission leader</div>
+                    <div class="fact-content">China</div>
+                </div>
+
+                <div class="fact-item">
+                    <div class="fact-title">Number of endangered species globally</div>
+                    <div class="fact-content">Over 28,000</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        const sections = document.querySelectorAll('section');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            sections.forEach(section => {
+                const factItems = section.querySelectorAll('.fact-item');
+                let hasMatch = false;
+                
+                factItems.forEach(item => {
+                    const title = item.querySelector('.fact-title').textContent.toLowerCase();
+                    const content = item.querySelector('.fact-content').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        hasMatch = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                section.style.display = hasMatch ? 'block' : 'none';
+            });
+        });
+
+        // Filter tags functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                // Remove active class from all tags
+                filterTags.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tag
+                tag.classList.add('active');
+                
+                const filter = tag.textContent.toLowerCase();
+                
+                sections.forEach(section => {
+                    const sectionId = section.id.toLowerCase();
+                    if (filter === 'all' || sectionId.includes(filter)) {
+                        section.style.display = 'block';
+                        section.querySelectorAll('.fact-item').forEach(item => {
+                            item.style.display = 'block';
+                        });
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

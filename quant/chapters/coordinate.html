@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate Geometry - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+
+        .graph-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            height: 450px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .graph-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .graph-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        /* Responsive Graph Container */
+        @media (max-width: 768px) {
+            .graph-container {
+                height: 350px;
+                padding: 1.5rem 1rem 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Coordinate Geometry
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of plotting points, lines, and curves in the coordinate plane.
+                Learn about distance, slope, equations, and their applications.
+            </p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#basics" class="nav-link block">2. Basic Concepts</a>
+                        <a href="#lines" class="nav-link block">3. Lines and Equations</a>
+                        <a href="#circles" class="nav-link block">4. Circles</a>
+                        <a href="#conics" class="nav-link block">5. Conic Sections</a>
+                        <a href="#transformations" class="nav-link block">6. Transformations</a>
+                        <a href="#applications" class="nav-link block">7. Applications</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">1. Introduction to Coordinate Geometry</h2>
+                    <p class="text-gray-600 mb-4">
+                        Coordinate geometry is a branch of mathematics that combines algebra and geometry.
+                        It allows us to represent geometric shapes using algebraic equations and vice versa.
+                    </p>
+                    
+                    <div class="formula-box">
+                        <h3 class="font-medium">Key Components:</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Coordinate System: A system for specifying points using ordered pairs (x, y)</li>
+                            <li>X-axis: The horizontal number line</li>
+                            <li>Y-axis: The vertical number line</li>
+                            <li>Origin: The point (0,0) where axes intersect</li>
+                            <li>Quadrants: Four regions created by the axes</li>
+                        </ul>
+                    </div>
+
+                    <div class="graph-container" id="coordinateSystem">
+                        <div class="graph-title">Coordinate System</div>
+                        <div id="coordinateSystem" style="width: 100%; height: 100%;"></div>
+                    </div>
+                </section>
+
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">2. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Distance Formula</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">For points P(x₁, y₁) and Q(x₂, y₂):</p>
+                            <p class="text-center font-mono">d = √[(x₂ - x₁)² + (y₂ - y₁)²]</p>
+                        </div>
+                        <div class="graph-container" id="distanceFormula">
+                            <div class="graph-title">Distance Between Points</div>
+                            <div id="distanceFormula" style="width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Section Formula</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">For point P dividing line segment AB in ratio m:n:</p>
+                            <p class="text-center font-mono">P = ((mx₂ + nx₁)/(m+n), (my₂ + ny₁)/(m+n))</p>
+                        </div>
+                        <div class="graph-container" id="sectionFormula"></div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Area of Triangle</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">For points A(x₁, y₁), B(x₂, y₂), and C(x₃, y₃):</p>
+                            <p class="text-center font-mono">Area = ½|(x₁(y₂ - y₃) + x₂(y₃ - y₁) + x₃(y₁ - y₂))|</p>
+                        </div>
+                        <div class="graph-container" id="triangleArea"></div>
+                    </div>
+                </section>
+
+                <!-- Lines and Equations -->
+                <section id="lines" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">3. Lines and Their Equations</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Slope of a Line</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">For points P(x₁, y₁) and Q(x₂, y₂):</p>
+                            <p class="text-center font-mono">m = (y₂ - y₁)/(x₂ - x₁)</p>
+                        </div>
+                        <div class="graph-container" id="slopeLine"></div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Forms of Line Equations</h3>
+                        <div class="formula-box">
+                            <ul class="space-y-2">
+                                <li>Point-Slope Form: y - y₁ = m(x - x₁)</li>
+                                <li>Slope-Intercept Form: y = mx + c</li>
+                                <li>Two-Point Form: (y - y₁)/(y₂ - y₁) = (x - x₁)/(x₂ - x₁)</li>
+                                <li>Intercept Form: x/a + y/b = 1</li>
+                            </ul>
+                        </div>
+                        <div class="graph-container" id="lineForms"></div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Angle Between Lines</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">For lines with slopes m₁ and m₂:</p>
+                            <p class="text-center font-mono">tan θ = |(m₁ - m₂)/(1 + m₁m₂)|</p>
+                        </div>
+                        <div class="graph-container" id="angleBetweenLines"></div>
+                    </div>
+                </section>
+
+                <!-- Circles -->
+                <section id="circles" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">4. Circles</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Standard Equation</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">For circle with center (h,k) and radius r:</p>
+                            <p class="text-center font-mono">(x - h)² + (y - k)² = r²</p>
+                        </div>
+                        <div class="graph-container" id="circleStandard"></div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) General Equation</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">x² + y² + 2gx + 2fy + c = 0</p>
+                            <p>where center = (-g,-f) and radius = √(g² + f² - c)</p>
+                        </div>
+                        <div class="graph-container" id="circleGeneral"></div>
+                    </div>
+                </section>
+
+                <!-- Conic Sections -->
+                <section id="conics" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">5. Conic Sections</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Parabola</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">Standard form: y² = 4ax</p>
+                            <p>Vertex at origin, focus at (a,0)</p>
+                        </div>
+                        <div class="graph-container" id="parabola"></div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Ellipse</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">Standard form: x²/a² + y²/b² = 1</p>
+                            <p>Center at origin, foci at (±c,0) where c² = a² - b²</p>
+                        </div>
+                        <div class="graph-container" id="ellipse"></div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Hyperbola</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">Standard form: x²/a² - y²/b² = 1</p>
+                            <p>Center at origin, foci at (±c,0) where c² = a² + b²</p>
+                        </div>
+                        <div class="graph-container" id="hyperbola"></div>
+                    </div>
+                </section>
+
+                <!-- Transformations -->
+                <section id="transformations" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">6. Transformations</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Translation</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">Point (x,y) → (x+h, y+k)</p>
+                        </div>
+                        <div class="graph-container" id="translation"></div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Rotation</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">Point (x,y) → (xcosθ - ysinθ, xsinθ + ycosθ)</p>
+                        </div>
+                        <div class="graph-container" id="rotation"></div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Reflection</h3>
+                        <div class="formula-box">
+                            <p class="font-medium">Over x-axis: (x,y) → (x,-y)</p>
+                            <p class="font-medium">Over y-axis: (x,y) → (-x,y)</p>
+                        </div>
+                        <div class="graph-container" id="reflection"></div>
+                    </div>
+                </section>
+
+                <!-- Applications -->
+                <section id="applications" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">7. Applications and Practice Questions</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Basic Concepts Questions</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">Find the distance between points A(3,4) and B(7,1).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using distance formula:<br>
+                                2. d = √[(7-3)² + (1-4)²]<br>
+                                3. = √[16 + 9]<br>
+                                4. = √25 = 5 units
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">Find the point that divides the line segment joining A(2,3) and B(6,7) in the ratio 2:1.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using section formula:<br>
+                                2. P = ((2×6 + 1×2)/(2+1), (2×7 + 1×3)/(2+1))<br>
+                                3. = ((12 + 2)/3, (14 + 3)/3)<br>
+                                4. = (14/3, 17/3)
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">Find the area of triangle with vertices A(0,0), B(4,0), and C(2,3).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using area formula:<br>
+                                2. Area = ½|(0(0-3) + 4(3-0) + 2(0-0))|<br>
+                                3. = ½|(0 + 12 + 0)|<br>
+                                4. = 6 square units
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">Find the coordinates of the centroid of triangle with vertices A(1,2), B(4,6), and C(7,4).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Centroid coordinates = ((1+4+7)/3, (2+6+4)/3)<br>
+                                2. = (12/3, 12/3)<br>
+                                3. = (4, 4)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Lines and Equations Questions</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">Find the equation of a line passing through points (2,3) and (4,7).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. First find slope: m = (7-3)/(4-2) = 2<br>
+                                2. Using point-slope form:<br>
+                                3. y - 3 = 2(x - 2)<br>
+                                4. y = 2x - 1
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">Find the angle between lines with slopes 2 and -1/2.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using angle formula:<br>
+                                2. tan θ = |(2 - (-1/2))/(1 + 2(-1/2))|<br>
+                                3. = |(5/2)/0| = undefined<br>
+                                4. Therefore, θ = 90°
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">Find the equation of a line parallel to 2x + 3y = 6 and passing through (1,2).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Slope of given line = -2/3<br>
+                                2. Parallel line has same slope<br>
+                                3. Using point-slope form:<br>
+                                4. y - 2 = (-2/3)(x - 1)<br>
+                                5. 3y - 6 = -2x + 2<br>
+                                6. 2x + 3y = 8
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">Find the perpendicular distance from point (3,4) to line 3x + 4y = 10.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using distance formula:<br>
+                                2. d = |3(3) + 4(4) - 10|/√(3² + 4²)<br>
+                                3. = |9 + 16 - 10|/5<br>
+                                4. = 15/5 = 3 units
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Circle Questions</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">Find the center and radius of the circle x² + y² - 6x + 8y = 0.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Complete the square:<br>
+                                2. (x² - 6x + 9) + (y² + 8y + 16) = 25<br>
+                                3. (x-3)² + (y+4)² = 5²<br>
+                                4. Center = (3,-4), Radius = 5
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">Find the equation of circle passing through points (1,2), (3,4), and (5,2).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Let equation be x² + y² + 2gx + 2fy + c = 0<br>
+                                2. Substitute points to get three equations<br>
+                                3. Solve to get g = -3, f = -3, c = 8<br>
+                                4. Final equation: x² + y² - 6x - 6y + 8 = 0
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">Find the length of tangent from point (4,3) to circle x² + y² = 25.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using tangent length formula:<br>
+                                2. Length = √(4² + 3² - 25)<br>
+                                3. = √(16 + 9 - 25)<br>
+                                4. = 0 (point lies on circle)
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">Find the equation of circle touching x-axis at (3,0) and passing through (1,2).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Center lies on x = 3<br>
+                                2. Let center be (3,k)<br>
+                                3. Radius = k (touches x-axis)<br>
+                                4. (1-3)² + (2-k)² = k²<br>
+                                5. 4 + 4 - 4k + k² = k²<br>
+                                6. k = 2<br>
+                                7. Equation: (x-3)² + (y-2)² = 4
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Conic Sections Questions</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">Find the focus and directrix of parabola y² = 8x.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Compare with y² = 4ax<br>
+                                2. 4a = 8, so a = 2<br>
+                                3. Focus = (2,0)<br>
+                                4. Directrix: x = -2
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">Find the foci and vertices of ellipse 9x² + 16y² = 144.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Divide by 144: x²/16 + y²/9 = 1<br>
+                                2. a = 4, b = 3<br>
+                                3. c = √(16-9) = √7<br>
+                                4. Foci = (±√7,0)<br>
+                                5. Vertices = (±4,0)
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">Find the asymptotes of hyperbola x²/9 - y²/16 = 1.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Compare with x²/a² - y²/b² = 1<br>
+                                2. a = 3, b = 4<br>
+                                3. Asymptotes: y = ±(b/a)x<br>
+                                4. y = ±(4/3)x
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">Find the equation of parabola with vertex at (2,3) and focus at (4,3).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Vertex (h,k) = (2,3)<br>
+                                2. Focus (h+a,k) = (4,3)<br>
+                                3. So a = 2<br>
+                                4. Equation: (y-3)² = 8(x-2)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Transformations Questions</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">Find the image of point (3,4) after translation by vector (2,-1).</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. New x = 3 + 2 = 5<br>
+                                2. New y = 4 + (-1) = 3<br>
+                                3. Image point = (5,3)
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">Find the image of point (2,3) after rotation of 90° about origin.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. For 90° rotation:<br>
+                                2. x' = -y = -3<br>
+                                3. y' = x = 2<br>
+                                4. Image point = (-3,2)
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">Find the image of point (4,5) after reflection over line y = x.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. For reflection over y = x:<br>
+                                2. x' = y = 5<br>
+                                3. y' = x = 4<br>
+                                4. Image point = (5,4)
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">Find the image of point (3,2) after dilation with scale factor 2 about origin.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. For dilation with scale factor k:<br>
+                                2. x' = kx = 2×3 = 6<br>
+                                3. y' = ky = 2×2 = 4<br>
+                                4. Image point = (6,4)
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize all graphs
+        function initGraphs() {
+            // Common layout settings
+            const commonLayout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                margin: { 
+                    t: 100,  // Increased top margin for title and legend
+                    r: 50,
+                    b: 50,
+                    l: 50
+                },
+                showlegend: true,
+                legend: {
+                    x: 0.5,
+                    y: 1.25,  // Moved legend further up
+                    orientation: 'h',
+                    xanchor: 'center',
+                    yanchor: 'bottom',
+                    bgcolor: 'rgba(255, 255, 255, 0.9)',
+                    bordercolor: '#e5e7eb',
+                    borderwidth: 1,
+                    font: {
+                        size: 12
+                    }
+                },
+                xaxis: {
+                    title: {
+                        text: 'X-axis',
+                        standoff: 15,
+                        font: {
+                            size: 14,
+                            color: '#1f2937'
+                        }
+                    },
+                    showgrid: true,
+                    gridcolor: '#e5e7eb',
+                    zerolinecolor: '#9ca3af',
+                    range: [-5, 5],
+                    tickfont: {
+                        size: 12,
+                        color: '#4b5563'
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Y-axis',
+                        standoff: 15,
+                        font: {
+                            size: 14,
+                            color: '#1f2937'
+                        }
+                    },
+                    showgrid: true,
+                    gridcolor: '#e5e7eb',
+                    zerolinecolor: '#9ca3af',
+                    range: [-5, 5],
+                    tickfont: {
+                        size: 12,
+                        color: '#4b5563'
+                    }
+                },
+                title: {
+                    y: 0.98,
+                    x: 0.5,
+                    xanchor: 'center',
+                    yanchor: 'top',
+                    font: {
+                        size: 16,
+                        color: '#1f2937'
+                    },
+                    pad: {
+                        t: 20,
+                        b: 20
+                    }
+                },
+                hovermode: 'closest',
+                hoverlabel: {
+                    bgcolor: 'white',
+                    bordercolor: '#e5e7eb',
+                    font: {
+                        size: 14,
+                        color: '#1f2937'
+                    },
+                    padding: {
+                        t: 8,
+                        r: 12,
+                        b: 8,
+                        l: 12
+                    }
+                },
+                annotations: [{
+                    showarrow: false,
+                    text: '',
+                    xref: 'paper',
+                    yref: 'paper',
+                    x: 0,
+                    y: 1.1
+                }]
+            };
+
+            // Coordinate System
+            const coordSystem = {
+                x: [-5, 5],
+                y: [0, 0],
+                mode: 'lines',
+                name: 'X-axis',
+                line: {color: '#3b82f6', width: 2}
+            };
+            
+            const coordSystem2 = {
+                x: [0, 0],
+                y: [-5, 5],
+                mode: 'lines',
+                name: 'Y-axis',
+                line: {color: '#ef4444', width: 2}
+            };
+
+            Plotly.newPlot('coordinateSystem', [coordSystem, coordSystem2], {
+                ...commonLayout,
+                title: 'Coordinate System'
+            });
+
+            // Distance Formula
+            const distancePoints = {
+                x: [2, 5],
+                y: [3, 7],
+                mode: 'markers',
+                name: 'Points',
+                marker: {size: 10, color: '#3b82f6'}
+            };
+
+            const distanceLine = {
+                x: [2, 5],
+                y: [3, 7],
+                mode: 'lines',
+                name: 'Distance',
+                line: {color: '#10b981', width: 2}
+            };
+
+            Plotly.newPlot('distanceFormula', [distancePoints, distanceLine], {
+                ...commonLayout,
+                title: 'Distance Between Points'
+            });
+
+            // Section Formula
+            const sectionPoints = {
+                x: [1, 5, 3],
+                y: [2, 6, 4],
+                mode: 'markers',
+                name: 'Points',
+                marker: {size: 10, color: '#3b82f6'}
+            };
+
+            const sectionLine = {
+                x: [1, 5],
+                y: [2, 6],
+                mode: 'lines',
+                name: 'Line Segment',
+                line: {color: '#10b981', width: 2}
+            };
+
+            Plotly.newPlot('sectionFormula', [sectionPoints, sectionLine], {
+                ...commonLayout,
+                title: 'Section Formula'
+            });
+
+            // Triangle Area
+            const trianglePoints = {
+                x: [0, 4, 2],
+                y: [0, 0, 3],
+                mode: 'markers',
+                name: 'Vertices',
+                marker: {size: 10, color: '#3b82f6'}
+            };
+
+            const triangleLines = {
+                x: [0, 4, 2, 0],
+                y: [0, 0, 3, 0],
+                mode: 'lines',
+                name: 'Triangle',
+                line: {color: '#10b981', width: 2}
+            };
+
+            Plotly.newPlot('triangleArea', [trianglePoints, triangleLines], {
+                ...commonLayout,
+                title: 'Area of Triangle'
+            });
+
+            // Slope of Line
+            const slopePoints = {
+                x: [1, 4],
+                y: [2, 5],
+                mode: 'markers',
+                name: 'Points',
+                marker: {size: 10, color: '#3b82f6'}
+            };
+
+            const slopeLine = {
+                x: [0, 5],
+                y: [1, 6],
+                mode: 'lines',
+                name: 'Line',
+                line: {color: '#10b981', width: 2}
+            };
+
+            Plotly.newPlot('slopeLine', [slopePoints, slopeLine], {
+                ...commonLayout,
+                title: 'Slope of a Line'
+            });
+
+            // Line Forms
+            const lineForms = {
+                x: [-5, 5],
+                y: [2, 2],
+                mode: 'lines',
+                name: 'y = 2',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            const lineForms2 = {
+                x: [-5, 5],
+                y: [-2, 8],
+                mode: 'lines',
+                name: 'y = 2x - 2',
+                line: {color: '#ef4444', width: 2}
+            };
+
+            Plotly.newPlot('lineForms', [lineForms, lineForms2], {
+                ...commonLayout,
+                title: 'Different Forms of Line Equations'
+            });
+
+            // Angle Between Lines
+            const angleLine1 = {
+                x: [0, 4],
+                y: [0, 4],
+                mode: 'lines',
+                name: 'Line 1',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            const angleLine2 = {
+                x: [0, 4],
+                y: [0, 2],
+                mode: 'lines',
+                name: 'Line 2',
+                line: {color: '#ef4444', width: 2}
+            };
+
+            Plotly.newPlot('angleBetweenLines', [angleLine1, angleLine2], {
+                ...commonLayout,
+                title: 'Angle Between Lines'
+            });
+
+            // Circle Standard
+            const circlePoints = Array.from({length: 100}, (_, i) => {
+                const angle = (i / 100) * 2 * Math.PI;
+                return {
+                    x: 3 + 2 * Math.cos(angle),
+                    y: 2 + 2 * Math.sin(angle)
+                };
+            });
+
+            const circleStandard = {
+                x: circlePoints.map(p => p.x),
+                y: circlePoints.map(p => p.y),
+                mode: 'lines',
+                name: 'Circle',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            const circleCenter = {
+                x: [3],
+                y: [2],
+                mode: 'markers',
+                name: 'Center',
+                marker: {size: 10, color: '#ef4444'}
+            };
+
+            Plotly.newPlot('circleStandard', [circleStandard, circleCenter], {
+                ...commonLayout,
+                title: 'Standard Circle Equation'
+            });
+
+            // Circle General
+            const circleGeneral = {
+                x: circlePoints.map(p => p.x),
+                y: circlePoints.map(p => p.y),
+                mode: 'lines',
+                name: 'Circle',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            Plotly.newPlot('circleGeneral', [circleGeneral], {
+                ...commonLayout,
+                title: 'General Circle Equation'
+            });
+
+            // Parabola
+            const parabolaPoints = Array.from({length: 100}, (_, i) => {
+                const x = (i - 50) / 10;
+                return {
+                    x: x,
+                    y: x * x
+                };
+            });
+
+            const parabola = {
+                x: parabolaPoints.map(p => p.x),
+                y: parabolaPoints.map(p => p.y),
+                mode: 'lines',
+                name: 'Parabola',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            Plotly.newPlot('parabola', [parabola], {
+                ...commonLayout,
+                title: 'Parabola'
+            });
+
+            // Ellipse
+            const ellipsePoints = Array.from({length: 100}, (_, i) => {
+                const angle = (i / 100) * 2 * Math.PI;
+                return {
+                    x: 3 * Math.cos(angle),
+                    y: 2 * Math.sin(angle)
+                };
+            });
+
+            const ellipse = {
+                x: ellipsePoints.map(p => p.x),
+                y: ellipsePoints.map(p => p.y),
+                mode: 'lines',
+                name: 'Ellipse',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            Plotly.newPlot('ellipse', [ellipse], {
+                ...commonLayout,
+                title: 'Ellipse'
+            });
+
+            // Hyperbola
+            const hyperbolaPoints = Array.from({length: 100}, (_, i) => {
+                const x = (i - 50) / 10;
+                return {
+                    x: x,
+                    y: Math.sqrt(x * x - 1)
+                };
+            });
+
+            const hyperbola = {
+                x: hyperbolaPoints.map(p => p.x),
+                y: hyperbolaPoints.map(p => p.y),
+                mode: 'lines',
+                name: 'Hyperbola',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            const hyperbola2 = {
+                x: hyperbolaPoints.map(p => p.x),
+                y: hyperbolaPoints.map(p => -p.y),
+                mode: 'lines',
+                name: 'Hyperbola (negative)',
+                line: {color: '#ef4444', width: 2}
+            };
+
+            Plotly.newPlot('hyperbola', [hyperbola, hyperbola2], {
+                ...commonLayout,
+                title: 'Hyperbola'
+            });
+
+            // Translation
+            const originalPoints = {
+                x: [0, 2, 2, 0, 0],
+                y: [0, 0, 2, 2, 0],
+                mode: 'lines',
+                name: 'Original',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            const translatedPoints = {
+                x: [2, 4, 4, 2, 2],
+                y: [2, 2, 4, 4, 2],
+                mode: 'lines',
+                name: 'Translated',
+                line: {color: '#ef4444', width: 2}
+            };
+
+            Plotly.newPlot('translation', [originalPoints, translatedPoints], {
+                ...commonLayout,
+                title: 'Translation'
+            });
+
+            // Rotation
+            const rotationPoints = Array.from({length: 100}, (_, i) => {
+                const angle = (i / 100) * 2 * Math.PI;
+                return {
+                    x: Math.cos(angle),
+                    y: Math.sin(angle)
+                };
+            });
+
+            const rotation = {
+                x: rotationPoints.map(p => p.x),
+                y: rotationPoints.map(p => p.y),
+                mode: 'lines',
+                name: 'Original',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            const rotation2 = {
+                x: rotationPoints.map(p => p.x * Math.cos(Math.PI/4) - p.y * Math.sin(Math.PI/4)),
+                y: rotationPoints.map(p => p.x * Math.sin(Math.PI/4) + p.y * Math.cos(Math.PI/4)),
+                mode: 'lines',
+                name: 'Rotated',
+                line: {color: '#ef4444', width: 2}
+            };
+
+            Plotly.newPlot('rotation', [rotation, rotation2], {
+                ...commonLayout,
+                title: 'Rotation'
+            });
+
+            // Reflection
+            const reflectionPoints = {
+                x: [0, 2, 2, 0, 0],
+                y: [0, 0, 2, 2, 0],
+                mode: 'lines',
+                name: 'Original',
+                line: {color: '#3b82f6', width: 2}
+            };
+
+            const reflectionX = {
+                x: [0, 2, 2, 0, 0],
+                y: [0, 0, -2, -2, 0],
+                mode: 'lines',
+                name: 'Reflected over X-axis',
+                line: {color: '#ef4444', width: 2}
+            };
+
+            const reflectionY = {
+                x: [0, -2, -2, 0, 0],
+                y: [0, 0, 2, 2, 0],
+                mode: 'lines',
+                name: 'Reflected over Y-axis',
+                line: {color: '#10b981', width: 2}
+            };
+
+            Plotly.newPlot('reflection', [reflectionPoints, reflectionX, reflectionY], {
+                ...commonLayout,
+                title: 'Reflection'
+            });
+        }
+
+        // Initialize graphs when page loads
+        window.onload = initGraphs;
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Active section highlighting
+        const sections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

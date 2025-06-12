@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📝 Paragraph Jumble – BrainGames</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --secondary: #818cf8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --dark: #1e293b;
+      --light: #f8fafc;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .paragraph-piece {
+      transition: all 0.3s ease;
+      cursor: grab;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      position: relative;
+    }
+    
+    .paragraph-piece:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .paragraph-piece.dragging {
+      opacity: 0.5;
+      cursor: grabbing;
+      transform: scale(1.02);
+    }
+    
+    .paragraph-piece.correct {
+      background-color: #f0fdf4;
+      border-color: #10b981;
+      animation: pulse 0.6s ease;
+    }
+    
+    .paragraph-piece.wrong {
+      background-color: #fef2f2;
+      border-color: #ef4444;
+      animation: shake 0.5s ease;
+    }
+    
+    .paragraph-piece::before {
+      content: '⋮⋮';
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 1.2rem;
+      opacity: 0.5;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+    }
+    
+    .level-badge {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+    
+    .streak-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: #f59e0b;
+      font-weight: 600;
+    }
+    
+    .streak-indicator i {
+      animation: flame 1s infinite;
+    }
+    
+    @keyframes flame {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="text-gray-800">
+  <div class="min-h-screen py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <header class="text-center mb-10">
+        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <i class="fas fa-paragraph mr-3"></i>Paragraph Jumble
+        </h1>
+        <p class="text-lg text-gray-600 mt-3">Arrange the sentences in the correct order!</p>
+      </header>
+      
+      <!-- Main content -->
+      <div class="card p-6 relative overflow-hidden">
+        <!-- Game header -->
+        <div class="flex justify-between items-center mb-8">
+          <div>
+            <h2 class="text-xl font-bold" id="levelIndicator">Level 1</h2>
+            <div class="flex items-center mt-1">
+              <span class="text-sm mr-2">Progress:</span>
+              <div class="progress-bar w-32">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-xl font-bold"><span id="score">0</span> <span class="text-blue-600">pts</span></div>
+            <div class="streak-indicator mt-1">
+              <i class="fas fa-fire"></i>
+              <span id="streak">0</span> streak
+            </div>
+          </div>
+        </div>
+        
+        <!-- Timer -->
+        <div class="bg-blue-50 rounded-xl p-4 mb-6 text-center">
+          <div class="text-sm text-gray-600 mb-1">Time Remaining</div>
+          <div class="text-2xl font-bold text-blue-600" id="timer">90s</div>
+        </div>
+        
+        <!-- Story title -->
+        <div id="story-title" class="text-2xl font-bold text-center mb-6 text-blue-600"></div>
+        
+        <!-- Paragraph container -->
+        <div id="paragraph-container" class="space-y-2 mb-6"></div>
+        
+        <!-- Feedback area -->
+        <div id="feedback" class="text-center mb-6 min-h-[2rem]"></div>
+        
+        <!-- Action buttons -->
+        <div class="flex justify-center gap-4">
+          <button id="checkBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105">
+            <i class="fas fa-check mr-2"></i> Check Order
+          </button>
+          <button id="nextBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 hidden">
+            <i class="fas fa-arrow-right mr-2"></i> Next
+          </button>
+          <button id="retryBtn" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 hidden">
+            <i class="fas fa-redo mr-2"></i> Play Again
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const paragraphs = {
+      1: [ // Level 1 - Simple sequences
+        {
+          title: "Making a Sandwich",
+          sentences: [
+            "First, gather bread, butter, and your favorite filling.",
+            "Next, spread butter evenly on both slices of bread.",
+            "Then, add your filling between the slices.",
+            "Finally, cut the sandwich diagonally and serve."
+          ]
+        },
+        {
+          title: "Morning Routine",
+          sentences: [
+            "I wake up early in the morning.",
+            "Then, I brush my teeth and wash my face.",
+            "After that, I do some light exercises.",
+            "Finally, I have a healthy breakfast."
+          ]
+        },
+        {
+          title: "Planting a Seed",
+          sentences: [
+            "Choose a small pot with drainage holes.",
+            "Fill the pot with nutrient-rich soil.",
+            "Make a small hole in the soil.",
+            "Place the seed in the hole and cover it gently."
+          ]
+        },
+        {
+          title: "Making Tea",
+          sentences: [
+            "Boil water in a kettle.",
+            "Place a tea bag in your cup.",
+            "Pour the hot water over the tea bag.",
+            "Let it steep for a few minutes before drinking."
+          ]
+        }
+      ],
+      2: [ // Level 2 - Moderate complexity
+        {
+          title: "The Lost Dog",
+          sentences: [
+            "A small puppy wandered away from its home one day.",
+            "It explored the neighborhood, getting more lost with each turn.",
+            "A kind neighbor found the scared puppy in their garden.",
+            "They checked its collar and called the worried owners.",
+            "Soon, the happy puppy was reunited with its family."
+          ]
+        },
+        {
+          title: "Growing a Plant",
+          sentences: [
+            "First, prepare the soil in a pot with good drainage.",
+            "Plant the seed at the right depth and cover it gently.",
+            "Water the soil carefully and place in sunlight.",
+            "Over days, watch as the seedling emerges.",
+            "With care, the plant grows stronger each day."
+          ]
+        },
+        {
+          title: "The Library Visit",
+          sentences: [
+            "Sarah decided to visit the local library after school.",
+            "She browsed through various sections looking for a good book.",
+            "After finding an interesting novel, she got her library card.",
+            "The librarian helped her check out the book.",
+            "Sarah left excited to start reading her new book."
+          ]
+        },
+        {
+          title: "The Science Experiment",
+          sentences: [
+            "The students gathered their materials for the experiment.",
+            "They carefully measured each ingredient.",
+            "Following the procedure, they mixed the solutions.",
+            "They observed the chemical reaction with excitement.",
+            "Finally, they recorded their observations in their notebooks."
+          ]
+        }
+      ],
+      3: [ // Level 3 - Complex narratives
+        {
+          title: "The Science Fair Project",
+          sentences: [
+            "Sarah spent weeks planning her science fair project about renewable energy.",
+            "She built a small working model of a wind turbine using recycled materials.",
+            "During testing, she discovered some interesting patterns in energy generation.",
+            "Her presentation impressed the judges with its detailed analysis.",
+            "The project won first place and inspired other students.",
+            "Sarah's success motivated her to pursue engineering in the future."
+          ]
+        },
+        {
+          title: "The Community Garden",
+          sentences: [
+            "The abandoned lot had been an eyesore in the neighborhood for years.",
+            "Local residents decided to transform it into a community garden.",
+            "They cleared the debris and prepared the soil over several weekends.",
+            "Families contributed different plants, creating diverse garden beds.",
+            "The garden became a gathering place for neighbors to share and learn.",
+            "Years later, it remains a symbol of community cooperation."
+          ]
+        },
+        {
+          title: "The Mountain Expedition",
+          sentences: [
+            "The team of climbers prepared for months before the expedition.",
+            "They studied weather patterns and mapped their route carefully.",
+            "On the first day, they established their base camp at the mountain's foot.",
+            "As they ascended, they faced increasingly challenging conditions.",
+            "After several days of climbing, they finally reached the summit.",
+            "The view from the top made all their efforts worthwhile."
+          ]
+        },
+        {
+          title: "The Art Exhibition",
+          sentences: [
+            "The young artist spent months creating her masterpiece collection.",
+            "She carefully selected the gallery space for her first exhibition.",
+            "The opening night drew a large crowd of art enthusiasts.",
+            "Critics praised her innovative use of color and technique.",
+            "Several pieces were sold to private collectors.",
+            "The success of the exhibition launched her professional career."
+          ]
+        }
+      ]
+    };
+
+    let score = 0;
+    let timeLeft = 90;
+    let timerInterval;
+    let currentLevel = 1;
+    let currentParagraph;
+    let draggedElement = null;
+    let streak = 0;
+    let questionsAnswered = 0;
+    let totalQuestions = 0;
+
+    const timerEl = document.getElementById("timer");
+    const scoreEl = document.getElementById("score");
+    const streakEl = document.getElementById("streak");
+    const progressFill = document.getElementById("progressFill");
+    const levelIndicator = document.getElementById("levelIndicator");
+    const storyTitle = document.getElementById("story-title");
+    const paragraphContainer = document.getElementById("paragraph-container");
+    const feedback = document.getElementById("feedback");
+    const checkBtn = document.getElementById("checkBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const retryBtn = document.getElementById("retryBtn");
+
+    function startGame() {
+      score = 0;
+      timeLeft = 90;
+      currentLevel = 1;
+      streak = 0;
+      questionsAnswered = 0;
+      totalQuestions = Object.values(paragraphs[currentLevel]).length;
+      
+      updateUI();
+      generateParagraph();
+      startTimer();
+    }
+
+    function updateUI() {
+      scoreEl.textContent = score;
+      streakEl.textContent = streak;
+      levelIndicator.textContent = `Level ${currentLevel}`;
+      const progress = (questionsAnswered / totalQuestions) * 100;
+      progressFill.style.width = `${progress}%`;
+    }
+
+    function generateParagraph() {
+      const levelParagraphs = paragraphs[currentLevel];
+      currentParagraph = levelParagraphs[Math.floor(Math.random() * levelParagraphs.length)];
+      
+      storyTitle.textContent = currentParagraph.title;
+      paragraphContainer.innerHTML = '';
+      
+      const shuffledSentences = [...currentParagraph.sentences].sort(() => Math.random() - 0.5);
+      
+      shuffledSentences.forEach((sentence, index) => {
+        const div = document.createElement('div');
+        div.className = 'paragraph-piece fade-in';
+        div.draggable = true;
+        div.textContent = sentence;
+        
+        div.addEventListener('dragstart', handleDragStart);
+        div.addEventListener('dragend', handleDragEnd);
+        div.addEventListener('dragover', handleDragOver);
+        div.addEventListener('drop', handleDrop);
+        
+        paragraphContainer.appendChild(div);
+      });
+      
+      checkBtn.classList.remove('hidden');
+      nextBtn.classList.add('hidden');
+      retryBtn.classList.add('hidden');
+      feedback.textContent = '';
+    }
+
+    function handleDragStart(e) {
+      draggedElement = e.target;
+      e.target.classList.add('dragging');
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      const rect = e.target.getBoundingClientRect();
+      const midpoint = rect.top + rect.height / 2;
+      
+      if (e.clientY < midpoint) {
+        e.target.parentNode.insertBefore(draggedElement, e.target);
+      } else {
+        e.target.parentNode.insertBefore(draggedElement, e.target.nextSibling);
+      }
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+    }
+
+    function checkOrder() {
+      const pieces = document.querySelectorAll('.paragraph-piece');
+      let isCorrect = true;
+      
+      pieces.forEach((piece, index) => {
+        if (piece.textContent === currentParagraph.sentences[index]) {
+          piece.classList.add('correct');
+        } else {
+          piece.classList.add('wrong');
+          isCorrect = false;
+        }
+      });
+      
+      if (isCorrect) {
+        handleCorrectOrder();
+      } else {
+        handleWrongOrder();
+      }
+      
+      checkBtn.disabled = true;
+    }
+
+    function handleCorrectOrder() {
+      score += currentLevel * 10;
+      streak++;
+      questionsAnswered++;
+      
+      if (streak >= 3) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+      
+      feedback.innerHTML = `
+        <div class="text-green-600 font-bold fade-in">
+          <i class="fas fa-check-circle mr-2"></i>
+          Perfect! You arranged the paragraph correctly!
+        </div>
+      `;
+      
+      if (questionsAnswered >= totalQuestions && currentLevel < 3) {
+        currentLevel++;
+        questionsAnswered = 0;
+        totalQuestions = Object.values(paragraphs[currentLevel]).length;
+      }
+      
+      updateUI();
+      nextBtn.classList.remove('hidden');
+    }
+
+    function handleWrongOrder() {
+      streak = 0;
+      feedback.innerHTML = `
+        <div class="text-red-600 font-bold fade-in">
+          <i class="fas fa-times-circle mr-2"></i>
+          Not quite right. Try again!
+        </div>
+      `;
+      
+      setTimeout(() => {
+        document.querySelectorAll('.paragraph-piece').forEach(piece => {
+          piece.classList.remove('wrong');
+        });
+        checkBtn.disabled = false;
+      }, 1000);
+      
+      updateUI();
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `${timeLeft}s`;
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+
+    function endGame() {
+      clearInterval(timerInterval);
+      feedback.innerHTML = `
+        <div class="text-2xl font-bold text-blue-600 mb-4">Time's Up!</div>
+        <div class="text-xl">Final Score: ${score} points</div>
+      `;
+      
+      checkBtn.classList.add('hidden');
+      nextBtn.classList.add('hidden');
+      retryBtn.classList.remove('hidden');
+      
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Event listeners
+    checkBtn.addEventListener('click', checkOrder);
+    nextBtn.addEventListener('click', generateParagraph);
+    retryBtn.addEventListener('click', startGame);
+
+    // Initialize the game
+    window.addEventListener('DOMContentLoaded', startGame);
+  </script>
+</body>
+</html> 

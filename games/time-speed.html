@@ -1,0 +1,722 @@
+<!-- games/color-memory.html -->
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>⏱️ Time & Speed Challenge</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+    }
+    
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .formula-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        animation: popIn 0.3s ease;
+        max-width: 90%;
+        width: 400px;
+    }
+    
+    .formula-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .option-btn {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+        padding: 12px 20px;
+        line-height: 1.4;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .option-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .correct-answer {
+        animation: pulse 0.6s ease;
+        background-color: #10b981 !important;
+        color: white !important;
+    }
+    
+    .wrong-answer {
+        animation: shake 0.5s ease;
+        background-color: #ef4444 !important;
+        color: white !important;
+    }
+    
+    .hint-badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: #f59e0b;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        animation: bounce 1s infinite;
+    }
+    
+    @keyframes popIn {
+        0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+    
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-8px); }
+        80% { transform: translateX(8px); }
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    
+    .streak-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f59e0b;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        animation: pulse 1s infinite;
+    }
+    
+    .formula-card {
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .formula-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body class="min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="card p-6 relative">
+            <!-- Header -->
+            <header class="text-center mb-8">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    ⏱️ Time & Speed Challenge
+                </h1>
+                <p class="text-gray-600 mt-2">Test your understanding of time, speed, and distance!</p>
+            </header>
+            
+            <!-- Level selection -->
+            <div id="levelScreen" class="text-center">
+                <h2 class="text-2xl font-bold mb-6 text-blue-600">Select Difficulty Level</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="level-card p-6 rounded-2xl text-center bg-green-50 border-2 border-green-500 cursor-pointer" data-level="easy">
+                        <div class="text-5xl mb-4">🌱</div>
+                        <h3 class="font-bold text-xl mb-2">Beginner</h3>
+                        <p class="text-gray-600 mb-3">Basic time and speed</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                    
+                    <div class="level-card p-6 rounded-2xl text-center bg-yellow-50 border-2 border-yellow-500 cursor-pointer" data-level="medium">
+                        <div class="text-5xl mb-4">🌿</div>
+                        <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+                        <p class="text-gray-600 mb-3">Complex calculations</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                    
+                    <div class="level-card p-6 rounded-2xl text-center bg-red-50 border-2 border-red-500 cursor-pointer" data-level="hard">
+                        <div class="text-5xl mb-4">🔥</div>
+                        <h3 class="font-bold text-xl mb-2">Advanced</h3>
+                        <p class="text-gray-600 mb-3">Expert challenges</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game screen -->
+            <div id="gameScreen" class="hidden">
+                <!-- Game stats -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-left">
+                        <div class="text-sm text-gray-600">Time Left</div>
+                        <div class="text-xl font-bold" id="timer">180s</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Score</div>
+                        <div class="text-xl font-bold" id="score">0</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Best Score</div>
+                        <div class="text-xl font-bold" id="bestScore">0</div>
+                    </div>
+                </div>
+                
+                <!-- Question area -->
+                <div class="text-center mb-6">
+                    <p class="text-gray-700 text-lg" id="questionText">Loading question...</p>
+                </div>
+                
+                <!-- Formula hint button -->
+                <button id="formulaHintBtn" class="mb-6 w-full bg-blue-100 hover:bg-blue-200 text-blue-700 py-2 rounded-xl font-medium transition transform hover:scale-105">
+                    Show Formula Hint
+                </button>
+                
+                <!-- Options area -->
+                <div class="space-y-3 mb-6" id="options"></div>
+                
+                <!-- Feedback area -->
+                <div id="feedback" class="text-center min-h-[24px] mb-4"></div>
+                
+                <!-- Retry button -->
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium hidden transition transform hover:scale-105" id="retryBtn">
+                    Play Again
+                </button>
+                
+                <!-- Streak indicator -->
+                <div id="streakIndicator" class="streak-indicator hidden">
+                    <i class="fas fa-fire mr-1"></i> <span id="streakCount">0</span> streak!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gameData = {
+            levels: {
+                easy: {
+                    name: "Beginner",
+                    icon: "🌱",
+                    questions: [
+                        {
+                            question: "If a car travels at 60 km/h for 2 hours, how far does it go?",
+                            options: ["120 km", "60 km", "30 km", "90 km"],
+                            answer: "120 km",
+                            formula: "Distance = Speed × Time",
+                            explanation: "Distance = 60 km/h × 2 h = 120 km"
+                        },
+                        {
+                            question: "How long does it take to travel 100 km at 50 km/h?",
+                            options: ["2 hours", "1 hour", "3 hours", "4 hours"],
+                            answer: "2 hours",
+                            formula: "Time = Distance ÷ Speed",
+                            explanation: "Time = 100 km ÷ 50 km/h = 2 hours"
+                        },
+                        {
+                            question: "A bicycle travels at 15 km/h for 3 hours. What distance does it cover?",
+                            options: ["45 km", "30 km", "60 km", "35 km"],
+                            answer: "45 km",
+                            formula: "Distance = Speed × Time",
+                            explanation: "Distance = 15 km/h × 3 h = 45 km"
+                        },
+                        {
+                            question: "If you walk at 5 km/h, how long will it take to cover 20 km?",
+                            options: ["4 hours", "3 hours", "5 hours", "6 hours"],
+                            answer: "4 hours",
+                            formula: "Time = Distance ÷ Speed",
+                            explanation: "Time = 20 km ÷ 5 km/h = 4 hours"
+                        },
+                        {
+                            question: "A bus travels 80 km in 2 hours. What is its speed?",
+                            options: ["40 km/h", "35 km/h", "45 km/h", "50 km/h"],
+                            answer: "40 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 80 km ÷ 2 h = 40 km/h"
+                        },
+                        {
+                            question: "A runner completes 10 km in 1 hour. What is their speed?",
+                            options: ["10 km/h", "8 km/h", "12 km/h", "15 km/h"],
+                            answer: "10 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 10 km ÷ 1 h = 10 km/h"
+                        },
+                        {
+                            question: "If a train travels at 75 km/h for 4 hours, how far does it go?",
+                            options: ["300 km", "250 km", "350 km", "275 km"],
+                            answer: "300 km",
+                            formula: "Distance = Speed × Time",
+                            explanation: "Distance = 75 km/h × 4 h = 300 km"
+                        },
+                        {
+                            question: "A car needs to travel 120 km at 40 km/h. How long will it take?",
+                            options: ["3 hours", "2.5 hours", "3.5 hours", "4 hours"],
+                            answer: "3 hours",
+                            formula: "Time = Distance ÷ Speed",
+                            explanation: "Time = 120 km ÷ 40 km/h = 3 hours"
+                        },
+                        {
+                            question: "A cyclist travels 45 km in 3 hours. What is their speed?",
+                            options: ["15 km/h", "12 km/h", "18 km/h", "20 km/h"],
+                            answer: "15 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 45 km ÷ 3 h = 15 km/h"
+                        },
+                        {
+                            question: "If you drive at 65 km/h for 2.5 hours, how far do you travel?",
+                            options: ["162.5 km", "150 km", "175 km", "160 km"],
+                            answer: "162.5 km",
+                            formula: "Distance = Speed × Time",
+                            explanation: "Distance = 65 km/h × 2.5 h = 162.5 km"
+                        }
+                    ]
+                },
+                medium: {
+                    name: "Intermediate",
+                    icon: "🌿",
+                    questions: [
+                        {
+                            question: "A train travels 300 km in 4 hours. What is its average speed?",
+                            options: ["75 km/h", "60 km/h", "80 km/h", "70 km/h"],
+                            answer: "75 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 300 km ÷ 4 h = 75 km/h"
+                        },
+                        {
+                            question: "If you need to travel 180 km and can only drive at 45 km/h, how many hours will it take?",
+                            options: ["4 hours", "3 hours", "5 hours", "6 hours"],
+                            answer: "4 hours",
+                            formula: "Time = Distance ÷ Speed",
+                            explanation: "Time = 180 km ÷ 45 km/h = 4 hours"
+                        },
+                        {
+                            question: "A car travels at 85 km/h for 3.5 hours. What distance does it cover?",
+                            options: ["297.5 km", "280 km", "300 km", "290 km"],
+                            answer: "297.5 km",
+                            formula: "Distance = Speed × Time",
+                            explanation: "Distance = 85 km/h × 3.5 h = 297.5 km"
+                        },
+                        {
+                            question: "A bus needs to cover 240 km in 4 hours. What speed must it maintain?",
+                            options: ["60 km/h", "55 km/h", "65 km/h", "70 km/h"],
+                            answer: "60 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 240 km ÷ 4 h = 60 km/h"
+                        },
+                        {
+                            question: "If a cyclist maintains 25 km/h, how long to complete 175 km?",
+                            options: ["7 hours", "6.5 hours", "7.5 hours", "8 hours"],
+                            answer: "7 hours",
+                            formula: "Time = Distance ÷ Speed",
+                            explanation: "Time = 175 km ÷ 25 km/h = 7 hours"
+                        },
+                        {
+                            question: "A train travels 420 km in 6 hours. What is its average speed?",
+                            options: ["70 km/h", "65 km/h", "75 km/h", "80 km/h"],
+                            answer: "70 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 420 km ÷ 6 h = 70 km/h"
+                        },
+                        {
+                            question: "If you drive at 95 km/h for 2.5 hours, how far do you travel?",
+                            options: ["237.5 km", "230 km", "240 km", "245 km"],
+                            answer: "237.5 km",
+                            formula: "Distance = Speed × Time",
+                            explanation: "Distance = 95 km/h × 2.5 h = 237.5 km"
+                        },
+                        {
+                            question: "A bus needs to travel 315 km in 4.5 hours. What speed is required?",
+                            options: ["70 km/h", "65 km/h", "75 km/h", "80 km/h"],
+                            answer: "70 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 315 km ÷ 4.5 h = 70 km/h"
+                        },
+                        {
+                            question: "A car travels 275 km in 3.5 hours. What is its average speed?",
+                            options: ["78.57 km/h", "75 km/h", "80 km/h", "82 km/h"],
+                            answer: "78.57 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 275 km ÷ 3.5 h = 78.57 km/h"
+                        },
+                        {
+                            question: "If you need to cover 360 km in 5 hours, what speed must you maintain?",
+                            options: ["72 km/h", "70 km/h", "75 km/h", "68 km/h"],
+                            answer: "72 km/h",
+                            formula: "Speed = Distance ÷ Time",
+                            explanation: "Speed = 360 km ÷ 5 h = 72 km/h"
+                        }
+                    ]
+                },
+                hard: {
+                    name: "Advanced",
+                    icon: "🔥",
+                    questions: [
+                        {
+                            question: "A car accelerates from 0 to 100 km/h in 10 seconds. What is its average acceleration in km/h/s?",
+                            options: ["10 km/h/s", "5 km/h/s", "15 km/h/s", "20 km/h/s"],
+                            answer: "10 km/h/s",
+                            formula: "Acceleration = (Final Speed - Initial Speed) ÷ Time",
+                            explanation: "Acceleration = (100 km/h - 0 km/h) ÷ 10 s = 10 km/h/s"
+                        },
+                        {
+                            question: "A train travels at 80 km/h for 2 hours, then at 60 km/h for 3 hours. What is its average speed for the entire journey?",
+                            options: ["68 km/h", "70 km/h", "65 km/h", "72 km/h"],
+                            answer: "68 km/h",
+                            formula: "Average Speed = Total Distance ÷ Total Time",
+                            explanation: "Total Distance = (80 km/h × 2 h) + (60 km/h × 3 h) = 340 km\nTotal Time = 5 hours\nAverage Speed = 340 km ÷ 5 h = 68 km/h"
+                        },
+                        {
+                            question: "A car travels at 90 km/h for 2 hours, then at 70 km/h for 3 hours. What is the total distance covered?",
+                            options: ["390 km", "380 km", "400 km", "410 km"],
+                            answer: "390 km",
+                            formula: "Total Distance = (Speed1 × Time1) + (Speed2 × Time2)",
+                            explanation: "Distance = (90 km/h × 2 h) + (70 km/h × 3 h) = 180 km + 210 km = 390 km"
+                        },
+                        {
+                            question: "A train accelerates from 40 km/h to 120 km/h in 20 seconds. What is its acceleration in km/h/s?",
+                            options: ["4 km/h/s", "3 km/h/s", "5 km/h/s", "6 km/h/s"],
+                            answer: "4 km/h/s",
+                            formula: "Acceleration = (Final Speed - Initial Speed) ÷ Time",
+                            explanation: "Acceleration = (120 km/h - 40 km/h) ÷ 20 s = 80 km/h ÷ 20 s = 4 km/h/s"
+                        },
+                        {
+                            question: "A car travels 150 km at 75 km/h, then 200 km at 80 km/h. What is the average speed for the entire journey?",
+                            options: ["77.78 km/h", "75 km/h", "80 km/h", "82 km/h"],
+                            answer: "77.78 km/h",
+                            formula: "Average Speed = Total Distance ÷ Total Time",
+                            explanation: "Time1 = 150 km ÷ 75 km/h = 2 h\nTime2 = 200 km ÷ 80 km/h = 2.5 h\nTotal Time = 4.5 h\nTotal Distance = 350 km\nAverage Speed = 350 km ÷ 4.5 h = 77.78 km/h"
+                        },
+                        {
+                            question: "A bus travels at 65 km/h for 2.5 hours, then at 55 km/h for 3 hours. What is the total distance?",
+                            options: ["327.5 km", "320 km", "330 km", "325 km"],
+                            answer: "327.5 km",
+                            formula: "Total Distance = (Speed1 × Time1) + (Speed2 × Time2)",
+                            explanation: "Distance = (65 km/h × 2.5 h) + (55 km/h × 3 h) = 162.5 km + 165 km = 327.5 km"
+                        },
+                        {
+                            question: "A car accelerates from 30 km/h to 90 km/h in 15 seconds. What is its acceleration in km/h/s?",
+                            options: ["4 km/h/s", "3 km/h/s", "5 km/h/s", "6 km/h/s"],
+                            answer: "4 km/h/s",
+                            formula: "Acceleration = (Final Speed - Initial Speed) ÷ Time",
+                            explanation: "Acceleration = (90 km/h - 30 km/h) ÷ 15 s = 60 km/h ÷ 15 s = 4 km/h/s"
+                        },
+                        {
+                            question: "A train travels 280 km at 70 km/h, then 320 km at 80 km/h. What is the average speed?",
+                            options: ["75 km/h", "72 km/h", "78 km/h", "80 km/h"],
+                            answer: "75 km/h",
+                            formula: "Average Speed = Total Distance ÷ Total Time",
+                            explanation: "Time1 = 280 km ÷ 70 km/h = 4 h\nTime2 = 320 km ÷ 80 km/h = 4 h\nTotal Time = 8 h\nTotal Distance = 600 km\nAverage Speed = 600 km ÷ 8 h = 75 km/h"
+                        },
+                        {
+                            question: "A car travels at 85 km/h for 2 hours, then at 65 km/h for 3 hours, and finally at 75 km/h for 1 hour. What is the average speed?",
+                            options: ["73.33 km/h", "70 km/h", "75 km/h", "72 km/h"],
+                            answer: "73.33 km/h",
+                            formula: "Average Speed = Total Distance ÷ Total Time",
+                            explanation: "Distance1 = 85 km/h × 2 h = 170 km\nDistance2 = 65 km/h × 3 h = 195 km\nDistance3 = 75 km/h × 1 h = 75 km\nTotal Distance = 440 km\nTotal Time = 6 h\nAverage Speed = 440 km ÷ 6 h = 73.33 km/h"
+                        },
+                        {
+                            question: "A bus accelerates from 20 km/h to 100 km/h in 16 seconds. What is its acceleration in km/h/s?",
+                            options: ["5 km/h/s", "4 km/h/s", "6 km/h/s", "7 km/h/s"],
+                            answer: "5 km/h/s",
+                            formula: "Acceleration = (Final Speed - Initial Speed) ÷ Time",
+                            explanation: "Acceleration = (100 km/h - 20 km/h) ÷ 16 s = 80 km/h ÷ 16 s = 5 km/h/s"
+                        }
+                    ]
+                }
+            },
+            
+            currentLevel: null,
+            currentQuestion: 0,
+            score: 0,
+            lives: 3,
+            correctAnswers: 0,
+            startTime: null,
+            currentStreak: 0,
+            usedQuestions: new Set(),
+            currentQuestionData: null
+        };
+
+        // DOM Elements
+        const levelScreen = document.getElementById('levelScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const questionText = document.getElementById('questionText');
+        const optionsEl = document.getElementById('options');
+        const feedbackEl = document.getElementById('feedback');
+        const scoreEl = document.getElementById('score');
+        const bestScoreEl = document.getElementById('bestScore');
+        const timerEl = document.getElementById('timer');
+        const retryBtn = document.getElementById('retryBtn');
+        const streakIndicator = document.getElementById('streakIndicator');
+        const streakCount = document.getElementById('streakCount');
+        const formulaHintBtn = document.getElementById('formulaHintBtn');
+
+        // Initialize game
+        function initGame() {
+            // Add event listeners to level cards
+            document.querySelectorAll('.level-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const level = card.dataset.level;
+                    startLevel(level);
+                });
+            });
+            
+            // Load best score
+            const savedBestScore = localStorage.getItem("timeSpeedBestScore") || "0";
+            bestScoreEl.textContent = savedBestScore;
+            
+            // Add formula hint button listener
+            formulaHintBtn.addEventListener('click', showFormulaHint);
+        }
+
+        // Show formula hint
+        function showFormulaHint() {
+            if (!gameData.currentQuestionData) return;
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'formula-overlay';
+            
+            const popup = document.createElement('div');
+            popup.className = 'formula-popup';
+            popup.innerHTML = `
+                <h3 class="text-xl font-bold mb-4 text-blue-600">Formula Hint</h3>
+                <div class="formula-card">
+                    <p class="font-mono text-lg mb-2">${gameData.currentQuestionData.formula}</p>
+                    <p class="text-gray-600">${gameData.currentQuestionData.explanation}</p>
+                </div>
+                <button class="w-full mt-4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition" id="closeFormulaBtn">
+                    Close
+                </button>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(popup);
+            
+            // Add click handler to close button
+            document.getElementById('closeFormulaBtn').addEventListener('click', () => {
+                overlay.remove();
+                popup.remove();
+            });
+            
+            // Also close when clicking the overlay
+            overlay.addEventListener('click', () => {
+                overlay.remove();
+                popup.remove();
+            });
+        }
+
+        // Start a new level
+        function startLevel(level) {
+            gameData.currentLevel = level;
+            gameData.currentQuestion = 0;
+            gameData.score = 0;
+            gameData.lives = 3;
+            gameData.correctAnswers = 0;
+            gameData.currentStreak = 0;
+            gameData.usedQuestions.clear();
+            
+            // Hide streak indicator
+            streakIndicator.classList.add('hidden');
+            
+            // Update UI
+            levelScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            
+            scoreEl.textContent = "0";
+            timerEl.textContent = "180s";
+            retryBtn.classList.add('hidden');
+            
+            // Start timer
+            startTimer();
+            
+            // Load first question
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            const level = gameData.levels[gameData.currentLevel];
+            const question = getRandomQuestion(level);
+            
+            // Store current question for answer checking
+            gameData.currentQuestionData = question;
+            
+            // Update question text
+            questionText.textContent = question.question;
+            
+            // Clear previous content
+            optionsEl.innerHTML = '';
+            feedbackEl.innerHTML = '';
+            
+            // Create options
+            question.options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn w-full border text-left px-4 py-2 rounded-xl bg-white hover:bg-blue-50 transition';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(option, btn);
+                optionsEl.appendChild(btn);
+            });
+            
+            // Record start time
+            gameData.startTime = new Date();
+        }
+
+        // Get random question
+        function getRandomQuestion(level) {
+            if (gameData.usedQuestions.size === level.questions.length) {
+                gameData.usedQuestions.clear();
+            }
+            
+            let availableQuestions = level.questions.filter((_, index) => !gameData.usedQuestions.has(index));
+            let randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            let question = availableQuestions[randomIndex];
+            
+            gameData.usedQuestions.add(level.questions.indexOf(question));
+            return question;
+        }
+
+        // Check answer
+        function checkAnswer(selectedOption, btn) {
+            // Disable all buttons
+            Array.from(optionsEl.children).forEach(b => b.disabled = true);
+            
+            const isCorrect = selectedOption === gameData.currentQuestionData.answer;
+            
+            if (isCorrect) {
+                gameData.score += 100;
+                gameData.correctAnswers++;
+                gameData.currentStreak++;
+                
+                // Add time bonus
+                const timeTaken = (new Date() - gameData.startTime) / 1000;
+                const timeBonus = Math.min(20, Math.floor(timeTaken / 10));
+                gameData.score += timeBonus;
+                
+                // Show streak indicator
+                if (gameData.currentStreak >= 3) {
+                    streakCount.textContent = gameData.currentStreak;
+                    streakIndicator.classList.remove('hidden');
+                }
+                
+                btn.classList.add('correct-answer');
+                feedbackEl.innerHTML = `
+                    <div class="text-green-600 font-medium">
+                        Correct! +${100 + timeBonus} points
+                        ${gameData.currentStreak >= 3 ? ` (+${gameData.currentStreak * 10} streak bonus!)` : ''}
+                    </div>
+                `;
+            } else {
+                gameData.currentStreak = 0;
+                streakIndicator.classList.add('hidden');
+                btn.classList.add('wrong-answer');
+                
+                feedbackEl.innerHTML = `
+                    <div class="text-red-600 font-medium">
+                        Incorrect! The correct answer was: ${gameData.currentQuestionData.answer}
+                    </div>
+                `;
+            }
+            
+            // Update score
+            scoreEl.textContent = gameData.score;
+            
+            // Update best score
+            const currentBest = parseInt(localStorage.getItem("timeSpeedBestScore") || "0");
+            if (gameData.score > currentBest) {
+                localStorage.setItem("timeSpeedBestScore", gameData.score);
+                bestScoreEl.textContent = gameData.score;
+            }
+            
+            // Move to next question
+            setTimeout(() => {
+                if (timeLeft > 0) {
+                    loadQuestion();
+                } else {
+                    endGame();
+                }
+            }, 1500);
+        }
+
+        // Start timer
+        function startTimer() {
+            timeLeft = 180;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = `${timeLeft}s`;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+        }
+
+        // End game
+        function endGame() {
+            clearInterval(timerInterval);
+            gameScreen.classList.add('hidden');
+            levelScreen.classList.remove('hidden');
+            
+            // Save score if logged in
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                const userId = localStorage.getItem("userId");
+                fetch("/api/brain-games/update-score", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: userId,
+                        gameId: "time-speed",
+                        score: gameData.score
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Score saved successfully");
+                    }
+                })
+                .catch(err => console.error("Error saving score:", err));
+            }
+        }
+
+        // Initialize the game
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>

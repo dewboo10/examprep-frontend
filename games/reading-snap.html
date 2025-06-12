@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Reading Snap – BrainGames</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #818cf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .level-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .level-card.easy { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-color: #10b981; }
+        .level-card.medium { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #f59e0b; }
+        .level-card.hard { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-color: #ef4444; }
+        
+        .reading-passage {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .option-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .correct-answer {
+            animation: pulse 0.6s ease;
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+        
+        .wrong-answer {
+            animation: shake 0.5s ease;
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+        }
+        
+        .streak-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        
+        .streak-indicator i {
+            animation: flame 1s infinite;
+        }
+        
+        @keyframes flame {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="min-h-screen py-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <i class="fas fa-book-reader mr-3"></i>Reading Snap
+                </h1>
+                <p class="text-lg text-gray-600 mt-3">Read quickly and answer questions accurately!</p>
+            </header>
+            
+            <!-- Main content -->
+            <div class="card p-6 relative overflow-hidden">
+                <!-- Level selection -->
+                <div id="levelScreen" class="text-center">
+                    <h2 class="text-2xl font-bold mb-6 text-primary">Select Difficulty Level</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="level-card easy p-6 rounded-2xl text-center" data-level="easy">
+                            <div class="text-5xl mb-4">📰</div>
+                            <h3 class="font-bold text-xl mb-2">Beginner</h3>
+                            <p class="text-gray-600 mb-3">Short news articles</p>
+                            <div class="text-sm text-gray-700">60 seconds reading time</div>
+                        </div>
+                        
+                        <div class="level-card medium p-6 rounded-2xl text-center" data-level="medium">
+                            <div class="text-5xl mb-4">📝</div>
+                            <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+                            <p class="text-gray-600 mb-3">Literature excerpts</p>
+                            <div class="text-sm text-gray-700">60 seconds reading time</div>
+                        </div>
+                        
+                        <div class="level-card hard p-6 rounded-2xl text-center" data-level="hard">
+                            <div class="text-5xl mb-4">📚</div>
+                            <h3 class="font-bold text-xl mb-2">Advanced</h3>
+                            <p class="text-gray-600 mb-3">Complex passages</p>
+                            <div class="text-sm text-gray-700">60 seconds reading time</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reading screen -->
+                <div id="readingScreen" class="hidden">
+                    <!-- Game header -->
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h2 class="text-xl font-bold" id="levelIndicator">Level: Beginner</h2>
+                            <div class="flex items-center mt-1">
+                                <span class="text-sm mr-2">Passage:</span>
+                                <span class="font-medium" id="passageCounter">1/5</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold"><span id="score">0</span> <span class="text-blue-600">pts</span></div>
+                            <div class="streak-indicator mt-1">
+                                <i class="fas fa-fire"></i>
+                                <span id="streak">0</span> streak
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timer -->
+                    <div class="bg-blue-50 rounded-xl p-4 mb-6 text-center">
+                        <div class="text-sm text-gray-600 mb-1">Reading Time</div>
+                        <div class="text-2xl font-bold text-blue-600" id="timer">60s</div>
+                    </div>
+                    
+                    <!-- Reading passage -->
+                    <div id="readingPassage" class="reading-passage mb-6"></div>
+                    
+                    <!-- Question area (initially hidden) -->
+                    <div id="questionArea" class="hidden">
+                        <h3 class="text-xl font-bold mb-4" id="questionText"></h3>
+                        <div class="grid grid-cols-1 gap-4" id="optionsContainer"></div>
+                    </div>
+                    
+                    <!-- Feedback area -->
+                    <div id="feedback" class="text-center mb-6 min-h-[2rem]"></div>
+                    
+                    <!-- Action buttons -->
+                    <div class="flex justify-center gap-4">
+                        <button id="startBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105">
+                            <i class="fas fa-play mr-2"></i> Start Reading
+                        </button>
+                        <button id="nextBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 hidden">
+                            <i class="fas fa-arrow-right mr-2"></i> Next
+                        </button>
+                        <button id="retryBtn" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 hidden">
+                            <i class="fas fa-redo mr-2"></i> Play Again
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Results screen -->
+                <div id="resultsScreen" class="hidden text-center py-10">
+                    <div class="text-6xl mb-4">🎉</div>
+                    <h2 class="text-3xl font-bold mb-4">Level Complete!</h2>
+                    <div class="text-5xl font-bold text-blue-600 mb-6"><span id="finalScore">0</span> pts</div>
+                    
+                    <div class="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
+                        <div class="bg-blue-50 p-4 rounded-xl">
+                            <div class="text-2xl mb-2"><span id="correctCount">0</span>/<span id="totalQuestions">0</span></div>
+                            <div class="text-sm text-gray-600">Correct Answers</div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-xl">
+                            <div class="text-2xl mb-2"><span id="accuracy">0</span>%</div>
+                            <div class="text-sm text-gray-600">Accuracy</div>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-xl">
+                            <div class="text-2xl mb-2"><span id="bonus">0</span></div>
+                            <div class="text-sm text-gray-600">Bonus Points</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center gap-4">
+                        <button id="restartBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105">
+                            <i class="fas fa-redo mr-2"></i> Restart Game
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const passages = {
+            easy: [
+                {
+                    title: "The Solar Eclipse",
+                    content: "A solar eclipse occurs when the Moon passes between the Earth and the Sun, blocking the Sun's light. During a total solar eclipse, the Moon completely covers the Sun, creating a brief period of darkness. This rare event can only be seen from specific locations on Earth. Scientists use solar eclipses to study the Sun's corona, which is normally too bright to observe. The next total solar eclipse visible from North America will occur in 2024.",
+                    questions: [
+                        {
+                            question: "What happens during a total solar eclipse?",
+                            options: [
+                                "The Moon partially blocks the Sun",
+                                "The Moon completely covers the Sun",
+                                "The Earth blocks the Moon",
+                                "The Sun blocks the Moon"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "When will the next total solar eclipse be visible from North America?",
+                            options: [
+                                "2023",
+                                "2024",
+                                "2025",
+                                "2026"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                },
+                {
+                    title: "The Benefits of Exercise",
+                    content: "Regular exercise is essential for maintaining good health. It helps strengthen the heart, improve circulation, and maintain a healthy weight. Exercise also releases endorphins, which can improve mood and reduce stress. Even 30 minutes of moderate exercise daily can have significant health benefits. Activities like walking, swimming, or cycling are great ways to stay active.",
+                    questions: [
+                        {
+                            question: "What is one benefit of regular exercise mentioned in the passage?",
+                            options: [
+                                "Increased stress levels",
+                                "Improved mood",
+                                "Weight gain",
+                                "Weaker heart"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "How much daily exercise is recommended for health benefits?",
+                            options: [
+                                "15 minutes",
+                                "30 minutes",
+                                "45 minutes",
+                                "60 minutes"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                },
+                {
+                    title: "The Importance of Sleep",
+                    content: "Getting enough sleep is crucial for our physical and mental well-being. During sleep, our bodies repair tissues, strengthen the immune system, and consolidate memories. Adults typically need 7-9 hours of sleep each night. Lack of sleep can lead to problems with concentration, mood swings, and increased risk of health issues. Creating a regular sleep schedule and maintaining a comfortable sleep environment can help improve sleep quality.",
+                    questions: [
+                        {
+                            question: "How many hours of sleep do adults typically need?",
+                            options: [
+                                "5-6 hours",
+                                "7-9 hours",
+                                "10-12 hours",
+                                "4-5 hours"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What happens during sleep according to the passage?",
+                            options: [
+                                "Only memory consolidation",
+                                "Only immune system strengthening",
+                                "Tissue repair and memory consolidation",
+                                "Only mood regulation"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Water Cycle",
+                    content: "The water cycle is a continuous process that moves water throughout the Earth. It begins when the sun heats water in oceans, lakes, and rivers, causing it to evaporate into water vapor. This vapor rises into the atmosphere, cools, and condenses into clouds. When the clouds become heavy with water, precipitation occurs in the form of rain, snow, or hail. The water then returns to the Earth's surface, where it collects in bodies of water or seeps into the ground, completing the cycle.",
+                    questions: [
+                        {
+                            question: "What causes water to evaporate in the water cycle?",
+                            options: [
+                                "Wind",
+                                "The sun's heat",
+                                "Cold temperatures",
+                                "Rain"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What happens to water vapor in the atmosphere?",
+                            options: [
+                                "It stays as vapor",
+                                "It forms clouds",
+                                "It disappears",
+                                "It becomes ice"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                },
+                {
+                    title: "The Internet Revolution",
+                    content: "The Internet has transformed how we live, work, and communicate. It allows us to access information instantly, connect with people worldwide, and conduct business online. The World Wide Web, created in 1989, made the Internet accessible to everyone. Today, we use the Internet for education, entertainment, shopping, and social networking. However, it's important to use the Internet safely and responsibly, protecting our personal information and being mindful of online security.",
+                    questions: [
+                        {
+                            question: "When was the World Wide Web created?",
+                            options: [
+                                "1979",
+                                "1989",
+                                "1999",
+                                "2009"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What is one important aspect of Internet use mentioned in the passage?",
+                            options: [
+                                "Using it as much as possible",
+                                "Protecting personal information",
+                                "Avoiding all social media",
+                                "Only using it for business"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                },
+                {
+                    title: "Healthy Eating Habits",
+                    content: "Maintaining healthy eating habits is essential for good health. A balanced diet includes a variety of fruits, vegetables, whole grains, and lean proteins. It's important to limit processed foods, sugary drinks, and excessive salt. Eating regular meals and staying hydrated by drinking plenty of water helps maintain energy levels throughout the day. Planning meals ahead and cooking at home can help make healthier food choices easier.",
+                    questions: [
+                        {
+                            question: "What should a balanced diet include?",
+                            options: [
+                                "Only fruits and vegetables",
+                                "Only proteins",
+                                "A variety of different food groups",
+                                "Only grains"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "What is one way to maintain healthy eating habits?",
+                            options: [
+                                "Eating only processed foods",
+                                "Planning meals ahead",
+                                "Skipping meals",
+                                "Drinking only soda"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                },
+                {
+                    title: "The Importance of Reading",
+                    content: "Reading is a fundamental skill that opens doors to knowledge and imagination. Through books, we can travel to different worlds, learn about diverse cultures, and understand complex ideas. Reading improves vocabulary, enhances critical thinking, and develops empathy. In today's digital age, the ability to read and comprehend written material is more important than ever. It's a skill that benefits us throughout our lives.",
+                    questions: [
+                        {
+                            question: "What is one benefit of reading mentioned in the passage?",
+                            options: [
+                                "Physical fitness",
+                                "Musical ability",
+                                "Enhanced critical thinking",
+                                "Mathematical skills"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "Why is reading particularly important in today's digital age?",
+                            options: [
+                                "Books are cheaper",
+                                "Libraries are more accessible",
+                                "Comprehension skills are more crucial",
+                                "People read more slowly"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Solar System",
+                    content: "Our solar system consists of the Sun and everything that orbits around it, including eight planets, their moons, and various other celestial bodies. The four inner planets - Mercury, Venus, Earth, and Mars - are rocky, while the four outer planets - Jupiter, Saturn, Uranus, and Neptune - are gas giants. The solar system also contains asteroids, comets, and dwarf planets like Pluto. Each planet has unique characteristics and conditions that make it different from the others.",
+                    questions: [
+                        {
+                            question: "How many planets are in our solar system?",
+                            options: [
+                                "7",
+                                "8",
+                                "9",
+                                "10"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What are the four inner planets made of?",
+                            options: [
+                                "Gas",
+                                "Ice",
+                                "Rock",
+                                "Liquid"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Human Brain",
+                    content: "The human brain is the command center of our body, controlling everything from basic functions like breathing to complex processes like thinking and emotions. It contains billions of nerve cells called neurons that communicate through electrical and chemical signals. The brain is divided into different regions, each responsible for specific functions. For example, the frontal lobe controls decision-making, while the occipital lobe processes visual information. The brain continues to develop and change throughout our lives.",
+                    questions: [
+                        {
+                            question: "What are the nerve cells in the brain called?",
+                            options: [
+                                "Dendrites",
+                                "Neurons",
+                                "Synapses",
+                                "Axons"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What does the frontal lobe control?",
+                            options: [
+                                "Visual processing",
+                                "Decision-making",
+                                "Hearing",
+                                "Balance"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                },
+                {
+                    title: "Climate Change",
+                    content: "Climate change refers to long-term shifts in temperatures and weather patterns. Human activities, particularly the burning of fossil fuels, have been the main driver of climate change since the 1800s. This has led to rising global temperatures, melting ice caps, and more frequent extreme weather events. Reducing greenhouse gas emissions, using renewable energy, and protecting forests are important steps in addressing climate change. Everyone can contribute to solutions through their daily choices and actions.",
+                    questions: [
+                        {
+                            question: "What is the main cause of climate change mentioned in the passage?",
+                            options: [
+                                "Natural weather patterns",
+                                "Burning of fossil fuels",
+                                "Forest growth",
+                                "Ocean currents"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What is one effect of climate change mentioned?",
+                            options: [
+                                "Decreasing temperatures",
+                                "More frequent extreme weather",
+                                "Growing ice caps",
+                                "Reduced rainfall"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                }
+            ],
+            medium: [
+                {
+                    title: "The Road Not Taken",
+                    content: "Two roads diverged in a yellow wood, And sorry I could not travel both And be one traveler, long I stood And looked down one as far as I could To where it bent in the undergrowth; Then took the other, as just as fair, And having perhaps the better claim, Because it was grassy and wanted wear; Though as for that the passing there Had worn them really about the same.",
+                    questions: [
+                        {
+                            question: "What color is the wood described in the poem?",
+                            options: [
+                                "Green",
+                                "Yellow",
+                                "Brown",
+                                "Red"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "Why did the speaker choose the second road?",
+                            options: [
+                                "It was shorter",
+                                "It was more worn",
+                                "It was grassy and less traveled",
+                                "It was wider"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Importance of Reading",
+                    content: "Reading is a fundamental skill that opens doors to knowledge and imagination. Through books, we can travel to different worlds, learn about diverse cultures, and understand complex ideas. Reading improves vocabulary, enhances critical thinking, and develops empathy. In today's digital age, the ability to read and comprehend written material is more important than ever. It's a skill that benefits us throughout our lives.",
+                    questions: [
+                        {
+                            question: "What is one benefit of reading mentioned in the passage?",
+                            options: [
+                                "Physical fitness",
+                                "Musical ability",
+                                "Enhanced critical thinking",
+                                "Mathematical skills"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "Why is reading particularly important in today's digital age?",
+                            options: [
+                                "Books are cheaper",
+                                "Libraries are more accessible",
+                                "Comprehension skills are more crucial",
+                                "People read more slowly"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Art of Storytelling",
+                    content: "Storytelling is one of humanity's oldest and most powerful forms of communication. From ancient cave paintings to modern digital media, stories have helped us make sense of the world and share our experiences. A good story can transport readers to different times and places, evoke emotions, and inspire action. The elements of storytelling - character, plot, setting, and theme - work together to create a compelling narrative that resonates with audiences across cultures and generations.",
+                    questions: [
+                        {
+                            question: "What is described as one of the oldest forms of communication?",
+                            options: [
+                                "Digital media",
+                                "Storytelling",
+                                "Cave paintings",
+                                "Written language"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What elements work together in storytelling?",
+                            options: [
+                                "Only plot and character",
+                                "Only setting and theme",
+                                "Character, plot, setting, and theme",
+                                "Only dialogue and action"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Digital Revolution",
+                    content: "The digital revolution has transformed every aspect of modern life, from how we work and communicate to how we learn and entertain ourselves. The rise of the internet, smartphones, and social media has created new opportunities for connection and innovation. However, this technological advancement also brings challenges, such as digital privacy concerns, information overload, and the digital divide. Understanding both the benefits and risks of digital technology is crucial for navigating the modern world effectively.",
+                    questions: [
+                        {
+                            question: "What has the digital revolution transformed?",
+                            options: [
+                                "Only communication",
+                                "Only entertainment",
+                                "Every aspect of modern life",
+                                "Only work"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "What is one challenge mentioned in the passage?",
+                            options: [
+                                "Too much free time",
+                                "Digital privacy concerns",
+                                "Lack of technology",
+                                "Too many options"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                },
+                {
+                    title: "The Power of Music",
+                    content: "Music has the unique ability to transcend language barriers and evoke powerful emotions. Throughout history, music has played a vital role in cultural expression, religious ceremonies, and social movements. Scientific research shows that music can affect our mood, reduce stress, and even improve cognitive function. From classical compositions to modern genres, music continues to evolve and influence society in profound ways. Its universal appeal makes it one of the most powerful forms of human expression.",
+                    questions: [
+                        {
+                            question: "What unique ability does music have?",
+                            options: [
+                                "Only making people dance",
+                                "Transcending language barriers",
+                                "Only reducing stress",
+                                "Only improving memory"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What role has music played throughout history?",
+                            options: [
+                                "Only entertainment",
+                                "Only religious ceremonies",
+                                "Cultural expression and social movements",
+                                "Only background noise"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Science of Happiness",
+                    content: "Recent research in positive psychology has revealed fascinating insights into what makes people happy. Studies show that happiness is not just about material wealth or external circumstances, but also about our mindset and daily practices. Factors like gratitude, social connections, and finding meaning in life contribute significantly to our well-being. Understanding these principles can help us cultivate more joy and satisfaction in our lives, regardless of our circumstances.",
+                    questions: [
+                        {
+                            question: "What field of study is mentioned in the passage?",
+                            options: [
+                                "Negative psychology",
+                                "Positive psychology",
+                                "Clinical psychology",
+                                "Social psychology"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What contributes to happiness according to the passage?",
+                            options: [
+                                "Only material wealth",
+                                "Only external circumstances",
+                                "Gratitude and social connections",
+                                "Only career success"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Art of Photography",
+                    content: "Photography is more than just capturing images; it's a powerful form of visual storytelling. Through composition, lighting, and timing, photographers can convey emotions, document history, and create art. The evolution of photography from film to digital has made it more accessible, but the fundamental principles of creating compelling images remain the same. A great photograph can tell a story, evoke emotions, and preserve moments that would otherwise be lost to time.",
+                    questions: [
+                        {
+                            question: "What is photography described as?",
+                            options: [
+                                "Only a hobby",
+                                "A form of visual storytelling",
+                                "Only documentation",
+                                "Only art"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What can a great photograph do?",
+                            options: [
+                                "Only look pretty",
+                                "Only document events",
+                                "Tell stories and preserve moments",
+                                "Only show technical skill"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Future of Work",
+                    content: "The workplace is undergoing a significant transformation driven by technological advancement and changing social values. Remote work, artificial intelligence, and automation are reshaping how we work and what skills are valuable. The ability to adapt to change, think critically, and collaborate effectively has become more important than ever. As we navigate this evolving landscape, understanding these trends and developing relevant skills will be crucial for career success.",
+                    questions: [
+                        {
+                            question: "What is driving workplace transformation?",
+                            options: [
+                                "Only remote work",
+                                "Only automation",
+                                "Technological advancement and changing values",
+                                "Only social media"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "What skills have become more important?",
+                            options: [
+                                "Only technical skills",
+                                "Only manual skills",
+                                "Adaptability and critical thinking",
+                                "Only computer skills"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Psychology of Color",
+                    content: "Colors have a profound impact on our emotions, behavior, and perception. Different colors can evoke specific psychological responses: blue often represents calm and trust, red can stimulate energy and passion, while green is associated with growth and harmony. Understanding color psychology is crucial in fields like marketing, design, and architecture. The strategic use of color can influence mood, create atmosphere, and even affect decision-making.",
+                    questions: [
+                        {
+                            question: "What is the psychological association with blue?",
+                            options: [
+                                "Energy and passion",
+                                "Growth and harmony",
+                                "Calm and trust",
+                                "Excitement and joy"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "Where is color psychology particularly important?",
+                            options: [
+                                "Only in art",
+                                "Only in fashion",
+                                "Marketing, design, and architecture",
+                                "Only in nature"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Art of Communication",
+                    content: "Effective communication is a complex skill that involves more than just speaking and writing. It requires active listening, understanding body language, and being aware of cultural differences. Good communication can build relationships, resolve conflicts, and drive success in both personal and professional life. In today's interconnected world, the ability to communicate clearly and empathetically has become increasingly valuable.",
+                    questions: [
+                        {
+                            question: "What does effective communication require?",
+                            options: [
+                                "Only speaking clearly",
+                                "Only writing well",
+                                "Active listening and cultural awareness",
+                                "Only using technology"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "Why is good communication valuable today?",
+                            options: [
+                                "Only for business",
+                                "Only for personal life",
+                                "For both personal and professional success",
+                                "Only for social media"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                }
+            ],
+            hard: [
+                {
+                    title: "The Quantum Revolution",
+                    content: "Quantum mechanics has revolutionized our understanding of the physical world. At the quantum level, particles can exist in multiple states simultaneously, a phenomenon known as superposition. Entanglement, another quantum property, allows particles to be connected regardless of distance. These principles challenge our classical understanding of physics and have led to the development of quantum computing, which promises to solve complex problems beyond the capabilities of traditional computers.",
+                    questions: [
+                        {
+                            question: "What is superposition in quantum mechanics?",
+                            options: [
+                                "The ability of particles to move faster than light",
+                                "The existence of particles in multiple states at once",
+                                "The connection between distant particles",
+                                "The creation of new particles"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What potential application of quantum mechanics is mentioned?",
+                            options: [
+                                "Nuclear fusion",
+                                "Quantum computing",
+                                "Space travel",
+                                "Medical imaging"
+                            ],
+                            correct: 1
+                        }
+                    ]
+                },
+                {
+                    title: "The Art of Diplomacy",
+                    content: "Diplomacy is the art of managing international relations through negotiation and dialogue. It requires a delicate balance of assertiveness and compromise, understanding cultural nuances, and maintaining strategic relationships. Modern diplomacy faces new challenges in the digital age, where social media and instant communication can both facilitate and complicate international relations. The success of diplomatic efforts often depends on the ability to find common ground while respecting different perspectives and interests.",
+                    questions: [
+                        {
+                            question: "What is described as a key requirement for successful diplomacy?",
+                            options: [
+                                "Military strength",
+                                "Economic power",
+                                "Understanding cultural nuances",
+                                "Technological advantage"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "How has the digital age affected diplomacy?",
+                            options: [
+                                "Made it obsolete",
+                                "Simplified all negotiations",
+                                "Created new challenges and opportunities",
+                                "Eliminated the need for face-to-face meetings"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "Existential Philosophy",
+                    content: "Existentialism explores the fundamental questions of human existence, focusing on individual freedom, choice, and responsibility. Philosophers like Sartre and Camus argued that life has no inherent meaning, and it is up to each individual to create their own purpose through authentic choices. This philosophy emphasizes the importance of personal responsibility and the anxiety that comes with absolute freedom. It challenges us to confront the absurdity of existence while finding meaning in our actions and relationships.",
+                    questions: [
+                        {
+                            question: "What is the central focus of existentialism?",
+                            options: [
+                                "Social structures",
+                                "Religious beliefs",
+                                "Individual freedom and choice",
+                                "Scientific progress"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "What do existentialists believe about life's meaning?",
+                            options: [
+                                "It is predetermined",
+                                "It is given by religion",
+                                "It must be created by individuals",
+                                "It is found in nature"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "Neural Networks and AI",
+                    content: "Neural networks, inspired by the human brain's structure, are revolutionizing artificial intelligence. These complex systems can learn from data, recognize patterns, and make decisions with increasing accuracy. Deep learning, a subset of machine learning, uses multiple layers of neural networks to process information in ways similar to human cognition. While this technology offers tremendous potential, it also raises important ethical questions about bias, privacy, and the future of human work.",
+                    questions: [
+                        {
+                            question: "What inspired the structure of neural networks?",
+                            options: [
+                                "Computer circuits",
+                                "The human brain",
+                                "Mathematical equations",
+                                "Natural selection"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What ethical concerns are mentioned?",
+                            options: [
+                                "Only cost",
+                                "Only speed",
+                                "Bias and privacy",
+                                "Only complexity"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Philosophy of Time",
+                    content: "The nature of time has puzzled philosophers and scientists for centuries. Is time an objective reality, or is it merely a human construct? Einstein's theory of relativity showed that time is relative and can be affected by gravity and velocity. Some philosophers argue that the past and future are as real as the present, while others maintain that only the present moment exists. This debate touches on fundamental questions about reality, consciousness, and the nature of existence itself.",
+                    questions: [
+                        {
+                            question: "What did Einstein's theory of relativity reveal about time?",
+                            options: [
+                                "It is constant",
+                                "It is relative",
+                                "It is an illusion",
+                                "It is circular"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What philosophical debate is mentioned?",
+                            options: [
+                                "Only the future exists",
+                                "Only the past exists",
+                                "The reality of past, present, and future",
+                                "Time doesn't exist"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Ethics of Biotechnology",
+                    content: "Advances in biotechnology raise profound ethical questions about the limits of human intervention in nature. Gene editing technologies like CRISPR allow scientists to modify DNA with unprecedented precision, potentially eliminating genetic diseases but also raising concerns about designer babies and ecological consequences. The balance between scientific progress and ethical considerations becomes increasingly complex as our ability to manipulate life at its most fundamental level grows.",
+                    questions: [
+                        {
+                            question: "What technology is mentioned for modifying DNA?",
+                            options: [
+                                "MRI",
+                                "CRISPR",
+                                "X-ray",
+                                "Ultrasound"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What is one concern about genetic modification?",
+                            options: [
+                                "Only cost",
+                                "Only time",
+                                "Designer babies",
+                                "Only complexity"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Nature of Consciousness",
+                    content: "The study of consciousness remains one of the most challenging frontiers in science and philosophy. How does subjective experience arise from physical processes in the brain? The hard problem of consciousness, as described by philosopher David Chalmers, questions how and why physical processes in the brain give rise to subjective experience. This mystery touches on fundamental questions about the nature of reality and the relationship between mind and matter.",
+                    questions: [
+                        {
+                            question: "What is the 'hard problem' of consciousness?",
+                            options: [
+                                "Measuring brain activity",
+                                "Understanding physical processes",
+                                "Explaining subjective experience",
+                                "Mapping neural networks"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "What relationship is questioned in the study of consciousness?",
+                            options: [
+                                "Only brain and body",
+                                "Only mind and soul",
+                                "Mind and matter",
+                                "Only thought and action"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Future of Energy",
+                    content: "The global energy landscape is undergoing a fundamental transformation. Renewable energy sources like solar and wind are becoming increasingly cost-competitive with fossil fuels, while new technologies like fusion power and advanced battery storage promise to revolutionize how we generate and store energy. This transition raises complex questions about infrastructure, economic impact, and environmental sustainability. The challenge lies in balancing immediate energy needs with long-term environmental goals.",
+                    questions: [
+                        {
+                            question: "What is happening to renewable energy costs?",
+                            options: [
+                                "They are increasing",
+                                "They are becoming competitive",
+                                "They are irrelevant",
+                                "They are fixed"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What is the main challenge mentioned?",
+                            options: [
+                                "Only cost",
+                                "Only technology",
+                                "Balancing immediate needs and long-term goals",
+                                "Only infrastructure"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Philosophy of Language",
+                    content: "Language is not merely a tool for communication but a window into human thought and culture. Philosophers like Wittgenstein and Chomsky have explored how language shapes our understanding of reality and influences our cognitive processes. The relationship between language, thought, and reality raises profound questions about the nature of meaning and the limits of human knowledge. These inquiries touch on fundamental aspects of human cognition and cultural understanding.",
+                    questions: [
+                        {
+                            question: "How is language described in the passage?",
+                            options: [
+                                "Only a communication tool",
+                                "A window into thought and culture",
+                                "Only a cultural artifact",
+                                "Only a cognitive process"
+                            ],
+                            correct: 1
+                        },
+                        {
+                            question: "What aspects does the study of language touch on?",
+                            options: [
+                                "Only grammar",
+                                "Only vocabulary",
+                                "Human cognition and cultural understanding",
+                                "Only communication"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                },
+                {
+                    title: "The Ethics of Artificial Intelligence",
+                    content: "As artificial intelligence systems become more sophisticated, they raise complex ethical questions about autonomy, responsibility, and human values. Should AI systems be granted rights? Who is responsible for AI decisions? How do we ensure AI systems align with human values? These questions become increasingly urgent as AI systems take on more significant roles in society, from healthcare to criminal justice. The challenge lies in developing AI that enhances human capabilities while respecting ethical principles.",
+                    questions: [
+                        {
+                            question: "What ethical questions are raised about AI?",
+                            options: [
+                                "Only cost",
+                                "Only efficiency",
+                                "Autonomy and responsibility",
+                                "Only programming"
+                            ],
+                            correct: 2
+                        },
+                        {
+                            question: "What is the main challenge in AI development?",
+                            options: [
+                                "Only technical capability",
+                                "Only cost reduction",
+                                "Balancing capability and ethical principles",
+                                "Only speed"
+                            ],
+                            correct: 2
+                        }
+                    ]
+                }
+            ]
+        };
+
+        let currentLevel = null;
+        let currentPassage = 0;
+        let score = 0;
+        let streak = 0;
+        let timeLeft = 60;
+        let timerInterval;
+        let isReadingPhase = true;
+        let currentQuestion = 0;
+        let shuffledPassages = [];
+
+        // DOM Elements
+        const levelScreen = document.getElementById('levelScreen');
+        const readingScreen = document.getElementById('readingScreen');
+        const resultsScreen = document.getElementById('resultsScreen');
+        const levelCards = document.querySelectorAll('.level-card');
+        const levelIndicator = document.getElementById('levelIndicator');
+        const readingPassage = document.getElementById('readingPassage');
+        const questionArea = document.getElementById('questionArea');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const feedback = document.getElementById('feedback');
+        const scoreEl = document.getElementById('score');
+        const streakEl = document.getElementById('streak');
+        const timerEl = document.getElementById('timer');
+        const startBtn = document.getElementById('startBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const retryBtn = document.getElementById('retryBtn');
+        const restartBtn = document.getElementById('restartBtn');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startLevel(level) {
+            currentLevel = level;
+            currentPassage = 0;
+            score = 0;
+            streak = 0;
+            isReadingPhase = true;
+            
+            shuffledPassages = shuffleArray([...passages[level]]);
+            
+            levelScreen.classList.add('hidden');
+            readingScreen.classList.remove('hidden');
+            resultsScreen.classList.add('hidden');
+            
+            levelIndicator.textContent = `Level: ${level.charAt(0).toUpperCase() + level.slice(1)}`;
+            scoreEl.textContent = score;
+            streakEl.textContent = streak;
+            
+            loadPassage();
+        }
+
+        function loadPassage() {
+            const passage = shuffledPassages[currentPassage];
+            readingPassage.textContent = passage.content;
+            readingPassage.classList.remove('hidden');
+            questionArea.classList.add('hidden');
+            startBtn.classList.remove('hidden');
+            nextBtn.classList.add('hidden');
+            retryBtn.classList.add('hidden');
+            feedback.textContent = '';
+            
+            document.getElementById('passageCounter').textContent = `${currentPassage + 1}/${shuffledPassages.length}`;
+        }
+
+        function startReading() {
+            isReadingPhase = true;
+            timeLeft = 60;
+            startBtn.classList.add('hidden');
+            questionArea.classList.add('hidden');
+            
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = `${timeLeft}s`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    if (isReadingPhase) {
+                        showQuestions();
+                    }
+                }
+            }, 1000);
+        }
+
+        function showQuestions() {
+            isReadingPhase = false;
+            currentQuestion = 0;
+            readingPassage.classList.add('hidden');
+            showCurrentQuestion();
+        }
+
+        function showCurrentQuestion() {
+            const passage = shuffledPassages[currentPassage];
+            const question = passage.questions[currentQuestion];
+            
+            questionArea.classList.remove('hidden');
+            questionText.textContent = question.question;
+            
+            optionsContainer.innerHTML = question.options.map((option, index) => `
+                <button class="option-btn bg-white border border-gray-200 rounded-xl py-4 px-6 text-lg font-medium transition" data-index="${index}">
+                    ${option}
+                </button>
+            `).join('');
+            
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', () => checkAnswer(parseInt(btn.dataset.index)));
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            const passage = shuffledPassages[currentPassage];
+            const question = passage.questions[currentQuestion];
+            const isCorrect = selectedIndex === question.correct;
+            
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = true;
+                if (parseInt(btn.dataset.index) === question.correct) {
+                    btn.classList.add('correct-answer');
+                } else if (parseInt(btn.dataset.index) === selectedIndex) {
+                    btn.classList.add('wrong-answer');
+                }
+            });
+            
+            if (isCorrect) {
+                score += 10;
+                streak++;
+                if (streak >= 3) {
+                    score += 5; // Bonus points for streak
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+                feedback.innerHTML = `
+                    <div class="text-green-600 font-bold fade-in">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Correct! +10 points
+                    </div>
+                `;
+            } else {
+                streak = 0;
+                feedback.innerHTML = `
+                    <div class="text-red-600 font-bold fade-in">
+                        <i class="fas fa-times-circle mr-2"></i>
+                        Incorrect! The correct answer was: ${question.options[question.correct]}
+                    </div>
+                `;
+            }
+            
+            scoreEl.textContent = score;
+            streakEl.textContent = streak;
+            
+            if (currentQuestion < passage.questions.length - 1) {
+                currentQuestion++;
+                setTimeout(showCurrentQuestion, 1500);
+            } else {
+                if (currentPassage < shuffledPassages.length - 1) {
+                    currentPassage++;
+                    nextBtn.classList.remove('hidden');
+                } else {
+                    endGame();
+                }
+            }
+        }
+
+        function endGame() {
+            readingScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            
+            const totalQuestions = shuffledPassages.reduce((sum, passage) => sum + passage.questions.length, 0);
+            const correctAnswers = Math.floor(score / 10);
+            const accuracy = Math.round((correctAnswers / totalQuestions) * 100);
+            const bonus = score - (correctAnswers * 10);
+            
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('correctCount').textContent = correctAnswers;
+            document.getElementById('totalQuestions').textContent = totalQuestions;
+            document.getElementById('accuracy').textContent = accuracy;
+            document.getElementById('bonus').textContent = bonus;
+            
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Event listeners
+        levelCards.forEach(card => {
+            card.addEventListener('click', () => {
+                startLevel(card.dataset.level);
+            });
+        });
+
+        startBtn.addEventListener('click', startReading);
+        nextBtn.addEventListener('click', loadPassage);
+        retryBtn.addEventListener('click', () => startLevel(currentLevel));
+        restartBtn.addEventListener('click', () => {
+            resultsScreen.classList.add('hidden');
+            levelScreen.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

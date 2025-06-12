@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllogism - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .venn-box {
+            background: #f8fafc;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .example-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+        
+        .answer.show {
+            display: block;
+        }
+
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .venn-diagram {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .circle {
+            position: absolute;
+            border: 2px solid #3b82f6;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            opacity: 0.3;
+        }
+
+        .circle-a {
+            left: 0;
+            top: 25px;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .circle-b {
+            right: 0;
+            top: 25px;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .venn-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .venn-table th, .venn-table td {
+            border: 1px solid #e5e7eb;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .venn-table th {
+            background: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Syllogism
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of syllogistic reasoning with our comprehensive guide.
+                From basic concepts to advanced logical analysis.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#concepts" class="nav-link block">2. Core Concepts</a>
+                        <a href="#propositions" class="nav-link block">3. Categorical Propositions</a>
+                        <a href="#solving" class="nav-link block">4. Solving Techniques</a>
+                        <a href="#fallacies" class="nav-link block">5. Common Fallacies</a>
+                        <a href="#advanced" class="nav-link block">6. Advanced Topics</a>
+                        <a href="#practice" class="nav-link block">7. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">8. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">🧠 Introduction to Syllogism</h2>
+                    <p class="text-gray-600 mb-4">
+                        Syllogism is a structured form of deductive reasoning where a conclusion is derived from two premises.
+                        It is essential for competitive exams (CAT, GMAT, Bank PO), logical reasoning, and critical thinking.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why is it important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Frequently asked in competitive exams</li>
+                            <li>Develops critical thinking skills</li>
+                            <li>Foundation of logical reasoning</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Core Concepts -->
+                <section id="concepts" class="content-section card p-6">
+                    <h2 class="section-title">🧠 Core Concepts Explained</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">Structure of a Syllogism</h3>
+                            <div class="example-box">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li><strong>Major Premise:</strong> General statement (e.g., "All humans are mortal")</li>
+                                    <li><strong>Minor Premise:</strong> Specific statement (e.g., "Socrates is human")</li>
+                                    <li><strong>Conclusion:</strong> Logical inference (e.g., "Socrates is mortal")</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Categorical Propositions -->
+                <section id="propositions" class="content-section card p-6">
+                    <h2 class="section-title">4 Categorical Propositions</h2>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full venn-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Statement</th>
+                                    <th>Venn Diagram</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Universal Affirmative</td>
+                                    <td>"All A are B"</td>
+                                    <td>Circle A inside B</td>
+                                </tr>
+                                <tr>
+                                    <td>Universal Negative</td>
+                                    <td>"No A are B"</td>
+                                    <td>Separate circles</td>
+                                </tr>
+                                <tr>
+                                    <td>Particular Affirmative</td>
+                                    <td>"Some A are B"</td>
+                                    <td>Overlapping circles with "X" in intersection</td>
+                                </tr>
+                                <tr>
+                                    <td>Particular Negative</td>
+                                    <td>"Some A are not B"</td>
+                                    <td>"X" in A but outside B</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Solving Techniques -->
+                <section id="solving" class="content-section card p-6">
+                    <h2 class="section-title">🔍 Step-by-Step Solving Techniques</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">Venn Diagram Method</h3>
+                            <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                <li>Draw Circles: Create overlapping circles for each category (e.g., A, B, C)</li>
+                                <li>Shade Areas: Represent universal statements ("All," "No") by shading empty regions</li>
+                                <li>Mark "X" for Existentials: Use "X" for "Some" to indicate at least one member</li>
+                                <li>Validate Conclusion: Check if the diagram supports the conclusion</li>
+                            </ol>
+                            
+                            <div class="example-box mt-4">
+                                <p class="font-semibold mb-2">Example:</p>
+                                <p class="mb-2">Premises: "All dogs are mammals. No mammals are reptiles."</p>
+                                <p class="mb-2">Conclusion: "No dogs are reptiles."</p>
+                                <div class="venn-diagram">
+                                    <div class="circle circle-a"></div>
+                                    <div class="circle circle-b"></div>
+                                </div>
+                                <p class="text-sm text-gray-500">Venn diagram shows dogs and reptiles as non-overlapping</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">Analytical Shortcuts</h3>
+                            <div class="venn-box">
+                                <pre>
+All + All = All
+All + No = No
+Some + No = Some Not
+Some + Some = No Conclusion
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Common Fallacies -->
+                <section id="fallacies" class="content-section card p-6">
+                    <h2 class="section-title">⚠️ Avoid Common Fallacies</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Undistributed Middle</h3>
+                            <p class="text-gray-700">Incorrect: "Some trees are tall. Some buildings are tall. ∴ Some buildings are trees."</p>
+                            <p class="text-red-600 mt-1">Error: "Tall" links unrelated groups</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Illicit Major/Minor</h3>
+                            <p class="text-gray-700">Assuming broader relationships than premises support</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Topics -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">🚀 Advanced Topics</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="example-box">
+                            <h3 class="font-semibold mb-2">Enthymemes</h3>
+                            <p class="mb-2">Syllogisms with an implied premise (e.g., "Socrates is mortal because he's human" assumes "All humans are mortal")</p>
+                        </div>
+
+                        <div class="example-box">
+                            <h3 class="font-semibold mb-2">Variations</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Disjunctive: "Either A or B. Not A. ∴ B."</li>
+                                <li>Conditional: "If A, then B. A is true. ∴ B is true" (modus ponens)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <h3 class="font-semibold mb-2">Laws of Logic</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Detachment: If "P → Q" and P are true, then Q is true</li>
+                                <li>Syllogism: If "P → Q" and "Q → R," then "P → R"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">📝 Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Easy</h3>
+                                <span class="difficulty-badge difficulty-easy">Easy</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                Statements: "All books are paper. Some paper is recycled."<br>
+                                Conclusion: "Some books are recycled."
+                            </p>
+                            <button onclick="toggleAnswer('answer1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm font-semibold">Invalid (no direct book-recycled link)</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Advanced</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                Statements: "Only doctors are surgeons. Alice is not a doctor. Nurses are not surgeons."<br>
+                                Conclusion: "Alice is not a surgeon."
+                            </p>
+                            <button onclick="toggleAnswer('answer2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm font-semibold">Valid (Venn diagram places Alice outside surgeon circle)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">💡 Pro Tips for Exams</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">General Tips</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Ignore real-world knowledge: Assume premises are true</li>
+                                <li>Start with universal statements: "All" or "No" premises</li>
+                                <li>Test conclusions in all possible cases</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Resources</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Venn Diagram Templates: Practice with 3-circle diagrams</li>
+                                <li>Question Banks: Download 100+ syllogism questions</li>
+                                <li>Literary Examples: Study enthymemes in Shakespeare</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <p class="text-gray-700 italic">
+                            "Syllogism is the foundation of deductive logic—where truth flows from premises like water from a spring." - Aristotle
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

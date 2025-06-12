@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>⏰ Clock Puzzle Challenge</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+    }
+    
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .option-btn {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+        padding: 12px 20px;
+        line-height: 1.4;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        background: white;
+        border: 1px solid #e2e8f0;
+        color: #1e293b;
+        font-weight: 500;
+        width: 100%;
+        border-radius: 1rem;
+    }
+    
+    .option-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-color: #3b82f6;
+        background: #f8fafc;
+    }
+    
+    .option-btn.correct {
+        background: #10B981;
+        color: white;
+        border: none;
+        font-weight: 600;
+    }
+    
+    .option-btn.wrong {
+        background: #EF4444;
+        color: white;
+        border: none;
+        font-weight: 600;
+    }
+    
+    .correct-answer {
+        animation: pulse 0.6s ease;
+    }
+    
+    .wrong-answer {
+        animation: shake 0.5s ease;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-8px); }
+        80% { transform: translateX(8px); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .timer {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .timer.warning {
+        color: #ef4444;
+        animation: pulse 1s infinite;
+    }
+
+    .clock-display {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #1e293b;
+        text-align: center;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 1rem;
+        border: 2px solid #e2e8f0;
+    }
+
+    .level-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .level-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .level-card.selected {
+        border-color: #3b82f6;
+        background: #f0f9ff;
+    }
+</style>
+</head>
+<body class="min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="card p-6 relative">
+            <!-- Header -->
+            <header class="text-center mb-8">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    ⏰ Clock Puzzle Challenge
+                </h1>
+                <p class="text-gray-600 mt-2">Test your time calculation skills!</p>
+            </header>
+
+            <!-- Level Selection Screen -->
+            <div id="levelScreen" class="space-y-6">
+                <h2 class="text-xl font-semibold text-center text-gray-700">Select Difficulty Level</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="level-card p-4 border-2 border-gray-200 rounded-xl text-center" onclick="selectLevel('easy')">
+                        <div class="text-2xl mb-2">🌱</div>
+                        <h3 class="font-semibold text-lg mb-1">Easy</h3>
+                        <p class="text-sm text-gray-600">1 minute per question</p>
+                    </div>
+                    <div class="level-card p-4 border-2 border-gray-200 rounded-xl text-center" onclick="selectLevel('medium')">
+                        <div class="text-2xl mb-2">🌿</div>
+                        <h3 class="font-semibold text-lg mb-1">Medium</h3>
+                        <p class="text-sm text-gray-600">1.5 minutes per question</p>
+                    </div>
+                    <div class="level-card p-4 border-2 border-gray-200 rounded-xl text-center" onclick="selectLevel('hard')">
+                        <div class="text-2xl mb-2">🌳</div>
+                        <h3 class="font-semibold text-lg mb-1">Hard</h3>
+                        <p class="text-sm text-gray-600">2 minutes per question</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game screen -->
+            <div id="gameScreen" class="hidden">
+                <!-- Game stats -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-left">
+                        <div class="text-sm text-gray-600">Lives Left</div>
+                        <div class="text-xl font-bold text-gray-800" id="lives">3</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Time Left</div>
+                        <div class="text-xl font-bold text-gray-800" id="timer">30</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Score</div>
+                        <div class="text-xl font-bold text-gray-800" id="score">0</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Questions</div>
+                        <div class="text-xl font-bold text-gray-800" id="questionCount">0/60</div>
+                    </div>
+                </div>
+
+                <!-- Clock Display -->
+                <div class="clock-display" id="clockDisplay"></div>
+                
+                <!-- Question area -->
+                <div class="text-center mb-6">
+                    <p class="text-gray-700 text-lg" id="question">Loading question...</p>
+                </div>
+                
+                <!-- Options area -->
+                <div class="space-y-3 mb-6" id="options"></div>
+                
+                <!-- Feedback area -->
+                <div id="feedback" class="text-center min-h-[24px] mb-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let lives = 3;
+        let timer = 30;
+        let timerInterval;
+        let currentLevel = '';
+        let questions = {
+            easy: [
+                // Basic Clock Angles
+                {
+                    question: "At what time between 3 and 4 o'clock will the hour and minute hands be at right angles?",
+                    options: ["3:32:43", "3:32:44", "3:32:45", "3:32:46"],
+                    answer: "3:32:43"
+                },
+                {
+                    question: "At what time between 4 and 5 o'clock will the hour and minute hands coincide?",
+                    options: ["4:21:49", "4:21:50", "4:21:51", "4:21:52"],
+                    answer: "4:21:49"
+                },
+                {
+                    question: "What is the angle between the hour and minute hands at 2:30?",
+                    options: ["105 degrees", "120 degrees", "135 degrees", "150 degrees"],
+                    answer: "105 degrees"
+                },
+                {
+                    question: "At what time between 5 and 6 o'clock will the hour and minute hands be at 180 degrees?",
+                    options: ["5:54:32", "5:54:33", "5:54:34", "5:54:35"],
+                    answer: "5:54:33"
+                }
+            ],
+            medium: [
+                // Speed and Distance
+                {
+                    question: "A clock gains 5 minutes every hour. If it shows 3:00 PM when the actual time is 2:00 PM, what will be the actual time when the clock shows 5:00 PM?",
+                    options: ["4:00 PM", "4:20 PM", "4:40 PM", "5:00 PM"],
+                    answer: "4:00 PM"
+                },
+                {
+                    question: "A clock loses 3 minutes every hour. If it shows 10:00 AM when the actual time is 10:30 AM, what will be the actual time when the clock shows 2:00 PM?",
+                    options: ["2:30 PM", "2:45 PM", "3:00 PM", "3:15 PM"],
+                    answer: "2:45 PM"
+                },
+                {
+                    question: "Two clocks show the same time at 12:00 PM. One gains 2 minutes per hour and the other loses 3 minutes per hour. After how many hours will they show a difference of 1 hour?",
+                    options: ["12 hours", "15 hours", "18 hours", "20 hours"],
+                    answer: "12 hours"
+                },
+                {
+                    question: "A clock shows 3:00 PM. After how many minutes will the hour and minute hands form a straight line for the first time?",
+                    options: ["32.72 minutes", "32.73 minutes", "32.74 minutes", "32.75 minutes"],
+                    answer: "32.73 minutes"
+                }
+            ],
+            hard: [
+                // Complex Angle Problems
+                {
+                    question: "At what time between 7 and 8 o'clock will the hour and minute hands form an angle of 120 degrees?",
+                    options: ["7:10:54", "7:10:55", "7:10:56", "7:10:57"],
+                    answer: "7:10:55"
+                },
+                {
+                    question: "A clock shows 9:00 AM. After how many minutes will the hour and minute hands form an angle of 150 degrees for the first time?",
+                    options: ["27.27 minutes", "27.28 minutes", "27.29 minutes", "27.30 minutes"],
+                    answer: "27.27 minutes"
+                },
+                {
+                    question: "At what time between 11 and 12 o'clock will the hour and minute hands form an angle of 60 degrees?",
+                    options: ["11:05:27", "11:05:28", "11:05:29", "11:05:30"],
+                    answer: "11:05:27"
+                },
+                // Complex Speed Problems
+                {
+                    question: "A clock gains 2 minutes every hour. If it shows 1:00 PM when the actual time is 12:00 PM, after how many hours will it show the correct time again?",
+                    options: ["30 hours", "35 hours", "40 hours", "45 hours"],
+                    answer: "30 hours"
+                },
+                {
+                    question: "Two clocks show the same time at 6:00 AM. One gains 1.5 minutes per hour and the other loses 2.5 minutes per hour. After how many hours will they show a difference of 30 minutes?",
+                    options: ["7.5 hours", "8.5 hours", "9.5 hours", "10.5 hours"],
+                    answer: "7.5 hours"
+                },
+                // Mirror Image Problems
+                {
+                    question: "If the reflection of a clock in a mirror shows 3:45, what is the actual time?",
+                    options: ["8:15", "8:16", "8:17", "8:18"],
+                    answer: "8:15"
+                },
+                {
+                    question: "If the reflection of a clock in a mirror shows 2:30, what is the actual time?",
+                    options: ["9:30", "9:31", "9:32", "9:33"],
+                    answer: "9:30"
+                },
+                // Complex Time Calculations
+                {
+                    question: "A clock shows 4:00 PM. After how many minutes will the hour and minute hands form an angle of 90 degrees for the second time?",
+                    options: ["65.45 minutes", "65.46 minutes", "65.47 minutes", "65.48 minutes"],
+                    answer: "65.45 minutes"
+                },
+                {
+                    question: "At what time between 8 and 9 o'clock will the hour and minute hands form an angle of 135 degrees?",
+                    options: ["8:10:54", "8:10:55", "8:10:56", "8:10:57"],
+                    answer: "8:10:55"
+                }
+            ]
+        };
+
+        function selectLevel(level) {
+            currentLevel = level;
+            document.getElementById('levelScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            
+            // Set timer based on level
+            switch(level) {
+                case 'easy':
+                    timer = 60; // 1 minute
+                    break;
+                case 'medium':
+                    timer = 90; // 1.5 minutes
+                    break;
+                case 'hard':
+                    timer = 120; // 2 minutes
+                    break;
+            }
+            
+            // Shuffle questions for the selected level
+            questions[level] = questions[level].sort(() => Math.random() - 0.5);
+            
+            // Start the game
+            loadQuestion();
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = timer;
+            timerEl.classList.remove('warning');
+
+            timerInterval = setInterval(() => {
+                timer--;
+                // Format timer display as minutes:seconds
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timer <= 10) {
+                    timerEl.classList.add('warning');
+                }
+                
+                if (timer <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function handleTimeout() {
+            lives--;
+            document.getElementById('lives').textContent = lives;
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = `<p class="text-red-600 font-semibold">Time's up! The correct answer was: ${questions[currentLevel][currentQuestionIndex].answer}</p>`;
+            
+            if (lives <= 0) {
+                endGame();
+            } else {
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }, 1500);
+            }
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= questions[currentLevel].length) {
+                endGame();
+                return;
+            }
+
+            const question = questions[currentLevel][currentQuestionIndex];
+            document.getElementById('question').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            // Shuffle options
+            const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
+            
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('questionCount').textContent = `${currentQuestionIndex + 1}/${questions[currentLevel].length}`;
+            document.getElementById('feedback').innerHTML = '';
+            startTimer();
+        }
+
+        function checkAnswer(selectedOption) {
+            clearInterval(timerInterval);
+            const question = questions[currentLevel][currentQuestionIndex];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach(option => {
+                option.disabled = true;
+                if (option.textContent === question.answer) {
+                    option.classList.add('correct');
+                } else if (option.textContent === selectedOption && selectedOption !== question.answer) {
+                    option.classList.add('wrong');
+                }
+            });
+
+            const feedback = document.getElementById('feedback');
+
+            if (selectedOption === question.answer) {
+                score += 10;
+                feedback.innerHTML = '<p class="text-green-600 font-semibold">Correct! +10 points</p>';
+            } else {
+                lives--;
+                feedback.innerHTML = `<p class="text-red-600 font-semibold">Wrong! The correct answer is: ${question.answer}</p>`;
+            }
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('lives').textContent = lives;
+            
+            if (lives <= 0) {
+                endGame();
+            } else {
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }, 1500);
+            }
+        }
+
+        function endGame() {
+            const questionArea = document.getElementById('question');
+            const optionsArea = document.getElementById('options');
+            const feedback = document.getElementById('feedback');
+            const clockDisplay = document.getElementById('clockDisplay');
+            
+            clearInterval(timerInterval);
+            clockDisplay.textContent = '';
+            questionArea.innerHTML = '<h2 class="text-3xl font-bold mb-4">Game Over!</h2>';
+            optionsArea.innerHTML = `<p class="text-xl mb-4">Final Score: ${score}</p>`;
+            feedback.innerHTML = '<button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl font-medium transition transform hover:scale-105">Play Again</button>';
+        }
+    </script>
+</body>
+</html>

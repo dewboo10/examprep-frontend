@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logical Reasoning - ExamPrep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Logo Animation */
+        .logo {
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .logo:hover {
+            transform: rotate(-5deg) scale(1.05);
+        }
+        
+        /* Card Styles */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateY(0);
+            will-change: transform;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        
+        .topic-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(99, 102, 241, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: scale(0.95);
+            z-index: 0;
+        }
+        
+        .topic-card:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .topic-card .icon-container {
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform: rotate(0deg);
+        }
+        
+        .topic-card:hover .icon-container {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .topic-card .content {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+        
+        .topic-card:hover .content {
+            transform: translateX(5px);
+        }
+        
+        /* Decorations */
+        .decor {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .decor:nth-child(2) {
+            animation-delay: 1s;
+            animation-duration: 8s;
+        }
+        
+        .decor:nth-child(3) {
+            animation-delay: 2s;
+            animation-duration: 7s;
+        }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(0) translateX(20px);
+            }
+            75% {
+                transform: translateY(10px) translateX(-10px);
+            }
+        }
+        
+        /* Header Text */
+        .header-text {
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .header-text:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* Section Animations */
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        footer {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        footer.visible {
+            opacity: 1;
+        }
+        
+        /* Pulse Animation */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Decorative elements -->
+    <div class="decor bg-blue-200 w-96 h-96 top-10 left-10" style="position:fixed;"></div>
+    <div class="decor bg-purple-200 w-80 h-80 bottom-20 right-10" style="position:fixed;"></div>
+    <div class="decor bg-indigo-200 w-64 h-64 top-1/3 right-1/4" style="position:fixed;"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar fixed w-full z-50 py-3 px-4 md:px-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center logo">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                    <i class="fas fa-brain text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">ExamPrep</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="dashboard.html" class="nav-link text-gray-700 hover:text-blue-600">Dashboard</a>
+                <a href="practice-quant.html" class="nav-link text-gray-700 hover:text-blue-600">Quant</a>
+                <a href="practice-logical.html" class="nav-link active text-blue-600 font-medium">Logical</a>
+                <a href="practice-verbal.html" class="nav-link text-gray-700 hover:text-blue-600">Verbal</a>
+                <a href="practice-gk.html" class="nav-link text-gray-700 hover:text-blue-600">GK</a>
+                <a href="resources.html" class="nav-link text-gray-700 hover:text-blue-600">Resources</a>
+            </div>
+            
+            <button class="md:hidden text-gray-700">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto px-4 py-8 pt-24">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                <span class="header-text">
+                    <i class="fas fa-brain mr-2"></i>Logical Reasoning
+                </span>
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                Master logical reasoning with comprehensive study materials and practice questions.
+                Perfect for competitive exams and aptitude tests.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="space-y-12">
+            <!-- Arrangement & Relations -->
+            <section id="arrangement">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Arrangement & Relations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="logical/chapters/seating-arrangement.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chair text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Seating Arrangement</h3>
+                                <p class="text-sm text-gray-500">Linear & Circular</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/blood-relations.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-users text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Blood Relations</h3>
+                                <p class="text-sm text-gray-500">Family Tree Problems</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/direction-sense.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-compass text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Direction Sense</h3>
+                                <p class="text-sm text-gray-500">Direction & Distance</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Logical Deductions -->
+            <section id="deductions">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Logical Deductions</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="logical/chapters/syllogisms.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-sitemap text-green-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Syllogisms</h3>
+                                <p class="text-sm text-gray-500">Logical Deductions</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/coding-decoding.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-code text-red-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Coding-Decoding</h3>
+                                <p class="text-sm text-gray-500">Pattern Recognition</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/puzzles.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-puzzle-piece text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Puzzles</h3>
+                                <p class="text-sm text-gray-500">Floor, Box, Month-based</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Series & Patterns -->
+            <section id="series">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Series & Patterns</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="logical/chapters/number-series.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-sort-numeric-down text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Number Series</h3>
+                                <p class="text-sm text-gray-500">Number Patterns</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/letter-series.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-font text-green-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Letter Series</h3>
+                                <p class="text-sm text-gray-500">Alphabet Patterns</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/analogy.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-random text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Analogy</h3>
+                                <p class="text-sm text-gray-500">Words, Numbers, Symbols</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Diagrammatic Reasoning -->
+            <section id="diagrammatic">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Diagrammatic Reasoning</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="logical/chapters/venn-diagrams.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-project-diagram text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Venn Diagrams</h3>
+                                <p class="text-sm text-gray-500">Set Theory</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/cubes-dice.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-dice text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Cubes & Dice</h3>
+                                <p class="text-sm text-gray-500">3D Visualization</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/calendar-clock.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-clock text-red-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Calendar & Clock</h3>
+                                <p class="text-sm text-gray-500">Time Problems</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Critical Reasoning -->
+            <section id="critical">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Critical Reasoning</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="logical/chapters/statement-conclusion.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-comment-dots text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Statement & Conclusion</h3>
+                                <p class="text-sm text-gray-500">Logical Conclusions</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/cause-effect.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-arrow-right text-green-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Cause and Effect</h3>
+                                <p class="text-sm text-gray-500">Causal Relationships</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="logical/chapters/course-of-action.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-tasks text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Course of Action</h3>
+                                <p class="text-sm text-gray-500">Problem Solving</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center text-gray-600 text-sm mt-12 py-8 border-t border-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-center space-x-6 mb-4">
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                <p>© 2024 ExamPrep. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Intersection Observer for section animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.tagName === 'FOOTER') {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 500);
+                    }
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe all sections and footer
+        document.querySelectorAll('section, footer').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

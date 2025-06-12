@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple & Compound Interest - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+        
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+            height: 200px;
+            margin: 1rem 0;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: white;
+        }
+        
+        .flip-card-back {
+            background: white;
+            transform: rotateY(180deg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: #e2e8f0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            width: 50%;
+            padding: 0 2rem;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #3b82f6;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Simple & Compound Interest
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of simple and compound interest with our comprehensive guide.
+                Learn about interest calculations, applications, and problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#simple" class="nav-link block">2. Simple Interest</a>
+                        <a href="#compound" class="nav-link block">3. Compound Interest</a>
+                        <a href="#applications" class="nav-link block">4. Applications</a>
+                        <a href="#advanced" class="nav-link block">5. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Interest</h3>
+                        <p class="text-gray-600">Interest is the cost of borrowing money or the return on investment.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Key Terms:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Principal (P): The initial amount of money</li>
+                                <li>Rate of Interest (R): The percentage charged on the principal</li>
+                                <li>Time (T): The duration for which the money is borrowed/invested</li>
+                                <li>Interest (I): The amount charged/earned on the principal</li>
+                                <li>Amount (A): Principal + Interest</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Interest</p>
+                            <p>Principal = ₹1000</p>
+                            <p>Rate = 10% per annum</p>
+                            <p>Time = 2 years</p>
+                            <p>Interest = ₹200</p>
+                            <p>Amount = ₹1200</p>
+                        </div>
+
+                        <div class="chart-container">
+                            <h4 class="text-lg font-semibold mb-4">Interest Components</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 83.33%;"></div>
+                            </div>
+                            <p class="text-sm text-gray-600">Principal: 83.33%</p>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill" style="width: 16.67%;"></div>
+                            </div>
+                            <p class="text-sm text-gray-600">Interest: 16.67%</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Types of Interest</h3>
+                        <p class="text-gray-600">Different types of interest and their characteristics.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Types of Interest:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Simple Interest: Interest calculated only on the principal amount</li>
+                                <li>Compound Interest: Interest calculated on principal and accumulated interest</li>
+                                <li>Fixed Interest: Rate remains constant throughout the period</li>
+                                <li>Variable Interest: Rate changes based on market conditions</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Interest Types</p>
+                            <p>Principal = ₹1000</p>
+                            <p>Rate = 10% per annum</p>
+                            <p>Time = 2 years</p>
+                            <p>Simple Interest = ₹200</p>
+                            <p>Compound Interest = ₹210</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Simple Interest -->
+                <section id="simple" class="content-section card p-6">
+                    <h2 class="section-title">2. Simple Interest</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Simple Interest Formula</h3>
+                        <p class="text-gray-600">Simple interest is calculated only on the principal amount.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Simple Interest Formula:</p>
+                            <p>I = P × R × T</p>
+                            <p>A = P + I = P(1 + RT)</p>
+                            <p>where:</p>
+                            <ul class="list-disc list-inside">
+                                <li>I = Interest</li>
+                                <li>P = Principal</li>
+                                <li>R = Rate of interest per annum</li>
+                                <li>T = Time in years</li>
+                                <li>A = Amount</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Simple Interest Calculation</p>
+                            <p>P = ₹5000</p>
+                            <p>R = 8% per annum</p>
+                            <p>T = 3 years</p>
+                            <p>I = 5000 × 0.08 × 3 = ₹1200</p>
+                            <p>A = 5000 + 1200 = ₹6200</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Simple Interest Applications</h3>
+                        <p class="text-gray-600">Applications of simple interest in real-world scenarios.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Common Applications:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Short-term loans</li>
+                                <li>Fixed deposits</li>
+                                <li>Savings accounts</li>
+                                <li>Personal loans</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Loan Repayment</p>
+                            <p>Loan amount = ₹10000</p>
+                            <p>Rate = 12% per annum</p>
+                            <p>Time = 2 years</p>
+                            <p>Interest = 10000 × 0.12 × 2 = ₹2400</p>
+                            <p>Total repayment = ₹12400</p>
+                            <p>Monthly payment = ₹516.67</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Compound Interest -->
+                <section id="compound" class="content-section card p-6">
+                    <h2 class="section-title">3. Compound Interest</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Compound Interest Formula</h3>
+                        <p class="text-gray-600">Compound interest is calculated on principal and accumulated interest.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Compound Interest Formula:</p>
+                            <p>A = P(1 + R/n)^(nT)</p>
+                            <p>I = A - P</p>
+                            <p>where:</p>
+                            <ul class="list-disc list-inside">
+                                <li>A = Amount</li>
+                                <li>P = Principal</li>
+                                <li>R = Annual interest rate</li>
+                                <li>n = Number of times interest is compounded per year</li>
+                                <li>T = Time in years</li>
+                                <li>I = Interest</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Compound Interest Calculation</p>
+                            <p>P = ₹10000</p>
+                            <p>R = 10% per annum</p>
+                            <p>n = 2 (semi-annual)</p>
+                            <p>T = 2 years</p>
+                            <p>A = 10000(1 + 0.1/2)^(2×2) = ₹12155.06</p>
+                            <p>I = 12155.06 - 10000 = ₹2155.06</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Compounding Frequencies</h3>
+                        <p class="text-gray-600">Different compounding frequencies and their effects.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Common Compounding Frequencies:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Annually (n=1)</li>
+                                <li>Semi-annually (n=2)</li>
+                                <li>Quarterly (n=4)</li>
+                                <li>Monthly (n=12)</li>
+                                <li>Daily (n=365)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 6: Compounding Frequency</p>
+                            <p>P = ₹10000</p>
+                            <p>R = 12% per annum</p>
+                            <p>T = 1 year</p>
+                            <p>Annual: A = ₹11200</p>
+                            <p>Semi-annual: A = ₹11236</p>
+                            <p>Quarterly: A = ₹11255.09</p>
+                            <p>Monthly: A = ₹11268.25</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Applications -->
+                <section id="applications" class="content-section card p-6">
+                    <h2 class="section-title">4. Applications</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Investment Planning</h3>
+                        <p class="text-gray-600">Using interest calculations for investment decisions.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Investment Planning:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Future Value Calculation</li>
+                                <li>Present Value Calculation</li>
+                                <li>Rate of Return Analysis</li>
+                                <li>Investment Comparison</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Investment Planning</p>
+                            <p>Investment = ₹50000</p>
+                            <p>Rate = 8% per annum (compounded annually)</p>
+                            <p>Time = 5 years</p>
+                            <p>Future Value = 50000(1 + 0.08)^5 = ₹73466.40</p>
+                            <p>Total Interest = ₹23466.40</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Loan Amortization</h3>
+                        <p class="text-gray-600">Understanding loan repayment schedules.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Loan Amortization:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Monthly Payment Calculation</li>
+                                <li>Interest vs Principal Breakdown</li>
+                                <li>Amortization Schedule</li>
+                                <li>Early Payment Analysis</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 8: Loan Amortization</p>
+                            <p>Loan = ₹100000</p>
+                            <p>Rate = 10% per annum</p>
+                            <p>Term = 3 years</p>
+                            <p>Monthly Payment = ₹3226.72</p>
+                            <p>Total Interest = ₹16161.92</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">5. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Effective Annual Rate</h3>
+                        <p class="text-gray-600">Understanding the true annual interest rate.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Effective Annual Rate (EAR):</p>
+                            <p>EAR = (1 + R/n)^n - 1</p>
+                            <p>where:</p>
+                            <ul class="list-disc list-inside">
+                                <li>R = Nominal annual rate</li>
+                                <li>n = Number of compounding periods per year</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 9: EAR Calculation</p>
+                            <p>Nominal Rate = 12% per annum</p>
+                            <p>Compounding = Monthly</p>
+                            <p>EAR = (1 + 0.12/12)^12 - 1 = 12.68%</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Continuous Compounding</h3>
+                        <p class="text-gray-600">Interest compounded continuously.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Continuous Compounding Formula:</p>
+                            <p>A = Pe^(RT)</p>
+                            <p>where:</p>
+                            <ul class="list-disc list-inside">
+                                <li>e = Euler's number (≈ 2.71828)</li>
+                                <li>P = Principal</li>
+                                <li>R = Annual interest rate</li>
+                                <li>T = Time in years</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 10: Continuous Compounding</p>
+                            <p>P = ₹10000</p>
+                            <p>R = 10% per annum</p>
+                            <p>T = 2 years</p>
+                            <p>A = 10000 × e^(0.1×2) = ₹12214.03</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Rule of 72: Time to double = 72/Rate</li>
+                                <li>Rule of 114: Time to triple = 114/Rate</li>
+                                <li>Rule of 144: Time to quadruple = 144/Rate</li>
+                                <li>Present Value = Future Value/(1 + R)^T</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 11: Rule of 72</p>
+                            <p>Rate = 8% per annum</p>
+                            <p>Time to double = 72/8 = 9 years</p>
+                            <p>Rate = 12% per annum</p>
+                            <p>Time to double = 72/12 = 6 years</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Animate progress bars
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('data-width');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.progress-fill').forEach(bar => {
+            bar.style.width = '0';
+            observer.observe(bar);
+        });
+    </script>
+</body>
+</html> 

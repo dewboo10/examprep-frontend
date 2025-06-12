@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Problems - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Train Problems
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of train problems with our comprehensive guide.
+                Learn about relative speed, crossing times, and complex problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#stationary" class="nav-link block">2. Stationary Objects</a>
+                        <a href="#platform" class="nav-link block">3. Platform & Bridge</a>
+                        <a href="#crossing" class="nav-link block">4. Trains Crossing</a>
+                        <a href="#overtaking" class="nav-link block">5. Overtaking</a>
+                        <a href="#tunnel" class="nav-link block">6. Tunnel Problems</a>
+                        <a href="#moving" class="nav-link block">7. Moving Objects</a>
+                        <a href="#advanced" class="nav-link block">8. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Fundamental Formulas</h3>
+                        <p class="text-gray-600">Understanding the basic formulas and unit conversions for train problems.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Core Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Speed = Distance/Time</li>
+                                <li>Time = Distance/Speed</li>
+                                <li>Distance = Speed × Time</li>
+                            </ul>
+                            <p class="mt-4 font-medium">Unit Conversions:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>1 km/h = (5/18) m/s</li>
+                                <li>1 m/s = (18/5) km/h</li>
+                                <li>1 km = 1000 m</li>
+                                <li>1 hour = 3600 seconds</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Speed Conversion</p>
+                            <p>Convert 72 km/h to m/s</p>
+                            <p>Solution:</p>
+                            <p>72 km/h = 72 × (5/18) = 20 m/s</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Key Concepts</h3>
+                        <p class="text-gray-600">Important points to remember while solving train problems.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Train length is always in meters</li>
+                                <li>Speed is usually given in km/h</li>
+                                <li>Time is usually in seconds</li>
+                                <li>Always convert units before calculation</li>
+                                <li>Consider relative speed for moving objects</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Basic Calculation</p>
+                            <p>Train length = 200 m</p>
+                            <p>Speed = 72 km/h</p>
+                            <p>Find time to cross a pole</p>
+                            <p>Solution:</p>
+                            <p>Speed in m/s = 72 × (5/18) = 20 m/s</p>
+                            <p>Time = 200/20 = 10 seconds</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stationary Objects -->
+                <section id="stationary" class="content-section card p-6">
+                    <h2 class="section-title">2. Stationary Objects</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Train Crossing Pole/Person</h3>
+                        <p class="text-gray-600">When a train crosses a stationary object like a pole or a person.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Time = Length of Train/Speed of Train</p>
+                            <p class="mt-4 font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Length of stationary object is negligible</li>
+                                <li>Time starts when front of train reaches the object</li>
+                                <li>Time ends when back of train passes the object</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Train Crossing Pole</p>
+                            <p>Train length = 150 m</p>
+                            <p>Speed = 54 km/h</p>
+                            <p>Find time to cross a pole</p>
+                            <p>Solution:</p>
+                            <p>Speed in m/s = 54 × (5/18) = 15 m/s</p>
+                            <p>Time = 150/15 = 10 seconds</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Platform & Bridge -->
+                <section id="platform" class="content-section card p-6">
+                    <h2 class="section-title">3. Platform & Bridge</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Train Crossing Platform</h3>
+                        <p class="text-gray-600">When a train crosses a platform, we need to consider both lengths.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Time = (Length of Train + Length of Platform)/Speed of Train</p>
+                            <p class="mt-4 font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Total distance = Train length + Platform length</li>
+                                <li>Time starts when front of train reaches platform</li>
+                                <li>Time ends when back of train leaves platform</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Train Crossing Platform</p>
+                            <p>Train length = 200 m</p>
+                            <p>Platform length = 300 m</p>
+                            <p>Speed = 72 km/h</p>
+                            <p>Find time to cross platform</p>
+                            <p>Solution:</p>
+                            <p>Speed in m/s = 72 × (5/18) = 20 m/s</p>
+                            <p>Time = (200+300)/20 = 25 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Train Crossing Bridge</h3>
+                        <p class="text-gray-600">Similar to platform problems, but with bridge length.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Time = (Length of Train + Length of Bridge)/Speed of Train</p>
+                            <p class="mt-4 font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Total distance = Train length + Bridge length</li>
+                                <li>Time starts when front of train enters bridge</li>
+                                <li>Time ends when back of train exits bridge</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Train Crossing Bridge</p>
+                            <p>Train length = 250 m</p>
+                            <p>Bridge length = 750 m</p>
+                            <p>Speed = 90 km/h</p>
+                            <p>Find time to cross bridge</p>
+                            <p>Solution:</p>
+                            <p>Speed in m/s = 90 × (5/18) = 25 m/s</p>
+                            <p>Time = (250+750)/25 = 40 seconds</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Trains Crossing -->
+                <section id="crossing" class="content-section card p-6">
+                    <h2 class="section-title">4. Trains Crossing</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Trains Crossing Each Other</h3>
+                        <p class="text-gray-600">When two trains cross each other, we need to consider their relative speeds.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Opposite Direction:</p>
+                            <p>Time = (Length₁ + Length₂)/(Speed₁ + Speed₂)</p>
+                            <p class="mt-4 font-medium">Same Direction:</p>
+                            <p>Time = (Length₁ + Length₂)/|Speed₁ - Speed₂|</p>
+                            <p class="mt-4 font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>For opposite direction, speeds are added</li>
+                                <li>For same direction, speeds are subtracted</li>
+                                <li>Total distance is sum of both train lengths</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 6: Trains Crossing (Opposite)</p>
+                            <p>Train₁: 200 m, 60 km/h</p>
+                            <p>Train₂: 300 m, 40 km/h</p>
+                            <p>Find time to cross each other</p>
+                            <p>Solution:</p>
+                            <p>Speed₁ in m/s = 60 × (5/18) = 16.67 m/s</p>
+                            <p>Speed₂ in m/s = 40 × (5/18) = 11.11 m/s</p>
+                            <p>Time = (200+300)/(16.67+11.11) = 18 seconds</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Overtaking -->
+                <section id="overtaking" class="content-section card p-6">
+                    <h2 class="section-title">5. Overtaking</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Train Overtaking</h3>
+                        <p class="text-gray-600">When one train overtakes another, we need to consider their speed difference.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Time = (Length₁ + Length₂)/(Speed₁ - Speed₂)</p>
+                            <p class="mt-4 font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Faster train must be behind initially</li>
+                                <li>Time taken is from when front of faster train reaches back of slower train</li>
+                                <li>Overtaking is complete when back of faster train passes front of slower train</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Train Overtaking</p>
+                            <p>Train₁: 200 m, 60 km/h</p>
+                            <p>Train₂: 300 m, 40 km/h</p>
+                            <p>Find time to overtake</p>
+                            <p>Solution:</p>
+                            <p>Speed₁ in m/s = 60 × (5/18) = 16.67 m/s</p>
+                            <p>Speed₂ in m/s = 40 × (5/18) = 11.11 m/s</p>
+                            <p>Time = (200+300)/(16.67-11.11) = 90 seconds</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tunnel -->
+                <section id="tunnel" class="content-section card p-6">
+                    <h2 class="section-title">6. Tunnel Problems</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Train in Tunnel</h3>
+                        <p class="text-gray-600">When a train passes through a tunnel, we need to consider both lengths.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Time = (Length of Train + Length of Tunnel)/Speed of Train</p>
+                            <p class="mt-4 font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Total distance = Train length + Tunnel length</li>
+                                <li>Time starts when front of train enters tunnel</li>
+                                <li>Time ends when back of train exits tunnel</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 8: Train in Tunnel</p>
+                            <p>Train length = 200 m</p>
+                            <p>Tunnel length = 800 m</p>
+                            <p>Speed = 72 km/h</p>
+                            <p>Find time in tunnel</p>
+                            <p>Solution:</p>
+                            <p>Speed in m/s = 72 × (5/18) = 20 m/s</p>
+                            <p>Time = (200+800)/20 = 50 seconds</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Moving Objects -->
+                <section id="moving" class="content-section card p-6">
+                    <h2 class="section-title">7. Moving Objects</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Train and Moving Object</h3>
+                        <p class="text-gray-600">When a train crosses a moving object, we need to consider relative speed.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Same Direction:</p>
+                            <p>Time = Length of Train/(Speed of Train - Speed of Object)</p>
+                            <p class="mt-4 font-medium">Opposite Direction:</p>
+                            <p>Time = Length of Train/(Speed of Train + Speed of Object)</p>
+                            <p class="mt-4 font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>For same direction, subtract speeds</li>
+                                <li>For opposite direction, add speeds</li>
+                                <li>Length of moving object is negligible</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 9: Train and Moving Object</p>
+                            <p>Train length = 200 m</p>
+                            <p>Train speed = 60 km/h</p>
+                            <p>Object speed = 20 km/h</p>
+                            <p>Find time to cross object</p>
+                            <p>Solution:</p>
+                            <p>Train speed in m/s = 60 × (5/18) = 16.67 m/s</p>
+                            <p>Object speed in m/s = 20 × (5/18) = 5.56 m/s</p>
+                            <p>Same direction: Time = 200/(16.67-5.56) = 18 seconds</p>
+                            <p>Opposite direction: Time = 200/(16.67+5.56) = 9 seconds</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">8. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>If a train of length L₁ crosses a platform of length L₂ in time T, then:
+                                    <br>Speed = (L₁ + L₂)/T</li>
+                                <li>If two trains of lengths L₁ and L₂ cross each other in time T:
+                                    <br>For opposite direction: Speed₁ + Speed₂ = (L₁ + L₂)/T
+                                    <br>For same direction: |Speed₁ - Speed₂| = (L₁ + L₂)/T</li>
+                                <li>If a train overtakes another train in time T:
+                                    <br>Time = (L₁ + L₂)/(Speed₁ - Speed₂)</li>
+                                <li>If a train crosses a moving object:
+                                    <br>Time = L/(Speed of Train ± Speed of Object)</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 10: Complex Problem</p>
+                            <p>Train A (200 m) crosses a platform (300 m) in 25 seconds</p>
+                            <p>Train B (300 m) crosses the same platform in 30 seconds</p>
+                            <p>Find the time taken for Train A to overtake Train B</p>
+                            <p>Solution:</p>
+                            <p>Speed of A = (200+300)/25 = 20 m/s</p>
+                            <p>Speed of B = (300+300)/30 = 20 m/s</p>
+                            <p>Time to overtake = (200+300)/(20-20) = Not possible (same speed)</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Special Cases</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Special Scenarios:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>When trains are of same length and speed:
+                                    <br>Time to cross = 2 × Length/Speed</li>
+                                <li>When trains are of same speed:
+                                    <br>Time to cross = (Length₁ + Length₂)/Speed</li>
+                                <li>When trains are of same length:
+                                    <br>Time to cross = 2 × Length/(Speed₁ + Speed₂)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 11: Special Case</p>
+                            <p>Two trains of same length 200 m</p>
+                            <p>Speed₁ = 60 km/h, Speed₂ = 40 km/h</p>
+                            <p>Find time to cross each other</p>
+                            <p>Solution:</p>
+                            <p>Speed₁ in m/s = 60 × (5/18) = 16.67 m/s</p>
+                            <p>Speed₂ in m/s = 40 × (5/18) = 11.11 m/s</p>
+                            <p>Time = 2 × 200/(16.67+11.11) = 14.4 seconds</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

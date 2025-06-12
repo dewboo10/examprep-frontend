@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Antonym Slam – BrainGames | Exam Prep</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .game-container {
+      background: linear-gradient(135deg, #f0f4ff, #e6eeff);
+      box-shadow: 0 10px 30px rgba(0, 0, 100, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    
+    .header-gradient {
+      background: linear-gradient(45deg, #4f46e5, #7c3aed);
+    }
+    
+    .question-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .option-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .option-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+    }
+    
+    .option-card.selected {
+      background: #dbeafe;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    
+    .option-card.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+    }
+    
+    .option-card.incorrect {
+      background: #fee2e2;
+      border-color: #dc2626;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #e0e7ff;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(to right, #4f46e5, #7c3aed);
+      transition: width 0.5s ease;
+    }
+    
+    .timer-ring {
+      transition: stroke-dashoffset 1s linear;
+    }
+    
+    @keyframes floatScore {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+    }
+    
+    .score-float {
+      position: absolute;
+      font-weight: bold;
+      font-size: 24px;
+      color: #10b981;
+      animation: floatScore 1s ease-out forwards;
+      z-index: 10;
+      pointer-events: none;
+    }
+    
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .streak-glow {
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+    }
+    
+    .decor {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.1;
+      z-index: -1;
+    }
+    
+    .result-item {
+      transition: all 0.3s ease;
+    }
+    
+    .result-item:hover {
+      background-color: #f3f4f6;
+      transform: translateX(5px);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen flex items-center justify-center text-gray-800 p-4">
+  <!-- Decorative elements -->
+  <div class="decor bg-blue-200 w-96 h-96 top-10 left-10" style="position:fixed;"></div>
+  <div class="decor bg-purple-200 w-80 h-80 bottom-20 right-10" style="position:fixed;"></div>
+  
+  <div class="w-full max-w-4xl">
+    <!-- Game Container -->
+    <div class="game-container overflow-hidden">
+      <!-- Header -->
+      <div class="header-gradient p-6 text-white">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+          <div>
+            <h1 class="text-3xl font-bold flex items-center gap-2">
+              <i class="fas fa-brain"></i>
+              Antonym Slam Challenge
+            </h1>
+            <p class="text-indigo-100">Find opposites to boost your vocabulary</p>
+          </div>
+          <div class="mt-4 md:mt-0 flex items-center gap-4">
+            <div class="bg-white/20 px-4 py-2 rounded-full">
+              <span id="current-score-display">0</span> points
+            </div>
+            <div class="bg-yellow-400 px-3 py-2 rounded-full flex items-center gap-2 streak-glow">
+              <i class="fas fa-bolt"></i>
+              <span id="streakCounter">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="p-6">
+        <div id="gameScreen" class="min-h-[400px]">
+          <!-- Game content will be rendered here -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Stats Container -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-trophy text-yellow-500"></i> Level Progress
+        </h3>
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-sm">Current Level</span>
+          <span id="currentLevel" class="font-bold">-</span>
+        </div>
+        <div class="progress-bar">
+          <div id="levelProgress" class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-lightbulb text-green-500"></i> Tips for Success
+        </h3>
+        <ul class="text-sm space-y-1">
+          <li>• Look for common prefixes (un-, dis-, in-)</li>
+          <li>• Consider context and word roots</li>
+          <li>• Eliminate obviously wrong options first</li>
+        </ul>
+      </div>
+      
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-history text-purple-500"></i> Time Remaining
+        </h3>
+        <div class="flex justify-center">
+          <div class="relative w-24 h-24">
+            <svg class="w-full h-full" viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e0e7ff" stroke-width="3"></circle>
+              <circle id="timerRing" cx="18" cy="18" r="15.9" fill="none" stroke="#4f46e5" stroke-width="3" 
+                      stroke-dasharray="100 100" stroke-dashoffset="0"></circle>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="timerDisplay" class="text-xl font-bold">180s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Game state
+    let score = 0;
+    let timeLeft = 0;
+    let timerInterval = null;
+    let streak = 0;
+    let currentLevel = null;
+    let levelProgress = 0;
+    let questionsAnswered = 0;
+    let levelTarget = 10;
+    let currentQuestion = null;
+    let gameQuestions = [];
+    let userAnswers = [];
+    
+    // Word lists for different levels
+    const levels = {
+      beginner: {
+        name: "Beginner",
+        antonymPairs: [
+          { word: "happy", antonym: "sad" },
+          { word: "big", antonym: "small" },
+          { word: "hot", antonym: "cold" },
+          { word: "fast", antonym: "slow" },
+          { word: "light", antonym: "dark" },
+          { word: "high", antonym: "low" },
+          { word: "full", antonym: "empty" },
+          { word: "open", antonym: "closed" },
+          { word: "young", antonym: "old" },
+          { word: "clean", antonym: "dirty" },
+          { word: "fire", antonym: "water" },
+          { word: "smart", antonym: "dumb" },
+          { word: "safe", antonym: "dangerous" },
+          { word: "rich", antonym: "poor" },
+          { word: "easy", antonym: "hard" },
+          { word: "hard", antonym: "easy" },
+          { word: "right", antonym: "wrong" },
+          { word: "tall", antonym: "short" },        
+          { word: "strong", antonym: "weak" }
+        ],
+        time: 180
+      },
+      intermediate: {
+        name: "Intermediate",
+        antonymPairs: [
+          { word: "increase", antonym: "decrease" },
+          { word: "expand", antonym: "contract" },
+          { word: "accept", antonym: "reject" },
+          { word: "appear", antonym: "disappear" },
+          { word: "arrive", antonym: "depart" },
+          { word: "ascend", antonym: "descend" },
+          { word: "build", antonym: "destroy" },
+          { word: "capture", antonym: "release" },
+          { word: "conceal", antonym: "reveal" },
+          { word: "quick", antonym: "slow" },
+          { word: "odorous", antonym: "fragrant" },
+          { word: "agile", antonym: "clumsy" }
+        ],
+        time: 150
+      },
+      advanced: {
+        name: "Advanced",
+        antonymPairs: [
+          { word: "benevolent", antonym: "malevolent" },
+          { word: "ambiguous", antonym: "unambiguous" },
+          { word: "ephemeral", antonym: "permanent" },
+          { word: "esoteric", antonym: "mainstream" },
+          { word: "gregarious", antonym: "reclusive" },
+          { word: "magnanimous", antonym: "petty" },
+          { word: "obsequious", antonym: "domineering" },
+          { word: "parsimonious", antonym: "generous" },
+          { word: "pragmatic", antonym: "idealistic" },
+          { word: "ubiquitous", antonym: "rare" },
+          { word: "predicament", antonym: "solution" },
+          { word: "proficient", antonym: "inept" },
+          { word: "resilient", antonym: "fragile" },
+          { word: "superficial", antonym: "profound" },
+          { word: "tenacious", antonym: "yielding" },
+          { word: "transient", antonym: "enduring" },
+          { word: "vulnerable", antonym: "invulnerable" },
+          { word: "zealous", antonym: "apathetic" }
+        ],
+        time: 120
+      }
+    };
+
+    // DOM Elements
+    const gameScreen = document.getElementById("gameScreen");
+    const streakCounter = document.getElementById("streakCounter");
+    const currentLevelEl = document.getElementById("currentLevel");
+    const levelProgressEl = document.getElementById("levelProgress");
+    const currentScoreDisplay = document.getElementById("current-score-display");
+    const timerDisplay = document.getElementById("timerDisplay");
+    const timerRing = document.getElementById("timerRing");
+
+    // Initialize game
+    function initGame() {
+      showLevelSelection();
+    }
+    
+    // Show level selection screen
+    function showLevelSelection() {
+      gameScreen.innerHTML = `
+        <div class="text-center py-8">
+          <div class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Select Difficulty Level</h2>
+            <p class="text-gray-600 max-w-lg mx-auto">Challenge yourself with increasingly difficult vocabulary words</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="option-card bg-gradient-to-br from-green-100 to-green-50 border border-green-200 p-6 rounded-xl cursor-pointer" data-level="beginner">
+              <div class="text-5xl mb-4 text-green-600 floating">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Beginner</h3>
+              <p class="text-sm mb-4">Common words<br>Basic vocabulary</p>
+              <div class="text-xs bg-green-600 text-white px-3 py-1 rounded-full inline-block">${levels.beginner.time}s</div>
+            </div>
+            
+            <div class="option-card bg-gradient-to-br from-blue-100 to-blue-50 border border-blue-200 p-6 rounded-xl cursor-pointer" data-level="intermediate">
+              <div class="text-5xl mb-4 text-blue-600 floating">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+              <p class="text-sm mb-4">Everyday vocabulary<br>Common opposites</p>
+              <div class="text-xs bg-blue-600 text-white px-3 py-1 rounded-full inline-block">${levels.intermediate.time}s</div>
+            </div>
+            
+            <div class="option-card bg-gradient-to-br from-purple-100 to-purple-50 border border-purple-200 p-6 rounded-xl cursor-pointer" data-level="advanced">
+              <div class="text-5xl mb-4 text-purple-600 floating">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Advanced</h3>
+              <p class="text-sm mb-4">Complex vocabulary<br>Academic words</p>
+              <div class="text-xs bg-purple-600 text-white px-3 py-1 rounded-full inline-block">${levels.advanced.time}s</div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Add event listeners to level buttons
+      document.querySelectorAll('.option-card').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const level = btn.getAttribute('data-level');
+          startGame(level);
+        });
+      });
+    }
+    
+    // Start the game with selected level
+    function startGame(level) {
+      currentLevel = level;
+      const config = levels[level];
+      
+      // Reset game state
+      score = 0;
+      timeLeft = config.time;
+      streak = 0;
+      levelProgress = 0;
+      questionsAnswered = 0;
+      userAnswers = [];
+      gameQuestions = [...config.antonymPairs].sort(() => 0.5 - Math.random()).slice(0, 10);
+      
+      currentLevelEl.textContent = config.name;
+      currentScoreDisplay.textContent = score;
+      streakCounter.textContent = streak;
+      updateLevelProgress();
+      updateTimerRing();
+      
+      // Render game UI
+      renderQuestionScreen();
+      
+      // Start timer
+      startTimer();
+    }
+    
+    // Render the question screen
+    function renderQuestionScreen() {
+      if (questionsAnswered >= gameQuestions.length) {
+        endGame();
+        return;
+      }
+      
+      currentQuestion = gameQuestions[questionsAnswered];
+      const options = generateOptions(currentQuestion.antonym);
+      
+      gameScreen.innerHTML = `
+        <div class="text-center">
+          <div class="mb-6">
+            <div class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
+              Level: ${levels[currentLevel].name}
+            </div>
+          </div>
+          
+          <div class="question-card p-8 mb-8">
+            <div class="text-3xl font-bold text-blue-700 mb-4">Question ${questionsAnswered + 1} of ${gameQuestions.length}</div>
+            <div class="text-4xl font-bold text-gray-800 mb-6">"${currentQuestion.word}"</div>
+            <div class="text-xl text-gray-600">What is the antonym?</div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            ${options.map((option, index) => `
+              <div class="option-card p-4 border-2 border-gray-200 rounded-xl text-center cursor-pointer" data-answer="${option}">
+                <div class="text-xl font-medium">${option}</div>
+              </div>
+            `).join('')}
+          </div>
+          
+          <button id="nextBtn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-xl text-lg transition opacity-50" disabled>
+            Next Question
+          </button>
+        </div>
+      `;
+      
+      // Add event listeners to options
+      document.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', () => {
+          // Remove selection from all cards
+          document.querySelectorAll('.option-card').forEach(c => {
+            c.classList.remove('selected');
+          });
+          
+          // Add selection to clicked card
+          card.classList.add('selected');
+          
+          // Enable next button
+          document.getElementById('nextBtn').disabled = false;
+          document.getElementById('nextBtn').classList.remove('bg-gray-200', 'text-gray-700', 'opacity-50');
+          document.getElementById('nextBtn').classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+        });
+      });
+      
+      // Add event listener to next button
+      document.getElementById('nextBtn').addEventListener('click', () => {
+        const selectedOption = document.querySelector('.option-card.selected');
+        if (selectedOption) {
+          const userAnswer = selectedOption.getAttribute('data-answer');
+          checkAnswer(userAnswer);
+        }
+      });
+    }
+    
+    // Generate options for multiple choice
+    function generateOptions(correctAnswer) {
+      const config = levels[currentLevel];
+      const options = [correctAnswer];
+      
+      // Get 3 random incorrect options
+      while (options.length < 4) {
+        const randomIndex = Math.floor(Math.random() * config.antonymPairs.length);
+        const randomAntonym = config.antonymPairs[randomIndex].antonym;
+        
+        if (!options.includes(randomAntonym) && randomAntonym !== correctAnswer) {
+          options.push(randomAntonym);
+        }
+      }
+      
+      // Shuffle options
+      return options.sort(() => 0.5 - Math.random());
+    }
+    
+    // Start the timer
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `${timeLeft}s`;
+        updateTimerRing();
+        
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+    
+    // Update timer ring
+    function updateTimerRing() {
+      const config = levels[currentLevel];
+      const progressPercent = (timeLeft / config.time) * 100;
+      const circumference = 2 * Math.PI * 15.9;
+      const offset = circumference - (progressPercent / 100) * circumference;
+      timerRing.style.strokeDashoffset = offset;
+      
+      // Change color when time is low
+      if (timeLeft <= 10) {
+        timerRing.style.stroke = '#ef4444';
+      }
+    }
+    
+    // Check user's answer
+    function checkAnswer(userAnswer) {
+      const isCorrect = userAnswer === currentQuestion.antonym;
+      
+      // Record answer
+      userAnswers.push({
+        question: currentQuestion.word,
+        correctAnswer: currentQuestion.antonym,
+        userAnswer: userAnswer,
+        isCorrect: isCorrect
+      });
+      
+      // Show feedback for all options
+      document.querySelectorAll('.option-card').forEach(card => {
+        const optionAnswer = card.getAttribute('data-answer');
+        if (optionAnswer === currentQuestion.antonym) {
+          card.classList.add('correct');
+        } else if (optionAnswer === userAnswer && !isCorrect) {
+          card.classList.add('incorrect');
+        }
+      });
+      
+      if (isCorrect) {
+        // Correct answer
+        const points = streak >= 3 ? 15 : 10;
+        score += points;
+        streak++;
+        
+        // Create floating score animation
+        const nextBtn = document.getElementById('nextBtn');
+        const btnRect = nextBtn.getBoundingClientRect();
+        createScoreAnimation(points, btnRect.left + btnRect.width/2, btnRect.top);
+      } else {
+        // Incorrect answer
+        streak = 0;
+      }
+      
+      // Update displays
+      streakCounter.textContent = streak;
+      currentScoreDisplay.textContent = score;
+      
+      // Update level progress
+      questionsAnswered++;
+      levelProgress = Math.min(100, Math.floor((questionsAnswered / gameQuestions.length) * 100));
+      updateLevelProgress();
+      
+      // Disable all options
+      document.querySelectorAll('.option-card').forEach(card => {
+        card.style.pointerEvents = 'none';
+      });
+      
+      // Move to next question
+      setTimeout(() => {
+        renderQuestionScreen();
+      }, 1500);
+    }
+    
+    // Create floating score animation
+    function createScoreAnimation(points, x, y) {
+      const scoreFloat = document.createElement('div');
+      scoreFloat.classList.add('score-float');
+      scoreFloat.textContent = `+${points}`;
+      scoreFloat.style.left = `${x}px`;
+      scoreFloat.style.top = `${y}px`;
+      document.body.appendChild(scoreFloat);
+      
+      // Remove element after animation completes
+      setTimeout(() => {
+        scoreFloat.remove();
+      }, 1000);
+    }
+    
+    // Update level progress display
+    function updateLevelProgress() {
+      levelProgressEl.style.width = `${levelProgress}%`;
+    }
+    
+    // End game
+    function endGame() {
+      clearInterval(timerInterval);
+      showResults();
+    }
+    
+    // Show results screen
+    function showResults() {
+      const correctCount = userAnswers.filter(a => a.isCorrect).length;
+      const accuracy = Math.round((correctCount / userAnswers.length) * 100);
+      
+      gameScreen.innerHTML = `
+        <div class="text-center py-6">
+          <div class="mb-6">
+            <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-trophy text-white text-5xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-blue-800 mb-2">Game Complete!</h2>
+            <p class="text-gray-600 mb-6">You answered ${userAnswers.length} questions with ${accuracy}% accuracy</p>
+          </div>
+          
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 mb-8">
+            <div class="text-4xl font-bold text-blue-700 mb-2">${score}</div>
+            <div class="text-gray-600">Final Score</div>
+          </div>
+          
+          <h3 class="text-xl font-bold text-blue-700 mb-4 text-left">Review your answers:</h3>
+          <div class="space-y-4 max-h-[300px] overflow-y-auto pr-2">
+            ${userAnswers.map((answer, index) => `
+              <div class="result-item p-4 bg-white rounded-xl border ${answer.isCorrect ? 'border-green-200' : 'border-red-200'}">
+                <div class="font-bold text-lg mb-2">${index + 1}. What is the antonym of "${answer.question}"?</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div class="${answer.isCorrect ? 'text-green-600' : 'text-red-600'}">
+                    <i class="fas ${answer.isCorrect ? 'fa-check-circle' : 'fa-times-circle'} mr-2"></i>
+                    Your answer: ${answer.userAnswer}
+                  </div>
+                  ${!answer.isCorrect ? `
+                    <div class="text-green-600">
+                      <i class="fas fa-check-circle mr-2"></i>
+                      Correct answer: ${answer.correctAnswer}
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="flex flex-wrap gap-4 justify-center mt-8">
+            <button id="retryBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Play Again
+            </button>
+            <button id="changeLevelBtn" class="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Change Level
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Add event listeners
+      document.getElementById('retryBtn').addEventListener('click', () => startGame(currentLevel));
+      document.getElementById('changeLevelBtn').addEventListener('click', showLevelSelection);
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initGame();
+    });
+  </script>
+</body>
+</html>

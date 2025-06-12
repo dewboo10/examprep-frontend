@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Sports Awards - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .award-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .award-item:hover {
+            background: #e0f2fe;
+        }
+        
+        .award-title {
+            color: #1e40af;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .award-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+
+        .sport-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Indian Sports Achievements
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                A comprehensive collection of notable Indian sports achievements and awards across various disciplines.
+            </p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Major Achievements (1-25) -->
+            <section class="card p-8 mb-8">
+                <h2 class="section-title">🏅 Major Achievements (1-25)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="award-item">
+                        <div class="award-title">Viswanathan Anand</div>
+                        <div class="sport-tag">Chess</div>
+                        <div class="award-content">First recipient (1991–92), 5-time World Champion</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Leander Paes</div>
+                        <div class="sport-tag">Tennis</div>
+                        <div class="award-content">Bronze at Atlanta 1996, multiple Grand Slams</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sachin Tendulkar</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Over 100 international centuries</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Karnam Malleswari</div>
+                        <div class="sport-tag">Weightlifting</div>
+                        <div class="award-content">Bronze, Sydney 2000 – first Indian woman Olympic medalist</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Abhinav Bindra</div>
+                        <div class="sport-tag">Shooting</div>
+                        <div class="award-content">First Indian to win Olympic individual gold (2008)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Saina Nehwal</div>
+                        <div class="sport-tag">Badminton</div>
+                        <div class="award-content">Olympic Bronze 2012, World No. 1 (2015)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Mary Kom</div>
+                        <div class="sport-tag">Boxing</div>
+                        <div class="award-content">6-time World Champion, Olympic Bronze (2012)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">PV Sindhu</div>
+                        <div class="sport-tag">Badminton</div>
+                        <div class="award-content">Silver (Rio 2016), Bronze (Tokyo 2020), World Champ (2019)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Mirabai Chanu</div>
+                        <div class="sport-tag">Weightlifting</div>
+                        <div class="award-content">Olympic Silver (Tokyo 2020), World Champ (2017)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Neeraj Chopra</div>
+                        <div class="sport-tag">Javelin</div>
+                        <div class="award-content">Olympic Gold (Tokyo 2020), World Champion (2023)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Ravi Kumar Dahiya</div>
+                        <div class="sport-tag">Wrestling</div>
+                        <div class="award-content">Olympic Silver (Tokyo 2020)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sunil Chhetri</div>
+                        <div class="sport-tag">Football</div>
+                        <div class="award-content">India's highest goal scorer, active international legend</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Rani Rampal</div>
+                        <div class="sport-tag">Hockey</div>
+                        <div class="award-content">Led Indian Women's team to Olympic Semifinal</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Ravindra Jadeja</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Consistent all-rounder, ICC top rankings</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Lovlina Borgohain</div>
+                        <div class="sport-tag">Boxing</div>
+                        <div class="award-content">Olympic Bronze (Tokyo 2020)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Deepti Sharma</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Women's all-rounder, 188-run partnership record</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Bajrang Punia</div>
+                        <div class="sport-tag">Wrestling</div>
+                        <div class="award-content">Olympic Bronze, multiple World medals</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Vinesh Phogat</div>
+                        <div class="sport-tag">Wrestling</div>
+                        <div class="award-content">CWG, Asian Games gold; World Champ bronze</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Manika Batra</div>
+                        <div class="sport-tag">Table Tennis</div>
+                        <div class="award-content">CWG Gold, World Top 40</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Deepa Malik</div>
+                        <div class="sport-tag">Para Athletics</div>
+                        <div class="award-content">First Indian woman Paralympic medalist</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Devendra Jhajharia</div>
+                        <div class="sport-tag">Para Javelin</div>
+                        <div class="award-content">Two Paralympic golds (2004, 2016)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sardara Singh</div>
+                        <div class="sport-tag">Hockey</div>
+                        <div class="award-content">Captain of Indian men's team, 2x Asian Games medalist</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Virat Kohli</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">ICC Cricketer of the Year, numerous ODI records</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Rohit Sharma</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">5 IPL titles, 264* – highest ODI score</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Shikhar Dhawan</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Fastest to 1000, 2000, 3000 ODI runs</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Arjuna Award Winners (26-55) -->
+            <section class="card p-8 mb-8">
+                <h2 class="section-title">🥇 Arjuna Award Winners (26-55)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="award-item">
+                        <div class="award-title">Milkha Singh</div>
+                        <div class="sport-tag">Athletics</div>
+                        <div class="award-content">"Flying Sikh", 4th in Rome Olympics 1960</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Kapil Dev</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Led India to 1983 World Cup</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Anju Bobby George</div>
+                        <div class="sport-tag">Athletics</div>
+                        <div class="award-content">First Indian to win World Championship medal</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Hima Das</div>
+                        <div class="sport-tag">Athletics</div>
+                        <div class="award-content">First Indian to win gold in World U-20 (400m)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">R Ashwin</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">500+ wickets, Test match MVP</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Dinesh Karthik</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">2004 debut, 2022 comeback</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Jasprit Bumrah</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Fastest Indian to 100 Test wickets</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Bhavani Devi</div>
+                        <div class="sport-tag">Fencing</div>
+                        <div class="award-content">First Indian fencer at Olympics</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Nikhat Zareen</div>
+                        <div class="sport-tag">Boxing</div>
+                        <div class="award-content">World Champion 2022 & 2023</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">G Sathiyan</div>
+                        <div class="sport-tag">Table Tennis</div>
+                        <div class="award-content">Asian Games Bronze 2018</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Bhavina Patel</div>
+                        <div class="sport-tag">Para Table Tennis</div>
+                        <div class="award-content">Tokyo Paralympics Silver</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Harmanpreet Kaur</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">171* vs Australia (WC 2017)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Jemimah Rodrigues</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Youngest to 50 in T20I</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">R Praggnanandhaa</div>
+                        <div class="sport-tag">Chess</div>
+                        <div class="award-content">Youngest Indian to beat Magnus Carlsen</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">D Gukesh</div>
+                        <div class="sport-tag">Chess</div>
+                        <div class="award-content">Youngest Indian to cross 2750 ELO</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sharath Kamal</div>
+                        <div class="sport-tag">Table Tennis</div>
+                        <div class="award-content">CWG multiple golds</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Amit Panghal</div>
+                        <div class="sport-tag">Boxing</div>
+                        <div class="award-content">Asian Games Gold, World Silver</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Simranjit Kaur</div>
+                        <div class="sport-tag">Boxing</div>
+                        <div class="award-content">World Bronze 2018</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Mitali Raj</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Leading scorer in women's ODIs</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Anwar Ali</div>
+                        <div class="sport-tag">Football</div>
+                        <div class="award-content">Played in U-17 WC 2017</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Manpreet Singh</div>
+                        <div class="sport-tag">Hockey</div>
+                        <div class="award-content">Led India to Olympic bronze (2020)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sushil Kumar</div>
+                        <div class="sport-tag">Wrestling</div>
+                        <div class="award-content">Two Olympic medals (2008, 2012)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Yogeshwar Dutt</div>
+                        <div class="sport-tag">Wrestling</div>
+                        <div class="award-content">Olympic Bronze (2012)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Deepika Kumari</div>
+                        <div class="sport-tag">Archery</div>
+                        <div class="award-content">World No. 1 (2012, 2021)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Tarundeep Rai</div>
+                        <div class="sport-tag">Archery</div>
+                        <div class="award-content">Two-time Olympian</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Abhishek Verma</div>
+                        <div class="sport-tag">Shooting</div>
+                        <div class="award-content">World Cup gold in compound archery</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Ronjan Sodhi</div>
+                        <div class="sport-tag">Shooting</div>
+                        <div class="award-content">Double Trap World Champ</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Apurvi Chandela</div>
+                        <div class="sport-tag">Shooting</div>
+                        <div class="award-content">ISSF World Cup gold</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Suma Shirur</div>
+                        <div class="sport-tag">Shooting</div>
+                        <div class="award-content">Olympian and coach</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dronacharya Award Winners (56-70) -->
+            <section class="card p-8 mb-8">
+                <h2 class="section-title">🧠 Dronacharya Award Winners (56-70)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="award-item">
+                        <div class="award-title">Pullela Gopichand</div>
+                        <div class="sport-tag">Badminton</div>
+                        <div class="award-content">Coached Saina, Sindhu</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Satpal Singh</div>
+                        <div class="sport-tag">Wrestling</div>
+                        <div class="award-content">Coach of Sushil Kumar</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Ramakant Achrekar</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Coach of Sachin Tendulkar</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Jaspal Rana</div>
+                        <div class="sport-tag">Shooting</div>
+                        <div class="award-content">Coached Manu Bhaker, Saurabh Chaudhary</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Mahavir Singh Phogat</div>
+                        <div class="sport-tag">Wrestling</div>
+                        <div class="award-content">Coach of Phogat sisters</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Kuldeep Handoo</div>
+                        <div class="sport-tag">Wushu</div>
+                        <div class="award-content">Indian coach and Dronacharya awardee</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Raj Singh</div>
+                        <div class="sport-tag">Wrestling</div>
+                        <div class="award-content">Legendary coach</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sanjay Bhardwaj</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Coached Gautam Gambhir</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Harendra Singh</div>
+                        <div class="sport-tag">Hockey</div>
+                        <div class="award-content">Junior WC-winning coach</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Nihar Ameen</div>
+                        <div class="sport-tag">Swimming</div>
+                        <div class="award-content">Coach of Virdhawal Khade</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Balkrishna Singh</div>
+                        <div class="sport-tag">Basketball</div>
+                        <div class="award-content">Prominent national coach</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Shiv Singh</div>
+                        <div class="sport-tag">Boxing</div>
+                        <div class="award-content">National coach</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Romesh Pathania</div>
+                        <div class="sport-tag">Hockey</div>
+                        <div class="award-content">Youth team mentor</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sagar Mal Dhayal</div>
+                        <div class="sport-tag">Athletics</div>
+                        <div class="award-content">National sprint coach</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Inder Dutt</div>
+                        <div class="sport-tag">Rowing</div>
+                        <div class="award-content">Coached multiple medalists</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dhyan Chand Award Winners (71-80) -->
+            <section class="card p-8 mb-8">
+                <h2 class="section-title">🎖️ Dhyan Chand Award Winners (71-80)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="award-item">
+                        <div class="award-title">Ashok Kumar</div>
+                        <div class="sport-tag">Hockey</div>
+                        <div class="award-content">Olympian, son of Dhyan Chand</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Shabbir Ali</div>
+                        <div class="sport-tag">Football</div>
+                        <div class="award-content">Legendary forward in 70s–80s</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Syed Ali</div>
+                        <div class="sport-tag">Hockey</div>
+                        <div class="award-content">1980 Olympic gold</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Satya Dev Prasad</div>
+                        <div class="sport-tag">Archery</div>
+                        <div class="award-content">Pioneer in Indian archery</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Manjeet Singh</div>
+                        <div class="sport-tag">Rowing</div>
+                        <div class="award-content">Asian medalist</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Manika Batra</div>
+                        <div class="sport-tag">Table Tennis</div>
+                        <div class="award-content">Brought prominence to women's TT</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">K.C. Elamma</div>
+                        <div class="sport-tag">Kabaddi</div>
+                        <div class="award-content">Southern Kabaddi pioneer</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Murlikant Petkar</div>
+                        <div class="sport-tag">Para-swimming</div>
+                        <div class="award-content">India's first Paralympic gold</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Devendra Jhajharia</div>
+                        <div class="sport-tag">Para-athletics</div>
+                        <div class="award-content">Two-time Paralympic gold</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Naresh Kumar</div>
+                        <div class="sport-tag">Tennis</div>
+                        <div class="award-content">Davis Cup star & coach</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tenzing Norgay Award Winners (81-85) -->
+            <section class="card p-8 mb-8">
+                <h2 class="section-title">🧗‍♂️ Tenzing Norgay Award Winners (81-85)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="award-item">
+                        <div class="award-title">Arunima Sinha</div>
+                        <div class="sport-tag">Land Adventure</div>
+                        <div class="award-content">First female amputee to scale Everest</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Bachendri Pal</div>
+                        <div class="sport-tag">Land Adventure</div>
+                        <div class="award-content">First Indian woman to climb Everest (1984)</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Love Raj Singh Dharmshaktu</div>
+                        <div class="sport-tag">Mountaineering</div>
+                        <div class="award-content">Climbed Everest 7 times</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Ravindra Kumar</div>
+                        <div class="sport-tag">Civil Servant/Climber</div>
+                        <div class="award-content">Scaled Everest as IAS officer</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Tashi and Nungshi Malik</div>
+                        <div class="sport-tag">Twin Climbers</div>
+                        <div class="award-content">First twins to climb 7 summits</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Miscellaneous Notable Awards (86-100) -->
+            <section class="card p-8 mb-8">
+                <h2 class="section-title">🏆 Miscellaneous Notable Awards (86-100)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="award-item">
+                        <div class="award-title">Indian Cricket Team</div>
+                        <div class="sport-tag">Cricket</div>
+                        <div class="award-content">Laureus Moment of Year (2020) - 2011 WC win replayed in pandemic</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Neeraj Chopra</div>
+                        <div class="sport-tag">Athletics</div>
+                        <div class="award-content">Laureus Nominated - First Indian track athlete nominated</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sunil Chhetri</div>
+                        <div class="sport-tag">Football</div>
+                        <div class="award-content">FIFA Special Mention - 3rd highest active scorer</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Gopi Thonakal</div>
+                        <div class="sport-tag">Marathon</div>
+                        <div class="award-content">Army Marathoner - South Asian gold, 2017</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Swapna Barman</div>
+                        <div class="sport-tag">Heptathlon</div>
+                        <div class="award-content">Asian Games Gold, 2018</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Tejaswin Shankar</div>
+                        <div class="sport-tag">High Jump</div>
+                        <div class="award-content">CWG Bronze 2022</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Lakshya Sen</div>
+                        <div class="sport-tag">Badminton</div>
+                        <div class="award-content">CWG Gold, Thomas Cup hero</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">HS Prannoy</div>
+                        <div class="sport-tag">Badminton</div>
+                        <div class="award-content">Asian Games Bronze, Thomas Cup</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Dipika Pallikal</div>
+                        <div class="sport-tag">Squash</div>
+                        <div class="award-content">CWG Gold, multiple Asian medals</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Saurav Ghoshal</div>
+                        <div class="sport-tag">Squash</div>
+                        <div class="award-content">Bronze in CWG, Asian Champ</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Aishwarya Mishra</div>
+                        <div class="sport-tag">Athletics</div>
+                        <div class="award-content">400m Sprint - U-20 national champ</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Kishore Jena</div>
+                        <div class="sport-tag">Javelin</div>
+                        <div class="award-content">Asian Games Silver, 2023</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Rameshbabu Praggnanandhaa</div>
+                        <div class="sport-tag">Chess</div>
+                        <div class="award-content">2023 World Cup finalist</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Vishwanath Singh</div>
+                        <div class="sport-tag">Para Athletics</div>
+                        <div class="award-content">National record holder</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Sharad Kumar</div>
+                        <div class="sport-tag">Para High Jump</div>
+                        <div class="award-content">Paralympics Bronze 2021</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html> 

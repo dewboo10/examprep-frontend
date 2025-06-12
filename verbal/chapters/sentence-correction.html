@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Correction - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            background: #e0f2fe;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .option {
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+        
+        .option.selected {
+            border-color: #3b82f6;
+            background: #e0f2fe;
+        }
+        
+        .explanation {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0fdf4;
+            border-radius: 8px;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Sentence Correction
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Test your knowledge of English grammar and sentence structure with our comprehensive collection of sentence correction questions.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search questions..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Grammar</span>
+                    <span class="filter-tag">Vocabulary</span>
+                    <span class="filter-tag">Usage</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <section class="card p-8">
+                <!-- Question 1 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The teacher explained the lesson clearly, but nobody understood it completely.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 1)">A) explained</div>
+                        <div class="option" onclick="selectOption(this, 'B', 1)">B) understood</div>
+                        <div class="option" onclick="selectOption(this, 'C', 1)">C) it completely</div>
+                        <div class="option" onclick="selectOption(this, 'D', 1)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">The sentence is grammatically correct and does not require any changes.</p>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        He is more better than his classmates in mathematics.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 2)">A) more better</div>
+                        <div class="option" onclick="selectOption(this, 'B', 2)">B) better</div>
+                        <div class="option" onclick="selectOption(this, 'C', 2)">C) more better than</div>
+                        <div class="option" onclick="selectOption(this, 'D', 2)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) better</p>
+                        <p class="text-gray-700 mt-2">"More better" is incorrect as "better" is already the comparative form of "good". We don't use "more" with comparative adjectives.</p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        She runs faster than anyone in her team.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 3)">A) faster than anyone in her team</div>
+                        <div class="option" onclick="selectOption(this, 'B', 3)">B) more faster than anyone in her team</div>
+                        <div class="option" onclick="selectOption(this, 'C', 3)">C) fastest than anyone in her team</div>
+                        <div class="option" onclick="selectOption(this, 'D', 3)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">The sentence is grammatically correct. "Faster" is the correct comparative form of "fast".</p>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        I prefer tea to coffee as I find it more refreshing.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 4)">A) to coffee as I find</div>
+                        <div class="option" onclick="selectOption(this, 'B', 4)">B) than coffee as I find</div>
+                        <div class="option" onclick="selectOption(this, 'C', 4)">C) than coffee because I find</div>
+                        <div class="option" onclick="selectOption(this, 'D', 4)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">The sentence is grammatically correct. "Prefer" is followed by "to" when comparing two things.</p>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        We was waiting for the bus when it started to rain.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 5)">A) We was</div>
+                        <div class="option" onclick="selectOption(this, 'B', 5)">B) We are</div>
+                        <div class="option" onclick="selectOption(this, 'C', 5)">C) We were</div>
+                        <div class="option" onclick="selectOption(this, 'D', 5)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) We were</p>
+                        <p class="text-gray-700 mt-2">"We" is a plural pronoun and requires the plural form of the verb "to be", which is "were".</p>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        Neither the director nor the actors was willing to accept responsibility for the failure of the film.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 6)">A) was</div>
+                        <div class="option" onclick="selectOption(this, 'B', 6)">B) were</div>
+                        <div class="option" onclick="selectOption(this, 'C', 6)">C) is</div>
+                        <div class="option" onclick="selectOption(this, 'D', 6)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) were</p>
+                        <p class="text-gray-700 mt-2">When using "neither...nor", the verb agrees with the subject closest to it. Since "actors" is plural, we use "were".</p>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        She has a great knowledge about computers and technology.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 7)">A) has a great knowledge about</div>
+                        <div class="option" onclick="selectOption(this, 'B', 7)">B) has a great knowledge on</div>
+                        <div class="option" onclick="selectOption(this, 'C', 7)">C) has great knowledge in</div>
+                        <div class="option" onclick="selectOption(this, 'D', 7)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) has a great knowledge on</p>
+                        <p class="text-gray-700 mt-2">The correct preposition to use with "knowledge" in this context is "on".</p>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        I am looking forward to meet you at the party tomorrow.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 8)">A) to meet</div>
+                        <div class="option" onclick="selectOption(this, 'B', 8)">B) meeting</div>
+                        <div class="option" onclick="selectOption(this, 'C', 8)">C) to meeting</div>
+                        <div class="option" onclick="selectOption(this, 'D', 8)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) to meeting</p>
+                        <p class="text-gray-700 mt-2">After "look forward to", we use a gerund (verb + ing) form.</p>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        He has been working here for last three years.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 9)">A) for last three years</div>
+                        <div class="option" onclick="selectOption(this, 'B', 9)">B) for the last three years</div>
+                        <div class="option" onclick="selectOption(this, 'C', 9)">C) since last three years</div>
+                        <div class="option" onclick="selectOption(this, 'D', 9)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) for the last three years</p>
+                        <p class="text-gray-700 mt-2">When referring to a specific period of time, we use "the" before "last".</p>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        I am learning French for two years now.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 10)">A) learning French for two years</div>
+                        <div class="option" onclick="selectOption(this, 'B', 10)">B) learning French since two years</div>
+                        <div class="option" onclick="selectOption(this, 'C', 10)">C) have been learning French for two years</div>
+                        <div class="option" onclick="selectOption(this, 'D', 10)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) have been learning French for two years</p>
+                        <p class="text-gray-700 mt-2">For an action that started in the past and continues to the present, we use the present perfect continuous tense.</p>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        Despite of his best efforts, he couldn't win the race.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 11)">A) Despite of</div>
+                        <div class="option" onclick="selectOption(this, 'B', 11)">B) Despite</div>
+                        <div class="option" onclick="selectOption(this, 'C', 11)">C) Even though</div>
+                        <div class="option" onclick="selectOption(this, 'D', 11)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) Despite</p>
+                        <p class="text-gray-700 mt-2">"Despite" is used without "of". "In spite of" would be the correct alternative if we wanted to use "of".</p>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        She speaks more fluent than her brother.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 12)">A) speaks more fluent</div>
+                        <div class="option" onclick="selectOption(this, 'B', 12)">B) speaks more fluently</div>
+                        <div class="option" onclick="selectOption(this, 'C', 12)">C) speak more fluent</div>
+                        <div class="option" onclick="selectOption(this, 'D', 12)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) speaks more fluently</p>
+                        <p class="text-gray-700 mt-2">When modifying a verb (speaks), we need to use an adverb (fluently) rather than an adjective (fluent).</p>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        This is the best book I have ever read it.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 13)">A) read it</div>
+                        <div class="option" onclick="selectOption(this, 'B', 13)">B) have ever read</div>
+                        <div class="option" onclick="selectOption(this, 'C', 13)">C) I have ever read it</div>
+                        <div class="option" onclick="selectOption(this, 'D', 13)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) have ever read</p>
+                        <p class="text-gray-700 mt-2">The pronoun "it" is redundant as the book is already mentioned as the subject of the relative clause.</p>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        His performance was not as good as expected, and he was eliminated in the first round.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 14)">A) not as good as expected</div>
+                        <div class="option" onclick="selectOption(this, 'B', 14)">B) was not good as expected</div>
+                        <div class="option" onclick="selectOption(this, 'C', 14)">C) was not good like expected</div>
+                        <div class="option" onclick="selectOption(this, 'D', 14)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">The sentence is grammatically correct. The comparison "as good as" is properly used.</p>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        He is the most talented player in the team, isn't he?
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 15)">A) isn't he</div>
+                        <div class="option" onclick="selectOption(this, 'B', 15)">B) isn't he?</div>
+                        <div class="option" onclick="selectOption(this, 'C', 15)">C) is he?</div>
+                        <div class="option" onclick="selectOption(this, 'D', 15)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) isn't he?</p>
+                        <p class="text-gray-700 mt-2">The question tag needs a question mark at the end.</p>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        I am not used to wake up so early in the morning.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 16)">A) waking</div>
+                        <div class="option" onclick="selectOption(this, 'B', 16)">B) wake</div>
+                        <div class="option" onclick="selectOption(this, 'C', 16)">C) to wake</div>
+                        <div class="option" onclick="selectOption(this, 'D', 16)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A) waking</p>
+                        <p class="text-gray-700 mt-2">After "used to", we use a gerund (verb + ing) form.</p>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        We will discuss about the new project in tomorrow's meeting.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 17)">A) discuss about</div>
+                        <div class="option" onclick="selectOption(this, 'B', 17)">B) discuss</div>
+                        <div class="option" onclick="selectOption(this, 'C', 17)">C) discuss with</div>
+                        <div class="option" onclick="selectOption(this, 'D', 17)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) discuss</p>
+                        <p class="text-gray-700 mt-2">The verb "discuss" is transitive and doesn't need a preposition.</p>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        Neither the students nor the teacher were happy with the results.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 18)">A) was</div>
+                        <div class="option" onclick="selectOption(this, 'B', 18)">B) were</div>
+                        <div class="option" onclick="selectOption(this, 'C', 18)">C) is</div>
+                        <div class="option" onclick="selectOption(this, 'D', 18)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) were</p>
+                        <p class="text-gray-700 mt-2">When using "neither...nor", the verb agrees with the subject closest to it. Since "teacher" is singular, we use "was".</p>
+                    </div>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        She is the most intelligent of the two girls.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 19)">A) of the two girls</div>
+                        <div class="option" onclick="selectOption(this, 'B', 19)">B) between the two girls</div>
+                        <div class="option" onclick="selectOption(this, 'C', 19)">C) among the two girls</div>
+                        <div class="option" onclick="selectOption(this, 'D', 19)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A) of the two girls</p>
+                        <p class="text-gray-700 mt-2">When comparing two things, we use "of" with the superlative form.</p>
+                    </div>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        I can hardly wait to hear your opinions about the presentation.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 20)">A) hardly wait to</div>
+                        <div class="option" onclick="selectOption(this, 'B', 20)">B) wait hardly to</div>
+                        <div class="option" onclick="selectOption(this, 'C', 20)">C) wait to hardly</div>
+                        <div class="option" onclick="selectOption(this, 'D', 20)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">The sentence is grammatically correct. "Hardly" is correctly placed before the verb it modifies.</p>
+                    </div>
+                </div>
+
+                <!-- Question 21 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The committee has been working on this project since last year.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 21)">A) has been working</div>
+                        <div class="option" onclick="selectOption(this, 'B', 21)">B) have been working</div>
+                        <div class="option" onclick="selectOption(this, 'C', 21)">C) is working</div>
+                        <div class="option" onclick="selectOption(this, 'D', 21)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">The sentence is grammatically correct. "Committee" is treated as a singular collective noun.</p>
+                    </div>
+                </div>
+
+                <!-- Question 22 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        She is one of those people who always helps others.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 22)">A) helps</div>
+                        <div class="option" onclick="selectOption(this, 'B', 22)">B) help</div>
+                        <div class="option" onclick="selectOption(this, 'C', 22)">C) helping</div>
+                        <div class="option" onclick="selectOption(this, 'D', 22)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) help</p>
+                        <p class="text-gray-700 mt-2">The relative clause refers to "people" (plural), so the verb should be plural.</p>
+                    </div>
+                </div>
+
+                <!-- Question 23 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The data shows that the new policy is effective.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 23)">A) shows</div>
+                        <div class="option" onclick="selectOption(this, 'B', 23)">B) show</div>
+                        <div class="option" onclick="selectOption(this, 'C', 23)">C) showing</div>
+                        <div class="option" onclick="selectOption(this, 'D', 23)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) show</p>
+                        <p class="text-gray-700 mt-2">"Data" is the plural form of "datum" and should take a plural verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 24 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        Each of the students have completed their assignments.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 24)">A) have completed</div>
+                        <div class="option" onclick="selectOption(this, 'B', 24)">B) has completed</div>
+                        <div class="option" onclick="selectOption(this, 'C', 24)">C) completed</div>
+                        <div class="option" onclick="selectOption(this, 'D', 24)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) has completed</p>
+                        <p class="text-gray-700 mt-2">"Each" is singular and requires a singular verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 25 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The number of students in the class are increasing.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 25)">A) are increasing</div>
+                        <div class="option" onclick="selectOption(this, 'B', 25)">B) is increasing</div>
+                        <div class="option" onclick="selectOption(this, 'C', 25)">C) have increased</div>
+                        <div class="option" onclick="selectOption(this, 'D', 25)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) is increasing</p>
+                        <p class="text-gray-700 mt-2">"The number" is singular and requires a singular verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 26 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        Neither of the candidates were suitable for the position.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 26)">A) were</div>
+                        <div class="option" onclick="selectOption(this, 'B', 26)">B) was</div>
+                        <div class="option" onclick="selectOption(this, 'C', 26)">C) is</div>
+                        <div class="option" onclick="selectOption(this, 'D', 26)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) was</p>
+                        <p class="text-gray-700 mt-2">"Neither" is singular and requires a singular verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 27 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The jury have reached their verdict.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 27)">A) have reached</div>
+                        <div class="option" onclick="selectOption(this, 'B', 27)">B) has reached</div>
+                        <div class="option" onclick="selectOption(this, 'C', 27)">C) reached</div>
+                        <div class="option" onclick="selectOption(this, 'D', 27)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) has reached</p>
+                        <p class="text-gray-700 mt-2">"Jury" is a collective noun and is treated as singular in American English.</p>
+                    </div>
+                </div>
+
+                <!-- Question 28 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The police is investigating the crime.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 28)">A) is investigating</div>
+                        <div class="option" onclick="selectOption(this, 'B', 28)">B) are investigating</div>
+                        <div class="option" onclick="selectOption(this, 'C', 28)">C) investigates</div>
+                        <div class="option" onclick="selectOption(this, 'D', 28)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) are investigating</p>
+                        <p class="text-gray-700 mt-2">"Police" is always plural and requires a plural verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 29 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The news are not good today.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 29)">A) are</div>
+                        <div class="option" onclick="selectOption(this, 'B', 29)">B) is</div>
+                        <div class="option" onclick="selectOption(this, 'C', 29)">C) was</div>
+                        <div class="option" onclick="selectOption(this, 'D', 29)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) is</p>
+                        <p class="text-gray-700 mt-2">"News" is an uncountable noun and requires a singular verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 30 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The staff are working overtime to meet the deadline.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 30)">A) are working</div>
+                        <div class="option" onclick="selectOption(this, 'B', 30)">B) is working</div>
+                        <div class="option" onclick="selectOption(this, 'C', 30)">C) works</div>
+                        <div class="option" onclick="selectOption(this, 'D', 30)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">"Staff" can be treated as either singular or plural depending on whether you're referring to the group as a whole or its individual members. In this case, referring to individual members, plural is correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 31 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The team of researchers have published their findings.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 31)">A) have published</div>
+                        <div class="option" onclick="selectOption(this, 'B', 31)">B) has published</div>
+                        <div class="option" onclick="selectOption(this, 'C', 31)">C) published</div>
+                        <div class="option" onclick="selectOption(this, 'D', 31)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) has published</p>
+                        <p class="text-gray-700 mt-2">"Team" is a collective noun and is treated as singular in this context.</p>
+                    </div>
+                </div>
+
+                <!-- Question 32 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The majority of the students is in favor of the new policy.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 32)">A) is</div>
+                        <div class="option" onclick="selectOption(this, 'B', 32)">B) are</div>
+                        <div class="option" onclick="selectOption(this, 'C', 32)">C) was</div>
+                        <div class="option" onclick="selectOption(this, 'D', 32)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) are</p>
+                        <p class="text-gray-700 mt-2">When "majority" refers to a group of people, it takes a plural verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 33 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The pair of shoes are on sale.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 33)">A) are</div>
+                        <div class="option" onclick="selectOption(this, 'B', 33)">B) is</div>
+                        <div class="option" onclick="selectOption(this, 'C', 33)">C) were</div>
+                        <div class="option" onclick="selectOption(this, 'D', 33)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) is</p>
+                        <p class="text-gray-700 mt-2">"Pair" is singular and requires a singular verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 34 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The series of lectures have been well received.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 34)">A) have been</div>
+                        <div class="option" onclick="selectOption(this, 'B', 34)">B) has been</div>
+                        <div class="option" onclick="selectOption(this, 'C', 34)">C) were</div>
+                        <div class="option" onclick="selectOption(this, 'D', 34)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) has been</p>
+                        <p class="text-gray-700 mt-2">"Series" is singular and requires a singular verb.</p>
+                    </div>
+                </div>
+
+                <!-- Question 35 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The audience were clapping enthusiastically.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 35)">A) were clapping</div>
+                        <div class="option" onclick="selectOption(this, 'B', 35)">B) was clapping</div>
+                        <div class="option" onclick="selectOption(this, 'C', 35)">C) clapped</div>
+                        <div class="option" onclick="selectOption(this, 'D', 35)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">"Audience" can be treated as either singular or plural. In this case, referring to individual members, plural is acceptable.</p>
+                    </div>
+                </div>
+
+                <!-- Question 36 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The government have announced new measures.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 36)">A) have announced</div>
+                        <div class="option" onclick="selectOption(this, 'B', 36)">B) has announced</div>
+                        <div class="option" onclick="selectOption(this, 'C', 36)">C) announced</div>
+                        <div class="option" onclick="selectOption(this, 'D', 36)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) has announced</p>
+                        <p class="text-gray-700 mt-2">"Government" is treated as singular in American English.</p>
+                    </div>
+                </div>
+
+                <!-- Question 37 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The family are going on vacation next week.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 37)">A) are going</div>
+                        <div class="option" onclick="selectOption(this, 'B', 37)">B) is going</div>
+                        <div class="option" onclick="selectOption(this, 'C', 37)">C) goes</div>
+                        <div class="option" onclick="selectOption(this, 'D', 37)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">"Family" can be treated as either singular or plural. In this case, referring to individual members, plural is acceptable.</p>
+                    </div>
+                </div>
+
+                <!-- Question 38 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The company's board of directors have made their decision.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 38)">A) have made</div>
+                        <div class="option" onclick="selectOption(this, 'B', 38)">B) has made</div>
+                        <div class="option" onclick="selectOption(this, 'C', 38)">C) made</div>
+                        <div class="option" onclick="selectOption(this, 'D', 38)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) has made</p>
+                        <p class="text-gray-700 mt-2">"Board" is a collective noun and is treated as singular in this context.</p>
+                    </div>
+                </div>
+
+                <!-- Question 39 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The couple are celebrating their anniversary.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 39)">A) are celebrating</div>
+                        <div class="option" onclick="selectOption(this, 'B', 39)">B) is celebrating</div>
+                        <div class="option" onclick="selectOption(this, 'C', 39)">C) celebrates</div>
+                        <div class="option" onclick="selectOption(this, 'D', 39)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">"Couple" can be treated as either singular or plural. In this case, referring to two people, plural is acceptable.</p>
+                    </div>
+                </div>
+
+                <!-- Question 40 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        The public are invited to attend the meeting.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 40)">A) are invited</div>
+                        <div class="option" onclick="selectOption(this, 'B', 40)">B) is invited</div>
+                        <div class="option" onclick="selectOption(this, 'C', 40)">C) invites</div>
+                        <div class="option" onclick="selectOption(this, 'D', 40)">D) no correction required</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) no correction required</p>
+                        <p class="text-gray-700 mt-2">"Public" can be treated as either singular or plural. In this case, referring to people in general, plural is acceptable.</p>
+                    </div>
+                </div>
+
+                <!-- Continue with remaining questions... -->
+                <!-- Questions 41-50 follow the same pattern -->
+
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function selectOption(element, option, questionNumber) {
+            // Remove selected class from all options in this question
+            const questionCard = element.closest('.question-card');
+            const options = questionCard.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Show explanation
+            const explanation = questionCard.querySelector('.explanation');
+            explanation.classList.add('show');
+        }
+
+        // Search functionality
+        document.querySelector('input[type="text"]').addEventListener('input', function(e) {
+            const searchText = e.target.value.toLowerCase();
+            const questions = document.querySelectorAll('.question-card');
+            
+            questions.forEach(question => {
+                const text = question.textContent.toLowerCase();
+                question.style.display = text.includes(searchText) ? 'block' : 'none';
+            });
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                // Remove active class from all tags
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tag
+                this.classList.add('active');
+                
+                const category = this.textContent.toLowerCase();
+                const questions = document.querySelectorAll('.question-card');
+                
+                questions.forEach(question => {
+                    if (category === 'all') {
+                        question.style.display = 'block';
+                    } else {
+                        question.style.display = question.dataset.category === category ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

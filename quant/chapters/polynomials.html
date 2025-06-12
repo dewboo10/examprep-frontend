@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polynomials - Quantitative Aptitude</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: white;
+            color: #1e40af;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #e5e7eb;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 60px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            padding: 1.5rem;
+            border-right: 1px solid #e5e7eb;
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 900;
+        }
+
+        .sidebar h3 {
+            color: #1e40af;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .sidebar li {
+            margin: 0.5rem 0;
+        }
+
+        .sidebar a {
+            color: #4b5563;
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            background: #f3f4f6;
+            color: #1e40af;
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: #1e40af;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            margin-left: 280px;
+            max-width: calc(100% - 280px);
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+        }
+
+        .section h2 {
+            color: #1e40af;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .formula-box {
+            background: #f8fafc;
+            border-left: 4px solid #1e40af;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .formula-box h3 {
+            color: #1e40af;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .example-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .example-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .question-number {
+            color: #1e40af;
+            font-weight: bold;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .question-text {
+            color: #1f2937;
+            margin: 0.75rem 0;
+            font-size: 1.05rem;
+        }
+
+        .solution-label {
+            color: #059669;
+            font-weight: bold;
+            margin: 1.25rem 0 0.75rem 0;
+            font-size: 1.1rem;
+        }
+
+        .solution-text {
+            color: #4b5563;
+            margin: 0.75rem 0;
+            line-height: 1.7;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e40af;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1e3a8a;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+                max-width: calc(100% - 240px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                border-right: none;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .header {
+                position: relative;
+            }
+            .container {
+                padding-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Polynomials</h1>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#types">Types of Polynomials</a></li>
+                <li><a href="#operations">Operations</a></li>
+                <li><a href="#factoring">Factoring</a></li>
+                <li><a href="#roots">Finding Roots</a></li>
+                <li><a href="#remainder">Remainder Theorem</a></li>
+                <li><a href="#applications">Applications</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="section" id="introduction">
+                <h2>Introduction to Polynomials</h2>
+                <p>A polynomial is an expression consisting of variables and coefficients, involving only the operations of addition, subtraction, multiplication, and non-negative integer exponents.</p>
+
+                <div class="formula-box">
+                    <h3>General Form</h3>
+                    <p>P(x) = aₙxⁿ + aₙ₋₁xⁿ⁻¹ + ... + a₁x + a₀</p>
+                    <p>where:</p>
+                    <ul>
+                        <li>aₙ, aₙ₋₁, ..., a₁, a₀ are coefficients</li>
+                        <li>n is the degree of the polynomial</li>
+                        <li>x is the variable</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 1</p>
+                    <p class="question-text">Identify the degree and coefficients of the polynomial: 2x³ - 5x² + 3x - 7</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">Degree = 3 (highest power of x)</p>
+                    <p class="solution-text">Coefficients:</p>
+                    <p class="solution-text">a₃ = 2 (coefficient of x³)</p>
+                    <p class="solution-text">a₂ = -5 (coefficient of x²)</p>
+                    <p class="solution-text">a₁ = 3 (coefficient of x)</p>
+                    <p class="solution-text">a₀ = -7 (constant term)</p>
+                </div>
+            </div>
+
+            <div class="section" id="types">
+                <h2>Types of Polynomials</h2>
+                <p>Polynomials can be classified based on their degree and number of terms.</p>
+
+                <div class="formula-box">
+                    <h3>Based on Degree</h3>
+                    <ul>
+                        <li>Constant (degree 0): P(x) = a₀</li>
+                        <li>Linear (degree 1): P(x) = a₁x + a₀</li>
+                        <li>Quadratic (degree 2): P(x) = a₂x² + a₁x + a₀</li>
+                        <li>Cubic (degree 3): P(x) = a₃x³ + a₂x² + a₁x + a₀</li>
+                        <li>Quartic (degree 4): P(x) = a₄x⁴ + a₃x³ + a₂x² + a₁x + a₀</li>
+                    </ul>
+                </div>
+
+                <div class="formula-box">
+                    <h3>Based on Terms</h3>
+                    <ul>
+                        <li>Monomial: Single term (e.g., 3x²)</li>
+                        <li>Binomial: Two terms (e.g., x + 1)</li>
+                        <li>Trinomial: Three terms (e.g., x² + 2x + 1)</li>
+                        <li>Polynomial: More than three terms</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 2</p>
+                    <p class="question-text">Classify the following polynomials:</p>
+                    <p class="question-text">a) 3x + 2</p>
+                    <p class="question-text">b) x² - 4x + 4</p>
+                    <p class="question-text">c) 5x³ - 2x² + x - 1</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">a) Linear binomial (degree 1, 2 terms)</p>
+                    <p class="solution-text">b) Quadratic trinomial (degree 2, 3 terms)</p>
+                    <p class="solution-text">c) Cubic polynomial (degree 3, 4 terms)</p>
+                </div>
+            </div>
+
+            <div class="section" id="operations">
+                <h2>Operations with Polynomials</h2>
+                <p>Polynomials can be added, subtracted, multiplied, and divided.</p>
+
+                <div class="formula-box">
+                    <h3>Addition and Subtraction</h3>
+                    <p>Add or subtract like terms (terms with the same power of x).</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 3</p>
+                    <p class="question-text">Add: (2x² + 3x - 1) + (x² - 2x + 4)</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">(2x² + 3x - 1) + (x² - 2x + 4)</p>
+                    <p class="solution-text">= (2x² + x²) + (3x - 2x) + (-1 + 4)</p>
+                    <p class="solution-text">= 3x² + x + 3</p>
+                </div>
+
+                <div class="formula-box">
+                    <h3>Multiplication</h3>
+                    <p>Use the distributive property to multiply each term.</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 4</p>
+                    <p class="question-text">Multiply: (x + 2)(x - 3)</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">(x + 2)(x - 3)</p>
+                    <p class="solution-text">= x(x - 3) + 2(x - 3)</p>
+                    <p class="solution-text">= x² - 3x + 2x - 6</p>
+                    <p class="solution-text">= x² - x - 6</p>
+                </div>
+            </div>
+
+            <div class="section" id="factoring">
+                <h2>Factoring Polynomials</h2>
+                <p>Factoring is the process of expressing a polynomial as a product of simpler polynomials.</p>
+
+                <div class="formula-box">
+                    <h3>Common Factoring Methods</h3>
+                    <ul>
+                        <li>Greatest Common Factor (GCF)</li>
+                        <li>Difference of Squares: a² - b² = (a + b)(a - b)</li>
+                        <li>Perfect Square Trinomial: a² ± 2ab + b² = (a ± b)²</li>
+                        <li>Sum/Difference of Cubes: a³ ± b³ = (a ± b)(a² ∓ ab + b²)</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 5</p>
+                    <p class="question-text">Factor: x² - 9</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">Using difference of squares:</p>
+                    <p class="solution-text">x² - 9 = x² - 3²</p>
+                    <p class="solution-text">= (x + 3)(x - 3)</p>
+                </div>
+            </div>
+
+            <div class="section" id="roots">
+                <h2>Finding Roots of Polynomials</h2>
+                <p>A root (or zero) of a polynomial is a value of x that makes the polynomial equal to zero.</p>
+
+                <div class="formula-box">
+                    <h3>Methods for Finding Roots</h3>
+                    <ul>
+                        <li>Factoring</li>
+                        <li>Quadratic Formula (for degree 2)</li>
+                        <li>Rational Root Theorem</li>
+                        <li>Synthetic Division</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 6</p>
+                    <p class="question-text">Find the roots of: x² - 5x + 6 = 0</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">x² - 5x + 6 = 0</p>
+                    <p class="solution-text">(x - 2)(x - 3) = 0</p>
+                    <p class="solution-text">Therefore, x = 2 or x = 3</p>
+                </div>
+            </div>
+
+            <div class="section" id="remainder">
+                <h2>Remainder Theorem</h2>
+                <p>The remainder theorem states that if a polynomial P(x) is divided by (x - a), the remainder is P(a).</p>
+
+                <div class="formula-box">
+                    <h3>Remainder Theorem</h3>
+                    <p>If P(x) is divided by (x - a), then:</p>
+                    <p>P(x) = (x - a)Q(x) + R</p>
+                    <p>where R = P(a)</p>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 7</p>
+                    <p class="question-text">Find the remainder when P(x) = x³ - 2x² + 3x - 4 is divided by (x - 2)</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">Using Remainder Theorem:</p>
+                    <p class="solution-text">P(2) = 2³ - 2(2)² + 3(2) - 4</p>
+                    <p class="solution-text">= 8 - 8 + 6 - 4</p>
+                    <p class="solution-text">= 2</p>
+                </div>
+            </div>
+
+            <div class="section" id="applications">
+                <h2>Applications of Polynomials</h2>
+                <p>Polynomials have numerous applications in mathematics and real-world problems.</p>
+
+                <div class="formula-box">
+                    <h3>Common Applications</h3>
+                    <ul>
+                        <li>Area and Volume Calculations</li>
+                        <li>Motion Problems</li>
+                        <li>Economics and Finance</li>
+                        <li>Engineering and Physics</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <p class="question-number">Example 8</p>
+                    <p class="question-text">A rectangle has a length of (x + 3) and width of (x - 2). Find its area.</p>
+                    <p class="solution-label">Solution:</p>
+                    <p class="solution-text">Area = length × width</p>
+                    <p class="solution-text">= (x + 3)(x - 2)</p>
+                    <p class="solution-text">= x² - 2x + 3x - 6</p>
+                    <p class="solution-text">= x² + x - 6</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in sidebar
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sidebar a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

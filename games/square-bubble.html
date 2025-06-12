@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>🔢 Square Bubble Pop – BrainGames</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white min-h-screen flex items-center justify-center text-gray-800 p-4"><div class="flex flex-col lg:flex-row gap-8 max-w-7xl w-full"><div class="flex-1 bg-white p-6 shadow-xl rounded-2xl border border-blue-200">
+<div class="text-green-600 font-semibold mb-3" id="best-score">Your Best Score: loading...</div><header class="p-4 border-b border-blue-200 bg-white flex justify-between items-center">
+<h1 class="text-xl font-bold text-blue-600">🔢 Square Bubble Pop</h1>
+<button class="text-sm text-blue-500 underline" onclick="goBack()">Back</button>
+</header>
+<main class="p-6 max-w-4xl mx-auto text-center space-y-4">
+<div class="text-sm text-gray-600 flex justify-between">
+<span>⏱ Time Left: <span class="font-semibold" id="timer">180s</span></span>
+<span>🏆 Score: <span class="font-semibold" id="score">0</span></span>
+</div>
+<p class="text-sm text-gray-700">Pop the bubble showing the correct square!</p>
+<div class="text-lg font-semibold text-blue-700" id="question">Loading...</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="bubble-container"></div>
+<div class="hidden" id="retryBtn">
+<p class="text-lg text-green-600 font-bold mt-4">⏱ Time's up! Final Score: <span id="finalScore">0</span></p>
+<button class="mt-2 bg-indigo-600 text-white px-4 py-2 rounded font-semibold" onclick="startGame()">Play Again</button>
+</div>
+<!-- Feedback -->
+<div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="feedback">
+<div class="bg-red-100 border border-red-300 text-red-700 px-6 py-3 rounded shadow text-lg">
+        ❌ Incorrect! Try again.
+      </div>
+</div>
+</main>
+<script>
+    const container = document.getElementById('bubble-container');
+    const question = document.getElementById('question');
+    const timerEl = document.getElementById('timer');
+    const scoreEl = document.getElementById('score');
+    const finalScoreEl = document.getElementById('finalScore');
+    const retryBtn = document.getElementById('retryBtn');
+    const feedback = document.getElementById('feedback');
+
+    const userLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const loggedInUserId = localStorage.getItem("userId");
+
+    let correctAns = 0;
+    let score = 0;
+    let timeLeft = 180;
+    let timerInterval;
+
+    function showQuestion() {
+      container.innerHTML = '';
+      const base = Math.floor(Math.random() * 49) + 2;
+      correctAns = base * base;
+      question.textContent = `What is the square of ${base}?`;
+
+      const options = new Set([correctAns]);
+      while (options.size < 4) {
+        const fake = Math.floor(Math.random() * 2500);
+        options.add(fake);
+      }
+
+      [...options].sort(() => Math.random() - 0.5).forEach(val => {
+        const btn = document.createElement('button');
+        btn.textContent = val;
+        btn.className = 'bg-blue-100 hover:bg-blue-200 rounded-full px-4 py-2 text-blue-700 text-lg w-full';
+        btn.onclick = () => checkAnswer(val, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(val, btn) {
+      if (val === correctAns) {
+        score++;
+        scoreEl.textContent = score;
+        showQuestion();
+      } else {
+        feedback.classList.remove('hidden');
+        setTimeout(() => feedback.classList.add('hidden'), 1500);
+      }
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `${timeLeft}s`;
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+
+    function endGame() {
+      clearInterval(timerInterval);
+      container.innerHTML = "";
+      question.textContent = "";
+      finalScoreEl.textContent = score;
+      retryBtn.classList.remove("hidden");
+
+      if (userLoggedIn && loggedInUserId) {
+        fetch("/api/brain-games/update-score", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: loggedInUserId,
+            gameId: "square-bubble",
+            score: score,
+            timestamp: new Date().toISOString()
+          })
+        }).then(res => console.log("Score synced"))
+          .catch(err => console.error("Sync failed", err));
+      }
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 180;
+      scoreEl.textContent = score;
+      timerEl.textContent = "180s";
+      retryBtn.classList.add("hidden");
+      showQuestion();
+      startTimer();
+    }
+
+    function goBack() {
+      window.location.href = "../braingames.html";
+    }
+
+    window.onload = startGame;
+  </script>
+</div>
+<div class="w-full lg:w-72 bg-gray-50 border border-gray-200 p-4 rounded-xl shadow">
+<h2 class="font-bold mb-3 text-blue-700">🏆 Leaderboard</h2>
+<ul class="text-sm text-gray-700 space-y-2" id="leaderboard"></ul>
+</div>
+</div><script>
+    const API_BASE = "http://localhost:5000/api/brain-games"; // Change to your deployed backend
+
+    const username = localStorage.getItem("username");
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    async function fetchUserBestScore(gameId) {
+      try {
+        const res = await fetch(`${API_BASE}/user?username=${username}&gameId=${gameId}`);
+        const data = await res.json();
+        document.getElementById("best-score").textContent = `Your Best Score: ${data.score || 0}`;
+      } catch {
+        document.getElementById("best-score").textContent = "Login to track score.";
+      }
+    }
+
+    async function fetchLeaderboard(gameId) {
+      try {
+        const res = await fetch(`${API_BASE}/top?gameId=${gameId}`);
+        const data = await res.json();
+        const lb = document.getElementById("leaderboard");
+        lb.innerHTML = data.map((s, i) => `<li>${i + 1}. ${s.username} – ${s.score}</li>`).join("");
+      } catch {
+        document.getElementById("leaderboard").innerHTML = "<li>Could not load leaderboard.</li>";
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const gameId = window.location.pathname.split("/").pop().replace(".html", "");
+      if (isLoggedIn && username) {
+        fetchUserBestScore(gameId);
+        fetchLeaderboard(gameId);
+      } else {
+        const bs = document.getElementById("best-score");
+        if (bs) bs.textContent = "Login to track score.";
+      }
+    });
+    </script></body>
+</html>

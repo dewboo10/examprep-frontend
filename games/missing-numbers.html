@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Series - Brain Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #818cf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .level-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .level-card.easy { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-color: #10b981; }
+        .level-card.medium { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #f59e0b; }
+        .level-card.hard { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-color: #ef4444; }
+        
+        .progress-bar {
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .option-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform: scale(1);
+        }
+        
+        .option-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .correct-answer {
+            animation: pulse 0.6s ease;
+            background-color: #10b981 !important;
+            color: white !important;
+            transform: scale(1);
+        }
+        
+        .wrong-answer {
+            animation: shake 0.5s ease;
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #f472b6;
+            border-radius: 50%;
+            animation: fall linear forwards;
+            z-index: 20;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .heart-beat {
+            animation: heartBeat 0.8s ease;
+        }
+        
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .streak-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f59e0b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="min-h-screen py-8 px-4">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <i class="fas fa-calculator mr-3"></i>Number Series
+                </h1>
+                <p class="text-lg text-gray-600 mt-3">Test your pattern recognition skills!</p>
+            </header>
+            
+            <!-- Main content -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Game area -->
+                <div class="lg:col-span-2">
+                    <div class="card p-6 relative overflow-hidden">
+                        <!-- Level selection -->
+                        <div id="levelScreen" class="text-center">
+                            <h2 class="text-2xl font-bold mb-6 text-primary">Select Difficulty Level</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="level-card easy p-6 rounded-2xl text-center" data-level="easy">
+                                    <div class="text-5xl mb-4">🌱</div>
+                                    <h3 class="font-bold text-xl mb-2">Beginner</h3>
+                                    <p class="text-gray-600 mb-3">Simple arithmetic patterns</p>
+                                    <div class="text-sm text-gray-700">20 questions</div>
+                                </div>
+                                
+                                <div class="level-card medium p-6 rounded-2xl text-center" data-level="medium">
+                                    <div class="text-5xl mb-4">🌿</div>
+                                    <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+                                    <p class="text-gray-600 mb-3">Geometric & mixed patterns</p>
+                                    <div class="text-sm text-gray-700">20 questions</div>
+                                </div>
+                                
+                                <div class="level-card hard p-6 rounded-2xl text-center" data-level="hard">
+                                    <div class="text-5xl mb-4">🔥</div>
+                                    <h3 class="font-bold text-xl mb-2">Advanced</h3>
+                                    <p class="text-gray-600 mb-3">Complex mathematical patterns</p>
+                                    <div class="text-sm text-gray-700">20 questions</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Game screen -->
+                        <div id="gameScreen" class="hidden">
+                            <!-- Progress indicators -->
+                            <div class="flex justify-between relative mb-10 py-4">
+                                <div class="progress-track w-full"></div>
+                                <div class="progress-track-fill w-0" id="progressTrackFill"></div>
+                                
+                                <div class="progress-indicator active" id="indicator1">1</div>
+                                <div class="progress-indicator" id="indicator2">2</div>
+                                <div class="progress-indicator" id="indicator3">3</div>
+                                <div class="progress-indicator" id="indicator4">4</div>
+                                <div class="progress-indicator" id="indicator5">5</div>
+                                <div class="progress-indicator" id="indicator6">6</div>
+                                <div class="progress-indicator" id="indicator7">7</div>
+                                <div class="progress-indicator" id="indicator8">8</div>
+                                <div class="progress-indicator" id="indicator9">9</div>
+                                <div class="progress-indicator" id="indicator10">10</div>
+                            </div>
+                            
+                            <!-- Game header -->
+                            <div class="flex justify-between items-center mb-8">
+                                <div>
+                                    <h2 class="text-xl font-bold" id="levelIndicator">Level: Beginner</h2>
+                                    <div class="flex items-center mt-1">
+                                        <span class="text-sm mr-2">Question:</span>
+                                        <span class="font-medium" id="questionCounter">1/20</span>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xl font-bold"><span id="score">0</span> <span class="text-blue-600">pts</span></div>
+                                    <div class="flex items-center justify-end mt-1">
+                                        <i class="fas fa-heart text-red-500 mr-1 heart-beat"></i>
+                                        <span id="lives">3</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Question area -->
+                            <div class="text-center mb-8">
+                                <p class="text-gray-600 mb-2">Find the next number in the series:</p>
+                                <h3 class="text-3xl font-bold text-blue-600" id="targetWord">2, 4, 6, 8, 10, ?</h3>
+                            </div>
+                            
+                            <!-- Game area -->
+                            <div id="gameArea" class="min-h-[200px]">
+                                <!-- Content will be loaded dynamically -->
+                            </div>
+                            
+                            <!-- Feedback area -->
+                            <div id="feedbackArea" class="text-center mt-6 min-h-[50px]"></div>
+                            
+                            <!-- Streak indicator -->
+                            <div id="streakIndicator" class="streak-indicator hidden">
+                                <i class="fas fa-fire"></i> <span id="streakCount">0</span> streak!
+                            </div>
+                        </div>
+                        
+                        <!-- Results screen -->
+                        <div id="resultsScreen" class="hidden text-center py-10">
+                            <div class="text-6xl mb-4">🎉</div>
+                            <h2 class="text-3xl font-bold mb-4">Level Complete!</h2>
+                            <div class="text-5xl font-bold text-blue-600 mb-6"><span id="finalScore">0</span> pts</div>
+                            
+                            <div class="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
+                                <div class="bg-blue-50 p-4 rounded-xl">
+                                    <div class="text-2xl mb-2"><span id="correctCount">0</span>/<span id="totalQuestions">0</span></div>
+                                    <div class="text-sm text-gray-600">Correct Answers</div>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-xl">
+                                    <div class="text-2xl mb-2"><span id="accuracy">0</span>%</div>
+                                    <div class="text-sm text-gray-600">Accuracy</div>
+                                </div>
+                                <div class="bg-yellow-50 p-4 rounded-xl">
+                                    <div class="text-2xl mb-2"><span id="bonus">0</span></div>
+                                    <div class="text-sm text-gray-600">Bonus Points</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-center gap-4">
+                                <a href="missing-numbers.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 inline-block">
+                                    <i class="fas fa-redo mr-2"></i> Restart Game
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats panel -->
+                <div>
+                    <!-- User stats -->
+                    <div class="card p-6 mb-8 bg-gradient-to-br from-blue-50 to-indigo-50">
+                        <h2 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-chart-line mr-2 text-blue-600"></i> Your Progress
+                        </h2>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Current Level Progress</span>
+                                    <span id="currentProgress">0%</span>
+                                </div>
+                                <div class="progress-bar bg-gray-200 w-full">
+                                    <div class="progress-fill bg-blue-600" id="currentProgressBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Pattern Recognition</span>
+                                    <span id="patternMastery">0%</span>
+                                </div>
+                                <div class="progress-bar bg-gray-200 w-full">
+                                    <div class="progress-fill bg-green-600" id="patternMasteryBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center mr-3">
+                                        <i class="fas fa-medal text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Highest Score</div>
+                                        <div class="text-2xl"><span id="highScore">0</span> <span class="text-sm">pts</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Game info -->
+                    <div class="card p-6">
+                        <h2 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-info-circle mr-2 text-blue-600"></i> Game Guide
+                        </h2>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-star text-xs"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">How to Play</h3>
+                                    <p class="text-sm text-gray-600">Find the next number in the series by identifying the pattern.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-heart text-xs"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Lives System</h3>
+                                    <p class="text-sm text-gray-600">You start with 3 lives. Incorrect answers cost you one life.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="mt-1 w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
+                                    <i class="fas fa-trophy text-xs"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold">Scoring</h3>
+                                    <p class="text-sm text-gray-600">+100 for correct answers, +20 bonus for quick answers!</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 pt-4 border-t border-gray-100">
+                            <h3 class="font-bold mb-2">Tips</h3>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Look for arithmetic sequences</li>
+                                <li><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Check for geometric patterns</li>
+                                <li><i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Consider alternating patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game data with 20 questions per level
+        const gameData = {
+            levels: {
+                easy: {
+                    name: "Beginner",
+                    icon: "🌱",
+                    questions: [
+                        // Arithmetic sequences
+                        { pattern: "arithmetic", series: [2, 4, 6, 8, 10], answer: 12, diff: 2 },
+                        { pattern: "arithmetic", series: [5, 10, 15, 20, 25], answer: 30, diff: 5 },
+                        { pattern: "arithmetic", series: [3, 7, 11, 15, 19], answer: 23, diff: 4 },
+                        { pattern: "arithmetic", series: [10, 13, 16, 19, 22], answer: 25, diff: 3 },
+                        { pattern: "arithmetic", series: [1, 4, 7, 10, 13], answer: 16, diff: 3 },
+                        
+                        // Simple geometric sequences
+                        { pattern: "geometric", series: [2, 4, 8, 16, 32], answer: 64, ratio: 2 },
+                        { pattern: "geometric", series: [3, 6, 12, 24, 48], answer: 96, ratio: 2 },
+                        { pattern: "geometric", series: [5, 10, 20, 40, 80], answer: 160, ratio: 2 },
+                        
+                        // Square numbers
+                        { pattern: "square", series: [1, 4, 9, 16, 25], answer: 36 },
+                        { pattern: "square", series: [4, 9, 16, 25, 36], answer: 49 },
+                        
+                        // Cube numbers
+                        { pattern: "cube", series: [1, 8, 27, 64, 125], answer: 216 },
+                        { pattern: "cube", series: [8, 27, 64, 125, 216], answer: 343 },
+                        
+                        // Fibonacci-like
+                        { pattern: "fibonacci", series: [1, 1, 2, 3, 5], answer: 8 },
+                        { pattern: "fibonacci", series: [2, 2, 4, 6, 10], answer: 16 },
+                        
+                        // Alternating patterns
+                        { pattern: "alternating", series: [2, 4, 8, 16, 32], answer: 64 },
+                        { pattern: "alternating", series: [3, 6, 12, 24, 48], answer: 96 },
+                        
+                        // Mixed patterns
+                        { pattern: "mixed", series: [2, 5, 10, 17, 26], answer: 37 },
+                        { pattern: "mixed", series: [3, 7, 15, 31, 63], answer: 127 },
+                        
+                        // Simple multiplication
+                        { pattern: "multiplication", series: [2, 6, 18, 54, 162], answer: 486 },
+                        { pattern: "multiplication", series: [3, 9, 27, 81, 243], answer: 729 },
+                        
+                        // Simple division
+                        { pattern: "division", series: [100, 50, 25, 12.5, 6.25], answer: 3.125 }
+                    ]
+                },
+                medium: {
+                    name: "Intermediate",
+                    icon: "🌿",
+                    questions: [
+                        // Complex arithmetic
+                        { pattern: "arithmetic", series: [2, 5, 10, 17, 26], answer: 37, diff: "n²+1" },
+                        { pattern: "arithmetic", series: [3, 7, 13, 21, 31], answer: 43, diff: "n²+n+1" },
+                        
+                        // Complex geometric
+                        { pattern: "geometric", series: [2, 6, 18, 54, 162], answer: 486, ratio: 3 },
+                        { pattern: "geometric", series: [3, 12, 48, 192, 768], answer: 3072, ratio: 4 },
+                        
+                        // Mixed patterns
+                        { pattern: "mixed", series: [1, 3, 7, 15, 31], answer: 63, rule: "2n+1" },
+                        { pattern: "mixed", series: [2, 5, 11, 23, 47], answer: 95, rule: "2n+1" },
+                        
+                        // Prime numbers
+                        { pattern: "prime", series: [2, 3, 5, 7, 11], answer: 13 },
+                        { pattern: "prime", series: [3, 5, 7, 11, 13], answer: 17 },
+                        
+                        // Square roots
+                        { pattern: "sqrt", series: [1, 4, 9, 16, 25], answer: 36 },
+                        { pattern: "sqrt", series: [4, 9, 16, 25, 36], answer: 49 },
+                        
+                        // Cube roots
+                        { pattern: "cbrt", series: [1, 8, 27, 64, 125], answer: 216 },
+                        { pattern: "cbrt", series: [8, 27, 64, 125, 216], answer: 343 },
+                        
+                        // Factorial
+                        { pattern: "factorial", series: [1, 2, 6, 24, 120], answer: 720 },
+                        { pattern: "factorial", series: [2, 6, 24, 120, 720], answer: 5040 },
+                        
+                        // Alternating arithmetic
+                        { pattern: "alt-arithmetic", series: [2, 5, 8, 11, 14], answer: 17 },
+                        { pattern: "alt-arithmetic", series: [3, 7, 11, 15, 19], answer: 23 },
+                        
+                        // Alternating geometric
+                        { pattern: "alt-geometric", series: [2, 6, 18, 54, 162], answer: 486 },
+                        { pattern: "alt-geometric", series: [3, 9, 27, 81, 243], answer: 729 },
+                        
+                        // Complex mixed
+                        { pattern: "complex-mixed", series: [1, 4, 9, 16, 25], answer: 36 },
+                        { pattern: "complex-mixed", series: [2, 6, 12, 20, 30], answer: 42 },
+                        
+                        // Power series
+                        { pattern: "power", series: [2, 4, 8, 16, 32], answer: 64 },
+                        { pattern: "power", series: [3, 9, 27, 81, 243], answer: 729 }
+                    ]
+                },
+                hard: {
+                    name: "Advanced",
+                    icon: "🔥",
+                    questions: [
+                        // Complex arithmetic sequences
+                        { pattern: "complex-arithmetic", series: [2, 5, 10, 17, 26], answer: 37, rule: "n²+1" },
+                        { pattern: "complex-arithmetic", series: [3, 7, 13, 21, 31], answer: 43, rule: "n²+n+1" },
+                        
+                        // Complex geometric sequences
+                        { pattern: "complex-geometric", series: [2, 6, 18, 54, 162], answer: 486, ratio: 3 },
+                        { pattern: "complex-geometric", series: [3, 12, 48, 192, 768], answer: 3072, ratio: 4 },
+                        
+                        // Fibonacci variations
+                        { pattern: "fibonacci-var", series: [1, 2, 4, 7, 12], answer: 20 },
+                        { pattern: "fibonacci-var", series: [2, 3, 6, 11, 19], answer: 32 },
+                        
+                        // Prime number variations
+                        { pattern: "prime-var", series: [2, 3, 5, 7, 11], answer: 13 },
+                        { pattern: "prime-var", series: [3, 5, 7, 11, 13], answer: 17 },
+                        
+                        // Complex mixed patterns
+                        { pattern: "complex-mixed", series: [1, 3, 7, 15, 31], answer: 63 },
+                        { pattern: "complex-mixed", series: [2, 5, 11, 23, 47], answer: 95 },
+                        
+                        // Power series variations
+                        { pattern: "power-var", series: [2, 4, 8, 16, 32], answer: 64 },
+                        { pattern: "power-var", series: [3, 9, 27, 81, 243], answer: 729 },
+                        
+                        // Alternating complex patterns
+                        { pattern: "alt-complex", series: [2, 5, 8, 11, 14], answer: 17 },
+                        { pattern: "alt-complex", series: [3, 7, 11, 15, 19], answer: 23 },
+                        
+                        // Factorial variations
+                        { pattern: "factorial-var", series: [1, 2, 6, 24, 120], answer: 720 },
+                        { pattern: "factorial-var", series: [2, 6, 24, 120, 720], answer: 5040 },
+                        
+                        // Complex square roots
+                        { pattern: "complex-sqrt", series: [1, 4, 9, 16, 25], answer: 36 },
+                        { pattern: "complex-sqrt", series: [4, 9, 16, 25, 36], answer: 49 },
+                        
+                        // Complex cube roots
+                        { pattern: "complex-cbrt", series: [1, 8, 27, 64, 125], answer: 216 },
+                        { pattern: "complex-cbrt", series: [8, 27, 64, 125, 216], answer: 343 },
+                        
+                        // Multiple pattern combinations
+                        { pattern: "multi-pattern", series: [2, 5, 10, 17, 26], answer: 37 },
+                        { pattern: "multi-pattern", series: [3, 7, 13, 21, 31], answer: 43 }
+                    ]
+                }
+            },
+            
+            // Game state
+            currentLevel: null,
+            currentQuestion: 0,
+            score: 0,
+            lives: 3,
+            correctAnswers: 0,
+            startTime: null,
+            progressIndicators: [],
+            currentStreak: 0
+        };
+
+        // DOM Elements
+        const levelScreen = document.getElementById('levelScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const resultsScreen = document.getElementById('resultsScreen');
+        const levelCards = document.querySelectorAll('.level-card');
+        const levelIndicator = document.getElementById('levelIndicator');
+        const targetWord = document.getElementById('targetWord');
+        const gameArea = document.getElementById('gameArea');
+        const feedbackArea = document.getElementById('feedbackArea');
+        const scoreElement = document.getElementById('score');
+        const livesElement = document.getElementById('lives');
+        const questionCounter = document.getElementById('questionCounter');
+        const finalScore = document.getElementById('finalScore');
+        const correctCount = document.getElementById('correctCount');
+        const totalQuestions = document.getElementById('totalQuestions');
+        const accuracy = document.getElementById('accuracy');
+        const bonus = document.getElementById('bonus');
+        const streakIndicator = document.getElementById('streakIndicator');
+        const streakCount = document.getElementById('streakCount');
+
+        // Initialize game
+        function initGame() {
+            // Add event listeners to level cards
+            levelCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const level = card.dataset.level;
+                    startLevel(level);
+                });
+            });
+            
+            // Initialize progress indicators
+            for (let i = 1; i <= 10; i++) {
+                gameData.progressIndicators.push(document.getElementById(`indicator${i}`));
+            }
+            
+            // Load high score from localStorage
+            const savedHighScore = localStorage.getItem('numberSeriesHighScore') || 0;
+            highScore.textContent = savedHighScore;
+            
+            // Initialize pattern mastery
+            updatePatternMastery();
+        }
+
+        // Start a new level
+        function startLevel(level) {
+            gameData.currentLevel = level;
+            gameData.currentQuestion = 0;
+            gameData.score = 0;
+            gameData.lives = 3;
+            gameData.correctAnswers = 0;
+            gameData.currentStreak = 0;
+            
+            // Hide streak indicator
+            streakIndicator.classList.add('hidden');
+            
+            // Reset progress indicators
+            gameData.progressIndicators.forEach((indicator, index) => {
+                indicator.classList.remove('active', 'completed');
+                if (index === 0) indicator.classList.add('active');
+            });
+            
+            // Reset progress bar
+            progressTrackFill.style.width = '0%';
+            
+            // Update UI
+            levelScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            resultsScreen.classList.add('hidden');
+            
+            levelIndicator.textContent = `Level: ${gameData.levels[level].name}`;
+            scoreElement.textContent = gameData.score;
+            livesElement.textContent = gameData.lives;
+            questionCounter.textContent = `1/${gameData.levels[level].questions.length}`;
+            
+            // Load the first question
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            const level = gameData.levels[gameData.currentLevel];
+            const question = level.questions[gameData.currentQuestion];
+            
+            // Update question counter
+            questionCounter.textContent = `${gameData.currentQuestion + 1}/${level.questions.length}`;
+            
+            // Update progress bar
+            const progressPercent = (gameData.currentQuestion / (level.questions.length - 1)) * 100;
+            currentProgress.textContent = `${Math.round(progressPercent)}%`;
+            currentProgressBar.style.width = `${progressPercent}%`;
+            
+            // Set target series
+            targetWord.textContent = `${question.series.join(", ")} ?`;
+            
+            // Clear game area and feedback
+            gameArea.innerHTML = '';
+            feedbackArea.innerHTML = '';
+            
+            // Generate options
+            const options = generateOptions(question);
+            
+            // Render options
+            renderOptions(options, question.answer);
+            
+            // Record start time for bonus calculation
+            gameData.startTime = new Date();
+        }
+
+        // Generate options for a question
+        function generateOptions(question) {
+            const options = [question.answer];
+            
+            // Generate 3 wrong options based on the pattern
+            while (options.length < 4) {
+                let wrongOption;
+                switch (question.pattern) {
+                    case 'arithmetic':
+                        wrongOption = question.answer + (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 5) + 1);
+                        break;
+                    case 'geometric':
+                        wrongOption = question.answer * (Math.random() < 0.5 ? 1.5 : 0.5);
+                        break;
+                    default:
+                        wrongOption = question.answer + (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 10) + 1);
+                }
+                
+                // Ensure the wrong option is unique and reasonable
+                if (!options.includes(wrongOption) && wrongOption > 0) {
+                    options.push(wrongOption);
+                }
+            }
+            
+            return options;
+        }
+
+        // Render options
+        function renderOptions(options, correctAnswer) {
+            // Shuffle options
+            const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+            
+            gameArea.innerHTML = `
+                <div class="grid grid-cols-2 gap-4">
+                    ${shuffledOptions.map(option => `
+                        <button class="option-btn bg-white border border-gray-200 rounded-xl py-4 px-6 text-lg font-medium transition" data-choice="${option}">
+                            ${option}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Add event listeners to options
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const selected = parseFloat(btn.dataset.choice);
+                    checkAnswer(selected === correctAnswer, btn, correctAnswer);
+                });
+            });
+        }
+
+        // Check answer
+        function checkAnswer(isCorrect, element, correctAnswer) {
+            // Disable all interactions
+            document.querySelectorAll('button, input').forEach(el => {
+                el.disabled = true;
+            });
+            
+            let feedbackMessage = '';
+            let feedbackClass = '';
+            let feedbackIcon = '';
+            
+            if (isCorrect) {
+                // Correct answer
+                element.classList.add('correct-answer');
+                gameData.score += 100;
+                gameData.correctAnswers++;
+                gameData.currentStreak++;
+                
+                // Add time bonus (max 20 points)
+                const timeTaken = (new Date() - gameData.startTime) / 1000; // in seconds
+                const timeBonus = Math.max(0, 20 - Math.floor(timeTaken / 2));
+                gameData.score += timeBonus;
+                
+                // Add streak bonus
+                if (gameData.currentStreak >= 3) {
+                    const streakBonus = gameData.currentStreak * 10;
+                    gameData.score += streakBonus;
+                    streakCount.textContent = gameData.currentStreak;
+                    streakIndicator.classList.remove('hidden');
+                }
+                
+                scoreElement.textContent = gameData.score;
+                
+                // Show feedback
+                feedbackMessage = `Correct! +${100 + timeBonus} points`;
+                if (gameData.currentStreak >= 3) {
+                    feedbackMessage += ` +${gameData.currentStreak * 10} streak bonus!`;
+                }
+                feedbackClass = 'text-green-600';
+                feedbackIcon = '✅';
+            } else {
+                // Wrong answer
+                element.classList.add('wrong-answer');
+                gameData.lives--;
+                gameData.currentStreak = 0;
+                streakIndicator.classList.add('hidden');
+                
+                livesElement.textContent = gameData.lives;
+                livesElement.classList.add('heart-beat');
+                setTimeout(() => livesElement.classList.remove('heart-beat'), 800);
+                
+                // Show feedback with correct answer
+                feedbackMessage = `Incorrect! The correct answer was: ${correctAnswer}`;
+                feedbackClass = 'text-red-600';
+                feedbackIcon = '❌';
+                
+                if (gameData.lives <= 0) {
+                    // Game over
+                    setTimeout(endGame, 1500);
+                }
+            }
+            
+            // Update progress indicators
+            const indicatorIndex = Math.floor(gameData.currentQuestion / 2);
+            if (indicatorIndex < 10) {
+                gameData.progressIndicators[indicatorIndex].classList.add('completed');
+                if (indicatorIndex < 9) {
+                    gameData.progressIndicators[indicatorIndex + 1].classList.add('active');
+                }
+                
+                // Update progress track
+                const trackPercent = ((gameData.currentQuestion + 1) / gameData.levels[gameData.currentLevel].questions.length) * 100;
+                progressTrackFill.style.width = `${trackPercent}%`;
+            }
+            
+            // Show feedback
+            feedbackArea.innerHTML = `
+                <div class="text-xl font-bold ${feedbackClass} fade-in">
+                    ${feedbackIcon} ${feedbackMessage}
+                </div>
+            `;
+            
+            // Move to next question after delay
+            setTimeout(() => {
+                nextQuestion();
+            }, 1500);
+        }
+
+        // Next question
+        function nextQuestion() {
+            gameData.currentQuestion++;
+            
+            if (gameData.currentQuestion < gameData.levels[gameData.currentLevel].questions.length) {
+                loadQuestion();
+            } else {
+                endGame();
+            }
+        }
+
+        // End game
+        function endGame() {
+            gameScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            
+            // Calculate results
+            const total = gameData.levels[gameData.currentLevel].questions.length;
+            const accuracyPercent = Math.round((gameData.correctAnswers / total) * 100);
+            
+            finalScore.textContent = gameData.score;
+            correctCount.textContent = gameData.correctAnswers;
+            totalQuestions.textContent = total;
+            accuracy.textContent = accuracyPercent;
+            bonus.textContent = gameData.score - (gameData.correctAnswers * 100);
+            
+            // Create confetti effect
+            createConfetti();
+            
+            // Update high score if needed
+            const savedHighScore = parseInt(localStorage.getItem('numberSeriesHighScore') || 0);
+            if (gameData.score > savedHighScore) {
+                localStorage.setItem('numberSeriesHighScore', gameData.score);
+                highScore.textContent = gameData.score;
+            }
+            
+            // Update pattern mastery
+            updatePatternMastery();
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const container = document.querySelector('.card');
+            const colors = ['#f472b6', '#4f46e5', '#10b981', '#f59e0b', '#ef4444'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = `${Math.random() * 10 + 5}px`;
+                confetti.style.height = confetti.style.width;
+                container.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        // Update pattern mastery
+        function updatePatternMastery() {
+            const savedMastery = parseInt(localStorage.getItem('patternMastery') || 0);
+            const newMastery = Math.min(100, savedMastery + 5);
+            
+            localStorage.setItem('patternMastery', newMastery);
+            patternMastery.textContent = newMastery;
+            patternMasteryBar.style.width = `${newMastery}%`;
+        }
+
+        // Initialize the game when the page loads
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>

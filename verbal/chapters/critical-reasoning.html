@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critical Reasoning - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            background: #e0f2fe;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .option {
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option:hover {
+            background: #e0f2fe;
+        }
+        
+        .option.selected {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0f9ff;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Critical Reasoning
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of critical reasoning with our comprehensive collection of practice questions.
+                Learn to analyze arguments, identify assumptions, and evaluate conclusions.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search questions..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Strengthen</span>
+                    <span class="filter-tag">Weaken</span>
+                    <span class="filter-tag">Assumption</span>
+                    <span class="filter-tag">Conclusion</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <section class="grid grid-cols-1 gap-8">
+            <!-- Question 1 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Argument:</p>
+                    <p>Government spending on healthcare should be increased to improve the country's overall well-being.</p>
+                    <p class="font-semibold mt-2">Reasoning:</p>
+                    <p>The healthcare system is underfunded and unable to provide basic services to all citizens.</p>
+                    <p class="font-semibold mt-2">Which of the following statements best supports the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 1)">A) People have to rely on private hospitals due to a lack of public healthcare facilities.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 1)">B) Many countries with better healthcare systems have seen a decrease in the national mortality rate.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 1)">C) There is a growing demand for high-end private healthcare services in urban areas.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 1)">D) Healthcare costs have skyrocketed due to advances in medical technology.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Many countries with better healthcare systems have seen a decrease in the national mortality rate.</p>
+                    <p class="text-gray-700 mt-2">This option provides strong support for the argument by showing a direct correlation between better healthcare systems and improved national well-being through reduced mortality rates.</p>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Statement:</p>
+                    <p>The government should invest more in renewable energy sources to mitigate the impacts of climate change.</p>
+                    <p class="font-semibold mt-2">Reasoning:</p>
+                    <p>Renewable energy reduces carbon emissions, which contribute to global warming.</p>
+                    <p class="font-semibold mt-2">Which of the following would weaken the argument above?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 2)">A) The cost of renewable energy technologies has significantly reduced in recent years.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 2)">B) Fossil fuels are still more cost-effective and efficient for many industries.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 2)">C) Many countries have successfully adopted renewable energy and reduced their carbon emissions.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 2)">D) Renewable energy sources are highly dependent on weather conditions and are not always reliable.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Fossil fuels are still more cost-effective and efficient for many industries.</p>
+                    <p class="text-gray-700 mt-2">This option weakens the argument by suggesting that the economic and practical benefits of fossil fuels might outweigh the environmental benefits of renewable energy.</p>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>A study shows that students who sleep for more than eight hours a day perform better in exams.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Students should prioritize getting at least eight hours of sleep to achieve better academic performance.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption made in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 3)">A) Sleeping for more than eight hours improves focus and concentration during exams.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 3)">B) Students who sleep less than eight hours a day perform poorly in exams.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 3)">C) The study was conducted on students from diverse educational backgrounds.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 3)">D) Academic performance is the only factor influenced by the amount of sleep students get.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Students who sleep less than eight hours a day perform poorly in exams.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that less sleep leads to poor performance, which is necessary to justify the recommendation.</p>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Statement:</p>
+                    <p>The company's revenue has decreased due to a rise in competition in the market.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The company should lower its prices to remain competitive.</p>
+                    <p class="font-semibold mt-2">Which of the following, if true, would most weaken the conclusion?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 4)">A) The company's primary competitor has increased its prices recently.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 4)">B) Customers have been asking for lower prices in recent surveys.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 4)">C) The company has significantly improved the quality of its products in recent months.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 4)">D) The company has launched an aggressive advertising campaign in the past year.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: C) The company has significantly improved the quality of its products in recent months.</p>
+                    <p class="text-gray-700 mt-2">This weakens the conclusion because it suggests that price reduction might not be the best strategy, as the company could instead focus on its quality advantage.</p>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>Many studies have shown that people who engage in regular physical exercise are less likely to develop chronic health conditions.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>To reduce healthcare costs, people should be encouraged to engage in physical activity.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument above?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 5)">A) Exercise helps to reduce healthcare costs by preventing chronic health conditions.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 5)">B) People who exercise regularly tend to have fewer healthcare expenses.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 5)">C) Healthcare systems in countries with high rates of physical exercise report lower healthcare costs.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 5)">D) People are more likely to exercise if they receive incentives for it.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: C) Healthcare systems in countries with high rates of physical exercise report lower healthcare costs.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by providing concrete evidence that increased physical activity leads to lower healthcare costs at a systemic level.</p>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The company's profit margin has declined because of increased employee turnover.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>To increase profits, the company should focus on improving employee retention.</p>
+                    <p class="font-semibold mt-2">Which of the following, if true, would most strengthen the conclusion?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 6)">A) The company spends a significant amount of money on recruitment and training for new employees.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 6)">B) Employees who leave the company often take valuable skills and knowledge with them.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 6)">C) The company has successfully implemented retention programs in the past.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 6)">D) Employee turnover is relatively low compared to industry standards.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The company spends a significant amount of money on recruitment and training for new employees.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the conclusion by showing that reducing turnover would directly reduce costs, thereby improving profit margins.</p>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Statement:</p>
+                    <p>The city's public transportation system is inefficient and overcrowded, leading to increased traffic congestion.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The city should invest in improving the public transportation system to reduce traffic congestion.</p>
+                    <p class="font-semibold mt-2">Which of the following would weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 7)">A) The city's population has grown significantly in recent years, leading to higher demand for transportation.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 7)">B) The city's traffic congestion has decreased in recent months due to new traffic management strategies.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 7)">C) Most residents prefer using private vehicles instead of public transportation.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 7)">D) The government has allocated funds for public transportation improvements over the next few years.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: C) Most residents prefer using private vehicles instead of public transportation.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that improving public transportation might not reduce traffic congestion if people still prefer to use private vehicles.</p>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Statement:</p>
+                    <p>More people are choosing to work from home to avoid long commutes.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Working from home is a more productive option than commuting to an office every day.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 8)">A) Working from home results in fewer distractions than working in an office.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 8)">B) Commuting to work is time-consuming and leads to fatigue.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 8)">C) People who work from home are more likely to maintain a healthy work-life balance.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 8)">D) The employees who work from home are as productive as those who commute to the office.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: D) The employees who work from home are as productive as those who commute to the office.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that productivity levels are comparable between remote and office workers.</p>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Statement:</p>
+                    <p>There is an increase in the number of students enrolling in online courses.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Online courses provide more flexibility and convenience than traditional classroom learning.</p>
+                    <p class="font-semibold mt-2">Which of the following, if true, would most strengthen the conclusion?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 9)">A) Online courses allow students to learn at their own pace and from the comfort of their homes.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 9)">B) Students prefer online courses because they are more affordable than traditional courses.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 9)">C) Online courses are offered by many prestigious universities and colleges.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 9)">D) The quality of online courses is comparable to that of traditional classroom-based courses.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) Online courses allow students to learn at their own pace and from the comfort of their homes.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the conclusion by directly supporting the claim about flexibility and convenience of online courses.</p>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The company recently introduced a new product, but its sales have been disappointing.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The company should reassess its marketing strategy to increase product visibility.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 10)">A) The product was launched during the holiday season when consumer spending is high.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 10)">B) The product has received mixed reviews from customers, and some find it less appealing than competitors' products.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 10)">C) The company's advertising campaign reached a large audience in its target demographic.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 10)">D) The company recently reduced the price of the product to make it more competitive in the market.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) The product has received mixed reviews from customers, and some find it less appealing than competitors' products.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that the problem might be with the product itself rather than its marketing strategy.</p>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new recycling program has led to a 30% reduction in waste sent to landfills.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The recycling program has been successful in promoting environmental sustainability.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 11)">A) The recycling program has been well-received by the community.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 11)">B) The reduction in landfill waste is directly attributable to the recycling program.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 11)">C) The program has been cost-effective to implement and maintain.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 11)">D) Other environmental initiatives have not contributed to the waste reduction.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) The reduction in landfill waste is directly attributable to the recycling program.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that the recycling program is the direct cause of the waste reduction.</p>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>Companies that implement flexible work schedules report higher employee satisfaction.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Implementing flexible work schedules will improve employee retention rates.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 12)">A) Employees who are satisfied with their work arrangements are less likely to seek employment elsewhere.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 12)">B) Flexible work schedules allow employees to better balance their personal and professional lives.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 12)">C) Many companies are adopting flexible work policies to attract top talent.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 12)">D) Flexible work schedules can lead to increased productivity in some cases.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) Employees who are satisfied with their work arrangements are less likely to seek employment elsewhere.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by establishing a direct link between employee satisfaction and retention rates.</p>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new diet plan has helped many people lose weight quickly.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The diet plan is an effective long-term solution for weight management.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 13)">A) The diet plan requires significant changes to eating habits.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 13)">B) Most participants regained the weight they lost within six months of completing the program.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 13)">C) The diet plan is more expensive than other weight loss programs.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 13)">D) The diet plan has not been studied in a large-scale clinical trial.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Most participants regained the weight they lost within six months of completing the program.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by showing that the diet plan is not effective for long-term weight management.</p>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The company's profits have increased since implementing the new customer service training program.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The customer service training program has improved customer satisfaction and loyalty.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 14)">A) The training program was well-designed and effectively implemented.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 14)">B) Increased profits are directly related to improved customer satisfaction.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 14)">C) The company's competitors have not made significant changes to their customer service.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 14)">D) The training program was mandatory for all customer service employees.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Increased profits are directly related to improved customer satisfaction.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that the profit increase is due to improved customer satisfaction.</p>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>Studies show that children who learn to play musical instruments perform better in mathematics.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Learning to play a musical instrument should be incorporated into school curricula to improve mathematical skills.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 15)">A) The correlation between musical training and mathematical ability has been consistently observed across different age groups and cultures.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 15)">B) Musical training helps develop spatial reasoning skills that are important for mathematics.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 15)">C) Many successful mathematicians have a background in music.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 15)">D) Schools that offer music programs have higher overall academic performance.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The correlation between musical training and mathematical ability has been consistently observed across different age groups and cultures.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by providing strong evidence of a consistent relationship between musical training and mathematical ability.</p>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new smartphone model has received positive reviews from technology experts.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The smartphone will be a commercial success in the market.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 16)">A) The smartphone is priced significantly higher than its competitors.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 16)">B) The smartphone has innovative features not found in other devices.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 16)">C) The company has a strong track record of successful product launches.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 16)">D) The smartphone has been well-received in pre-launch testing.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The smartphone is priced significantly higher than its competitors.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that the high price point might prevent commercial success despite positive reviews.</p>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The city's crime rate has decreased since the implementation of the new community policing program.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The community policing program has been effective in reducing crime.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 17)">A) The community policing program has been well-funded and properly staffed.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 17)">B) The decrease in crime rate is directly attributable to the community policing program.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 17)">C) The program has received strong support from local residents.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 17)">D) Other crime prevention measures have not been implemented during the same period.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) The decrease in crime rate is directly attributable to the community policing program.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that the community policing program is the direct cause of the crime rate decrease.</p>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>Companies that invest in employee training programs report higher productivity levels.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Investing in employee training programs will lead to increased profitability.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 18)">A) Higher productivity levels have been shown to directly correlate with increased profitability in similar companies.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 18)">B) Employee training programs help develop new skills and improve existing ones.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 18)">C) Trained employees are more likely to stay with the company longer.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 18)">D) The cost of training programs is typically offset by improved efficiency.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) Higher productivity levels have been shown to directly correlate with increased profitability in similar companies.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by establishing a direct link between productivity and profitability.</p>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new educational software has received positive feedback from teachers and students.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The software will improve student learning outcomes.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 19)">A) The software requires significant technical support and maintenance.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 19)">B) Studies have shown that similar educational software has not led to improved test scores.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 19)">C) The software is compatible with most school computer systems.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 19)">D) Teachers have received training on how to use the software effectively.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Studies have shown that similar educational software has not led to improved test scores.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by providing evidence that similar software has not achieved the desired learning outcomes.</p>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new marketing campaign has led to a significant increase in brand awareness.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The marketing campaign will result in increased sales.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 20)">A) The marketing campaign has reached the target audience effectively.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 20)">B) Increased brand awareness will lead to increased sales.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 20)">C) The campaign has been well-received by the public.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 20)">D) The campaign has been implemented across all relevant marketing channels.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Increased brand awareness will lead to increased sales.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that higher brand awareness will translate into higher sales.</p>
+                </div>
+            </div>
+
+            <!-- Question 21 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new safety regulations have been implemented in the manufacturing plant.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The number of workplace accidents will decrease significantly.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 21)">A) Similar safety regulations have led to a 40% reduction in accidents at other manufacturing plants.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 21)">B) The regulations address the most common causes of workplace accidents.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 21)">C) Employees have received training on the new safety procedures.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 21)">D) The regulations have been approved by safety experts.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) Similar safety regulations have led to a 40% reduction in accidents at other manufacturing plants.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by providing concrete evidence of the effectiveness of similar regulations in reducing accidents.</p>
+                </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new restaurant has received excellent reviews from food critics.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The restaurant will be profitable in its first year of operation.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 22)">A) The restaurant is located in an area with high rent and operating costs.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 22)">B) The restaurant offers unique dishes not found in other establishments.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 22)">C) The chef has previous experience running successful restaurants.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 22)">D) The restaurant has a strong social media presence.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The restaurant is located in an area with high rent and operating costs.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that high operating costs might prevent profitability despite positive reviews.</p>
+                </div>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that people who meditate regularly report lower stress levels.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Meditation should be recommended as a stress management technique.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 23)">A) Meditation is accessible to most people.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 23)">B) The study participants were representative of the general population.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 23)">C) The reported reduction in stress levels is significant enough to warrant recommendation.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 23)">D) Meditation has no negative side effects.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: C) The reported reduction in stress levels is significant enough to warrant recommendation.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that the stress reduction is substantial enough to make meditation worth recommending.</p>
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The company has implemented a new quality control system in its production process.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The number of defective products will decrease.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 24)">A) The new system has been successfully implemented in similar manufacturing processes, resulting in a 50% reduction in defects.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 24)">B) The system includes automated detection of common defects.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 24)">C) Employees have been trained to use the new system.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 24)">D) The system was developed by industry experts.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The new system has been successfully implemented in similar manufacturing processes, resulting in a 50% reduction in defects.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by providing concrete evidence of the system's effectiveness in reducing defects in similar contexts.</p>
+                </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new fitness app has been downloaded by over one million users in its first month.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The app will help users achieve their fitness goals.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 25)">A) Most users stop using the app after the first week.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 25)">B) The app offers personalized workout plans.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 25)">C) The app has received positive reviews from fitness experts.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 25)">D) The app is free to download and use.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) Most users stop using the app after the first week.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that the app's popularity doesn't translate into long-term usage, which is necessary for achieving fitness goals.</p>
+                </div>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new traffic management system has reduced average commute times by 15%.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>The system has improved the overall efficiency of the city's transportation network.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 26)">A) The system has been properly maintained since its implementation.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 26)">B) Reduced commute times are a reliable indicator of improved transportation efficiency.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 26)">C) The system has been well-received by commuters.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 26)">D) The system has not caused any significant disruptions to other aspects of transportation.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Reduced commute times are a reliable indicator of improved transportation efficiency.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that shorter commute times accurately reflect improved overall efficiency.</p>
+                </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that students who participate in extracurricular activities have higher GPAs.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Schools should encourage student participation in extracurricular activities to improve academic performance.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 27)">A) The study controlled for other factors that might affect academic performance, such as socioeconomic status and prior academic achievement.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 27)">B) The study included a large and diverse sample of students.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 27)">C) The study was conducted over multiple academic years.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 27)">D) The study was published in a reputable academic journal.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study controlled for other factors that might affect academic performance, such as socioeconomic status and prior academic achievement.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by showing that the correlation between extracurricular activities and higher GPAs is not due to other factors.</p>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new energy-efficient light bulbs use 75% less electricity than traditional bulbs.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Replacing traditional bulbs with energy-efficient ones will significantly reduce household electricity bills.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 28)">A) The energy-efficient bulbs cost significantly more than traditional bulbs.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 28)">B) The energy-efficient bulbs last longer than traditional bulbs.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 28)">C) The energy-efficient bulbs provide the same level of brightness as traditional bulbs.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 28)">D) The energy-efficient bulbs are available in various sizes and shapes.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The energy-efficient bulbs cost significantly more than traditional bulbs.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that the higher initial cost might offset the savings from reduced electricity usage.</p>
+                </div>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that people who read fiction regularly have better empathy skills.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Reading fiction should be encouraged to improve social relationships.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 29)">A) The study participants were representative of the general population.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 29)">B) Better empathy skills lead to improved social relationships.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 29)">C) The study measured empathy skills using reliable methods.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 29)">D) People have time to read fiction regularly.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) Better empathy skills lead to improved social relationships.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that improved empathy skills will result in better social relationships.</p>
+                </div>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that companies with diverse leadership teams have higher innovation rates.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Companies should prioritize diversity in their leadership teams to increase innovation.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 30)">A) The study found that diverse teams generate more unique ideas and solutions to problems.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 30)">B) The study included companies from various industries.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 30)">C) The study was conducted over a five-year period.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 30)">D) The study was funded by a reputable research organization.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study found that diverse teams generate more unique ideas and solutions to problems.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by providing a specific mechanism through which diverse leadership teams contribute to innovation.</p>
+                </div>
+            </div>
+
+            <!-- Question 31 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that people who exercise regularly have better mental health outcomes.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Regular exercise should be prescribed as a treatment for mental health conditions.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 31)">A) The study did not account for other factors that might affect mental health, such as social support and access to healthcare.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 31)">B) The study included participants from various age groups.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 31)">C) The study was conducted over a long period of time.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 31)">D) The study used standardized measures of mental health.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study did not account for other factors that might affect mental health, such as social support and access to healthcare.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that the correlation between exercise and mental health might be due to other factors not considered in the study.</p>
+                </div>
+            </div>
+
+            <!-- Question 32 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that companies that implement flexible work policies have higher employee satisfaction rates.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Companies should implement flexible work policies to improve employee satisfaction.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 32)">A) The study included companies from various industries.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 32)">B) The flexible work policies can be successfully implemented in most companies.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 32)">C) The study measured employee satisfaction using reliable methods.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 32)">D) The study was conducted over a significant period of time.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) The flexible work policies can be successfully implemented in most companies.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that the flexible work policies can be effectively implemented across different companies.</p>
+                </div>
+            </div>
+
+            <!-- Question 33 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that students who participate in study groups perform better on exams.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Students should be encouraged to form study groups to improve their academic performance.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 33)">A) The study found that students in study groups develop better understanding of complex concepts through discussion and explanation.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 33)">B) The study included students from different academic disciplines.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 33)">C) The study was conducted at multiple universities.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 33)">D) The study used standardized exam scores as a measure of performance.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study found that students in study groups develop better understanding of complex concepts through discussion and explanation.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by providing a specific mechanism through which study groups contribute to improved academic performance.</p>
+                </div>
+            </div>
+
+            <!-- Question 34 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that people who meditate regularly have lower blood pressure.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Meditation should be recommended as a treatment for high blood pressure.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 34)">A) The study participants were also following other lifestyle changes, such as improved diet and exercise.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 34)">B) The study included participants from various age groups.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 34)">C) The study measured blood pressure using standard medical procedures.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 34)">D) The study was conducted over a six-month period.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study participants were also following other lifestyle changes, such as improved diet and exercise.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that the lower blood pressure might be due to other lifestyle changes rather than meditation alone.</p>
+                </div>
+            </div>
+
+            <!-- Question 35 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that companies with strong corporate social responsibility programs have higher customer loyalty.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Companies should invest in corporate social responsibility programs to increase customer loyalty.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 35)">A) The study included companies from various industries.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 35)">B) The corporate social responsibility programs are the primary factor influencing customer loyalty.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 35)">C) The study measured customer loyalty using reliable methods.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 35)">D) The study was conducted over a significant period of time.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) The corporate social responsibility programs are the primary factor influencing customer loyalty.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that corporate social responsibility programs are the main driver of customer loyalty.</p>
+                </div>
+            </div>
+
+            <!-- Question 36 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that people who read news from multiple sources have more balanced political views.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>People should be encouraged to read news from multiple sources to develop more balanced political views.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 36)">A) The study found that exposure to diverse perspectives helps people understand and consider different viewpoints.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 36)">B) The study included participants from various political backgrounds.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 36)">C) The study was conducted over a long period of time.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 36)">D) The study used standardized measures of political views.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study found that exposure to diverse perspectives helps people understand and consider different viewpoints.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by providing a specific mechanism through which reading multiple news sources contributes to more balanced political views.</p>
+                </div>
+            </div>
+
+            <!-- Question 37 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that people who use social media regularly have higher levels of social connectedness.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Social media use should be encouraged to improve social connectedness.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 37)">A) The study did not account for the quality of social connections, only the quantity.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 37)">B) The study included participants from various age groups.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 37)">C) The study measured social connectedness using standardized scales.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 37)">D) The study was conducted over a significant period of time.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study did not account for the quality of social connections, only the quantity.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that the measure of social connectedness might not capture the true quality of social relationships.</p>
+                </div>
+            </div>
+
+            <!-- Question 38 -->
+            <div class="question-card" data-category="assumption">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that companies with strong mentorship programs have higher employee retention rates.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Companies should implement mentorship programs to improve employee retention.</p>
+                    <p class="font-semibold mt-2">Which of the following is an assumption in the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 38)">A) The study included companies from various industries.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 38)">B) The mentorship programs can be successfully implemented in most companies.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 38)">C) The study measured employee retention using reliable methods.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 38)">D) The study was conducted over a significant period of time.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: B) The mentorship programs can be successfully implemented in most companies.</p>
+                    <p class="text-gray-700 mt-2">This is the key assumption in the argument. The conclusion assumes that mentorship programs can be effectively implemented across different companies.</p>
+                </div>
+            </div>
+
+            <!-- Question 39 -->
+            <div class="question-card" data-category="strengthen">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that people who practice mindfulness have better emotional regulation.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Mindfulness practice should be encouraged to improve emotional regulation.</p>
+                    <p class="font-semibold mt-2">Which of the following would strengthen the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 39)">A) The study found that mindfulness practice helps people develop awareness of their emotions and respond to them more effectively.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 39)">B) The study included participants from various age groups.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 39)">C) The study was conducted over a long period of time.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 39)">D) The study used standardized measures of emotional regulation.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study found that mindfulness practice helps people develop awareness of their emotions and respond to them more effectively.</p>
+                    <p class="text-gray-700 mt-2">This strengthens the argument by providing a specific mechanism through which mindfulness practice contributes to better emotional regulation.</p>
+                </div>
+            </div>
+
+            <!-- Question 40 -->
+            <div class="question-card" data-category="weaken">
+                <div class="question-text">
+                    <p class="font-semibold">Premise:</p>
+                    <p>The new study shows that companies with strong environmental sustainability programs have higher brand value.</p>
+                    <p class="font-semibold mt-2">Conclusion:</p>
+                    <p>Companies should invest in environmental sustainability programs to increase their brand value.</p>
+                    <p class="font-semibold mt-2">Which of the following would most weaken the argument?</p>
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 'A', 40)">A) The study did not account for other factors that might affect brand value, such as product quality and customer service.</div>
+                    <div class="option" onclick="selectOption(this, 'B', 40)">B) The study included companies from various industries.</div>
+                    <div class="option" onclick="selectOption(this, 'C', 40)">C) The study measured brand value using standardized methods.</div>
+                    <div class="option" onclick="selectOption(this, 'D', 40)">D) The study was conducted over a significant period of time.</div>
+                </div>
+                <div class="explanation">
+                    <p class="text-green-600 font-semibold">Correct Answer: A) The study did not account for other factors that might affect brand value, such as product quality and customer service.</p>
+                    <p class="text-gray-700 mt-2">This weakens the argument by suggesting that the correlation between environmental sustainability programs and brand value might be due to other factors not considered in the study.</p>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        const questionCards = document.querySelectorAll('.question-card');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            questionCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+
+        // Filter tags functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                // Remove active class from all tags
+                filterTags.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tag
+                tag.classList.add('active');
+                
+                const filter = tag.textContent.toLowerCase();
+                
+                questionCards.forEach(card => {
+                    const category = card.dataset.category.toLowerCase();
+                    if (filter === 'all' || category.includes(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Option selection functionality
+        function selectOption(element, option, questionNumber) {
+            const card = element.closest('.question-card');
+            const options = card.querySelectorAll('.option');
+            const explanation = card.querySelector('.explanation');
+            
+            // Remove selected class from all options
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Show explanation
+            explanation.style.display = 'block';
+        }
+    </script>
+</body>
+</html> 

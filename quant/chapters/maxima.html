@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maxima and Minima - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Maxima and Minima
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of maxima and minima with our comprehensive guide.
+                Learn about critical points, optimization, and real-world applications.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#basic-concepts" class="nav-link block">2. Basic Concepts</a>
+                        <a href="#methods" class="nav-link block">3. Methods to Find Maxima/Minima</a>
+                        <a href="#applications" class="nav-link block">4. Applications</a>
+                        <a href="#optimization" class="nav-link block">5. Optimization Problems</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">1. Introduction</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Understanding Maxima and Minima</h3>
+                        <p class="text-gray-600">Maxima and minima are the highest and lowest points of a function in a given interval. They are crucial in optimization problems and real-world applications.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Key Definitions:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Local Maximum: A point where the function value is greater than all nearby points</li>
+                                <li>Local Minimum: A point where the function value is less than all nearby points</li>
+                                <li>Global Maximum: The highest point of the function in its entire domain</li>
+                                <li>Global Minimum: The lowest point of the function in its entire domain</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Basic Concepts -->
+                <section id="basic-concepts" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">2. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Critical Points and Tests</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Critical Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>f'(x) = 0 (First derivative equals zero)</li>
+                                <li>f'(x) is undefined</li>
+                            </ul>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">First Derivative Test:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>If f'(x) changes from positive to negative at x = c, then f(c) is a local maximum</li>
+                                <li>If f'(x) changes from negative to positive at x = c, then f(c) is a local minimum</li>
+                            </ul>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Second Derivative Test:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>If f''(c) < 0, then f(c) is a local maximum</li>
+                                <li>If f''(c) > 0, then f(c) is a local minimum</li>
+                                <li>If f''(c) = 0, the test is inconclusive</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Example 1</div>
+                            <div class="question-text">Find the critical points of f(x) = x³ - 3x² + 2</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Find the first derivative: f'(x) = 3x² - 6x<br>
+                                2. Set f'(x) = 0: 3x² - 6x = 0<br>
+                                3. Solve: x(3x - 6) = 0<br>
+                                4. Critical points: x = 0 and x = 2
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Methods -->
+                <section id="methods" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">3. Methods to Find Maxima/Minima</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Step-by-Step Methods</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Method 1: First Derivative Test</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Find f'(x)</li>
+                                <li>Set f'(x) = 0 and solve for x</li>
+                                <li>Test the sign of f'(x) around each critical point</li>
+                                <li>Determine if each point is a maximum or minimum</li>
+                            </ol>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Method 2: Second Derivative Test</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Find f'(x) and f''(x)</li>
+                                <li>Set f'(x) = 0 and solve for x</li>
+                                <li>Evaluate f''(x) at each critical point</li>
+                                <li>Use the second derivative test to classify each point</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Example 2</div>
+                            <div class="question-text">Find the maxima and minima of f(x) = x³ - 3x² + 2</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. First derivative: f'(x) = 3x² - 6x<br>
+                                2. Second derivative: f''(x) = 6x - 6<br>
+                                3. Critical points: x = 0 and x = 2<br>
+                                4. At x = 0: f''(0) = -6 < 0, so it's a local maximum<br>
+                                5. At x = 2: f''(2) = 6 > 0, so it's a local minimum
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Applications -->
+                <section id="applications" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">4. Applications</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Real-World Applications</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Common Applications:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Optimizing profit in business</li>
+                                <li>Minimizing cost in manufacturing</li>
+                                <li>Maximizing area with fixed perimeter</li>
+                                <li>Finding optimal dimensions for containers</li>
+                                <li>Determining maximum/minimum values in physics problems</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Example 3</div>
+                            <div class="question-text">A company's profit function is P(x) = -x² + 100x - 2000, where x is the number of units sold. Find the number of units that maximizes profit.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Find P'(x) = -2x + 100<br>
+                                2. Set P'(x) = 0: -2x + 100 = 0<br>
+                                3. Solve: x = 50<br>
+                                4. Verify: P''(x) = -2 < 0, so x = 50 is a maximum<br>
+                                Therefore, selling 50 units maximizes profit.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Optimization -->
+                <section id="optimization" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">5. Optimization Problems</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Solving Optimization Problems</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Steps for Optimization:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Identify the quantity to be optimized</li>
+                                <li>Write an equation for the quantity in terms of one variable</li>
+                                <li>Find the derivative and set it equal to zero</li>
+                                <li>Solve for the variable</li>
+                                <li>Verify that the solution is a maximum or minimum</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Example 4</div>
+                            <div class="question-text">Find the dimensions of a rectangle with perimeter 100 meters that has maximum area.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Let x be the length, then width = (100 - 2x)/2 = 50 - x<br>
+                                2. Area A = x(50 - x) = 50x - x²<br>
+                                3. A' = 50 - 2x<br>
+                                4. Set A' = 0: 50 - 2x = 0<br>
+                                5. Solve: x = 25<br>
+                                6. Verify: A'' = -2 < 0, so x = 25 is a maximum<br>
+                                Therefore, the rectangle should be 25m × 25m (a square).
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in sidebar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.content-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

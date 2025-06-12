@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangles - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+
+        .diagram-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .diagram-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Triangles
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of triangles with our comprehensive guide.
+                Learn about different types of triangles, their properties, and applications.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#types" class="nav-link block">2. Types of Triangles</a>
+                        <a href="#properties" class="nav-link block">3. Properties</a>
+                        <a href="#theorems" class="nav-link block">4. Important Theorems</a>
+                        <a href="#applications" class="nav-link block">5. Applications</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">1. Introduction</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Understanding Triangles</h3>
+                        <p class="text-gray-600">A triangle is a polygon with three edges and three vertices. It is one of the basic shapes in geometry.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Basic Elements of a Triangle:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Three sides (a, b, c)</li>
+                                <li>Three angles (A, B, C)</li>
+                                <li>Three vertices</li>
+                                <li>Sum of angles = 180°</li>
+                            </ul>
+                        </div>
+
+                        <div class="diagram-container">
+                            <div class="diagram-title">Basic Triangle</div>
+                            <svg width="300" height="200" class="mx-auto">
+                                <polygon points="150,50 250,150 50,150" 
+                                        fill="none" 
+                                        stroke="#3b82f6" 
+                                        stroke-width="2"/>
+                                <text x="140" y="40" fill="#1e40af">A</text>
+                                <text x="260" y="150" fill="#1e40af">B</text>
+                                <text x="40" y="150" fill="#1e40af">C</text>
+                                <text x="150" y="100" fill="#1e40af">a</text>
+                                <text x="200" y="150" fill="#1e40af">b</text>
+                                <text x="100" y="150" fill="#1e40af">c</text>
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Types of Triangles -->
+                <section id="types" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">2. Types of Triangles</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Classification by Sides</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Equilateral Triangle -->
+                            <div class="diagram-container">
+                                <div class="diagram-title">Equilateral Triangle</div>
+                                <svg width="200" height="200" class="mx-auto">
+                                    <polygon points="100,50 150,150 50,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    <text x="100" y="40" fill="#1e40af">A</text>
+                                    <text x="160" y="150" fill="#1e40af">B</text>
+                                    <text x="40" y="150" fill="#1e40af">C</text>
+                                    <text x="100" y="100" fill="#1e40af">a</text>
+                                    <text x="130" y="150" fill="#1e40af">a</text>
+                                    <text x="70" y="150" fill="#1e40af">a</text>
+                                </svg>
+                                <p class="text-center mt-4">All sides equal</p>
+                            </div>
+
+                            <!-- Isosceles Triangle -->
+                            <div class="diagram-container">
+                                <div class="diagram-title">Isosceles Triangle</div>
+                                <svg width="200" height="200" class="mx-auto">
+                                    <polygon points="100,50 150,150 50,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    <text x="100" y="40" fill="#1e40af">A</text>
+                                    <text x="160" y="150" fill="#1e40af">B</text>
+                                    <text x="40" y="150" fill="#1e40af">C</text>
+                                    <text x="100" y="100" fill="#1e40af">a</text>
+                                    <text x="130" y="150" fill="#1e40af">b</text>
+                                    <text x="70" y="150" fill="#1e40af">b</text>
+                                </svg>
+                                <p class="text-center mt-4">Two sides equal</p>
+                            </div>
+
+                            <!-- Scalene Triangle -->
+                            <div class="diagram-container">
+                                <div class="diagram-title">Scalene Triangle</div>
+                                <svg width="200" height="200" class="mx-auto">
+                                    <polygon points="100,50 150,150 50,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    <text x="100" y="40" fill="#1e40af">A</text>
+                                    <text x="160" y="150" fill="#1e40af">B</text>
+                                    <text x="40" y="150" fill="#1e40af">C</text>
+                                    <text x="100" y="100" fill="#1e40af">a</text>
+                                    <text x="130" y="150" fill="#1e40af">b</text>
+                                    <text x="70" y="150" fill="#1e40af">c</text>
+                                </svg>
+                                <p class="text-center mt-4">All sides different</p>
+                            </div>
+                        </div>
+
+                        <h3 class="subsection-title mt-8">Classification by Angles</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Acute Triangle -->
+                            <div class="diagram-container">
+                                <div class="diagram-title">Acute Triangle</div>
+                                <svg width="200" height="200" class="mx-auto">
+                                    <polygon points="100,50 150,150 50,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    <text x="100" y="40" fill="#1e40af">A</text>
+                                    <text x="160" y="150" fill="#1e40af">B</text>
+                                    <text x="40" y="150" fill="#1e40af">C</text>
+                                    <text x="90" y="100" fill="#1e40af">60°</text>
+                                    <text x="130" y="150" fill="#1e40af">60°</text>
+                                    <text x="70" y="150" fill="#1e40af">60°</text>
+                                </svg>
+                                <p class="text-center mt-4">All angles < 90°</p>
+                            </div>
+
+                            <!-- Right Triangle -->
+                            <div class="diagram-container">
+                                <div class="diagram-title">Right Triangle</div>
+                                <svg width="200" height="200" class="mx-auto">
+                                    <polygon points="100,50 150,150 50,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    <text x="100" y="40" fill="#1e40af">A</text>
+                                    <text x="160" y="150" fill="#1e40af">B</text>
+                                    <text x="40" y="150" fill="#1e40af">C</text>
+                                    <text x="90" y="100" fill="#1e40af">90°</text>
+                                </svg>
+                                <p class="text-center mt-4">One angle = 90°</p>
+                            </div>
+
+                            <!-- Obtuse Triangle -->
+                            <div class="diagram-container">
+                                <div class="diagram-title">Obtuse Triangle</div>
+                                <svg width="200" height="200" class="mx-auto">
+                                    <polygon points="100,50 150,150 50,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    <text x="100" y="40" fill="#1e40af">A</text>
+                                    <text x="160" y="150" fill="#1e40af">B</text>
+                                    <text x="40" y="150" fill="#1e40af">C</text>
+                                    <text x="90" y="100" fill="#1e40af">120°</text>
+                                </svg>
+                                <p class="text-center mt-4">One angle > 90°</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Properties -->
+                <section id="properties" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">3. Properties</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Basic Properties</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Angle Properties:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Sum of angles = 180°</li>
+                                <li>Exterior angle = Sum of opposite interior angles</li>
+                                <li>Sum of exterior angles = 360°</li>
+                            </ul>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Side Properties:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Sum of any two sides > third side</li>
+                                <li>Difference of any two sides < third side</li>
+                                <li>Longest side is opposite to largest angle</li>
+                            </ul>
+                        </div>
+
+                        <div class="diagram-container">
+                            <div class="diagram-title">Triangle Properties</div>
+                            <svg width="400" height="300" class="mx-auto">
+                                <!-- Main Triangle -->
+                                <polygon points="200,50 300,250 100,250" 
+                                        fill="none" 
+                                        stroke="#3b82f6" 
+                                        stroke-width="2"/>
+                                
+                                <!-- Exterior Angle -->
+                                <path d="M300,250 L350,250" 
+                                      stroke="#ef4444" 
+                                      stroke-width="2" 
+                                      stroke-dasharray="5,5"/>
+                                <text x="320" y="240" fill="#ef4444">Exterior Angle</text>
+                                
+                                <!-- Interior Angles -->
+                                <text x="200" y="40" fill="#1e40af">A</text>
+                                <text x="310" y="250" fill="#1e40af">B</text>
+                                <text x="90" y="250" fill="#1e40af">C</text>
+                                
+                                <!-- Angle Measures -->
+                                <text x="180" y="100" fill="#1e40af">α</text>
+                                <text x="250" y="250" fill="#1e40af">β</text>
+                                <text x="150" y="250" fill="#1e40af">γ</text>
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Theorems -->
+                <section id="theorems" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">4. Important Theorems</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Key Theorems with Proofs</h3>
+                        
+                        <!-- Pythagoras Theorem -->
+                        <div class="formula-box">
+                            <p class="font-medium">1. Pythagoras Theorem</p>
+                            <p class="text-center text-lg">a² + b² = c²</p>
+                            <p class="text-sm text-gray-600 text-center">(For right-angled triangles)</p>
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">Proof:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Consider a right-angled triangle ABC with right angle at C</li>
+                                    <li>Draw squares on all three sides of the triangle</li>
+                                    <li>The area of the square on the hypotenuse (c²) equals the sum of areas of squares on other two sides (a² + b²)</li>
+                                    <li>This can be proven using similar triangles and area relationships</li>
+                                </ol>
+                            </div>
+
+                            <div class="diagram-container">
+                                <div class="diagram-title">Pythagoras Theorem Proof</div>
+                                <svg width="400" height="300" class="mx-auto">
+                                    <!-- Main Triangle -->
+                                    <polygon points="100,50 250,150 100,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Squares -->
+                                    <polygon points="100,50 150,0 250,100 200,150" 
+                                            fill="none" 
+                                            stroke="#ef4444" 
+                                            stroke-width="2"/>
+                                    <polygon points="250,150 300,100 400,200 350,250" 
+                                            fill="none" 
+                                            stroke="#ef4444" 
+                                            stroke-width="2"/>
+                                    <polygon points="100,150 50,100 150,0 200,50" 
+                                            fill="none" 
+                                            stroke="#ef4444" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="90" y="40" fill="#1e40af">A</text>
+                                    <text x="260" y="150" fill="#1e40af">B</text>
+                                    <text x="90" y="160" fill="#1e40af">C</text>
+                                    <text x="120" y="100" fill="#1e40af">a</text>
+                                    <text x="180" y="150" fill="#1e40af">b</text>
+                                    <text x="120" y="150" fill="#1e40af">c</text>
+                                    <text x="90" y="100" fill="#ef4444">90°</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Angle Sum Theorem -->
+                        <div class="formula-box">
+                            <p class="font-medium">2. Angle Sum Theorem</p>
+                            <p class="text-center text-lg">∠A + ∠B + ∠C = 180°</p>
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">Proof:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Draw a line parallel to one side of the triangle through the opposite vertex</li>
+                                    <li>This creates alternate angles that are equal</li>
+                                    <li>The angles on the straight line add up to 180°</li>
+                                    <li>Therefore, the sum of angles in the triangle is 180°</li>
+                                </ol>
+                            </div>
+
+                            <div class="diagram-container">
+                                <div class="diagram-title">Angle Sum Theorem Proof</div>
+                                <svg width="400" height="300" class="mx-auto">
+                                    <!-- Main Triangle -->
+                                    <polygon points="100,50 250,150 100,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Parallel Line -->
+                                    <line x1="50" y1="50" x2="300" y2="50" 
+                                          stroke="#ef4444" 
+                                          stroke-width="2" 
+                                          stroke-dasharray="5,5"/>
+                                    
+                                    <!-- Angles -->
+                                    <path d="M100,50 A20,20 0 0,1 120,50" 
+                                          fill="none" 
+                                          stroke="#1e40af" 
+                                          stroke-width="2"/>
+                                    <path d="M100,50 A20,20 0 0,1 120,70" 
+                                          fill="none" 
+                                          stroke="#1e40af" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="90" y="40" fill="#1e40af">A</text>
+                                    <text x="260" y="150" fill="#1e40af">B</text>
+                                    <text x="90" y="160" fill="#1e40af">C</text>
+                                    <text x="120" y="60" fill="#1e40af">α</text>
+                                    <text x="120" y="80" fill="#1e40af">β</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Exterior Angle Theorem -->
+                        <div class="formula-box">
+                            <p class="font-medium">3. Exterior Angle Theorem</p>
+                            <p class="text-center text-lg">Exterior angle = Sum of opposite interior angles</p>
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">Proof:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Extend one side of the triangle</li>
+                                    <li>The exterior angle and the adjacent interior angle form a linear pair (180°)</li>
+                                    <li>The sum of all interior angles is 180°</li>
+                                    <li>Therefore, the exterior angle equals the sum of opposite interior angles</li>
+                                </ol>
+                            </div>
+
+                            <div class="diagram-container">
+                                <div class="diagram-title">Exterior Angle Theorem Proof</div>
+                                <svg width="400" height="300" class="mx-auto">
+                                    <!-- Main Triangle -->
+                                    <polygon points="100,50 250,150 100,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Extended Side -->
+                                    <line x1="250" y1="150" x2="300" y2="150" 
+                                          stroke="#ef4444" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Angles -->
+                                    <path d="M250,150 A20,20 0 0,1 270,150" 
+                                          fill="none" 
+                                          stroke="#1e40af" 
+                                          stroke-width="2"/>
+                                    <path d="M250,150 A20,20 0 0,1 270,170" 
+                                          fill="none" 
+                                          stroke="#1e40af" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="90" y="40" fill="#1e40af">A</text>
+                                    <text x="260" y="150" fill="#1e40af">B</text>
+                                    <text x="90" y="160" fill="#1e40af">C</text>
+                                    <text x="270" y="160" fill="#1e40af">θ</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Similarity Theorems -->
+                        <div class="formula-box">
+                            <p class="font-medium">4. Similarity Theorems</p>
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">AAA Similarity:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>If corresponding angles are equal, triangles are similar</li>
+                                    <li>This is the most fundamental similarity criterion</li>
+                                    <li>Implies proportional sides</li>
+                                </ol>
+
+                                <p class="font-medium mt-4">SAS Similarity:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>If two sides are proportional and included angle is equal</li>
+                                    <li>Triangles are similar</li>
+                                    <li>Third side will automatically be proportional</li>
+                                </ol>
+
+                                <p class="font-medium mt-4">SSS Similarity:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>If all three sides are proportional</li>
+                                    <li>Triangles are similar</li>
+                                    <li>Corresponding angles will be equal</li>
+                                </ol>
+                            </div>
+
+                            <div class="diagram-container">
+                                <div class="diagram-title">Similar Triangles</div>
+                                <svg width="400" height="300" class="mx-auto">
+                                    <!-- First Triangle -->
+                                    <polygon points="100,50 200,150 100,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Second Triangle -->
+                                    <polygon points="250,50 350,150 250,150" 
+                                            fill="none" 
+                                            stroke="#ef4444" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="90" y="40" fill="#1e40af">A</text>
+                                    <text x="210" y="150" fill="#1e40af">B</text>
+                                    <text x="90" y="160" fill="#1e40af">C</text>
+                                    <text x="240" y="40" fill="#ef4444">D</text>
+                                    <text x="360" y="150" fill="#ef4444">E</text>
+                                    <text x="240" y="160" fill="#ef4444">F</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Area Theorems -->
+                        <div class="formula-box">
+                            <p class="font-medium">5. Area Theorems</p>
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">Basic Area Formula:</p>
+                                <p class="text-center text-lg">Area = (1/2) × base × height</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Draw a perpendicular from vertex to base</li>
+                                    <li>This creates two right triangles</li>
+                                    <li>Area of each right triangle = (1/2) × base × height</li>
+                                    <li>Total area = Sum of areas of both triangles</li>
+                                </ol>
+
+                                <p class="font-medium mt-4">Heron's Formula:</p>
+                                <p class="text-center text-lg">Area = √(s(s-a)(s-b)(s-c)) where s = (a+b+c)/2</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Calculate semi-perimeter s = (a+b+c)/2</li>
+                                    <li>Subtract each side from s</li>
+                                    <li>Multiply all results</li>
+                                    <li>Take square root of the product</li>
+                                </ol>
+                            </div>
+
+                            <div class="diagram-container">
+                                <div class="diagram-title">Area Calculation</div>
+                                <svg width="400" height="300" class="mx-auto">
+                                    <!-- Main Triangle -->
+                                    <polygon points="100,50 250,150 100,150" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Height -->
+                                    <line x1="100" y1="50" x2="100" y2="150" 
+                                          stroke="#ef4444" 
+                                          stroke-width="2" 
+                                          stroke-dasharray="5,5"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="90" y="40" fill="#1e40af">A</text>
+                                    <text x="260" y="150" fill="#1e40af">B</text>
+                                    <text x="90" y="160" fill="#1e40af">C</text>
+                                    <text x="80" y="100" fill="#ef4444">h</text>
+                                    <text x="180" y="150" fill="#1e40af">b</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Applications -->
+                <section id="applications" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">5. Applications</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Real-World Applications</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Common Applications:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Architecture and construction</li>
+                                <li>Navigation and surveying</li>
+                                <li>Computer graphics and gaming</li>
+                                <li>Engineering and design</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Example 1</div>
+                            <div class="question-text">Find the height of a building using a right-angled triangle if the distance from the building is 20m and the angle of elevation is 30°.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using tan(30°) = height/20<br>
+                                2. height = 20 × tan(30°)<br>
+                                3. height = 20 × 0.577<br>
+                                4. height ≈ 11.54m
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in sidebar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.content-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

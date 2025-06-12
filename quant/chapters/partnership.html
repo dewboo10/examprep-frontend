@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partnership - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Partnership
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of partnerships with our comprehensive guide.
+                Learn about profit sharing, capital investment, and complex problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#simple" class="nav-link block">2. Simple Partnership</a>
+                        <a href="#compound" class="nav-link block">3. Compound Partnership</a>
+                        <a href="#working" class="nav-link block">4. Working Partner</a>
+                        <a href="#sleeping" class="nav-link block">5. Sleeping Partner</a>
+                        <a href="#advanced" class="nav-link block">6. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Partnership</h3>
+                        <p class="text-gray-600">Understanding the basic concepts of partnerships and their properties.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Key Terms:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Partnership: Business relationship between two or more people</li>
+                                <li>Capital: Money invested by partners</li>
+                                <li>Profit: Earnings from the business</li>
+                                <li>Loss: Negative earnings from the business</li>
+                                <li>Working Partner: Partner who works in the business</li>
+                                <li>Sleeping Partner: Partner who only invests money</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-box">
+                            <p class="font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Profit is shared in the ratio of capital × time</li>
+                                <li>Working partners may get additional salary</li>
+                                <li>Sleeping partners only get profit share</li>
+                                <li>Partnership can be simple or compound</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Partnership</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">A and B invest ₹10,000 and ₹15,000 respectively in a business. Find their profit sharing ratio.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Profit sharing ratio = 10000:15000 = 2:3</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">A, B, and C invest ₹20,000, ₹30,000, and ₹50,000 respectively. Find their profit sharing ratio.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Profit sharing ratio = 20000:30000:50000 = 2:3:5</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">A and B invest ₹25,000 and ₹35,000 respectively. If the total profit is ₹12,000, find their individual shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Profit sharing ratio = 25000:35000 = 5:7</p>
+                            <p class="solution-text">A's share = (5/12) × 12000 = ₹5,000</p>
+                            <p class="solution-text">B's share = (7/12) × 12000 = ₹7,000</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">A, B, and C invest ₹15,000, ₹25,000, and ₹35,000 respectively. If the total profit is ₹30,000, find their individual shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Profit sharing ratio = 15000:25000:35000 = 3:5:7</p>
+                            <p class="solution-text">A's share = (3/15) × 30000 = ₹6,000</p>
+                            <p class="solution-text">B's share = (5/15) × 30000 = ₹10,000</p>
+                            <p class="solution-text">C's share = (7/15) × 30000 = ₹14,000</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Simple Partnership -->
+                <section id="simple" class="content-section card p-6">
+                    <h2 class="section-title">2. Simple Partnership</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Simple Partnership Problems</h3>
+                        <p class="text-gray-600">Solving problems involving simple partnerships.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Profit Share = (Capital × Time) × Total Profit/Total (Capital × Time)</li>
+                                <li>For equal time periods:</li>
+                                <li>Profit Share = Capital × Total Profit/Total Capital</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Simple Partnership</p>
+                            <p>Q1. A and B invest ₹20,000 and ₹30,000 for 1 year. If the total profit is ₹25,000, find their shares.</p>
+                            <p>Solution:</p>
+                            <p>Profit sharing ratio = 20000:30000 = 2:3</p>
+                            <p>A's share = (2/5) × 25000 = ₹10,000</p>
+                            <p>B's share = (3/5) × 25000 = ₹15,000</p>
+                            
+                            <p class="mt-4">Q2. A, B, and C invest ₹15,000, ₹25,000, and ₹35,000 for 1 year. If the total profit is ₹30,000, find their shares.</p>
+                            <p>Solution:</p>
+                            <p>Profit sharing ratio = 15000:25000:35000 = 3:5:7</p>
+                            <p>A's share = (3/15) × 30000 = ₹6,000</p>
+                            <p>B's share = (5/15) × 30000 = ₹10,000</p>
+                            <p>C's share = (7/15) × 30000 = ₹14,000</p>
+                            
+                            <p class="mt-4">Q3. A and B invest ₹25,000 and ₹35,000 for 1 year. If A's share of profit is ₹10,000, find the total profit.</p>
+                            <p>Solution:</p>
+                            <p>Profit sharing ratio = 25000:35000 = 5:7</p>
+                            <p>Let total profit be x</p>
+                            <p>(5/12) × x = 10000</p>
+                            <p>x = ₹24,000</p>
+                            
+                            <p class="mt-4">Q4. A, B, and C invest ₹20,000, ₹30,000, and ₹40,000 for 1 year. If B's share of profit is ₹15,000, find the total profit.</p>
+                            <p>Solution:</p>
+                            <p>Profit sharing ratio = 20000:30000:40000 = 2:3:4</p>
+                            <p>Let total profit be x</p>
+                            <p>(3/9) × x = 15000</p>
+                            <p>x = ₹45,000</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Compound Partnership -->
+                <section id="compound" class="content-section card p-6">
+                    <h2 class="section-title">3. Compound Partnership</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Compound Partnership Problems</h3>
+                        <p class="text-gray-600">Solving problems involving compound partnerships.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Profit Share = (Capital × Time) × Total Profit/Total (Capital × Time)</li>
+                                <li>For different time periods:</li>
+                                <li>Profit Share = (Capital × Months) × Total Profit/Total (Capital × Months)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Compound Partnership</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">A invests ₹20,000 for 6 months and B invests ₹30,000 for 4 months. Find their profit sharing ratio.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">A's investment = 20000 × 6 = ₹1,20,000</p>
+                            <p class="solution-text">B's investment = 30000 × 4 = ₹1,20,000</p>
+                            <p class="solution-text">Profit sharing ratio = 1:1</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">A invests ₹25,000 for 8 months, B invests ₹30,000 for 6 months, and C invests ₹40,000 for 4 months. Find their profit sharing ratio.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">A's investment = 25000 × 8 = ₹2,00,000</p>
+                            <p class="solution-text">B's investment = 30000 × 6 = ₹1,80,000</p>
+                            <p class="solution-text">C's investment = 40000 × 4 = ₹1,60,000</p>
+                            <p class="solution-text">Profit sharing ratio = 200:180:160 = 10:9:8</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">A and B invest ₹15,000 and ₹25,000 respectively. A withdraws after 4 months while B stays for the whole year. If the total profit is ₹18,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">A's investment = 15000 × 4 = ₹60,000</p>
+                            <p class="solution-text">B's investment = 25000 × 12 = ₹3,00,000</p>
+                            <p class="solution-text">Profit sharing ratio = 60:300 = 1:5</p>
+                            <p class="solution-text">A's share = (1/6) × 18000 = ₹3,000</p>
+                            <p class="solution-text">B's share = (5/6) × 18000 = ₹15,000</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">A, B, and C invest ₹20,000, ₹30,000, and ₹40,000 respectively. A stays for 6 months, B for 8 months, and C for the whole year. If the total profit is ₹24,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">A's investment = 20000 × 6 = ₹1,20,000</p>
+                            <p class="solution-text">B's investment = 30000 × 8 = ₹2,40,000</p>
+                            <p class="solution-text">C's investment = 40000 × 12 = ₹4,80,000</p>
+                            <p class="solution-text">Profit sharing ratio = 120:240:480 = 1:2:4</p>
+                            <p class="solution-text">A's share = (1/7) × 24000 = ₹3,428.57</p>
+                            <p class="solution-text">B's share = (2/7) × 24000 = ₹6,857.14</p>
+                            <p class="solution-text">C's share = (4/7) × 24000 = ₹13,714.29</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Working Partner -->
+                <section id="working" class="content-section card p-6">
+                    <h2 class="section-title">4. Working Partner</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Working Partner Problems</h3>
+                        <p class="text-gray-600">Solving problems involving working partners.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Working Partner's Share = Salary + Profit Share</li>
+                                <li>Profit Share = (Capital × Time) × Remaining Profit/Total (Capital × Time)</li>
+                                <li>Remaining Profit = Total Profit - Total Salary</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Working Partner</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">A invests ₹50,000 and works for the business, while B invests ₹1,00,000 as a sleeping partner. If the total profit is ₹30,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">First, calculate capital ratio: 50000:100000 = 1:2</p>
+                            <p class="solution-text">Let A's salary be x</p>
+                            <p class="solution-text">Remaining profit = 30000 - x</p>
+                            <p class="solution-text">A's share = x + (1/3)(30000 - x)</p>
+                            <p class="solution-text">B's share = (2/3)(30000 - x)</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">A invests ₹40,000 and works for the business, while B and C invest ₹60,000 each as sleeping partners. If the total profit is ₹45,000 and A's salary is ₹5,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Capital ratio = 40000:60000:60000 = 2:3:3</p>
+                            <p class="solution-text">Remaining profit = 45000 - 5000 = ₹40,000</p>
+                            <p class="solution-text">A's share = 5000 + (2/8)(40000) = ₹15,000</p>
+                            <p class="solution-text">B's share = (3/8)(40000) = ₹15,000</p>
+                            <p class="solution-text">C's share = (3/8)(40000) = ₹15,000</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">A invests ₹30,000 and works for the business, while B invests ₹70,000 as a sleeping partner. If A's salary is ₹4,000 and the total profit is ₹20,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Capital ratio = 30000:70000 = 3:7</p>
+                            <p class="solution-text">Remaining profit = 20000 - 4000 = ₹16,000</p>
+                            <p class="solution-text">A's share = 4000 + (3/10)(16000) = ₹8,800</p>
+                            <p class="solution-text">B's share = (7/10)(16000) = ₹11,200</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">A and B invest ₹25,000 each and both work for the business, while C invests ₹50,000 as a sleeping partner. If each working partner gets ₹3,000 as salary and the total profit is ₹25,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Capital ratio = 25000:25000:50000 = 1:1:2</p>
+                            <p class="solution-text">Total salary = 3000 × 2 = ₹6,000</p>
+                            <p class="solution-text">Remaining profit = 25000 - 6000 = ₹19,000</p>
+                            <p class="solution-text">A's share = 3000 + (1/4)(19000) = ₹7,750</p>
+                            <p class="solution-text">B's share = 3000 + (1/4)(19000) = ₹7,750</p>
+                            <p class="solution-text">C's share = (2/4)(19000) = ₹9,500</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sleeping Partner -->
+                <section id="sleeping" class="content-section card p-6">
+                    <h2 class="section-title">5. Sleeping Partner</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Sleeping Partner Problems</h3>
+                        <p class="text-gray-600">Solving problems involving sleeping partners.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Sleeping Partner's Share = Profit Share only</li>
+                                <li>Profit Share = (Capital × Time) × Remaining Profit/Total (Capital × Time)</li>
+                                <li>Remaining Profit = Total Profit - Total Salary</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Sleeping Partner</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">A invests ₹40,000 and works for the business, while B invests ₹60,000 as a sleeping partner. If the total profit is ₹25,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Capital ratio = 40000:60000 = 2:3</p>
+                            <p class="solution-text">Let A's salary be x</p>
+                            <p class="solution-text">Remaining profit = 25000 - x</p>
+                            <p class="solution-text">A's share = x + (2/5)(25000 - x)</p>
+                            <p class="solution-text">B's share = (3/5)(25000 - x)</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">A invests ₹30,000 and works for the business, while B and C invest ₹45,000 each as sleeping partners. If the total profit is ₹30,000 and A's salary is ₹4,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Capital ratio = 30000:45000:45000 = 2:3:3</p>
+                            <p class="solution-text">Remaining profit = 30000 - 4000 = ₹26,000</p>
+                            <p class="solution-text">A's share = 4000 + (2/8)(26000) = ₹10,500</p>
+                            <p class="solution-text">B's share = (3/8)(26000) = ₹9,750</p>
+                            <p class="solution-text">C's share = (3/8)(26000) = ₹9,750</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">A invests ₹35,000 and works for the business, while B invests ₹65,000 as a sleeping partner. If A's salary is ₹5,000 and the total profit is ₹20,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Capital ratio = 35000:65000 = 7:13</p>
+                            <p class="solution-text">Remaining profit = 20000 - 5000 = ₹15,000</p>
+                            <p class="solution-text">A's share = 5000 + (7/20)(15000) = ₹10,250</p>
+                            <p class="solution-text">B's share = (13/20)(15000) = ₹9,750</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">A and B invest ₹20,000 each and both work for the business, while C invests ₹60,000 as a sleeping partner. If each working partner gets ₹2,500 as salary and the total profit is ₹22,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Capital ratio = 20000:20000:60000 = 1:1:3</p>
+                            <p class="solution-text">Total salary = 2500 × 2 = ₹5,000</p>
+                            <p class="solution-text">Remaining profit = 22000 - 5000 = ₹17,000</p>
+                            <p class="solution-text">A's share = 2500 + (1/5)(17000) = ₹5,900</p>
+                            <p class="solution-text">B's share = 2500 + (1/5)(17000) = ₹5,900</p>
+                            <p class="solution-text">C's share = (3/5)(17000) = ₹10,200</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">6. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Profit is shared in the ratio of capital × time</li>
+                                <li>Working partners get salary + profit share</li>
+                                <li>Sleeping partners get only profit share</li>
+                                <li>Total profit = Sum of all shares</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Advanced Concepts</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">A and B start a business with ₹30,000 and ₹40,000 respectively. After 6 months, A withdraws half his capital and B adds ₹20,000 more. If the total profit is ₹25,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">A's investment = 30000 × 6 + 15000 × 6 = ₹2,70,000</p>
+                            <p class="solution-text">B's investment = 40000 × 6 + 60000 × 6 = ₹6,00,000</p>
+                            <p class="solution-text">Profit sharing ratio = 270:600 = 9:20</p>
+                            <p class="solution-text">A's share = (9/29) × 25000 = ₹7,758.62</p>
+                            <p class="solution-text">B's share = (20/29) × 25000 = ₹17,241.38</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">A, B, and C start a business with ₹25,000, ₹35,000, and ₹45,000 respectively. After 4 months, A adds ₹5,000, B withdraws ₹10,000, and C adds ₹15,000. If the total profit is ₹30,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">A's investment = 25000 × 4 + 30000 × 8 = ₹3,40,000</p>
+                            <p class="solution-text">B's investment = 35000 × 4 + 25000 × 8 = ₹3,40,000</p>
+                            <p class="solution-text">C's investment = 45000 × 4 + 60000 × 8 = ₹6,60,000</p>
+                            <p class="solution-text">Profit sharing ratio = 340:340:660 = 17:17:33</p>
+                            <p class="solution-text">A's share = (17/67) × 30000 = ₹7,611.94</p>
+                            <p class="solution-text">B's share = (17/67) × 30000 = ₹7,611.94</p>
+                            <p class="solution-text">C's share = (33/67) × 30000 = ₹14,776.12</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">A and B start a business with ₹40,000 and ₹60,000 respectively. After 3 months, C joins with ₹50,000. If the total profit is ₹35,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">A's investment = 40000 × 12 = ₹4,80,000</p>
+                            <p class="solution-text">B's investment = 60000 × 12 = ₹7,20,000</p>
+                            <p class="solution-text">C's investment = 50000 × 9 = ₹4,50,000</p>
+                            <p class="solution-text">Profit sharing ratio = 480:720:450 = 16:24:15</p>
+                            <p class="solution-text">A's share = (16/55) × 35000 = ₹10,181.82</p>
+                            <p class="solution-text">B's share = (24/55) × 35000 = ₹15,272.73</p>
+                            <p class="solution-text">C's share = (15/55) × 35000 = ₹9,545.45</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">A, B, and C start a business with ₹30,000, ₹40,000, and ₹50,000 respectively. After 5 months, A withdraws ₹10,000, B adds ₹20,000, and C withdraws ₹15,000. If the total profit is ₹40,000, find their shares.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">A's investment = 30000 × 5 + 20000 × 7 = ₹2,90,000</p>
+                            <p class="solution-text">B's investment = 40000 × 5 + 60000 × 7 = ₹6,20,000</p>
+                            <p class="solution-text">C's investment = 50000 × 5 + 35000 × 7 = ₹4,95,000</p>
+                            <p class="solution-text">Profit sharing ratio = 290:620:495 = 58:124:99</p>
+                            <p class="solution-text">A's share = (58/281) × 40000 = ₹8,256.23</p>
+                            <p class="solution-text">B's share = (124/281) × 40000 = ₹17,651.25</p>
+                            <p class="solution-text">C's share = (99/281) × 40000 = ₹14,092.52</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Special Cases</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Special Scenarios:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>When all partners invest for equal time:
+                                    <br>Profit sharing ratio = Capital ratio</li>
+                                <li>When all partners invest equal capital:
+                                    <br>Profit sharing ratio = Time ratio</li>
+                                <li>When all partners invest equal capital for equal time:
+                                    <br>Profit sharing ratio = 1:1:1</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Special Cases</p>
+                            <p>Q1. A, B, and C invest ₹20,000 each for 1 year. If the total profit is ₹30,000, find their shares.</p>
+                            <p>Solution:</p>
+                            <p>Equal capital for equal time</p>
+                            <p>Profit sharing ratio = 1:1:1</p>
+                            <p>Each gets ₹10,000</p>
+                            
+                            <p class="mt-4">Q2. A, B, and C invest ₹30,000 each for 4 months, 6 months, and 8 months respectively. If the total profit is ₹25,000, find their shares.</p>
+                            <p>Solution:</p>
+                            <p>Equal capital for different time</p>
+                            <p>Profit sharing ratio = 4:6:8 = 2:3:4</p>
+                            <p>A's share = (2/9) × 25000 = ₹5,556</p>
+                            <p>B's share = (3/9) × 25000 = ₹8,333</p>
+                            <p>C's share = (4/9) × 25000 = ₹11,111</p>
+                            
+                            <p class="mt-4">Q3. A, B, and C invest ₹20,000, ₹30,000, and ₹40,000 for 1 year each. If the total profit is ₹30,000, find their shares.</p>
+                            <p>Solution:</p>
+                            <p>Different capital for equal time</p>
+                            <p>Profit sharing ratio = 20000:30000:40000 = 2:3:4</p>
+                            <p>A's share = (2/9) × 30000 = ₹6,667</p>
+                            <p>B's share = (3/9) × 30000 = ₹10,000</p>
+                            <p>C's share = (4/9) × 30000 = ₹13,333</p>
+                            
+                            <p class="mt-4">Q4. A (working partner) and B (sleeping partner) invest ₹25,000 each for 1 year. A gets ₹10,000 as salary. If the total profit is ₹35,000, find their shares.</p>
+                            <p>Solution:</p>
+                            <p>Equal capital for equal time</p>
+                            <p>Remaining profit = 35000 - 10000 = ₹25,000</p>
+                            <p>Profit sharing ratio = 1:1</p>
+                            <p>A's share = 10000 + 12500 = ₹22,500</p>
+                            <p>B's share = ₹12,500</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

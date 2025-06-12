@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject-Verb Agreement - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .rule-item {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .rule-item:hover {
+            background-color: #f8fafc;
+            transform: translateX(10px);
+        }
+        
+        .rule-item:last-child {
+            border-bottom: none;
+        }
+        
+        .rule-title {
+            color: #1e40af;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .rule-description {
+            color: #4b5563;
+            margin-bottom: 0.75rem;
+        }
+        
+        .rule-example {
+            color: #6b7280;
+            font-style: italic;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .search-box {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+        .filter-tag {
+            background: #e5e7eb;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .category-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .category-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Grammar Rules
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                A comprehensive collection of essential grammar rules with examples.
+                Perfect for CAT, XAT, and government exam preparation.
+            </p>
+        </header>
+
+        <!-- Search and Filter Section -->
+        <div class="max-w-4xl mx-auto mb-8">
+            <input type="text" id="searchInput" class="search-box" placeholder="Search for grammar rules...">
+            <div class="flex flex-wrap mt-4 justify-center">
+                <div class="filter-tag active" data-category="all">All Rules</div>
+                <div class="filter-tag" data-category="subject-verb">Subject-Verb Agreement</div>
+                <div class="filter-tag" data-category="punctuation">Punctuation</div>
+                <div class="filter-tag" data-category="pronouns">Pronouns</div>
+                <div class="filter-tag" data-category="conditionals">Conditionals</div>
+                <div class="filter-tag" data-category="modifiers">Modifiers</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+            <!-- Rules List -->
+            <div id="rulesList" class="space-y-4">
+                <div class="rule-item">
+                    <div class="rule-title">1. Subject-Verb Agreement (SVA)</div>
+                    <div class="rule-description">The subject and verb must agree in number (singular or plural).</div>
+                    <div class="rule-example">
+                        • She runs every morning. (singular subject, singular verb)<br>
+                        • They run every morning. (plural subject, plural verb)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">2. Singular Subjects Take Singular Verbs</div>
+                    <div class="rule-description">A singular subject requires a singular verb.</div>
+                    <div class="rule-example">• The dog barks loudly.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">3. Plural Subjects Take Plural Verbs</div>
+                    <div class="rule-description">A plural subject requires a plural verb.</div>
+                    <div class="rule-example">• The dogs bark loudly.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">4. Indefinite Pronouns as Subjects</div>
+                    <div class="rule-description">Some indefinite pronouns (like everyone, each, anybody) take singular verbs.</div>
+                    <div class="rule-example">• Everyone is invited to the party.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">5. Compound Subjects</div>
+                    <div class="rule-description">When two or more subjects are joined by "and," they take a plural verb.</div>
+                    <div class="rule-example">• John and Mary are going to the store.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">6. Compound Subjects with "or" or "nor"</div>
+                    <div class="rule-description">If the subjects are connected by "or" or "nor," the verb agrees with the subject closest to it.</div>
+                    <div class="rule-example">
+                        • Either the teacher or the students are responsible for the issue.<br>
+                        • Either the students or the teacher is responsible for the issue.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">7. Collective Nouns</div>
+                    <div class="rule-description">Collective nouns can take either singular or plural verbs based on whether the group is considered as a unit or as individuals.</div>
+                    <div class="rule-example">
+                        • The team is winning. (singular)<br>
+                        • The team are arguing amongst themselves. (plural)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">8. With, As Well As, Along With</div>
+                    <div class="rule-description">When used with "with," "as well as," or "along with," the verb agrees with the first subject.</div>
+                    <div class="rule-example">• The teacher, along with the students, is excited about the event.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">9. Singular Subjects with "Each" or "Every"</div>
+                    <div class="rule-description">Singular subjects preceded by "each" or "every" take singular verbs.</div>
+                    <div class="rule-example">• Each of the students has completed the task.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">10. Subject-Verb Agreement with Uncountable Nouns</div>
+                    <div class="rule-description">Uncountable nouns take singular verbs.</div>
+                    <div class="rule-example">• The information is accurate.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">11. Use of "There is/There are"</div>
+                    <div class="rule-description">"There is" is used for singular subjects, and "there are" is used for plural subjects.</div>
+                    <div class="rule-example">
+                        • There is a book on the table.<br>
+                        • There are many books on the table.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">12. The Verb "to be"</div>
+                    <div class="rule-description">The verb "to be" must agree with the subject in both number and person.</div>
+                    <div class="rule-example">
+                        • She is a doctor.<br>
+                        • They are doctors.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">13. Helping Verbs with "Not"</div>
+                    <div class="rule-description">When a sentence contains a helping verb with "not," the verb still agrees with the subject.</div>
+                    <div class="rule-example">• She is not coming to the party.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">14. Verb Forms with Modal Verbs</div>
+                    <div class="rule-description">Modal verbs (can, could, will, would, etc.) are followed by the base form of the verb.</div>
+                    <div class="rule-example">• He can swim fast.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">15. Use of "Have" vs. "Has"</div>
+                    <div class="rule-description">"Has" is used for singular subjects (he, she, it), while "have" is used for plural subjects.</div>
+                    <div class="rule-example">
+                        • She has a book.<br>
+                        • They have books.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">16. Adjectives vs. Adverbs</div>
+                    <div class="rule-description">Adjectives modify nouns; adverbs modify verbs, adjectives, or other adverbs.</div>
+                    <div class="rule-example">
+                        • She is a good singer. (adjective modifying noun)<br>
+                        • She sings well. (adverb modifying verb)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">17. Comparative Adjectives</div>
+                    <div class="rule-description">Comparative adjectives are used to compare two things. They typically end in "-er" or use "more."</div>
+                    <div class="rule-example">• This car is faster than that one.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">18. Superlative Adjectives</div>
+                    <div class="rule-description">Superlative adjectives are used to compare more than two things. They typically end in "-est" or use "most."</div>
+                    <div class="rule-example">• This is the fastest car in the race.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">19. Double Negatives</div>
+                    <div class="rule-description">Avoid using two negatives in the same sentence.</div>
+                    <div class="rule-example">
+                        • I don't need any help. (Correct)<br>
+                        • I don't need no help. (Incorrect)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">20. Possessive Nouns</div>
+                    <div class="rule-description">Add an apostrophe and "s" to form the possessive of singular nouns.</div>
+                    <div class="rule-example">• John's book is on the table.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">21. Possessive Pronouns</div>
+                    <div class="rule-description">Possessive pronouns show ownership and do not require an apostrophe.</div>
+                    <div class="rule-example">• This book is mine.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">22. Use of Articles ("a", "an", "the")</div>
+                    <div class="rule-description">Use "a" or "an" for non-specific items and "the" for specific items.</div>
+                    <div class="rule-example">
+                        • I saw a cat.<br>
+                        • The cat is under the table.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">23. Countable vs. Uncountable Nouns</div>
+                    <div class="rule-description">Countable nouns can be counted, while uncountable nouns cannot.</div>
+                    <div class="rule-example">
+                        • I have two books. (countable)<br>
+                        • I need some water. (uncountable)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">24. Conjunctions</div>
+                    <div class="rule-description">Conjunctions are words used to link clauses or sentences.</div>
+                    <div class="rule-example">• I want to go to the park, but it's raining.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">25. Correlative Conjunctions</div>
+                    <div class="rule-description">Pairs of conjunctions that work together to join ideas.</div>
+                    <div class="rule-example">• Either you go, or I will go.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">26. Prepositions of Time</div>
+                    <div class="rule-description">Use "in," "on," and "at" to indicate time.</div>
+                    <div class="rule-example">
+                        • I will see you in the morning.<br>
+                        • The meeting is on Monday.<br>
+                        • I will leave at 6 PM.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">27. Prepositions of Place</div>
+                    <div class="rule-description">Use prepositions like "at," "in," "on," etc., to describe location.</div>
+                    <div class="rule-example">• The book is on the table.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">28. Question Formation</div>
+                    <div class="rule-description">Begin questions with auxiliary verbs, followed by the subject and the main verb.</div>
+                    <div class="rule-example">• Do you like coffee?</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">29. Conditional Sentences</div>
+                    <div class="rule-description">Conditional sentences express hypothetical situations and their results.</div>
+                    <div class="rule-example">• If I study, I will pass the exam.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">30. Subject-Verb Agreement in Conditional Sentences</div>
+                    <div class="rule-description">In conditional sentences, the verb form depends on the type of condition.</div>
+                    <div class="rule-example">
+                        • If he studies, he will pass. (First conditional)<br>
+                        • If I had studied, I would have passed. (Third conditional)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">31. Direct and Indirect Speech</div>
+                    <div class="rule-description">Direct speech quotes the exact words, while indirect speech paraphrases the words.</div>
+                    <div class="rule-example">
+                        • He said, "I am tired." (direct)<br>
+                        • He said that he was tired. (indirect)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">32. Adverb Placement</div>
+                    <div class="rule-description">Adverbs typically come after the verb or at the beginning or end of a sentence.</div>
+                    <div class="rule-example">• She speaks fluently.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">33. Use of "Much" and "Many"</div>
+                    <div class="rule-description">"Much" is used with uncountable nouns, while "many" is used with countable nouns.</div>
+                    <div class="rule-example">
+                        • I don't have much time.<br>
+                        • I don't have many books.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">34. Use of "Few" and "A Few"</div>
+                    <div class="rule-description">"Few" implies a small quantity (negative), while "a few" implies a small but positive quantity.</div>
+                    <div class="rule-example">
+                        • I have a few friends.<br>
+                        • I have few friends.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">35. Use of "Little" and "A Little"</div>
+                    <div class="rule-description">"Little" suggests a small amount (negative), while "a little" suggests a small but positive amount.</div>
+                    <div class="rule-example">
+                        • I have a little money.<br>
+                        • I have little money.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">36. "So" vs. "Such"</div>
+                    <div class="rule-description">"So" is used with adjectives/adverbs, and "such" is used with nouns.</div>
+                    <div class="rule-example">
+                        • She is so beautiful.<br>
+                        • She is such a beautiful woman.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">37. Adjective Order</div>
+                    <div class="rule-description">Adjectives follow a specific order: quantity, opinion, size, age, shape, color, proper adjective, purpose.</div>
+                    <div class="rule-example">• She wore a beautiful red leather jacket.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">38. Use of "Yet"</div>
+                    <div class="rule-description">"Yet" is used in negative sentences and questions to refer to something expected.</div>
+                    <div class="rule-example">
+                        • Have you finished your homework yet?<br>
+                        • She hasn't called yet.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">39. Use of "Still"</div>
+                    <div class="rule-description">"Still" is used to refer to an action that continues to happen.</div>
+                    <div class="rule-example">• She is still working.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">40. Verb "To Be" in Passive Voice</div>
+                    <div class="rule-description">In passive voice, the subject receives the action.</div>
+                    <div class="rule-example">• The book was read by her.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">41. The Use of "Since" and "For"</div>
+                    <div class="rule-description">"Since" is used with a specific time or point in the past, while "for" is used with a period of time.</div>
+                    <div class="rule-example">
+                        • I have been studying since 9 AM.<br>
+                        • I have been studying for two hours.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">42. Correct Use of "Too" and "Enough"</div>
+                    <div class="rule-description">"Too" means "more than necessary," while "enough" means "sufficient."</div>
+                    <div class="rule-example">
+                        • It's too hot outside.<br>
+                        • I have enough money.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">43. Use of "Each" vs. "Every"</div>
+                    <div class="rule-description">"Each" refers to individual items, while "every" refers to all items collectively.</div>
+                    <div class="rule-example">
+                        • Each student has a pencil.<br>
+                        • Every student has a pencil.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">44. Placing Modifiers</div>
+                    <div class="rule-description">Place modifiers next to the word they modify.</div>
+                    <div class="rule-example">
+                        • She nearly drove the car into the ditch.<br>
+                        • (Incorrect: She drove nearly the car into the ditch.)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">45. Avoiding Dangling Modifiers</div>
+                    <div class="rule-description">A dangling modifier is a descriptive phrase that doesn't clearly connect to the subject of the sentence.</div>
+                    <div class="rule-example">
+                        • Running through the park, I saw a dog.<br>
+                        • (Incorrect: Running through the park, the dog was seen.)
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">46. Use of "Either...or"</div>
+                    <div class="rule-description">Use "either...or" to express a choice between two things.</div>
+                    <div class="rule-example">• You can either go with me or stay home.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">47. "Neither...nor"</div>
+                    <div class="rule-description">Use "neither...nor" to express a negative choice.</div>
+                    <div class="rule-example">• Neither the teacher nor the student was present.</div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">48. Gerunds and Infinitives</div>
+                    <div class="rule-description">Some verbs are followed by a gerund (verb + ing) or an infinitive (to + verb), depending on the verb.</div>
+                    <div class="rule-example">
+                        • I enjoy reading.<br>
+                        • I decided to read.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">49. Use of "Some" and "Any"</div>
+                    <div class="rule-description">"Some" is used in affirmative sentences and offers/requests, while "any" is used in negative sentences and questions.</div>
+                    <div class="rule-example">
+                        • I have some books.<br>
+                        • Do you have any books?
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-title">50. Split Infinitive</div>
+                    <div class="rule-description">A split infinitive occurs when an adverb or other word separates "to" from the verb.</div>
+                    <div class="rule-example">
+                        • She decided to boldly go where no one has gone before.<br>
+                        • (Avoid: She decided boldly to go where no one has gone before.)
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">51. Punctuation with Quotation Marks</div>
+                    <div class="rule-description">Use quotation marks to enclose direct speech or quotes.</div>
+                    <div class="rule-example">• She said, "I will go to the market."</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">52. Comma Use</div>
+                    <div class="rule-description">Use commas to separate items in a list, after introductory elements, and before conjunctions in compound sentences.</div>
+                    <div class="rule-example">
+                        • I bought apples, oranges, and bananas.<br>
+                        • After the meeting, we went for lunch.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="word-order">
+                    <div class="rule-title">100. Correct Word Order in Statements</div>
+                    <div class="rule-description">In a statement, the subject comes first, followed by the verb and then the object.</div>
+                    <div class="rule-example">• She reads a book.</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">53. Semicolons in Compound Sentences</div>
+                    <div class="rule-description">Use a semicolon to join two independent clauses without a conjunction.</div>
+                    <div class="rule-example">• I went to the store; I forgot to buy milk.</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">54. Colon Use</div>
+                    <div class="rule-description">Use a colon to introduce a list, an explanation, or a quote.</div>
+                    <div class="rule-example">• The ingredients are as follows: eggs, flour, sugar, and butter.</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">55. Apostrophe for Possession</div>
+                    <div class="rule-description">Use an apostrophe to show possession, adding it to singular nouns and plural nouns that do not end in "s."</div>
+                    <div class="rule-example">
+                        • Tom's car is red.<br>
+                        • The children's toys are scattered around.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">56. Apostrophe in Plural Possessives</div>
+                    <div class="rule-description">For plural nouns ending in "s," add just an apostrophe to show possession.</div>
+                    <div class="rule-example">• The teachers' lounge is on the second floor.</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">57. Hyphen for Compound Adjectives</div>
+                    <div class="rule-description">Use a hyphen to connect two or more words serving as a single adjective before a noun.</div>
+                    <div class="rule-example">• A well-known author is giving a lecture.</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">58. Avoiding Comma Splices</div>
+                    <div class="rule-description">Don't join two independent clauses with just a comma. Use a conjunction, semicolon, or separate the clauses into two sentences.</div>
+                    <div class="rule-example">
+                        • She went to the store, and she bought some snacks.<br>
+                        • (Incorrect: She went to the store, she bought some snacks.)
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">59. The Oxford Comma</div>
+                    <div class="rule-description">Use a comma before "and" or "or" in a list of three or more items.</div>
+                    <div class="rule-example">• I bought apples, bananas, and oranges.</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">60. Quotation Marks for Titles</div>
+                    <div class="rule-description">Use quotation marks for short works such as articles, poems, or songs.</div>
+                    <div class="rule-example">• I read the article "The Future of Technology."</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">61. Ellipsis</div>
+                    <div class="rule-description">Use an ellipsis (...) to show omitted text or an unfinished thought.</div>
+                    <div class="rule-example">• She said she would call me when she arrives, but...</div>
+                </div>
+
+                <div class="rule-item" data-category="punctuation">
+                    <div class="rule-title">62. Using Parentheses</div>
+                    <div class="rule-description">Use parentheses to add extra information or clarifications without breaking the flow of the sentence.</div>
+                    <div class="rule-example">• He gave her a gift (a necklace) for her birthday.</div>
+                </div>
+
+                <div class="rule-item" data-category="subject-verb">
+                    <div class="rule-title">63. Subject-Verb Agreement in Complex Sentences</div>
+                    <div class="rule-description">In a complex sentence, the verb agrees with the main subject, not the subject of a dependent clause.</div>
+                    <div class="rule-example">• The dog, along with the cats, is playing outside.</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">64. "Who" vs. "Whom"</div>
+                    <div class="rule-description">"Who" is used as a subject, and "whom" is used as an object.</div>
+                    <div class="rule-example">
+                        • Who is coming to the party?<br>
+                        • To whom did you give the book?
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="modifiers">
+                    <div class="rule-title">65. Dangling Modifiers</div>
+                    <div class="rule-description">A dangling modifier should be attached to the noun or pronoun it modifies.</div>
+                    <div class="rule-example">
+                        • Having finished the test, she relaxed.<br>
+                        • (Incorrect: Having finished the test, the book was placed on the table.)
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="modifiers">
+                    <div class="rule-title">66. Adverbial Phrases</div>
+                    <div class="rule-description">Adverbial phrases modify verbs, adjectives, or other adverbs to give more information about time, manner, place, etc.</div>
+                    <div class="rule-example">• He arrived late at the meeting.</div>
+                </div>
+
+                <div class="rule-item" data-category="conditionals">
+                    <div class="rule-title">67. Conditional Clauses (First Conditional)</div>
+                    <div class="rule-description">The first conditional talks about a possible future situation.</div>
+                    <div class="rule-example">• If it rains, I will bring an umbrella.</div>
+                </div>
+
+                <div class="rule-item" data-category="conditionals">
+                    <div class="rule-title">68. Conditional Clauses (Second Conditional)</div>
+                    <div class="rule-description">The second conditional talks about hypothetical or unlikely situations.</div>
+                    <div class="rule-example">• If I were you, I would study harder.</div>
+                </div>
+
+                <div class="rule-item" data-category="conditionals">
+                    <div class="rule-title">69. Conditional Clauses (Third Conditional)</div>
+                    <div class="rule-description">The third conditional refers to an impossible situation or something that didn't happen in the past.</div>
+                    <div class="rule-example">• If I had studied harder, I would have passed the exam.</div>
+                </div>
+
+                <div class="rule-item" data-category="word-order">
+                    <div class="rule-title">70. Inverted Word Order for Emphasis</div>
+                    <div class="rule-description">In questions and with negative adverbs, invert the subject and verb.</div>
+                    <div class="rule-example">
+                        • Never have I seen such beauty.<br>
+                        • Is she coming to the party?
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="sentence-structure">
+                    <div class="rule-title">71. Parallel Structure</div>
+                    <div class="rule-description">Ensure that all parts of a sentence that are similar in function are also similar in structure.</div>
+                    <div class="rule-example">• She enjoys running, swimming, and biking. (Not: She enjoys running, to swim, and biking.)</div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">72. Use of "Fewer" vs. "Less"</div>
+                    <div class="rule-description">Use "fewer" for countable nouns and "less" for uncountable nouns.</div>
+                    <div class="rule-example">
+                        • I have fewer books than she does.<br>
+                        • I have less time than she does.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">73. Use of "Than" vs. "Then"</div>
+                    <div class="rule-description">"Than" is used for comparisons, and "then" refers to time or sequence.</div>
+                    <div class="rule-example">
+                        • She is taller than me.<br>
+                        • We went to the store, and then we went to the park.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">74. "As" vs. "Like"</div>
+                    <div class="rule-description">Use "as" when comparing actions or roles, and "like" when comparing nouns.</div>
+                    <div class="rule-example">
+                        • She acts as a teacher.<br>
+                        • He runs like a cheetah.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">75. Correct Use of "Affect" and "Effect"</div>
+                    <div class="rule-description">"Affect" is a verb (to influence), and "effect" is a noun (a result).</div>
+                    <div class="rule-example">
+                        • The weather can affect your mood.<br>
+                        • The effect of the storm was widespread.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">76. Correct Use of "Accept" and "Except"</div>
+                    <div class="rule-description">"Accept" means to receive, and "except" means excluding.</div>
+                    <div class="rule-example">
+                        • She accepted the invitation.<br>
+                        • Everyone except John was invited.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">77. "Between" vs. "Among"</div>
+                    <div class="rule-description">Use "between" when referring to two things and "among" when referring to more than two.</div>
+                    <div class="rule-example">
+                        • The discussion was between Jack and Jill.<br>
+                        • The secrets were shared among the group.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">78. "May" vs. "Might"</div>
+                    <div class="rule-description">"May" is used for more likely possibilities, while "might" indicates a more uncertain possibility.</div>
+                    <div class="rule-example">
+                        • I may go to the party if I finish my work.<br>
+                        • I might go to the party if I feel like it.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">79. Use of "Since" and "For" with Present Perfect</div>
+                    <div class="rule-description">"Since" is used for specific times, and "for" is used for periods of time.</div>
+                    <div class="rule-example">
+                        • I have lived here since 2010.<br>
+                        • I have lived here for 10 years.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">80. Correct Use of "Who" and "That"</div>
+                    <div class="rule-description">"Who" is used for people, and "that" is used for things or groups.</div>
+                    <div class="rule-example">
+                        • The woman who called you is my mother.<br>
+                        • The book that you gave me is on the table.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">81. Use of "Who" vs. "Whom"</div>
+                    <div class="rule-description">"Who" is used as a subject, and "whom" is used as an object.</div>
+                    <div class="rule-example">
+                        • Who is coming to dinner?<br>
+                        • To whom did you give the book?
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">82. Use of "Will" vs. "Shall"</div>
+                    <div class="rule-description">"Will" is used for future actions in all persons, and "shall" is used with "I" and "we" for formal or traditional use.</div>
+                    <div class="rule-example">
+                        • I will go to the store tomorrow.<br>
+                        • We shall overcome this challenge.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">83. Correct Use of "Each Other" and "One Another"</div>
+                    <div class="rule-description">"Each other" refers to two people, and "one another" refers to more than two people.</div>
+                    <div class="rule-example">
+                        • They hugged each other.<br>
+                        • The team members help one another.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">84. Use of "Less" vs. "Fewer"</div>
+                    <div class="rule-description">"Fewer" is used for countable nouns, and "less" is used for uncountable nouns.</div>
+                    <div class="rule-example">
+                        • There are fewer books on the shelf.<br>
+                        • I have less work to do today.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="sentence-structure">
+                    <div class="rule-title">85. Sentence Fragments</div>
+                    <div class="rule-description">A complete sentence must have a subject and a predicate.</div>
+                    <div class="rule-example">
+                        • I went to the store. (Complete)<br>
+                        • Going to the store. (Fragment)
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="sentence-structure">
+                    <div class="rule-title">86. Avoiding Run-on Sentences</div>
+                    <div class="rule-description">A run-on sentence happens when two independent clauses are improperly joined.</div>
+                    <div class="rule-example">
+                        • I love reading, I don't have time to read every day.<br>
+                        • (Correct: I love reading, but I don't have time to read every day.)
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">87. Correct Use of "A" and "An"</div>
+                    <div class="rule-description">Use "a" before words that begin with consonant sounds, and "an" before words that begin with vowel sounds.</div>
+                    <div class="rule-example">
+                        • I have a book.<br>
+                        • I have an apple.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">88. Correct Use of "Much" and "Many"</div>
+                    <div class="rule-description">Use "much" for uncountable nouns and "many" for countable nouns.</div>
+                    <div class="rule-example">
+                        • I have much work to do.<br>
+                        • I have many friends.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">89. Subject Pronouns</div>
+                    <div class="rule-description">Use subject pronouns when they are the subject of a sentence.</div>
+                    <div class="rule-example">• She is my friend.</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">90. Object Pronouns</div>
+                    <div class="rule-description">Use object pronouns when they are the object of the sentence.</div>
+                    <div class="rule-example">• He saw her at the store.</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">91. Possessive Pronouns</div>
+                    <div class="rule-description">Possessive pronouns show ownership and do not require an apostrophe.</div>
+                    <div class="rule-example">• This book is mine.</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">92. Reflexive Pronouns</div>
+                    <div class="rule-description">Reflexive pronouns (myself, yourself, etc.) refer back to the subject.</div>
+                    <div class="rule-example">• I did it myself.</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">93. Reciprocal Pronouns</div>
+                    <div class="rule-description">"Each other" and "one another" refer to mutual actions or feelings.</div>
+                    <div class="rule-example">• They love each other.</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">94. Demonstrative Pronouns</div>
+                    <div class="rule-description">Demonstrative pronouns (this, that, these, those) point to specific things or people.</div>
+                    <div class="rule-example">• This is my pen.</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">95. Interrogative Pronouns</div>
+                    <div class="rule-description">Interrogative pronouns (who, what, which, etc.) are used to ask questions.</div>
+                    <div class="rule-example">• Who is that person?</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">96. Use of "Whose"</div>
+                    <div class="rule-description">"Whose" is used to show possession in questions.</div>
+                    <div class="rule-example">• Whose book is this?</div>
+                </div>
+
+                <div class="rule-item" data-category="pronouns">
+                    <div class="rule-title">97. Emphasizing Pronouns</div>
+                    <div class="rule-description">Emphasizing pronouns are used to give special importance to the noun they modify.</div>
+                    <div class="rule-example">• I did it myself.</div>
+                </div>
+
+                <div class="rule-item" data-category="usage">
+                    <div class="rule-title">98. Correct Use of "That" and "Which"</div>
+                    <div class="rule-description">"That" is used for essential clauses, and "which" is used for non-essential clauses.</div>
+                    <div class="rule-example">
+                        • The book that you gave me is great.<br>
+                        • The book, which you gave me, is great.
+                    </div>
+                </div>
+
+                <div class="rule-item" data-category="sentence-structure">
+                    <div class="rule-title">99. Direct vs. Indirect Object</div>
+                    <div class="rule-description">Direct objects receive the action of the verb, while indirect objects receive the benefit of the action.</div>
+                    <div class="rule-example">• I gave him the book. (Direct object: book, Indirect object: him)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const rulesList = document.getElementById('rulesList');
+        const ruleItems = document.querySelectorAll('.rule-item');
+        const filterTags = document.querySelectorAll('.filter-tag');
+
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            ruleItems.forEach(item => {
+                const title = item.querySelector('.rule-title').textContent.toLowerCase();
+                const description = item.querySelector('.rule-description').textContent.toLowerCase();
+                const example = item.querySelector('.rule-example').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || example.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter functionality
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // Update active state
+                filterTags.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter rules
+                ruleItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

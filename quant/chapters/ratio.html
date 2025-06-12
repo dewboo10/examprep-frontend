@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratio & Proportion - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+        
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+            height: 200px;
+            margin: 1rem 0;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: white;
+        }
+        
+        .flip-card-back {
+            background: white;
+            transform: rotateY(180deg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: #e2e8f0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            width: 50%;
+            padding: 0 2rem;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #3b82f6;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Ratio & Proportion
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of ratios and proportions with our comprehensive guide.
+                Learn about direct and inverse proportions, applications, and problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#proportions" class="nav-link block">2. Proportions</a>
+                        <a href="#applications" class="nav-link block">3. Applications</a>
+                        <a href="#mixtures" class="nav-link block">4. Mixtures & Alligations</a>
+                        <a href="#advanced" class="nav-link block">5. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Ratios</h3>
+                        <p class="text-gray-600">A ratio is a comparison of two quantities of the same kind using division.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Basic Ratio Formula:</p>
+                            <p>Ratio of a to b = a:b = a/b</p>
+                            <p>Properties:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Ratios can be simplified</li>
+                                <li>Ratios can be multiplied or divided by the same number</li>
+                                <li>Ratios can be added or subtracted when they have the same denominator</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Ratio</p>
+                            <p>If there are 20 boys and 30 girls in a class:</p>
+                            <p>Ratio of boys to girls = 20:30 = 2:3</p>
+                            <p>Ratio of girls to boys = 30:20 = 3:2</p>
+                        </div>
+
+                        <div class="chart-container">
+                            <h4 class="text-lg font-semibold mb-4">Ratio Visualization</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%;"></div>
+                            </div>
+                            <p class="text-sm text-gray-600">Boys: 40%</p>
+                            <div class="progress-bar mt-2">
+                                <div class="progress-fill" style="width: 60%;"></div>
+                            </div>
+                            <p class="text-sm text-gray-600">Girls: 60%</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Types of Ratios</h3>
+                        <p class="text-gray-600">Different types of ratios and their applications.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Common Ratio Types:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Simple Ratio: a:b</li>
+                                <li>Compound Ratio: (a:b) × (c:d) = (ac:bd)</li>
+                                <li>Duplicate Ratio: (a:b)² = (a²:b²)</li>
+                                <li>Triplicate Ratio: (a:b)³ = (a³:b³)</li>
+                                <li>Sub-duplicate Ratio: √(a:b) = (√a:√b)</li>
+                                <li>Sub-triplicate Ratio: ∛(a:b) = (∛a:∛b)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Compound Ratio</p>
+                            <p>If A:B = 2:3 and B:C = 4:5</p>
+                            <p>Then A:B:C = 2:3:5</p>
+                            <p>Compound ratio = (2:3) × (4:5) = 8:15</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Proportions -->
+                <section id="proportions" class="content-section card p-6">
+                    <h2 class="section-title">2. Proportions</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Direct Proportion</h3>
+                        <p class="text-gray-600">When two quantities increase or decrease together in the same ratio.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Direct Proportion Formula:</p>
+                            <p>If a ∝ b, then a = kb</p>
+                            <p>where k is the constant of proportionality</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Direct Proportion</p>
+                            <p>If 5 books cost ₹250, then 8 books will cost:</p>
+                            <p>Cost ∝ Number of books</p>
+                            <p>Cost = k × Number of books</p>
+                            <p>250 = k × 5</p>
+                            <p>k = 50</p>
+                            <p>Cost for 8 books = 50 × 8 = ₹400</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Inverse Proportion</h3>
+                        <p class="text-gray-600">When one quantity increases while the other decreases in the same ratio.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Inverse Proportion Formula:</p>
+                            <p>If a ∝ 1/b, then a = k/b</p>
+                            <p>where k is the constant of proportionality</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Inverse Proportion</p>
+                            <p>If 10 workers can complete a work in 6 days, then 15 workers will take:</p>
+                            <p>Number of workers ∝ 1/Time taken</p>
+                            <p>10 × 6 = 15 × x</p>
+                            <p>x = 4 days</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Applications -->
+                <section id="applications" class="content-section card p-6">
+                    <h2 class="section-title">3. Applications</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Partnership</h3>
+                        <p class="text-gray-600">Distribution of profits based on investment ratios.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Partnership Formula:</p>
+                            <p>Profit Share ∝ Investment × Time</p>
+                            <p>Profit Share = (Investment × Time) / Total (Investment × Time)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Partnership</p>
+                            <p>A invests ₹5000 for 6 months</p>
+                            <p>B invests ₹6000 for 4 months</p>
+                            <p>Total profit = ₹1000</p>
+                            <p>Profit ratio = (5000 × 6):(6000 × 4) = 5:4</p>
+                            <p>A's share = (5/9) × 1000 = ₹555.56</p>
+                            <p>B's share = (4/9) × 1000 = ₹444.44</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Time and Work</h3>
+                        <p class="text-gray-600">Application of ratios in work efficiency problems.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Work Efficiency Formula:</p>
+                            <p>Work Done ∝ Time × Efficiency</p>
+                            <p>Efficiency Ratio = Time taken by B/Time taken by A</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 6: Work Efficiency</p>
+                            <p>A takes 6 days, B takes 8 days</p>
+                            <p>Efficiency ratio = 8:6 = 4:3</p>
+                            <p>A is 4/3 times more efficient than B</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mixtures & Alligations -->
+                <section id="mixtures" class="content-section card p-6">
+                    <h2 class="section-title">4. Mixtures & Alligations</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Alligation Rule</h3>
+                        <p class="text-gray-600">Method to find the ratio in which two or more ingredients must be mixed.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Alligation Formula:</p>
+                            <p>Quantity of cheaper/Quantity of dearer = (Price of dearer - Mean price)/(Mean price - Price of cheaper)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Alligation</p>
+                            <p>Mix two types of rice costing ₹20/kg and ₹30/kg to get rice at ₹25/kg</p>
+                            <p>Ratio = (30-25):(25-20) = 5:5 = 1:1</p>
+                            <p>Mix equal quantities of both types</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Mixture Problems</h3>
+                        <p class="text-gray-600">Solving problems involving mixtures of different concentrations.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Mixture Formula:</p>
+                            <p>Final concentration = (C₁V₁ + C₂V₂)/(V₁ + V₂)</p>
+                            <p>where C is concentration and V is volume</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 8: Mixture</p>
+                            <p>Mix 2L of 20% solution with 3L of 30% solution</p>
+                            <p>Final concentration = (20×2 + 30×3)/(2+3) = 26%</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">5. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Continued Proportion</h3>
+                        <p class="text-gray-600">When three or more quantities are in proportion.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Continued Proportion Formula:</p>
+                            <p>If a:b = b:c, then b² = ac</p>
+                            <p>b is called the mean proportional</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 9: Continued Proportion</p>
+                            <p>Find the mean proportional between 4 and 9</p>
+                            <p>Let the mean proportional be x</p>
+                            <p>4:x = x:9</p>
+                            <p>x² = 4 × 9 = 36</p>
+                            <p>x = 6</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Variation</h3>
+                        <p class="text-gray-600">Different types of variation and their applications.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Variation Formulas:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Direct Variation: y = kx</li>
+                                <li>Inverse Variation: y = k/x</li>
+                                <li>Joint Variation: z = kxy</li>
+                                <li>Combined Variation: z = kx/y</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 10: Combined Variation</p>
+                            <p>z varies directly as x and inversely as y</p>
+                            <p>When x = 4, y = 2, z = 6</p>
+                            <p>Find z when x = 6, y = 3</p>
+                            <p>z = kx/y</p>
+                            <p>6 = k(4/2)</p>
+                            <p>k = 3</p>
+                            <p>z = 3(6/3) = 6</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>If a:b = c:d, then a+b:a-b = c+d:c-d (Componendo-Dividendo)</li>
+                                <li>If a:b = c:d, then a+c:b+d = a:b = c:d</li>
+                                <li>If a:b = c:d, then a×c:b×d = a²:b²</li>
+                                <li>If a:b = c:d, then (a+b)²:(a-b)² = (c+d)²:(c-d)²</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 11: Componendo-Dividendo</p>
+                            <p>If a:b = 3:2, find (a+b):(a-b)</p>
+                            <p>Using Componendo-Dividendo:</p>
+                            <p>(a+b):(a-b) = (3+2):(3-2) = 5:1</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Animate progress bars
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('data-width');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.progress-fill').forEach(bar => {
+            bar.style.width = '0';
+            observer.observe(bar);
+        });
+    </script>
+</body>
+</html> 

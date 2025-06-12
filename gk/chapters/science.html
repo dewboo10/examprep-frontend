@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fact-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .fact-item:hover {
+            background: #e0f2fe;
+        }
+        
+        .fact-title {
+            color: #1e40af;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .fact-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Science Facts
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Essential science facts for competitive exams and government job preparation.
+            </p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Physics -->
+            <section id="physics" class="card p-8">
+                <h2 class="section-title">Physics</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Laws of Motion</div>
+                        <div class="fact-content">Newton's First Law: An object remains at rest or in uniform motion unless acted upon by an external force. Second Law: Force equals mass times acceleration (F=ma). Third Law: Every action has an equal and opposite reaction.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Gravitation</div>
+                        <div class="fact-content">Universal Law of Gravitation: F = G(m₁m₂)/r². G = 6.674 × 10⁻¹¹ N m²/kg². Earth's gravity: 9.8 m/s². Moon's gravity: 1.62 m/s² (1/6th of Earth's).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Energy</div>
+                        <div class="fact-content">Law of Conservation of Energy: Energy cannot be created or destroyed, only transformed. Kinetic Energy = ½mv². Potential Energy = mgh. Power = Work/Time.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Waves</div>
+                        <div class="fact-content">Sound travels faster in solids than in liquids and gases. Speed of sound in air: 343 m/s. Light travels at 3 × 10⁸ m/s in vacuum. Electromagnetic spectrum ranges from radio waves to gamma rays.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Electricity</div>
+                        <div class="fact-content">Ohm's Law: V = IR. Power = VI. Current is measured in amperes (A), voltage in volts (V), resistance in ohms (Ω). AC frequency in India: 50 Hz.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chemistry -->
+            <section id="chemistry" class="card p-8">
+                <h2 class="section-title">Chemistry</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Atomic Structure</div>
+                        <div class="fact-content">Atoms consist of protons (positive), neutrons (neutral), and electrons (negative). Atomic number = number of protons. Mass number = protons + neutrons. Isotopes have same atomic number but different mass numbers.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Periodic Table</div>
+                        <div class="fact-content">Modern periodic table has 118 elements. Groups: 18 vertical columns. Periods: 7 horizontal rows. Metals are on the left, non-metals on the right. Noble gases are in Group 18.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Chemical Bonding</div>
+                        <div class="fact-content">Ionic bonds form between metals and non-metals. Covalent bonds form between non-metals. Hydrogen bonds are weak bonds between hydrogen and electronegative atoms. Metallic bonds are between metal atoms.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Acids and Bases</div>
+                        <div class="fact-content">pH scale ranges from 0 (acidic) to 14 (basic). Neutral pH is 7. Acids turn blue litmus red. Bases turn red litmus blue. Common acid: HCl. Common base: NaOH.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Chemical Reactions</div>
+                        <div class="fact-content">Types: Combination, Decomposition, Displacement, Double Displacement. Exothermic reactions release heat. Endothermic reactions absorb heat. Catalysts speed up reactions without being consumed.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Biology -->
+            <section id="biology" class="card p-8">
+                <h2 class="section-title">Biology</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Cell Biology</div>
+                        <div class="fact-content">Cell is the basic unit of life. Prokaryotic cells lack nucleus. Eukaryotic cells have nucleus. Cell organelles: Mitochondria (powerhouse), Golgi body (packaging), ER (transport), Lysosomes (digestion).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Human Body</div>
+                        <div class="fact-content">206 bones in adult human body. 640 muscles. 5 liters of blood in average adult. Heart beats 60-100 times per minute. Normal body temperature: 37°C (98.6°F).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Digestive System</div>
+                        <div class="fact-content">Food path: Mouth → Esophagus → Stomach → Small Intestine → Large Intestine. Liver produces bile. Pancreas secretes insulin. Small intestine is 6-7 meters long.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Respiratory System</div>
+                        <div class="fact-content">Lungs contain 300-500 million alveoli. Normal breathing rate: 12-20 breaths per minute. Oxygen is carried by hemoglobin in red blood cells. CO₂ is transported as bicarbonate ions.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Nervous System</div>
+                        <div class="fact-content">Brain weighs about 1.4 kg. Contains 86 billion neurons. Spinal cord is about 45 cm long. Nervous system controls all body functions. Reflex actions are automatic responses.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Environmental Science -->
+            <section id="environmental" class="card p-8">
+                <h2 class="section-title">Environmental Science</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Ecosystems</div>
+                        <div class="fact-content">Food chain shows energy flow. Food web shows complex interactions. Producers (plants) → Consumers (animals) → Decomposers (bacteria/fungi). Energy is lost at each trophic level.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Pollution</div>
+                        <div class="fact-content">Types: Air, Water, Soil, Noise. Air Quality Index (AQI) measures air pollution. BOD (Biological Oxygen Demand) measures water pollution. Noise pollution is measured in decibels (dB).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Climate Change</div>
+                        <div class="fact-content">Global warming is caused by greenhouse gases (CO₂, CH₄, N₂O). Earth's temperature has risen by 1.1°C since 1880. Sea levels rising at 3.3 mm per year. Paris Agreement aims to limit warming to 1.5°C.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Conservation</div>
+                        <div class="fact-content">India has 104 National Parks. 551 Wildlife Sanctuaries. 18 Biosphere Reserves. Project Tiger started in 1973. Project Elephant in 1992.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Renewable Energy</div>
+                        <div class="fact-content">Solar energy is most abundant. Wind energy is fastest growing. Hydropower is most used renewable. India aims for 500 GW renewable energy by 2030. Nuclear energy is clean but non-renewable.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Space Science -->
+            <section id="space" class="card p-8">
+                <h2 class="section-title">Space Science</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Solar System</div>
+                        <div class="fact-content">8 planets: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune. Sun's surface temperature: 5,500°C. Earth's distance from Sun: 150 million km. Moon's distance: 384,400 km.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">ISRO Achievements</div>
+                        <div class="fact-content">First satellite: Aryabhata (1975). First Moon mission: Chandrayaan-1 (2008). First Mars mission: Mangalyaan (2013). First Sun mission: Aditya-L1 (2023). GSLV Mk III is heaviest rocket.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Space Technology</div>
+                        <div class="fact-content">Satellites orbit at different heights: LEO (200-2000 km), MEO (2000-35786 km), GEO (35786 km). GPS uses 24 satellites. ISS orbits at 400 km. Space debris is a growing concern.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Astronomy</div>
+                        <div class="fact-content">Milky Way has 100-400 billion stars. Andromeda is nearest galaxy. Light year = 9.46 trillion km. Black holes have infinite density. Big Bang occurred 13.8 billion years ago.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Space Missions</div>
+                        <div class="fact-content">Gaganyaan: India's first manned mission. Chandrayaan-3: First soft landing near Moon's south pole. Aditya-L1: First Indian solar mission. NISAR: Joint NASA-ISRO Earth observation mission.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technology -->
+            <section id="technology" class="card p-8">
+                <h2 class="section-title">Technology</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Computers</div>
+                        <div class="fact-content">CPU is brain of computer. RAM is temporary memory. ROM is permanent memory. Binary system uses 0 and 1. 1 byte = 8 bits. 1 kilobyte = 1024 bytes.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Internet</div>
+                        <div class="fact-content">TCP/IP is basic protocol. HTTP is for web pages. HTTPS is secure version. DNS converts domain names to IP addresses. IPv4 uses 32-bit addresses. IPv6 uses 128-bit addresses.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mobile Technology</div>
+                        <div class="fact-content">5G offers speeds up to 10 Gbps. 4G offers up to 100 Mbps. SIM card stores subscriber information. IMEI is unique device identifier. Mobile number portability allows changing operators.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Artificial Intelligence</div>
+                        <div class="fact-content">Machine Learning is subset of AI. Deep Learning uses neural networks. Natural Language Processing enables human-computer interaction. Computer Vision enables image recognition.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Cybersecurity</div>
+                        <div class="fact-content">Encryption protects data. Firewall blocks unauthorized access. VPN provides secure connection. Malware includes viruses, worms, trojans. Two-factor authentication adds security layer.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html> 

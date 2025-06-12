@@ -1,0 +1,602 @@
+<!-- games/flag-flash.html -->
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🎲 Cube Visualizer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+    }
+    
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .cube-container {
+        perspective: 1000px;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+    
+    .cube {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 1s;
+    }
+    
+    .cube-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 2px solid #4f46e5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: bold;
+        background: rgba(255, 255, 255, 0.9);
+        backface-visibility: visible;
+    }
+    
+    .front  { transform: translateZ(100px); }
+    .back   { transform: rotateY(180deg) translateZ(100px); }
+    .right  { transform: rotateY(90deg) translateZ(100px); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .top    { transform: rotateX(90deg) translateZ(100px); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); }
+    
+    .dice-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .dice {
+        aspect-ratio: 1;
+        background: white;
+        border: 2px solid #4f46e5;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .dice:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .option-btn {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+        padding: 12px 20px;
+        line-height: 1.4;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .option-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .correct-answer {
+        animation: pulse 0.6s ease;
+        background-color: #10b981 !important;
+        color: white !important;
+    }
+    
+    .wrong-answer {
+        animation: shake 0.5s ease;
+        background-color: #ef4444 !important;
+        color: white !important;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-8px); }
+        80% { transform: translateX(8px); }
+    }
+    
+    .streak-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f59e0b;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        animation: pulse 1s infinite;
+    }
+</style>
+</head>
+<body class="min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="card p-6 relative">
+            <!-- Header -->
+            <header class="text-center mb-8">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <i class="fas fa-dice mr-2"></i>Cube Visualizer
+                </h1>
+                <p class="text-gray-600 mt-2">Test your spatial reasoning and pattern recognition!</p>
+            </header>
+            
+            <!-- Level selection -->
+            <div id="levelScreen" class="text-center">
+                <h2 class="text-2xl font-bold mb-6 text-blue-600">Select Difficulty Level</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="level-card p-6 rounded-2xl text-center bg-green-50 border-2 border-green-500 cursor-pointer" data-level="easy">
+                        <div class="text-5xl mb-4">🌱</div>
+                        <h3 class="font-bold text-xl mb-2">Beginner</h3>
+                        <p class="text-gray-600 mb-3">Basic cube patterns</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                    
+                    <div class="level-card p-6 rounded-2xl text-center bg-yellow-50 border-2 border-yellow-500 cursor-pointer" data-level="medium">
+                        <div class="text-5xl mb-4">🌿</div>
+                        <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+                        <p class="text-gray-600 mb-3">Complex patterns</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                    
+                    <div class="level-card p-6 rounded-2xl text-center bg-red-50 border-2 border-red-500 cursor-pointer" data-level="hard">
+                        <div class="text-5xl mb-4">🔥</div>
+                        <h3 class="font-bold text-xl mb-2">Advanced</h3>
+                        <p class="text-gray-600 mb-3">Expert patterns</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game screen -->
+            <div id="gameScreen" class="hidden">
+                <!-- Game stats -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-left">
+                        <div class="text-sm text-gray-600">Time Left</div>
+                        <div class="text-xl font-bold" id="timer">180s</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Score</div>
+                        <div class="text-xl font-bold" id="score">0</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Best Score</div>
+                        <div class="text-xl font-bold" id="bestScore">0</div>
+                    </div>
+                </div>
+                
+                <!-- Visualization area -->
+                <div id="visualizationArea" class="mb-6">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+                
+                <!-- Question area -->
+                <div class="text-center mb-6">
+                    <p class="text-gray-700 text-lg" id="questionText">Loading question...</p>
+                </div>
+                
+                <!-- Options area -->
+                <div class="space-y-3 mb-6" id="options"></div>
+                
+                <!-- Feedback area -->
+                <div id="feedback" class="text-center min-h-[24px] mb-4"></div>
+                
+                <!-- Retry button -->
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium hidden transition transform hover:scale-105" id="retryBtn">
+                    Play Again
+                </button>
+                
+                <!-- Streak indicator -->
+                <div id="streakIndicator" class="streak-indicator hidden">
+                    <i class="fas fa-fire mr-1"></i> <span id="streakCount">0</span> streak!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gameData = {
+            levels: {
+                easy: {
+                    name: "Beginner",
+                    icon: "🌱",
+                    questions: [
+                        {
+                            type: "cube",
+                            question: "What number is on the opposite face of 1?",
+                            cube: {
+                                front: 1,
+                                back: 6,
+                                left: 2,
+                                right: 5,
+                                top: 3,
+                                bottom: 4
+                            },
+                            options: ["2", "3", "4", "6"],
+                            answer: "6"
+                        },
+                        {
+                            type: "dice",
+                            question: "What is the sum of opposite faces?",
+                            dice: [1, 2, 3, 4, 5, 6],
+                            options: ["5", "6", "7", "8"],
+                            answer: "7"
+                        }
+                    ]
+                },
+                medium: {
+                    name: "Intermediate",
+                    icon: "🌿",
+                    questions: [
+                        {
+                            type: "cube",
+                            question: "If you rotate the cube 90° clockwise, what number will be on top?",
+                            cube: {
+                                front: 1,
+                                back: 6,
+                                left: 2,
+                                right: 5,
+                                top: 3,
+                                bottom: 4
+                            },
+                            options: ["1", "2", "3", "4"],
+                            answer: "2"
+                        },
+                        {
+                            type: "dice",
+                            question: "What is the probability of rolling a sum of 7 with two dice?",
+                            dice: [1, 2, 3, 4, 5, 6],
+                            options: ["1/6", "1/8", "1/12", "1/36"],
+                            answer: "1/6"
+                        }
+                    ]
+                },
+                hard: {
+                    name: "Advanced",
+                    icon: "🔥",
+                    questions: [
+                        {
+                            type: "cube",
+                            question: "After three 90° rotations, what number will be on the front face?",
+                            cube: {
+                                front: 1,
+                                back: 6,
+                                left: 2,
+                                right: 5,
+                                top: 3,
+                                bottom: 4
+                            },
+                            options: ["1", "2", "3", "4"],
+                            answer: "3"
+                        },
+                        {
+                            type: "cat",
+                            question: "A cat is sitting on a cube. If the cube is rotated 180° around the vertical axis, which face will the cat be on?",
+                            cube: {
+                                front: "cat",
+                                back: "empty",
+                                left: "empty",
+                                right: "empty",
+                                top: "empty",
+                                bottom: "empty"
+                            },
+                            options: ["Front", "Back", "Left", "Right"],
+                            answer: "Back"
+                        }
+                    ]
+                }
+            },
+            
+            currentLevel: null,
+            currentQuestion: 0,
+            score: 0,
+            lives: 3,
+            correctAnswers: 0,
+            startTime: null,
+            currentStreak: 0,
+            usedQuestions: new Set()
+        };
+
+        // DOM Elements
+        const levelScreen = document.getElementById('levelScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const visualizationArea = document.getElementById('visualizationArea');
+        const questionText = document.getElementById('questionText');
+        const optionsEl = document.getElementById('options');
+        const feedbackEl = document.getElementById('feedback');
+        const scoreEl = document.getElementById('score');
+        const bestScoreEl = document.getElementById('bestScore');
+        const timerEl = document.getElementById('timer');
+        const retryBtn = document.getElementById('retryBtn');
+        const streakIndicator = document.getElementById('streakIndicator');
+        const streakCount = document.getElementById('streakCount');
+
+        // Initialize game
+        function initGame() {
+            // Add event listeners to level cards
+            document.querySelectorAll('.level-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const level = card.dataset.level;
+                    startLevel(level);
+                });
+            });
+            
+            // Load best score
+            const savedBestScore = localStorage.getItem("cubeVisualizerBestScore") || "0";
+            bestScoreEl.textContent = savedBestScore;
+        }
+
+        // Start a new level
+        function startLevel(level) {
+            gameData.currentLevel = level;
+            gameData.currentQuestion = 0;
+            gameData.score = 0;
+            gameData.lives = 3;
+            gameData.correctAnswers = 0;
+            gameData.currentStreak = 0;
+            gameData.usedQuestions.clear();
+            
+            // Hide streak indicator
+            streakIndicator.classList.add('hidden');
+            
+            // Update UI
+            levelScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            
+            scoreEl.textContent = "0";
+            timerEl.textContent = "180s";
+            retryBtn.classList.add('hidden');
+            
+            // Start timer
+            startTimer();
+            
+            // Load first question
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            const level = gameData.levels[gameData.currentLevel];
+            const question = getRandomQuestion(level);
+            
+            // Store current question for answer checking
+            gameData.currentQuestionData = question;
+            
+            // Update question text
+            questionText.textContent = question.question;
+            
+            // Clear previous content
+            visualizationArea.innerHTML = '';
+            optionsEl.innerHTML = '';
+            feedbackEl.innerHTML = '';
+            
+            // Create visualization based on question type
+            if (question.type === 'cube') {
+                createCubeVisualization(question.cube);
+            } else if (question.type === 'dice') {
+                createDiceVisualization(question.dice);
+            } else if (question.type === 'cat') {
+                createCatVisualization(question.cube);
+            }
+            
+            // Create options
+            question.options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn w-full border text-left px-4 py-2 rounded-xl bg-white hover:bg-blue-50 transition';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(option, btn);
+                optionsEl.appendChild(btn);
+            });
+            
+            // Record start time
+            gameData.startTime = new Date();
+        }
+
+        // Create cube visualization
+        function createCubeVisualization(cube) {
+            const container = document.createElement('div');
+            container.className = 'cube-container';
+            
+            const cubeEl = document.createElement('div');
+            cubeEl.className = 'cube';
+            
+            // Create faces
+            Object.entries(cube).forEach(([face, value]) => {
+                const faceEl = document.createElement('div');
+                faceEl.className = `cube-face ${face}`;
+                faceEl.textContent = value;
+                cubeEl.appendChild(faceEl);
+            });
+            
+            container.appendChild(cubeEl);
+            visualizationArea.appendChild(container);
+        }
+
+        // Create dice visualization
+        function createDiceVisualization(dice) {
+            const container = document.createElement('div');
+            container.className = 'dice-container';
+            
+            dice.forEach(value => {
+                const diceEl = document.createElement('div');
+                diceEl.className = 'dice';
+                diceEl.textContent = value;
+                container.appendChild(diceEl);
+            });
+            
+            visualizationArea.appendChild(container);
+        }
+
+        // Create cat visualization
+        function createCatVisualization(cube) {
+            const container = document.createElement('div');
+            container.className = 'cube-container';
+            
+            const cubeEl = document.createElement('div');
+            cubeEl.className = 'cube';
+            
+            // Create faces with cat emoji
+            Object.entries(cube).forEach(([face, value]) => {
+                const faceEl = document.createElement('div');
+                faceEl.className = `cube-face ${face}`;
+                faceEl.textContent = value === 'cat' ? '🐱' : '';
+                cubeEl.appendChild(faceEl);
+            });
+            
+            container.appendChild(cubeEl);
+            visualizationArea.appendChild(container);
+        }
+
+        // Get random question
+        function getRandomQuestion(level) {
+            if (gameData.usedQuestions.size === level.questions.length) {
+                gameData.usedQuestions.clear();
+            }
+            
+            let availableQuestions = level.questions.filter((_, index) => !gameData.usedQuestions.has(index));
+            let randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            let question = availableQuestions[randomIndex];
+            
+            gameData.usedQuestions.add(level.questions.indexOf(question));
+            return question;
+        }
+
+        // Check answer
+        function checkAnswer(selectedOption, btn) {
+            // Disable all buttons
+            Array.from(optionsEl.children).forEach(b => b.disabled = true);
+            
+            const isCorrect = selectedOption === gameData.currentQuestionData.answer;
+            
+            if (isCorrect) {
+                gameData.score += 100;
+                gameData.correctAnswers++;
+                gameData.currentStreak++;
+                
+                // Add time bonus
+                const timeTaken = (new Date() - gameData.startTime) / 1000;
+                const timeBonus = Math.min(20, Math.floor(timeTaken / 10));
+                gameData.score += timeBonus;
+                
+                // Show streak indicator
+                if (gameData.currentStreak >= 3) {
+                    streakCount.textContent = gameData.currentStreak;
+                    streakIndicator.classList.remove('hidden');
+                }
+                
+                btn.classList.add('correct-answer');
+                feedbackEl.innerHTML = `
+                    <div class="text-green-600 font-medium">
+                        Correct! +${100 + timeBonus} points
+                        ${gameData.currentStreak >= 3 ? ` (+${gameData.currentStreak * 10} streak bonus!)` : ''}
+                    </div>
+                `;
+            } else {
+                gameData.currentStreak = 0;
+                streakIndicator.classList.add('hidden');
+                btn.classList.add('wrong-answer');
+                
+                feedbackEl.innerHTML = `
+                    <div class="text-red-600 font-medium">
+                        Incorrect! The correct answer was: ${gameData.currentQuestionData.answer}
+                    </div>
+                `;
+            }
+            
+            // Update score
+            scoreEl.textContent = gameData.score;
+            
+            // Update best score
+            const currentBest = parseInt(localStorage.getItem("cubeVisualizerBestScore") || "0");
+            if (gameData.score > currentBest) {
+                localStorage.setItem("cubeVisualizerBestScore", gameData.score);
+                bestScoreEl.textContent = gameData.score;
+            }
+            
+            // Move to next question
+            setTimeout(() => {
+                if (timeLeft > 0) {
+                    loadQuestion();
+                } else {
+                    endGame();
+                }
+            }, 1500);
+        }
+
+        // Start timer
+        function startTimer() {
+            timeLeft = 180;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = `${timeLeft}s`;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+        }
+
+        // End game
+        function endGame() {
+            clearInterval(timerInterval);
+            gameScreen.classList.add('hidden');
+            levelScreen.classList.remove('hidden');
+            
+            // Save score if logged in
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                const userId = localStorage.getItem("userId");
+                fetch("/api/brain-games/update-score", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: userId,
+                        gameId: "cube-visualizer",
+                        score: gameData.score
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Score saved successfully");
+                    }
+                })
+                .catch(err => console.error("Error saving score:", err));
+            }
+        }
+
+        // Initialize the game
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>

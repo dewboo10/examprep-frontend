@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National General Knowledge - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .news-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .news-item:hover {
+            background: #e0f2fe;
+        }
+
+        .news-date {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            color: #1e40af;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .news-source {
+            color: #6b7280;
+            font-size: 0.875rem;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .fact-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .fact-item:hover {
+            background: #e0f2fe;
+        }
+
+        .fact-title {
+            color: #1e40af;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .fact-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                National General Knowledge – India (2024–2025)
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Stay updated with the latest developments in Indian politics, economy, science, sports, and culture.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search news..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Politics</span>
+                    <span class="filter-tag">Economy</span>
+                    <span class="filter-tag">Science</span>
+                    <span class="filter-tag">Environment</span>
+                    <span class="filter-tag">Sports</span>
+                    <span class="filter-tag">Culture</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Politics & Governance -->
+            <section id="politics" class="card p-8">
+                <h2 class="section-title">Politics & Governance</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Prime Minister of India (2024–2025)</div>
+                        <div class="fact-content">Narendra Modi</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">President of India (2024–2025)</div>
+                        <div class="fact-content">Droupadi Murmu</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Vice President of India (2024–2025)</div>
+                        <div class="fact-content">Jagdeep Dhankhar</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Chief Justice of India (2024–2025)</div>
+                        <div class="fact-content">Justice Dhananjaya Y. Chandrachud</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Lok Sabha Speaker (2024–2025)</div>
+                        <div class="fact-content">Om Birla</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Rajya Sabha Chairman (2024–2025)</div>
+                        <div class="fact-content">Jagdeep Dhankhar</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Home Minister</div>
+                        <div class="fact-content">Amit Shah</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Finance Minister</div>
+                        <div class="fact-content">Nirmala Sitharaman</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Defence Minister</div>
+                        <div class="fact-content">Rajnath Singh</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">External Affairs Minister</div>
+                        <div class="fact-content">S. Jaishankar</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Cabinet Secretary</div>
+                        <div class="fact-content">Rajiv Gauba</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Election Commissioner (2025)</div>
+                        <div class="fact-content">Gyanesh Kumar</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Lok Sabha Elections 2024</div>
+                        <div class="fact-content">Held in seven phases from April 9 to May 19, 2024</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Bihar Political Crisis (2024)</div>
+                        <div class="fact-content">Chief Minister Nitish Kumar resigned and joined the BJP-led NDA</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Delhi Legislative Assembly Election (2025)</div>
+                        <div class="fact-content">BJP won 48 out of 70 seats, forming the government after 27 years</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Caste Census Decision (2025)</div>
+                        <div class="fact-content">Union Cabinet approved caste enumeration in the upcoming decadal census</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Economy & Development -->
+            <section id="economy" class="card p-8">
+                <h2 class="section-title">Economy & Development</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Operation Brahma (2025)</div>
+                        <div class="fact-content">India's disaster relief operation in Myanmar following a major earthquake</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Operation Abhyaas (2025)</div>
+                        <div class="fact-content">Nationwide civil defence mock drill conducted across 244 districts</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">PM-SURAJ Portal Launch (2025)</div>
+                        <div class="fact-content">Launched to provide business loans up to ₹15 lakh to SC/ST, OBC, and sanitation workers</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Uniform Civil Code (UCC) in Uttarakhand (2025)</div>
+                        <div class="fact-content">First state to implement UCC</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">PM Modi's Vision for 2047</div>
+                        <div class="fact-content">Aims to make India a global economic superpower by 2047</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Interim Budget 2025–26</div>
+                        <div class="fact-content">Presented on February 1, 2025</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">India-Canada Diplomatic Thaw (2025)</div>
+                        <div class="fact-content">PM Modi invited to G7 summit in Canada, signaling improved relations</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">India-US Trade Negotiations (2025)</div>
+                        <div class="fact-content">Discussions on an interim tariff deal focusing on agriculture and automobiles</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Swiss Investment in India (2025)</div>
+                        <div class="fact-content">Switzerland emphasizes reducing red tape to boost investments</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">SBI Dividend to Government (2025)</div>
+                        <div class="fact-content">State Bank of India paid ₹8,076.84 crore as dividend for FY 2024–25</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- State-wise Developments -->
+            <section id="states" class="card p-8">
+                <h2 class="section-title">State-wise Developments</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Maharashtra's First Underwater Museum (2025)</div>
+                        <div class="fact-content">To be built around INS Guldar</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Puducherry's Digital Literacy Achievement (2025)</div>
+                        <div class="fact-content">Declared the first 100% digital literate panchayat</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Himachal Pradesh's Environmental Initiative (2025)</div>
+                        <div class="fact-content">Introduced steel bottles for students to curb plastic pollution</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">PM Modi's Jammu & Kashmir Visit (2025)</div>
+                        <div class="fact-content">Inaugurated the world's highest Chenab railway arch bridge</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Rajasthan's Vande Ganga Campaign (2025)</div>
+                        <div class="fact-content">Launched on World Environment Day to promote water conservation</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Delhi's Civil Defence Mock Drill (2025)</div>
+                        <div class="fact-content">Conducted blackout simulations and evacuation drills</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Madhya Pradesh's Water Conservation Initiative (2025)</div>
+                        <div class="fact-content">Implemented rainwater harvesting in schools</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Kerala's Plastic Waste Management (2025)</div>
+                        <div class="fact-content">Introduced a ban on single-use plastics</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Tamil Nadu's Renewable Energy Project (2025)</div>
+                        <div class="fact-content">Commissioned a 500 MW solar power plant</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Karnataka's IT Hub Expansion (2025)</div>
+                        <div class="fact-content">Launched a new tech park in Bengaluru</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Uttar Pradesh's Infrastructure Development (2025)</div>
+                        <div class="fact-content">Constructed 1,000 km of new roads</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Andhra Pradesh's Industrial Growth (2025)</div>
+                        <div class="fact-content">Established a new automobile manufacturing unit</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">West Bengal's Tourism Promotion (2025)</div>
+                        <div class="fact-content">Launched a campaign to boost eco-tourism</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Odisha's Skill Development Program (2025)</div>
+                        <div class="fact-content">Trained 1 lakh youth in various trades</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Bihar's Education Reform (2025)</div>
+                        <div class="fact-content">Implemented digital classrooms in rural areas</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Assam's Tea Industry Revitalization (2025)</div>
+                        <div class="fact-content">Introduced organic farming practices</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Goa's Marine Conservation Effort (2025)</div>
+                        <div class="fact-content">Established a marine protected area</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Kerala's Healthcare Initiative (2025)</div>
+                        <div class="fact-content">Launched telemedicine services in remote areas</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Madhya Pradesh's Forest Conservation (2025)</div>
+                        <div class="fact-content">Planted 10 million trees in a single day</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Nagaland's Cultural Festival (2025)</div>
+                        <div class="fact-content">Hosted the Hornbill Festival attracting international tourists</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Sikkim's Organic Farming Success (2025)</div>
+                        <div class="fact-content">Achieved 100% organic certification for agriculture</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Tripura's Infrastructure Boost (2025)</div>
+                        <div class="fact-content">Developed new highways connecting remote areas</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Meghalaya's Hydroelectric Project (2025)</div>
+                        <div class="fact-content">Commissioned a 200 MW hydroelectric power station</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Manipur's Sports Development (2025)</div>
+                        <div class="fact-content">Opened a new sports academy in Imphal</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Mizoram's Education Initiative (2025)</div>
+                        <div class="fact-content">Launched a scholarship program for higher studies</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Nagaland's Connectivity Project (2025)</div>
+                        <div class="fact-content">Introduced a new railway line connecting remote regions</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Arunachal Pradesh's Tourism Development (2025)</div>
+                        <div class="fact-content">Promoted adventure tourism in the eastern Himalayas</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Haryana's Industrial Growth (2025)</div>
+                        <div class="fact-content">Established a new manufacturing hub in Gurugram</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Punjab's Agricultural Reform (2025)</div>
+                        <div class="fact-content">Implemented crop diversification programs</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Rajasthan's Water Management (2025)</div>
+                        <div class="fact-content">Built new reservoirs to improve irrigation</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Uttarakhand's Disaster Preparedness (2025)</div>
+                        <div class="fact-content">Conducted statewide earthquake drills</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Chhattisgarh's Tribal Welfare (2025)</div>
+                        <div class="fact-content">Introduced schemes for tribal community development</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Jharkhand's Mining Regulation (2025)</div>
+                        <div class="fact-content">Enforced stricter environmental norms in mining areas</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Uttar Pradesh's Healthcare Expansion (2025)</div>
+                        <div class="fact-content">Opened new medical colleges in rural regions</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Bihar's Rural Electrification (2025)</div>
+                        <div class="fact-content">Achieved 100% electrification in all villages</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Assam's Flood Management (2025)</div>
+                        <div class="fact-content">Constructed new embankments to prevent flooding</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">West Bengal's Urban Development (2025)</div>
+                        <div class="fact-content">Developed smart city projects in Kolkata</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Gujarat's Industrial Policy (2025)</div>
+                        <div class="fact-content">Introduced incentives for renewable energy projects</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Maharashtra's Coastal Protection (2025)</div>
+                        <div class="fact-content">Built sea walls to protect coastal areas</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Tamil Nadu's Education Reform (2025)</div>
+                        <div class="fact-content">Implemented skill development programs in schools</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Karnataka's Water Conservation (2025)</div>
+                        <div class="fact-content">Promoted rainwater harvesting in urban areas</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Andhra Pradesh's IT Infrastructure (2025)</div>
+                        <div class="fact-content">Developed a new IT park in Visakhapatnam</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Goa's Environmental Conservation (2025)</div>
+                        <div class="fact-content">Launched a campaign to reduce plastic usage</div>
+                    </div>
+
+                    <div class="fact-item">
+                        <div class="fact-title">Kerala's Renewable Energy Initiative (2025)</div>
+                        <div class="fact-content">Installed solar panels in government buildings</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Science, Technology & Space -->
+            <section id="science" class="card p-8">
+                <h2 class="section-title">Science, Technology & Space</h2>
+                
+                <div class="news-item">
+                    <div class="news-date">August 23, 2024</div>
+                    <div class="news-title">National Space Day</div>
+                    <div class="news-content">Celebrated on August 23, 2024, to commemorate the successful landing of Chandrayaan-3 on the Moon.</div>
+                    <div class="news-source">Source: en.wikipedia.org</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">January 6, 2024</div>
+                    <div class="news-title">Aditya-L1 Mission</div>
+                    <div class="news-content">India's first solar mission entered its final orbit around the Sun-Earth Lagrangian point (L1).</div>
+                    <div class="news-source">Source: sambadenglish.com</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">ISRO's Achievements</div>
+                    <div class="news-content">ISRO successfully launched the Gaganyaan mission, India's first crewed spaceflight, marking a significant milestone in space exploration.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Digital India Initiatives</div>
+                    <div class="news-content">The government expanded the Digital India program, aiming to enhance online infrastructure and increase internet connectivity.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Artificial Intelligence (AI) Policy</div>
+                    <div class="news-content">India introduced a national AI policy to promote research, development, and ethical use of AI technologies.</div>
+                </div>
+            </section>
+
+            <!-- Environment & Climate -->
+            <section id="environment" class="card p-8">
+                <h2 class="section-title">Environment & Climate</h2>
+                
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">2024 India Floods</div>
+                    <div class="news-content">Severe monsoon floods affected Assam, Arunachal Pradesh, Sikkim, Manipur, Tripura, Uttar Pradesh, Himachal Pradesh, Kerala, Meghalaya, and Gujarat, impacting over 7.7 million people.</div>
+                    <div class="news-source">Source: en.wikipedia.org</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">2024 Indian Heat Wave</div>
+                    <div class="news-content">Rajasthan's Churu recorded the highest temperature in India in eight years at 50.5°C during the heatwave.</div>
+                    <div class="news-source">Source: en.wikipedia.org, timesofindia.indiatimes.com</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Indira Gandhi International Airport (IGI)</div>
+                    <div class="news-content">Developing a climate change mitigation plan to address increasing extreme weather events affecting flight schedules.</div>
+                    <div class="news-source">Source: timesofindia.indiatimes.com</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Plastic Decomposing Worms</div>
+                    <div class="news-content">Discovery of worms capable of decomposing plastic, contributing to environmental sustainability efforts.</div>
+                    <div class="news-source">Source: timesofindia.indiatimes.com</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">UK Becomes Coal-Free</div>
+                    <div class="news-content">The United Kingdom achieved a significant environmental milestone by becoming coal-free, setting an example for global sustainability.</div>
+                    <div class="news-source">Source: timesofindia.indiatimes.com</div>
+                </div>
+            </section>
+
+            <!-- Sports & Achievements -->
+            <section id="sports" class="card p-8">
+                <h2 class="section-title">Sports & Achievements</h2>
+                
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">ICC Men's T20 World Cup 2024</div>
+                    <div class="news-content">India defeated South Africa by seven runs to win their second T20 World Cup title.</div>
+                    <div class="news-source">Source: business-standard.com</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Gukesh's Chess Title</div>
+                    <div class="news-content">Indian Grandmaster Gukesh became the youngest world chess champion, marking a historic achievement in Indian chess.</div>
+                    <div class="news-source">Source: m.economictimes.com, business-standard.com, timesofindia.indiatimes.com</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Preethi Pal's Paralympic Medal</div>
+                    <div class="news-content">Won a bronze in the women's 100m T35 class at the Paris 2024 Summer Paralympics, clocking a personal best time of 14.21 seconds.</div>
+                    <div class="news-source">Source: en.wikipedia.org</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">National Sports Day 2024</div>
+                    <div class="news-content">Awards presented to outstanding athletes, including the prestigious Khel Ratna and Arjuna awards.</div>
+                    <div class="news-source">Source: en.wikipedia.org</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Indian Premier League (IPL) 2024</div>
+                    <div class="news-content">Mumbai Indians clinched the title, marking their sixth IPL championship victory.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Commonwealth Games 2024</div>
+                    <div class="news-content">India secured a total of 66 medals, including 22 golds, finishing fourth in the overall standings.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Asian Games 2024</div>
+                    <div class="news-content">Indian athletes achieved a record-breaking 70 medals, surpassing previous performances.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Kabaddi World Cup 2024</div>
+                    <div class="news-content">India retained its title, defeating Iran in the final to clinch the championship.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Badminton World Championships 2024</div>
+                    <div class="news-content">P.V. Sindhu won the gold medal, becoming the first Indian to achieve this feat.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Hockey World Cup 2024</div>
+                    <div class="news-content">India secured the silver medal, losing narrowly to the Netherlands in the final.</div>
+                </div>
+            </section>
+
+            <!-- Culture & Society -->
+            <section id="culture" class="card p-8">
+                <h2 class="section-title">Culture & Society</h2>
+                
+                <div class="news-item">
+                    <div class="news-date">January 22, 2024</div>
+                    <div class="news-title">Ram Mandir Inauguration</div>
+                    <div class="news-content">Prime Minister Narendra Modi inaugurated the Ram Mandir in Ayodhya, marking the culmination of a decades-long movement.</div>
+                    <div class="news-source">Source: newsreel.asia</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Digital Literacy Campaigns</div>
+                    <div class="news-content">The government launched initiatives to enhance digital literacy among rural populations, aiming to bridge the digital divide.</div>
+                    <div class="news-source">Source: newsreel.asia</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Women's Empowerment Programs</div>
+                    <div class="news-content">Schemes like Beti Bachao Beti Padhao and Pradhan Mantri Ujjwala Yojana were expanded to promote women's welfare.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Swachh Bharat Abhiyan</div>
+                    <div class="news-content">Continued efforts under the Swachh Bharat Mission led to improved sanitation facilities and cleanliness in urban and rural areas.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Skill Development Initiatives</div>
+                    <div class="news-content">Programs like Skill India and Pradhan Mantri Kaushal Vikas Yojana were enhanced to provide vocational training and employment opportunities.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Ayushman Bharat Scheme</div>
+                    <div class="news-content">The world's largest health insurance scheme expanded its coverage, providing financial protection against health emergencies.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Smart Cities Mission</div>
+                    <div class="news-content">Development of infrastructure in selected cities aimed at creating sustainable and citizen-friendly urban spaces.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">Startup India Campaign</div>
+                    <div class="news-content">Government policies facilitated the growth of startups, leading to increased innovation and job creation.</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-date">2024</div>
+                    <div class="news-title">National Education Policy 2024</div>
+                    <div class="news-content">Implementation of the new education policy focused on holistic development and integration of technology in learning.</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        const sections = document.querySelectorAll('section');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            sections.forEach(section => {
+                const newsItems = section.querySelectorAll('.news-item');
+                let hasMatch = false;
+                
+                newsItems.forEach(item => {
+                    const title = item.querySelector('.news-title').textContent.toLowerCase();
+                    const content = item.querySelector('.news-content').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        hasMatch = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                section.style.display = hasMatch ? 'block' : 'none';
+            });
+        });
+
+        // Filter tags functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                // Remove active class from all tags
+                filterTags.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tag
+                tag.classList.add('active');
+                
+                const filter = tag.textContent.toLowerCase();
+                
+                sections.forEach(section => {
+                    const sectionId = section.id.toLowerCase();
+                    if (filter === 'all' || sectionId.includes(filter)) {
+                        section.style.display = 'block';
+                        section.querySelectorAll('.news-item').forEach(item => {
+                            item.style.display = 'block';
+                        });
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

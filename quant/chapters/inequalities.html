@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inequalities - Quantitative Aptitude</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #1e40af;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            color: #4b5563;
+            margin: 1rem 0 0;
+            font-size: 1.1rem;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 2rem;
+        }
+
+        .sidebar h2 {
+            color: #1e40af;
+            margin: 0 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar a {
+            color: #4b5563;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background: #f3f4f6;
+            color: #1e40af;
+        }
+
+        .main-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section h2 {
+            color: #1e40af;
+            margin: 0 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: #1e40af;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .formula-box {
+            background: #fef9c3;
+            border-left: 4px solid #fde047;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.6;
+        }
+
+        .formula-title {
+            font-weight: 600;
+            color: #854d0e;
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-description {
+            color: #713f12;
+            margin-bottom: 0.75rem;
+        }
+
+        .formula-example {
+            color: #854d0e;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #fde047;
+        }
+
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+
+        .note-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Inequalities</h1>
+            <p>Master the concepts of inequalities and their applications in problem-solving</p>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <h2>Contents</h2>
+                <ul>
+                    <li><a href="#basic">Basic Inequalities</a></li>
+                    <li><a href="#linear">Linear Inequalities</a></li>
+                    <li><a href="#quadratic">Quadratic Inequalities</a></li>
+                    <li><a href="#absolute">Absolute Value Inequalities</a></li>
+                    <li><a href="#rational">Rational Inequalities</a></li>
+                    <li><a href="#advanced">Advanced Concepts</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div id="basic" class="section">
+                    <h2>Basic Inequalities</h2>
+                    <p>Inequalities are mathematical expressions that compare two quantities using symbols like <, >, ≤, or ≥.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Basic Inequality Symbols</p>
+                        <p class="formula-description">Inequalities use specific symbols to represent different types of relationships between numbers:</p>
+                        <p>< : Less than</p>
+                        <p>> : Greater than</p>
+                        <p>≤ : Less than or equal to</p>
+                        <p>≥ : Greater than or equal to</p>
+                        <p class="formula-example">Example: 5 < 7 (5 is less than 7)<br>
+                        3 > 2 (3 is greater than 2)<br>
+                        4 ≤ 4 (4 is less than or equal to 4)<br>
+                        6 ≥ 5 (6 is greater than or equal to 5)</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Basic Inequality Operations</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">If a > b and b > c, what can we say about a and c?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">By the transitive property of inequalities:</p>
+                        <p class="solution-text">If a > b and b > c, then a > c</p>
+                        <p class="solution-text">This is because a is greater than b, and b is greater than c, so a must be greater than c</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">If x < y, what happens to the inequality when we multiply both sides by -2?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">When multiplying or dividing both sides of an inequality by a negative number, the inequality sign reverses</p>
+                        <p class="solution-text">x < y</p>
+                        <p class="solution-text">-2x > -2y (sign reversed)</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">If a ≥ b and c > 0, what can we say about ac and bc?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">When multiplying both sides of an inequality by a positive number, the inequality sign remains the same</p>
+                        <p class="solution-text">a ≥ b and c > 0</p>
+                        <p class="solution-text">Therefore, ac ≥ bc</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">If x ≤ y and y ≤ z, what can we say about x and z?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">By the transitive property of inequalities:</p>
+                        <p class="solution-text">If x ≤ y and y ≤ z, then x ≤ z</p>
+                        <p class="solution-text">This is because x is less than or equal to y, and y is less than or equal to z, so x must be less than or equal to z</p>
+                    </div>
+                </div>
+
+                <div id="linear" class="section">
+                    <h2>Linear Inequalities</h2>
+                    <p>Linear inequalities are inequalities that can be written in the form ax + b < 0, ax + b > 0, ax + b ≤ 0, or ax + b ≥ 0.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Linear Inequality Forms</p>
+                        <p class="formula-description">Linear inequalities can be written in various forms, and they can be solved using similar methods as linear equations, with special attention to the direction of the inequality sign.</p>
+                        <p>General forms:</p>
+                        <p>ax + b < 0</p>
+                        <p>ax + b > 0</p>
+                        <p>ax + b ≤ 0</p>
+                        <p>ax + b ≥ 0</p>
+                        <p class="formula-example">Example: 2x + 3 > 7<br>
+                        2x > 7 - 3<br>
+                        2x > 4<br>
+                        x > 2</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Solving Linear Inequalities</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the inequality: 3x + 5 > 14</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">3x + 5 > 14</p>
+                        <p class="solution-text">3x > 14 - 5</p>
+                        <p class="solution-text">3x > 9</p>
+                        <p class="solution-text">x > 3</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the inequality: -2x + 4 ≤ 10</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">-2x + 4 ≤ 10</p>
+                        <p class="solution-text">-2x ≤ 10 - 4</p>
+                        <p class="solution-text">-2x ≤ 6</p>
+                        <p class="solution-text">x ≥ -3 (sign reversed when dividing by negative)</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the inequality: 4(x - 2) ≥ 2x + 6</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">4(x - 2) ≥ 2x + 6</p>
+                        <p class="solution-text">4x - 8 ≥ 2x + 6</p>
+                        <p class="solution-text">4x - 2x ≥ 6 + 8</p>
+                        <p class="solution-text">2x ≥ 14</p>
+                        <p class="solution-text">x ≥ 7</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the inequality: (x + 3)/2 < (2x - 1)/3</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">(x + 3)/2 < (2x - 1)/3</p>
+                        <p class="solution-text">3(x + 3) < 2(2x - 1)</p>
+                        <p class="solution-text">3x + 9 < 4x - 2</p>
+                        <p class="solution-text">9 + 2 < 4x - 3x</p>
+                        <p class="solution-text">11 < x</p>
+                        <p class="solution-text">x > 11</p>
+                    </div>
+                </div>
+
+                <div id="quadratic" class="section">
+                    <h2>Quadratic Inequalities</h2>
+                    <p>Quadratic inequalities are inequalities that can be written in the form ax² + bx + c < 0, ax² + bx + c > 0, ax² + bx + c ≤ 0, or ax² + bx + c ≥ 0.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Solving Quadratic Inequalities</p>
+                        <p class="formula-description">To solve quadratic inequalities, we first find the roots of the corresponding quadratic equation, then use these roots to determine the intervals where the inequality holds true.</p>
+                        <p>Steps:</p>
+                        <p>1. Find the roots of ax² + bx + c = 0</p>
+                        <p>2. Plot the roots on a number line</p>
+                        <p>3. Test a value in each interval</p>
+                        <p>4. Determine the solution set</p>
+                        <p class="formula-example">Example: x² - 4x + 3 > 0<br>
+                        Roots: x = 1, 3<br>
+                        Test x = 0: 3 > 0 (true)<br>
+                        Test x = 2: -1 > 0 (false)<br>
+                        Test x = 4: 3 > 0 (true)<br>
+                        Solution: x < 1 or x > 3</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Solving Quadratic Inequalities</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the inequality: x² - 5x + 6 > 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">First, find the roots of x² - 5x + 6 = 0</p>
+                        <p class="solution-text">(x - 2)(x - 3) = 0</p>
+                        <p class="solution-text">x = 2 or x = 3</p>
+                        <p class="solution-text">Test x = 0: 6 > 0 (true)</p>
+                        <p class="solution-text">Test x = 2.5: -0.25 > 0 (false)</p>
+                        <p class="solution-text">Test x = 4: 2 > 0 (true)</p>
+                        <p class="solution-text">Solution: x < 2 or x > 3</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the inequality: x² + 2x - 3 ≤ 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">First, find the roots of x² + 2x - 3 = 0</p>
+                        <p class="solution-text">(x + 3)(x - 1) = 0</p>
+                        <p class="solution-text">x = -3 or x = 1</p>
+                        <p class="solution-text">Test x = -4: 5 ≤ 0 (false)</p>
+                        <p class="solution-text">Test x = 0: -3 ≤ 0 (true)</p>
+                        <p class="solution-text">Test x = 2: 5 ≤ 0 (false)</p>
+                        <p class="solution-text">Solution: -3 ≤ x ≤ 1</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the inequality: 2x² - 7x + 3 < 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">First, find the roots of 2x² - 7x + 3 = 0</p>
+                        <p class="solution-text">Using quadratic formula: x = (7 ± √(49 - 24))/4</p>
+                        <p class="solution-text">x = (7 ± 5)/4</p>
+                        <p class="solution-text">x = 3 or x = 0.5</p>
+                        <p class="solution-text">Test x = 0: 3 < 0 (false)</p>
+                        <p class="solution-text">Test x = 1: -2 < 0 (true)</p>
+                        <p class="solution-text">Test x = 4: 7 < 0 (false)</p>
+                        <p class="solution-text">Solution: 0.5 < x < 3</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the inequality: x² - 4x + 4 ≥ 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">First, find the roots of x² - 4x + 4 = 0</p>
+                        <p class="solution-text">(x - 2)² = 0</p>
+                        <p class="solution-text">x = 2 (double root)</p>
+                        <p class="solution-text">Test x = 0: 4 ≥ 0 (true)</p>
+                        <p class="solution-text">Test x = 2: 0 ≥ 0 (true)</p>
+                        <p class="solution-text">Test x = 4: 4 ≥ 0 (true)</p>
+                        <p class="solution-text">Solution: All real numbers</p>
+                    </div>
+                </div>
+
+                <div id="absolute" class="section">
+                    <h2>Absolute Value Inequalities</h2>
+                    <p>Absolute value inequalities involve expressions with absolute value signs and can be solved by considering different cases.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Absolute Value Inequality Rules</p>
+                        <p class="formula-description">Absolute value inequalities can be solved using specific rules based on the inequality sign and the value being compared.</p>
+                        <p>For |x| < a: -a < x < a</p>
+                        <p>For |x| > a: x < -a or x > a</p>
+                        <p>For |x| ≤ a: -a ≤ x ≤ a</p>
+                        <p>For |x| ≥ a: x ≤ -a or x ≥ a</p>
+                        <p class="formula-example">Example: |2x - 3| < 5<br>
+                        -5 < 2x - 3 < 5<br>
+                        -2 < 2x < 8<br>
+                        -1 < x < 4</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Solving Absolute Value Inequalities</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the inequality: |x - 2| < 3</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">|x - 2| < 3</p>
+                        <p class="solution-text">-3 < x - 2 < 3</p>
+                        <p class="solution-text">-3 + 2 < x < 3 + 2</p>
+                        <p class="solution-text">-1 < x < 5</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the inequality: |2x + 1| ≥ 5</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">|2x + 1| ≥ 5</p>
+                        <p class="solution-text">2x + 1 ≤ -5 or 2x + 1 ≥ 5</p>
+                        <p class="solution-text">2x ≤ -6 or 2x ≥ 4</p>
+                        <p class="solution-text">x ≤ -3 or x ≥ 2</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the inequality: |3x - 2| ≤ 4</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">|3x - 2| ≤ 4</p>
+                        <p class="solution-text">-4 ≤ 3x - 2 ≤ 4</p>
+                        <p class="solution-text">-4 + 2 ≤ 3x ≤ 4 + 2</p>
+                        <p class="solution-text">-2 ≤ 3x ≤ 6</p>
+                        <p class="solution-text">-2/3 ≤ x ≤ 2</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the inequality: |x + 3| > 2</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">|x + 3| > 2</p>
+                        <p class="solution-text">x + 3 < -2 or x + 3 > 2</p>
+                        <p class="solution-text">x < -5 or x > -1</p>
+                    </div>
+                </div>
+
+                <div id="rational" class="section">
+                    <h2>Rational Inequalities</h2>
+                    <p>Rational inequalities involve fractions with variables in the denominator and require special attention to the domain.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Solving Rational Inequalities</p>
+                        <p class="formula-description">To solve rational inequalities, we need to find the critical points (zeros and undefined points) and test intervals between them.</p>
+                        <p>Steps:</p>
+                        <p>1. Find values that make numerator or denominator zero</p>
+                        <p>2. Plot these values on a number line</p>
+                        <p>3. Test a value in each interval</p>
+                        <p>4. Consider the domain restrictions</p>
+                        <p class="formula-example">Example: (x - 2)/(x + 1) > 0<br>
+                        Critical points: x = 2, x = -1<br>
+                        Test x = -2: 4 > 0 (true)<br>
+                        Test x = 0: -2 > 0 (false)<br>
+                        Test x = 3: 1/4 > 0 (true)<br>
+                        Solution: x < -1 or x > 2</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Solving Rational Inequalities</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the inequality: (x - 3)/(x + 2) > 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Critical points: x = 3, x = -2</p>
+                        <p class="solution-text">Test x = -3: 6 > 0 (true)</p>
+                        <p class="solution-text">Test x = 0: -1.5 > 0 (false)</p>
+                        <p class="solution-text">Test x = 4: 1/6 > 0 (true)</p>
+                        <p class="solution-text">Solution: x < -2 or x > 3</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the inequality: (2x + 1)/(x - 1) ≤ 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Critical points: x = -0.5, x = 1</p>
+                        <p class="solution-text">Test x = -1: 1/2 ≤ 0 (false)</p>
+                        <p class="solution-text">Test x = 0: -1 ≤ 0 (true)</p>
+                        <p class="solution-text">Test x = 2: 5 ≤ 0 (false)</p>
+                        <p class="solution-text">Solution: -0.5 ≤ x < 1</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the inequality: (x² - 4)/(x + 3) ≥ 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Critical points: x = -2, x = 2, x = -3</p>
+                        <p class="solution-text">Test x = -4: 12 ≥ 0 (true)</p>
+                        <p class="solution-text">Test x = 0: -4/3 ≥ 0 (false)</p>
+                        <p class="solution-text">Test x = 3: 5/6 ≥ 0 (true)</p>
+                        <p class="solution-text">Solution: x < -3 or -2 ≤ x ≤ 2</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the inequality: (x + 1)/(x - 2) < 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Critical points: x = -1, x = 2</p>
+                        <p class="solution-text">Test x = -2: 1/4 < 0 (false)</p>
+                        <p class="solution-text">Test x = 0: -0.5 < 0 (true)</p>
+                        <p class="solution-text">Test x = 3: 4 < 0 (false)</p>
+                        <p class="solution-text">Solution: -1 < x < 2</p>
+                    </div>
+                </div>
+
+                <div id="advanced" class="section">
+                    <h2>Advanced Concepts</h2>
+                    <p>Advanced topics in inequalities including compound inequalities, systems of inequalities, and applications.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Advanced Inequality Concepts</p>
+                        <p class="formula-description">Advanced inequality concepts include compound inequalities, systems of inequalities, and their applications in various fields.</p>
+                        <p>Compound inequalities: a < x < b</p>
+                        <p>Systems of inequalities: Multiple inequalities that must be satisfied simultaneously</p>
+                        <p>Applications: Optimization problems, constraints in real-world scenarios</p>
+                        <p class="formula-example">Example: Solve the system:<br>
+                        2x + y > 4<br>
+                        x - y < 1<br>
+                        Solution: Graph the inequalities and find the intersection region</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Compound Inequalities</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the compound inequality: -3 < 2x + 1 < 5</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">-3 < 2x + 1 < 5</p>
+                        <p class="solution-text">-3 - 1 < 2x < 5 - 1</p>
+                        <p class="solution-text">-4 < 2x < 4</p>
+                        <p class="solution-text">-2 < x < 2</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the system of inequalities: x + y > 3 and 2x - y < 4</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">First inequality: y > 3 - x</p>
+                        <p class="solution-text">Second inequality: y > 2x - 4</p>
+                        <p class="solution-text">The solution is the region where both inequalities are satisfied</p>
+                        <p class="solution-text">This can be found by graphing both inequalities and finding their intersection</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the compound inequality: 1 ≤ 3x - 2 ≤ 7</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">1 ≤ 3x - 2 ≤ 7</p>
+                        <p class="solution-text">1 + 2 ≤ 3x ≤ 7 + 2</p>
+                        <p class="solution-text">3 ≤ 3x ≤ 9</p>
+                        <p class="solution-text">1 ≤ x ≤ 3</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the system of inequalities: x > 0, y > 0, and x + y < 6</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">This system defines a region in the first quadrant</p>
+                        <p class="solution-text">x > 0 and y > 0: First quadrant</p>
+                        <p class="solution-text">x + y < 6: Below the line x + y = 6</p>
+                        <p class="solution-text">The solution is the triangular region bounded by the axes and the line x + y = 6</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sidebar a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

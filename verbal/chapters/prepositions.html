@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepositions - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        .rule-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border-radius: 20px;
+            background: #e0f2fe;
+            color: #1e40af;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tag:hover, .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Prepositions
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the use of prepositions with our comprehensive guide.
+                Learn about different types of prepositions and their correct usage in various contexts.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="mb-8">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search prepositions..." class="w-full px-4 py-2 focus:outline-none">
+            </div>
+            <div class="filter-tags">
+                <span class="filter-tag active" data-category="all">All</span>
+                <span class="filter-tag" data-category="time">Time</span>
+                <span class="filter-tag" data-category="place">Place</span>
+                <span class="filter-tag" data-category="direction">Direction</span>
+                <span class="filter-tag" data-category="manner">Manner</span>
+                <span class="filter-tag" data-category="purpose">Purpose</span>
+                <span class="filter-tag" data-category="special">Special Cases</span>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#overview" class="nav-link block">1. Overview</a>
+                        <a href="#time" class="nav-link block">2. Prepositions of Time</a>
+                        <a href="#place" class="nav-link block">3. Prepositions of Place</a>
+                        <a href="#direction" class="nav-link block">4. Prepositions of Direction</a>
+                        <a href="#manner" class="nav-link block">5. Prepositions of Manner</a>
+                        <a href="#purpose" class="nav-link block">6. Prepositions of Purpose</a>
+                        <a href="#special" class="nav-link block">7. Special Cases</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Overview Section -->
+                <section id="overview" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">1. Overview</h2>
+                    <div class="rule-box">
+                        <p class="font-medium">What are Prepositions?</p>
+                        <p class="mt-2">Prepositions are words that show relationships between other words in a sentence. They often indicate:</p>
+                        <ul class="list-disc list-inside space-y-2 mt-2">
+                            <li>Direction</li>
+                            <li>Time</li>
+                            <li>Location</li>
+                            <li>Cause</li>
+                            <li>Manner</li>
+                            <li>Other relationships</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Prepositions of Time -->
+                <section id="time" class="content-section card p-6 mb-8" data-category="time">
+                    <h2 class="section-title">2. Prepositions of Time</h2>
+                    
+                    <!-- At -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">a) "At"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Precise times</li>
+                                <li>Holidays</li>
+                                <li>Festivals</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>I will meet you at 5 PM.</li>
+                                <li>She left at Christmas.</li>
+                                <li>The meeting starts at noon.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- On -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">b) "On"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Specific days</li>
+                                <li>Dates</li>
+                                <li>Occasions</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>I will see you on Monday.</li>
+                                <li>His birthday is on the 5th of June.</li>
+                                <li>We met on Christmas Day.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- In -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">c) "In"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Months</li>
+                                <li>Years</li>
+                                <li>Seasons</li>
+                                <li>Centuries</li>
+                                <li>Long periods</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>She was born in January.</li>
+                                <li>I will visit in the summer.</li>
+                                <li>I graduated in 2020.</li>
+                                <li>This happened in the 21st century.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prepositions of Place -->
+                <section id="place" class="content-section card p-6 mb-8" data-category="place">
+                    <h2 class="section-title">3. Prepositions of Place</h2>
+                    
+                    <!-- At -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">a) "At"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Specific points</li>
+                                <li>Exact locations</li>
+                                <li>Addresses</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>She is at the door.</li>
+                                <li>I am at the office.</li>
+                                <li>They live at 123 Main Street.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- On -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">b) "On"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Surfaces</li>
+                                <li>Streets</li>
+                                <li>Specific locations</li>
+                                <li>Floors or levels</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>The book is on the table.</li>
+                                <li>I live on Main Street.</li>
+                                <li>She works on the third floor.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- In -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">c) "In"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Enclosed spaces</li>
+                                <li>Countries</li>
+                                <li>Cities</li>
+                                <li>Neighborhoods</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>She is in the room.</li>
+                                <li>I live in Canada.</li>
+                                <li>They work in New York.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prepositions of Direction -->
+                <section id="direction" class="content-section card p-6 mb-8" data-category="direction">
+                    <h2 class="section-title">4. Prepositions of Direction</h2>
+                    
+                    <!-- To -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">a) "To"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Movement toward a destination</li>
+                                <li>Direction of travel</li>
+                                <li>Destination points</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>I am going to the market.</li>
+                                <li>He walked to the station.</li>
+                                <li>She drove to work.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Into -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">b) "Into"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Entering a place</li>
+                                <li>Moving inside</li>
+                                <li>Transformation</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>She went into the store.</li>
+                                <li>He jumped into the pool.</li>
+                                <li>The caterpillar turned into a butterfly.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Onto -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">c) "Onto"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Movement towards a surface</li>
+                                <li>Getting on top of something</li>
+                                <li>Changing position</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>She jumped onto the table.</li>
+                                <li>He climbed onto the roof.</li>
+                                <li>The cat jumped onto the chair.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prepositions of Manner -->
+                <section id="manner" class="content-section card p-6 mb-8" data-category="manner">
+                    <h2 class="section-title">5. Prepositions of Manner</h2>
+                    
+                    <!-- By -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">a) "By"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Means of transport</li>
+                                <li>Method of communication</li>
+                                <li>Agent performing an action</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>I travel by car.</li>
+                                <li>The letter was sent by post.</li>
+                                <li>The book was written by J.K. Rowling.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- With -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">b) "With"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Instruments or tools</li>
+                                <li>Accompaniment</li>
+                                <li>Characteristics</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>She cut the paper with scissors.</li>
+                                <li>I went to the party with my friends.</li>
+                                <li>He wrote with a pen.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prepositions of Purpose -->
+                <section id="purpose" class="content-section card p-6 mb-8" data-category="purpose">
+                    <h2 class="section-title">6. Prepositions of Purpose</h2>
+                    
+                    <!-- For -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">a) "For"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Purpose</li>
+                                <li>Benefit</li>
+                                <li>Duration</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>I bought a gift for you.</li>
+                                <li>I have been studying for two hours.</li>
+                                <li>This tool is for cutting wood.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Because of -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">b) "Because of"</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Uses:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Reason for something</li>
+                                <li>Cause of an action</li>
+                                <li>Explanation</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>The match was canceled because of the rain.</li>
+                                <li>He was late because of traffic.</li>
+                                <li>She succeeded because of her hard work.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Special Cases -->
+                <section id="special" class="content-section card p-6 mb-8" data-category="special">
+                    <h2 class="section-title">7. Special Cases</h2>
+                    
+                    <!-- Idiomatic Expressions -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">a) Idiomatic Expressions</h3>
+                        <div class="rule-box">
+                            <p class="font-medium">Common Expressions:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>At odds with (in disagreement)</li>
+                                <li>In charge of (responsible for)</li>
+                                <li>In the mood for (wanting to do something)</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>She was at odds with her colleagues over the project.</li>
+                                <li>He is in charge of the marketing department.</li>
+                                <li>I'm in the mood for pizza.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Common Mistakes -->
+                    <div class="mb-6">
+                        <h3 class="subsection-title">b) Common Mistakes</h3>
+                        <div class="note-box">
+                            <p class="font-medium">Avoid These Common Errors:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Using "in" instead of "at" for specific times</li>
+                                <li>Using "on" instead of "in" for enclosed spaces</li>
+                                <li>Confusing "between" and "among"</li>
+                                <li>Using "to" instead of "for" for purpose</li>
+                            </ul>
+                        </div>
+                        <div class="example-box">
+                            <p class="font-medium">Correct Usage:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>I will meet you at 5 PM. (not in 5 PM)</li>
+                                <li>She is in the room. (not on the room)</li>
+                                <li>She is sitting between John and Sarah. (not among)</li>
+                                <li>I bought this for you. (not to you)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            contentSections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // Update active state
+                filterTags.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter content
+                contentSections.forEach(section => {
+                    if (category === 'all' || section.getAttribute('data-category') === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

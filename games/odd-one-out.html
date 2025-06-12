@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🔍 Odd One Out – BrainGames</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root {
+        --primary: #4f46e5;
+        --secondary: #818cf8;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --dark: #1e293b;
+        --light: #f8fafc;
+    }
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+    
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .level-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 2px solid transparent;
+    }
+    
+    .level-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+    
+    .level-card.easy { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-color: #10b981; }
+    .level-card.medium { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #f59e0b; }
+    .level-card.hard { background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-color: #ef4444; }
+    
+    .option-btn {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        transform: scale(1);
+    }
+    
+    .option-btn:hover {
+        transform: scale(1.03);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .correct-answer {
+        animation: pulse 0.6s ease;
+        background-color: #10b981 !important;
+        color: white !important;
+        transform: scale(1);
+    }
+    
+    .wrong-answer {
+        animation: shake 0.5s ease;
+        background-color: #ef4444 !important;
+        color: white !important;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-8px); }
+        80% { transform: translateX(8px); }
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .floating { animation: float 3s ease-in-out infinite; }
+    
+    .streak-indicator {
+        transition: all 0.3s ease;
+    }
+    
+    .streak-indicator.active {
+        color: #f59e0b;
+        transform: scale(1.2);
+    }
+    
+    .heart-beat {
+        animation: heartBeat 0.8s ease;
+    }
+    
+    @keyframes heartBeat {
+        0% { transform: scale(1); }
+        25% { transform: scale(1.2); }
+        50% { transform: scale(1); }
+        75% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+</style>
+</head>
+<body class="text-gray-800">
+    <div class="min-h-screen py-8 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <header class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <i class="fas fa-search mr-3"></i>Odd One Out
+                </h1>
+                <p class="text-lg text-gray-600 mt-3">Find the item that doesn't belong!</p>
+            </header>
+            
+            <!-- Main content -->
+            <div class="card p-6 relative overflow-hidden">
+                <!-- Level selection -->
+                <div id="levelSelection" class="text-center">
+                    <h2 class="text-2xl font-bold mb-6 text-primary">Select Difficulty Level</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="level-card easy p-6 rounded-2xl text-center" onclick="startLevel('beginner')">
+                            <div class="text-5xl mb-4 floating">🌱</div>
+                            <h3 class="font-bold text-xl mb-2">Beginner</h3>
+                            <p class="text-gray-600 mb-3">Simple categories</p>
+                            <div class="text-sm text-gray-700">Basic patterns</div>
+                        </div>
+                        
+                        <div class="level-card medium p-6 rounded-2xl text-center" onclick="startLevel('intermediate')">
+                            <div class="text-5xl mb-4 floating">🌿</div>
+                            <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+                            <p class="text-gray-600 mb-3">Complex patterns</p>
+                            <div class="text-sm text-gray-700">Multiple rules</div>
+                        </div>
+                        
+                        <div class="level-card hard p-6 rounded-2xl text-center" onclick="startLevel('advanced')">
+                            <div class="text-5xl mb-4 floating">🔥</div>
+                            <h3 class="font-bold text-xl mb-2">Advanced</h3>
+                            <p class="text-gray-600 mb-3">Abstract patterns</p>
+                            <div class="text-sm text-gray-700">Expert level</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game screen -->
+                <div id="gameScreen" class="hidden">
+                    <!-- Game header -->
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h2 class="text-xl font-bold" id="levelIndicator">Level: Beginner</h2>
+                            <div class="flex items-center mt-1">
+                                <span class="text-sm mr-2">Question:</span>
+                                <span class="font-medium" id="questionCounter">1/10</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xl font-bold"><span id="score">0</span> <span class="text-blue-600">pts</span></div>
+                            <div class="flex items-center justify-end mt-1">
+                                <i class="fas fa-fire text-yellow-500 mr-1"></i>
+                                <span id="streak" class="font-bold">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timer -->
+                    <div class="bg-blue-50 rounded-xl p-4 mb-6 text-center">
+                        <div class="text-sm text-gray-600 mb-1">Time Remaining</div>
+                        <div class="text-2xl font-bold text-blue-600" id="timer">180s</div>
+                    </div>
+                    
+                    <!-- Question area -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-blue-100 mb-6" id="question">
+                        Loading question...
+                    </div>
+                    
+                    <!-- Options area -->
+                    <div class="grid grid-cols-1 gap-3" id="options"></div>
+                    
+                    <!-- Navigation -->
+                    <div class="flex justify-between items-center mt-8">
+                        <button onclick="showLevelSelection()" class="text-blue-600 hover:text-blue-800 flex items-center">
+                            <i class="fas fa-arrow-left mr-2"></i> Change Level
+                        </button>
+                        <div class="flex gap-2">
+                            <span class="streak-indicator"><i class="fas fa-fire"></i></span>
+                            <span class="streak-indicator"><i class="fas fa-fire"></i></span>
+                            <span class="streak-indicator"><i class="fas fa-fire"></i></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Results screen -->
+                <div id="resultsScreen" class="hidden text-center py-10">
+                    <div class="text-6xl mb-4">🎉</div>
+                    <h2 class="text-3xl font-bold mb-4">Level Complete!</h2>
+                    <div class="text-5xl font-bold text-blue-600 mb-6"><span id="finalScore">0</span> pts</div>
+                    
+                    <div class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8">
+                        <div class="bg-blue-50 p-4 rounded-xl">
+                            <div class="text-2xl mb-2"><span id="correctCount">0</span>/<span id="totalQuestions">0</span></div>
+                            <div class="text-sm text-gray-600">Correct Answers</div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-xl">
+                            <div class="text-2xl mb-2"><span id="accuracy">0</span>%</div>
+                            <div class="text-sm text-gray-600">Accuracy</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center gap-4">
+                        <a href="odd-one-out.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 inline-block">
+                            <i class="fas fa-redo mr-2"></i> Play Again
+                        </a>
+                        <button onclick="showLevelSelection()" class="text-blue-600 hover:text-blue-800 font-bold py-3 px-6 rounded-full transition">
+                            <i class="fas fa-level-up-alt mr-2"></i> Change Level
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = {
+            beginner: [
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Apple", "Banana", "Carrot", "Mango"],
+                    answer: "Carrot",
+                    explanation: "Carrot is a vegetable, while others are fruits"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Dog", "Cat", "Lion", "Crocodile"],
+                    answer: "Crocodile",
+                    explanation: "Crocodile is a reptile, while others are mammals"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["2", "3", "5", "9"],
+                    answer: "9",
+                    explanation: "9 is not a prime number, while others are"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["January", "February", "Monday", "December"],
+                    answer: "Monday",
+                    explanation: "Monday is a day of the week, while others are months"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Iron", "Gold", "Silver", "Wood"],
+                    answer: "Wood",
+                    explanation: "Wood is not a metal, while others are"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Circle", "Square", "Triangle", "Rectangle"],
+                    answer: "Circle",
+                    explanation: "Circle has no corners, while others are polygons"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Red", "Blue", "Green", "Orange"],
+                    answer: "Orange",
+                    explanation: "Orange is also a fruit, while others are just colors"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Sun", "Moon", "Star", "Planet"],
+                    answer: "Planet",
+                    explanation: "Planet is not a natural light source, while others are"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Car", "Bus", "Train", "Bicycle"],
+                    answer: "Bicycle",
+                    explanation: "Bicycle is human-powered, while others are motorized"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Book", "Pen", "Pencil", "Eraser"],
+                    answer: "Book",
+                    explanation: "Book is for reading, while others are writing tools"
+                }
+            ],
+            intermediate: [
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Python", "Java", "HTML", "JavaScript"],
+                    answer: "HTML",
+                    explanation: "HTML is a markup language, while others are programming languages"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Guitar", "Piano", "Violin", "Drums"],
+                    answer: "Drums",
+                    explanation: "Drums are percussion instruments, while others are string instruments"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Mercury", "Venus", "Earth", "Moon"],
+                    answer: "Moon",
+                    explanation: "Moon is a satellite, while others are planets"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Facebook", "Twitter", "Instagram", "Gmail"],
+                    answer: "Gmail",
+                    explanation: "Gmail is an email service, while others are social media platforms"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Basketball", "Football", "Tennis", "Chess"],
+                    answer: "Chess",
+                    explanation: "Chess is a board game, while others are sports"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Doctor", "Teacher", "Engineer", "Student"],
+                    answer: "Student",
+                    explanation: "Student is a learner, while others are professionals"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Lion", "Tiger", "Leopard", "Dolphin"],
+                    answer: "Dolphin",
+                    explanation: "Dolphin lives in water, while others are land animals"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Coffee", "Tea", "Juice", "Water"],
+                    answer: "Water",
+                    explanation: "Water is essential for life, while others are beverages"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Sun", "Rain", "Snow", "Wind"],
+                    answer: "Sun",
+                    explanation: "Sun is a celestial body, while others are weather phenomena"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Car", "Boat", "Plane", "Bicycle"],
+                    answer: "Bicycle",
+                    explanation: "Bicycle is the only one that doesn't use fuel"
+                }
+            ],
+            advanced: [
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Square", "Circle", "Triangle", "Rectangle"],
+                    answer: "Circle",
+                    explanation: "Circle is the only shape with infinite lines of symmetry"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["2", "4", "6", "7"],
+                    answer: "7",
+                    explanation: "7 is the only prime number in the list"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Red", "Blue", "Green", "Yellow"],
+                    answer: "Green",
+                    explanation: "Green is the only secondary color, while others are primary colors"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Mercury", "Venus", "Earth", "Mars"],
+                    answer: "Earth",
+                    explanation: "Earth is the only planet with liquid water on its surface"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Python", "Java", "C++", "HTML"],
+                    answer: "HTML",
+                    explanation: "HTML is the only markup language, while others are programming languages"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Square", "Cube", "Circle", "Rectangle"],
+                    answer: "Cube",
+                    explanation: "Cube is the only 3D shape, while others are 2D"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["2", "3", "5", "9"],
+                    answer: "9",
+                    explanation: "9 is the only non-prime number"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Red", "Blue", "Green", "Orange"],
+                    answer: "Orange",
+                    explanation: "Orange is the only color that's also a fruit"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Sun", "Moon", "Star", "Planet"],
+                    answer: "Planet",
+                    explanation: "Planet is the only one that doesn't emit light"
+                },
+                {
+                    prompt: "Choose the odd one out:",
+                    options: ["Car", "Bus", "Train", "Bicycle"],
+                    answer: "Bicycle",
+                    explanation: "Bicycle is the only one that doesn't use fuel"
+                }
+            ]
+        };
+
+        let score = 0;
+        let timeLeft = 180;
+        let current = {};
+        let timerInterval;
+        let currentLevel = 'beginner';
+        let streak = 0;
+        let correctAnswers = 0;
+        let totalQuestions = 0;
+
+        const timerEl = document.getElementById("timer");
+        const scoreEl = document.getElementById("score");
+        const questionEl = document.getElementById("question");
+        const optionsEl = document.getElementById("options");
+        const resultsScreen = document.getElementById("resultsScreen");
+        const gameScreen = document.getElementById("gameScreen");
+        const levelSelection = document.getElementById("levelSelection");
+        const finalScore = document.getElementById("finalScore");
+        const streakEl = document.getElementById("streak");
+        const correctCount = document.getElementById("correctCount");
+        const totalQuestionsEl = document.getElementById("totalQuestions");
+        const accuracy = document.getElementById("accuracy");
+
+        function showLevelSelection() {
+            gameScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            levelSelection.classList.remove('hidden');
+        }
+
+        function startLevel(level) {
+            currentLevel = level;
+            score = 0;
+            timeLeft = 180;
+            streak = 0;
+            correctAnswers = 0;
+            totalQuestions = questions[level].length;
+            
+            scoreEl.textContent = score;
+            timerEl.textContent = "180s";
+            streakEl.textContent = streak;
+            
+            levelSelection.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            
+            loadQuestion();
+            startTimer();
+            updateStreakIndicators();
+        }
+
+        function loadQuestion() {
+            const levelQuestions = questions[currentLevel];
+            current = levelQuestions[Math.floor(Math.random() * levelQuestions.length)];
+            
+            questionEl.classList.remove("animate-fade-in");
+            void questionEl.offsetWidth;
+            questionEl.classList.add("animate-fade-in");
+            
+            questionEl.innerHTML = `
+                <div class="text-xl font-bold text-blue-700 mb-2">${current.prompt}</div>
+                <div class="text-sm text-gray-600">Find the item that doesn't belong in the group</div>
+            `;
+
+            optionsEl.innerHTML = "";
+            shuffle(current.options).forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "w-full border text-left px-4 py-3 rounded-lg bg-white hover:bg-blue-50 transition-all duration-200";
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(opt, btn);
+                optionsEl.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, btn) {
+            const correct = selected === current.answer;
+            if (correct) {
+                score += 100;
+                streak++;
+                correctAnswers++;
+                scoreEl.textContent = score;
+                btn.classList.add("correct-answer");
+                
+                if (streak >= 3) {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+            } else {
+                streak = 0;
+                btn.classList.add("wrong-answer");
+            }
+            
+            streakEl.textContent = streak;
+            updateStreakIndicators();
+            
+            Array.from(optionsEl.children).forEach(b => b.disabled = true);
+            setTimeout(() => loadQuestion(), 800);
+        }
+
+        function updateStreakIndicators() {
+            const indicators = document.querySelectorAll('.streak-indicator');
+            indicators.forEach((indicator, index) => {
+                if (index < streak) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = `${timeLeft}s`;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            finalScore.textContent = score;
+            gameScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+
+            // Calculate results
+            const accuracyPercent = Math.round((correctAnswers / totalQuestions) * 100);
+            
+            correctCount.textContent = correctAnswers;
+            totalQuestionsEl.textContent = totalQuestions;
+            accuracy.textContent = accuracyPercent;
+
+            // Create confetti effect
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        function shuffle(arr) {
+            return arr.sort(() => 0.5 - Math.random());
+        }
+
+        // Initialize the game when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            showLevelSelection();
+        });
+    </script>
+</body>
+</html>

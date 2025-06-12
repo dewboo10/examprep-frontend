@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time & Work - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+        
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+            height: 200px;
+            margin: 1rem 0;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: white;
+        }
+        
+        .flip-card-back {
+            background: white;
+            transform: rotateY(180deg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: #e2e8f0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            width: 50%;
+            padding: 0 2rem;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #3b82f6;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Time & Work
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of time and work with our comprehensive guide.
+                Learn about efficiency, work rates, and complex problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#efficiency" class="nav-link block">2. Work Efficiency</a>
+                        <a href="#pipes" class="nav-link block">3. Pipes & Cisterns</a>
+                        <a href="#wages" class="nav-link block">4. Wages & Work</a>
+                        <a href="#advanced" class="nav-link block">5. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Work Rate</h3>
+                        <p class="text-gray-600">Work rate is the amount of work done per unit time. It's a fundamental concept in time and work problems.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Basic Formula:</p>
+                            <p>Work = Rate × Time</p>
+                            <p>Rate = Work/Time</p>
+                            <p>Time = Work/Rate</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Work Rate</p>
+                            <p>If a person can complete a work in 10 days, their work rate is 1/10 of the work per day.</p>
+                            <p>Work Rate = 1/10 work per day</p>
+                        </div>
+
+                        <div class="chart-container">
+                            <h4 class="text-lg font-semibold mb-4">Work Progress Visualization</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;"></div>
+                            </div>
+                            <p class="text-sm text-gray-600">60% of work completed</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Combined Work Rate</h3>
+                        <p class="text-gray-600">When multiple people work together, their work rates are added.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Combined Work Rate Formula:</p>
+                            <p>Total Work Rate = Sum of Individual Work Rates</p>
+                            <p>Time Taken = 1/Total Work Rate</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Combined Work</p>
+                            <p>Person A can complete work in 6 days</p>
+                            <p>Person B can complete work in 8 days</p>
+                            <p>Combined work rate = 1/6 + 1/8 = 7/24 work per day</p>
+                            <p>Time taken together = 24/7 days</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Work Efficiency -->
+                <section id="efficiency" class="content-section card p-6">
+                    <h2 class="section-title">2. Work Efficiency</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Efficiency</h3>
+                        <p class="text-gray-600">Efficiency is the ratio of work done to the time taken, often expressed as a percentage.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Efficiency Formula:</p>
+                            <p>Efficiency = (Work Done/Time Taken) × 100%</p>
+                            <p>Time Taken = Work Done/Efficiency</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Efficiency Calculation</p>
+                            <p>If a worker completes 3/4 of work in 6 days:</p>
+                            <p>Efficiency = (3/4 ÷ 6) × 100% = 12.5% per day</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Efficiency Comparison</h3>
+                        <p class="text-gray-600">When comparing efficiencies, we can determine the ratio of work rates.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Efficiency Ratio:</p>
+                            <p>Efficiency Ratio = Time taken by B/Time taken by A</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Efficiency Comparison</p>
+                            <p>Worker A takes 8 days, Worker B takes 12 days</p>
+                            <p>Efficiency ratio = 12/8 = 3/2</p>
+                            <p>Worker A is 1.5 times more efficient than Worker B</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pipes & Cisterns -->
+                <section id="pipes" class="content-section card p-6">
+                    <h2 class="section-title">3. Pipes & Cisterns</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Inlet and Outlet Pipes</h3>
+                        <p class="text-gray-600">Pipes can fill (inlet) or empty (outlet) a cistern at different rates.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Pipe Work Rate:</p>
+                            <p>Net Work Rate = Sum of Inlet Rates - Sum of Outlet Rates</p>
+                            <p>Time to Fill = 1/Net Work Rate</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Pipe Problem</p>
+                            <p>Inlet pipe fills in 6 hours</p>
+                            <p>Outlet pipe empties in 8 hours</p>
+                            <p>Net rate = 1/6 - 1/8 = 1/24 per hour</p>
+                            <p>Time to fill = 24 hours</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Multiple Pipes</h3>
+                        <p class="text-gray-600">When multiple pipes are involved, we need to consider their combined effect.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Multiple Pipes Formula:</p>
+                            <p>Total Work Rate = Σ(Inlet Rates) - Σ(Outlet Rates)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 6: Multiple Pipes</p>
+                            <p>Pipe A fills in 4 hours</p>
+                            <p>Pipe B fills in 6 hours</p>
+                            <p>Pipe C empties in 8 hours</p>
+                            <p>Net rate = 1/4 + 1/6 - 1/8 = 11/24 per hour</p>
+                            <p>Time to fill = 24/11 hours</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Wages & Work -->
+                <section id="wages" class="content-section card p-6">
+                    <h2 class="section-title">4. Wages & Work</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Wage Distribution</h3>
+                        <p class="text-gray-600">Wages are distributed based on work done or time taken.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Wage Distribution Formula:</p>
+                            <p>Wage ∝ Work Done</p>
+                            <p>Wage ∝ 1/Time Taken</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Wage Distribution</p>
+                            <p>Total wage = ₹1200</p>
+                            <p>Worker A takes 6 days</p>
+                            <p>Worker B takes 8 days</p>
+                            <p>Wage ratio = 8:6 = 4:3</p>
+                            <p>Worker A gets ₹685.71</p>
+                            <p>Worker B gets ₹514.29</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Efficiency-Based Wages</h3>
+                        <p class="text-gray-600">Wages can be distributed based on efficiency ratios.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Efficiency-Based Wage Formula:</p>
+                            <p>Wage Ratio = Efficiency Ratio</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 8: Efficiency-Based Wages</p>
+                            <p>Total wage = ₹1000</p>
+                            <p>Worker A is 1.5 times more efficient than Worker B</p>
+                            <p>Wage ratio = 3:2</p>
+                            <p>Worker A gets ₹600</p>
+                            <p>Worker B gets ₹400</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">5. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Work and Rest</h3>
+                        <p class="text-gray-600">When workers take breaks, we need to account for rest periods.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Work and Rest Formula:</p>
+                            <p>Effective Work Rate = Work Rate × (Work Time/Total Time)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 9: Work and Rest</p>
+                            <p>Worker works 6 hours and rests 2 hours</p>
+                            <p>Work rate = 1/8 per hour</p>
+                            <p>Effective work rate = (1/8) × (6/8) = 3/32 per hour</p>
+                            <p>Time to complete work = 32/3 hours</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Variable Work Rates</h3>
+                        <p class="text-gray-600">When work rates change over time, we need to consider different phases.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Variable Work Rate Formula:</p>
+                            <p>Total Work = Σ(Work Rate × Time) for each phase</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 10: Variable Work Rate</p>
+                            <p>Worker A: 1/10 for first 4 days, 1/8 for next 4 days</p>
+                            <p>Total work = (1/10 × 4) + (1/8 × 4) = 0.4 + 0.5 = 0.9</p>
+                            <p>Remaining work = 0.1</p>
+                            <p>Time to complete = 0.1 ÷ (1/8) = 0.8 days</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Work and Time Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Important Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>If A can do a work in x days, then A's work rate is 1/x per day</li>
+                                <li>If A is n times more efficient than B, then A takes 1/n times the time taken by B</li>
+                                <li>If A and B can do a work in x and y days respectively, then together they take xy/(x+y) days</li>
+                                <li>If A, B, and C can do a work in x, y, and z days respectively, then together they take xyz/(xy+yz+zx) days</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 11: Theorem Application</p>
+                            <p>A takes 6 days, B takes 8 days</p>
+                            <p>Together they take = (6×8)/(6+8) = 48/14 = 24/7 days</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Animate progress bars
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('data-width');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.progress-fill').forEach(bar => {
+            bar.style.width = '0';
+            observer.observe(bar);
+        });
+    </script>
+</body>
+</html> 

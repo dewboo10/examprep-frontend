@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Spotting - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            background: #e0f2fe;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .option {
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+        
+        .option.selected {
+            border-color: #3b82f6;
+            background: #e0f2fe;
+        }
+        
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0f9ff;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Error Spotting
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of identifying grammatical errors with our comprehensive practice questions.
+                Learn to spot common mistakes and improve your English language skills.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search questions..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Grammar</span>
+                    <span class="filter-tag">Tense</span>
+                    <span class="filter-tag">Subject-Verb</span>
+                    <span class="filter-tag">Prepositions</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <section id="questions" class="card p-8">
+                <h2 class="section-title">Practice Questions</h2>
+                
+                <!-- Question 1 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        1. The new policies (A) have not been fully implemented (B) yet, though (C) it was planned earlier. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C</p>
+                        <p class="text-gray-700 mt-2">"It" should be "they" to refer to "policies."</p>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        2. She is the most (A) intelligent student in the class (B), who has participated in every (C) competition. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C</p>
+                        <p class="text-gray-700 mt-2">"Who" should be "that" because it refers to a thing (the student).</p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        3. There is (A) little time left (B) before the meeting starts, so (C) I hope we will manage to finish. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        4. He had (A) finished the project by (B) the time I have (C) arrived. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C</p>
+                        <p class="text-gray-700 mt-2">"Have" should be "had" to maintain past perfect tense consistency.</p>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card" data-category="subject-verb">
+                    <div class="question-text">
+                        5. Each of the (A) team members have (B) contributed to the project (C) successfully. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"Have" should be "has" because "each" is singular.</p>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card" data-category="subject-verb">
+                    <div class="question-text">
+                        6. The children (A) was playing in the park when (B) the rain started. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A</p>
+                        <p class="text-gray-700 mt-2">"Was" should be "were" because the subject "children" is plural.</p>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card" data-category="prepositions">
+                    <div class="question-text">
+                        7. She has been working (A) in this company for (B) last five years, which (C) is quite impressive. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"For" should be "since" because "last" refers to a specific time.</p>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        8. He is one of those (A) students who always (B) arrive late in (C) the class. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-card" data-category="subject-verb">
+                    <div class="question-text">
+                        9. There are (A) a lot of work to do (B) before the deadline. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"Work" should be "works" to agree with "a lot of."</p>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        10. If I would have (A) known about the party, I (B) would have attended. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A</p>
+                        <p class="text-gray-700 mt-2">"Would have" should be "had" for correct conditional structure.</p>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        11. He enjoys (A) playing football than (B) any other sports. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"Than" should be "more than" to correctly compare.</p>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        12. The movie is so (A) boring that I (B) have left the theater halfway through. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"Have left" should be "left" to maintain past tense consistency.</p>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        13. She did not (A) want to come to the party, (B) though she was invited. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"Though" should be "although" because it introduces a contrast.</p>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question-card" data-category="subject-verb">
+                    <div class="question-text">
+                        14. He and I (A) was going to the market when (B) we saw an old friend. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A</p>
+                        <p class="text-gray-700 mt-2">"Was" should be "were" to agree with plural subjects.</p>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        15. She was (A) not only a good singer, but (B) also a great dancer. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        16. The book which (A) you gave me (B) is really interesting. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A</p>
+                        <p class="text-gray-700 mt-2">"Which" should be "that" for restrictive clauses.</p>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        17. The professor said that (A) he would help us (B) with the assignments next week. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        18. The company needs (A) to address the issues (B) which have been risen in the report. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C</p>
+                        <p class="text-gray-700 mt-2">"Risen" should be "raised" because "issues" are not naturally "risen."</p>
+                    </div>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        19. If I (A) were a bird, I (B) would fly across (C) the world. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="question-card" data-category="prepositions">
+                    <div class="question-text">
+                        20. She has been working (A) in this company since (B) five years, which (C) is quite impressive. (D) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"Since" should be "for" because we use "for" with periods of time.</p>
+                    </div>
+                </div>
+
+                <!-- Question 21 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        21. I (A) will be studying for the test all (B) night tomorrow. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C</p>
+                        <p class="text-gray-700 mt-2">"Tomorrow" should be "tonight" as it refers to the evening.</p>
+                    </div>
+                </div>
+
+                <!-- Question 22 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        22. The team (A) played so well that (B) they have won the game. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"Have won" should be "won" to maintain past tense consistency.</p>
+                    </div>
+                </div>
+
+                <!-- Question 23 -->
+                <div class="question-card" data-category="subject-verb">
+                    <div class="question-text">
+                        23. Neither the manager nor the employees (A) has (B) completed the task. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"Has" should be "have" because the nearest subject "employees" is plural.</p>
+                    </div>
+                </div>
+
+                <!-- Question 24 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        24. They were looking (A) forward to their vacation when (B) the pandemic happened. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 25 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        25. The project must (A) be completed by (B) the time you arrive. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 26 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        26. You should (A) take the advice seriously because (B) it will help you in the future. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 27 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        27. She didn't (A) like the way he speaks (B) with authority. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 28 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        28. His answer was not (A) only correct, but (B) also complete. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A</p>
+                        <p class="text-gray-700 mt-2">"Not only" should be followed by "but also" for correct parallel structure.</p>
+                    </div>
+                </div>
+
+                <!-- Question 29 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        29. The report (A) was read by the manager, (B) but it was incomplete. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 30 -->
+                <div class="question-card" data-category="prepositions">
+                    <div class="question-text">
+                        30. I (A) have been working in the same company for (B) the last five years. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B</p>
+                        <p class="text-gray-700 mt-2">"The" should be removed before "last" because it's used with specific time.</p>
+                    </div>
+                </div>
+
+                <!-- Question 31 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        31. If you (A) would study harder, you (B) would have passed the exam. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A</p>
+                        <p class="text-gray-700 mt-2">"Would" should be "had" in the conditional clause for the correct past perfect structure.</p>
+                    </div>
+                </div>
+
+                <!-- Question 32 -->
+                <div class="question-card" data-category="tense">
+                    <div class="question-text">
+                        32. By the time the meeting (A) started, I (B) had finished my presentation. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 33 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        33. This is the most (A) interesting movie I (B) have ever seen. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 34 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        34. She suggested that he (A) should take part in the competition (B) to improve his skills. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 35 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        35. We were waiting for the bus (A) when the rain started (B) to fall. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C</p>
+                        <p class="text-gray-700 mt-2">"To fall" should be "fall" because the verb after "started" should be in its base form.</p>
+                    </div>
+                </div>
+
+                <!-- Question 36 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        36. It is the best decision (A) that I (B) have ever made. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 37 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        37. She did not (A) like the way he speaks (B) with authority. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 38 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        38. I don't know (A) how much money I should (B) spend on the vacation. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 39 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        39. After the meeting, I (A) went to the office and (B) completed all my tasks. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+                <!-- Question 40 -->
+                <div class="question-card" data-category="grammar">
+                    <div class="question-text">
+                        40. This is the most (A) difficult task I (B) have ever completed. (C) No error.
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="A">A</div>
+                        <div class="option" data-option="B">B</div>
+                        <div class="option" data-option="C">C</div>
+                        <div class="option" data-option="D">D</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D</p>
+                        <p class="text-gray-700 mt-2">No error. The sentence is grammatically correct.</p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        const questionCards = document.querySelectorAll('.question-card');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            questionCards.forEach(card => {
+                const questionText = card.querySelector('.question-text').textContent.toLowerCase();
+                const explanation = card.querySelector('.explanation').textContent.toLowerCase();
+                
+                if (questionText.includes(searchTerm) || explanation.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter tags functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                filterTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                
+                const filter = tag.textContent.toLowerCase();
+                
+                questionCards.forEach(card => {
+                    const category = card.dataset.category;
+                    if (filter === 'all' || category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Option selection functionality
+        const options = document.querySelectorAll('.option');
+        
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const questionCard = option.closest('.question-card');
+                const allOptions = questionCard.querySelectorAll('.option');
+                const explanation = questionCard.querySelector('.explanation');
+                
+                allOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                explanation.classList.add('show');
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzles - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .puzzle-box {
+            background: #f8fafc;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .example-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+        
+        .answer.show {
+            display: block;
+        }
+
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .puzzle-cell {
+            aspect-ratio: 1;
+            border: 2px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: white;
+        }
+
+        .puzzle-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .puzzle-table th, .puzzle-table td {
+            border: 1px solid #e5e7eb;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .puzzle-table th {
+            background: #f3f4f6;
+        }
+
+        .puzzle-diagram {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Puzzles
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of solving puzzles with our comprehensive guide.
+                From logical puzzles to mathematical challenges and word games.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#logical" class="nav-link block">2. Logical Puzzles</a>
+                        <a href="#mathematical" class="nav-link block">3. Mathematical Puzzles</a>
+                        <a href="#word" class="nav-link block">4. Word Puzzles</a>
+                        <a href="#sequence" class="nav-link block">5. Sequence Puzzles</a>
+                        <a href="#spatial" class="nav-link block">6. Spatial Puzzles</a>
+                        <a href="#riddles" class="nav-link block">7. Riddles</a>
+                        <a href="#practice" class="nav-link block">8. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">9. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">🧩 Introduction to Puzzles</h2>
+                    <p class="text-gray-600 mb-4">
+                        Puzzles are problems or games that test ingenuity, knowledge, and problem-solving skills.
+                        They come in various forms and are essential for developing critical thinking abilities.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why are puzzles important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Enhance problem-solving skills</li>
+                            <li>Improve logical thinking</li>
+                            <li>Develop pattern recognition</li>
+                            <li>Boost creativity and innovation</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Logical Puzzles -->
+                <section id="logical" class="content-section card p-6">
+                    <h2 class="section-title">🧠 Logical Puzzles</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Deductive Reasoning</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">Three people are in a room: Alice, Bob, and Charlie. Each is wearing a hat that is either red or blue. They can see each other's hats but not their own. They know that at least one hat is red. They take turns to speak:</p>
+                                <p class="mb-2">Alice: "I don't know my hat color."</p>
+                                <p class="mb-2">Bob: "I don't know my hat color."</p>
+                                <p class="mb-2">Charlie: "I know my hat color."</p>
+                                <p class="text-sm text-gray-500">What color is Charlie's hat?</p>
+                            </div>
+
+                            <div class="tip-box p-4 mt-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Method:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>List all possible combinations</li>
+                                    <li>Analyze each statement's implications</li>
+                                    <li>Use process of elimination</li>
+                                    <li>Check for contradictions</li>
+                                </ol>
+                                <p class="mt-2 text-gray-600">Solution Steps:</p>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-1">
+                                    <li>If Alice sees two blue hats, she would know hers is red</li>
+                                    <li>Since she doesn't know, at least one hat she sees is red</li>
+                                    <li>Bob sees Alice's hat and still can't determine his color</li>
+                                    <li>Charlie can deduce his hat color based on others' uncertainty</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Truth and Lies</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">On an island, there are two types of people: knights who always tell the truth and knaves who always lie. You meet two people, A and B.</p>
+                                <p class="mb-2">A says: "B is a knave."</p>
+                                <p class="mb-2">B says: "A and I are different types."</p>
+                                <p class="text-sm text-gray-500">What are A and B?</p>
+                            </div>
+
+                            <div class="tip-box p-4 mt-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Method:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Create a truth table for all possibilities</li>
+                                    <li>Test each statement's validity</li>
+                                    <li>Look for contradictions</li>
+                                    <li>Use logical implications</li>
+                                </ol>
+                                <p class="mt-2 text-gray-600">Solution Steps:</p>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-1">
+                                    <li>Assume A is a knight → B is a knave</li>
+                                    <li>If B is a knave, his statement is false</li>
+                                    <li>Therefore, A and B are same type</li>
+                                    <li>This contradicts our assumption</li>
+                                    <li>Therefore, A is a knave and B is a knight</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mathematical Puzzles -->
+                <section id="mathematical" class="content-section card p-6">
+                    <h2 class="section-title">🔢 Mathematical Puzzles</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Number Sequences</h3>
+                            <div class="puzzle-box">
+                                <pre>
+2, 4, 8, 16, 32, ?  (×2)
+1, 3, 6, 10, 15, ?  (+2, +3, +4, +5)
+                                </pre>
+                            </div>
+
+                            <div class="tip-box p-4 mt-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Methods:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Look for common differences</li>
+                                    <li>Check for multiplication patterns</li>
+                                    <li>Examine differences of differences</li>
+                                    <li>Look for alternating patterns</li>
+                                </ol>
+                                <p class="mt-2 text-gray-600">Common Patterns:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Arithmetic sequences (constant difference)</li>
+                                    <li>Geometric sequences (constant ratio)</li>
+                                    <li>Fibonacci-like sequences</li>
+                                    <li>Square/cube numbers</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Magic Squares</h3>
+                            <div class="puzzle-grid">
+                                <div class="puzzle-cell">8</div>
+                                <div class="puzzle-cell">1</div>
+                                <div class="puzzle-cell">6</div>
+                                <div class="puzzle-cell">3</div>
+                                <div class="puzzle-cell">5</div>
+                                <div class="puzzle-cell">7</div>
+                                <div class="puzzle-cell">4</div>
+                                <div class="puzzle-cell">9</div>
+                                <div class="puzzle-cell">2</div>
+                            </div>
+
+                            <div class="tip-box p-4 mt-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Methods:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Calculate the magic constant (sum of any row/column/diagonal)</li>
+                                    <li>Place the middle number in the center</li>
+                                    <li>Use the Siamese method for odd-order squares</li>
+                                    <li>Check for complementary pairs</li>
+                                </ol>
+                                <p class="mt-2 text-gray-600">Properties:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Sum of any row/column/diagonal is constant</li>
+                                    <li>Center number is always the average of all numbers</li>
+                                    <li>Opposite numbers sum to n²+1 (where n is the order)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Mathematical Operations</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">Using only the numbers 1, 2, 3, 4, and the operations +, -, ×, ÷, make 24.</p>
+                                <p class="text-sm text-gray-500">(4 × 3) × (2 × 1) = 24</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Word Puzzles -->
+                <section id="word" class="content-section card p-6">
+                    <h2 class="section-title">📝 Word Puzzles</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Anagrams</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">Rearrange "HEART" to form another word.</p>
+                                <p class="text-sm text-gray-500">EARTH</p>
+                            </div>
+
+                            <div class="tip-box p-4 mt-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Methods:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Look for common prefixes/suffixes</li>
+                                    <li>Group similar letters together</li>
+                                    <li>Try common word patterns</li>
+                                    <li>Use vowel-consonant patterns</li>
+                                </ol>
+                                <p class="mt-2 text-gray-600">Techniques:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Start with the first letter</li>
+                                    <li>Look for common word endings (-ing, -ed, -er)</li>
+                                    <li>Identify vowel positions</li>
+                                    <li>Use process of elimination</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Word Ladders</h3>
+                            <div class="puzzle-box">
+                                <pre>
+COLD → CORD → CARD → WARD → WARM
+                                </pre>
+                            </div>
+
+                            <div class="tip-box p-4 mt-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Methods:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Identify common letter patterns</li>
+                                    <li>Work backwards from the target word</li>
+                                    <li>Change one letter at a time</li>
+                                    <li>Use a dictionary for valid words</li>
+                                </ol>
+                                <p class="mt-2 text-gray-600">Strategies:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Start with vowels</li>
+                                    <li>Keep common letter patterns</li>
+                                    <li>Use word families</li>
+                                    <li>Consider word length</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Cryptograms</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">Decode: "KHOOR ZRUOG"</p>
+                                <p class="text-sm text-gray-500">HELLO WORLD (Shift of +3)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sequence Puzzles -->
+                <section id="sequence" class="content-section card p-6">
+                    <h2 class="section-title">📊 Sequence Puzzles</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Number Patterns</h3>
+                            <div class="puzzle-box">
+                                <pre>
+1, 2, 4, 7, 11, 16, ?  (+1, +2, +3, +4, +5)
+2, 3, 5, 9, 17, 33, ?  (×2-1)
+                                </pre>
+                            </div>
+
+                            <div class="tip-box p-4 mt-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Methods:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Calculate differences between terms</li>
+                                    <li>Look for multiplication patterns</li>
+                                    <li>Check for alternating sequences</li>
+                                    <li>Use recursive formulas</li>
+                                </ol>
+                                <p class="mt-2 text-gray-600">Common Patterns:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Arithmetic sequences</li>
+                                    <li>Geometric sequences</li>
+                                    <li>Fibonacci sequences</li>
+                                    <li>Square/cube numbers</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Letter Sequences</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">Find the next letter: O, T, T, F, F, S, S, ?</p>
+                                <p class="text-sm text-gray-500">E (First letters of One, Two, Three, etc.)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Spatial Puzzles -->
+                <section id="spatial" class="content-section card p-6">
+                    <h2 class="section-title">🎯 Spatial Puzzles</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Cube Folding</h3>
+                            <div class="example-box">
+                                <p class="mb-2">Example:</p>
+                                <p class="mb-2">Which cube can be formed from the given net?</p>
+                                <div class="puzzle-diagram">
+                                    <pre>
+    [1]
+[2][3][4][5]
+    [6]
+                                    </pre>
+                                </div>
+                            </div>
+
+                            <div class="tip-box p-4 mt-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Solving Methods:</h4>
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Identify opposite faces</li>
+                                    <li>Use the cross method</li>
+                                    <li>Check face relationships</li>
+                                    <li>Use process of elimination</li>
+                                </ol>
+                                <p class="mt-2 text-gray-600">Techniques:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Mark adjacent faces</li>
+                                    <li>Use the center face as reference</li>
+                                    <li>Check for impossible combinations</li>
+                                    <li>Visualize the folding process</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Mirror Images</h3>
+                            <div class="puzzle-box">
+                                <pre>
+Original:  b d p q
+Mirror:    d b q p
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Riddles -->
+                <section id="riddles" class="content-section card p-6">
+                    <h2 class="section-title">❓ Riddles</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <h3 class="font-semibold mb-2">Classic Riddles</h3>
+                            <p class="text-gray-600 mb-3">
+                                What has keys, but no locks; space, but no room; and you can enter, but not go in?
+                            </p>
+                            <button onclick="toggleAnswer('riddle1')" class="text-blue-600 hover:text-blue-700">
+                                Show Answer
+                            </button>
+                            <div id="riddle1" class="answer">
+                                <p class="text-sm font-semibold">A keyboard</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <h3 class="font-semibold mb-2">Logic Riddles</h3>
+                            <p class="text-gray-600 mb-3">
+                                A man lives on the 10th floor of a building. Every day he takes the elevator to go down to the ground floor to go to work. When he returns, he takes the elevator to the 7th floor and walks up the stairs to reach his apartment on the 10th floor. Why?
+                            </p>
+                            <button onclick="toggleAnswer('riddle2')" class="text-blue-600 hover:text-blue-700">
+                                Show Answer
+                            </button>
+                            <div id="riddle2" class="answer">
+                                <p class="text-sm font-semibold">He's too short to reach the button for the 10th floor</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">📝 Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Easy</h3>
+                                <span class="difficulty-badge difficulty-easy">Easy</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                Complete the sequence: 2, 4, 8, 16, 32, ?
+                            </p>
+                            <button onclick="toggleAnswer('practice1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="practice1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm font-semibold">64 (Each number is multiplied by 2)</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Advanced</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                Three switches outside a room control three light bulbs inside. You can only enter the room once. How can you determine which switch controls which bulb?
+                            </p>
+                            <button onclick="toggleAnswer('practice2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="practice2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm font-semibold">Turn on first switch for 5 minutes, then turn it off and turn on second switch. The bulb that's on is controlled by second switch, the warm bulb by first switch, and the cold bulb by third switch.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">💡 Pro Tips for Success</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">General Tips</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Read the problem carefully</li>
+                                <li>Look for patterns and relationships</li>
+                                <li>Break complex problems into smaller parts</li>
+                                <li>Use visual aids when possible</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Common Mistakes</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Rushing to conclusions</li>
+                                <li>Ignoring given constraints</li>
+                                <li>Overcomplicating simple problems</li>
+                                <li>Not checking answers</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <p class="text-gray-700 italic">
+                            "The best way to solve a puzzle is to approach it systematically and think outside the box."
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

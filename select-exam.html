@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Your Exam</title>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- javascript -->
+<script src="js/select-exam.js" defer></script>
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --secondary: #f59e0b;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+      min-height: 100vh;
+    }
+    
+    .exam-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow: hidden;
+      border-top: 4px solid;
+    }
+    
+    .exam-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .exam-card.cat {
+      border-color: #4f46e5;
+    }
+    
+    .exam-card.cmat {
+      border-color: #10b981;
+    }
+    
+    .exam-card.snap {
+      border-color: #8b5cf6;
+    }
+    
+    .exam-card.gate {
+      border-color: #f59e0b;
+    }
+    
+    .exam-card.neet {
+      border-color: #ec4899;
+    }
+    
+    .exam-card.upsc {
+      border-color: #6366f1;
+    }
+    
+    .select-button {
+      background: linear-gradient(45deg, #4f46e5, #7c3aed);
+      transition: all 0.3s ease;
+    }
+    
+    .select-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+    }
+    
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    }
+    
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen p-4 md:p-8">
+  <!-- Header -->
+  <header class="max-w-7xl mx-auto mb-8">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="animate__animated animate__fadeInDown">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+          Choose Your Exam Path
+        </h1>
+        <p class="text-gray-600">
+          Select your exam to begin your preparation
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Exa  m Cards -->
+   <!-- This is where all exam cards will go -->
+<div id="exam-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl w-full z-10">
+
+
+ 
+<script>
+  function selectExam(examCode) {
+    localStorage.setItem('selectedExam', examCode);
+  }
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const response = await fetch('http://localhost:5050/api/exams');
+      const exams = await response.json();
+
+      const container = document.getElementById('exam-grid-container');
+      container.innerHTML = ''; // clear old content
+
+      exams.forEach((exam, index) => {
+        const delay = (index + 1) * 0.1;
+        const card = document.createElement('div');
+        card.className = `exam-card animate__animated animate__fadeInUp`;
+        card.style.animationDelay = `${delay}s`;
+
+        card.innerHTML = `
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-12 h-12 bg-${exam.colorTheme}-100 rounded-lg flex items-center justify-center text-${exam.colorTheme}-600">
+                <i class="${exam.icon} text-xl"></i>
+              </div>
+              <span class="text-xs bg-${exam.colorTheme}-100 text-${exam.colorTheme}-800 px-2 py-1 rounded-full">${exam.code}</span>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-1">${exam.name}</h3>
+            <p class="text-gray-600 text-sm mb-4">${exam.description}</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-gray-500">${exam.quizCount}+ Quizzes</span>
+              <a href="dashboard.html" onclick="selectExam('${exam.code}')" class="px-4 py-2 bg-${exam.colorTheme}-600 text-white rounded-full text-sm hover:bg-${exam.colorTheme}-700 transition flex items-center ripple-button">
+                <span>Select</span>
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+              </a>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error("❌ Failed to load exams:", err);
+      alert("Could not load exams. Please check backend.");
+    }
+  });
+</script>
+
+</body>
+</html>

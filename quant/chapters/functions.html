@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions - Quantitative Aptitude</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: white;
+            color: #1e40af;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .header h1 {
+            color: #1e40af;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            color: #4b5563;
+            margin: 1rem 0 0;
+            font-size: 1.1rem;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 2rem;
+        }
+
+        .sidebar h2 {
+            color: #1e40af;
+            margin: 0 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar a {
+            color: #4b5563;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background: #f3f4f6;
+            color: #1e40af;
+        }
+
+        .main-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section h2 {
+            color: #1e40af;
+            margin: 0 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: #1e40af;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .formula-box {
+            background: #fef9c3;
+            border-left: 4px solid #fde047;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.6;
+        }
+
+        .formula-title {
+            font-weight: 600;
+            color: #854d0e;
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-description {
+            color: #713f12;
+            margin-bottom: 0.75rem;
+        }
+
+        .formula-example {
+            color: #854d0e;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #fde047;
+        }
+
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+
+        .note-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Remove all graph-related styles */
+        .graph-container,
+        .graph-title,
+        .graph-description,
+        .graph-svg,
+        .coordinate-system,
+        .axis,
+        .grid-line,
+        .function-line,
+        .point,
+        .point-label,
+        .asymptote,
+        .slope-triangle,
+        .function-label {
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Functions</h1>
+            <p>Master the concepts of functions and their applications in problem-solving</p>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <h2>Contents</h2>
+                <ul>
+                    <li><a href="#basic">Basic Functions</a></li>
+                    <li><a href="#linear">Linear Functions</a></li>
+                    <li><a href="#quadratic">Quadratic Functions</a></li>
+                    <li><a href="#polynomial">Polynomial Functions</a></li>
+                    <li><a href="#rational">Rational Functions</a></li>
+                    <li><a href="#advanced">Advanced Concepts</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div id="basic" class="section">
+                    <h2>Basic Functions</h2>
+                    <p>A function is a relation between a set of inputs (domain) and a set of outputs (range) where each input is related to exactly one output.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Function Definition</p>
+                        <p class="formula-description">A function f from set A to set B is a rule that assigns to each element x in A exactly one element y in B.</p>
+                        <p>Notation: f: A → B</p>
+                        <p>f(x) = y, where x ∈ A and y ∈ B</p>
+                        <p class="formula-example">Example: f(x) = 2x + 1<br>
+                        Domain: All real numbers<br>
+                        Range: All real numbers<br>
+                        f(2) = 2(2) + 1 = 5</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Basic Function Operations</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Given f(x) = 3x - 2, find f(4) and f(-1)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">f(4) = 3(4) - 2 = 12 - 2 = 10</p>
+                        <p class="solution-text">f(-1) = 3(-1) - 2 = -3 - 2 = -5</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">If f(x) = x² + 2x - 3, find f(0) and f(2)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">f(0) = 0² + 2(0) - 3 = -3</p>
+                        <p class="solution-text">f(2) = 2² + 2(2) - 3 = 4 + 4 - 3 = 5</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Given f(x) = √(x + 4), find the domain and f(5)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Domain: x + 4 ≥ 0, so x ≥ -4</p>
+                        <p class="solution-text">f(5) = √(5 + 4) = √9 = 3</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">If f(x) = 1/(x - 2), find the domain and f(3)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Domain: x - 2 ≠ 0, so x ≠ 2</p>
+                        <p class="solution-text">f(3) = 1/(3 - 2) = 1/1 = 1</p>
+                    </div>
+                </div>
+
+                <div id="linear" class="section">
+                    <h2>Linear Functions</h2>
+                    <p>Linear functions are functions of the form f(x) = mx + b, where m is the slope and b is the y-intercept.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Linear Function Properties</p>
+                        <p class="formula-description">Linear functions have constant rate of change and graph as straight lines.</p>
+                        <p>General form: f(x) = mx + b</p>
+                        <p>m: slope (rate of change)</p>
+                        <p>b: y-intercept (value when x = 0)</p>
+                        <p class="formula-example">Example: f(x) = 2x + 3<br>
+                        Slope (m) = 2<br>
+                        Y-intercept (b) = 3<br>
+                        Rate of change = 2 units up for every 1 unit right</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Linear Function Analysis</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Find the slope and y-intercept of f(x) = -3x + 4</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Slope (m) = -3</p>
+                        <p class="solution-text">Y-intercept (b) = 4</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Write the equation of a line with slope 2 passing through point (3, 5)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using point-slope form: y - y₁ = m(x - x₁)</p>
+                        <p class="solution-text">y - 5 = 2(x - 3)</p>
+                        <p class="solution-text">y = 2x - 6 + 5</p>
+                        <p class="solution-text">y = 2x - 1</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Find the x-intercept of f(x) = 4x - 8</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Set f(x) = 0</p>
+                        <p class="solution-text">4x - 8 = 0</p>
+                        <p class="solution-text">4x = 8</p>
+                        <p class="solution-text">x = 2</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Determine if the lines f(x) = 2x + 1 and g(x) = -0.5x + 4 are perpendicular</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">For perpendicular lines, m₁ × m₂ = -1</p>
+                        <p class="solution-text">2 × (-0.5) = -1</p>
+                        <p class="solution-text">Therefore, the lines are perpendicular</p>
+                    </div>
+                </div>
+
+                <div id="quadratic" class="section">
+                    <h2>Quadratic Functions</h2>
+                    <p>Quadratic functions are functions of the form f(x) = ax² + bx + c, where a ≠ 0.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Quadratic Function Properties</p>
+                        <p class="formula-description">Quadratic functions graph as parabolas and have various important properties.</p>
+                        <p>General form: f(x) = ax² + bx + c</p>
+                        <p>Vertex form: f(x) = a(x - h)² + k</p>
+                        <p>Vertex: (-b/2a, f(-b/2a))</p>
+                        <p>Axis of symmetry: x = -b/2a</p>
+                        <p class="formula-example">Example: f(x) = x² - 4x + 3<br>
+                        a = 1, b = -4, c = 3<br>
+                        Vertex: (2, -1)<br>
+                        Axis of symmetry: x = 2</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Quadratic Function Analysis</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Find the vertex of f(x) = x² - 6x + 8</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">x-coordinate = -b/2a = -(-6)/2(1) = 3</p>
+                        <p class="solution-text">y-coordinate = f(3) = 3² - 6(3) + 8 = -1</p>
+                        <p class="solution-text">Vertex: (3, -1)</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Find the roots of f(x) = 2x² - 5x + 3</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using quadratic formula: x = (-b ± √(b² - 4ac))/2a</p>
+                        <p class="solution-text">x = (5 ± √(25 - 24))/4</p>
+                        <p class="solution-text">x = (5 ± 1)/4</p>
+                        <p class="solution-text">x = 1.5 or x = 1</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Write f(x) = x² + 4x - 5 in vertex form</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Complete the square:</p>
+                        <p class="solution-text">f(x) = (x² + 4x + 4) - 4 - 5</p>
+                        <p class="solution-text">f(x) = (x + 2)² - 9</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Find the maximum/minimum value of f(x) = -2x² + 8x - 3</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Since a < 0, the function has a maximum</p>
+                        <p class="solution-text">x-coordinate of vertex = -b/2a = -8/-4 = 2</p>
+                        <p class="solution-text">Maximum value = f(2) = -2(2)² + 8(2) - 3 = 5</p>
+                    </div>
+                </div>
+
+                <div id="polynomial" class="section">
+                    <h2>Polynomial Functions</h2>
+                    <p>Polynomial functions are functions of the form f(x) = aₙxⁿ + aₙ₋₁xⁿ⁻¹ + ... + a₁x + a₀.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Polynomial Function Properties</p>
+                        <p class="formula-description">Polynomial functions have various properties based on their degree and coefficients.</p>
+                        <p>Degree: Highest power of x</p>
+                        <p>Leading coefficient: Coefficient of highest power</p>
+                        <p>End behavior: Determined by degree and leading coefficient</p>
+                        <p>Roots: Solutions to f(x) = 0</p>
+                        <p class="formula-example">Example: f(x) = 2x³ - 3x² + 4x - 1<br>
+                        Degree: 3<br>
+                        Leading coefficient: 2<br>
+                        End behavior: As x → ∞, f(x) → ∞; As x → -∞, f(x) → -∞</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Polynomial Function Analysis</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Find the degree and leading coefficient of f(x) = 3x⁴ - 2x² + 5x - 1</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Degree = 4 (highest power)</p>
+                        <p class="solution-text">Leading coefficient = 3</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Describe the end behavior of f(x) = -x³ + 2x² - 3</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Degree is odd (3)</p>
+                        <p class="solution-text">Leading coefficient is negative</p>
+                        <p class="solution-text">As x → ∞, f(x) → -∞</p>
+                        <p class="solution-text">As x → -∞, f(x) → ∞</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Find the roots of f(x) = x³ - 4x² + 4x</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Factor: f(x) = x(x² - 4x + 4)</p>
+                        <p class="solution-text">f(x) = x(x - 2)²</p>
+                        <p class="solution-text">Roots: x = 0, x = 2 (double root)</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Determine if x = 1 is a root of f(x) = x³ - 2x² + x - 1</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Use synthetic division or substitution</p>
+                        <p class="solution-text">f(1) = 1³ - 2(1)² + 1 - 1 = -1</p>
+                        <p class="solution-text">Since f(1) ≠ 0, x = 1 is not a root</p>
+                    </div>
+                </div>
+
+                <div id="rational" class="section">
+                    <h2>Rational Functions</h2>
+                    <p>Rational functions are functions of the form f(x) = P(x)/Q(x), where P(x) and Q(x) are polynomials.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Rational Function Properties</p>
+                        <p class="formula-description">Rational functions have various properties including asymptotes and holes.</p>
+                        <p>Vertical asymptotes: Where Q(x) = 0</p>
+                        <p>Horizontal asymptotes: Based on degrees of P(x) and Q(x)</p>
+                        <p>Holes: Where P(x) and Q(x) have common factors</p>
+                        <p class="formula-example">Example: f(x) = (x² - 4)/(x - 2)<br>
+                        Vertical asymptote: x = 2<br>
+                        Hole at x = 2 (after simplifying)<br>
+                        Horizontal asymptote: y = x + 2</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Rational Function Analysis</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Find the vertical asymptotes of f(x) = (x + 3)/(x² - 4)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Set denominator = 0</p>
+                        <p class="solution-text">x² - 4 = 0</p>
+                        <p class="solution-text">x = ±2</p>
+                        <p class="solution-text">Vertical asymptotes: x = 2 and x = -2</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Find the horizontal asymptote of f(x) = (2x² + 3)/(x² - 1)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Degrees of numerator and denominator are equal</p>
+                        <p class="solution-text">Horizontal asymptote: y = 2/1 = 2</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Find any holes in f(x) = (x² - 9)/(x - 3)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Factor numerator: (x + 3)(x - 3)/(x - 3)</p>
+                        <p class="solution-text">Hole at x = 3</p>
+                        <p class="solution-text">After simplifying: f(x) = x + 3, x ≠ 3</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Find the domain of f(x) = (x + 2)/(x² - 5x + 6)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Set denominator ≠ 0</p>
+                        <p class="solution-text">x² - 5x + 6 ≠ 0</p>
+                        <p class="solution-text">(x - 2)(x - 3) ≠ 0</p>
+                        <p class="solution-text">Domain: x ≠ 2 and x ≠ 3</p>
+                    </div>
+                </div>
+
+                <div id="advanced" class="section">
+                    <h2>Advanced Concepts</h2>
+                    <p>Advanced topics in functions including composition, inverse functions, and transformations.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Advanced Function Concepts</p>
+                        <p class="formula-description">Advanced function concepts include composition, inverse functions, and various transformations.</p>
+                        <p>Composition: (f ∘ g)(x) = f(g(x))</p>
+                        <p>Inverse: f⁻¹(f(x)) = x</p>
+                        <p>Transformations:</p>
+                        <p>- Vertical shift: f(x) ± k</p>
+                        <p>- Horizontal shift: f(x ± h)</p>
+                        <p>- Vertical stretch/compression: af(x)</p>
+                        <p>- Horizontal stretch/compression: f(bx)</p>
+                        <p class="formula-example">Example: f(x) = x², g(x) = x + 2<br>
+                        (f ∘ g)(x) = (x + 2)²<br>
+                        f⁻¹(x) = √x (for x ≥ 0)<br>
+                        f(x + 3) - 2 = (x + 3)² - 2</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Function Composition</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Find (f ∘ g)(x) if f(x) = 2x + 1 and g(x) = x²</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">(f ∘ g)(x) = f(g(x))</p>
+                        <p class="solution-text">= f(x²)</p>
+                        <p class="solution-text">= 2(x²) + 1</p>
+                        <p class="solution-text">= 2x² + 1</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Find the inverse of f(x) = 3x - 2</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">y = 3x - 2</p>
+                        <p class="solution-text">x = 3y - 2</p>
+                        <p class="solution-text">x + 2 = 3y</p>
+                        <p class="solution-text">y = (x + 2)/3</p>
+                        <p class="solution-text">f⁻¹(x) = (x + 2)/3</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Describe the transformation of f(x) = x² to g(x) = (x - 2)² + 3</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Horizontal shift right 2 units</p>
+                        <p class="solution-text">Vertical shift up 3 units</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Find (g ∘ f)(x) if f(x) = √x and g(x) = x² + 1</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">(g ∘ f)(x) = g(f(x))</p>
+                        <p class="solution-text">= g(√x)</p>
+                        <p class="solution-text">= (√x)² + 1</p>
+                        <p class="solution-text">= x + 1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sidebar a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

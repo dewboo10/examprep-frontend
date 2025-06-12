@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time, Distance & Speed - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+        
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+            height: 200px;
+            margin: 1rem 0;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: white;
+        }
+        
+        .flip-card-back {
+            background: white;
+            transform: rotateY(180deg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: #e2e8f0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            width: 50%;
+            padding: 0 2rem;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #3b82f6;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Time, Distance & Speed
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of time, distance, and speed with our comprehensive guide.
+                Learn about relative speed, trains, boats, and problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#relative" class="nav-link block">2. Relative Speed</a>
+                        <a href="#trains" class="nav-link block">3. Trains</a>
+                        <a href="#boats" class="nav-link block">4. Boats & Streams</a>
+                        <a href="#advanced" class="nav-link block">5. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Speed</h3>
+                        <p class="text-gray-600">Speed is the rate at which an object covers distance.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Basic Formulas:</p>
+                            <p>Speed = Distance/Time</p>
+                            <p>Distance = Speed × Time</p>
+                            <p>Time = Distance/Speed</p>
+                            <p>Units:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Speed: km/h, m/s</li>
+                                <li>Distance: km, m</li>
+                                <li>Time: h, min, s</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Speed</p>
+                            <p>Distance = 120 km</p>
+                            <p>Time = 2 hours</p>
+                            <p>Speed = 120/2 = 60 km/h</p>
+                        </div>
+
+                        <div class="chart-container">
+                            <h4 class="text-lg font-semibold mb-4">Speed Units Conversion</h4>
+                            <div class="table-container">
+                                <table>
+                                    <tr>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Multiply by</th>
+                                    </tr>
+                                    <tr>
+                                        <td>km/h</td>
+                                        <td>m/s</td>
+                                        <td>5/18</td>
+                                    </tr>
+                                    <tr>
+                                        <td>m/s</td>
+                                        <td>km/h</td>
+                                        <td>18/5</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Average Speed</h3>
+                        <p class="text-gray-600">Average speed is the total distance divided by total time.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Average Speed Formula:</p>
+                            <p>Average Speed = Total Distance/Total Time</p>
+                            <p>For equal distances:</p>
+                            <p>Average Speed = 2xy/(x+y)</p>
+                            <p>where x and y are speeds</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Average Speed</p>
+                            <p>Going: 60 km/h</p>
+                            <p>Returning: 40 km/h</p>
+                            <p>Average Speed = 2×60×40/(60+40) = 48 km/h</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Relative Speed -->
+                <section id="relative" class="content-section card p-6">
+                    <h2 class="section-title">2. Relative Speed</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Same Direction</h3>
+                        <p class="text-gray-600">When objects move in the same direction.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Relative Speed (Same Direction):</p>
+                            <p>Relative Speed = |Speed₁ - Speed₂|</p>
+                            <p>Time to meet = Distance/Relative Speed</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Same Direction</p>
+                            <p>Speed₁ = 60 km/h</p>
+                            <p>Speed₂ = 40 km/h</p>
+                            <p>Distance = 100 km</p>
+                            <p>Relative Speed = 60-40 = 20 km/h</p>
+                            <p>Time to meet = 100/20 = 5 hours</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Opposite Direction</h3>
+                        <p class="text-gray-600">When objects move towards each other.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Relative Speed (Opposite Direction):</p>
+                            <p>Relative Speed = Speed₁ + Speed₂</p>
+                            <p>Time to meet = Distance/Relative Speed</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Opposite Direction</p>
+                            <p>Speed₁ = 50 km/h</p>
+                            <p>Speed₂ = 30 km/h</p>
+                            <p>Distance = 200 km</p>
+                            <p>Relative Speed = 50+30 = 80 km/h</p>
+                            <p>Time to meet = 200/80 = 2.5 hours</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Trains -->
+                <section id="trains" class="content-section card p-6">
+                    <h2 class="section-title">3. Trains</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Train Crossing Stationary Objects</h3>
+                        <p class="text-gray-600">When a train crosses a stationary object (pole, person, etc.).</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Basic Formula:</p>
+                            <p>Time = Length of Train/Speed of Train</p>
+                            <p>Important Points:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Length of stationary object is negligible</li>
+                                <li>Time taken is independent of the speed of the stationary object</li>
+                                <li>Speed should be in the same unit as length</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Train Crossing Pole</p>
+                            <p>Train length = 200 m</p>
+                            <p>Speed = 72 km/h = 20 m/s</p>
+                            <p>Time = 200/20 = 10 seconds</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Train Crossing Man</p>
+                            <p>Train length = 150 m</p>
+                            <p>Speed = 54 km/h = 15 m/s</p>
+                            <p>Time = 150/15 = 10 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Train Crossing Platform/Bridge</h3>
+                        <p class="text-gray-600">When a train crosses a platform or bridge.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Time = (Length of Train + Length of Platform)/Speed of Train</p>
+                            <p>Important Points:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Total distance = Train length + Platform length</li>
+                                <li>Time taken depends on both lengths</li>
+                                <li>Speed should be converted to appropriate units</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Train Crossing Platform</p>
+                            <p>Train length = 200 m</p>
+                            <p>Platform length = 300 m</p>
+                            <p>Speed = 72 km/h = 20 m/s</p>
+                            <p>Time = (200+300)/20 = 25 seconds</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Train Crossing Bridge</p>
+                            <p>Train length = 250 m</p>
+                            <p>Bridge length = 750 m</p>
+                            <p>Speed = 90 km/h = 25 m/s</p>
+                            <p>Time = (250+750)/25 = 40 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Trains Crossing Each Other</h3>
+                        <p class="text-gray-600">When two trains cross each other.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Opposite Direction:</p>
+                            <p>Time = (Length₁ + Length₂)/(Speed₁ + Speed₂)</p>
+                            <p>Same Direction:</p>
+                            <p>Time = (Length₁ + Length₂)/|Speed₁ - Speed₂|</p>
+                            <p>Important Points:</p>
+                            <ul class="list-disc list-inside">
+                                <li>For opposite direction, speeds are added</li>
+                                <li>For same direction, speeds are subtracted</li>
+                                <li>Total distance is sum of both train lengths</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Trains Crossing (Opposite)</p>
+                            <p>Train₁: 200 m, 60 km/h</p>
+                            <p>Train₂: 300 m, 40 km/h</p>
+                            <p>Time = (200+300)/(60+40) = 5 seconds</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 6: Trains Crossing (Same Direction)</p>
+                            <p>Train₁: 200 m, 60 km/h</p>
+                            <p>Train₂: 300 m, 40 km/h</p>
+                            <p>Time = (200+300)/(60-40) = 25 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(d) Train Overtaking</h3>
+                        <p class="text-gray-600">When one train overtakes another.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Overtaking Formula:</p>
+                            <p>Time = (Length₁ + Length₂)/(Speed₁ - Speed₂)</p>
+                            <p>Important Points:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Faster train must be behind initially</li>
+                                <li>Time taken is from when front of faster train reaches back of slower train</li>
+                                <li>Overtaking is complete when back of faster train passes front of slower train</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Train Overtaking</p>
+                            <p>Train₁: 200 m, 60 km/h</p>
+                            <p>Train₂: 300 m, 40 km/h</p>
+                            <p>Time = (200+300)/(60-40) = 25 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(e) Train in Tunnel</h3>
+                        <p class="text-gray-600">When a train passes through a tunnel.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Tunnel Formula:</p>
+                            <p>Time = (Length of Train + Length of Tunnel)/Speed of Train</p>
+                            <p>Important Points:</p>
+                            <ul class="list-disc list-inside">
+                                <li>Total distance = Train length + Tunnel length</li>
+                                <li>Time starts when front of train enters tunnel</li>
+                                <li>Time ends when back of train exits tunnel</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 8: Train in Tunnel</p>
+                            <p>Train length = 200 m</p>
+                            <p>Tunnel length = 800 m</p>
+                            <p>Speed = 72 km/h = 20 m/s</p>
+                            <p>Time = (200+800)/20 = 50 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(f) Train and Moving Object</h3>
+                        <p class="text-gray-600">When a train crosses a moving object.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Moving Object Formula:</p>
+                            <p>Same Direction:</p>
+                            <p>Time = Length of Train/(Speed of Train - Speed of Object)</p>
+                            <p>Opposite Direction:</p>
+                            <p>Time = Length of Train/(Speed of Train + Speed of Object)</p>
+                            <p>Important Points:</p>
+                            <ul class="list-disc list-inside">
+                                <li>For same direction, subtract speeds</li>
+                                <li>For opposite direction, add speeds</li>
+                                <li>Length of moving object is negligible</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 9: Train and Moving Object</p>
+                            <p>Train length = 200 m</p>
+                            <p>Train speed = 60 km/h</p>
+                            <p>Object speed = 20 km/h</p>
+                            <p>Same direction:</p>
+                            <p>Time = 200/(60-20) = 5 seconds</p>
+                            <p>Opposite direction:</p>
+                            <p>Time = 200/(60+20) = 2.5 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(g) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>If a train of length L₁ crosses a platform of length L₂ in time T, then:
+                                    <br>Speed = (L₁ + L₂)/T</li>
+                                <li>If two trains of lengths L₁ and L₂ cross each other in time T:
+                                    <br>For opposite direction: Speed₁ + Speed₂ = (L₁ + L₂)/T
+                                    <br>For same direction: |Speed₁ - Speed₂| = (L₁ + L₂)/T</li>
+                                <li>If a train overtakes another train in time T:
+                                    <br>Time = (L₁ + L₂)/(Speed₁ - Speed₂)</li>
+                                <li>If a train crosses a moving object:
+                                    <br>Time = L/(Speed of Train ± Speed of Object)</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 10: Complex Problem</p>
+                            <p>Train A (200 m) crosses a platform (300 m) in 25 seconds</p>
+                            <p>Train B (300 m) crosses the same platform in 30 seconds</p>
+                            <p>Find the time taken for Train A to overtake Train B</p>
+                            <p>Solution:</p>
+                            <p>Speed of A = (200+300)/25 = 20 m/s</p>
+                            <p>Speed of B = (300+300)/30 = 20 m/s</p>
+                            <p>Time to overtake = (200+300)/(20-20) = Not possible (same speed)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Boats & Streams -->
+                <section id="boats" class="content-section card p-6">
+                    <h2 class="section-title">4. Boats & Streams</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Downstream & Upstream</h3>
+                        <p class="text-gray-600">Speed of boat in still water and speed of stream.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Boat Speed Formulas:</p>
+                            <p>Downstream Speed = Boat Speed + Stream Speed</p>
+                            <p>Upstream Speed = Boat Speed - Stream Speed</p>
+                            <p>Boat Speed = (Downstream + Upstream)/2</p>
+                            <p>Stream Speed = (Downstream - Upstream)/2</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 7: Boat Speed</p>
+                            <p>Downstream = 20 km/h</p>
+                            <p>Upstream = 12 km/h</p>
+                            <p>Boat Speed = (20+12)/2 = 16 km/h</p>
+                            <p>Stream Speed = (20-12)/2 = 4 km/h</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Time and Distance</h3>
+                        <p class="text-gray-600">Calculating time and distance in boats and streams.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Time and Distance:</p>
+                            <p>Time = Distance/Speed</p>
+                            <p>For round trip:</p>
+                            <p>Average Speed = 2×Downstream×Upstream/(Downstream+Upstream)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 8: Round Trip</p>
+                            <p>Distance = 24 km</p>
+                            <p>Downstream = 12 km/h</p>
+                            <p>Upstream = 8 km/h</p>
+                            <p>Time downstream = 24/12 = 2 hours</p>
+                            <p>Time upstream = 24/8 = 3 hours</p>
+                            <p>Total time = 5 hours</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">5. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Circular Motion</h3>
+                        <p class="text-gray-600">Objects moving in circular paths.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Circular Motion:</p>
+                            <p>Time to meet = Circumference/Relative Speed</p>
+                            <p>For same direction:</p>
+                            <p>Time = Circumference/|Speed₁ - Speed₂|</p>
+                            <p>For opposite direction:</p>
+                            <p>Time = Circumference/(Speed₁ + Speed₂)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 9: Circular Motion</p>
+                            <p>Circumference = 400 m</p>
+                            <p>Speed₁ = 5 m/s</p>
+                            <p>Speed₂ = 3 m/s</p>
+                            <p>Same direction:</p>
+                            <p>Time = 400/(5-3) = 200 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Escalator Problems</h3>
+                        <p class="text-gray-600">Problems involving escalators and moving walkways.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Escalator Formula:</p>
+                            <p>Effective Speed = Person's Speed ± Escalator Speed</p>
+                            <p>Time = Length/Effective Speed</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 10: Escalator</p>
+                            <p>Escalator length = 100 m</p>
+                            <p>Person's speed = 2 m/s</p>
+                            <p>Escalator speed = 1 m/s</p>
+                            <p>Time = 100/(2+1) = 33.33 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>If two objects start from the same point and move in the same direction, the time to meet is Distance/Relative Speed</li>
+                                <li>If two objects start from the same point and move in opposite directions, the time to meet is Distance/Sum of Speeds</li>
+                                <li>For equal distances, average speed is harmonic mean of speeds</li>
+                                <li>For equal times, average speed is arithmetic mean of speeds</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 11: Average Speed</p>
+                            <p>Equal distances:</p>
+                            <p>Speeds: 30 km/h, 60 km/h</p>
+                            <p>Average Speed = 2×30×60/(30+60) = 40 km/h</p>
+                            <p>Equal times:</p>
+                            <p>Average Speed = (30+60)/2 = 45 km/h</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Animate progress bars
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('data-width');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.progress-fill').forEach(bar => {
+            bar.style.width = '0';
+            observer.observe(bar);
+        });
+    </script>
+</body>
+</html> 

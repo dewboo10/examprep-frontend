@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Economy - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fact-item {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .fact-item:hover {
+            background: #e0f2fe;
+        }
+        
+        .fact-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .fact-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Indian Economy
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Comprehensive guide to India's economic landscape, covering GDP, sectors, trade, banking, and more.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search economic facts..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">GDP & Growth</span>
+                    <span class="filter-tag">Structure & Sectors</span>
+                    <span class="filter-tag">Trade & External</span>
+                    <span class="filter-tag">Banking & Finance</span>
+                    <span class="filter-tag">Agriculture</span>
+                    <span class="filter-tag">Industry</span>
+                    <span class="filter-tag">Services</span>
+                    <span class="filter-tag">Government</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- GDP & Growth -->
+            <section id="gdp" class="card p-8">
+                <h2 class="section-title">GDP & Growth</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">India's Global Economic Position</div>
+                        <div class="fact-content">India is the world's 4th-largest economy by nominal GDP and 3rd by PPP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FY 2024-25 Real GDP Growth</div>
+                        <div class="fact-content">Estimated at 6.5%, with nominal GDP up 9.9%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Q4 FY25 Growth</div>
+                        <div class="fact-content">7.4% growth, driven by strong agriculture and construction.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FY 2023-24 Real GDP Growth</div>
+                        <div class="fact-content">9.2%, highest in 12 years.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Real GVA Growth FY 2024-25</div>
+                        <div class="fact-content">6.4%, nominal GVA 9.5%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sector Growth FY 2024-25</div>
+                        <div class="fact-content">Construction grew 8.6%, financial & real estate 7.2%, trade/services 6.4%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">India's Growth Among Majors</div>
+                        <div class="fact-content">India was the fastest-growing major economy in FY 2023-24 (8.2%).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">RBI Growth Forecast</div>
+                        <div class="fact-content">FY 2025-26 growth forecast retained at 6.5%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">World Bank Forecast</div>
+                        <div class="fact-content">~6.3% for FY 2024-26.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">NSO Estimate</div>
+                        <div class="fact-content">Second advance estimate confirms 6.5% real and 9.9% nominal growth.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Agriculture/GDP Q4</div>
+                        <div class="fact-content">Grew 5%, up from 0.8% last year.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Private Consumption FY 2024-25</div>
+                        <div class="fact-content">Grew 7.6% vs 5.6% last year.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Double-Digit Growth Sectors FY 2023-24</div>
+                        <div class="fact-content">Manufacturing (12.3%), construction (10.4%), financial services (10.3%).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FY 2022-23 Real GDP</div>
+                        <div class="fact-content">7.6% and construction/services/utilities around 10.8–12.3%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">India vs China & Majors (2015–18)</div>
+                        <div class="fact-content">India outpaced China (6.5–6.7%) and major economies.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Fiscal Deficit FY 2024-25</div>
+                        <div class="fact-content">Narrowed from 8.4% to 7.6% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Public Debt FY 2024-25</div>
+                        <div class="fact-content">Fell from 81.8% to 81.2% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Current Account Deficit FY 2024-25</div>
+                        <div class="fact-content">Stable at ~0.7% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FDI & FPI FY 2024-25</div>
+                        <div class="fact-content">FDI net inflows ~1% of GDP, FPI lower to 0.2%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Forex Reserves Feb 2025</div>
+                        <div class="fact-content">~$638B (~11 months import cover).</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Structure & Sectors -->
+            <section id="structure" class="card p-8">
+                <h2 class="section-title">Structure & Sectors</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Sectoral Composition FY 2023-24</div>
+                        <div class="fact-content">Agriculture 17.7%, Industry 27.6%, Services 54.7%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Services Share of GVA</div>
+                        <div class="fact-content">~55% of GVA.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Domestic Consumption</div>
+                        <div class="fact-content">Constitutes ~70% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Savings Rate 2023</div>
+                        <div class="fact-content">~31.8% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Unemployment March 2024</div>
+                        <div class="fact-content">~7.6%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Public-Sector Firms</div>
+                        <div class="fact-content">~1,900 across key sectors.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Workforce Size</div>
+                        <div class="fact-content">~586 million, second-largest globally.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Structural Issues</div>
+                        <div class="fact-content">Low productivity and prevalence of jobless growth remain issues.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">PMI Indicators 2024</div>
+                        <div class="fact-content">Manufacturing PMI ~58.3 (July), Services PMI ~61.2 (March).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">IT-BPM Sector</div>
+                        <div class="fact-content">7.4% of GDP, $254B revenue, ~5.4M employees.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">IT Exports FY 2021-22</div>
+                        <div class="fact-content">₹11.6 lakh cr.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Data Centre Capacity 2024</div>
+                        <div class="fact-content">India top datacentre capacity in APAC (excluding China), ~950 MW.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FinTech Growth</div>
+                        <div class="fact-content">~6,600 startups, USD 31B value in 2021–22; $8B VC funding in 2021.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Auto Sector</div>
+                        <div class="fact-content">~7.1% of GDP, employs ~37M, 4th largest auto producer.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Pharma Industry</div>
+                        <div class="fact-content">~3,000 companies, world's top generic medicines producer.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mining Sector</div>
+                        <div class="fact-content">~1.75% of GDP, 11M employed.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Agricultural Production</div>
+                        <div class="fact-content">India is 2nd-largest milk, jute, pulses producer; 2nd in rice, wheat, cotton, sugarcane.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Irrigation Coverage</div>
+                        <div class="fact-content">Irrigated ~39% of cultivated land.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Food Exports</div>
+                        <div class="fact-content">India is net food-grain exporter for decades.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Tourism Impact</div>
+                        <div class="fact-content">Contributes ~5% of GDP; 96M foreign tourists in 2024.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trade & External Sector -->
+            <section id="trade" class="card p-8">
+                <h2 class="section-title">Trade & External Sector</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Exports FY 2024-25</div>
+                        <div class="fact-content">~US $821B, imports ~$855B.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Trade Deficit</div>
+                        <div class="fact-content">~US $78B.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Merchandise & Services Exports</div>
+                        <div class="fact-content">Grew 5.5% to ~$820.9B.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Top Trade Partners FY 24-25</div>
+                        <div class="fact-content">US ($130B), China ($118B), UAE ($84B).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">WTO Membership</div>
+                        <div class="fact-content">India is a WTO member since Jan 1995.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Global Trade Ranking</div>
+                        <div class="fact-content">Ranks 10th in imports and 8th in exports globally.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Global Value Chains</div>
+                        <div class="fact-content">Participation remains low; needs expansion for $1T export goal.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Services Exports</div>
+                        <div class="fact-content">Highly skill-intensive (~75%).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mobile Phone Exports</div>
+                        <div class="fact-content">India is now a net exporter of mobile phones.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Remittances 2022</div>
+                        <div class="fact-content">~US $100B, top global recipient.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Banking, Finance & Inflation -->
+            <section id="banking" class="card p-8">
+                <h2 class="section-title">Banking, Finance & Inflation</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">RBI Foundation</div>
+                        <div class="fact-content">Founded on 1 April 1935.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">RBI Repo Rate</div>
+                        <div class="fact-content">5.5% after 0.5 ppt cut on 6 Jun 2025.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">CRR Adjustment</div>
+                        <div class="fact-content">Lowered by 1 ppt to inject ₹2.5L cr over 2025.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">RBI Stance</div>
+                        <div class="fact-content">Moved from accommodative to neutral.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Inflation April 2025</div>
+                        <div class="fact-content">At six-year low ~3.16%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">RBI Growth Target</div>
+                        <div class="fact-content">Aims for 7–8% growth to generate jobs for 1.4B population.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Bank Credit Growth</div>
+                        <div class="fact-content">Slowed to 11.2% in April 2025, down from 15.3% last year.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">SBI Overview</div>
+                        <div class="fact-content">Largest bank: ~22,542 branches, 63,580 ATMs, 50 crore customers.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">SBI Market Share</div>
+                        <div class="fact-content">~232,300 employees and 23% asset market share.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agriculture & Rural Economy -->
+            <section id="agriculture" class="card p-8">
+                <h2 class="section-title">Agriculture & Rural Economy</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Agriculture Share of GDP</div>
+                        <div class="fact-content">Reduced from ~50% in 1951 to 17.7%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Agricultural Employment</div>
+                        <div class="fact-content">Employs ~45–50% of workforce.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Irrigation Coverage</div>
+                        <div class="fact-content">Covers ~39% of farmland.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Agricultural Rankings</div>
+                        <div class="fact-content">India ranks 1st in milk, jute, pulses, 2nd in rice, wheat, cotton, sugarcane.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Farm Output Growth</div>
+                        <div class="fact-content">Projected rising ~3.8% in FY 2024-25.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">MGNREGA Employment</div>
+                        <div class="fact-content">Employed >80 million workers in FY 24.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Rural Social Welfare</div>
+                        <div class="fact-content">~8.6% of GDP in FY 21–22.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Agricultural Credit</div>
+                        <div class="fact-content">Growth high but rural credit still lagging consumption.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Agricultural Exports</div>
+                        <div class="fact-content">Agricultural exports and self-sufficiency on continued rise.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Industry & Manufacturing -->
+            <section id="industry" class="card p-8">
+                <h2 class="section-title">Industry & Manufacturing</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Industrial Minerals</div>
+                        <div class="fact-content">India 4th-largest industrial mineral producer.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Manufacturing Growth</div>
+                        <div class="fact-content">12.3% in FY 2023-24, 5.3% FY 2024-25.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Auto Industry</div>
+                        <div class="fact-content">Employs 37M and accounts for 7.1% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Automobile Production</div>
+                        <div class="fact-content">India 4th in automobile production.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Pharma Sector</div>
+                        <div class="fact-content">~3,000 firms, global generics leader.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Coal Power</div>
+                        <div class="fact-content">Expansion under scrutiny due to water stress.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mobile Phone Exports</div>
+                        <div class="fact-content">India now exports more mobile phones than it imports.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Construction Growth</div>
+                        <div class="fact-content">Sector grew 10.4% in FY 2023-24.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Infrastructure & Transport</div>
+                        <div class="fact-content">~5% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Road Network</div>
+                        <div class="fact-content">5.47M km, 2nd largest globally.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Railways</div>
+                        <div class="fact-content">Contribute ~3% of GDP and employ ~1.31M.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mining Employment</div>
+                        <div class="fact-content">Employs 11M and is ~1.75% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Steel & Coal</div>
+                        <div class="fact-content">India holds top rank in steel, coal, aluminum production.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Jute Production</div>
+                        <div class="fact-content">India is world's leading jute producer; major in textiles.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Chemicals & Fertilizers</div>
+                        <div class="fact-content">Heavily state-regulated industries.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Defence Exports</div>
+                        <div class="fact-content">Increased arms exports to ₹15,920cr in FY 22–23.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Arms Trade</div>
+                        <div class="fact-content">India is 2nd-largest arms importer but exporter role growing.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mining Contribution</div>
+                        <div class="fact-content">Mining & quarrying contributed ~1.75% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Rare Earth Production</div>
+                        <div class="fact-content">India ranks high in global rare earth/mineral production.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Auto Exports</div>
+                        <div class="fact-content">Automobile exports strength hindered by rare-earth magnet shortage.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services & Technology -->
+            <section id="services" class="card p-8">
+                <h2 class="section-title">Services & Technology</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">IT-BPM Revenue FY 2023</div>
+                        <div class="fact-content">Domestic $51B, exports $194B.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Leading IT Firms</div>
+                        <div class="fact-content">TCS ($27.5B), Infosys ($18.2B), HCL ($12.3B), Wipro ($11.2B).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">IT Sector Projection</div>
+                        <div class="fact-content">Revenue projected $282.6B in FY 2025.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FinTech Startups</div>
+                        <div class="fact-content">~6,600 with $31B valuation in 2021–22.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FinTech VC Funding</div>
+                        <div class="fact-content">~$8B in 2021.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">UPI Transactions Jan 2024</div>
+                        <div class="fact-content">₹94L cr (~$1090B), up 42% YoY.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">UPI Volume Jan 2024</div>
+                        <div class="fact-content">69.3B, +52% YoY.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">UPI Market Share</div>
+                        <div class="fact-content">Powers ~80% of digital payments.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">UPI Partners 2025</div>
+                        <div class="fact-content">668 partners.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Data Centre Capacity</div>
+                        <div class="fact-content">~950 MW in early 2024, +850 MW by 2026.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">APAC Data Infrastructure</div>
+                        <div class="fact-content">India emerging as APAC leader in data infrastructure.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Startup Count</div>
+                        <div class="fact-content">~14,000 in 2021–22.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FinTech Ranking</div>
+                        <div class="fact-content">India has global FinTech ranking #3 after US and China.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Travel & Tourism</div>
+                        <div class="fact-content">~5% of GDP with 96M arrivals.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Cloud Services</div>
+                        <div class="fact-content">Projected to reach $13B by 2026, 23.1% CAGR.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Telecom Control</div>
+                        <div class="fact-content">Telecom and digitalization heavily state-controlled historically.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">IT Services Exports</div>
+                        <div class="fact-content">Exports of information services top $200B.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">IT Employment Hubs</div>
+                        <div class="fact-content">Bengaluru (1.5M), Hyderabad (905K), Chennai (600K), Pune (800K), Kolkata (200K).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">FinTech Growth Areas</div>
+                        <div class="fact-content">Growth in digital lending, insurtech part of FinTech boom.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Data Infrastructure</div>
+                        <div class="fact-content">Data racks and Tier-4 centers expanding rapidly in Hyderabad.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Government Initiatives & Reforms -->
+            <section id="government" class="card p-8">
+                <h2 class="section-title">Government Initiatives & Reforms</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Make in India</div>
+                        <div class="fact-content">Launched in 2014 to boost manufacturing.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Atmanirbhar Bharat</div>
+                        <div class="fact-content">Introduced in May 2020 for self-reliance.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Economic Liberalization</div>
+                        <div class="fact-content">Since 1991 ended Licence Raj.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">GST Implementation</div>
+                        <div class="fact-content">Goods & Services Tax implemented in 2017 for unified market.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">NITI Aayog</div>
+                        <div class="fact-content">Formed to replace central planning commission.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">MGNREGA Impact</div>
+                        <div class="fact-content">Supports ~80M workers annually.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Infrastructure Development</div>
+                        <div class="fact-content">13 major ports, 125 airports (+75 new in decade).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Rural Social Spending</div>
+                        <div class="fact-content">~8.6% of GDP.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Digital India</div>
+                        <div class="fact-content">Program expanded digital payments and fintech.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Startup India</div>
+                        <div class="fact-content">Initiative fosters innovation in tech and fintech.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Defence Exports</div>
+                        <div class="fact-content">Reached ₹15,920cr in FY 22–23.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">PLI Scheme</div>
+                        <div class="fact-content">Production Linked Incentive scheme supports electronics and pharma exports.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Data Centre Policy</div>
+                        <div class="fact-content">Launched to incentivize digital infrastructure.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">UPI Launch</div>
+                        <div class="fact-content">Unified Payments Interface launched by NPCI under RBI guidance.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">SEZs and STP</div>
+                        <div class="fact-content">Schemes boost IT exports (~₹11.6L cr).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Agri-market Reforms</div>
+                        <div class="fact-content">MSP support farmers.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Fuel Subsidy Reforms</div>
+                        <div class="fact-content">Tax rationalization under GST.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Bank Recapitalization</div>
+                        <div class="fact-content">Public Bank recapitalization improved agricultural credit flow.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">PM-KISAN</div>
+                        <div class="fact-content">Social schemes support rural incomes.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Health & Education</div>
+                        <div class="fact-content">Ayushman Bharat and education push improving HDI (0.685).</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Miscellaneous Key Facts -->
+            <section id="miscellaneous" class="card p-8">
+                <h2 class="section-title">Miscellaneous Key Facts</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Inflation April 2025</div>
+                        <div class="fact-content">Fell to ~3.16%, six-year low.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Poverty Levels</div>
+                        <div class="fact-content">(<$3/day) ~5.25%; <$8.30/day ~82%.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Gini Coefficient</div>
+                        <div class="fact-content">~30.7 in 2023.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">HDI 2023</div>
+                        <div class="fact-content">~0.685, ranked ~130th.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Forex Reserves</div>
+                        <div class="fact-content">~$638B (~11 months of imports).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sovereign Rating</div>
+                        <div class="fact-content">Upgraded to BBB (Stable) by Morningstar DBRS in May 2025.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Business Rankings</div>
+                        <div class="fact-content">Ease of Doing Business rank ~63rd, Competitiveness index ~40th.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Government Bond Yield</div>
+                        <div class="fact-content">10-year government bond ~7.19% yield (Jan 2023).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Digital Payments</div>
+                        <div class="fact-content">UPI ~80% of payments.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Financial Stability Risk</div>
+                        <div class="fact-content">Flagged by RBI: growth slowdown, NBFC vulnerability.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Forex Reserves Change</div>
+                        <div class="fact-content">Down slightly from $646.4B to $638.6B (Feb 2025).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Auto Sector Challenge</div>
+                        <div class="fact-content">Affected by rare-earth magnet shortage from China export ban.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Coal Power Criticism</div>
+                        <div class="fact-content">Massive coal-power expansion criticized for water stress impact.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Startup Ecosystem</div>
+                        <div class="fact-content">India ranks among top three global startup ecosystems.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Tourism 2024</div>
+                        <div class="fact-content">96M arrivals.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Defence Overview</div>
+                        <div class="fact-content">~1.3M personnel; defence outlay ~$70B FY 22-23.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Construction Impact</div>
+                        <div class="fact-content">Major employment generator (~13% of GDP).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">UPI Transactions Jan 2024</div>
+                        <div class="fact-content">12.2B transactions.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Financial Inclusion</div>
+                        <div class="fact-content">Improved via digital services and UPI growth.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">APAC Data Centre Leadership</div>
+                        <div class="fact-content">India leads APAC data-centre capacity excluding China.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        const sections = document.querySelectorAll('section');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            sections.forEach(section => {
+                const factItems = section.querySelectorAll('.fact-item');
+                let hasMatch = false;
+                
+                factItems.forEach(item => {
+                    const title = item.querySelector('.fact-title').textContent.toLowerCase();
+                    const content = item.querySelector('.fact-content').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        hasMatch = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                section.style.display = hasMatch ? 'block' : 'none';
+            });
+        });
+
+        // Filter tags functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                // Remove active class from all tags
+                filterTags.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tag
+                tag.classList.add('active');
+                
+                const filter = tag.textContent.toLowerCase();
+                
+                sections.forEach(section => {
+                    const sectionId = section.id.toLowerCase();
+                    if (filter === 'all' || sectionId.includes(filter)) {
+                        section.style.display = 'block';
+                        section.querySelectorAll('.fact-item').forEach(item => {
+                            item.style.display = 'block';
+                        });
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

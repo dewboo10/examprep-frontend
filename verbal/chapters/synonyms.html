@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synonyms - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .word-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .category-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .word-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .word-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .word {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .meaning {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .synonyms {
+            font-size: 1rem;
+            color: #059669;
+            margin-bottom: 0.5rem;
+        }
+
+        .example {
+            font-size: 1rem;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .search-box {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .filter-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tag:hover {
+            transform: scale(1.05);
+        }
+
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">150 Essential Synonyms for Competitive Exams</h1>
+            <p class="text-lg text-gray-600">Master vocabulary for CAT, XAT, and government exams</p>
+        </header>
+
+        <!-- Search and Filter Section -->
+        <div class="search-box mb-8">
+            <input type="text" 
+                   placeholder="Search words..." 
+                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <div class="filter-tags">
+                <span class="filter-tag active">All</span>
+                <span class="filter-tag">Emotions</span>
+                <span class="filter-tag">Character</span>
+                <span class="filter-tag">Physical</span>
+                <span class="filter-tag">Mental</span>
+                <span class="filter-tag">Social</span>
+                <span class="filter-tag">Environment</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Categories</h2>
+                    <nav class="space-y-2">
+                        <a href="#emotions" class="nav-link block text-gray-600 hover:text-blue-600">Emotions & Feelings</a>
+                        <a href="#character" class="nav-link block text-gray-600 hover:text-blue-600">Character Traits</a>
+                        <a href="#physical" class="nav-link block text-gray-600 hover:text-blue-600">Physical Attributes</a>
+                        <a href="#mental" class="nav-link block text-gray-600 hover:text-blue-600">Mental States</a>
+                        <a href="#social" class="nav-link block text-gray-600 hover:text-blue-600">Social Interactions</a>
+                        <a href="#environment" class="nav-link block text-gray-600 hover:text-blue-600">Environment & Nature</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Emotions & Feelings Section -->
+                <section id="emotions" class="card p-8 mb-8">
+                    <h2 class="section-title">Emotions & Feelings</h2>
+                    <div class="category-grid">
+                        <!-- Happy -->
+                        <div class="word-card">
+                            <div class="word">Happy</div>
+                            <div class="meaning">Feeling or showing pleasure or contentment</div>
+                            <div class="synonyms">Synonyms: Joyful, content, delighted, pleased, cheerful, elated, jubilant, blissful, satisfied, ecstatic</div>
+                            <div class="example">Example: She was happy to see her old friend after many years.</div>
+                        </div>
+
+                        <!-- Sad -->
+                        <div class="word-card">
+                            <div class="word">Sad</div>
+                            <div class="meaning">Feeling or showing sorrow; unhappy</div>
+                            <div class="synonyms">Synonyms: Unhappy, sorrowful, melancholy, miserable, despondent, dejected, downcast, gloomy, forlorn, woeful</div>
+                            <div class="example">Example: The sad news brought tears to everyone's eyes.</div>
+                        </div>
+
+                        <!-- Angry -->
+                        <div class="word-card">
+                            <div class="word">Angry</div>
+                            <div class="meaning">Feeling or showing strong displeasure or hostility</div>
+                            <div class="synonyms">Synonyms: Furious, enraged, livid, irate, mad, infuriated, outraged, wrathful, irritated, fuming</div>
+                            <div class="example">Example: He was angry about the unfair treatment.</div>
+                        </div>
+
+                        <!-- Calm -->
+                        <div class="word-card">
+                            <div class="word">Calm</div>
+                            <div class="meaning">Free from agitation or strong emotions</div>
+                            <div class="synonyms">Synonyms: Peaceful, composed, serene, tranquil, placid, relaxed, unruffled, collected, cool-headed</div>
+                            <div class="example">Example: She remained calm during the crisis.</div>
+                        </div>
+
+                        <!-- Add more emotion-related words -->
+                        <div class="word-card">
+                            <div class="word">Excited</div>
+                            <div class="meaning">Feeling or showing enthusiasm and eagerness</div>
+                            <div class="synonyms">Synonyms: Thrilled, enthusiastic, eager, animated, elated, exhilarated, energized, passionate, spirited, zealous</div>
+                            <div class="example">Example: She was excited about her upcoming trip.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Anxious</div>
+                            <div class="meaning">Feeling worried, nervous, or uneasy</div>
+                            <div class="synonyms">Synonyms: Worried, nervous, tense, uneasy, concerned, apprehensive, troubled, agitated, restless, fretful</div>
+                            <div class="example">Example: He felt anxious before the important presentation.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Confident</div>
+                            <div class="meaning">Feeling or showing certainty about something</div>
+                            <div class="synonyms">Synonyms: Self-assured, certain, positive, sure, convinced, assertive, bold, self-confident, poised, composed</div>
+                            <div class="example">Example: She was confident about her ability to succeed.</div>
+                        </div>
+
+                        <!-- Add more emotion-related words -->
+                        <div class="word-card">
+                            <div class="word">Joyful</div>
+                            <div class="meaning">Feeling, expressing, or causing great pleasure and happiness</div>
+                            <div class="synonyms">Synonyms: Happy, delighted, cheerful, merry, glad, elated, ecstatic, jubilant, overjoyed, thrilled</div>
+                            <div class="example">Example: The joyful celebration lasted all night.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Melancholy</div>
+                            <div class="meaning">A feeling of pensive sadness, typically with no obvious cause</div>
+                            <div class="synonyms">Synonyms: Sad, gloomy, depressed, dejected, downcast, despondent, blue, mournful, somber, wistful</div>
+                            <div class="example">Example: The melancholy music reflected his mood.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Furious</div>
+                            <div class="meaning">Extremely angry</div>
+                            <div class="synonyms">Synonyms: Angry, enraged, infuriated, irate, livid, incensed, wrathful, outraged, fuming, seething</div>
+                            <div class="example">Example: He was furious about the unfair treatment.</div>
+                        </div>
+
+                        <!-- Add more emotion-related words -->
+                        <div class="word-card">
+                            <div class="word">Ecstatic</div>
+                            <div class="meaning">Feeling or expressing overwhelming happiness or joyful excitement</div>
+                            <div class="synonyms">Synonyms: Elated, euphoric, overjoyed, thrilled, delighted, jubilant, exultant, rapturous, blissful, transported</div>
+                            <div class="example">Example: She was ecstatic about winning the competition.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Despondent</div>
+                            <div class="meaning">In low spirits from loss of hope or courage</div>
+                            <div class="synonyms">Synonyms: Disheartened, discouraged, dejected, downcast, depressed, gloomy, melancholy, forlorn, crestfallen, dispirited</div>
+                            <div class="example">Example: The despondent team after their loss.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Indignant</div>
+                            <div class="meaning">Feeling or showing anger or annoyance at what is perceived as unfair treatment</div>
+                            <div class="synonyms">Synonyms: Angry, resentful, outraged, irate, furious, incensed, wrathful, enraged, offended, aggrieved</div>
+                            <div class="example">Example: She was indignant at the unfair accusation.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Character Traits Section -->
+                <section id="character" class="card p-8 mb-8">
+                    <h2 class="section-title">Character Traits</h2>
+                    <div class="category-grid">
+                        <!-- Brave -->
+                        <div class="word-card">
+                            <div class="word">Brave</div>
+                            <div class="meaning">Ready to face and endure danger or difficulty</div>
+                            <div class="synonyms">Synonyms: Courageous, valiant, bold, daring, heroic, gallant, intrepid, fearless, undaunted</div>
+                            <div class="example">Example: The brave firefighter saved the child from the burning building.</div>
+                        </div>
+
+                        <!-- Kind -->
+                        <div class="word-card">
+                            <div class="word">Kind</div>
+                            <div class="meaning">Being friendly, generous, and considerate</div>
+                            <div class="synonyms">Synonyms: Compassionate, gentle, considerate, friendly, caring, generous, warm-hearted, benevolent, sympathetic</div>
+                            <div class="example">Example: She was always kind to strangers in need.</div>
+                        </div>
+
+                        <!-- Honest -->
+                        <div class="word-card">
+                            <div class="word">Honest</div>
+                            <div class="meaning">Free of deceit and untruthfulness; straightforward</div>
+                            <div class="synonyms">Synonyms: Truthful, sincere, forthright, candid, trustworthy, upright, honorable, open, direct</div>
+                            <div class="example">Example: His honest opinion helped improve the project.</div>
+                        </div>
+
+                        <!-- Humble -->
+                        <div class="word-card">
+                            <div class="word">Humble</div>
+                            <div class="meaning">Having a modest view of one's importance</div>
+                            <div class="synonyms">Synonyms: Modest, unpretentious, down-to-earth, unassuming, meek, unostentatious, reserved</div>
+                            <div class="example">Example: Despite his success, he remained humble.</div>
+                        </div>
+
+                        <!-- Add more character-related words -->
+                        <div class="word-card">
+                            <div class="word">Courageous</div>
+                            <div class="meaning">Not deterred by danger or pain; brave</div>
+                            <div class="synonyms">Synonyms: Brave, bold, fearless, valiant, heroic, intrepid, gallant, dauntless, plucky, audacious</div>
+                            <div class="example">Example: The courageous firefighter saved the child.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Prudent</div>
+                            <div class="meaning">Acting with or showing care and thought for the future</div>
+                            <div class="synonyms">Synonyms: Wise, judicious, sensible, careful, cautious, circumspect, thoughtful, sagacious, shrewd, practical</div>
+                            <div class="example">Example: It was prudent to save money for emergencies.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Tenacious</div>
+                            <div class="meaning">Persistent; not giving up easily</div>
+                            <div class="synonyms">Synonyms: Persistent, determined, resolute, steadfast, dogged, unwavering, unyielding, obstinate, stubborn, firm</div>
+                            <div class="example">Example: The tenacious researcher never gave up on finding a cure.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Meticulous</div>
+                            <div class="meaning">Showing great attention to detail; very careful and precise</div>
+                            <div class="synonyms">Synonyms: Careful, precise, thorough, scrupulous, exact, particular, painstaking, fastidious, punctilious, conscientious</div>
+                            <div class="example">Example: The meticulous editor checked every detail.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Resilient</div>
+                            <div class="meaning">Able to recover quickly from difficulties; tough</div>
+                            <div class="synonyms">Synonyms: Tough, strong, hardy, robust, durable, flexible, adaptable, buoyant, irrepressible, unyielding</div>
+                            <div class="example">Example: The resilient community rebuilt after the disaster.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Physical Attributes Section -->
+                <section id="physical" class="card p-8 mb-8">
+                    <h2 class="section-title">Physical Attributes</h2>
+                    <div class="category-grid">
+                        <!-- Strong -->
+                        <div class="word-card">
+                            <div class="word">Strong</div>
+                            <div class="meaning">Having physical strength or power</div>
+                            <div class="synonyms">Synonyms: Powerful, sturdy, robust, resilient, muscular, vigorous, tough, solid, hardy, forceful</div>
+                            <div class="example">Example: The strong athlete lifted the heavy weights easily.</div>
+                        </div>
+
+                        <!-- Beautiful -->
+                        <div class="word-card">
+                            <div class="word">Beautiful</div>
+                            <div class="meaning">Pleasing the senses or the mind aesthetically</div>
+                            <div class="synonyms">Synonyms: Attractive, stunning, gorgeous, lovely, exquisite, radiant, pretty, charming, elegant, alluring</div>
+                            <div class="example">Example: The beautiful sunset painted the sky in vibrant colors.</div>
+                        </div>
+
+                        <!-- Healthy -->
+                        <div class="word-card">
+                            <div class="word">Healthy</div>
+                            <div class="meaning">In good physical or mental condition</div>
+                            <div class="synonyms">Synonyms: Fit, well, strong, robust, vigorous, thriving, hearty, flourishing, sound, active</div>
+                            <div class="example">Example: She maintained a healthy lifestyle through regular exercise.</div>
+                        </div>
+
+                        <!-- Elegant -->
+                        <div class="word-card">
+                            <div class="word">Elegant</div>
+                            <div class="meaning">Characterized by refined beauty, taste, and manner</div>
+                            <div class="synonyms">Synonyms: Graceful, refined, tasteful, classy, stylish, sophisticated, polished, chic, sleek, exquisite</div>
+                            <div class="example">Example: The elegant ballroom was decorated with crystal chandeliers.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Robust</div>
+                            <div class="meaning">Strong and healthy; vigorous</div>
+                            <div class="synonyms">Synonyms: Strong, healthy, vigorous, sturdy, powerful, muscular, athletic, fit, hardy, tough</div>
+                            <div class="example">Example: The robust athlete completed the marathon.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Graceful</div>
+                            <div class="meaning">Having or showing grace or elegance</div>
+                            <div class="synonyms">Synonyms: Elegant, fluid, smooth, flowing, supple, lithe, agile, nimble, dexterous, coordinated</div>
+                            <div class="example">Example: The graceful dancer moved across the stage.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Lithe</div>
+                            <div class="meaning">Thin, supple, and graceful</div>
+                            <div class="synonyms">Synonyms: Agile, flexible, supple, limber, graceful, nimble, spry, lissome, pliant, elastic</div>
+                            <div class="example">Example: The lithe gymnast performed complex routines.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Sturdy</div>
+                            <div class="meaning">Strongly and solidly built</div>
+                            <div class="synonyms">Synonyms: Strong, robust, solid, substantial, well-built, durable, tough, rugged, hardy, sound</div>
+                            <div class="example">Example: The sturdy bridge withstood the storm.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mental States Section -->
+                <section id="mental" class="card p-8 mb-8">
+                    <h2 class="section-title">Mental States</h2>
+                    <div class="category-grid">
+                        <!-- Intelligent -->
+                        <div class="word-card">
+                            <div class="word">Intelligent</div>
+                            <div class="meaning">Having the ability to learn, understand, and apply knowledge</div>
+                            <div class="synonyms">Synonyms: Clever, astute, sharp, perceptive, bright, quick-witted, insightful, knowledgeable, brainy</div>
+                            <div class="example">Example: The intelligent student solved the complex problem quickly.</div>
+                        </div>
+
+                        <!-- Optimistic -->
+                        <div class="word-card">
+                            <div class="word">Optimistic</div>
+                            <div class="meaning">Having a positive outlook or attitude</div>
+                            <div class="synonyms">Synonyms: Hopeful, positive, upbeat, confident, sanguine, cheerful, expectant, bright-eyed</div>
+                            <div class="example">Example: His optimistic attitude helped him overcome challenges.</div>
+                        </div>
+
+                        <!-- Focused -->
+                        <div class="word-card">
+                            <div class="word">Focused</div>
+                            <div class="meaning">Directing attention and effort towards a particular goal</div>
+                            <div class="synonyms">Synonyms: Concentrated, attentive, determined, single-minded, absorbed, engrossed, intent, fixed</div>
+                            <div class="example">Example: The focused athlete trained for hours every day.</div>
+                        </div>
+
+                        <!-- Creative -->
+                        <div class="word-card">
+                            <div class="word">Creative</div>
+                            <div class="meaning">Having the ability to create or invent new things</div>
+                            <div class="synonyms">Synonyms: Imaginative, innovative, inventive, original, artistic, resourceful, ingenious, visionary</div>
+                            <div class="example">Example: The creative designer came up with unique solutions.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Perplexed</div>
+                            <div class="meaning">Completely baffled; very puzzled</div>
+                            <div class="synonyms">Synonyms: Confused, puzzled, bewildered, baffled, mystified, confounded, nonplussed, stumped, flummoxed, disconcerted</div>
+                            <div class="example">Example: The complex problem left him perplexed.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Astute</div>
+                            <div class="meaning">Having or showing an ability to accurately assess situations</div>
+                            <div class="synonyms">Synonyms: Shrewd, sharp, clever, intelligent, perceptive, insightful, discerning, sagacious, wise, acute</div>
+                            <div class="example">Example: The astute businessman made profitable investments.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Analytical</div>
+                            <div class="meaning">Relating to or using analysis or logical reasoning</div>
+                            <div class="synonyms">Synonyms: Logical, systematic, methodical, rational, critical, diagnostic, investigative, inquiring, probing, examining</div>
+                            <div class="example">Example: The analytical approach solved the complex problem.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Intuitive</div>
+                            <div class="meaning">Using or based on what one feels to be true even without conscious reasoning</div>
+                            <div class="synonyms">Synonyms: Instinctive, natural, innate, inherent, inborn, automatic, spontaneous, unconscious, visceral, gut</div>
+                            <div class="example">Example: Her intuitive understanding of people helped her succeed.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Social Interactions Section -->
+                <section id="social" class="card p-8 mb-8">
+                    <h2 class="section-title">Social Interactions</h2>
+                    <div class="category-grid">
+                        <!-- Friendly -->
+                        <div class="word-card">
+                            <div class="word">Friendly</div>
+                            <div class="meaning">Showing kindness or being easy to talk to</div>
+                            <div class="synonyms">Synonyms: Amiable, warm, welcoming, sociable, affable, approachable, cordial, companionable</div>
+                            <div class="example">Example: The friendly neighbor always greeted everyone with a smile.</div>
+                        </div>
+
+                        <!-- Generous -->
+                        <div class="word-card">
+                            <div class="word">Generous</div>
+                            <div class="meaning">Willing to give or share, especially with others in need</div>
+                            <div class="synonyms">Synonyms: Benevolent, charitable, magnanimous, selfless, kind-hearted, open-handed, giving, philanthropic</div>
+                            <div class="example">Example: The generous donor contributed to many charities.</div>
+                        </div>
+
+                        <!-- Respectful -->
+                        <div class="word-card">
+                            <div class="word">Respectful</div>
+                            <div class="meaning">Showing respect or deference to others</div>
+                            <div class="synonyms">Synonyms: Polite, courteous, considerate, deferential, reverent, civil, well-mannered, dignified</div>
+                            <div class="example">Example: The respectful student always listened to his teachers.</div>
+                        </div>
+
+                        <!-- Cooperative -->
+                        <div class="word-card">
+                            <div class="word">Cooperative</div>
+                            <div class="meaning">Willing to work together with others</div>
+                            <div class="synonyms">Synonyms: Collaborative, helpful, accommodating, supportive, obliging, compliant, willing, team-oriented</div>
+                            <div class="example">Example: The cooperative team members achieved their goals together.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Gregarious</div>
+                            <div class="meaning">Fond of company; sociable</div>
+                            <div class="synonyms">Synonyms: Sociable, outgoing, friendly, affable, convivial, companionable, amiable, genial, cordial, extroverted</div>
+                            <div class="example">Example: The gregarious host made everyone feel welcome.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Diplomatic</div>
+                            <div class="meaning">Having or showing skill in dealing with others</div>
+                            <div class="synonyms">Synonyms: Tactful, sensitive, discreet, prudent, judicious, politic, subtle, delicate, careful, considerate</div>
+                            <div class="example">Example: The diplomatic response prevented conflict.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Charismatic</div>
+                            <div class="meaning">Exercising a compelling charm that inspires devotion in others</div>
+                            <div class="synonyms">Synonyms: Charming, magnetic, engaging, captivating, alluring, attractive, appealing, enchanting, fascinating, mesmerizing</div>
+                            <div class="example">Example: The charismatic leader inspired his followers.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Empathetic</div>
+                            <div class="meaning">Showing an ability to understand and share the feelings of others</div>
+                            <div class="synonyms">Synonyms: Understanding, compassionate, sympathetic, sensitive, considerate, caring, kind, thoughtful, supportive, responsive</div>
+                            <div class="example">Example: The empathetic counselor helped her clients.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Environment & Nature Section -->
+                <section id="environment" class="card p-8 mb-8">
+                    <h2 class="section-title">Environment & Nature</h2>
+                    <div class="category-grid">
+                        <!-- Beautiful -->
+                        <div class="word-card">
+                            <div class="word">Beautiful</div>
+                            <div class="meaning">Pleasing to the senses or mind aesthetically</div>
+                            <div class="synonyms">Synonyms: Attractive, pretty, lovely, stunning, gorgeous, exquisite, elegant, charming, radiant, appealing</div>
+                            <div class="example">Example: The beautiful landscape took our breath away.</div>
+                        </div>
+
+                        <!-- Peaceful -->
+                        <div class="word-card">
+                            <div class="word">Peaceful</div>
+                            <div class="meaning">Free from disturbance; calm</div>
+                            <div class="synonyms">Synonyms: Tranquil, calm, serene, quiet, composed, placid, restful, undisturbed, harmonious</div>
+                            <div class="example">Example: The peaceful garden was a perfect place for meditation.</div>
+                        </div>
+
+                        <!-- Vibrant -->
+                        <div class="word-card">
+                            <div class="word">Vibrant</div>
+                            <div class="meaning">Full of energy and enthusiasm</div>
+                            <div class="synonyms">Synonyms: Lively, dynamic, energetic, spirited, animated, vivacious, colorful, bright, vivid</div>
+                            <div class="example">Example: The vibrant colors of the sunset painted the sky.</div>
+                        </div>
+
+                        <!-- Serene -->
+                        <div class="word-card">
+                            <div class="word">Serene</div>
+                            <div class="meaning">Calm, peaceful, and untroubled</div>
+                            <div class="synonyms">Synonyms: Peaceful, calm, tranquil, placid, quiet, still, composed, unruffled, undisturbed</div>
+                            <div class="example">Example: The serene lake reflected the mountains perfectly.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Serene</div>
+                            <div class="meaning">Calm, peaceful, and untroubled</div>
+                            <div class="synonyms">Synonyms: Peaceful, calm, tranquil, placid, quiet, still, undisturbed, unruffled, composed, collected</div>
+                            <div class="example">Example: The serene lake reflected the mountains.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Verdant</div>
+                            <div class="meaning">Green with grass or other rich vegetation</div>
+                            <div class="synonyms">Synonyms: Green, lush, leafy, flourishing, thriving, fertile, abundant, luxuriant, rich, productive</div>
+                            <div class="example">Example: The verdant valley was full of life.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Pristine</div>
+                            <div class="meaning">In its original condition; unspoiled</div>
+                            <div class="synonyms">Synonyms: Unspoiled, untouched, pure, natural, immaculate, perfect, spotless, flawless, unblemished, clean</div>
+                            <div class="example">Example: The pristine beach was untouched by tourism.</div>
+                        </div>
+
+                        <div class="word-card">
+                            <div class="word">Barren</div>
+                            <div class="meaning">Too poor to produce much or any vegetation</div>
+                            <div class="synonyms">Synonyms: Infertile, unproductive, sterile, arid, desolate, empty, bleak, lifeless, waste, desert</div>
+                            <div class="example">Example: The barren landscape showed no signs of life.</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const wordCards = section.querySelectorAll('.word-card');
+                let hasVisibleCards = false;
+                
+                wordCards.forEach(card => {
+                    const word = card.querySelector('.word').textContent.toLowerCase();
+                    const meaning = card.querySelector('.meaning').textContent.toLowerCase();
+                    const synonyms = card.querySelector('.synonyms').textContent.toLowerCase();
+                    
+                    if (word.includes(searchTerm) || 
+                        meaning.includes(searchTerm) || 
+                        synonyms.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        hasVisibleCards = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                section.style.display = hasVisibleCards ? 'block' : 'none';
+            });
+        });
+
+        // Filter tags functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                // Remove active class from all tags
+                filterTags.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tag
+                tag.classList.add('active');
+                
+                const filter = tag.textContent.toLowerCase();
+                const sections = document.querySelectorAll('section');
+                
+                if (filter === 'all') {
+                    sections.forEach(section => {
+                        section.style.display = 'block';
+                        section.querySelectorAll('.word-card').forEach(card => {
+                            card.style.display = 'block';
+                        });
+                    });
+                } else {
+                    sections.forEach(section => {
+                        const sectionId = section.id.toLowerCase();
+                        if (sectionId.includes(filter)) {
+                            section.style.display = 'block';
+                            section.querySelectorAll('.word-card').forEach(card => {
+                                card.style.display = 'block';
+                            });
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

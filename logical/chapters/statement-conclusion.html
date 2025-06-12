@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statement and Conclusion - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+        
+        .answer.show {
+            display: block;
+        }
+        
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .statement-box {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .conclusion-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .valid {
+            border-left: 4px solid #22c55e;
+        }
+
+        .invalid {
+            border-left: 4px solid #ef4444;
+        }
+
+        .maybe {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Statement and Conclusion
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of analyzing statements and drawing logical conclusions.
+                Learn various types of conclusions and their validity.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#types" class="nav-link block">2. Types of Conclusions</a>
+                        <a href="#validity" class="nav-link block">3. Validity Rules</a>
+                        <a href="#relationships" class="nav-link block">4. Logical Relationships</a>
+                        <a href="#methods" class="nav-link block">5. Solving Methods</a>
+                        <a href="#practice" class="nav-link block">6. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">7. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">Introduction</h2>
+                    <p class="text-gray-600 mb-4">
+                        Statement and conclusion problems test your ability to analyze given statements
+                        and determine whether certain conclusions logically follow from them.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why is it important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Tests logical reasoning and analytical skills</li>
+                            <li>Common in competitive exams</li>
+                            <li>Improves decision-making abilities</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Types of Conclusions -->
+                <section id="types" class="content-section card p-6">
+                    <h2 class="section-title">Types of Conclusions</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Definite Conclusion</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">A conclusion that must be true based on the given statements.</p>
+                                <div class="statement-box">
+                                    <p class="font-semibold">Statement:</p>
+                                    <p>All roses are flowers. All flowers are plants.</p>
+                                </div>
+                                <div class="conclusion-box valid">
+                                    <p class="font-semibold">Conclusion:</p>
+                                    <p>All roses are plants.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Possible Conclusion</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">A conclusion that may or may not be true based on the given statements.</p>
+                                <div class="statement-box">
+                                    <p class="font-semibold">Statement:</p>
+                                    <p>Some students are athletes. All athletes are fit.</p>
+                                </div>
+                                <div class="conclusion-box maybe">
+                                    <p class="font-semibold">Conclusion:</p>
+                                    <p>Some students are fit.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Invalid Conclusion</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">A conclusion that cannot be true based on the given statements.</p>
+                                <div class="statement-box">
+                                    <p class="font-semibold">Statement:</p>
+                                    <p>No birds are mammals. All bats are mammals.</p>
+                                </div>
+                                <div class="conclusion-box invalid">
+                                    <p class="font-semibold">Conclusion:</p>
+                                    <p>Some bats are birds.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">4. Universal Statements Examples</h3>
+                            <div class="formula-box">
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 1:</p>
+                                    <p>All roses are flowers.</p>
+                                    <p>All flowers are plants.</p>
+                                    <div class="conclusion-box valid">
+                                        <p>Conclusion: All roses are plants.</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 2:</p>
+                                    <p>All students are learners.</p>
+                                    <p>All learners are curious.</p>
+                                    <div class="conclusion-box valid">
+                                        <p>Conclusion: All students are curious.</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 3:</p>
+                                    <p>All doctors are professionals.</p>
+                                    <p>All professionals are educated.</p>
+                                    <div class="conclusion-box valid">
+                                        <p>Conclusion: All doctors are educated.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">5. Particular Statements Examples</h3>
+                            <div class="formula-box">
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 1:</p>
+                                    <p>Some birds are parrots.</p>
+                                    <p>All parrots can talk.</p>
+                                    <div class="conclusion-box maybe">
+                                        <p>Conclusion: Some birds can talk.</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 2:</p>
+                                    <p>Some students are athletes.</p>
+                                    <p>All athletes are fit.</p>
+                                    <div class="conclusion-box maybe">
+                                        <p>Conclusion: Some students are fit.</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 3:</p>
+                                    <p>Some doctors are surgeons.</p>
+                                    <p>All surgeons are specialists.</p>
+                                    <div class="conclusion-box maybe">
+                                        <p>Conclusion: Some doctors are specialists.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">6. Negative Statements Examples</h3>
+                            <div class="formula-box">
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 1:</p>
+                                    <p>No birds are mammals.</p>
+                                    <p>All bats are mammals.</p>
+                                    <div class="conclusion-box valid">
+                                        <p>Conclusion: No bats are birds.</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 2:</p>
+                                    <p>No students are teachers.</p>
+                                    <p>All professors are teachers.</p>
+                                    <div class="conclusion-box valid">
+                                        <p>Conclusion: No students are professors.</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">Example 3:</p>
+                                    <p>No fish are mammals.</p>
+                                    <p>All dolphins are mammals.</p>
+                                    <div class="conclusion-box valid">
+                                        <p>Conclusion: No fish are dolphins.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Add this after the Types of Conclusions section -->
+                <section id="cause-effect" class="content-section card p-6">
+                    <h2 class="section-title">Cause and Effect Relationships</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Types of Cause-Effect Relationships</h3>
+                            <div class="formula-box">
+                                <div class="statement-box">
+                                    <p class="font-semibold">A. Direct Cause-Effect</p>
+                                    <p>When one event directly leads to another.</p>
+                                    <div class="example-box">
+                                        <p class="font-semibold">Example:</p>
+                                        <p>Cause: Heavy rainfall</p>
+                                        <p>Effect: Flooding in low-lying areas</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">B. Indirect Cause-Effect</p>
+                                    <p>When one event leads to another through intermediate steps.</p>
+                                    <div class="example-box">
+                                        <p class="font-semibold">Example:</p>
+                                        <p>Cause: Economic recession</p>
+                                        <p>Intermediate: Job losses</p>
+                                        <p>Effect: Decrease in consumer spending</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">C. Multiple Causes</p>
+                                    <p>When several factors contribute to an effect.</p>
+                                    <div class="example-box">
+                                        <p class="font-semibold">Example:</p>
+                                        <p>Causes: Poor diet, lack of exercise, genetic factors</p>
+                                        <p>Effect: Obesity</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">D. Multiple Effects</p>
+                                    <p>When one cause leads to several effects.</p>
+                                    <div class="example-box">
+                                        <p class="font-semibold">Example:</p>
+                                        <p>Cause: Global warming</p>
+                                        <p>Effects: Rising sea levels, extreme weather, species extinction</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Common Cause-Effect Patterns</h3>
+                            <div class="formula-box">
+                                <div class="statement-box">
+                                    <p class="font-semibold">A. Necessary Cause</p>
+                                    <p>A condition that must be present for the effect to occur.</p>
+                                    <div class="example-box">
+                                        <p class="font-semibold">Example:</p>
+                                        <p>Cause: Oxygen</p>
+                                        <p>Effect: Fire</p>
+                                        <p class="text-sm text-gray-500">(Fire cannot exist without oxygen)</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">B. Sufficient Cause</p>
+                                    <p>A condition that will always produce the effect.</p>
+                                    <div class="example-box">
+                                        <p class="font-semibold">Example:</p>
+                                        <p>Cause: Cutting off blood supply to the heart</p>
+                                        <p>Effect: Heart attack</p>
+                                        <p class="text-sm text-gray-500">(This will always cause a heart attack)</p>
+                                    </div>
+                                </div>
+
+                                <div class="statement-box">
+                                    <p class="font-semibold">C. Contributing Cause</p>
+                                    <p>A factor that increases the likelihood of the effect.</p>
+                                    <div class="example-box">
+                                        <p class="font-semibold">Example:</p>
+                                        <p>Cause: Smoking</p>
+                                        <p>Effect: Lung cancer</p>
+                                        <p class="text-sm text-gray-500">(Increases risk but doesn't guarantee it)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Practice Questions</h3>
+                            
+                            <div class="practice-question">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="font-semibold text-gray-700">Question 1</h3>
+                                    <span class="difficulty-badge difficulty-easy">Easy</span>
+                                </div>
+                                <div class="statement-box">
+                                    <p class="font-semibold">Statement:</p>
+                                    <p>Regular exercise leads to improved cardiovascular health.</p>
+                                </div>
+                                <div class="conclusion-box">
+                                    <p class="font-semibold">Conclusion:</p>
+                                    <p>People who exercise regularly have better heart health.</p>
+                                </div>
+                                <button onclick="toggleAnswer('cause1')" class="text-blue-600 hover:text-blue-700">
+                                    Show Solution
+                                </button>
+                                <div id="cause1" class="answer">
+                                    <p class="text-sm text-gray-500">Solution:</p>
+                                    <p class="text-sm text-gray-500">1. This is a direct cause-effect relationship</p>
+                                    <p class="text-sm text-gray-500">2. Regular exercise is a contributing cause</p>
+                                    <p class="text-sm text-gray-500">3. The conclusion logically follows</p>
+                                    <p class="text-sm font-semibold">Answer: Definitely True</p>
+                                </div>
+                            </div>
+
+                            <div class="practice-question">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="font-semibold text-gray-700">Question 2</h3>
+                                    <span class="difficulty-badge difficulty-medium">Medium</span>
+                                </div>
+                                <div class="statement-box">
+                                    <p class="font-semibold">Statements:</p>
+                                    <p>1. Increased carbon emissions lead to global warming.</p>
+                                    <p>2. Global warming causes polar ice caps to melt.</p>
+                                    <p>3. Melting ice caps result in rising sea levels.</p>
+                                </div>
+                                <div class="conclusion-box">
+                                    <p class="font-semibold">Conclusion:</p>
+                                    <p>Reducing carbon emissions will prevent rising sea levels.</p>
+                                </div>
+                                <button onclick="toggleAnswer('cause2')" class="text-blue-600 hover:text-blue-700">
+                                    Show Solution
+                                </button>
+                                <div id="cause2" class="answer">
+                                    <p class="text-sm text-gray-500">Solution:</p>
+                                    <p class="text-sm text-gray-500">1. This is an indirect cause-effect chain</p>
+                                    <p class="text-sm text-gray-500">2. Carbon emissions → Global warming → Melting ice → Rising seas</p>
+                                    <p class="text-sm text-gray-500">3. The conclusion is a possible effect</p>
+                                    <p class="text-sm font-semibold">Answer: Maybe</p>
+                                </div>
+                            </div>
+
+                            <div class="practice-question">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="font-semibold text-gray-700">Question 3</h3>
+                                    <span class="difficulty-badge difficulty-hard">Hard</span>
+                                </div>
+                                <div class="statement-box">
+                                    <p class="font-semibold">Statements:</p>
+                                    <p>1. Poor study habits lead to low grades.</p>
+                                    <p>2. Low grades result in academic probation.</p>
+                                    <p>3. Academic probation affects future opportunities.</p>
+                                    <p>4. Some students with poor study habits get good grades.</p>
+                                </div>
+                                <div class="conclusion-box">
+                                    <p class="font-semibold">Conclusion:</p>
+                                    <p>All students with poor study habits will face academic probation.</p>
+                                </div>
+                                <button onclick="toggleAnswer('cause3')" class="text-blue-600 hover:text-blue-700">
+                                    Show Solution
+                                </button>
+                                <div id="cause3" class="answer">
+                                    <p class="text-sm text-gray-500">Solution:</p>
+                                    <p class="text-sm text-gray-500">1. This is a complex cause-effect chain</p>
+                                    <p class="text-sm text-gray-500">2. Statement 4 contradicts the conclusion</p>
+                                    <p class="text-sm text-gray-500">3. The conclusion is too absolute</p>
+                                    <p class="text-sm font-semibold">Answer: Definitely False</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">4. Pro Tips for Cause-Effect Questions</h3>
+                            <div class="tip-box p-4">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Look for direct and indirect relationships</li>
+                                    <li>Check for multiple causes or effects</li>
+                                    <li>Verify if the cause is necessary or sufficient</li>
+                                    <li>Consider alternative explanations</li>
+                                    <li>Watch for correlation vs. causation</li>
+                                    <li>Check for hidden assumptions</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Validity Rules -->
+                <section id="validity" class="content-section card p-6">
+                    <h2 class="section-title">Validity Rules</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Universal Statements</h3>
+                            <div class="formula-box">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>All A are B → All A are B (Valid)</li>
+                                    <li>All A are B → Some A are B (Valid)</li>
+                                    <li>All A are B → No A are B (Invalid)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Particular Statements</h3>
+                            <div class="formula-box">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Some A are B → Some A are B (Valid)</li>
+                                    <li>Some A are B → All A are B (Invalid)</li>
+                                    <li>Some A are B → No A are B (Invalid)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Negative Statements</h3>
+                            <div class="formula-box">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>No A are B → No A are B (Valid)</li>
+                                    <li>No A are B → Some A are B (Invalid)</li>
+                                    <li>No A are B → All A are B (Invalid)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Logical Relationships -->
+                <section id="relationships" class="content-section card p-6">
+                    <h2 class="section-title">Logical Relationships</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Direct Relationship</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">When conclusion directly follows from the statement.</p>
+                                <div class="statement-box">
+                                    <p>All X are Y. All Y are Z.</p>
+                                </div>
+                                <div class="conclusion-box valid">
+                                    <p>Therefore, All X are Z.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Indirect Relationship</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">When conclusion requires multiple steps of reasoning.</p>
+                                <div class="statement-box">
+                                    <p>All A are B. Some B are C. All C are D.</p>
+                                </div>
+                                <div class="conclusion-box maybe">
+                                    <p>Therefore, Some A are D.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Solving Methods -->
+                <section id="methods" class="content-section card p-6">
+                    <h2 class="section-title">Solving Methods</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Venn Diagram Method</h3>
+                            <div class="formula-box">
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Draw circles for each category</li>
+                                    <li>Represent relationships between categories</li>
+                                    <li>Check if conclusion matches the diagram</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Logical Deduction</h3>
+                            <div class="formula-box">
+                                <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                    <li>Identify the type of statements</li>
+                                    <li>Apply validity rules</li>
+                                    <li>Check for logical consistency</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 1</h3>
+                                <span class="difficulty-badge difficulty-medium">Medium</span>
+                            </div>
+                            <div class="statement-box">
+                                <p class="font-semibold">Statements:</p>
+                                <p>1. All doctors are professionals.</p>
+                                <p>2. Some professionals are teachers.</p>
+                            </div>
+                            <div class="conclusion-box">
+                                <p class="font-semibold">Conclusion:</p>
+                                <p>Some doctors are teachers.</p>
+                            </div>
+                            <button onclick="toggleAnswer('answer1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. All doctors are professionals (Universal)</p>
+                                <p class="text-sm text-gray-500">2. Some professionals are teachers (Particular)</p>
+                                <p class="text-sm text-gray-500">3. The conclusion "Some doctors are teachers" is a possible conclusion</p>
+                                <p class="text-sm font-semibold">Answer: Maybe</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 2</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <div class="statement-box">
+                                <p class="font-semibold">Statements:</p>
+                                <p>1. No birds are mammals.</p>
+                                <p>2. All bats are mammals.</p>
+                                <p>3. Some flying creatures are birds.</p>
+                            </div>
+                            <div class="conclusion-box">
+                                <p class="font-semibold">Conclusion:</p>
+                                <p>Some flying creatures are not mammals.</p>
+                            </div>
+                            <button onclick="toggleAnswer('answer2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. No birds are mammals (Negative)</p>
+                                <p class="text-sm text-gray-500">2. All bats are mammals (Universal)</p>
+                                <p class="text-sm text-gray-500">3. Some flying creatures are birds (Particular)</p>
+                                <p class="text-sm text-gray-500">4. The conclusion "Some flying creatures are not mammals" is valid</p>
+                                <p class="text-sm font-semibold">Answer: Definitely True</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 3</h3>
+                                <span class="difficulty-badge difficulty-medium">Medium</span>
+                            </div>
+                            <div class="statement-box">
+                                <p class="font-semibold">Statements:</p>
+                                <p>1. All roses are flowers.</p>
+                                <p>2. Some flowers are red.</p>
+                                <p>3. All red things are beautiful.</p>
+                            </div>
+                            <div class="conclusion-box">
+                                <p class="font-semibold">Conclusion:</p>
+                                <p>Some roses are beautiful.</p>
+                            </div>
+                            <button onclick="toggleAnswer('answer3')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer3" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. All roses are flowers (Universal)</p>
+                                <p class="text-sm text-gray-500">2. Some flowers are red (Particular)</p>
+                                <p class="text-sm text-gray-500">3. All red things are beautiful (Universal)</p>
+                                <p class="text-sm text-gray-500">4. The conclusion "Some roses are beautiful" is a possible conclusion</p>
+                                <p class="text-sm font-semibold">Answer: Maybe</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 4</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <div class="statement-box">
+                                <p class="font-semibold">Statements:</p>
+                                <p>1. No birds are mammals.</p>
+                                <p>2. All bats are mammals.</p>
+                                <p>3. Some flying creatures are birds.</p>
+                                <p>4. All birds can fly.</p>
+                            </div>
+                            <div class="conclusion-box">
+                                <p class="font-semibold">Conclusion:</p>
+                                <p>Some flying creatures are not mammals.</p>
+                            </div>
+                            <button onclick="toggleAnswer('answer4')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer4" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. No birds are mammals (Negative)</p>
+                                <p class="text-sm text-gray-500">2. All bats are mammals (Universal)</p>
+                                <p class="text-sm text-gray-500">3. Some flying creatures are birds (Particular)</p>
+                                <p class="text-sm text-gray-500">4. All birds can fly (Universal)</p>
+                                <p class="text-sm text-gray-500">5. The conclusion "Some flying creatures are not mammals" is valid</p>
+                                <p class="text-sm font-semibold">Answer: Definitely True</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 5</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <div class="statement-box">
+                                <p class="font-semibold">Statements:</p>
+                                <p>1. All doctors are professionals.</p>
+                                <p>2. Some professionals are teachers.</p>
+                                <p>3. No teachers are students.</p>
+                                <p>4. All students are learners.</p>
+                            </div>
+                            <div class="conclusion-box">
+                                <p class="font-semibold">Conclusion:</p>
+                                <p>Some doctors are not students.</p>
+                            </div>
+                            <button onclick="toggleAnswer('answer5')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer5" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. All doctors are professionals (Universal)</p>
+                                <p class="text-sm text-gray-500">2. Some professionals are teachers (Particular)</p>
+                                <p class="text-sm text-gray-500">3. No teachers are students (Negative)</p>
+                                <p class="text-sm text-gray-500">4. All students are learners (Universal)</p>
+                                <p class="text-sm text-gray-500">5. The conclusion "Some doctors are not students" is valid</p>
+                                <p class="text-sm font-semibold">Answer: Definitely True</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">Pro Tips</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">1. Read Carefully</h3>
+                            <p class="text-gray-700">Pay attention to words like 'all', 'some', 'no', 'none'.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">2. Draw Diagrams</h3>
+                            <p class="text-gray-700">Use Venn diagrams to visualize relationships.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">3. Check Validity</h3>
+                            <p class="text-gray-700">Apply validity rules to verify conclusions.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">4. Avoid Assumptions</h3>
+                            <p class="text-gray-700">Don't make assumptions beyond given statements.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

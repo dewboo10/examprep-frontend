@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antonyms - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .antonym-pair {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .antonym-pair:hover {
+            background: #e0f2fe;
+        }
+        
+        .word {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e40af;
+        }
+        
+        .meaning {
+            color: #4b5563;
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+        
+        .example {
+            color: #6b7280;
+            font-style: italic;
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid #3b82f6;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Antonyms
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of understanding opposite words with our comprehensive guide.
+                Learn about antonyms, their meanings, and usage in context.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search antonyms..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Physical</span>
+                    <span class="filter-tag">Emotional</span>
+                    <span class="filter-tag">Mental</span>
+                    <span class="filter-tag">Social</span>
+                    <span class="filter-tag">Environmental</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Physical Attributes -->
+            <section id="physical" class="card p-8">
+                <h2 class="section-title">Physical Attributes</h2>
+                <div class="antonym-pair">
+                    <div class="word">Tall</div>
+                    <div class="word">Short</div>
+                </div>
+                <div class="meaning">Tall refers to having a greater height, while short refers to being lower in height.</div>
+                <div class="example">Example: The tall building stood next to the short house.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Big</div>
+                    <div class="word">Small</div>
+                </div>
+                <div class="meaning">Big refers to being large in size or amount, while small refers to being little in size or quantity.</div>
+                <div class="example">Example: The big elephant and small mouse became friends.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Heavy</div>
+                    <div class="word">Light</div>
+                </div>
+                <div class="meaning">Heavy refers to having great weight, while light refers to having little weight.</div>
+                <div class="example">Example: The heavy box was difficult to lift, unlike the light package.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Wide</div>
+                    <div class="word">Narrow</div>
+                </div>
+                <div class="meaning">Wide refers to having a large distance from side to side, while narrow refers to having a small width.</div>
+                <div class="example">Example: The wide road narrowed as it entered the city.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Thick</div>
+                    <div class="word">Thin</div>
+                </div>
+                <div class="meaning">Thick refers to having great density or width, while thin refers to being narrow or slim.</div>
+                <div class="example">Example: The thick book was harder to carry than the thin magazine.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Deep</div>
+                    <div class="word">Shallow</div>
+                </div>
+                <div class="meaning">Deep refers to having a great depth, while shallow refers to having little depth.</div>
+                <div class="example">Example: The deep ocean contrasted with the shallow pool.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Hard</div>
+                    <div class="word">Soft</div>
+                </div>
+                <div class="meaning">Hard refers to being firm or unyielding, while soft refers to being yielding or gentle to the touch.</div>
+                <div class="example">Example: The hard rock and soft pillow felt completely different.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Smooth</div>
+                    <div class="word">Rough</div>
+                </div>
+                <div class="meaning">Smooth refers to having an even or uninterrupted surface, while rough refers to being uneven or coarse.</div>
+                <div class="example">Example: The smooth glass felt different from the rough sandpaper.</div>
+            </section>
+
+            <!-- Emotional States -->
+            <section id="emotional" class="card p-8">
+                <h2 class="section-title">Emotional States</h2>
+                <div class="antonym-pair">
+                    <div class="word">Happy</div>
+                    <div class="word">Sad</div>
+                </div>
+                <div class="meaning">Happy means feeling or showing pleasure, while sad means feeling sorrowful or unhappy.</div>
+                <div class="example">Example: The happy child comforted the sad friend.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Love</div>
+                    <div class="word">Hate</div>
+                </div>
+                <div class="meaning">Love refers to a deep affection for someone, while hate refers to intense dislike or animosity.</div>
+                <div class="example">Example: The story explored the thin line between love and hate.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Brave</div>
+                    <div class="word">Cowardly</div>
+                </div>
+                <div class="meaning">Brave refers to being courageous, while cowardly refers to lacking courage.</div>
+                <div class="example">Example: The brave soldier faced danger while the cowardly one fled.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Courageous</div>
+                    <div class="word">Fearful</div>
+                </div>
+                <div class="meaning">Courageous refers to showing bravery, while fearful refers to feeling afraid or apprehensive.</div>
+                <div class="example">Example: The courageous leader inspired the fearful followers.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Humble</div>
+                    <div class="word">Proud</div>
+                </div>
+                <div class="meaning">Humble refers to being modest, while proud refers to being self-important or arrogant.</div>
+                <div class="example">Example: The humble winner remained modest while the proud one boasted.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Generous</div>
+                    <div class="word">Selfish</div>
+                </div>
+                <div class="meaning">Generous refers to showing kindness by giving, while selfish refers to being concerned only with one's own needs.</div>
+                <div class="example">Example: The generous donor contrasted with the selfish hoarder.</div>
+            </section>
+
+            <!-- Mental States -->
+            <section id="mental" class="card p-8">
+                <h2 class="section-title">Mental States</h2>
+                <div class="antonym-pair">
+                    <div class="word">Smart</div>
+                    <div class="word">Dumb</div>
+                </div>
+                <div class="meaning">Smart refers to being intelligent, while dumb refers to being unintelligent or lacking in comprehension.</div>
+                <div class="example">Example: The smart student helped the struggling classmate.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Intelligent</div>
+                    <div class="word">Stupid</div>
+                </div>
+                <div class="meaning">Intelligent refers to being mentally capable or quick-witted, while stupid refers to lacking intelligence or comprehension.</div>
+                <div class="example">Example: The intelligent solution was preferred over the stupid mistake.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Simple</div>
+                    <div class="word">Complex</div>
+                </div>
+                <div class="meaning">Simple refers to being easy to understand, while complex refers to being intricate or complicated.</div>
+                <div class="example">Example: The simple explanation was better than the complex one.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Accurate</div>
+                    <div class="word">Inaccurate</div>
+                </div>
+                <div class="meaning">Accurate refers to being correct in all details, while inaccurate refers to being incorrect or imprecise.</div>
+                <div class="example">Example: The accurate report was preferred over the inaccurate one.</div>
+            </section>
+
+            <!-- Social Interactions -->
+            <section id="social" class="card p-8">
+                <h2 class="section-title">Social Interactions</h2>
+                <div class="antonym-pair">
+                    <div class="word">Friendly</div>
+                    <div class="word">Hostile</div>
+                </div>
+                <div class="meaning">Friendly refers to being kind and approachable, while hostile refers to being unfriendly and antagonistic.</div>
+                <div class="example">Example: The friendly neighbor helped the hostile one.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Honest</div>
+                    <div class="word">Dishonest</div>
+                </div>
+                <div class="meaning">Honest refers to being truthful and sincere, while dishonest refers to being deceitful or untruthful.</div>
+                <div class="example">Example: The honest merchant was trusted more than the dishonest one.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Sincere</div>
+                    <div class="word">Insincere</div>
+                </div>
+                <div class="meaning">Sincere refers to being genuine and truthful, while insincere refers to lacking honesty or genuineness.</div>
+                <div class="example">Example: The sincere apology was accepted, unlike the insincere one.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Present</div>
+                    <div class="word">Absent</div>
+                </div>
+                <div class="meaning">Present refers to being in a place or available, while absent refers to not being present.</div>
+                <div class="example">Example: The present students learned while the absent ones missed the lesson.</div>
+            </section>
+
+            <!-- Environmental States -->
+            <section id="environmental" class="card p-8">
+                <h2 class="section-title">Environmental States</h2>
+                <div class="antonym-pair">
+                    <div class="word">Hot</div>
+                    <div class="word">Cold</div>
+                </div>
+                <div class="meaning">Hot refers to having a high temperature, while cold refers to having a low temperature.</div>
+                <div class="example">Example: The hot summer day turned into a cold night.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Wet</div>
+                    <div class="word">Dry</div>
+                </div>
+                <div class="meaning">Wet refers to being covered or saturated with water, while dry refers to being free from moisture.</div>
+                <div class="example">Example: The wet clothes dried in the sun.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Light</div>
+                    <div class="word">Dark</div>
+                </div>
+                <div class="meaning">Light refers to having brightness, while dark refers to having little or no light.</div>
+                <div class="example">Example: The light room became dark as the sun set.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Clean</div>
+                    <div class="word">Dirty</div>
+                </div>
+                <div class="meaning">Clean refers to being free from dirt or impurities, while dirty refers to being covered with dirt.</div>
+                <div class="example">Example: The clean room became dirty after the party.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Fresh</div>
+                    <div class="word">Stale</div>
+                </div>
+                <div class="meaning">Fresh refers to something new or recently made, while stale refers to something that has lost its freshness.</div>
+                <div class="example">Example: The fresh bread smelled better than the stale loaf.</div>
+
+                <div class="antonym-pair">
+                    <div class="word">Transparent</div>
+                    <div class="word">Opaque</div>
+                </div>
+                <div class="meaning">Transparent refers to being clear or see-through, while opaque refers to being unclear or not see-through.</div>
+                <div class="example">Example: The transparent glass showed the opaque wall behind it.</div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('input[type="text"]');
+        const sections = document.querySelectorAll('section');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            sections.forEach(section => {
+                const antonymPairs = section.querySelectorAll('.antonym-pair');
+                let hasMatch = false;
+                
+                antonymPairs.forEach(pair => {
+                    const words = pair.textContent.toLowerCase();
+                    const meaning = pair.nextElementSibling.textContent.toLowerCase();
+                    const example = pair.nextElementSibling.nextElementSibling.textContent.toLowerCase();
+                    
+                    if (words.includes(searchTerm) || 
+                        meaning.includes(searchTerm) || 
+                        example.includes(searchTerm)) {
+                        pair.style.display = 'flex';
+                        pair.nextElementSibling.style.display = 'block';
+                        pair.nextElementSibling.nextElementSibling.style.display = 'block';
+                        hasMatch = true;
+                    } else {
+                        pair.style.display = 'none';
+                        pair.nextElementSibling.style.display = 'none';
+                        pair.nextElementSibling.nextElementSibling.style.display = 'none';
+                    }
+                });
+                
+                section.style.display = hasMatch ? 'block' : 'none';
+            });
+        });
+
+        // Filter tags functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                // Remove active class from all tags
+                filterTags.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tag
+                tag.classList.add('active');
+                
+                const filter = tag.textContent.toLowerCase();
+                
+                sections.forEach(section => {
+                    const sectionId = section.id.toLowerCase();
+                    if (filter === 'all' || sectionId.includes(filter)) {
+                        section.style.display = 'block';
+                        section.querySelectorAll('.antonym-pair').forEach(pair => {
+                            pair.style.display = 'flex';
+                            pair.nextElementSibling.style.display = 'block';
+                            pair.nextElementSibling.nextElementSibling.style.display = 'block';
+                        });
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

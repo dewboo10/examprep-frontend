@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Theory - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        .example-box p {
+            margin-bottom: 0.75rem;
+        }
+        
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .example-box .font-medium {
+            font-weight: 500;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .example-box .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        .formula-box p {
+            margin-bottom: 0.75rem;
+        }
+        
+        .formula-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        .note-box p {
+            margin-bottom: 0.75rem;
+        }
+        
+        .note-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .number-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .number-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .number-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4a5568;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .practice-question p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .practice-question p:last-child {
+            margin-bottom: 0;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Number Theory
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the fundamentals of number theory with our comprehensive guide.
+                Learn about number classifications, divisibility rules, and advanced concepts.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#classification" class="nav-link block">1. Classification of Numbers</a>
+                        <a href="#divisibility" class="nav-link block">2. Divisibility Rules</a>
+                        <a href="#prime-factorization" class="nav-link block">3. Prime Factorization & LCM/HCF</a>
+                        <a href="#remainder" class="nav-link block">4. Remainder Theorems</a>
+                        <a href="#conversions" class="nav-link block">5. Number System Conversions</a>
+                        <a href="#advanced" class="nav-link block">6. Advanced Concepts</a>
+                        <a href="#shortcuts" class="nav-link block">7. Shortcuts & Tricks</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Classification of Numbers -->
+                <section id="classification" class="content-section card p-6">
+                    <h2 class="section-title">1. Classification of Numbers</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Natural Numbers (ℕ)</h3>
+                        <p class="text-gray-600">Natural numbers are the counting numbers starting from 1. They are the most basic numbers used in counting and ordering.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Properties:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Start from 1 and go to infinity</li>
+                                <li>Always positive</li>
+                                <li>Used for counting and ordering</li>
+                                <li>Closed under addition and multiplication</li>
+                                <li>Not closed under subtraction and division</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <p>1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...</p>
+                            <p class="text-sm text-gray-600">Note: 0 is not a natural number</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Important Formulas:</p>
+                            <p>1. Sum of first n natural numbers = n(n+1)/2</p>
+                            <p>2. Sum of squares of first n natural numbers = n(n+1)(2n+1)/6</p>
+                            <p>3. Sum of cubes of first n natural numbers = [n(n+1)/2]²</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Whole Numbers (W)</h3>
+                        <p class="text-gray-600">Whole numbers are natural numbers including zero. They form the foundation of our number system.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Properties:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Include all natural numbers and zero</li>
+                                <li>Start from 0 and go to infinity</li>
+                                <li>Always non-negative</li>
+                                <li>Used in basic arithmetic operations</li>
+                                <li>Closed under addition and multiplication</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <p>0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...</p>
+                            <p class="text-sm text-gray-600">Note: Whole numbers are the same as natural numbers, just including zero</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Important Properties:</p>
+                            <p>1. Identity Property: a + 0 = a and a × 1 = a</p>
+                            <p>2. Commutative Property: a + b = b + a and a × b = b × a</p>
+                            <p>3. Associative Property: (a + b) + c = a + (b + c) and (a × b) × c = a × (b × c)</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Integers (ℤ)</h3>
+                        <p class="text-gray-600">Integers include all whole numbers and their negative counterparts. They are crucial in representing quantities that can be positive or negative.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Types of Integers:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Positive Integers (ℤ⁺): 1, 2, 3, ...</li>
+                                <li>Negative Integers (ℤ⁻): -1, -2, -3, ...</li>
+                                <li>Non-Negative Integers: 0, 1, 2, ...</li>
+                                <li>Non-Positive Integers: 0, -1, -2, ...</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <p>..., -3, -2, -1, 0, 1, 2, 3, ...</p>
+                            <p class="text-sm text-gray-600">Note: Integers extend infinitely in both positive and negative directions</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Important Properties:</p>
+                            <p>1. Closure Property: Integers are closed under addition, subtraction, and multiplication</p>
+                            <p>2. Additive Inverse: For any integer a, there exists -a such that a + (-a) = 0</p>
+                            <p>3. Multiplicative Identity: For any integer a, a × 1 = a</p>
+                        </div>
+
+                        <div class="note-box">
+                            <p class="font-medium">Number Line Representation:</p>
+                            <div class="number-line">
+                                <div class="number-point">
+                                    <div class="number-dot"></div>
+                                    <span class="text-sm">-∞</span>
+                                </div>
+                                <div class="number-point">
+                                    <div class="number-dot"></div>
+                                    <span class="text-sm">-2</span>
+                                </div>
+                                <div class="number-point">
+                                    <div class="number-dot"></div>
+                                    <span class="text-sm">-1</span>
+                                </div>
+                                <div class="number-point">
+                                    <div class="number-dot"></div>
+                                    <span class="text-sm">0</span>
+                                </div>
+                                <div class="number-point">
+                                    <div class="number-dot"></div>
+                                    <span class="text-sm">1</span>
+                                </div>
+                                <div class="number-point">
+                                    <div class="number-dot"></div>
+                                    <span class="text-sm">2</span>
+                                </div>
+                                <div class="number-point">
+                                    <div class="number-dot"></div>
+                                    <span class="text-sm">∞</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(d) Rational Numbers (ℚ)</h3>
+                        <p class="text-gray-600">Rational numbers are numbers that can be expressed as a ratio of two integers, where the denominator is not zero. They include all integers, fractions, and terminating or repeating decimals.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Properties:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Can be expressed as p/q where p and q are integers and q ≠ 0</li>
+                                <li>Include all integers (as they can be written as n/1)</li>
+                                <li>Include terminating decimals (e.g., 0.5 = 1/2)</li>
+                                <li>Include repeating decimals (e.g., 0.333... = 1/3)</li>
+                                <li>Dense on the number line (between any two rational numbers, there exists another rational number)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Fractions: ½, ¾, -3/4</li>
+                                <li>Terminating decimals: 0.75, 0.5, -0.25</li>
+                                <li>Repeating decimals: 0.333..., 0.666..., 0.142857...</li>
+                                <li>Integers: 5 (as 5/1), -3 (as -3/1)</li>
+                            </ul>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Important Properties:</p>
+                            <p>1. Closure Property: Rational numbers are closed under addition, subtraction, multiplication, and division (except by zero)</p>
+                            <p>2. Commutative Property: a + b = b + a and a × b = b × a</p>
+                            <p>3. Associative Property: (a + b) + c = a + (b + c) and (a × b) × c = a × (b × c)</p>
+                            <p>4. Distributive Property: a × (b + c) = a × b + a × c</p>
+                        </div>
+
+                        <div class="note-box">
+                            <p class="font-medium">Converting Between Forms:</p>
+                            <p>1. Fraction to Decimal: Divide numerator by denominator</p>
+                            <p>2. Terminating Decimal to Fraction: Write as fraction with power of 10 denominator</p>
+                            <p>3. Repeating Decimal to Fraction: Use algebraic method</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Converting Repeating Decimal to Fraction</p>
+                            <p>Let x = 0.333...</p>
+                            <p>10x = 3.333...</p>
+                            <p>10x - x = 3.333... - 0.333...</p>
+                            <p>9x = 3</p>
+                            <p>x = 3/9 = 1/3</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Divisibility Rules -->
+                <section id="divisibility" class="content-section card p-6">
+                    <h2 class="section-title">2. Divisibility Rules</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Understanding Divisibility</h3>
+                        <p class="text-gray-600">A number is divisible by another if it can be divided without leaving a remainder. Divisibility rules help us quickly determine if one number is divisible by another without performing the actual division.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Concepts:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Divisibility is a fundamental concept in number theory</li>
+                                <li>Rules help in quick mental calculations</li>
+                                <li>Useful in finding factors and multiples</li>
+                                <li>Essential for simplifying fractions</li>
+                                <li>Important in solving various mathematical problems</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Basic Divisibility Rules</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Number</th>
+                                        <th>Rule</th>
+                                        <th>Example</th>
+                                        <th>Explanation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Last digit is even (0,2,4,6,8)</td>
+                                        <td>24, 36, 58</td>
+                                        <td>Any number ending in an even digit is divisible by 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Sum of digits divisible by 3</td>
+                                        <td>123 (1+2+3=6)</td>
+                                        <td>If the sum of all digits is divisible by 3, the number is divisible by 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Last 2 digits divisible by 4</td>
+                                        <td>1324 (24÷4=6)</td>
+                                        <td>If the last two digits form a number divisible by 4, the entire number is divisible by 4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Ends with 0 or 5</td>
+                                        <td>50, 75</td>
+                                        <td>Any number ending in 0 or 5 is divisible by 5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Divisible by both 2 & 3</td>
+                                        <td>18, 24</td>
+                                        <td>Must satisfy both divisibility rules for 2 and 3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Double last digit, subtract from rest</td>
+                                        <td>161 → 16-(2×1)=14</td>
+                                        <td>Double the last digit and subtract it from the rest of the number. If the result is divisible by 7, the original number is divisible by 7</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Last 3 digits divisible by 8</td>
+                                        <td>2104 (104÷8=13)</td>
+                                        <td>If the last three digits form a number divisible by 8, the entire number is divisible by 8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>Sum of digits divisible by 9</td>
+                                        <td>729 (7+2+9=18)</td>
+                                        <td>If the sum of all digits is divisible by 9, the number is divisible by 9</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>Ends with 0</td>
+                                        <td>100, 230</td>
+                                        <td>Any number ending in 0 is divisible by 10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>(Sum of odd digits) - (Sum of even digits) = 0 or divisible by 11</td>
+                                        <td>121 → (1+1)-2=0</td>
+                                        <td>Subtract the sum of digits in even positions from the sum of digits in odd positions. If the result is 0 or divisible by 11, the number is divisible by 11</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Detailed Example: Divisibility by 7</p>
+                            <p>Let's check if 161 is divisible by 7:</p>
+                            <p>1. Take the last digit: 1</p>
+                            <p>2. Double it: 1 × 2 = 2</p>
+                            <p>3. Subtract from the rest: 16 - 2 = 14</p>
+                            <p>4. Check if 14 is divisible by 7: Yes (14 ÷ 7 = 2)</p>
+                            <p>Therefore, 161 is divisible by 7</p>
+                        </div>
+
+                        <div class="note-box">
+                            <p class="font-medium">Tips for Using Divisibility Rules:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Combine rules for larger numbers (e.g., for 6, check both 2 and 3)</li>
+                                <li>Use rules in sequence for complex numbers</li>
+                                <li>Practice mental calculations for speed</li>
+                                <li>Remember that these rules are shortcuts for division</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prime Factorization & LCM/HCF -->
+                <section id="prime-factorization" class="content-section card p-6">
+                    <h2 class="section-title">3. Prime Factorization & LCM/HCF</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Prime Numbers</h3>
+                        <p class="text-gray-600">Prime numbers are natural numbers greater than 1 that have exactly two distinct positive divisors: 1 and the number itself.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Properties of Prime Numbers:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>2 is the only even prime number</li>
+                                <li>Every prime number greater than 3 can be written in the form 6k ± 1</li>
+                                <li>There are infinitely many prime numbers</li>
+                                <li>Every natural number greater than 1 is either prime or can be expressed as a product of primes</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">First 20 Prime Numbers:</p>
+                            <p>2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Prime Factorization</h3>
+                        <p class="text-gray-600">Prime factorization is the process of expressing a number as a product of prime numbers. This is unique for every number (Fundamental Theorem of Arithmetic).</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Steps for Prime Factorization:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Start with the smallest prime number (2)</li>
+                                <li>Divide the number by this prime if possible</li>
+                                <li>Continue with the quotient</li>
+                                <li>Move to the next prime number if current prime doesn't divide</li>
+                                <li>Repeat until the quotient is 1</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Prime Factorization of 84</p>
+                            <p>84 ÷ 2 = 42</p>
+                            <p>42 ÷ 2 = 21</p>
+                            <p>21 ÷ 3 = 7</p>
+                            <p>7 ÷ 7 = 1</p>
+                            <p>Therefore, 84 = 2² × 3 × 7</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) HCF (Highest Common Factor)</h3>
+                        <p class="text-gray-600">The HCF, also known as GCD (Greatest Common Divisor), is the largest number that divides two or more numbers without leaving a remainder.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Methods to Find HCF:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Prime Factorization Method</li>
+                                <li>Division Method (Euclid's Algorithm)</li>
+                                <li>Listing Factors Method</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Finding HCF of 48 and 36</p>
+                            <p>Method 1: Prime Factorization</p>
+                            <p>48 = 2⁴ × 3</p>
+                            <p>36 = 2² × 3²</p>
+                            <p>HCF = 2² × 3 = 12</p>
+                            <p class="text-sm text-gray-600">Take the minimum power of common prime factors</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Euclid's Algorithm:</p>
+                            <p>For two numbers a and b:</p>
+                            <p>1. Divide a by b</p>
+                            <p>2. If remainder is 0, b is the HCF</p>
+                            <p>3. If remainder is not 0, replace a with b and b with remainder</p>
+                            <p>4. Repeat until remainder is 0</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(d) LCM (Least Common Multiple)</h3>
+                        <p class="text-gray-600">The LCM is the smallest number that is a multiple of two or more numbers.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Methods to Find LCM:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Prime Factorization Method</li>
+                                <li>Division Method</li>
+                                <li>Using HCF (LCM = (a × b) ÷ HCF)</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Finding LCM of 12 and 18</p>
+                            <p>Method 1: Prime Factorization</p>
+                            <p>12 = 2² × 3</p>
+                            <p>18 = 2 × 3²</p>
+                            <p>LCM = 2² × 3² = 36</p>
+                            <p class="text-sm text-gray-600">Take the maximum power of all prime factors</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Important Relationship:</p>
+                            <p>For any two numbers a and b:</p>
+                            <p>LCM(a,b) × HCF(a,b) = a × b</p>
+                            <p class="text-sm text-gray-600">This relationship is useful for finding LCM when HCF is known and vice versa</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Remainder Theorems -->
+                <section id="remainder" class="content-section card p-6">
+                    <h2 class="section-title">4. Remainder Theorems & Modular Arithmetic</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Basic Concepts</h3>
+                        <p class="text-gray-600">Modular arithmetic is a system of arithmetic for integers, where numbers "wrap around" after reaching a certain value (the modulus).</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Concepts:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>a ≡ b (mod m) means a and b leave the same remainder when divided by m</li>
+                                <li>a mod m is the remainder when a is divided by m</li>
+                                <li>Modular arithmetic is fundamental in number theory and cryptography</li>
+                                <li>Used in computer science, coding theory, and many other fields</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Examples:</p>
+                            <p>17 ≡ 2 (mod 5) because 17 ÷ 5 = 3 remainder 2</p>
+                            <p>23 ≡ 3 (mod 10) because 23 ÷ 10 = 2 remainder 3</p>
+                            <p>100 ≡ 0 (mod 4) because 100 ÷ 4 = 25 remainder 0</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Euclid's Division Lemma</h3>
+                        <p class="text-gray-600">This fundamental theorem states that for any integers a and b (b≠0), there exist unique integers q and r such that a = bq + r, where 0 ≤ r < b.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Components:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>a = dividend</li>
+                                <li>b = divisor</li>
+                                <li>q = quotient</li>
+                                <li>r = remainder</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example:</p>
+                            <p>For a = 17 and b = 5:</p>
+                            <p>17 = 5 × 3 + 2</p>
+                            <p>where q = 3 and r = 2</p>
+                            <p class="text-sm text-gray-600">Note: 0 ≤ 2 < 5, satisfying the condition</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Applications:</p>
+                            <p>1. Finding HCF using Euclidean Algorithm</p>
+                            <p>2. Proving divisibility properties</p>
+                            <p>3. Solving Diophantine equations</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Wilson's Theorem</h3>
+                        <p class="text-gray-600">For a prime number p, (p-1)! ≡ -1 (mod p). This theorem is useful in primality testing and number theory.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Only works for prime numbers</li>
+                                <li>Can be used to test if a number is prime</li>
+                                <li>Important in cryptography</li>
+                                <li>Related to Fermat's Little Theorem</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example:</p>
+                            <p>For p = 5:</p>
+                            <p>(5-1)! = 4! = 24</p>
+                            <p>24 ≡ -1 (mod 5) because 24 ÷ 5 = 4 remainder 4</p>
+                            <p>And -1 ≡ 4 (mod 5)</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(d) Fermat's Little Theorem</h3>
+                        <p class="text-gray-600">If p is a prime number and a is not divisible by p, then a^(p-1) ≡ 1 (mod p).</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Applications:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Primality testing</li>
+                                <li>Cryptography (RSA algorithm)</li>
+                                <li>Finding modular inverses</li>
+                                <li>Solving congruences</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example:</p>
+                            <p>For p = 7 and a = 3:</p>
+                            <p>3⁶ = 729</p>
+                            <p>729 ≡ 1 (mod 7) because 729 ÷ 7 = 104 remainder 1</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Corollary:</p>
+                            <p>If p is prime and a is not divisible by p, then a^(p-2) is the modular inverse of a modulo p.</p>
+                            <p>That is, a × a^(p-2) ≡ 1 (mod p)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Number System Conversions -->
+                <section id="conversions" class="content-section card p-6">
+                    <h2 class="section-title">5. Number System Conversions & Properties</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Decimal to Binary</h3>
+                        <p class="text-gray-600">Converting decimal numbers to binary involves repeatedly dividing by 2 and recording the remainders.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Steps:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Divide the number by 2</li>
+                                <li>Record the remainder (0 or 1)</li>
+                                <li>Divide the quotient by 2</li>
+                                <li>Repeat until quotient is 0</li>
+                                <li>Read remainders from bottom to top</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Convert 13 to binary</p>
+                            <p>13 ÷ 2 = 6 remainder 1</p>
+                            <p>6 ÷ 2 = 3 remainder 0</p>
+                            <p>3 ÷ 2 = 1 remainder 1</p>
+                            <p>1 ÷ 2 = 0 remainder 1</p>
+                            <p>Reading from bottom to top: 1101</p>
+                            <p>Therefore, 13₁₀ = 1101₂</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Binary to Decimal</h3>
+                        <p class="text-gray-600">Converting binary numbers to decimal involves multiplying each digit by its corresponding power of 2 and adding the results.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Steps:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Write down the powers of 2 from right to left</li>
+                                <li>Multiply each binary digit by its corresponding power of 2</li>
+                                <li>Add all the products</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Convert 1101 to decimal</p>
+                            <p>1101₂ = 1×2³ + 1×2² + 0×2¹ + 1×2⁰</p>
+                            <p>= 1×8 + 1×4 + 0×2 + 1×1</p>
+                            <p>= 8 + 4 + 0 + 1</p>
+                            <p>= 13₁₀</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Unit Digit Concepts (Cyclicity)</h3>
+                        <p class="text-gray-600">The unit digit of a number raised to a power follows a cyclic pattern. Understanding these patterns helps in quickly finding unit digits.</p>
+                        
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Number</th>
+                                        <th>Cycle</th>
+                                        <th>Pattern</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>0,1,5,6</td>
+                                        <td>1</td>
+                                        <td>Always same</td>
+                                        <td>5^n always ends with 5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4,9</td>
+                                        <td>2</td>
+                                        <td>4,6 / 9,1</td>
+                                        <td>4^1=4, 4^2=16, 4^3=64</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2,3,7,8</td>
+                                        <td>4</td>
+                                        <td>Repeats every 4 powers</td>
+                                        <td>2^1=2, 2^2=4, 2^3=8, 2^4=16</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Find unit digit of 3⁴⁵</p>
+                            <p>Cyclicity of 3 is 4</p>
+                            <p>45 mod 4 = 1</p>
+                            <p>Therefore, unit digit = 3¹ = 3</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Quick Method:</p>
+                            <p>1. Find the cyclicity of the base number</p>
+                            <p>2. Find the remainder when the power is divided by the cyclicity</p>
+                            <p>3. The unit digit will be the same as the unit digit of the base number raised to this remainder</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">6. Advanced Concepts (CAT/GMAT/GRE Level)</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Euler's Totient Function (ϕ(n))</h3>
+                        <p class="text-gray-600">Euler's Totient Function counts the numbers less than n that are coprime to n. It's fundamental in number theory and cryptography.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Properties:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>ϕ(1) = 1</li>
+                                <li>ϕ(p) = p-1 for prime p</li>
+                                <li>ϕ(mn) = ϕ(m) × ϕ(n) if m and n are coprime</li>
+                                <li>ϕ(p^k) = p^k - p^(k-1) for prime p</li>
+                            </ul>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>For n = p₁^a × p₂^b × ...,</p>
+                            <p>ϕ(n) = n(1-1/p₁)(1-1/p₂)...</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Find ϕ(10)</p>
+                            <p>10 = 2 × 5</p>
+                            <p>ϕ(10) = 10 × (1-½)(1-⅕)</p>
+                            <p>= 10 × ½ × ⅘</p>
+                            <p>= 4</p>
+                            <p class="text-sm text-gray-600">Numbers coprime to 10: 1,3,7,9</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Number of Factors</h3>
+                        <p class="text-gray-600">The number of factors of a number can be found using its prime factorization. This is crucial in solving various number theory problems.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Method:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Find prime factorization</li>
+                                <li>Add 1 to each exponent</li>
+                                <li>Multiply these numbers</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Find number of factors of 24</p>
+                            <p>24 = 2³ × 3¹</p>
+                            <p>Number of factors = (3+1)(1+1) = 4 × 2 = 8</p>
+                            <p>Factors: 1,2,3,4,6,8,12,24</p>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Sum of Factors:</p>
+                            <p>If n = p₁^a × p₂^b × ...,</p>
+                            <p>Sum of factors = (p₁^(a+1)-1)/(p₁-1) × (p₂^(b+1)-1)/(p₂-1) × ...</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Chinese Remainder Theorem</h3>
+                        <p class="text-gray-600">This theorem provides a solution to simultaneous congruences with coprime moduli. It's essential in number theory and cryptography.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Statement:</p>
+                            <p>If n₁, n₂, ..., nₖ are pairwise coprime integers, then for any integers a₁, a₂, ..., aₖ, there exists a unique solution modulo N = n₁n₂...nₖ to the system of congruences:</p>
+                            <p>x ≡ a₁ (mod n₁)</p>
+                            <p>x ≡ a₂ (mod n₂)</p>
+                            <p>...</p>
+                            <p>x ≡ aₖ (mod nₖ)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example:</p>
+                            <p>Solve:</p>
+                            <p>x ≡ 2 (mod 3)</p>
+                            <p>x ≡ 3 (mod 5)</p>
+                            <p>x ≡ 2 (mod 7)</p>
+                            <p class="text-sm text-gray-600">Solution: x ≡ 23 (mod 105)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Shortcuts & Tricks -->
+                <section id="shortcuts" class="content-section card p-6">
+                    <h2 class="section-title">7. Shortcuts & Tricks for Exams</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) HCF and LCM of Fractions</h3>
+                        <p class="text-gray-600">These shortcuts help quickly find HCF and LCM of fractions without converting to decimals.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <p>HCF of Fractions = HCF of Numerators / LCM of Denominators</p>
+                            <p>LCM of Fractions = LCM of Numerators / HCF of Denominators</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example:</p>
+                            <p>Find HCF and LCM of ⅔ and ¾</p>
+                            <p>HCF = HCF(2,3) / LCM(3,4) = 1/12</p>
+                            <p>LCM = LCM(2,3) / HCF(3,4) = 6/1 = 6</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Sum Formulas</h3>
+                        <p class="text-gray-600">These formulas help quickly calculate sums of sequences, saving time in exams.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Important Formulas:</p>
+                            <p>1. Sum of first n natural numbers = n(n+1)/2</p>
+                            <p>2. Sum of squares = n(n+1)(2n+1)/6</p>
+                            <p>3. Sum of cubes = [n(n+1)/2]²</p>
+                            <p>4. Sum of first n odd numbers = n²</p>
+                            <p>5. Sum of first n even numbers = n(n+1)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example:</p>
+                            <p>Find sum of first 10 natural numbers</p>
+                            <p>Sum = 10×11/2 = 55</p>
+                            <p>Find sum of squares of first 5 natural numbers</p>
+                            <p>Sum = 5×6×11/6 = 55</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Quick Multiplication Tricks</h3>
+                        <p class="text-gray-600">These mental math tricks help perform calculations quickly without paper.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Common Tricks:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Multiplying by 11: Add adjacent digits</li>
+                                <li>Multiplying by 5: Multiply by 10 and divide by 2</li>
+                                <li>Multiplying by 9: Multiply by 10 and subtract the number</li>
+                                <li>Multiplying by 25: Multiply by 100 and divide by 4</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Multiply 23 by 11</p>
+                            <p>2 (2+3) 3 = 253</p>
+                            <p>Example: Multiply 48 by 5</p>
+                            <p>48 × 5 = 480 ÷ 2 = 240</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(d) Divisibility Shortcuts</h3>
+                        <p class="text-gray-600">Quick methods to check divisibility without performing full division.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Advanced Rules:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>For 7: Double last digit, subtract from rest</li>
+                                <li>For 13: Multiply last digit by 4, add to rest</li>
+                                <li>For 17: Multiply last digit by 5, subtract from rest</li>
+                                <li>For 19: Multiply last digit by 2, add to rest</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Check if 161 is divisible by 7</p>
+                            <p>16 - (2×1) = 14</p>
+                            <p>14 is divisible by 7, so 161 is divisible by 7</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

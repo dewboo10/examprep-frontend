@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equations - Quantitative Aptitude</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #1e40af;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            color: #4b5563;
+            margin: 1rem 0 0;
+            font-size: 1.1rem;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 2rem;
+        }
+
+        .sidebar h2 {
+            color: #1e40af;
+            margin: 0 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar a {
+            color: #4b5563;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background: #f3f4f6;
+            color: #1e40af;
+        }
+
+        .main-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section h2 {
+            color: #1e40af;
+            margin: 0 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            color: #1e40af;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .formula-box {
+            background: #fef9c3;
+            border-left: 4px solid #fde047;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.6;
+        }
+
+        .formula-title {
+            font-weight: 600;
+            color: #854d0e;
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-description {
+            color: #713f12;
+            margin-bottom: 0.75rem;
+        }
+
+        .formula-example {
+            color: #854d0e;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #fde047;
+        }
+
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+
+        .note-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Equations</h1>
+            <p>Master the art of solving various types of equations and their applications</p>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <h2>Contents</h2>
+                <ul>
+                    <li><a href="#linear">Linear Equations</a></li>
+                    <li><a href="#quadratic">Quadratic Equations</a></li>
+                    <li><a href="#simultaneous">Simultaneous Equations</a></li>
+                    <li><a href="#cubic">Cubic Equations</a></li>
+                    <li><a href="#polynomial">Polynomial Equations</a></li>
+                    <li><a href="#advanced">Advanced Concepts</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <div id="linear" class="section">
+                    <h2>Linear Equations</h2>
+                    <p>Linear equations are equations of the first degree, where the highest power of the variable is 1.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">General Form of Linear Equations</p>
+                        <p class="formula-description">A linear equation is an equation of the first degree, meaning the highest power of the variable is 1. It can be written in the form ax + b = 0, where a and b are constants and a ≠ 0.</p>
+                        <p>General form: ax + b = 0, where a ≠ 0</p>
+                        <p>Solution: x = -b/a</p>
+                        <p class="formula-example">Example: 2x + 5 = 0<br>
+                        Here, a = 2, b = 5<br>
+                        Solution: x = -5/2 = -2.5</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Basic Linear Equations</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the equation: 3x + 5 = 20</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">3x + 5 = 20</p>
+                        <p class="solution-text">3x = 20 - 5</p>
+                        <p class="solution-text">3x = 15</p>
+                        <p class="solution-text">x = 15/3 = 5</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the equation: 2(x + 3) = 4x - 6</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">2(x + 3) = 4x - 6</p>
+                        <p class="solution-text">2x + 6 = 4x - 6</p>
+                        <p class="solution-text">2x - 4x = -6 - 6</p>
+                        <p class="solution-text">-2x = -12</p>
+                        <p class="solution-text">x = 6</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the equation: (x + 2)/3 = (2x - 1)/4</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">(x + 2)/3 = (2x - 1)/4</p>
+                        <p class="solution-text">4(x + 2) = 3(2x - 1)</p>
+                        <p class="solution-text">4x + 8 = 6x - 3</p>
+                        <p class="solution-text">4x - 6x = -3 - 8</p>
+                        <p class="solution-text">-2x = -11</p>
+                        <p class="solution-text">x = 11/2</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the equation: 5x - 3 = 2x + 9</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">5x - 3 = 2x + 9</p>
+                        <p class="solution-text">5x - 2x = 9 + 3</p>
+                        <p class="solution-text">3x = 12</p>
+                        <p class="solution-text">x = 4</p>
+                    </div>
+                </div>
+
+                <div id="quadratic" class="section">
+                    <h2>Quadratic Equations</h2>
+                    <p>Quadratic equations are equations of the second degree, where the highest power of the variable is 2.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Quadratic Equations</p>
+                        <p class="formula-description">A quadratic equation is an equation of the second degree, where the highest power of the variable is 2. It can be written in the form ax² + bx + c = 0, where a, b, and c are constants and a ≠ 0.</p>
+                        <p>General form: ax² + bx + c = 0, where a ≠ 0</p>
+                        <p>Quadratic formula: x = (-b ± √(b² - 4ac))/2a</p>
+                        <p>Discriminant: D = b² - 4ac</p>
+                        <p class="formula-example">Example: x² + 5x + 6 = 0<br>
+                        Here, a = 1, b = 5, c = 6<br>
+                        D = 25 - 24 = 1 > 0 (two real roots)<br>
+                        x = (-5 ± √1)/2 = -2 or -3</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Solving Quadratic Equations</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the equation: x² + 5x + 6 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using factorization:</p>
+                        <p class="solution-text">x² + 5x + 6 = 0</p>
+                        <p class="solution-text">(x + 2)(x + 3) = 0</p>
+                        <p class="solution-text">x = -2 or x = -3</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the equation: 2x² - 7x + 3 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using quadratic formula:</p>
+                        <p class="solution-text">a = 2, b = -7, c = 3</p>
+                        <p class="solution-text">x = (7 ± √(49 - 24))/4</p>
+                        <p class="solution-text">x = (7 ± √25)/4</p>
+                        <p class="solution-text">x = (7 ± 5)/4</p>
+                        <p class="solution-text">x = 3 or x = 1/2</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the equation: x² - 4x + 4 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using perfect square:</p>
+                        <p class="solution-text">x² - 4x + 4 = 0</p>
+                        <p class="solution-text">(x - 2)² = 0</p>
+                        <p class="solution-text">x = 2 (repeated root)</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the equation: x² + 2x + 5 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using quadratic formula:</p>
+                        <p class="solution-text">a = 1, b = 2, c = 5</p>
+                        <p class="solution-text">x = (-2 ± √(4 - 20))/2</p>
+                        <p class="solution-text">x = (-2 ± √(-16))/2</p>
+                        <p class="solution-text">x = (-2 ± 4i)/2</p>
+                        <p class="solution-text">x = -1 ± 2i (complex roots)</p>
+                    </div>
+                </div>
+
+                <div id="simultaneous" class="section">
+                    <h2>Simultaneous Equations</h2>
+                    <p>Simultaneous equations are a set of equations containing multiple variables.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Methods for Solving Simultaneous Equations</p>
+                        <p class="formula-description">Simultaneous equations are a set of equations containing multiple variables. There are several methods to solve them:</p>
+                        <p>1. Substitution Method: Solve one equation for one variable and substitute into other equations.</p>
+                        <p>2. Elimination Method: Add or subtract equations to eliminate one variable.</p>
+                        <p>3. Cross-multiplication Method: Use determinants to solve two linear equations.</p>
+                        <p class="formula-example">Example: 2x + y = 5 and 3x - 2y = 4<br>
+                        Using elimination:<br>
+                        Multiply first by 2: 4x + 2y = 10<br>
+                        Add to second: 7x = 14<br>
+                        x = 2, y = 1</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Linear Simultaneous Equations</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the equations: 2x + y = 5 and 3x - 2y = 4</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using elimination method:</p>
+                        <p class="solution-text">Multiply first equation by 2: 4x + 2y = 10</p>
+                        <p class="solution-text">Add to second equation: 7x = 14</p>
+                        <p class="solution-text">x = 2</p>
+                        <p class="solution-text">Substitute in first equation: 2(2) + y = 5</p>
+                        <p class="solution-text">y = 1</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the equations: x + 2y = 7 and 2x - y = 4</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using substitution method:</p>
+                        <p class="solution-text">From first equation: x = 7 - 2y</p>
+                        <p class="solution-text">Substitute in second equation: 2(7 - 2y) - y = 4</p>
+                        <p class="solution-text">14 - 4y - y = 4</p>
+                        <p class="solution-text">-5y = -10</p>
+                        <p class="solution-text">y = 2</p>
+                        <p class="solution-text">x = 7 - 2(2) = 3</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the equations: 3x + 4y = 10 and 2x + 3y = 7</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using cross-multiplication:</p>
+                        <p class="solution-text">x/(4×7 - 3×10) = y/(10×2 - 7×3) = 1/(3×3 - 2×4)</p>
+                        <p class="solution-text">x/(-2) = y/(-1) = 1/1</p>
+                        <p class="solution-text">x = 2, y = 1</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the equations: 5x - 3y = 11 and 2x + 5y = 1</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using elimination method:</p>
+                        <p class="solution-text">Multiply first by 2: 10x - 6y = 22</p>
+                        <p class="solution-text">Multiply second by 5: 10x + 25y = 5</p>
+                        <p class="solution-text">Subtract: -31y = 17</p>
+                        <p class="solution-text">y = -17/31</p>
+                        <p class="solution-text">Substitute to find x = 58/31</p>
+                    </div>
+                </div>
+
+                <div id="cubic" class="section">
+                    <h2>Cubic Equations</h2>
+                    <p>Cubic equations are equations of the third degree, where the highest power of the variable is 3.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Cubic Equations</p>
+                        <p class="formula-description">A cubic equation is an equation of the third degree, where the highest power of the variable is 3. It can be written in the form ax³ + bx² + cx + d = 0, where a, b, c, and d are constants and a ≠ 0.</p>
+                        <p>General form: ax³ + bx² + cx + d = 0, where a ≠ 0</p>
+                        <p>Methods of solving:</p>
+                        <p>1. Factorization: Find common factors or use synthetic division</p>
+                        <p>2. Cardano's formula: For general cubic equations</p>
+                        <p>3. Synthetic division: To find rational roots</p>
+                        <p class="formula-example">Example: x³ - 6x² + 11x - 6 = 0<br>
+                        Using factorization:<br>
+                        (x - 1)(x - 2)(x - 3) = 0<br>
+                        x = 1, 2, or 3</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Solving Cubic Equations</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the equation: x³ - 6x² + 11x - 6 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using factorization:</p>
+                        <p class="solution-text">x³ - 6x² + 11x - 6 = 0</p>
+                        <p class="solution-text">(x - 1)(x - 2)(x - 3) = 0</p>
+                        <p class="solution-text">x = 1, 2, or 3</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the equation: x³ + 3x² - 4x - 12 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using synthetic division:</p>
+                        <p class="solution-text">Try x = 2:</p>
+                        <p class="solution-text">2 | 1 3 -4 -12</p>
+                        <p class="solution-text">    2 10 12</p>
+                        <p class="solution-text">    1 5 6 0</p>
+                        <p class="solution-text">x = 2 is a root</p>
+                        <p class="solution-text">Factor: (x - 2)(x² + 5x + 6) = 0</p>
+                        <p class="solution-text">x = 2, -2, or -3</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the equation: x³ - 3x + 2 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using Cardano's formula:</p>
+                        <p class="solution-text">Let x = y - b/(3a)</p>
+                        <p class="solution-text">y³ + py + q = 0</p>
+                        <p class="solution-text">p = -3, q = 2</p>
+                        <p class="solution-text">Using formula: x = 1, 1, -2</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the equation: x³ + 2x² - 5x - 6 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using rational root theorem:</p>
+                        <p class="solution-text">Possible roots: ±1, ±2, ±3, ±6</p>
+                        <p class="solution-text">Try x = 2:</p>
+                        <p class="solution-text">2³ + 2(2)² - 5(2) - 6 = 0</p>
+                        <p class="solution-text">x = 2 is a root</p>
+                        <p class="solution-text">Factor: (x - 2)(x² + 4x + 3) = 0</p>
+                        <p class="solution-text">x = 2, -1, or -3</p>
+                    </div>
+                </div>
+
+                <div id="polynomial" class="section">
+                    <h2>Polynomial Equations</h2>
+                    <p>Polynomial equations are equations containing terms with different powers of the variable.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Polynomial Equations</p>
+                        <p class="formula-description">A polynomial equation is an equation containing terms with different powers of the variable. The degree of the polynomial is the highest power of the variable.</p>
+                        <p>General form: aₙxⁿ + aₙ₋₁xⁿ⁻¹ + ... + a₁x + a₀ = 0</p>
+                        <p>Important theorems:</p>
+                        <p>1. Factor theorem: If f(a) = 0, then (x - a) is a factor of f(x)</p>
+                        <p>2. Remainder theorem: The remainder when f(x) is divided by (x - a) is f(a)</p>
+                        <p>3. Rational root theorem: Possible rational roots are ±p/q, where p divides a₀ and q divides aₙ</p>
+                        <p class="formula-example">Example: x⁴ - 5x² + 4 = 0<br>
+                        Let y = x²<br>
+                        y² - 5y + 4 = 0<br>
+                        (y - 1)(y - 4) = 0<br>
+                        x = ±1 or ±2</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Solving Polynomial Equations</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the equation: x⁴ - 5x² + 4 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Let y = x²</p>
+                        <p class="solution-text">y² - 5y + 4 = 0</p>
+                        <p class="solution-text">(y - 1)(y - 4) = 0</p>
+                        <p class="solution-text">y = 1 or 4</p>
+                        <p class="solution-text">x = ±1 or ±2</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the equation: x⁴ + 2x³ - 7x² - 8x + 12 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using rational root theorem:</p>
+                        <p class="solution-text">Possible roots: ±1, ±2, ±3, ±4, ±6, ±12</p>
+                        <p class="solution-text">Try x = 1: 1 + 2 - 7 - 8 + 12 = 0</p>
+                        <p class="solution-text">x = 1 is a root</p>
+                        <p class="solution-text">Factor: (x - 1)(x³ + 3x² - 4x - 12) = 0</p>
+                        <p class="solution-text">x = 1, 2, -2, or -3</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the equation: x⁵ - 3x⁴ + 2x³ = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Factor out x³:</p>
+                        <p class="solution-text">x³(x² - 3x + 2) = 0</p>
+                        <p class="solution-text">x³(x - 1)(x - 2) = 0</p>
+                        <p class="solution-text">x = 0 (triple root), 1, or 2</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the equation: x⁴ - 16 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using difference of squares:</p>
+                        <p class="solution-text">(x² - 4)(x² + 4) = 0</p>
+                        <p class="solution-text">(x - 2)(x + 2)(x² + 4) = 0</p>
+                        <p class="solution-text">x = 2, -2, or ±2i</p>
+                    </div>
+                </div>
+
+                <div id="advanced" class="section">
+                    <h2>Advanced Concepts</h2>
+                    <p>Advanced topics in equations including complex numbers, inequalities, and applications.</p>
+
+                    <div class="formula-box">
+                        <p class="formula-title">Advanced Concepts</p>
+                        <p class="formula-description">Advanced topics in equations include complex numbers, inequalities, and absolute values. These concepts are essential for solving more complex mathematical problems.</p>
+                        <p>Complex numbers: a + bi, where i² = -1</p>
+                        <p>Inequalities: >, <, ≥, ≤</p>
+                        <p>Absolute value: |x| = x if x ≥ 0, -x if x < 0</p>
+                        <p class="formula-example">Example: x² + 4 = 0<br>
+                        x² = -4<br>
+                        x = ±√(-4)<br>
+                        x = ±2i (complex roots)</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="font-medium">Example 1: Complex Numbers</p>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">Solve the equation: x² + 4 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">x² = -4</p>
+                        <p class="solution-text">x = ±√(-4)</p>
+                        <p class="solution-text">x = ±2i</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">Solve the equation: x² - 2x + 5 = 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using quadratic formula:</p>
+                        <p class="solution-text">x = (2 ± √(4 - 20))/2</p>
+                        <p class="solution-text">x = (2 ± √(-16))/2</p>
+                        <p class="solution-text">x = 1 ± 2i</p>
+
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Solve the inequality: x² - 4x + 3 > 0</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Factor: (x - 1)(x - 3) > 0</p>
+                        <p class="solution-text">Critical points: x = 1, 3</p>
+                        <p class="solution-text">Test intervals: x < 1, 1 < x < 3, x > 3</p>
+                        <p class="solution-text">Solution: x < 1 or x > 3</p>
+
+                        <p class="question-number">Q4.</p>
+                        <p class="question-text">Solve the equation: |2x - 3| = 5</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">2x - 3 = 5 or 2x - 3 = -5</p>
+                        <p class="solution-text">2x = 8 or 2x = -2</p>
+                        <p class="solution-text">x = 4 or x = -1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sidebar a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cause and Effect - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+        
+        .answer.show {
+            display: block;
+        }
+        
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .arrow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .arrow-box {
+            padding: 10px 20px;
+            background: #e0f2fe;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .arrow {
+            color: #3b82f6;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Cause and Effect Relationships
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of identifying and analyzing cause-effect relationships in logical reasoning.
+                Learn to distinguish between different types of causal relationships and solve complex problems.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#types" class="nav-link block">2. Types of Relationships</a>
+                        <a href="#patterns" class="nav-link block">3. Common Patterns</a>
+                        <a href="#analysis" class="nav-link block">4. Analysis Methods</a>
+                        <a href="#practice" class="nav-link block">5. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">6. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">Introduction to Cause and Effect</h2>
+                    <p class="text-gray-600 mb-4">
+                        Cause and effect relationships are fundamental to logical reasoning. They help us understand how events are connected and predict outcomes based on given conditions.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why is it important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Frequently tested in competitive exams</li>
+                            <li>Essential for decision-making and problem-solving</li>
+                            <li>Helps in understanding complex relationships</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Types of Relationships -->
+                <section id="types" class="content-section card p-6">
+                    <h2 class="section-title">Types of Cause-Effect Relationships</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Direct Cause-Effect</h3>
+                            <div class="example-box p-4">
+                                <p class="font-semibold mb-2">Example:</p>
+                                <div class="arrow-diagram">
+                                    <div class="arrow-box">Heavy Rainfall</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Flooding</div>
+                                </div>
+                                <p class="text-sm text-gray-500">One event directly leads to another</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Indirect Cause-Effect</h3>
+                            <div class="example-box p-4">
+                                <p class="font-semibold mb-2">Example:</p>
+                                <div class="arrow-diagram">
+                                    <div class="arrow-box">Economic Recession</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Job Losses</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Decreased Spending</div>
+                                </div>
+                                <p class="text-sm text-gray-500">One event leads to another through intermediate steps</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Multiple Causes</h3>
+                            <div class="example-box p-4">
+                                <p class="font-semibold mb-2">Example:</p>
+                                <div class="arrow-diagram">
+                                    <div class="arrow-box">Poor Diet</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Obesity</div>
+                                    <div class="arrow">←</div>
+                                    <div class="arrow-box">Lack of Exercise</div>
+                                </div>
+                                <p class="text-sm text-gray-500">Several factors contribute to one effect</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">4. Multiple Effects</h3>
+                            <div class="example-box p-4">
+                                <p class="font-semibold mb-2">Example:</p>
+                                <div class="arrow-diagram">
+                                    <div class="arrow-box">Global Warming</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Rising Sea Levels</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Extreme Weather</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Species Extinction</div>
+                                </div>
+                                <p class="text-sm text-gray-500">One cause leads to several effects</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Common Patterns -->
+                <section id="patterns" class="content-section card p-6">
+                    <h2 class="section-title">Common Cause-Effect Patterns</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Necessary Cause</h3>
+                            <div class="example-box p-4">
+                                <p class="font-semibold mb-2">Example:</p>
+                                <div class="arrow-diagram">
+                                    <div class="arrow-box">Oxygen</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Fire</div>
+                                </div>
+                                <p class="text-sm text-gray-500">A condition that must be present for the effect to occur</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Sufficient Cause</h3>
+                            <div class="example-box p-4">
+                                <p class="font-semibold mb-2">Example:</p>
+                                <div class="arrow-diagram">
+                                    <div class="arrow-box">Cutting Blood Supply</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Heart Attack</div>
+                                </div>
+                                <p class="text-sm text-gray-500">A condition that will always produce the effect</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Contributing Cause</h3>
+                            <div class="example-box p-4">
+                                <p class="font-semibold mb-2">Example:</p>
+                                <div class="arrow-diagram">
+                                    <div class="arrow-box">Smoking</div>
+                                    <div class="arrow">→</div>
+                                    <div class="arrow-box">Lung Cancer</div>
+                                </div>
+                                <p class="text-sm text-gray-500">A factor that increases the likelihood of the effect</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analysis Methods -->
+                <section id="analysis" class="content-section card p-6">
+                    <h2 class="section-title">Methods for Analyzing Cause-Effect</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Step 1: Identify the Relationship</h3>
+                            <p class="text-gray-700">Determine if it's direct, indirect, or multiple causes/effects.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Step 2: Check for Necessary vs. Sufficient</h3>
+                            <p class="text-gray-700">Verify if the cause is required or just one possible cause.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">Step 3: Look for Alternative Explanations</h3>
+                            <p class="text-gray-700">Consider other factors that might contribute to the effect.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 1</h3>
+                                <span class="difficulty-badge difficulty-easy">Easy</span>
+                            </div>
+                            <div class="statement-box">
+                                <p class="font-semibold">Statement:</p>
+                                <p>Regular exercise leads to improved cardiovascular health.</p>
+                            </div>
+                            <div class="conclusion-box">
+                                <p class="font-semibold">Conclusion:</p>
+                                <p>People who exercise regularly have better heart health.</p>
+                            </div>
+                            <button onclick="toggleAnswer('answer1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. This is a direct cause-effect relationship</p>
+                                <p class="text-sm text-gray-500">2. Regular exercise is a contributing cause</p>
+                                <p class="text-sm text-gray-500">3. The conclusion logically follows</p>
+                                <p class="text-sm font-semibold">Answer: Definitely True</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 2</h3>
+                                <span class="difficulty-badge difficulty-medium">Medium</span>
+                            </div>
+                            <div class="statement-box">
+                                <p class="font-semibold">Statements:</p>
+                                <p>1. Increased carbon emissions lead to global warming.</p>
+                                <p>2. Global warming causes polar ice caps to melt.</p>
+                                <p>3. Melting ice caps result in rising sea levels.</p>
+                            </div>
+                            <div class="conclusion-box">
+                                <p class="font-semibold">Conclusion:</p>
+                                <p>Reducing carbon emissions will prevent rising sea levels.</p>
+                            </div>
+                            <button onclick="toggleAnswer('answer2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. This is an indirect cause-effect chain</p>
+                                <p class="text-sm text-gray-500">2. Carbon emissions → Global warming → Melting ice → Rising seas</p>
+                                <p class="text-sm text-gray-500">3. The conclusion is a possible effect</p>
+                                <p class="text-sm font-semibold">Answer: Maybe</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 3</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <div class="statement-box">
+                                <p class="font-semibold">Statements:</p>
+                                <p>1. Poor study habits lead to low grades.</p>
+                                <p>2. Low grades result in academic probation.</p>
+                                <p>3. Academic probation affects future opportunities.</p>
+                                <p>4. Some students with poor study habits get good grades.</p>
+                            </div>
+                            <div class="conclusion-box">
+                                <p class="font-semibold">Conclusion:</p>
+                                <p>All students with poor study habits will face academic probation.</p>
+                            </div>
+                            <button onclick="toggleAnswer('answer3')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer3" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. This is a complex cause-effect chain</p>
+                                <p class="text-sm text-gray-500">2. Statement 4 contradicts the conclusion</p>
+                                <p class="text-sm text-gray-500">3. The conclusion is too absolute</p>
+                                <p class="text-sm font-semibold">Answer: Definitely False</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">Pro Tips for Cause-Effect Questions</h2>
+                    
+                    <div class="tip-box p-4">
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Look for direct and indirect relationships</li>
+                            <li>Check for multiple causes or effects</li>
+                            <li>Verify if the cause is necessary or sufficient</li>
+                            <li>Consider alternative explanations</li>
+                            <li>Watch for correlation vs. causation</li>
+                            <li>Check for hidden assumptions</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

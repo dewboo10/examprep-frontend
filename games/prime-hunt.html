@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🔢 Prime Hunt Challenge</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+    }
+    
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .option-btn {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+        padding: 12px 20px;
+        line-height: 1.4;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        background: white;
+        border: 1px solid #e2e8f0;
+        color: #1e293b;
+        font-weight: 500;
+        width: 100%;
+        border-radius: 1rem;
+    }
+    
+    .option-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-color: #3b82f6;
+        background: #f8fafc;
+    }
+    
+    .option-btn.correct {
+        background: #10B981;
+        color: white;
+        border: none;
+        font-weight: 600;
+    }
+    
+    .option-btn.wrong {
+        background: #EF4444;
+        color: white;
+        border: none;
+        font-weight: 600;
+    }
+    
+    .correct-answer {
+        animation: pulse 0.6s ease;
+    }
+    
+    .wrong-answer {
+        animation: shake 0.5s ease;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-8px); }
+        80% { transform: translateX(8px); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .timer {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .timer.warning {
+        color: #ef4444;
+        animation: pulse 1s infinite;
+    }
+</style>
+</head>
+<body class="min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="card p-6 relative">
+            <!-- Header -->
+            <header class="text-center mb-8">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    🔢 Prime Hunt Challenge
+                </h1>
+                <p class="text-gray-600 mt-2">Test your knowledge of prime numbers!</p>
+            </header>
+
+            <!-- Game screen -->
+            <div id="gameScreen">
+                <!-- Game stats -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-left">
+                        <div class="text-sm text-gray-600">Lives Left</div>
+                        <div class="text-xl font-bold text-gray-800" id="lives">3</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Time Left</div>
+                        <div class="text-xl font-bold text-gray-800" id="timer">10</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Score</div>
+                        <div class="text-xl font-bold text-gray-800" id="score">0</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Questions</div>
+                        <div class="text-xl font-bold text-gray-800" id="questionCount">0/60</div>
+                    </div>
+                </div>
+                
+                <!-- Question area -->
+                <div class="text-center mb-6">
+                    <p class="text-gray-700 text-lg" id="question">Loading question...</p>
+                </div>
+                
+                <!-- Options area -->
+                <div class="space-y-3 mb-6" id="options"></div>
+                
+                <!-- Feedback area -->
+                <div id="feedback" class="text-center min-h-[24px] mb-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let lives = 3;
+        let timer = 10;
+        let timerInterval;
+        let questions = [
+            // Basic Prime Numbers
+            {
+                question: "Is 17 a prime number?",
+                options: ["Yes", "No"],
+                answer: "Yes"
+            },
+            {
+                question: "Is 21 a prime number?",
+                options: ["Yes", "No"],
+                answer: "No"
+            },
+            {
+                question: "Is 29 a prime number?",
+                options: ["Yes", "No"],
+                answer: "Yes"
+            },
+            {
+                question: "Is 33 a prime number?",
+                options: ["Yes", "No"],
+                answer: "No"
+            },
+            {
+                question: "Is 41 a prime number?",
+                options: ["Yes", "No"],
+                answer: "Yes"
+            },
+            {
+                question: "Is 49 a prime number?",
+                options: ["Yes", "No"],
+                answer: "No"
+            },
+            {
+                question: "Is 53 a prime number?",
+                options: ["Yes", "No"],
+                answer: "Yes"
+            },
+            {
+                question: "Is 57 a prime number?",
+                options: ["Yes", "No"],
+                answer: "No"
+            },
+            {
+                question: "Is 61 a prime number?",
+                options: ["Yes", "No"],
+                answer: "Yes"
+            },
+            {
+                question: "Is 69 a prime number?",
+                options: ["Yes", "No"],
+                answer: "No"
+            },
+            // Complex Prime Questions
+            {
+                question: "Which of these is a prime number?",
+                options: ["91", "97", "99", "93"],
+                answer: "97"
+            },
+            {
+                question: "Which of these is NOT a prime number?",
+                options: ["83", "89", "87", "79"],
+                answer: "87"
+            },
+            {
+                question: "What is the next prime number after 73?",
+                options: ["75", "77", "79", "81"],
+                answer: "79"
+            },
+            {
+                question: "Which of these is a prime number?",
+                options: ["111", "113", "115", "117"],
+                answer: "113"
+            },
+            {
+                question: "Which of these is NOT a prime number?",
+                options: ["101", "103", "105", "107"],
+                answer: "105"
+            },
+            // Prime Factorization
+            {
+                question: "What is the prime factorization of 12?",
+                options: ["2 × 2 × 3", "2 × 3 × 3", "2 × 2 × 2", "3 × 3 × 3"],
+                answer: "2 × 2 × 3"
+            },
+            {
+                question: "What is the prime factorization of 18?",
+                options: ["2 × 2 × 3", "2 × 3 × 3", "2 × 2 × 2", "3 × 3 × 3"],
+                answer: "2 × 3 × 3"
+            },
+            {
+                question: "What is the prime factorization of 24?",
+                options: ["2 × 2 × 2 × 3", "2 × 2 × 3 × 3", "2 × 3 × 3 × 3", "3 × 3 × 3 × 3"],
+                answer: "2 × 2 × 2 × 3"
+            },
+            {
+                question: "What is the prime factorization of 36?",
+                options: ["2 × 2 × 3 × 3", "2 × 2 × 2 × 3", "2 × 3 × 3 × 3", "3 × 3 × 3 × 3"],
+                answer: "2 × 2 × 3 × 3"
+            },
+            {
+                question: "What is the prime factorization of 48?",
+                options: ["2 × 2 × 2 × 2 × 3", "2 × 2 × 2 × 3 × 3", "2 × 2 × 3 × 3 × 3", "2 × 3 × 3 × 3 × 3"],
+                answer: "2 × 2 × 2 × 2 × 3"
+            }
+        ];
+
+        // Shuffle questions
+        questions = questions.sort(() => Math.random() - 0.5);
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timer = 10;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = timer;
+            timerEl.classList.remove('warning');
+
+            timerInterval = setInterval(() => {
+                timer--;
+                timerEl.textContent = timer;
+                
+                if (timer <= 3) {
+                    timerEl.classList.add('warning');
+                }
+                
+                if (timer <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function handleTimeout() {
+            lives--;
+            document.getElementById('lives').textContent = lives;
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = `<p class="text-red-600 font-semibold">Time's up! The correct answer was: ${questions[currentQuestionIndex].answer}</p>`;
+            
+            if (lives <= 0) {
+                endGame();
+            } else {
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }, 1500);
+            }
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                endGame();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            document.getElementById('question').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            // Shuffle options
+            const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
+            
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('questionCount').textContent = `${currentQuestionIndex + 1}/${questions.length}`;
+            document.getElementById('feedback').innerHTML = '';
+            startTimer();
+        }
+
+        function checkAnswer(selectedOption) {
+            clearInterval(timerInterval);
+            const question = questions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach(option => {
+                option.disabled = true;
+                if (option.textContent === question.answer) {
+                    option.classList.add('correct');
+                } else if (option.textContent === selectedOption && selectedOption !== question.answer) {
+                    option.classList.add('wrong');
+                }
+            });
+
+            const feedback = document.getElementById('feedback');
+
+            if (selectedOption === question.answer) {
+                score += 10;
+                feedback.innerHTML = '<p class="text-green-600 font-semibold">Correct! +10 points</p>';
+            } else {
+                lives--;
+                feedback.innerHTML = `<p class="text-red-600 font-semibold">Wrong! The correct answer is: ${question.answer}</p>`;
+            }
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('lives').textContent = lives;
+            
+            if (lives <= 0) {
+                endGame();
+            } else {
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }, 1500);
+            }
+        }
+
+        function endGame() {
+            const questionArea = document.getElementById('question');
+            const optionsArea = document.getElementById('options');
+            const feedback = document.getElementById('feedback');
+            const timerEl = document.getElementById('timer');
+            
+            clearInterval(timerInterval);
+            timerEl.textContent = '';
+            questionArea.innerHTML = '<h2 class="text-3xl font-bold mb-4">Game Over!</h2>';
+            optionsArea.innerHTML = `<p class="text-xl mb-4">Final Score: ${score}</p>`;
+            feedback.innerHTML = '<button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl font-medium transition transform hover:scale-105">Play Again</button>';
+        }
+
+        // Initialize game
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>💰 Profit & Loss Challenge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .formula-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: popIn 0.3s ease;
+            max-width: 90%;
+            width: 400px;
+        }
+        
+        .formula-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .option-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+            padding: 12px 20px;
+            line-height: 1.4;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .correct-answer {
+            animation: pulse 0.6s ease;
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+        
+        .wrong-answer {
+            animation: shake 0.5s ease;
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+        
+        .hint-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #f59e0b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .streak-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f59e0b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            animation: pulse 1s infinite;
+        }
+        
+        .formula-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .formula-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="card p-6 relative">
+            <!-- Header -->
+            <header class="text-center mb-8">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    💰 Profit & Loss Challenge
+                </h1>
+                <p class="text-gray-600 mt-2">Test your understanding of business calculations!</p>
+            </header>
+            
+            <!-- Level selection -->
+            <div id="levelScreen" class="text-center">
+                <h2 class="text-2xl font-bold mb-6 text-blue-600">Select Difficulty Level</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="level-card p-6 rounded-2xl text-center bg-green-50 border-2 border-green-500 cursor-pointer" data-level="easy">
+                        <div class="text-5xl mb-4">🌱</div>
+                        <h3 class="font-bold text-xl mb-2">Beginner</h3>
+                        <p class="text-gray-600 mb-3">Basic calculations</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                    
+                    <div class="level-card p-6 rounded-2xl text-center bg-yellow-50 border-2 border-yellow-500 cursor-pointer" data-level="medium">
+                        <div class="text-5xl mb-4">🌿</div>
+                        <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+                        <p class="text-gray-600 mb-3">Complex scenarios</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                    
+                    <div class="level-card p-6 rounded-2xl text-center bg-red-50 border-2 border-red-500 cursor-pointer" data-level="hard">
+                        <div class="text-5xl mb-4">🔥</div>
+                        <h3 class="font-bold text-xl mb-2">Advanced</h3>
+                        <p class="text-gray-600 mb-3">Expert challenges</p>
+                        <div class="text-sm text-gray-700">20 questions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game screen -->
+            <div id="gameScreen" class="hidden">
+                <!-- Game stats -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-left">
+                        <div class="text-sm text-gray-600">Time Left</div>
+                        <div class="text-xl font-bold" id="timer">180s</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Score</div>
+                        <div class="text-xl font-bold" id="score">0</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Best Score</div>
+                        <div class="text-xl font-bold" id="bestScore">0</div>
+                    </div>
+                </div>
+                
+                <!-- Question area -->
+                <div class="text-center mb-6">
+                    <p class="text-gray-700 text-lg" id="questionText">Loading question...</p>
+                </div>
+                
+                <!-- Options area -->
+                <div class="space-y-3 mb-6" id="options"></div>
+                
+                <!-- Feedback area -->
+                <div id="feedback" class="text-center min-h-[24px] mb-4"></div>
+                
+                <!-- Retry button -->
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium hidden transition transform hover:scale-105" id="retryBtn">
+                    Play Again
+                </button>
+                
+                <!-- Streak indicator -->
+                <div id="streakIndicator" class="streak-indicator hidden">
+                    <i class="fas fa-fire mr-1"></i> <span id="streakCount">0</span> streak!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gameData = {
+            levels: {
+                easy: {
+                    name: "Beginner",
+                    icon: "🌱",
+                    questions: [
+                        {
+                            question: "A shopkeeper buys a shirt for ₹500 and sells it for ₹600. What is his profit?",
+                            options: ["₹100", "₹200", "₹50", "₹150"],
+                            answer: "₹100",
+                            formula: "Profit = Selling Price - Cost Price",
+                            explanation: "Profit = ₹600 - ₹500 = ₹100"
+                        },
+                        {
+                            question: "If a book costs ₹200 and is sold at a loss of ₹40, what is the selling price?",
+                            options: ["₹160", "₹180", "₹140", "₹150"],
+                            answer: "₹160",
+                            formula: "Selling Price = Cost Price - Loss",
+                            explanation: "Selling Price = ₹200 - ₹40 = ₹160"
+                        },
+                        {
+                            question: "A toy is sold for ₹450 with a profit of ₹50. What was its cost price?",
+                            options: ["₹400", "₹350", "₹450", "₹500"],
+                            answer: "₹400",
+                            formula: "Cost Price = Selling Price - Profit",
+                            explanation: "Cost Price = ₹450 - ₹50 = ₹400"
+                        },
+                        {
+                            question: "If a product is sold at ₹800 with a loss of ₹100, what was its cost price?",
+                            options: ["₹900", "₹850", "₹950", "₹1000"],
+                            answer: "₹900",
+                            formula: "Cost Price = Selling Price + Loss",
+                            explanation: "Cost Price = ₹800 + ₹100 = ₹900"
+                        },
+                        {
+                            question: "A shopkeeper makes a profit of ₹75 on a ₹300 item. What is the selling price?",
+                            options: ["₹375", "₹350", "₹400", "₹425"],
+                            answer: "₹375",
+                            formula: "Selling Price = Cost Price + Profit",
+                            explanation: "Selling Price = ₹300 + ₹75 = ₹375"
+                        },
+                        {
+                            question: "If an item is sold at ₹250 with a profit of ₹50, what was its cost price?",
+                            options: ["₹200", "₹180", "₹220", "₹240"],
+                            answer: "₹200",
+                            formula: "Cost Price = Selling Price - Profit",
+                            explanation: "Cost Price = ₹250 - ₹50 = ₹200"
+                        },
+                        {
+                            question: "A product is sold at ₹600 with a loss of ₹100. What was its cost price?",
+                            options: ["₹700", "₹650", "₹750", "₹800"],
+                            answer: "₹700",
+                            formula: "Cost Price = Selling Price + Loss",
+                            explanation: "Cost Price = ₹600 + ₹100 = ₹700"
+                        },
+                        {
+                            question: "If a shopkeeper makes a profit of ₹120 on a ₹480 item, what is the selling price?",
+                            options: ["₹600", "₹580", "₹620", "₹640"],
+                            answer: "₹600",
+                            formula: "Selling Price = Cost Price + Profit",
+                            explanation: "Selling Price = ₹480 + ₹120 = ₹600"
+                        },
+                        {
+                            question: "A book is sold at ₹350 with a loss of ₹50. What was its cost price?",
+                            options: ["₹400", "₹380", "₹420", "₹450"],
+                            answer: "₹400",
+                            formula: "Cost Price = Selling Price + Loss",
+                            explanation: "Cost Price = ₹350 + ₹50 = ₹400"
+                        },
+                        {
+                            question: "If an item costs ₹450 and is sold at a profit of ₹50, what is the selling price?",
+                            options: ["₹500", "₹480", "₹520", "₹550"],
+                            answer: "₹500",
+                            formula: "Selling Price = Cost Price + Profit",
+                            explanation: "Selling Price = ₹450 + ₹50 = ₹500"
+                        }
+                    ]
+                },
+                medium: {
+                    name: "Intermediate",
+                    icon: "🌿",
+                    questions: [
+                        {
+                            question: "A shopkeeper buys 20 shirts at ₹300 each and sells them at ₹350 each. What is his total profit?",
+                            options: ["₹1000", "₹800", "₹1200", "₹1500"],
+                            answer: "₹1000",
+                            formula: "Total Profit = (Selling Price - Cost Price) × Quantity",
+                            explanation: "Profit per shirt = ₹350 - ₹300 = ₹50\nTotal Profit = ₹50 × 20 = ₹1000"
+                        },
+                        {
+                            question: "If a shopkeeper makes a 15% profit on an item costing ₹400, what is the selling price?",
+                            options: ["₹460", "₹450", "₹470", "₹480"],
+                            answer: "₹460",
+                            formula: "Selling Price = Cost Price + (Cost Price × Profit Percentage)",
+                            explanation: "Profit = ₹400 × 15% = ₹60\nSelling Price = ₹400 + ₹60 = ₹460"
+                        },
+                        {
+                            question: "A product is sold at a 20% loss. If the cost price was ₹500, what is the selling price?",
+                            options: ["₹400", "₹450", "₹350", "₹380"],
+                            answer: "₹400",
+                            formula: "Selling Price = Cost Price - (Cost Price × Loss Percentage)",
+                            explanation: "Loss = ₹500 × 20% = ₹100\nSelling Price = ₹500 - ₹100 = ₹400"
+                        },
+                        {
+                            question: "If a shopkeeper wants to make a 25% profit on an item costing ₹800, what should be the selling price?",
+                            options: ["₹1000", "₹950", "₹1050", "₹1100"],
+                            answer: "₹1000",
+                            formula: "Selling Price = Cost Price + (Cost Price × Profit Percentage)",
+                            explanation: "Profit = ₹800 × 25% = ₹200\nSelling Price = ₹800 + ₹200 = ₹1000"
+                        },
+                        {
+                            question: "A shopkeeper sells 15 items at ₹200 each, making a total profit of ₹750. What was the cost price per item?",
+                            options: ["₹150", "₹140", "₹160", "₹170"],
+                            answer: "₹150",
+                            formula: "Cost Price = (Total Revenue - Total Profit) ÷ Quantity",
+                            explanation: "Total Revenue = ₹200 × 15 = ₹3000\nCost Price = (₹3000 - ₹750) ÷ 15 = ₹150"
+                        },
+                        {
+                            question: "If a product is sold at a 10% loss for ₹450, what was its cost price?",
+                            options: ["₹500", "₹480", "₹520", "₹550"],
+                            answer: "₹500",
+                            formula: "Cost Price = Selling Price ÷ (1 - Loss Percentage)",
+                            explanation: "Cost Price = ₹450 ÷ (1 - 10%) = ₹450 ÷ 0.9 = ₹500"
+                        },
+                        {
+                            question: "A shopkeeper wants to make a 30% profit on an item costing ₹600. What should be the selling price?",
+                            options: ["₹780", "₹750", "₹800", "₹820"],
+                            answer: "₹780",
+                            formula: "Selling Price = Cost Price + (Cost Price × Profit Percentage)",
+                            explanation: "Profit = ₹600 × 30% = ₹180\nSelling Price = ₹600 + ₹180 = ₹780"
+                        },
+                        {
+                            question: "If a product is sold at a 15% loss for ₹340, what was its cost price?",
+                            options: ["₹400", "₹380", "₹420", "₹450"],
+                            answer: "₹400",
+                            formula: "Cost Price = Selling Price ÷ (1 - Loss Percentage)",
+                            explanation: "Cost Price = ₹340 ÷ (1 - 15%) = ₹340 ÷ 0.85 = ₹400"
+                        },
+                        {
+                            question: "A shopkeeper buys 25 items at ₹120 each and sells them at ₹150 each. What is his total profit?",
+                            options: ["₹750", "₹700", "₹800", "₹850"],
+                            answer: "₹750",
+                            formula: "Total Profit = (Selling Price - Cost Price) × Quantity",
+                            explanation: "Profit per item = ₹150 - ₹120 = ₹30\nTotal Profit = ₹30 × 25 = ₹750"
+                        },
+                        {
+                            question: "If a shopkeeper makes a 20% profit on an item costing ₹500, what is the selling price?",
+                            options: ["₹600", "₹580", "₹620", "₹640"],
+                            answer: "₹600",
+                            formula: "Selling Price = Cost Price + (Cost Price × Profit Percentage)",
+                            explanation: "Profit = ₹500 × 20% = ₹100\nSelling Price = ₹500 + ₹100 = ₹600"
+                        }
+                    ]
+                },
+                hard: {
+                    name: "Advanced",
+                    icon: "🔥",
+                    questions: [
+                        {
+                            question: "A shopkeeper marks an item 40% above cost price and gives a 20% discount. If the cost price is ₹500, what is the selling price?",
+                            options: ["₹560", "₹540", "₹580", "₹600"],
+                            answer: "₹560",
+                            formula: "Selling Price = Cost Price × (1 + Markup) × (1 - Discount)",
+                            explanation: "Marked Price = ₹500 × 1.4 = ₹700\nSelling Price = ₹700 × 0.8 = ₹560"
+                        },
+                        {
+                            question: "If a shopkeeper wants to make a 25% profit after giving a 15% discount on the marked price, what should be the markup percentage?",
+                            options: ["47.06%", "45%", "50%", "52%"],
+                            answer: "47.06%",
+                            formula: "Markup = (1 + Desired Profit) ÷ (1 - Discount) - 1",
+                            explanation: "Markup = (1 + 25%) ÷ (1 - 15%) - 1 = 1.25 ÷ 0.85 - 1 = 47.06%"
+                        },
+                        {
+                            question: "A shopkeeper sells two items. First at 20% profit and second at 20% loss. If both cost ₹500 each, what is the overall profit/loss?",
+                            options: ["No profit, no loss", "₹50 profit", "₹50 loss", "₹100 loss"],
+                            answer: "No profit, no loss",
+                            formula: "Overall Result = (Profit on First + Loss on Second)",
+                            explanation: "Profit on First = ₹500 × 20% = ₹100\nLoss on Second = ₹500 × 20% = ₹100\nOverall = ₹100 - ₹100 = ₹0"
+                        },
+                        {
+                            question: "If a shopkeeper marks an item 50% above cost and gives a 25% discount, what is the profit percentage?",
+                            options: ["12.5%", "15%", "10%", "20%"],
+                            answer: "12.5%",
+                            formula: "Profit % = ((1 + Markup) × (1 - Discount) - 1) × 100",
+                            explanation: "Selling Price = 1.5 × 0.75 = 1.125\nProfit % = (1.125 - 1) × 100 = 12.5%"
+                        },
+                        {
+                            question: "A shopkeeper buys 100 items at ₹80 each. He sells 60% at 20% profit and the rest at 10% loss. What is his overall profit/loss?",
+                            options: ["₹400 profit", "₹300 profit", "₹500 profit", "₹200 profit"],
+                            answer: "₹400 profit",
+                            formula: "Overall Result = (Quantity1 × Profit1) + (Quantity2 × Loss2)",
+                            explanation: "Profit on 60 items = 60 × (₹80 × 20%) = ₹960\nLoss on 40 items = 40 × (₹80 × 10%) = ₹320\nOverall = ₹960 - ₹320 = ₹640"
+                        },
+                        {
+                            question: "If a shopkeeper wants to make a 30% profit after giving a 20% discount, what should be the markup percentage?",
+                            options: ["62.5%", "60%", "65%", "70%"],
+                            answer: "62.5%",
+                            formula: "Markup = (1 + Desired Profit) ÷ (1 - Discount) - 1",
+                            explanation: "Markup = (1 + 30%) ÷ (1 - 20%) - 1 = 1.3 ÷ 0.8 - 1 = 62.5%"
+                        },
+                        {
+                            question: "A shopkeeper marks an item 60% above cost and gives a 30% discount. If the cost price is ₹400, what is the selling price?",
+                            options: ["₹448", "₹420", "₹460", "₹480"],
+                            answer: "₹448",
+                            formula: "Selling Price = Cost Price × (1 + Markup) × (1 - Discount)",
+                            explanation: "Marked Price = ₹400 × 1.6 = ₹640\nSelling Price = ₹640 × 0.7 = ₹448"
+                        },
+                        {
+                            question: "If a shopkeeper sells three items at 15% profit, 10% loss, and 20% profit respectively, each costing ₹500, what is the overall profit/loss?",
+                            options: ["₹75 profit", "₹50 profit", "₹100 profit", "₹25 profit"],
+                            answer: "₹75 profit",
+                            formula: "Overall Result = Sum of individual profits/losses",
+                            explanation: "Profit1 = ₹500 × 15% = ₹75\nLoss2 = ₹500 × 10% = ₹50\nProfit3 = ₹500 × 20% = ₹100\nOverall = ₹75 - ₹50 + ₹100 = ₹125"
+                        },
+                        {
+                            question: "A shopkeeper wants to make a 40% profit after giving a 25% discount. What should be the markup percentage?",
+                            options: ["86.67%", "85%", "90%", "95%"],
+                            answer: "86.67%",
+                            formula: "Markup = (1 + Desired Profit) ÷ (1 - Discount) - 1",
+                            explanation: "Markup = (1 + 40%) ÷ (1 - 25%) - 1 = 1.4 ÷ 0.75 - 1 = 86.67%"
+                        },
+                        {
+                            question: "If a shopkeeper marks an item 70% above cost and gives a 35% discount, what is the profit percentage?",
+                            options: ["10.5%", "12%", "9%", "15%"],
+                            answer: "10.5%",
+                            formula: "Profit % = ((1 + Markup) × (1 - Discount) - 1) × 100",
+                            explanation: "Selling Price = 1.7 × 0.65 = 1.105\nProfit % = (1.105 - 1) × 100 = 10.5%"
+                        }
+                    ]
+                }
+            },
+            
+            currentLevel: null,
+            currentQuestion: 0,
+            score: 0,
+            lives: 3,
+            correctAnswers: 0,
+            startTime: null,
+            currentStreak: 0,
+            usedQuestions: new Set(),
+            currentQuestionData: null
+        };
+
+        // DOM Elements
+        const levelScreen = document.getElementById('levelScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const questionText = document.getElementById('questionText');
+        const optionsEl = document.getElementById('options');
+        const feedbackEl = document.getElementById('feedback');
+        const scoreEl = document.getElementById('score');
+        const bestScoreEl = document.getElementById('bestScore');
+        const timerEl = document.getElementById('timer');
+        const retryBtn = document.getElementById('retryBtn');
+        const streakIndicator = document.getElementById('streakIndicator');
+        const streakCount = document.getElementById('streakCount');
+
+        // Initialize game
+        function initGame() {
+            // Add event listeners to level cards
+            document.querySelectorAll('.level-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const level = card.dataset.level;
+                    startLevel(level);
+                });
+            });
+            
+            // Load best score
+            const savedBestScore = localStorage.getItem("profitLossBestScore") || "0";
+            bestScoreEl.textContent = savedBestScore;
+        }
+
+        // Start a new level
+        function startLevel(level) {
+            gameData.currentLevel = level;
+            gameData.currentQuestion = 0;
+            gameData.score = 0;
+            gameData.lives = 3;
+            gameData.correctAnswers = 0;
+            gameData.currentStreak = 0;
+            gameData.usedQuestions.clear();
+            
+            // Hide streak indicator
+            streakIndicator.classList.add('hidden');
+            
+            // Update UI
+            levelScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            
+            scoreEl.textContent = "0";
+            timerEl.textContent = "180s";
+            retryBtn.classList.add('hidden');
+            
+            // Start timer
+            startTimer();
+            
+            // Load first question
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            const level = gameData.levels[gameData.currentLevel];
+            const question = getRandomQuestion(level);
+            
+            // Store current question for answer checking
+            gameData.currentQuestionData = question;
+            
+            // Update question text
+            questionText.textContent = question.question;
+            
+            // Clear previous content
+            optionsEl.innerHTML = '';
+            feedbackEl.innerHTML = '';
+            
+            // Shuffle options
+            const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
+            
+            // Create options
+            shuffledOptions.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn w-full border text-left px-4 py-2 rounded-xl bg-white hover:bg-blue-50 transition';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(option, btn);
+                optionsEl.appendChild(btn);
+            });
+            
+            // Record start time
+            gameData.startTime = new Date();
+        }
+
+        // Get random question
+        function getRandomQuestion(level) {
+            if (gameData.usedQuestions.size === level.questions.length) {
+                gameData.usedQuestions.clear();
+            }
+            
+            let availableQuestions = level.questions.filter((_, index) => !gameData.usedQuestions.has(index));
+            let randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            let question = availableQuestions[randomIndex];
+            
+            gameData.usedQuestions.add(level.questions.indexOf(question));
+            return question;
+        }
+
+        // Check answer
+        function checkAnswer(selectedOption, btn) {
+            // Disable all buttons
+            Array.from(optionsEl.children).forEach(b => b.disabled = true);
+            
+            const isCorrect = selectedOption === gameData.currentQuestionData.answer;
+            
+            if (isCorrect) {
+                gameData.score += 100;
+                gameData.correctAnswers++;
+                gameData.currentStreak++;
+                
+                // Add time bonus
+                const timeTaken = (new Date() - gameData.startTime) / 1000;
+                const timeBonus = Math.min(20, Math.floor(timeTaken / 10));
+                gameData.score += timeBonus;
+                
+                // Show streak indicator
+                if (gameData.currentStreak >= 3) {
+                    streakCount.textContent = gameData.currentStreak;
+                    streakIndicator.classList.remove('hidden');
+                }
+                
+                btn.classList.add('correct-answer');
+                feedbackEl.innerHTML = `
+                    <div class="text-green-600 font-medium">
+                        Correct! +${100 + timeBonus} points
+                        ${gameData.currentStreak >= 3 ? ` (+${gameData.currentStreak * 10} streak bonus!)` : ''}
+                    </div>
+                `;
+            } else {
+                gameData.currentStreak = 0;
+                streakIndicator.classList.add('hidden');
+                btn.classList.add('wrong-answer');
+                
+                feedbackEl.innerHTML = `
+                    <div class="text-red-600 font-medium">
+                        Incorrect! The correct answer was: ${gameData.currentQuestionData.answer}
+                    </div>
+                `;
+            }
+            
+            // Update score
+            scoreEl.textContent = gameData.score;
+            
+            // Update best score
+            const currentBest = parseInt(localStorage.getItem("profitLossBestScore") || "0");
+            if (gameData.score > currentBest) {
+                localStorage.setItem("profitLossBestScore", gameData.score);
+                bestScoreEl.textContent = gameData.score;
+            }
+            
+            // Move to next question
+            setTimeout(() => {
+                if (timeLeft > 0) {
+                    loadQuestion();
+                } else {
+                    endGame();
+                }
+            }, 1500);
+        }
+
+        // Start timer
+        function startTimer() {
+            timeLeft = 180;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = `${timeLeft}s`;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+        }
+
+        // End game
+        function endGame() {
+            clearInterval(timerInterval);
+            gameScreen.classList.add('hidden');
+            levelScreen.classList.remove('hidden');
+            
+            // Save score if logged in
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                const userId = localStorage.getItem("userId");
+                fetch("/api/brain-games/update-score", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: userId,
+                        gameId: "profit-loss",
+                        score: gameData.score
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Score saved successfully");
+                    }
+                })
+                .catch(err => console.error("Error saving score:", err));
+            }
+        }
+
+        // Initialize the game
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Reading Comprehension - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .strategy-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-passage {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-passage:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .passage-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Business Reading Comprehension</h1>
+            <p class="text-lg text-gray-600">Master the art of understanding and analyzing business passages</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block text-gray-600 hover:text-blue-600">Introduction</a>
+                        <a href="#types" class="nav-link block text-gray-600 hover:text-blue-600">Types of Business Passages</a>
+                        <a href="#question-types" class="nav-link block text-gray-600 hover:text-blue-600">Question Types</a>
+                        <a href="#strategies" class="nav-link block text-gray-600 hover:text-blue-600">Reading Strategies</a>
+                        <a href="#practice" class="nav-link block text-gray-600 hover:text-blue-600">Practice Passages</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Introduction Section -->
+                <section id="introduction" class="card p-8 mb-8">
+                    <h2 class="section-title">Introduction to Business RC</h2>
+                    <p class="text-gray-700 mb-4">
+                        Business Reading Comprehension tests your ability to understand, analyze, and interpret business-related texts. These passages often contain market analysis, financial concepts, management theories, and business strategies that require careful reading and analysis.
+                    </p>
+                    
+                    <div class="note-box">
+                        <h3 class="subsection-title">Key Skills Required</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Understanding business concepts and terminology</li>
+                            <li>Analyzing market trends and financial data</li>
+                            <li>Identifying business strategies and their implications</li>
+                            <li>Evaluating business decisions and their outcomes</li>
+                            <li>Understanding economic principles and their applications</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Types of Business Passages Section -->
+                <section id="types" class="card p-8 mb-8">
+                    <h2 class="section-title">Types of Business Passages</h2>
+                    
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Common Business Passage Types</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Market Analysis and Trends</li>
+                            <li>Financial Reports and Analysis</li>
+                            <li>Business Strategy and Management</li>
+                            <li>Economic Theory and Policy</li>
+                            <li>Corporate Governance and Ethics</li>
+                            <li>Entrepreneurship and Innovation</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example Passage Types</h3>
+                        <p class="text-gray-700 mb-4">
+                            Business passages can range from detailed market analysis to strategic management discussions. Here are some examples:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Market research reports with statistical data</li>
+                            <li>Financial statements and performance analysis</li>
+                            <li>Case studies of business strategies</li>
+                            <li>Economic policy discussions</li>
+                            <li>Management theory explanations</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Question Types Section -->
+                <section id="question-types" class="card p-8 mb-8">
+                    <h2 class="section-title">Question Types</h2>
+                    
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Common Question Types</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Main Idea and Purpose Questions</li>
+                            <li>Detail and Factual Questions</li>
+                            <li>Inference and Implication Questions</li>
+                            <li>Business Strategy Analysis Questions</li>
+                            <li>Financial Data Interpretation Questions</li>
+                            <li>Author's Tone and Attitude Questions</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example Questions</h3>
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">What is the main purpose of the passage?</p>
+                        
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">According to the passage, what was the primary reason for the company's market expansion?</p>
+                        
+                        <p class="question-number">Q3.</p>
+                        <p class="question-text">Which of the following best describes the author's attitude toward the new business strategy?</p>
+                    </div>
+                </section>
+
+                <!-- Reading Strategies Section -->
+                <section id="strategies" class="card p-8 mb-8">
+                    <h2 class="section-title">Reading Strategies</h2>
+                    
+                    <div class="strategy-box">
+                        <h3 class="subsection-title">Effective Reading Strategies</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Skim the passage first to understand the main topic</li>
+                            <li>Identify key business terms and concepts</li>
+                            <li>Look for data points and their implications</li>
+                            <li>Understand the business context and market situation</li>
+                            <li>Note the author's perspective on business issues</li>
+                        </ul>
+                    </div>
+
+                    <div class="note-box">
+                        <h3 class="subsection-title">Key Tips</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Pay attention to financial data and market statistics</li>
+                            <li>Understand the relationship between different business concepts</li>
+                            <li>Look for cause-and-effect relationships in business decisions</li>
+                            <li>Consider the broader economic context</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Practice Passages Section -->
+                <section id="practice" class="card p-8 mb-8">
+                    <h2 class="section-title">Practice Passages</h2>
+                    
+                    <div class="practice-passage">
+                        <h3 class="subsection-title">Practice Passage 1: Market Analysis</h3>
+                        <div class="passage-text">
+                            <p>The global smartphone market has experienced significant changes in recent years. With the emergence of new technologies and changing consumer preferences, companies are constantly adapting their strategies. Market leaders like Apple and Samsung continue to dominate, while Chinese manufacturers are gaining market share through competitive pricing and innovative features.</p>
+                            
+                            <p>The rise of 5G technology has further complicated the market dynamics. Companies are investing heavily in research and development to stay ahead of the competition. Consumer demand for advanced features and longer battery life has led to increased production costs, affecting profit margins across the industry.</p>
+                        </div>
+
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">What is the main focus of the passage?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">The passage focuses on the changing dynamics of the global smartphone market, including technological advancements, market competition, and consumer preferences.</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">According to the passage, what is the impact of 5G technology on the smartphone market?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">The passage states that 5G technology has complicated market dynamics and led to increased investment in research and development by companies.</p>
+                    </div>
+
+                    <div class="practice-passage">
+                        <h3 class="subsection-title">Practice Passage 2: Business Strategy</h3>
+                        <div class="passage-text">
+                            <p>Corporate social responsibility (CSR) has become an integral part of modern business strategy. Companies are increasingly recognizing that sustainable practices not only benefit society but also contribute to long-term business success. Many organizations have implemented comprehensive CSR programs that address environmental concerns, social issues, and ethical business practices.</p>
+                            
+                            <p>The implementation of CSR initiatives has shown positive results in terms of brand reputation and customer loyalty. However, some critics argue that these programs are often more about public relations than genuine commitment to social causes. Despite these criticisms, the trend toward greater corporate responsibility continues to grow.</p>
+                        </div>
+
+                        <p class="question-number">Q1.</p>
+                        <p class="question-text">What is the author's main argument about CSR?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">The author argues that CSR has become an essential part of business strategy, benefiting both society and long-term business success, despite some criticisms about its implementation.</p>
+
+                        <p class="question-number">Q2.</p>
+                        <p class="question-text">According to the passage, what are the benefits of CSR programs?</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">The passage mentions that CSR programs have shown positive results in terms of brand reputation and customer loyalty, while also contributing to social and environmental causes.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

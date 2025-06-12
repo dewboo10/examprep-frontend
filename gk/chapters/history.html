@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian History - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fact-item {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .fact-item:hover {
+            background: #e0f2fe;
+        }
+        
+        .fact-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .fact-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Indian History
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Comprehensive guide to Indian history, from ancient civilizations to modern independence.
+            </p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Ancient India -->
+            <section id="ancient" class="card p-8">
+                <h2 class="section-title">Ancient India (1-40)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Indus Valley Civilization</div>
+                        <div class="fact-content">Existed around 2500 BCE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Main Cities</div>
+                        <div class="fact-content">Harappa (Punjab) and Mohenjo-daro (Sindh).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Great Bath</div>
+                        <div class="fact-content">Discovered in Mohenjo-daro.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Harappan Weights</div>
+                        <div class="fact-content">Used weights based on the binary system.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Indus Script</div>
+                        <div class="fact-content">Still undeciphered.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Aryan Arrival</div>
+                        <div class="fact-content">Arrived in India around 1500 BCE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Rigveda</div>
+                        <div class="fact-content">Oldest known literary work in India.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Vedic Age</div>
+                        <div class="fact-content">Divided into Early and Later Vedic Period.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Painted Grey Ware</div>
+                        <div class="fact-content">Culture linked with Later Vedic period.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mahajanapadas</div>
+                        <div class="fact-content">16 mentioned in Buddhist texts (Anguttara Nikaya).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Magadha</div>
+                        <div class="fact-content">Emerged as the strongest Mahajanapada.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Ajatashatru</div>
+                        <div class="fact-content">Powerful ruler of Magadha.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mahavira</div>
+                        <div class="fact-content">24th Tirthankara, founded Jainism (6th century BCE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Buddha's Enlightenment</div>
+                        <div class="fact-content">Attained at Bodh Gaya.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First Buddhist Council</div>
+                        <div class="fact-content">Held at Rajagriha.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Second Buddhist Council</div>
+                        <div class="fact-content">Held at Vaishali.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Third Buddhist Council</div>
+                        <div class="fact-content">By Ashoka at Pataliputra.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Fourth Buddhist Council</div>
+                        <div class="fact-content">At Kashmir by Kanishka.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mauryan Empire</div>
+                        <div class="fact-content">Founded by Chandragupta Maurya in 322 BCE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Kalinga War</div>
+                        <div class="fact-content">Ashoka fought in 261 BCE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Ashoka's Conversion</div>
+                        <div class="fact-content">Adopted Buddhism post Kalinga war.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Ashoka's Edicts</div>
+                        <div class="fact-content">Inscribed in Brahmi and Kharosthi.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Megasthenes</div>
+                        <div class="fact-content">Greek ambassador at Chandragupta's court.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mauryan Administration</div>
+                        <div class="fact-content">Highly centralized.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Arthashastra</div>
+                        <div class="fact-content">Written by Kautilya (Chanakya).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sunga Dynasty</div>
+                        <div class="fact-content">Succeeded the Mauryas.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Kanva Dynasty</div>
+                        <div class="fact-content">Succeeded the Sungas.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Satavahanas</div>
+                        <div class="fact-content">Ruled the Deccan (Andhra region).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Junagarh Inscription</div>
+                        <div class="fact-content">Issued by Rudradaman I.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Indo-Greek Coins</div>
+                        <div class="fact-content">Introduced first gold coins in India.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Menander (Milinda)</div>
+                        <div class="fact-content">Converted to Buddhism.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Kushanas</div>
+                        <div class="fact-content">Ruled from Peshawar.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Saka Era</div>
+                        <div class="fact-content">Started by Kanishka (78 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Gandhara Art</div>
+                        <div class="fact-content">Flourished under Kushanas.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Gupta Empire</div>
+                        <div class="fact-content">Founded by Chandragupta I (320 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Samudragupta</div>
+                        <div class="fact-content">Called "Napoleon of India".</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Chandragupta II</div>
+                        <div class="fact-content">Known as Vikramaditya.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Fahien</div>
+                        <div class="fact-content">Visited India during Gupta reign.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Gupta Period Art</div>
+                        <div class="fact-content">Classical age of Indian art.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Aryabhata</div>
+                        <div class="fact-content">Wrote Aryabhatiya during Gupta rule.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Medieval India -->
+            <section id="medieval" class="card p-8">
+                <h2 class="section-title">Medieval India (41-80)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Harshavardhana</div>
+                        <div class="fact-content">Last great Hindu ruler of North India (606-647 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Hiuen Tsang</div>
+                        <div class="fact-content">Chinese traveler visited during Harsha's reign.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Nalanda University</div>
+                        <div class="fact-content">Ancient center of learning, destroyed by Bakhtiyar Khilji.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Arab Invasion</div>
+                        <div class="fact-content">Muhammad bin Qasim invaded Sindh in 712 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mahmud of Ghazni</div>
+                        <div class="fact-content">Invaded India 17 times (1000-1027 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Somnath Temple</div>
+                        <div class="fact-content">Destroyed by Mahmud of Ghazni in 1025 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Muhammad Ghori</div>
+                        <div class="fact-content">Defeated Prithviraj Chauhan in 1192 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First Battle of Tarain</div>
+                        <div class="fact-content">Prithviraj Chauhan defeated Ghori in 1191 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Second Battle of Tarain</div>
+                        <div class="fact-content">Ghori defeated Prithviraj Chauhan in 1192 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Qutub-ud-din Aibak</div>
+                        <div class="fact-content">First Sultan of Delhi (1206-1210 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Qutub Minar</div>
+                        <div class="fact-content">Started by Qutub-ud-din Aibak, completed by Iltutmish.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Iltutmish</div>
+                        <div class="fact-content">Real founder of Delhi Sultanate (1211-1236 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Razia Sultan</div>
+                        <div class="fact-content">First and only woman ruler of Delhi Sultanate.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Balban</div>
+                        <div class="fact-content">Established strong monarchy (1266-1287 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Alauddin Khilji</div>
+                        <div class="fact-content">Conquered Gujarat, Malwa, and Deccan (1296-1316 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Market Reforms</div>
+                        <div class="fact-content">Introduced by Alauddin Khilji.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Muhammad bin Tughlaq</div>
+                        <div class="fact-content">Transferred capital to Daulatabad (1327 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Token Currency</div>
+                        <div class="fact-content">Introduced by Muhammad bin Tughlaq.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Firoz Shah Tughlaq</div>
+                        <div class="fact-content">Built canals and hospitals (1351-1388 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Timur's Invasion</div>
+                        <div class="fact-content">Invaded India in 1398 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sayyid Dynasty</div>
+                        <div class="fact-content">Ruled Delhi from 1414-1451 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Lodhi Dynasty</div>
+                        <div class="fact-content">Last dynasty of Delhi Sultanate (1451-1526 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First Battle of Panipat</div>
+                        <div class="fact-content">Babur defeated Ibrahim Lodhi in 1526 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Babur</div>
+                        <div class="fact-content">Founded Mughal Empire in India (1526-1530 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Humayun</div>
+                        <div class="fact-content">Lost empire to Sher Shah Suri (1530-1540 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sher Shah Suri</div>
+                        <div class="fact-content">Introduced Grand Trunk Road and new currency.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Akbar</div>
+                        <div class="fact-content">Greatest Mughal emperor (1556-1605 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Din-i-Ilahi</div>
+                        <div class="fact-content">New religion founded by Akbar.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Nine Gems</div>
+                        <div class="fact-content">Famous courtiers in Akbar's court.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Jahangir</div>
+                        <div class="fact-content">Known for his justice (1605-1627 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Shah Jahan</div>
+                        <div class="fact-content">Built Taj Mahal (1628-1658 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Aurangzeb</div>
+                        <div class="fact-content">Last great Mughal emperor (1658-1707 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Maratha Empire</div>
+                        <div class="fact-content">Founded by Shivaji (1674-1680 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Ashtapradhan</div>
+                        <div class="fact-content">Council of eight ministers under Shivaji.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Vijayanagara Empire</div>
+                        <div class="fact-content">Founded by Harihara and Bukka (1336 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Krishnadevaraya</div>
+                        <div class="fact-content">Greatest ruler of Vijayanagara Empire.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Bahmani Kingdom</div>
+                        <div class="fact-content">Founded by Alauddin Hasan Bahman Shah (1347 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Golconda Fort</div>
+                        <div class="fact-content">Famous for its acoustics and architecture.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Bhakti Movement</div>
+                        <div class="fact-content">Religious movement emphasizing devotion.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sufi Movement</div>
+                        <div class="fact-content">Islamic mystical movement in India.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modern India -->
+            <section id="modern" class="card p-8">
+                <h2 class="section-title">Modern India (81-120)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Battle of Plassey</div>
+                        <div class="fact-content">Robert Clive defeated Siraj-ud-Daulah in 1757 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Battle of Buxar</div>
+                        <div class="fact-content">British defeated combined forces in 1764 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Dual Government</div>
+                        <div class="fact-content">Introduced by Robert Clive in Bengal.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Permanent Settlement</div>
+                        <div class="fact-content">Introduced by Lord Cornwallis in 1793 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Ryotwari System</div>
+                        <div class="fact-content">Introduced by Thomas Munro in Madras.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mahalwari System</div>
+                        <div class="fact-content">Introduced in North-Western Provinces.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First Anglo-Maratha War</div>
+                        <div class="fact-content">Fought between 1775-1782 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Second Anglo-Maratha War</div>
+                        <div class="fact-content">Fought between 1803-1805 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Third Anglo-Maratha War</div>
+                        <div class="fact-content">Fought between 1817-1818 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First Anglo-Sikh War</div>
+                        <div class="fact-content">Fought between 1845-1846 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Second Anglo-Sikh War</div>
+                        <div class="fact-content">Fought between 1848-1849 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Doctrine of Lapse</div>
+                        <div class="fact-content">Introduced by Lord Dalhousie.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First War of Independence</div>
+                        <div class="fact-content">Started in 1857 CE at Meerut.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Queen's Proclamation</div>
+                        <div class="fact-content">Issued in 1858 CE after the revolt.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Indian National Congress</div>
+                        <div class="fact-content">Founded in 1885 CE by A.O. Hume.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Partition of Bengal</div>
+                        <div class="fact-content">Announced by Lord Curzon in 1905 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Swadeshi Movement</div>
+                        <div class="fact-content">Started after partition of Bengal.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Muslim League</div>
+                        <div class="fact-content">Founded in 1906 CE at Dhaka.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Morley-Minto Reforms</div>
+                        <div class="fact-content">Introduced in 1909 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Home Rule Movement</div>
+                        <div class="fact-content">Started by Annie Besant and Tilak in 1916 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Lucknow Pact</div>
+                        <div class="fact-content">Signed between Congress and Muslim League in 1916 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Montagu-Chelmsford Reforms</div>
+                        <div class="fact-content">Introduced in 1919 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Rowlatt Act</div>
+                        <div class="fact-content">Passed in 1919 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Jallianwala Bagh Massacre</div>
+                        <div class="fact-content">Occurred on April 13, 1919 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Non-Cooperation Movement</div>
+                        <div class="fact-content">Started by Mahatma Gandhi in 1920 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Chauri Chaura Incident</div>
+                        <div class="fact-content">Occurred on February 5, 1922 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Simon Commission</div>
+                        <div class="fact-content">Arrived in India in 1928 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Nehru Report</div>
+                        <div class="fact-content">Submitted in 1928 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Civil Disobedience Movement</div>
+                        <div class="fact-content">Started with Dandi March in 1930 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First Round Table Conference</div>
+                        <div class="fact-content">Held in London in 1930 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Gandhi-Irwin Pact</div>
+                        <div class="fact-content">Signed in 1931 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Second Round Table Conference</div>
+                        <div class="fact-content">Held in London in 1931 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Third Round Table Conference</div>
+                        <div class="fact-content">Held in London in 1932 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Poona Pact</div>
+                        <div class="fact-content">Signed between Gandhi and Ambedkar in 1932 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Government of India Act</div>
+                        <div class="fact-content">Passed in 1935 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Quit India Movement</div>
+                        <div class="fact-content">Started on August 8, 1942 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Cabinet Mission</div>
+                        <div class="fact-content">Arrived in India in 1946 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Mountbatten Plan</div>
+                        <div class="fact-content">Announced on June 3, 1947 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Indian Independence Act</div>
+                        <div class="fact-content">Passed on July 18, 1947 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Partition of India</div>
+                        <div class="fact-content">Occurred on August 15, 1947 CE.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First Governor General</div>
+                        <div class="fact-content">Lord Mountbatten (1947-1948 CE).</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">First Indian Governor General</div>
+                        <div class="fact-content">C. Rajagopalachari (1948-1950 CE).</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Freedom Fighters -->
+            <section id="freedom-fighters" class="card p-8">
+                <h2 class="section-title">Freedom Fighters (121-160)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="fact-item">
+                        <div class="fact-title">Mahatma Gandhi</div>
+                        <div class="fact-content">Father of the Nation, led non-violent movements.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Jawaharlal Nehru</div>
+                        <div class="fact-content">First Prime Minister of India, known as Chacha Nehru.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Subhas Chandra Bose</div>
+                        <div class="fact-content">Founded INA, known as Netaji.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sardar Vallabhbhai Patel</div>
+                        <div class="fact-content">Iron Man of India, unified princely states.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Bhagat Singh</div>
+                        <div class="fact-content">Revolutionary socialist, executed at 23.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Chandrashekhar Azad</div>
+                        <div class="fact-content">Revolutionary leader, never captured alive.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Lala Lajpat Rai</div>
+                        <div class="fact-content">Known as Punjab Kesari, died after police lathi charge.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Bal Gangadhar Tilak</div>
+                        <div class="fact-content">Known as Lokmanya, "Swaraj is my birthright".</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Bipin Chandra Pal</div>
+                        <div class="fact-content">Part of Lal-Bal-Pal trio, extremist leader.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Dadabhai Naoroji</div>
+                        <div class="fact-content">First Indian MP in British Parliament, Grand Old Man of India.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Gopal Krishna Gokhale</div>
+                        <div class="fact-content">Political guru of Mahatma Gandhi.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Maulana Abul Kalam Azad</div>
+                        <div class="fact-content">First Education Minister of India.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Dr. Rajendra Prasad</div>
+                        <div class="fact-content">First President of India.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Dr. B.R. Ambedkar</div>
+                        <div class="fact-content">Architect of Indian Constitution.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sarojini Naidu</div>
+                        <div class="fact-content">Nightingale of India, first woman governor.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Aruna Asaf Ali</div>
+                        <div class="fact-content">Heroine of Quit India Movement.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Rani Lakshmibai</div>
+                        <div class="fact-content">Queen of Jhansi, fought in 1857 revolt.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Begum Hazrat Mahal</div>
+                        <div class="fact-content">Led revolt in Awadh during 1857.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Tantia Tope</div>
+                        <div class="fact-content">Led guerrilla warfare in 1857 revolt.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Nana Saheb</div>
+                        <div class="fact-content">Led revolt in Kanpur during 1857.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Kunwar Singh</div>
+                        <div class="fact-content">Led revolt in Bihar during 1857.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Ashfaqulla Khan</div>
+                        <div class="fact-content">Revolutionary, executed in Kakori conspiracy.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Ram Prasad Bismil</div>
+                        <div class="fact-content">Revolutionary, executed in Kakori conspiracy.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Khudiram Bose</div>
+                        <div class="fact-content">Youngest revolutionary, executed at 18.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Prafulla Chaki</div>
+                        <div class="fact-content">Revolutionary, committed suicide to avoid capture.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Madan Lal Dhingra</div>
+                        <div class="fact-content">Assassinated Curzon Wyllie in London.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Vinayak Damodar Savarkar</div>
+                        <div class="fact-content">Revolutionary, wrote 'First War of Independence'.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Surya Sen</div>
+                        <div class="fact-content">Led Chittagong Armory Raid.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Rash Behari Bose</div>
+                        <div class="fact-content">Founded Indian Independence League in Japan.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Chittaranjan Das</div>
+                        <div class="fact-content">Known as Deshbandhu, founded Swaraj Party.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Motilal Nehru</div>
+                        <div class="fact-content">Founded Swaraj Party with C.R. Das.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Annie Besant</div>
+                        <div class="fact-content">Started Home Rule Movement, first woman Congress president.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Kasturba Gandhi</div>
+                        <div class="fact-content">Wife of Mahatma Gandhi, active in freedom movement.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Kamala Nehru</div>
+                        <div class="fact-content">Wife of Jawaharlal Nehru, active in freedom movement.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sucheta Kriplani</div>
+                        <div class="fact-content">First woman Chief Minister of India.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Vijaya Lakshmi Pandit</div>
+                        <div class="fact-content">First woman president of UN General Assembly.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Khan Abdul Ghaffar Khan</div>
+                        <div class="fact-content">Known as Frontier Gandhi.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Alluri Sitarama Raju</div>
+                        <div class="fact-content">Led Rampa Rebellion in Andhra Pradesh.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Birsa Munda</div>
+                        <div class="fact-content">Led tribal movement in Jharkhand.</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Sidhu and Kanhu</div>
+                        <div class="fact-content">Led Santhal Rebellion in 1855.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Initialize all sections as visible
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.display = 'block';
+                section.querySelectorAll('.fact-item').forEach(item => {
+                    item.style.display = 'block';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

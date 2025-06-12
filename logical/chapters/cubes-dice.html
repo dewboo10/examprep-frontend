@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubes and Dice - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+        
+        .answer.show {
+            display: block;
+        }
+        
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .cube-container {
+            perspective: 1000px;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 20s infinite linear;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotateX(0) rotateY(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: rgba(59, 130, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .cube-face:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: scale(1.1);
+        }
+
+        .front { transform: translateZ(50px); }
+        .back { transform: translateZ(-50px) rotateY(180deg); }
+        .right { transform: translateX(50px) rotateY(90deg); }
+        .left { transform: translateX(-50px) rotateY(-90deg); }
+        .top { transform: translateY(-50px) rotateX(90deg); }
+        .bottom { transform: translateY(50px) rotateX(-90deg); }
+
+        .dice-container {
+            perspective: 1000px;
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+
+        .dice {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: diceRotate 10s infinite linear;
+        }
+
+        @keyframes diceRotate {
+            0% { transform: rotateX(0) rotateY(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .dice-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .dice-face:hover {
+            background: #f0f9ff;
+            transform: scale(1.1);
+        }
+
+        .dice-dot {
+            width: 15px;
+            height: 15px;
+            background: #3b82f6;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .dot-1 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .dot-2 { top: 25%; left: 25%; }
+        .dot-3 { top: 25%; right: 25%; }
+        .dot-4 { bottom: 25%; left: 25%; }
+        .dot-5 { bottom: 25%; right: 25%; }
+        .dot-6 { top: 50%; left: 25%; }
+        .dot-7 { top: 50%; right: 25%; }
+
+        .color-cube {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            width: 150px;
+            margin: 20px auto;
+        }
+
+        .color-face {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .color-face:hover {
+            transform: scale(1.1);
+        }
+
+        .red { background: #fee2e2; }
+        .blue { background: #dbeafe; }
+        .green { background: #dcfce7; }
+        .yellow { background: #fef3c7; }
+        .purple { background: #f3e8ff; }
+        .orange { background: #ffedd5; }
+
+        .slice-diagram {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 300px;
+            margin: 20px auto;
+        }
+
+        .slice-cube {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: rgba(59, 130, 246, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .slice-cube:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: scale(1.1);
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Cubes and Dice
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of solving cube and dice problems with our comprehensive guide.
+                Learn various patterns, formulas, and solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#cube-formulas" class="nav-link block">2. Cube Formulas</a>
+                        <a href="#cube-slicing" class="nav-link block">3. Cube Slicing</a>
+                        <a href="#dice-problems" class="nav-link block">4. Dice Problems</a>
+                        <a href="#color-cubes" class="nav-link block">5. Color Cubes</a>
+                        <a href="#practice" class="nav-link block">6. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">7. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">Introduction to Cubes and Dice</h2>
+                    <p class="text-gray-600 mb-4">
+                        Cube and dice problems test your spatial reasoning and visualization skills.
+                        These problems are common in competitive exams like CAT and XAT.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why is it important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Frequently asked in CAT, XAT, and other competitive exams</li>
+                            <li>Tests spatial reasoning and visualization skills</li>
+                            <li>Improves logical thinking and problem-solving abilities</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Cube Formulas -->
+                <section id="cube-formulas" class="content-section card p-6">
+                    <h2 class="section-title">Cube Formulas</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Basic Cube Properties</h3>
+                            <div class="formula-box">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Number of faces = 6</li>
+                                    <li>Number of edges = 12</li>
+                                    <li>Number of vertices = 8</li>
+                                    <li>Number of face diagonals = 12</li>
+                                    <li>Number of space diagonals = 4</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Painted Cube Formulas</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">For a cube of size n×n×n:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Number of small cubes = n³</li>
+                                    <li>Cubes with 3 faces painted = 8 (corners)</li>
+                                    <li>Cubes with 2 faces painted = 12(n-2)</li>
+                                    <li>Cubes with 1 face painted = 6(n-2)²</li>
+                                    <li>Cubes with 0 faces painted = (n-2)³</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Cube Cutting Formulas</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">When a cube is cut into smaller cubes:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Number of cuts = (n-1) in each direction</li>
+                                    <li>Total number of cuts = 3(n-1)</li>
+                                    <li>Number of pieces = n³</li>
+                                    <li>Maximum number of pieces = (n+1)³</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cube-container">
+                        <div class="cube">
+                            <div class="cube-face front">Front</div>
+                            <div class="cube-face back">Back</div>
+                            <div class="cube-face right">Right</div>
+                            <div class="cube-face left">Left</div>
+                            <div class="cube-face top">Top</div>
+                            <div class="cube-face bottom">Bottom</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cube Slicing -->
+                <section id="cube-slicing" class="content-section card p-6">
+                    <h2 class="section-title">Cube Slicing</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Types of Slices</h3>
+                            <div class="formula-box">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Parallel to faces (3 directions)</li>
+                                    <li>Diagonal slices (through opposite edges)</li>
+                                    <li>Space diagonal slices (through opposite vertices)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Slicing Patterns</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">Common slicing patterns:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Equal slices in each direction</li>
+                                    <li>Unequal slices (different numbers in each direction)</li>
+                                    <li>Combined slices (parallel and diagonal)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slice-diagram">
+                        <div class="slice-cube">1</div>
+                        <div class="slice-cube">2</div>
+                        <div class="slice-cube">3</div>
+                        <div class="slice-cube">4</div>
+                        <div class="slice-cube">5</div>
+                        <div class="slice-cube">6</div>
+                        <div class="slice-cube">7</div>
+                        <div class="slice-cube">8</div>
+                        <div class="slice-cube">9</div>
+                    </div>
+                </section>
+
+                <!-- Dice Problems -->
+                <section id="dice-problems" class="content-section card p-6">
+                    <h2 class="section-title">Dice Problems</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Standard Dice Properties</h3>
+                            <div class="formula-box">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Opposite faces sum to 7</li>
+                                    <li>Adjacent faces are never opposite</li>
+                                    <li>Sum of numbers on opposite faces = 7</li>
+                                    <li>Sum of numbers on adjacent faces ≠ 7</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Dice Rolling Patterns</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">When rolling a dice:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Rolling right: Top face moves right</li>
+                                    <li>Rolling left: Top face moves left</li>
+                                    <li>Rolling forward: Top face moves forward</li>
+                                    <li>Rolling backward: Top face moves backward</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dice-container">
+                        <div class="dice">
+                            <div class="dice-face front">
+                                <div class="dice-dot dot-1"></div>
+                            </div>
+                            <div class="dice-face back">
+                                <div class="dice-dot dot-2"></div>
+                                <div class="dice-dot dot-3"></div>
+                            </div>
+                            <div class="dice-face right">
+                                <div class="dice-dot dot-2"></div>
+                                <div class="dice-dot dot-3"></div>
+                                <div class="dice-dot dot-4"></div>
+                            </div>
+                            <div class="dice-face left">
+                                <div class="dice-dot dot-2"></div>
+                                <div class="dice-dot dot-3"></div>
+                                <div class="dice-dot dot-4"></div>
+                                <div class="dice-dot dot-5"></div>
+                            </div>
+                            <div class="dice-face top">
+                                <div class="dice-dot dot-2"></div>
+                                <div class="dice-dot dot-3"></div>
+                                <div class="dice-dot dot-4"></div>
+                                <div class="dice-dot dot-5"></div>
+                                <div class="dice-dot dot-6"></div>
+                            </div>
+                            <div class="dice-face bottom">
+                                <div class="dice-dot dot-2"></div>
+                                <div class="dice-dot dot-3"></div>
+                                <div class="dice-dot dot-4"></div>
+                                <div class="dice-dot dot-5"></div>
+                                <div class="dice-dot dot-6"></div>
+                                <div class="dice-dot dot-7"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Color Cubes -->
+                <section id="color-cubes" class="content-section card p-6">
+                    <h2 class="section-title">Color Cube Problems</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Types of Color Problems</h3>
+                            <div class="formula-box">
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Single color on each face</li>
+                                    <li>Multiple colors on each face</li>
+                                    <li>Color patterns and sequences</li>
+                                    <li>Color relationships between faces</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Solving Color Problems</h3>
+                            <div class="formula-box">
+                                <p class="text-gray-600 mb-2">Steps to solve:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Identify the color pattern</li>
+                                    <li>Note the relationship between faces</li>
+                                    <li>Use the cube's structure to determine hidden faces</li>
+                                    <li>Apply logical deduction to find missing colors</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="color-cube">
+                        <div class="color-face red">R</div>
+                        <div class="color-face blue">B</div>
+                        <div class="color-face green">G</div>
+                        <div class="color-face yellow">Y</div>
+                        <div class="color-face purple">P</div>
+                        <div class="color-face orange">O</div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 1</h3>
+                                <span class="difficulty-badge difficulty-medium">Medium</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                A cube is painted red on all faces and then cut into 64 smaller cubes.
+                                How many small cubes have exactly two faces painted red?
+                            </p>
+                            <button onclick="toggleAnswer('answer1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">For a 4×4×4 cube (64 small cubes):</p>
+                                <p class="text-sm text-gray-500">Cubes with 2 faces painted = 12(n-2) = 12(4-2) = 24</p>
+                                <p class="text-sm font-semibold">Answer: 24 cubes</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 2</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                A dice is rolled three times. The first roll shows 1, second shows 3, and third shows 5.
+                                What number is on the opposite face of 2?
+                            </p>
+                            <button onclick="toggleAnswer('answer2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">In a standard dice, opposite faces sum to 7</p>
+                                <p class="text-sm text-gray-500">Therefore, opposite of 2 is 5</p>
+                                <p class="text-sm font-semibold">Answer: 5</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 3</h3>
+                                <span class="difficulty-badge difficulty-hard">Hard</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                A cube is painted with six different colors on its faces. The colors are:
+                                <span class="highlight">Red</span>, <span class="highlight">Blue</span>, <span class="highlight">Green</span>,
+                                <span class="highlight">Yellow</span>, <span class="highlight">Purple</span>, and <span class="highlight">Orange</span>.
+                                If Red is opposite to Blue, and Green is adjacent to both Red and Blue,
+                                what color is opposite to Green?
+                            </p>
+                            <div class="color-cube mb-4">
+                                <div class="color-face red">R</div>
+                                <div class="color-face blue">B</div>
+                                <div class="color-face green">G</div>
+                                <div class="color-face yellow">Y</div>
+                                <div class="color-face purple">P</div>
+                                <div class="color-face orange">O</div>
+                            </div>
+                            <button onclick="toggleAnswer('answer3')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer3" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">1. Red is opposite to Blue</p>
+                                <p class="text-sm text-gray-500">2. Green is adjacent to both Red and Blue</p>
+                                <p class="text-sm text-gray-500">3. Therefore, Green must be opposite to Yellow</p>
+                                <p class="text-sm font-semibold">Answer: Yellow</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">Pro Tips</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">1. Visualize the Cube</h3>
+                            <p class="text-gray-700">Always try to visualize the cube in 3D space.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">2. Remember Key Formulas</h3>
+                            <p class="text-gray-700">Memorize the formulas for painted cubes and dice properties.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">3. Check Your Work</h3>
+                            <p class="text-gray-700">Verify your solution by checking all given conditions.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">4. Practice Regularly</h3>
+                            <p class="text-gray-700">Regular practice helps in improving spatial reasoning.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

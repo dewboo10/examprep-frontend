@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circles - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+
+        .diagram-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .diagram-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Circles
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of circles with our comprehensive guide.
+                Learn about circle properties, theorems, and their applications.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#basic-elements" class="nav-link block">2. Basic Elements</a>
+                        <a href="#theorems" class="nav-link block">3. Circle Theorems</a>
+                        <a href="#tangents" class="nav-link block">4. Tangents & Secants</a>
+                        <a href="#applications" class="nav-link block">5. Applications</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">1. Introduction</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Understanding Circles</h3>
+                        <p class="text-gray-600">A circle is a set of all points in a plane that are equidistant from a fixed point called the center.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Basic Properties:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>All points on the circle are equidistant from the center</li>
+                                <li>The distance from center to any point is called radius</li>
+                                <li>Diameter is twice the radius</li>
+                                <li>Circumference = 2πr</li>
+                                <li>Area = πr²</li>
+                            </ul>
+                        </div>
+
+                        <div class="diagram-container">
+                            <div class="diagram-title">Basic Circle Elements</div>
+                            <svg width="300" height="300" class="mx-auto">
+                                <!-- Circle -->
+                                <circle cx="150" cy="150" r="100" 
+                                        fill="none" 
+                                        stroke="#3b82f6" 
+                                        stroke-width="2"/>
+                                
+                                <!-- Center -->
+                                <circle cx="150" cy="150" r="3" 
+                                        fill="#ef4444"/>
+                                
+                                <!-- Radius -->
+                                <line x1="150" y1="150" x2="150" y2="50" 
+                                      stroke="#ef4444" 
+                                      stroke-width="2"/>
+                                
+                                <!-- Diameter -->
+                                <line x1="50" y1="150" x2="250" y2="150" 
+                                      stroke="#10b981" 
+                                      stroke-width="2" 
+                                      stroke-dasharray="5,5"/>
+                                
+                                <!-- Labels -->
+                                <text x="160" y="150" fill="#ef4444">O</text>
+                                <text x="160" y="100" fill="#ef4444">r</text>
+                                <text x="140" y="170" fill="#10b981">d</text>
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Basic Elements -->
+                <section id="basic-elements" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">2. Basic Elements</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Circle Components</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Arc and Chord -->
+                            <div class="diagram-container">
+                                <div class="diagram-title">Arc and Chord</div>
+                                <svg width="300" height="300" class="mx-auto">
+                                    <!-- Circle -->
+                                    <circle cx="150" cy="150" r="100" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Chord -->
+                                    <line x1="100" y1="100" x2="200" y2="200" 
+                                          stroke="#ef4444" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Arc -->
+                                    <path d="M100,100 A100,100 0 0,1 200,200" 
+                                          fill="none" 
+                                          stroke="#10b981" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="90" y="90" fill="#1e40af">A</text>
+                                    <text x="210" y="210" fill="#1e40af">B</text>
+                                    <text x="150" y="150" fill="#ef4444">Chord</text>
+                                    <text x="100" y="150" fill="#10b981">Arc</text>
+                                </svg>
+                            </div>
+
+                            <!-- Sector and Segment -->
+                            <div class="diagram-container">
+                                <div class="diagram-title">Sector and Segment</div>
+                                <svg width="300" height="300" class="mx-auto">
+                                    <!-- Circle -->
+                                    <circle cx="150" cy="150" r="100" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Sector -->
+                                    <path d="M150,150 L100,100 A100,100 0 0,1 200,200 Z" 
+                                          fill="#fef3c7" 
+                                          stroke="#fcd34d" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Segment -->
+                                    <path d="M100,100 A100,100 0 0,1 200,200 L100,100" 
+                                          fill="#fef9c3" 
+                                          stroke="#fde047" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="120" y="120" fill="#1e40af">Sector</text>
+                                    <text x="180" y="180" fill="#1e40af">Segment</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Arc Length = (θ/360°) × 2πr</li>
+                                <li>Sector Area = (θ/360°) × πr²</li>
+                                <li>Segment Area = Sector Area - Triangle Area</li>
+                                <li>Chord Length = 2r × sin(θ/2)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Practice Questions for Basic Elements -->
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Practice Questions - Basic Elements</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">A circle has a radius of 7cm. Find its circumference and area.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Circumference = 2πr = 2 × π × 7 = 14π cm<br>
+                                2. Area = πr² = π × 7² = 49π cm²
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">A chord of length 8cm is 3cm away from the center of a circle. Find the radius of the circle.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using Pythagoras theorem:<br>
+                                2. r² = 4² + 3² (half chord length = 4cm)<br>
+                                3. r² = 16 + 9 = 25<br>
+                                4. r = 5cm
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">Find the length of an arc that subtends an angle of 60° at the center of a circle with radius 10cm.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Arc length = (θ/360°) × 2πr<br>
+                                2. = (60/360) × 2π × 10<br>
+                                3. = (1/6) × 20π<br>
+                                4. = 10π/3 cm
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">A sector of a circle has an area of 25π cm² and a central angle of 90°. Find the radius of the circle.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Sector area = (θ/360°) × πr²<br>
+                                2. 25π = (90/360) × πr²<br>
+                                3. 25π = (1/4) × πr²<br>
+                                4. r² = 100<br>
+                                5. r = 10cm
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Theorems -->
+                <section id="theorems" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">3. Circle Theorems</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Key Theorems with Proofs</h3>
+                        
+                        <!-- Inscribed Angle Theorem -->
+                        <div class="formula-box">
+                            <p class="font-medium">1. Inscribed Angle Theorem</p>
+                            <p class="text-center text-lg">Inscribed angle = (1/2) × Central angle</p>
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">Proof:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Draw radii to the points of the inscribed angle</li>
+                                    <li>This creates isosceles triangles</li>
+                                    <li>Use angle sum property of triangles</li>
+                                    <li>Prove that inscribed angle is half the central angle</li>
+                                </ol>
+                            </div>
+
+                            <div class="diagram-container">
+                                <div class="diagram-title">Inscribed Angle Theorem</div>
+                                <svg width="300" height="300" class="mx-auto">
+                                    <!-- Circle -->
+                                    <circle cx="150" cy="150" r="100" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Central Angle -->
+                                    <line x1="150" y1="150" x2="100" y2="100" 
+                                          stroke="#ef4444" 
+                                          stroke-width="2"/>
+                                    <line x1="150" y1="150" x2="200" y2="100" 
+                                          stroke="#ef4444" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Inscribed Angle -->
+                                    <line x1="100" y1="100" x2="150" y2="50" 
+                                          stroke="#10b981" 
+                                          stroke-width="2"/>
+                                    <line x1="200" y1="100" x2="150" y2="50" 
+                                          stroke="#10b981" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="90" y="90" fill="#1e40af">A</text>
+                                    <text x="210" y="90" fill="#1e40af">B</text>
+                                    <text x="140" y="40" fill="#1e40af">C</text>
+                                    <text x="120" y="120" fill="#ef4444">2θ</text>
+                                    <text x="140" y="70" fill="#10b981">θ</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Cyclic Quadrilateral Theorem -->
+                        <div class="formula-box">
+                            <p class="font-medium">2. Cyclic Quadrilateral Theorem</p>
+                            <p class="text-center text-lg">Opposite angles sum to 180°</p>
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">Proof:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Draw the quadrilateral inscribed in a circle</li>
+                                    <li>Use the Inscribed Angle Theorem</li>
+                                    <li>Show that opposite angles intercept opposite arcs</li>
+                                    <li>Prove that their sum is 180°</li>
+                                </ol>
+                            </div>
+
+                            <div class="diagram-container">
+                                <div class="diagram-title">Cyclic Quadrilateral</div>
+                                <svg width="300" height="300" class="mx-auto">
+                                    <!-- Circle -->
+                                    <circle cx="150" cy="150" r="100" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Quadrilateral -->
+                                    <polygon points="100,100 200,100 180,200 120,200" 
+                                            fill="none" 
+                                            stroke="#ef4444" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="90" y="90" fill="#1e40af">A</text>
+                                    <text x="210" y="90" fill="#1e40af">B</text>
+                                    <text x="190" y="210" fill="#1e40af">C</text>
+                                    <text x="110" y="210" fill="#1e40af">D</text>
+                                    <text x="150" y="150" fill="#ef4444">θ</text>
+                                    <text x="150" y="170" fill="#10b981">180°-θ</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Tangent-Secant Theorem -->
+                        <div class="formula-box">
+                            <p class="font-medium">3. Tangent-Secant Theorem</p>
+                            <p class="text-center text-lg">PT² = PA × PB</p>
+                            
+                            <div class="mt-4">
+                                <p class="font-medium">Proof:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Draw tangent PT and secant PAB</li>
+                                    <li>Use Power of a Point theorem</li>
+                                    <li>Show that triangles are similar</li>
+                                    <li>Prove the relationship PT² = PA × PB</li>
+                                </ol>
+                            </div>
+
+                            <div class="diagram-container">
+                                <div class="diagram-title">Tangent-Secant Theorem</div>
+                                <svg width="300" height="300" class="mx-auto">
+                                    <!-- Circle -->
+                                    <circle cx="150" cy="150" r="100" 
+                                            fill="none" 
+                                            stroke="#3b82f6" 
+                                            stroke-width="2"/>
+                                    
+                                    <!-- Tangent -->
+                                    <line x1="50" y1="50" x2="150" y2="150" 
+                                          stroke="#ef4444" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Secant -->
+                                    <line x1="50" y1="50" x2="250" y2="150" 
+                                          stroke="#10b981" 
+                                          stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="40" y="40" fill="#1e40af">P</text>
+                                    <text x="140" y="140" fill="#1e40af">T</text>
+                                    <text x="160" y="150" fill="#1e40af">A</text>
+                                    <text x="260" y="150" fill="#1e40af">B</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Practice Questions for Theorems -->
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Practice Questions - Theorems</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">In a circle, an inscribed angle intercepts an arc of 120°. Find the measure of the inscribed angle.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using Inscribed Angle Theorem:<br>
+                                2. Inscribed angle = (1/2) × Central angle<br>
+                                3. = (1/2) × 120°<br>
+                                4. = 60°
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">In a cyclic quadrilateral ABCD, angle A = 70° and angle B = 110°. Find angles C and D.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using Cyclic Quadrilateral Theorem:<br>
+                                2. Opposite angles sum to 180°<br>
+                                3. If A = 70°, then C = 110°<br>
+                                4. If B = 110°, then D = 70°
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">A tangent PT and a secant PAB are drawn to a circle. If PA = 4cm and PB = 9cm, find the length of PT.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using Tangent-Secant Theorem:<br>
+                                2. PT² = PA × PB<br>
+                                3. PT² = 4 × 9 = 36<br>
+                                4. PT = 6cm
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">In a circle, two chords AB and CD intersect at point P. If AP = 3cm, PB = 4cm, and CP = 6cm, find PD.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using Intersecting Chords Theorem:<br>
+                                2. AP × PB = CP × PD<br>
+                                3. 3 × 4 = 6 × PD<br>
+                                4. 12 = 6 × PD<br>
+                                5. PD = 2cm
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tangents -->
+                <section id="tangents" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">4. Tangents & Secants</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Properties of Tangents</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Tangent Properties:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Tangent is perpendicular to radius at point of contact</li>
+                                <li>Two tangents from external point are equal in length</li>
+                                <li>Angle between tangent and chord equals angle in alternate segment</li>
+                            </ul>
+                        </div>
+
+                        <div class="diagram-container">
+                            <div class="diagram-title">Tangent Properties</div>
+                            <svg width="300" height="300" class="mx-auto">
+                                <!-- Circle -->
+                                <circle cx="150" cy="150" r="100" 
+                                        fill="none" 
+                                        stroke="#3b82f6" 
+                                        stroke-width="2"/>
+                                
+                                <!-- Tangent -->
+                                <line x1="50" y1="150" x2="250" y2="150" 
+                                      stroke="#ef4444" 
+                                      stroke-width="2"/>
+                                
+                                <!-- Radius -->
+                                <line x1="150" y1="150" x2="150" y2="150" 
+                                      stroke="#10b981" 
+                                      stroke-width="2"/>
+                                
+                                <!-- Right Angle -->
+                                <path d="M140,150 L140,140 L150,140" 
+                                      fill="none" 
+                                      stroke="#1e40af" 
+                                      stroke-width="2"/>
+                                
+                                <!-- Labels -->
+                                <text x="150" y="150" fill="#1e40af">O</text>
+                                <text x="150" y="170" fill="#1e40af">P</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Practice Questions for Tangents -->
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Practice Questions - Tangents</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">Two tangents are drawn from an external point P to a circle. If the angle between the tangents is 60°, find the angle between the radii drawn to the points of contact.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. The angle between radii = 180° - angle between tangents<br>
+                                2. = 180° - 60°<br>
+                                3. = 120°
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">A tangent is drawn to a circle of radius 5cm from a point 13cm away from the center. Find the length of the tangent.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using Pythagoras theorem:<br>
+                                2. Tangent length² = Distance² - Radius²<br>
+                                3. = 13² - 5²<br>
+                                4. = 169 - 25 = 144<br>
+                                5. Tangent length = 12cm
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">In a circle, a tangent and a chord meet at a point. If the angle between the tangent and chord is 40°, find the angle subtended by the chord in the alternate segment.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using Alternate Segment Theorem:<br>
+                                2. Angle in alternate segment = Angle between tangent and chord<br>
+                                3. = 40°
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">Two circles touch externally. The distance between their centers is 10cm and the sum of their radii is 10cm. Find the radii of the circles.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Let radii be r₁ and r₂<br>
+                                2. r₁ + r₂ = 10cm (given)<br>
+                                3. Distance between centers = r₁ + r₂ = 10cm<br>
+                                4. Therefore, r₁ = r₂ = 5cm
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Applications -->
+                <section id="applications" class="content-section card p-6 mb-8">
+                    <h2 class="section-title">5. Applications</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Real-World Applications</h3>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Common Applications:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Wheel and gear design</li>
+                                <li>Architecture and construction</li>
+                                <li>Navigation and surveying</li>
+                                <li>Sports and games</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Example 1</div>
+                            <div class="question-text">Find the length of a tangent drawn from a point 5cm away from the center of a circle with radius 3cm.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Using Pythagoras theorem:<br>
+                                2. Tangent length² = Distance² - Radius²<br>
+                                3. Tangent length² = 5² - 3²<br>
+                                4. Tangent length² = 25 - 9 = 16<br>
+                                5. Tangent length = 4cm
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Practice Questions for Applications -->
+                    <div class="practice-question">
+                        <h3 class="subsection-title">Practice Questions - Applications</h3>
+                        
+                        <div class="example-box">
+                            <div class="question-number">Question 1</div>
+                            <div class="question-text">A wheel of radius 35cm makes 100 revolutions to cover a certain distance. Find the distance covered.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Circumference = 2πr = 2π × 35 = 70π cm<br>
+                                2. Distance = Circumference × Number of revolutions<br>
+                                3. = 70π × 100<br>
+                                4. = 7000π cm
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 2</div>
+                            <div class="question-text">A circular garden has a diameter of 14m. A path of width 2m is to be laid around it. Find the area of the path.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Garden radius = 7m<br>
+                                2. Outer radius = 7 + 2 = 9m<br>
+                                3. Path area = π(9² - 7²)<br>
+                                4. = π(81 - 49)<br>
+                                5. = 32π m²
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 3</div>
+                            <div class="question-text">A circular track has an inner radius of 100m and outer radius of 105m. Find the area of the track.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Track area = π(R² - r²)<br>
+                                2. = π(105² - 100²)<br>
+                                3. = π(11025 - 10000)<br>
+                                4. = 1025π m²
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <div class="question-number">Question 4</div>
+                            <div class="question-text">A circular swimming pool has a diameter of 10m. A concrete path of width 1m is to be laid around it. Find the cost of laying the path at ₹100 per square meter.</div>
+                            <div class="solution-label">Solution:</div>
+                            <div class="solution-text">
+                                1. Pool radius = 5m<br>
+                                2. Outer radius = 6m<br>
+                                3. Path area = π(6² - 5²)<br>
+                                4. = π(36 - 25) = 11π m²<br>
+                                5. Cost = 11π × 100 = ₹1100π
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in sidebar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.content-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

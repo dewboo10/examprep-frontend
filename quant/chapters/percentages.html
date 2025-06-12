@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentages - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+        
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            gap: 10px;
+            padding: 20px 0;
+        }
+        
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #3b82f6, #60a5fa);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: height 0.5s ease;
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+            height: 200px;
+            margin: 1rem 0;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: white;
+        }
+        
+        .flip-card-back {
+            background: white;
+            transform: rotateY(180deg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Percentages
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of percentage, fractions, and decimals with our comprehensive guide.
+                Learn about conversions, calculations, and real-world applications.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#conversions" class="nav-link block">2. Conversions</a>
+                        <a href="#calculations" class="nav-link block">3. Percentage Calculations</a>
+                        <a href="#applications" class="nav-link block">4. Real-world Applications</a>
+                        <a href="#shortcuts" class="nav-link block">5. Shortcuts & Tricks</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Percentage</h3>
+                        <p class="text-gray-600">A percentage is a way to express a number as a fraction of 100. The symbol % is used to denote percentage.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Percentage means "per hundred"</li>
+                                <li>100% represents the whole</li>
+                                <li>Percentages can be greater than 100%</li>
+                                <li>Percentages can be less than 1%</li>
+                            </ul>
+                        </div>
+
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <h3 class="text-xl font-bold mb-4">Quick Reference</h3>
+                                    <p>Hover to see common percentage values</p>
+                                </div>
+                                <div class="flip-card-back">
+                                    <h3 class="text-xl font-bold mb-4">Common Values</h3>
+                                    <ul class="space-y-2">
+                                        <li>50% = ½ = 0.5</li>
+                                        <li>25% = ¼ = 0.25</li>
+                                        <li>75% = ¾ = 0.75</li>
+                                        <li>10% = ⅒ = 0.1</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Comprehensive Chart (1-30)</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Number</th>
+                                        <th>Percentage</th>
+                                        <th>Fraction</th>
+                                        <th>Decimal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>100%</td>
+                                        <td>1/1</td>
+                                        <td>1.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>200%</td>
+                                        <td>2/1</td>
+                                        <td>2.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>300%</td>
+                                        <td>3/1</td>
+                                        <td>3.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>400%</td>
+                                        <td>4/1</td>
+                                        <td>4.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>500%</td>
+                                        <td>5/1</td>
+                                        <td>5.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>600%</td>
+                                        <td>6/1</td>
+                                        <td>6.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>700%</td>
+                                        <td>7/1</td>
+                                        <td>7.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>800%</td>
+                                        <td>8/1</td>
+                                        <td>8.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>900%</td>
+                                        <td>9/1</td>
+                                        <td>9.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>1000%</td>
+                                        <td>10/1</td>
+                                        <td>10.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>1100%</td>
+                                        <td>11/1</td>
+                                        <td>11.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>1200%</td>
+                                        <td>12/1</td>
+                                        <td>12.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>13</td>
+                                        <td>1300%</td>
+                                        <td>13/1</td>
+                                        <td>13.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14</td>
+                                        <td>1400%</td>
+                                        <td>14/1</td>
+                                        <td>14.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>1500%</td>
+                                        <td>15/1</td>
+                                        <td>15.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>16</td>
+                                        <td>1600%</td>
+                                        <td>16/1</td>
+                                        <td>16.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>17</td>
+                                        <td>1700%</td>
+                                        <td>17/1</td>
+                                        <td>17.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>18</td>
+                                        <td>1800%</td>
+                                        <td>18/1</td>
+                                        <td>18.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>19</td>
+                                        <td>1900%</td>
+                                        <td>19/1</td>
+                                        <td>19.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>2000%</td>
+                                        <td>20/1</td>
+                                        <td>20.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>21</td>
+                                        <td>2100%</td>
+                                        <td>21/1</td>
+                                        <td>21.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>22</td>
+                                        <td>2200%</td>
+                                        <td>22/1</td>
+                                        <td>22.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>23</td>
+                                        <td>2300%</td>
+                                        <td>23/1</td>
+                                        <td>23.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>24</td>
+                                        <td>2400%</td>
+                                        <td>24/1</td>
+                                        <td>24.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>25</td>
+                                        <td>2500%</td>
+                                        <td>25/1</td>
+                                        <td>25.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>26</td>
+                                        <td>2600%</td>
+                                        <td>26/1</td>
+                                        <td>26.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>27</td>
+                                        <td>2700%</td>
+                                        <td>27/1</td>
+                                        <td>27.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>28</td>
+                                        <td>2800%</td>
+                                        <td>28/1</td>
+                                        <td>28.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>29</td>
+                                        <td>2900%</td>
+                                        <td>29/1</td>
+                                        <td>29.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>30</td>
+                                        <td>3000%</td>
+                                        <td>30/1</td>
+                                        <td>30.0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Conversions -->
+                <section id="conversions" class="content-section card p-6">
+                    <h2 class="section-title">2. Conversions</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Percentage to Fraction</h3>
+                        <p class="text-gray-600">To convert a percentage to a fraction, divide by 100 and simplify.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Steps:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Write the percentage as a fraction with denominator 100</li>
+                                <li>Simplify the fraction to lowest terms</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Convert 75% to fraction</p>
+                            <p>75% = 75/100</p>
+                            <p>= (75÷25)/(100÷25)</p>
+                            <p>= 3/4</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Fraction to Percentage Conversions (1/1 to 1/30)</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Fraction</th>
+                                        <th>Percent</th>
+                                        <th>Decimal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1/1</td>
+                                        <td>100%</td>
+                                        <td>1.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/2</td>
+                                        <td>50%</td>
+                                        <td>0.5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/3</td>
+                                        <td>33.33%</td>
+                                        <td>0.333...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/4</td>
+                                        <td>25%</td>
+                                        <td>0.25</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/5</td>
+                                        <td>20%</td>
+                                        <td>0.2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/6</td>
+                                        <td>16.67%</td>
+                                        <td>0.166...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/7</td>
+                                        <td>14.29%</td>
+                                        <td>0.142857...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/8</td>
+                                        <td>12.5%</td>
+                                        <td>0.125</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/9</td>
+                                        <td>11.11%</td>
+                                        <td>0.111...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/10</td>
+                                        <td>10%</td>
+                                        <td>0.1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/11</td>
+                                        <td>9.09%</td>
+                                        <td>0.0909...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/12</td>
+                                        <td>8.33%</td>
+                                        <td>0.0833...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/13</td>
+                                        <td>7.69%</td>
+                                        <td>0.0769...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/14</td>
+                                        <td>7.14%</td>
+                                        <td>0.0714...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/15</td>
+                                        <td>6.67%</td>
+                                        <td>0.0666...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/16</td>
+                                        <td>6.25%</td>
+                                        <td>0.0625</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/17</td>
+                                        <td>5.88%</td>
+                                        <td>0.0588...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/18</td>
+                                        <td>5.56%</td>
+                                        <td>0.0555...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/19</td>
+                                        <td>5.26%</td>
+                                        <td>0.0526...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/20</td>
+                                        <td>5%</td>
+                                        <td>0.05</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/21</td>
+                                        <td>4.76%</td>
+                                        <td>0.0476...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/22</td>
+                                        <td>4.55%</td>
+                                        <td>0.0454...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/23</td>
+                                        <td>4.35%</td>
+                                        <td>0.0435...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/24</td>
+                                        <td>4.17%</td>
+                                        <td>0.0416...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/25</td>
+                                        <td>4%</td>
+                                        <td>0.04</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/26</td>
+                                        <td>3.85%</td>
+                                        <td>0.0385...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/27</td>
+                                        <td>3.70%</td>
+                                        <td>0.0370...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/28</td>
+                                        <td>3.57%</td>
+                                        <td>0.0357...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/29</td>
+                                        <td>3.45%</td>
+                                        <td>0.0345...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1/30</td>
+                                        <td>3.33%</td>
+                                        <td>0.0333...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Decimal to Percentage</h3>
+                        <p class="text-gray-600">To convert a decimal to a percentage, multiply by 100.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Steps:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Multiply the decimal by 100</li>
+                                <li>Add % symbol</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Convert 0.375 to percentage</p>
+                            <p>0.375 × 100 = 37.5%</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Common Percentage Conversions</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Percent</th>
+                                        <th>Decimal</th>
+                                        <th>Fraction</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1%</td>
+                                        <td>0.01</td>
+                                        <td>1/100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5%</td>
+                                        <td>0.05</td>
+                                        <td>1/20</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10%</td>
+                                        <td>0.1</td>
+                                        <td>1/10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12½%</td>
+                                        <td>0.125</td>
+                                        <td>1/8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20%</td>
+                                        <td>0.2</td>
+                                        <td>1/5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>25%</td>
+                                        <td>0.25</td>
+                                        <td>1/4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>33⅓%</td>
+                                        <td>0.333...</td>
+                                        <td>1/3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50%</td>
+                                        <td>0.5</td>
+                                        <td>1/2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>75%</td>
+                                        <td>0.75</td>
+                                        <td>3/4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>80%</td>
+                                        <td>0.8</td>
+                                        <td>4/5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>90%</td>
+                                        <td>0.9</td>
+                                        <td>9/10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>99%</td>
+                                        <td>0.99</td>
+                                        <td>99/100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100%</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>125%</td>
+                                        <td>1.25</td>
+                                        <td>5/4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>150%</td>
+                                        <td>1.5</td>
+                                        <td>3/2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>200%</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Percentage Calculations -->
+                <section id="calculations" class="content-section card p-6">
+                    <h2 class="section-title">3. Percentage Calculations</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Finding Percentage of a Number</h3>
+                        <p class="text-gray-600">To find what percentage one number is of another, divide the first number by the second and multiply by 100.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Percentage = (Part/Whole) × 100</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: What percentage is 25 of 200?</p>
+                            <p>Percentage = (25/200) × 100</p>
+                            <p>= 0.125 × 100</p>
+                            <p>= 12.5%</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Finding a Number Given Percentage</h3>
+                        <p class="text-gray-600">To find a number when a percentage of it is known, divide the known part by the percentage and multiply by 100.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Whole = (Part/Percentage) × 100</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: 15 is 30% of what number?</p>
+                            <p>Whole = (15/30) × 100</p>
+                            <p>= 0.5 × 100</p>
+                            <p>= 50</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Percentage Change</h3>
+                        <p class="text-gray-600">Percentage change measures the relative change between two values.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Percentage Change = ((New Value - Old Value)/Old Value) × 100</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Price increased from $50 to $65</p>
+                            <p>Percentage Change = ((65 - 50)/50) × 100</p>
+                            <p>= (15/50) × 100</p>
+                            <p>= 30% increase</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Real-world Applications -->
+                <section id="applications" class="content-section card p-6">
+                    <h2 class="section-title">4. Real-world Applications</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Discounts and Markups</h3>
+                        <p class="text-gray-600">Understanding how to calculate discounts and markups is essential for shopping and business.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <p>Discount Amount = Original Price × Discount Rate</p>
+                            <p>Final Price = Original Price - Discount Amount</p>
+                            <p>Markup Amount = Cost Price × Markup Rate</p>
+                            <p>Selling Price = Cost Price + Markup Amount</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: 20% discount on $100 item</p>
+                            <p>Discount Amount = $100 × 0.20 = $20</p>
+                            <p>Final Price = $100 - $20 = $80</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Interest Calculations</h3>
+                        <p class="text-gray-600">Simple and compound interest calculations use percentages.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Simple Interest:</p>
+                            <p>I = P × R × T</p>
+                            <p>where:</p>
+                            <p>I = Interest</p>
+                            <p>P = Principal</p>
+                            <p>R = Rate (as decimal)</p>
+                            <p>T = Time (in years)</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: $1000 at 5% for 2 years</p>
+                            <p>I = 1000 × 0.05 × 2</p>
+                            <p>= $100</p>
+                            <p>Total Amount = $1000 + $100 = $1100</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Tax Calculations</h3>
+                        <p class="text-gray-600">Understanding how to calculate taxes is important for financial planning.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Tax Amount = Base Amount × Tax Rate</p>
+                            <p>Total Amount = Base Amount + Tax Amount</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: 8% tax on $50 purchase</p>
+                            <p>Tax Amount = $50 × 0.08 = $4</p>
+                            <p>Total Amount = $50 + $4 = $54</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Shortcuts & Tricks -->
+                <section id="shortcuts" class="content-section card p-6">
+                    <h2 class="section-title">5. Shortcuts & Tricks</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Mental Math Tricks</h3>
+                        <p class="text-gray-600">Quick methods to calculate percentages mentally.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Common Tricks:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>10%: Move decimal point one place left</li>
+                                <li>5%: Half of 10%</li>
+                                <li>15%: 10% + 5%</li>
+                                <li>20%: Double 10%</li>
+                                <li>25%: Quarter of the number</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Find 15% of $80</p>
+                            <p>10% of $80 = $8</p>
+                            <p>5% of $80 = $4</p>
+                            <p>15% of $80 = $8 + $4 = $12</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(b) Successive Percentage Changes</h3>
+                        <p class="text-gray-600">When multiple percentage changes occur in sequence.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formula:</p>
+                            <p>Final Value = Initial Value × (1 ± p₁) × (1 ± p₂) × ...</p>
+                            <p>where p₁, p₂, etc. are percentage changes as decimals</p>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example: Price changes by +10% then -20%</p>
+                            <p>Final Value = 100 × 1.10 × 0.80</p>
+                            <p>= 100 × 0.88</p>
+                            <p>= 88</p>
+                            <p>Net change = -12%</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(c) Percentage Points vs Percentages</h3>
+                        <p class="text-gray-600">Understanding the difference between percentage points and percentage changes.</p>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Percentage points are absolute differences</li>
+                                <li>Percentage changes are relative differences</li>
+                                <li>Important in statistics and data analysis</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example:</p>
+                            <p>Interest rate increases from 5% to 7%</p>
+                            <p>Change in percentage points = 2 points</p>
+                            <p>Percentage change = (2/5) × 100 = 40% increase</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Animate table rows on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('tr').forEach(row => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
+            row.style.transition = 'all 0.3s ease';
+            observer.observe(row);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloze Test - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            background: #e0f2fe;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .option {
+            background: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+        
+        .option.selected {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .option.correct {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        
+        .option.incorrect {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+        
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0f9ff;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .filter-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: #e0f2fe;
+            color: #1e40af;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-tag:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .filter-tag.active {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Cloze Test
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Practice your vocabulary and context understanding with our comprehensive collection of cloze test questions.
+                Choose the most appropriate word to complete each sentence.
+            </p>
+        </header>
+
+        <!-- Search and Filter -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="w-full md:w-1/3">
+                    <input type="text" 
+                           placeholder="Search questions..." 
+                           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="filter-tags">
+                    <span class="filter-tag active">All</span>
+                    <span class="filter-tag">Business</span>
+                    <span class="filter-tag">Education</span>
+                    <span class="filter-tag">Technology</span>
+                    <span class="filter-tag">General</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <section id="questions" class="card p-8">
+                <h2 class="section-title">Practice Questions</h2>
+                
+                <!-- Question 1 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The manager made it clear that he would not tolerate any further ______ in the project's schedule.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 1)">A) delays</div>
+                        <div class="option" onclick="selectOption(this, 'B', 1)">B) acceptance</div>
+                        <div class="option" onclick="selectOption(this, 'C', 1)">C) resistance</div>
+                        <div class="option" onclick="selectOption(this, 'D', 1)">D) revision</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A) delays</p>
+                        <p class="text-gray-700 mt-2">The context suggests that the manager is concerned about time-related issues in the project schedule, making "delays" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The new marketing strategy aims to ______ customer engagement by using more personalized content.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 2)">A) decrease</div>
+                        <div class="option" onclick="selectOption(this, 'B', 2)">B) reduce</div>
+                        <div class="option" onclick="selectOption(this, 'C', 2)">C) enhance</div>
+                        <div class="option" onclick="selectOption(this, 'D', 2)">D) ignore</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) enhance</p>
+                        <p class="text-gray-700 mt-2">The context indicates a positive goal for the marketing strategy, making "enhance" the most appropriate choice as it means to improve or increase.</p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        He tried to ______ the meeting, but his excuses were not convincing enough.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 3)">A) attend</div>
+                        <div class="option" onclick="selectOption(this, 'B', 3)">B) postpone</div>
+                        <div class="option" onclick="selectOption(this, 'C', 3)">C) conclude</div>
+                        <div class="option" onclick="selectOption(this, 'D', 3)">D) disrupt</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) postpone</p>
+                        <p class="text-gray-700 mt-2">The context suggests an attempt to delay or reschedule the meeting, making "postpone" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The CEO's decision to ______ the merger was met with mixed reactions from the board.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 4)">A) support</div>
+                        <div class="option" onclick="selectOption(this, 'B', 4)">B) deny</div>
+                        <div class="option" onclick="selectOption(this, 'C', 4)">C) approve</div>
+                        <div class="option" onclick="selectOption(this, 'D', 4)">D) reject</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) approve</p>
+                        <p class="text-gray-700 mt-2">The context suggests a formal decision regarding the merger, making "approve" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The team was ______ in its efforts to meet the deadline, but there were several unforeseen obstacles.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 5)">A) half-hearted</div>
+                        <div class="option" onclick="selectOption(this, 'B', 5)">B) diligent</div>
+                        <div class="option" onclick="selectOption(this, 'C', 5)">C) relaxed</div>
+                        <div class="option" onclick="selectOption(this, 'D', 5)">D) complacent</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) diligent</p>
+                        <p class="text-gray-700 mt-2">The context suggests hard work and dedication despite challenges, making "diligent" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        We were forced to ______ the trip due to the unexpected storm.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 6)">A) cancel</div>
+                        <div class="option" onclick="selectOption(this, 'B', 6)">B) conduct</div>
+                        <div class="option" onclick="selectOption(this, 'C', 6)">C) delay</div>
+                        <div class="option" onclick="selectOption(this, 'D', 6)">D) enjoy</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A) cancel</p>
+                        <p class="text-gray-700 mt-2">The context suggests a complete termination of the trip due to the storm, making "cancel" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The detective's ability to ______ the complex puzzle was nothing short of remarkable.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 7)">A) simplify</div>
+                        <div class="option" onclick="selectOption(this, 'B', 7)">B) investigate</div>
+                        <div class="option" onclick="selectOption(this, 'C', 7)">C) solve</div>
+                        <div class="option" onclick="selectOption(this, 'D', 7)">D) ignore</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) solve</p>
+                        <p class="text-gray-700 mt-2">The context suggests successfully finding the solution to the puzzle, making "solve" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The company was able to ______ significant profits despite the economic downturn.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 8)">A) secure</div>
+                        <div class="option" onclick="selectOption(this, 'B', 8)">B) lose</div>
+                        <div class="option" onclick="selectOption(this, 'C', 8)">C) forego</div>
+                        <div class="option" onclick="selectOption(this, 'D', 8)">D) generate</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) generate</p>
+                        <p class="text-gray-700 mt-2">The context suggests creating or producing profits, making "generate" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The manager's ______ to the new policy was evident in his repeated questioning during the meeting.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 9)">A) support</div>
+                        <div class="option" onclick="selectOption(this, 'B', 9)">B) indifference</div>
+                        <div class="option" onclick="selectOption(this, 'C', 9)">C) resistance</div>
+                        <div class="option" onclick="selectOption(this, 'D', 9)">D) approval</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) resistance</p>
+                        <p class="text-gray-700 mt-2">The context suggests opposition or reluctance to the new policy, making "resistance" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        Her explanation was so ______ that everyone in the room could understand the concept.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 10)">A) unclear</div>
+                        <div class="option" onclick="selectOption(this, 'B', 10)">B) confusing</div>
+                        <div class="option" onclick="selectOption(this, 'C', 10)">C) detailed</div>
+                        <div class="option" onclick="selectOption(this, 'D', 10)">D) ambiguous</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) detailed</p>
+                        <p class="text-gray-700 mt-2">The context suggests a clear and comprehensive explanation that helped everyone understand, making "detailed" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The government has decided to ______ stricter regulations to reduce pollution.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 11)">A) implement</div>
+                        <div class="option" onclick="selectOption(this, 'B', 11)">B) prevent</div>
+                        <div class="option" onclick="selectOption(this, 'C', 11)">C) ignore</div>
+                        <div class="option" onclick="selectOption(this, 'D', 11)">D) dilute</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A) implement</p>
+                        <p class="text-gray-700 mt-2">The context suggests putting regulations into effect, making "implement" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        His failure to ______ the project on time resulted in a series of complications.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 12)">A) submit</div>
+                        <div class="option" onclick="selectOption(this, 'B', 12)">B) complete</div>
+                        <div class="option" onclick="selectOption(this, 'C', 12)">C) cancel</div>
+                        <div class="option" onclick="selectOption(this, 'D', 12)">D) approve</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) complete</p>
+                        <p class="text-gray-700 mt-2">The context suggests finishing the project, making "complete" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question-card" data-category="education">
+                    <div class="question-text">
+                        The students were asked to ______ the changes in the syllabus before the semester began.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 13)">A) ignore</div>
+                        <div class="option" onclick="selectOption(this, 'B', 13)">B) accept</div>
+                        <div class="option" onclick="selectOption(this, 'C', 13)">C) reject</div>
+                        <div class="option" onclick="selectOption(this, 'D', 13)">D) consider</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: D) consider</p>
+                        <p class="text-gray-700 mt-2">The context suggests reviewing and thinking about the changes, making "consider" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The council's decision to ______ the old building for a new shopping mall was met with protests.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 14)">A) preserve</div>
+                        <div class="option" onclick="selectOption(this, 'B', 14)">B) demolish</div>
+                        <div class="option" onclick="selectOption(this, 'C', 14)">C) restore</div>
+                        <div class="option" onclick="selectOption(this, 'D', 14)">D) decorate</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) demolish</p>
+                        <p class="text-gray-700 mt-2">The context suggests removing the old building to make way for a new one, making "demolish" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        He was given a ______ to improve his performance before the final evaluation.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 15)">A) warning</div>
+                        <div class="option" onclick="selectOption(this, 'B', 15)">B) commendation</div>
+                        <div class="option" onclick="selectOption(this, 'C', 15)">C) opportunity</div>
+                        <div class="option" onclick="selectOption(this, 'D', 15)">D) sanction</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: A) warning</p>
+                        <p class="text-gray-700 mt-2">The context suggests a notice about potential consequences if performance doesn't improve, making "warning" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The new policy aims to ______ the gap between rich and poor.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 16)">A) widen</div>
+                        <div class="option" onclick="selectOption(this, 'B', 16)">B) bridge</div>
+                        <div class="option" onclick="selectOption(this, 'C', 16)">C) create</div>
+                        <div class="option" onclick="selectOption(this, 'D', 16)">D) maintain</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) bridge</p>
+                        <p class="text-gray-700 mt-2">The context suggests reducing or connecting the gap between different economic classes, making "bridge" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="question-card" data-category="education">
+                    <div class="question-text">
+                        The professor's lecture was so ______ that many students fell asleep.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 17)">A) engaging</div>
+                        <div class="option" onclick="selectOption(this, 'B', 17)">B) interesting</div>
+                        <div class="option" onclick="selectOption(this, 'C', 17)">C) boring</div>
+                        <div class="option" onclick="selectOption(this, 'D', 17)">D) exciting</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) boring</p>
+                        <p class="text-gray-700 mt-2">The context suggests that the lecture was uninteresting enough to make students fall asleep, making "boring" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The company's decision to ______ its operations in Asia proved to be profitable.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 18)">A) reduce</div>
+                        <div class="option" onclick="selectOption(this, 'B', 18)">B) expand</div>
+                        <div class="option" onclick="selectOption(this, 'C', 18)">C) close</div>
+                        <div class="option" onclick="selectOption(this, 'D', 18)">D) limit</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) expand</p>
+                        <p class="text-gray-700 mt-2">The context suggests growing the business operations, making "expand" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The team's ______ approach to problem-solving led to innovative solutions.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 19)">A) traditional</div>
+                        <div class="option" onclick="selectOption(this, 'B', 19)">B) conventional</div>
+                        <div class="option" onclick="selectOption(this, 'C', 19)">C) creative</div>
+                        <div class="option" onclick="selectOption(this, 'D', 19)">D) rigid</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) creative</p>
+                        <p class="text-gray-700 mt-2">The context suggests an innovative and original approach, making "creative" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The manager's ______ leadership style helped boost employee morale.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 20)">A) authoritarian</div>
+                        <div class="option" onclick="selectOption(this, 'B', 20)">B) supportive</div>
+                        <div class="option" onclick="selectOption(this, 'C', 20)">C) strict</div>
+                        <div class="option" onclick="selectOption(this, 'D', 20)">D) distant</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) supportive</p>
+                        <p class="text-gray-700 mt-2">The context suggests a positive impact on employee morale, making "supportive" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 21 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The research findings were ______ by multiple independent studies.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 21)">A) contradicted</div>
+                        <div class="option" onclick="selectOption(this, 'B', 21)">B) verified</div>
+                        <div class="option" onclick="selectOption(this, 'C', 21)">C) ignored</div>
+                        <div class="option" onclick="selectOption(this, 'D', 21)">D) rejected</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) verified</p>
+                        <p class="text-gray-700 mt-2">The context suggests that other studies confirmed the findings, making "verified" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 22 -->
+                <div class="question-card" data-category="education">
+                    <div class="question-text">
+                        The student's ______ understanding of the subject was evident in her detailed explanation.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 22)">A) superficial</div>
+                        <div class="option" onclick="selectOption(this, 'B', 22)">B) limited</div>
+                        <div class="option" onclick="selectOption(this, 'C', 22)">C) thorough</div>
+                        <div class="option" onclick="selectOption(this, 'D', 22)">D) basic</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) thorough</p>
+                        <p class="text-gray-700 mt-2">The context suggests a comprehensive understanding demonstrated through detailed explanation, making "thorough" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 23 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The company's ______ approach to customer service has helped it maintain a loyal customer base.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 23)">A) indifferent</div>
+                        <div class="option" onclick="selectOption(this, 'B', 23)">B) careless</div>
+                        <div class="option" onclick="selectOption(this, 'C', 23)">C) attentive</div>
+                        <div class="option" onclick="selectOption(this, 'D', 23)">D) negligent</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) attentive</p>
+                        <p class="text-gray-700 mt-2">The context suggests careful attention to customer needs, making "attentive" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 24 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The team's ______ efforts resulted in a breakthrough discovery.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 24)">A) half-hearted</div>
+                        <div class="option" onclick="selectOption(this, 'B', 24)">B) persistent</div>
+                        <div class="option" onclick="selectOption(this, 'C', 24)">C) sporadic</div>
+                        <div class="option" onclick="selectOption(this, 'D', 24)">D) casual</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) persistent</p>
+                        <p class="text-gray-700 mt-2">The context suggests continuous and determined work that led to success, making "persistent" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 25 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The new marketing strategy proved to be ______ in increasing sales.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 25)">A) ineffective</div>
+                        <div class="option" onclick="selectOption(this, 'B', 25)">B) counterproductive</div>
+                        <div class="option" onclick="selectOption(this, 'C', 25)">C) successful</div>
+                        <div class="option" onclick="selectOption(this, 'D', 25)">D) detrimental</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) successful</p>
+                        <p class="text-gray-700 mt-2">The context suggests that the strategy achieved its goal of increasing sales, making "successful" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 26 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The artist's work was ______ by critics for its innovative approach.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 26)">A) criticized</div>
+                        <div class="option" onclick="selectOption(this, 'B', 26)">B) praised</div>
+                        <div class="option" onclick="selectOption(this, 'C', 26)">C) ignored</div>
+                        <div class="option" onclick="selectOption(this, 'D', 26)">D) rejected</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) praised</p>
+                        <p class="text-gray-700 mt-2">The context suggests positive recognition for the innovative approach, making "praised" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 27 -->
+                <div class="question-card" data-category="education">
+                    <div class="question-text">
+                        The teacher's ______ explanation helped students grasp the complex concept.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 27)">A) confusing</div>
+                        <div class="option" onclick="selectOption(this, 'B', 27)">B) unclear</div>
+                        <div class="option" onclick="selectOption(this, 'C', 27)">C) clear</div>
+                        <div class="option" onclick="selectOption(this, 'D', 27)">D) complicated</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: C) clear</p>
+                        <p class="text-gray-700 mt-2">The context suggests that the explanation helped students understand, making "clear" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 28 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The company's ______ growth has attracted many investors.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 28)">A) stagnant</div>
+                        <div class="option" onclick="selectOption(this, 'B', 28)">B) steady</div>
+                        <div class="option" onclick="selectOption(this, 'C', 28)">C) declining</div>
+                        <div class="option" onclick="selectOption(this, 'D', 28)">D) unstable</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) steady</p>
+                        <p class="text-gray-700 mt-2">The context suggests consistent and reliable growth that attracts investors, making "steady" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 29 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The team's ______ preparation for the competition paid off with a victory.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 29)">A) inadequate</div>
+                        <div class="option" onclick="selectOption(this, 'B', 29)">B) thorough</div>
+                        <div class="option" onclick="selectOption(this, 'C', 29)">C) minimal</div>
+                        <div class="option" onclick="selectOption(this, 'D', 29)">D) careless</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) thorough</p>
+                        <p class="text-gray-700 mt-2">The context suggests comprehensive preparation that led to success, making "thorough" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 30 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The manager's ______ decision-making process helped avoid potential risks.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 30)">A) hasty</div>
+                        <div class="option" onclick="selectOption(this, 'B', 30)">B) careful</div>
+                        <div class="option" onclick="selectOption(this, 'C', 30)">C) reckless</div>
+                        <div class="option" onclick="selectOption(this, 'D', 30)">D) impulsive</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) careful</p>
+                        <p class="text-gray-700 mt-2">The context suggests cautious and thoughtful decision-making that prevented risks, making "careful" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 31 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The scientist's ______ research led to a groundbreaking discovery.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 31)">A) superficial</div>
+                        <div class="option" onclick="selectOption(this, 'B', 31)">B) meticulous</div>
+                        <div class="option" onclick="selectOption(this, 'C', 31)">C) careless</div>
+                        <div class="option" onclick="selectOption(this, 'D', 31)">D) hasty</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) meticulous</p>
+                        <p class="text-gray-700 mt-2">The context suggests extremely careful and detailed research that led to a significant discovery, making "meticulous" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 32 -->
+                <div class="question-card" data-category="education">
+                    <div class="question-text">
+                        The student's ______ approach to learning helped her excel in her studies.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 32)">A) passive</div>
+                        <div class="option" onclick="selectOption(this, 'B', 32)">B) active</div>
+                        <div class="option" onclick="selectOption(this, 'C', 32)">C) indifferent</div>
+                        <div class="option" onclick="selectOption(this, 'D', 32)">D) casual</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) active</p>
+                        <p class="text-gray-700 mt-2">The context suggests engaged and involved learning that led to success, making "active" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 33 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The company's ______ response to the crisis helped maintain customer trust.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 33)">A) delayed</div>
+                        <div class="option" onclick="selectOption(this, 'B', 33)">B) prompt</div>
+                        <div class="option" onclick="selectOption(this, 'C', 33)">C) slow</div>
+                        <div class="option" onclick="selectOption(this, 'D', 33)">D) hesitant</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) prompt</p>
+                        <p class="text-gray-700 mt-2">The context suggests a quick and timely response that helped maintain trust, making "prompt" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 34 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The team's ______ collaboration resulted in an innovative solution.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 34)">A) ineffective</div>
+                        <div class="option" onclick="selectOption(this, 'B', 34)">B) seamless</div>
+                        <div class="option" onclick="selectOption(this, 'C', 34)">C) disjointed</div>
+                        <div class="option" onclick="selectOption(this, 'D', 34)">D) fragmented</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) seamless</p>
+                        <p class="text-gray-700 mt-2">The context suggests smooth and effective teamwork that led to innovation, making "seamless" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 35 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The manager's ______ communication style helped resolve conflicts effectively.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 35)">A) ambiguous</div>
+                        <div class="option" onclick="selectOption(this, 'B', 35)">B) clear</div>
+                        <div class="option" onclick="selectOption(this, 'C', 35)">C) confusing</div>
+                        <div class="option" onclick="selectOption(this, 'D', 35)">D) vague</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) clear</p>
+                        <p class="text-gray-700 mt-2">The context suggests effective communication that helped resolve conflicts, making "clear" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 36 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The team's ______ approach to the project deadline helped them complete it on time.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 36)">A) relaxed</div>
+                        <div class="option" onclick="selectOption(this, 'B', 36)">B) systematic</div>
+                        <div class="option" onclick="selectOption(this, 'C', 36)">C) casual</div>
+                        <div class="option" onclick="selectOption(this, 'D', 36)">D) disorganized</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) systematic</p>
+                        <p class="text-gray-700 mt-2">The context suggests a methodical and organized approach that led to timely completion, making "systematic" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 37 -->
+                <div class="question-card" data-category="education">
+                    <div class="question-text">
+                        The student's ______ participation in class discussions helped improve her understanding.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 37)">A) passive</div>
+                        <div class="option" onclick="selectOption(this, 'B', 37)">B) active</div>
+                        <div class="option" onclick="selectOption(this, 'C', 37)">C) reluctant</div>
+                        <div class="option" onclick="selectOption(this, 'D', 37)">D) minimal</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) active</p>
+                        <p class="text-gray-700 mt-2">The context suggests engaged and involved participation that led to better understanding, making "active" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 38 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The company's ______ investment in research and development has led to innovative products.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 38)">A) minimal</div>
+                        <div class="option" onclick="selectOption(this, 'B', 38)">B) substantial</div>
+                        <div class="option" onclick="selectOption(this, 'C', 38)">C) inadequate</div>
+                        <div class="option" onclick="selectOption(this, 'D', 38)">D) insufficient</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) substantial</p>
+                        <p class="text-gray-700 mt-2">The context suggests significant investment that led to innovation, making "substantial" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 39 -->
+                <div class="question-card" data-category="general">
+                    <div class="question-text">
+                        The team's ______ collaboration across departments improved overall efficiency.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 39)">A) limited</div>
+                        <div class="option" onclick="selectOption(this, 'B', 39)">B) effective</div>
+                        <div class="option" onclick="selectOption(this, 'C', 39)">C) poor</div>
+                        <div class="option" onclick="selectOption(this, 'D', 39)">D) minimal</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) effective</p>
+                        <p class="text-gray-700 mt-2">The context suggests successful collaboration that improved efficiency, making "effective" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+                <!-- Question 40 -->
+                <div class="question-card" data-category="business">
+                    <div class="question-text">
+                        The manager's ______ leadership during the crisis helped maintain team morale.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'A', 40)">A) weak</div>
+                        <div class="option" onclick="selectOption(this, 'B', 40)">B) strong</div>
+                        <div class="option" onclick="selectOption(this, 'C', 40)">C) ineffective</div>
+                        <div class="option" onclick="selectOption(this, 'D', 40)">D) passive</div>
+                    </div>
+                    <div class="explanation">
+                        <p class="text-green-600 font-semibold">Correct Answer: B) strong</p>
+                        <p class="text-gray-700 mt-2">The context suggests capable and effective leadership that maintained team morale during a crisis, making "strong" the most appropriate choice.</p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function selectOption(element, option, questionNumber) {
+            // Remove selected class from all options in this question
+            const questionCard = element.closest('.question-card');
+            const options = questionCard.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Show explanation
+            const explanation = questionCard.querySelector('.explanation');
+            explanation.classList.add('show');
+        }
+
+        // Search functionality
+        document.querySelector('input[type="text"]').addEventListener('input', function(e) {
+            const searchText = e.target.value.toLowerCase();
+            const questions = document.querySelectorAll('.question-card');
+            
+            questions.forEach(question => {
+                const text = question.textContent.toLowerCase();
+                question.style.display = text.includes(searchText) ? 'block' : 'none';
+            });
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                // Remove active class from all tags
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tag
+                this.classList.add('active');
+                
+                const category = this.textContent.toLowerCase();
+                const questions = document.querySelectorAll('.question-card');
+                
+                questions.forEach(question => {
+                    if (category === 'all') {
+                        question.style.display = 'block';
+                    } else {
+                        question.style.display = question.dataset.category === category ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

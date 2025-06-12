@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Problems - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #10b981;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Age Problems
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of age problems with our comprehensive guide.
+                Learn about present age, past age, future age, and complex problem-solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#basics" class="nav-link block">1. Basic Concepts</a>
+                        <a href="#present" class="nav-link block">2. Present Age</a>
+                        <a href="#past" class="nav-link block">3. Past Age</a>
+                        <a href="#future" class="nav-link block">4. Future Age</a>
+                        <a href="#ratio" class="nav-link block">5. Age Ratios</a>
+                        <a href="#advanced" class="nav-link block">6. Advanced Concepts</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Basic Concepts -->
+                <section id="basics" class="content-section card p-6">
+                    <h2 class="section-title">1. Basic Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Understanding Age Problems</h3>
+                        <p class="text-gray-600">Understanding the basic concepts of age problems and their properties.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Key Terms:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Present Age: Current age of a person</li>
+                                <li>Past Age: Age of a person in the past</li>
+                                <li>Future Age: Age of a person in the future</li>
+                                <li>Age Difference: Constant difference between two people's ages</li>
+                                <li>Age Ratio: Ratio of ages between two or more people</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-box">
+                            <p class="font-medium">Important Points:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Age difference between two people remains constant</li>
+                                <li>Age ratio changes over time</li>
+                                <li>Present age = Past age + Years passed</li>
+                                <li>Future age = Present age + Years to come</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Basic Age Problems</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">The present age of A is 25 years and B is 20 years. Find their age difference.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Age difference = 25 - 20 = 5 years</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">The present age of A is 30 years. What was his age 5 years ago?</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Past age = Present age - Years passed</p>
+                            <p class="solution-text">Past age = 30 - 5 = 25 years</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The present age of B is 20 years. What will be his age after 10 years?</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Future age = Present age + Years to come</p>
+                            <p class="solution-text">Future age = 20 + 10 = 30 years</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The age difference between A and B is 5 years. If A's present age is 25 years, find B's present age.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Age difference = 5 years</p>
+                            <p class="solution-text">B's age = A's age - Age difference</p>
+                            <p class="solution-text">B's age = 25 - 5 = 20 years</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Present Age -->
+                <section id="present" class="content-section card p-6">
+                    <h2 class="section-title">2. Present Age</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Present Age Problems</h3>
+                        <p class="text-gray-600">Solving problems involving present age.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Present Age = Past Age + Years Passed</li>
+                                <li>Present Age = Future Age - Years to Come</li>
+                                <li>Present Age = Sum of Ages/Number of People</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 1: Present Age</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">The sum of present ages of A and B is 60 years. If A is twice as old as B, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let B's age be x years</p>
+                            <p class="solution-text">Then A's age = 2x years</p>
+                            <p class="solution-text">Given: x + 2x = 60</p>
+                            <p class="solution-text">3x = 60</p>
+                            <p class="solution-text">x = 20</p>
+                            <p class="solution-text">Therefore, B's age = 20 years</p>
+                            <p class="solution-text">A's age = 40 years</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">The sum of present ages of A, B, and C is 90 years. If A is twice as old as B and B is twice as old as C, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let C's age be x years</p>
+                            <p class="solution-text">Then B's age = 2x years</p>
+                            <p class="solution-text">And A's age = 4x years</p>
+                            <p class="solution-text">Given: x + 2x + 4x = 90</p>
+                            <p class="solution-text">7x = 90</p>
+                            <p class="solution-text">x = 12.86</p>
+                            <p class="solution-text">Therefore, C's age = 12.86 years</p>
+                            <p class="solution-text">B's age = 25.72 years</p>
+                            <p class="solution-text">A's age = 51.44 years</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The ratio of present ages of A and B is 3:4. If the sum of their ages is 35 years, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let A's age be 3x years</p>
+                            <p class="solution-text">Then B's age = 4x years</p>
+                            <p class="solution-text">Given: 3x + 4x = 35</p>
+                            <p class="solution-text">7x = 35</p>
+                            <p class="solution-text">x = 5</p>
+                            <p class="solution-text">Therefore, A's age = 15 years</p>
+                            <p class="solution-text">B's age = 20 years</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The sum of present ages of A and B is 50 years. If A is 10 years older than B, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let B's age be x years</p>
+                            <p class="solution-text">Then A's age = (x + 10) years</p>
+                            <p class="solution-text">Given: x + (x + 10) = 50</p>
+                            <p class="solution-text">2x + 10 = 50</p>
+                            <p class="solution-text">2x = 40</p>
+                            <p class="solution-text">x = 20</p>
+                            <p class="solution-text">Therefore, B's age = 20 years</p>
+                            <p class="solution-text">A's age = 30 years</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Past Age -->
+                <section id="past" class="content-section card p-6">
+                    <h2 class="section-title">3. Past Age</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Past Age Problems</h3>
+                        <p class="text-gray-600">Solving problems involving past age.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Past Age = Present Age - Years Passed</li>
+                                <li>Years Passed = Present Age - Past Age</li>
+                                <li>Past Age Ratio = (Present Age - Years Passed)/(Present Age - Years Passed)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 2: Past Age</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">5 years ago, A was twice as old as B. If the sum of their present ages is 45 years, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let B's present age be x years</p>
+                            <p class="solution-text">Then A's present age = (45 - x) years</p>
+                            <p class="solution-text">5 years ago:</p>
+                            <p class="solution-text">B's age = (x - 5) years</p>
+                            <p class="solution-text">A's age = (45 - x - 5) = (40 - x) years</p>
+                            <p class="solution-text">Given: 40 - x = 2(x - 5)</p>
+                            <p class="solution-text">40 - x = 2x - 10</p>
+                            <p class="solution-text">3x = 50</p>
+                            <p class="solution-text">x = 16.67</p>
+                            <p class="solution-text">Therefore, B's present age = 16.67 years</p>
+                            <p class="solution-text">A's present age = 28.33 years</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">10 years ago, A was three times as old as B. If the sum of their present ages is 50 years, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let B's present age be x years</p>
+                            <p class="solution-text">Then A's present age = (50 - x) years</p>
+                            <p class="solution-text">10 years ago:</p>
+                            <p class="solution-text">B's age = (x - 10) years</p>
+                            <p class="solution-text">A's age = (50 - x - 10) = (40 - x) years</p>
+                            <p class="solution-text">Given: 40 - x = 3(x - 10)</p>
+                            <p class="solution-text">40 - x = 3x - 30</p>
+                            <p class="solution-text">4x = 70</p>
+                            <p class="solution-text">x = 17.5</p>
+                            <p class="solution-text">Therefore, B's present age = 17.5 years</p>
+                            <p class="solution-text">A's present age = 32.5 years</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">8 years ago, A was twice as old as B. If the ratio of their present ages is 3:2, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let A's present age be 3x years</p>
+                            <p class="solution-text">Then B's present age = 2x years</p>
+                            <p class="solution-text">8 years ago:</p>
+                            <p class="solution-text">A's age = (3x - 8) years</p>
+                            <p class="solution-text">B's age = (2x - 8) years</p>
+                            <p class="solution-text">Given: 3x - 8 = 2(2x - 8)</p>
+                            <p class="solution-text">3x - 8 = 4x - 16</p>
+                            <p class="solution-text">x = 8</p>
+                            <p class="solution-text">Therefore, A's present age = 24 years</p>
+                            <p class="solution-text">B's present age = 16 years</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">12 years ago, A was three times as old as B. If the sum of their present ages is 60 years, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let B's present age be x years</p>
+                            <p class="solution-text">Then A's present age = (60 - x) years</p>
+                            <p class="solution-text">12 years ago:</p>
+                            <p class="solution-text">B's age = (x - 12) years</p>
+                            <p class="solution-text">A's age = (60 - x - 12) = (48 - x) years</p>
+                            <p class="solution-text">Given: 48 - x = 3(x - 12)</p>
+                            <p class="solution-text">48 - x = 3x - 36</p>
+                            <p class="solution-text">4x = 84</p>
+                            <p class="solution-text">x = 21</p>
+                            <p class="solution-text">Therefore, B's present age = 21 years</p>
+                            <p class="solution-text">A's present age = 39 years</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Future Age -->
+                <section id="future" class="content-section card p-6">
+                    <h2 class="section-title">4. Future Age</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Future Age Problems</h3>
+                        <p class="text-gray-600">Solving problems involving future age.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Future Age = Present Age + Years to Come</li>
+                                <li>Years to Come = Future Age - Present Age</li>
+                                <li>Future Age Ratio = (Present Age + Years to Come)/(Present Age + Years to Come)</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 3: Future Age</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">After 5 years, A will be twice as old as B. If the sum of their present ages is 35 years, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let B's present age be x years</p>
+                            <p class="solution-text">Then A's present age = (35 - x) years</p>
+                            <p class="solution-text">After 5 years:</p>
+                            <p class="solution-text">B's age = (x + 5) years</p>
+                            <p class="solution-text">A's age = (35 - x + 5) = (40 - x) years</p>
+                            <p class="solution-text">Given: 40 - x = 2(x + 5)</p>
+                            <p class="solution-text">40 - x = 2x + 10</p>
+                            <p class="solution-text">3x = 30</p>
+                            <p class="solution-text">x = 10</p>
+                            <p class="solution-text">Therefore, B's present age = 10 years</p>
+                            <p class="solution-text">A's present age = 25 years</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">After 8 years, A will be three times as old as B. If the sum of their present ages is 40 years, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let B's present age be x years</p>
+                            <p class="solution-text">Then A's present age = (40 - x) years</p>
+                            <p class="solution-text">After 8 years:</p>
+                            <p class="solution-text">B's age = (x + 8) years</p>
+                            <p class="solution-text">A's age = (40 - x + 8) = (48 - x) years</p>
+                            <p class="solution-text">Given: 48 - x = 3(x + 8)</p>
+                            <p class="solution-text">48 - x = 3x + 24</p>
+                            <p class="solution-text">4x = 24</p>
+                            <p class="solution-text">x = 6</p>
+                            <p class="solution-text">Therefore, B's present age = 6 years</p>
+                            <p class="solution-text">A's present age = 34 years</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">After 10 years, A will be twice as old as B. If the ratio of their present ages is 3:1, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let A's present age be 3x years</p>
+                            <p class="solution-text">Then B's present age = x years</p>
+                            <p class="solution-text">After 10 years:</p>
+                            <p class="solution-text">A's age = (3x + 10) years</p>
+                            <p class="solution-text">B's age = (x + 10) years</p>
+                            <p class="solution-text">Given: 3x + 10 = 2(x + 10)</p>
+                            <p class="solution-text">3x + 10 = 2x + 20</p>
+                            <p class="solution-text">x = 10</p>
+                            <p class="solution-text">Therefore, A's present age = 30 years</p>
+                            <p class="solution-text">B's present age = 10 years</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">After 15 years, A will be three times as old as B. If the sum of their present ages is 50 years, find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let B's present age be x years</p>
+                            <p class="solution-text">Then A's present age = (50 - x) years</p>
+                            <p class="solution-text">After 15 years:</p>
+                            <p class="solution-text">B's age = (x + 15) years</p>
+                            <p class="solution-text">A's age = (50 - x + 15) = (65 - x) years</p>
+                            <p class="solution-text">Given: 65 - x = 3(x + 15)</p>
+                            <p class="solution-text">65 - x = 3x + 45</p>
+                            <p class="solution-text">4x = 20</p>
+                            <p class="solution-text">x = 5</p>
+                            <p class="solution-text">Therefore, B's present age = 5 years</p>
+                            <p class="solution-text">A's present age = 45 years</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Age Ratios -->
+                <section id="ratio" class="content-section card p-6">
+                    <h2 class="section-title">5. Age Ratios</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Age Ratio Problems</h3>
+                        <p class="text-gray-600">Solving problems involving age ratios.</p>
+                        
+                        <div class="formula-box">
+                            <p class="font-medium">Formulas:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Age Ratio = Age of A/Age of B</li>
+                                <li>Age of A = (Age Ratio × Age of B)</li>
+                                <li>Age of B = Age of A/Age Ratio</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 4: Age Ratios</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">The ratio of present ages of A and B is 2:3. After 5 years, the ratio will be 3:4. Find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let A's present age be 2x years</p>
+                            <p class="solution-text">Then B's present age = 3x years</p>
+                            <p class="solution-text">After 5 years:</p>
+                            <p class="solution-text">A's age = (2x + 5) years</p>
+                            <p class="solution-text">B's age = (3x + 5) years</p>
+                            <p class="solution-text">Given: (2x + 5)/(3x + 5) = 3/4</p>
+                            <p class="solution-text">4(2x + 5) = 3(3x + 5)</p>
+                            <p class="solution-text">8x + 20 = 9x + 15</p>
+                            <p class="solution-text">x = 5</p>
+                            <p class="solution-text">Therefore, A's present age = 10 years</p>
+                            <p class="solution-text">B's present age = 15 years</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">The ratio of present ages of A and B is 3:5. After 8 years, the ratio will be 2:3. Find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let A's present age be 3x years</p>
+                            <p class="solution-text">Then B's present age = 5x years</p>
+                            <p class="solution-text">After 8 years:</p>
+                            <p class="solution-text">A's age = (3x + 8) years</p>
+                            <p class="solution-text">B's age = (5x + 8) years</p>
+                            <p class="solution-text">Given: (3x + 8)/(5x + 8) = 2/3</p>
+                            <p class="solution-text">3(3x + 8) = 2(5x + 8)</p>
+                            <p class="solution-text">9x + 24 = 10x + 16</p>
+                            <p class="solution-text">x = 8</p>
+                            <p class="solution-text">Therefore, A's present age = 24 years</p>
+                            <p class="solution-text">B's present age = 40 years</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The ratio of present ages of A and B is 4:7. After 6 years, the ratio will be 5:8. Find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let A's present age be 4x years</p>
+                            <p class="solution-text">Then B's present age = 7x years</p>
+                            <p class="solution-text">After 6 years:</p>
+                            <p class="solution-text">A's age = (4x + 6) years</p>
+                            <p class="solution-text">B's age = (7x + 6) years</p>
+                            <p class="solution-text">Given: (4x + 6)/(7x + 6) = 5/8</p>
+                            <p class="solution-text">8(4x + 6) = 5(7x + 6)</p>
+                            <p class="solution-text">32x + 48 = 35x + 30</p>
+                            <p class="solution-text">3x = 18</p>
+                            <p class="solution-text">x = 6</p>
+                            <p class="solution-text">Therefore, A's present age = 24 years</p>
+                            <p class="solution-text">B's present age = 42 years</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The ratio of present ages of A and B is 5:8. After 10 years, the ratio will be 3:5. Find their present ages.</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let A's present age be 5x years</p>
+                            <p class="solution-text">Then B's present age = 8x years</p>
+                            <p class="solution-text">After 10 years:</p>
+                            <p class="solution-text">A's age = (5x + 10) years</p>
+                            <p class="solution-text">B's age = (8x + 10) years</p>
+                            <p class="solution-text">Given: (5x + 10)/(8x + 10) = 3/5</p>
+                            <p class="solution-text">5(5x + 10) = 3(8x + 10)</p>
+                            <p class="solution-text">25x + 50 = 24x + 30</p>
+                            <p class="solution-text">x = -20</p>
+                            <p class="solution-text">This is not possible as age cannot be negative</p>
+                            <p class="solution-text">Therefore, the given conditions are not possible</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Advanced Concepts -->
+                <section id="advanced" class="content-section card p-6">
+                    <h2 class="section-title">6. Advanced Concepts</h2>
+                    
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(a) Important Theorems</h3>
+                        
+                        <div class="note-box">
+                            <p class="font-medium">Key Theorems:</p>
+                            <ol class="list-decimal list-inside space-y-2">
+                                <li>Age difference between two people remains constant</li>
+                                <li>Age ratio changes over time</li>
+                                <li>Present age = Past age + Years passed</li>
+                                <li>Future age = Present age + Years to come</li>
+                            </ol>
+                        </div>
+
+                        <div class="example-box">
+                            <p class="font-medium">Example 5: Complex Problems</p>
+                            <p class="question-number">Q1.</p>
+                            <p class="question-text">The present age of A is 30 years and B is 20 years. After how many years will A's age be twice B's age?</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let after x years:</p>
+                            <p class="solution-text">30 + x = 2(20 + x)</p>
+                            <p class="solution-text">30 + x = 40 + 2x</p>
+                            <p class="solution-text">x = 10</p>
+                            <p class="solution-text">After 10 years</p>
+                            
+                            <p class="question-number">Q2.</p>
+                            <p class="question-text">The present age of A is 25 years and B is 15 years. After how many years will the ratio of their ages be 3:2?</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let after x years:</p>
+                            <p class="solution-text">(25 + x)/(15 + x) = 3/2</p>
+                            <p class="solution-text">50 + 2x = 45 + 3x</p>
+                            <p class="solution-text">x = 5</p>
+                            <p class="solution-text">After 5 years</p>
+                            
+                            <p class="question-number">Q3.</p>
+                            <p class="question-text">The present age of A is 40 years and B is 20 years. After how many years will A's age be 3 times B's age?</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let after x years:</p>
+                            <p class="solution-text">40 + x = 3(20 + x)</p>
+                            <p class="solution-text">40 + x = 60 + 3x</p>
+                            <p class="solution-text">2x = 20</p>
+                            <p class="solution-text">x = 10</p>
+                            <p class="solution-text">After 10 years</p>
+                            
+                            <p class="question-number">Q4.</p>
+                            <p class="question-text">The present age of A is 35 years and B is 25 years. After how many years will the ratio of their ages be 4:3?</p>
+                            <p class="solution-label">Solution:</p>
+                            <p class="solution-text">Let after x years:</p>
+                            <p class="solution-text">(35 + x)/(25 + x) = 4/3</p>
+                            <p class="solution-text">105 + 3x = 100 + 4x</p>
+                            <p class="solution-text">x = 5</p>
+                            <p class="solution-text">After 5 years</p>
+                        </div>
+
+                        <div class="practice-question">
+                            <h3 class="subsection-title">(b) Special Cases</h3>
+                            
+                            <div class="formula-box">
+                                <p class="font-medium">Special Scenarios:</p>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li>When ages are in arithmetic progression:
+                                        <br>Middle age = (First age + Last age)/2</li>
+                                    <li>When ages are in geometric progression:
+                                        <br>Middle age = √(First age × Last age)</li>
+                                    <li>When ages are in harmonic progression:
+                                        <br>Middle age = 2(First age × Last age)/(First age + Last age)</li>
+                                </ul>
+                            </div>
+
+                            <div class="example-box">
+                                <p class="font-medium">Example 6: Special Cases</p>
+                                <p class="question-number">Q1.</p>
+                                <p class="question-text">The ages of three people are in arithmetic progression. If the first person's age is 20 years and the last person's age is 30 years, find the middle person's age.</p>
+                                <p class="solution-label">Solution:</p>
+                                <p class="solution-text">Middle age = (20 + 30)/2 = 25 years</p>
+                                
+                                <p class="question-number">Q2.</p>
+                                <p class="question-text">The ages of three people are in geometric progression. If the first person's age is 4 years and the last person's age is 16 years, find the middle person's age.</p>
+                                <p class="solution-label">Solution:</p>
+                                <p class="solution-text">Middle age = √(4 × 16) = √64 = 8 years</p>
+                                
+                                <p class="question-number">Q3.</p>
+                                <p class="question-text">The ages of three people are in harmonic progression. If the first person's age is 6 years and the last person's age is 12 years, find the middle person's age.</p>
+                                <p class="solution-label">Solution:</p>
+                                <p class="solution-text">Middle age = 2(6 × 12)/(6 + 12) = 144/18 = 8 years</p>
+                                
+                                <p class="question-number">Q4.</p>
+                                <p class="question-text">The ages of three people are in arithmetic progression. If the middle person's age is 25 years and the common difference is 5 years, find the ages of the first and last person.</p>
+                                <p class="solution-label">Solution:</p>
+                                <p class="solution-text">First person's age = 25 - 5 = 20 years</p>
+                                <p class="solution-text">Last person's age = 25 + 5 = 30 years</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

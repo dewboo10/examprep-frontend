@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🔤 Coding-Decoding Challenge</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+    }
+    
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .draggable {
+        cursor: grab;
+        transition: all 0.3s ease;
+    }
+    
+    .draggable:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .drop-zone {
+        border: 2px dashed #3b82f6;
+        min-height: 2.5rem;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.375rem;
+        transition: all 0.3s ease;
+    }
+    
+    .drop-zone.hover {
+        background-color: #e0f2fe;
+        transform: scale(1.02);
+    }
+    
+    .flash-green { 
+        background-color: #dcfce7 !important; 
+        border-color: #16a34a !important; 
+        animation: pulse 0.5s ease;
+    }
+    
+    .flash-red { 
+        background-color: #fee2e2 !important; 
+        border-color: #dc2626 !important; 
+        animation: shake 0.5s ease;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    .level-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .level-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .level-card.selected {
+        border-color: #3b82f6;
+        background: #f0f9ff;
+    }
+</style>
+</head>
+<body class="min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="card p-6 relative">
+            <!-- Header -->
+            <header class="text-center mb-8">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    🔤 Coding-Decoding Challenge
+                </h1>
+                <p class="text-gray-600 mt-2">Test your pattern recognition skills!</p>
+            </header>
+
+            <!-- Level Selection Screen -->
+            <div id="levelScreen" class="space-y-6">
+                <h2 class="text-xl font-semibold text-center text-gray-700">Select Difficulty Level</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="level-card p-4 border-2 border-gray-200 rounded-xl text-center" onclick="selectLevel('easy')">
+                        <div class="text-2xl mb-2">🌱</div>
+                        <h3 class="font-semibold text-lg mb-1">Easy</h3>
+                        <p class="text-sm text-gray-600">30 seconds per question</p>
+                    </div>
+                    <div class="level-card p-4 border-2 border-gray-200 rounded-xl text-center" onclick="selectLevel('medium')">
+                        <div class="text-2xl mb-2">🌿</div>
+                        <h3 class="font-semibold text-lg mb-1">Medium</h3>
+                        <p class="text-sm text-gray-600">45 seconds per question</p>
+                    </div>
+                    <div class="level-card p-4 border-2 border-gray-200 rounded-xl text-center" onclick="selectLevel('hard')">
+                        <div class="text-2xl mb-2">🌳</div>
+                        <h3 class="font-semibold text-lg mb-1">Hard</h3>
+                        <p class="text-sm text-gray-600">1 minute per question</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game screen -->
+            <div id="gameScreen" class="hidden">
+                <!-- Game stats -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-left">
+                        <div class="text-sm text-gray-600">Lives Left</div>
+                        <div class="text-xl font-bold text-gray-800" id="lives">3</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Time Left</div>
+                        <div class="text-xl font-bold text-gray-800" id="timer">60</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600">Score</div>
+                        <div class="text-xl font-bold text-gray-800" id="score">0</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-600">Questions</div>
+                        <div class="text-xl font-bold text-gray-800" id="questionCount">0/20</div>
+                    </div>
+                </div>
+
+                <!-- Question area -->
+                <div class="text-center mb-6">
+                    <p class="text-gray-700 text-lg" id="question">Loading pattern...</p>
+                </div>
+                
+                <!-- Pattern display -->
+                <div class="bg-gray-50 p-4 rounded-xl mb-6" id="patternDisplay"></div>
+                
+                <!-- Drag and drop area -->
+                <div class="grid grid-cols-2 gap-4 items-center">
+                    <div class="space-y-2" id="draggables"></div>
+                    <div class="space-y-2" id="dropzones"></div>
+                </div>
+                
+                <!-- Feedback area -->
+                <div id="feedback" class="text-center min-h-[24px] mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const problems = {
+            easy: [
+                // Simple letter shift
+                {
+                    word: "FISH",
+                    code: "GKTI",
+                    mapping: { "F": "G", "I": "K", "S": "T", "H": "I" },
+                    pattern: "Each letter is shifted forward by 1 position in the alphabet"
+                },
+                {
+                    word: "RING",
+                    code: "TKPI",
+                    mapping: { "R": "T", "I": "K", "N": "P", "G": "I" },
+                    pattern: "Each letter is shifted forward by 2 positions in the alphabet"
+                },
+                {
+                    word: "CODE",
+                    code: "EQFG",
+                    mapping: { "C": "E", "O": "Q", "D": "F", "E": "G" },
+                    pattern: "Each letter is shifted forward by 2 positions in the alphabet"
+                },
+                // Simple number substitution
+                {
+                    word: "CAT",
+                    code: "3120",
+                    mapping: { "C": "3", "A": "1", "T": "20" },
+                    pattern: "Letters are replaced with their position in the alphabet"
+                },
+                {
+                    word: "DOG",
+                    code: "4157",
+                    mapping: { "D": "4", "O": "15", "G": "7" },
+                    pattern: "Letters are replaced with their position in the alphabet"
+                }
+            ],
+            medium: [
+                // Mixed patterns
+                {
+                    word: "HELLO",
+                    code: "8-5-12-12-15",
+                    mapping: { "H": "8", "E": "5", "L": "12", "O": "15" },
+                    pattern: "Letters are replaced with their position numbers, separated by hyphens"
+                },
+                {
+                    word: "WORLD",
+                    code: "23-15-18-12-4",
+                    mapping: { "W": "23", "O": "15", "R": "18", "L": "12", "D": "4" },
+                    pattern: "Letters are replaced with their position numbers, separated by hyphens"
+                },
+                // Reverse and shift
+                {
+                    word: "TIME",
+                    code: "FNJU",
+                    mapping: { "T": "F", "I": "N", "M": "J", "E": "U" },
+                    pattern: "Word is reversed and each letter is shifted forward by 1 position"
+                },
+                {
+                    word: "SPACE",
+                    code: "FQBDG",
+                    mapping: { "S": "F", "P": "Q", "A": "B", "C": "D", "E": "G" },
+                    pattern: "Each letter is shifted forward by 5 positions in the alphabet"
+                }
+            ],
+            hard: [
+                // Complex patterns
+                {
+                    word: "BRAIN",
+                    code: "2-18-1-9-14",
+                    mapping: { "B": "2", "R": "18", "A": "1", "I": "9", "N": "14" },
+                    pattern: "Letters are replaced with their position numbers, separated by hyphens"
+                },
+                {
+                    word: "LOGIC",
+                    code: "12-15-7-9-3",
+                    mapping: { "L": "12", "O": "15", "G": "7", "I": "9", "C": "3" },
+                    pattern: "Letters are replaced with their position numbers, separated by hyphens"
+                },
+                // Multiple transformations
+                {
+                    word: "PUZZLE",
+                    code: "KFFMQP",
+                    mapping: { "P": "K", "U": "F", "Z": "F", "L": "M", "E": "P" },
+                    pattern: "Word is reversed and each letter is shifted backward by 5 positions"
+                },
+                {
+                    word: "RIDDLE",
+                    code: "IRMMQP",
+                    mapping: { "R": "I", "I": "R", "D": "M", "L": "M", "E": "P" },
+                    pattern: "Word is reversed and each letter is shifted backward by 9 positions"
+                },
+                // Complex number patterns
+                {
+                    word: "MIND",
+                    code: "13-9-14-4",
+                    mapping: { "M": "13", "I": "9", "N": "14", "D": "4" },
+                    pattern: "Letters are replaced with their position numbers, separated by hyphens"
+                },
+                {
+                    word: "GAMES",
+                    code: "7-1-13-5-19",
+                    mapping: { "G": "7", "A": "1", "M": "13", "E": "5", "S": "19" },
+                    pattern: "Letters are replaced with their position numbers, separated by hyphens"
+                }
+            ]
+        };
+
+        let currentLevel = '';
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let lives = 3;
+        let timer = 60;
+        let timerInterval;
+        let current = {};
+
+        function selectLevel(level) {
+            currentLevel = level;
+            document.getElementById('levelScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            
+            // Set timer based on level
+            switch(level) {
+                case 'easy':
+                    timer = 30; // 30 seconds
+                    break;
+                case 'medium':
+                    timer = 45; // 45 seconds
+                    break;
+                case 'hard':
+                    timer = 60; // 1 minute
+                    break;
+            }
+            
+            // Shuffle questions for the selected level
+            problems[level] = problems[level].sort(() => Math.random() - 0.5);
+            
+            // Start the game
+            loadQuestion();
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = timer;
+            timerEl.classList.remove('warning');
+
+            timerInterval = setInterval(() => {
+                timer--;
+                // Format timer display as minutes:seconds
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timer <= 5) { // Reduced warning time to 5 seconds
+                    timerEl.classList.add('warning');
+                }
+                
+                if (timer <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function handleTimeout() {
+            lives--;
+            document.getElementById('lives').textContent = lives;
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = `<p class="text-red-600 font-semibold">Time's up! The correct answer was: ${current.code}</p>`;
+            
+            if (lives <= 0) {
+                endGame();
+            } else {
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }, 1500);
+            }
+        }
+
+        function createDragAndDrop(word, mapping) {
+            const draggables = document.getElementById('draggables');
+            const dropzones = document.getElementById('dropzones');
+            draggables.innerHTML = '';
+            dropzones.innerHTML = '';
+
+            const shuffled = shuffle(Object.entries(mapping));
+
+            for (const [key, val] of shuffled) {
+                const drag = document.createElement('div');
+                drag.textContent = val;
+                drag.className = 'draggable bg-blue-100 text-blue-900 px-3 py-2 rounded shadow cursor-pointer select-none';
+                drag.draggable = true;
+                drag.dataset.char = key;
+                drag.ondragstart = e => {
+                    e.dataTransfer.setData('text/plain', drag.dataset.char);
+                };
+                draggables.appendChild(drag);
+            }
+
+            for (let i = 0; i < word.length; i++) {
+                const dz = document.createElement('div');
+                dz.className = 'drop-zone';
+                dz.dataset.char = word[i];
+                dz.ondragover = e => {
+                    e.preventDefault();
+                    dz.classList.add('hover');
+                };
+                dz.ondragleave = () => dz.classList.remove('hover');
+                dz.ondrop = e => {
+                    e.preventDefault();
+                    dz.classList.remove('hover');
+                    const dragged = e.dataTransfer.getData('text/plain');
+                    const expected = dz.dataset.char;
+                    const result = document.createElement('span');
+                    result.textContent = current.mapping[expected];
+                    result.className = dragged === expected ? 'text-green-600 font-bold' : 'text-red-600 font-bold';
+                    dz.innerHTML = '';
+                    dz.appendChild(result);
+                    dz.ondrop = null;
+                    dz.ondragover = null;
+                    dz.ondragleave = null;
+
+                    checkAllFilled();
+                };
+                dz.textContent = word[i];
+                dropzones.appendChild(dz);
+            }
+        }
+
+        function checkAllFilled() {
+            const all = Array.from(document.getElementById('dropzones').children);
+            const allFilled = all.every(cell => cell.children.length > 0);
+            if (allFilled) {
+                const correct = all.every(cell => {
+                    const expected = current.mapping[cell.dataset.char];
+                    const actual = cell.textContent;
+                    return expected === actual;
+                });
+
+                if (correct) {
+                    score += 10;
+                    document.getElementById('score').textContent = score;
+                    document.getElementById('feedback').innerHTML = '<p class="text-green-600 font-semibold">Correct! +10 points</p>';
+                } else {
+                    lives--;
+                    document.getElementById('lives').textContent = lives;
+                    document.getElementById('feedback').innerHTML = `<p class="text-red-600 font-semibold">Wrong! The correct answer was: ${current.code}</p>`;
+                }
+
+                if (lives <= 0) {
+                    endGame();
+                } else {
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        loadQuestion();
+                    }, 1500);
+                }
+            }
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= problems[currentLevel].length) {
+                endGame();
+                return;
+            }
+
+            current = problems[currentLevel][currentQuestionIndex];
+            document.getElementById('question').textContent = `Encode "${current.word}" using the pattern.`;
+            document.getElementById('patternDisplay').textContent = `Pattern: ${current.pattern}`;
+            document.getElementById('questionCount').textContent = `${currentQuestionIndex + 1}/${problems[currentLevel].length}`;
+            document.getElementById('feedback').innerHTML = '';
+            
+            createDragAndDrop(current.word, current.mapping);
+            startTimer();
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            const questionArea = document.getElementById('question');
+            const patternDisplay = document.getElementById('patternDisplay');
+            const dragDropArea = document.querySelector('.grid');
+            const feedback = document.getElementById('feedback');
+            
+            patternDisplay.textContent = '';
+            dragDropArea.innerHTML = '';
+            questionArea.innerHTML = '<h2 class="text-3xl font-bold mb-4">Game Over!</h2>';
+            feedback.innerHTML = `
+                <p class="text-xl mb-4">Final Score: ${score}</p>
+                <button onclick="location.reload()" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl font-medium transition transform hover:scale-105">
+                    Play Again
+                </button>
+            `;
+        }
+
+        function shuffle(arr) {
+            return arr.sort(() => Math.random() - 0.5);
+        }
+    </script>
+</body>
+</html>

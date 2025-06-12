@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permutations - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .formula-box {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .note-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            background: #e0f2fe;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .solution-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #059669;
+            margin: 1rem 0 0.5rem 0;
+            background: #ecfdf5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .solution-text {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .permutation-diagram {
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem auto;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Permutations</h1>
+            <p class="text-lg text-gray-600">Master the art of arranging objects in different orders</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block text-gray-600 hover:text-blue-600">Introduction</a>
+                        <a href="#basic-concepts" class="nav-link block text-gray-600 hover:text-blue-600">Basic Concepts</a>
+                        <a href="#linear-permutations" class="nav-link block text-gray-600 hover:text-blue-600">Linear Permutations</a>
+                        <a href="#circular-permutations" class="nav-link block text-gray-600 hover:text-blue-600">Circular Permutations</a>
+                        <a href="#restricted-permutations" class="nav-link block text-gray-600 hover:text-blue-600">Restricted Permutations</a>
+                        <a href="#practice" class="nav-link block text-gray-600 hover:text-blue-600">Practice Questions</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Introduction Section -->
+                <section id="introduction" class="card p-8 mb-8">
+                    <h2 class="section-title">Introduction to Permutations</h2>
+                    <p class="text-gray-700 mb-4">
+                        Permutations are arrangements of objects in a specific order. The order matters in permutations, making them different from combinations.
+                    </p>
+                    
+                    <div class="note-box">
+                        <h3 class="subsection-title">Key Concepts</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Permutation: Arrangement of objects in a specific order</li>
+                            <li>Factorial: Product of all positive integers up to n (n!)</li>
+                            <li>Linear Permutation: Arrangement in a line</li>
+                            <li>Circular Permutation: Arrangement in a circle</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Basic Permutation Formula</h3>
+                        <p class="text-center font-mono">nPr = n!/(n-r)!</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>n is the total number of objects</li>
+                            <li>r is the number of objects to arrange</li>
+                            <li>n! is the factorial of n</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Basic Concepts Section -->
+                <section id="basic-concepts" class="card p-8 mb-8">
+                    <h2 class="section-title">Basic Concepts</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Factorial</h3>
+                        <p class="text-center font-mono">n! = n × (n-1) × (n-2) × ... × 2 × 1</p>
+                        <p class="text-gray-700 mt-2">Examples:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>5! = 5 × 4 × 3 × 2 × 1 = 120</li>
+                            <li>0! = 1 (by definition)</li>
+                        </ul>
+
+                        <div class="mt-4">
+                            <h4 class="font-semibold text-gray-700 mb-2">Common Factorial Values:</h4>
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <tr>
+                                        <th>n</th>
+                                        <th>n!</th>
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>24</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>120</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>720</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>5,040</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>40,320</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>362,880</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>3,628,800</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="note-box mt-4">
+                            <h4 class="font-semibold text-gray-700 mb-2">Important Notes:</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>0! = 1 (by definition)</li>
+                                <li>1! = 1</li>
+                                <li>n! grows very rapidly with increasing n</li>
+                                <li>For n > 10, use calculator or approximation methods</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Permutation with Repetition</h3>
+                        <p class="text-center font-mono">n^r</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>n is the number of different objects</li>
+                            <li>r is the number of positions</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example</h3>
+                        <p class="text-gray-700">How many 3-digit numbers can be formed using digits 1-5?</p>
+                        <p class="text-gray-700 mt-2">5^3 = 125 numbers</p>
+                    </div>
+                </section>
+
+                <!-- Linear Permutations Section -->
+                <section id="linear-permutations" class="card p-8 mb-8">
+                    <h2 class="section-title">Linear Permutations</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Permutation of n Different Objects</h3>
+                        <p class="text-center font-mono">n! = n × (n-1) × (n-2) × ... × 2 × 1</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Permutation of n Objects with Repetition</h3>
+                        <p class="text-center font-mono">n!/(n₁! × n₂! × ... × nₖ!)</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>n is the total number of objects</li>
+                            <li>n₁, n₂, ..., nₖ are the frequencies of repeated objects</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example</h3>
+                        <p class="text-gray-700">How many different words can be formed using all letters of "MISSISSIPPI"?</p>
+                        <p class="text-gray-700 mt-2">11!/(4! × 4! × 2!) = 34,650 words</p>
+                    </div>
+                </section>
+
+                <!-- Circular Permutations Section -->
+                <section id="circular-permutations" class="card p-8 mb-8">
+                    <h2 class="section-title">Circular Permutations</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Circular Permutation of n Different Objects</h3>
+                        <p class="text-center font-mono">(n-1)!</p>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Circular Permutation with Repetition</h3>
+                        <p class="text-center font-mono">(n-1)!/(n₁! × n₂! × ... × nₖ!)</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example</h3>
+                        <p class="text-gray-700">In how many ways can 5 people sit around a circular table?</p>
+                        <p class="text-gray-700 mt-2">(5-1)! = 4! = 24 ways</p>
+                    </div>
+                </section>
+
+                <!-- Restricted Permutations Section -->
+                <section id="restricted-permutations" class="card p-8 mb-8">
+                    <h2 class="section-title">Restricted Permutations</h2>
+                    
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Permutation with Fixed Positions</h3>
+                        <p class="text-center font-mono">(n-r)! × r!</p>
+                        <p class="text-gray-700 mt-2">where:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>n is the total number of objects</li>
+                            <li>r is the number of fixed positions</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <h3 class="subsection-title">Permutation with Restrictions</h3>
+                        <p class="text-gray-700">Use the following steps:</p>
+                        <ol class="list-decimal list-inside space-y-1">
+                            <li>Count total permutations</li>
+                            <li>Count restricted permutations</li>
+                            <li>Subtract restricted from total</li>
+                        </ol>
+                    </div>
+
+                    <div class="example-box">
+                        <h3 class="subsection-title">Example</h3>
+                        <p class="text-gray-700">How many ways can 5 people sit in a row if two specific people must sit together?</p>
+                        <p class="text-gray-700 mt-2">4! × 2! = 48 ways</p>
+                    </div>
+                </section>
+
+                <!-- Practice Questions Section -->
+                <section id="practice" class="card p-8 mb-8">
+                    <h2 class="section-title">Practice Questions</h2>
+
+                    <!-- Basic Permutation Questions -->
+                    <h3 class="subsection-title">Basic Permutations</h3>
+                    
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Simple Permutation</div>
+                        <div class="question-text">
+                            In how many ways can 5 different books be arranged on a shelf?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>5! = 5 × 4 × 3 × 2 × 1 = 120 ways</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Permutation with Repetition</div>
+                        <div class="question-text">
+                            How many different 4-letter words can be formed using the letters of "BOOK"?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>4!/(2! × 1! × 1!) = 12 words</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Partial Permutation</div>
+                        <div class="question-text">
+                            In how many ways can 3 students be selected from a class of 10 to fill the positions of president, vice-president, and secretary?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>10P3 = 10!/(10-3)! = 720 ways</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Permutation with Conditions</div>
+                        <div class="question-text">
+                            How many 4-digit numbers can be formed using digits 1-5 if no digit can be repeated?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>5P4 = 5!/(5-4)! = 120 numbers</p>
+                        </div>
+                    </div>
+
+                    <!-- Circular Permutation Questions -->
+                    <h3 class="subsection-title">Circular Permutations</h3>
+                    
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Simple Circular</div>
+                        <div class="question-text">
+                            In how many ways can 6 people sit around a circular table?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>(6-1)! = 5! = 120 ways</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Circular with Repetition</div>
+                        <div class="question-text">
+                            In how many ways can 8 beads of different colors be arranged in a necklace if 3 beads are identical?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>(8-1)!/(3! × 1! × 1! × 1! × 1! × 1!) = 840 ways</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Circular with Fixed Position</div>
+                        <div class="question-text">
+                            In how many ways can 7 people sit around a circular table if one person must sit in a specific chair?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>6! = 720 ways</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Circular with Restrictions</div>
+                        <div class="question-text">
+                            In how many ways can 5 couples sit around a circular table if each couple must sit together?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>(5-1)! × 2⁵ = 384 ways</p>
+                        </div>
+                    </div>
+
+                    <!-- Restricted Permutation Questions -->
+                    <h3 class="subsection-title">Restricted Permutations</h3>
+                    
+                    <div class="practice-question">
+                        <div class="question-number">Question 1: Fixed Positions</div>
+                        <div class="question-text">
+                            In how many ways can 6 people sit in a row if two specific people must sit at the ends?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>2! × 4! = 48 ways</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 2: Adjacent Objects</div>
+                        <div class="question-text">
+                            How many different words can be formed using all letters of "MATHEMATICS" if all vowels must be together?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>8! × 4!/(2! × 2!) = 241,920 words</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 3: Non-adjacent Objects</div>
+                        <div class="question-text">
+                            In how many ways can 5 boys and 3 girls sit in a row if no two girls can sit together?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>5! × 6P3 = 14,400 ways</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <div class="question-number">Question 4: Multiple Restrictions</div>
+                        <div class="question-text">
+                            How many 4-digit numbers can be formed using digits 1-5 if the first digit must be odd and no digit can be repeated?
+                        </div>
+                        <div class="solution-label">Solution:</div>
+                        <div class="solution-text">
+                            <p>3 × 4P3 = 72 numbers</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Active section highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

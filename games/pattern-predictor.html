@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pattern Predictor – BrainGames | Exam Prep</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .game-container {
+      background: linear-gradient(135deg, #f0f9ff, #e6f7ff);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 100, 0.1);
+      overflow: hidden;
+    }
+    
+    .header-gradient {
+      background: linear-gradient(45deg, #3b82f6, #6366f1);
+    }
+    
+    .question-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .option-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    
+    .option-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+    }
+    
+    .option-card.selected {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    
+    .option-card.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+    }
+    
+    .option-card.incorrect {
+      background: #fee2e2;
+      border-color: #dc2626;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #dbeafe;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(to right, #3b82f6, #6366f1);
+    }
+    
+    .timer-ring {
+      transition: stroke-dashoffset 1s linear;
+    }
+    
+    .decor {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.1;
+      z-index: -1;
+    }
+    
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .streak-glow {
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+    }
+    
+    .result-item {
+      transition: all 0.3s ease;
+    }
+    
+    .result-item:hover {
+      background-color: #f3f4f6;
+      transform: translateX(5px);
+    }
+    
+    @keyframes floatScore {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+    }
+    
+    .score-float {
+      position: absolute;
+      font-weight: bold;
+      font-size: 24px;
+      color: #10b981;
+      animation: floatScore 1s ease-out forwards;
+      z-index: 10;
+      pointer-events: none;
+    }
+    
+    .difficulty-btn {
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .difficulty-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen flex items-center justify-center text-gray-800 p-4">
+  <!-- Decorative elements -->
+  <div class="decor bg-blue-200 w-96 h-96 top-10 left-10" style="position:fixed;"></div>
+  <div class="decor bg-purple-200 w-80 h-80 bottom-20 right-10" style="position:fixed;"></div>
+  
+  <div class="w-full max-w-4xl">
+    <!-- Game Container -->
+    <div class="game-container overflow-hidden">
+      <!-- Header -->
+      <div class="header-gradient p-6 text-white">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+          <div>
+            <h1 class="text-3xl font-bold flex items-center gap-2">
+              <i class="fas fa-brain"></i>
+              Pattern Predictor Challenge
+            </h1>
+            <p class="text-indigo-100">Identify sequences and predict what comes next</p>
+          </div>
+          <div class="mt-4 md:mt-0 flex items-center gap-4">
+            <div class="bg-white/20 px-4 py-2 rounded-full">
+              <span id="current-score-display">0</span> points
+            </div>
+            <div class="bg-yellow-400 px-3 py-2 rounded-full flex items-center gap-2 streak-glow">
+              <i class="fas fa-bolt"></i>
+              <span id="streakCounter">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="p-6">
+        <div id="gameScreen" class="min-h-[400px]">
+          <!-- Game content will be rendered here -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Stats Container -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-trophy text-yellow-500"></i> Level Progress
+        </h3>
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-sm">Current Level</span>
+          <span id="currentLevel" class="font-bold">-</span>
+        </div>
+        <div class="progress-bar">
+          <div id="levelProgress" class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-lightbulb text-green-500"></i> Pattern Types
+        </h3>
+        <ul class="text-sm space-y-1">
+          <li>• Arithmetic sequences</li>
+          <li>• Geometric sequences</li>
+          <li>• Fibonacci patterns</li>
+          <li>• Alternating patterns</li>
+        </ul>
+      </div>
+      
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h3 class="font-bold text-blue-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-history text-purple-500"></i> Time Remaining
+        </h3>
+        <div class="flex justify-center">
+          <div class="relative w-24 h-24">
+            <svg class="w-full h-full" viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#dbeafe" stroke-width="3"></circle>
+              <circle id="timerRing" cx="18" cy="18" r="15.9" fill="none" stroke="#3b82f6" stroke-width="3" 
+                      stroke-dasharray="100 100" stroke-dashoffset="0"></circle>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="timerDisplay" class="text-xl font-bold">180s</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Game state
+    let score = 0;
+    let timeLeft = 0;
+    let timerInterval = null;
+    let streak = 0;
+    let currentLevel = null;
+    let levelProgress = 0;
+    let questionsAnswered = 0;
+    let levelTarget = 10;
+    let currentQuestion = null;
+    let gameQuestions = [];
+    let userAnswers = [];
+    
+    // Pattern types with varying difficulties
+    const patterns = {
+      easy: [
+        // Arithmetic sequences
+        { type: "arithmetic", sequence: [2, 4, 6, 8], answer: 10, options: [9, 10, 11, 12] },
+        { type: "arithmetic", sequence: [5, 10, 15, 20], answer: 25, options: [23, 24, 25, 26] },
+        { type: "arithmetic", sequence: [10, 15, 20, 25], answer: 30, options: [28, 29, 30, 31] },
+        { type: "arithmetic", sequence: [3, 7, 11, 15], answer: 19, options: [17, 18, 19, 20] },
+        
+        // Simple geometric
+        { type: "geometric", sequence: [3, 6, 12, 24], answer: 48, options: [36, 42, 48, 54] },
+        { type: "geometric", sequence: [2, 4, 8, 16], answer: 32, options: [24, 28, 32, 36] },
+        
+        // Simple alternating
+        { type: "alternating", sequence: [1, 3, 2, 4, 3], answer: 5, options: [4, 5, 6, 7] },
+      ],
+      medium: [
+        // Arithmetic with negatives
+        { type: "arithmetic", sequence: [20, 15, 10, 5], answer: 0, options: [-5, 0, 5, 10] },
+        { type: "arithmetic", sequence: [-3, -1, 1, 3], answer: 5, options: [4, 5, 6, 7] },
+        
+        // Geometric with fractions
+        { type: "geometric", sequence: [80, 40, 20, 10], answer: 5, options: [5, 8, 10, 12] },
+        { type: "geometric", sequence: [1, 2, 4, 8], answer: 16, options: [12, 14, 16, 18] },
+        
+        // Fibonacci variations
+        { type: "fibonacci", sequence: [1, 1, 2, 3], answer: 5, options: [4, 5, 6, 7] },
+        { type: "fibonacci", sequence: [3, 3, 6, 9], answer: 15, options: [12, 13, 15, 18] },
+        
+        // Alternating patterns
+        { type: "alternating", sequence: [10, 20, 15, 25, 20], answer: 30, options: [25, 28, 30, 32] },
+        { type: "alternating", sequence: [5, 10, 7, 14, 11], answer: 22, options: [18, 20, 22, 24] },
+      ],
+      hard: [
+        // Complex arithmetic
+        { type: "arithmetic", sequence: [100, 92, 84, 76], answer: 68, options: [66, 68, 70, 72] },
+        { type: "arithmetic", sequence: [-10, -4, 2, 8], answer: 14, options: [12, 14, 16, 18] },
+        
+        // Complex geometric
+        { type: "geometric", sequence: [1, 3, 9, 27], answer: 81, options: [63, 72, 81, 90] },
+        { type: "geometric", sequence: [64, 32, 16, 8], answer: 4, options: [2, 4, 6, 8] },
+        
+        // Fibonacci variations
+        { type: "fibonacci", sequence: [5, 5, 10, 15, 25], answer: 40, options: [30, 35, 40, 45] },
+        { type: "fibonacci", sequence: [2, 4, 6, 10, 16], answer: 26, options: [22, 24, 26, 28] },
+        
+        // Alternating with operations
+        { type: "alternating", sequence: [1, 4, 9, 16, 25], answer: 36, options: [30, 32, 36, 40] },
+        { type: "alternating", sequence: [2, 5, 10, 17, 26], answer: 37, options: [33, 35, 37, 39] },
+        
+        // Exponential patterns
+        { type: "exponential", sequence: [1, 4, 9, 16], answer: 25, options: [20, 22, 25, 27] },
+        { type: "exponential", sequence: [1, 8, 27, 64], answer: 125, options: [100, 110, 125, 130] },
+        
+        // Prime numbers
+        { type: "prime", sequence: [2, 3, 5, 7], answer: 11, options: [9, 10, 11, 12] },
+        { type: "prime", sequence: [13, 17, 19, 23], answer: 29, options: [27, 28, 29, 30] },
+        
+        // Square numbers
+        { type: "squares", sequence: [1, 4, 9, 16], answer: 25, options: [22, 23, 24, 25] },
+        { type: "squares", sequence: [36, 49, 64, 81], answer: 100, options: [96, 98, 100, 102] },
+        
+        // Cube numbers
+        { type: "cubes", sequence: [1, 8, 27, 64], answer: 125, options: [100, 110, 125, 130] },
+      ]
+    };
+
+    // DOM Elements
+    const gameScreen = document.getElementById("gameScreen");
+    const streakCounter = document.getElementById("streakCounter");
+    const currentLevelEl = document.getElementById("currentLevel");
+    const levelProgressEl = document.getElementById("levelProgress");
+    const currentScoreDisplay = document.getElementById("current-score-display");
+    const timerDisplay = document.getElementById("timerDisplay");
+    const timerRing = document.getElementById("timerRing");
+
+    // Initialize game
+    function initGame() {
+      showLevelSelection();
+    }
+    
+    // Show level selection screen
+    function showLevelSelection() {
+      gameScreen.innerHTML = `
+        <div class="text-center py-8">
+          <div class="mb-10">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Select Difficulty Level</h2>
+            <p class="text-gray-600 max-w-lg mx-auto">Challenge yourself with increasingly complex patterns</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="difficulty-btn bg-gradient-to-br from-green-100 to-green-50 border border-green-200 p-6 rounded-xl cursor-pointer" data-level="easy">
+              <div class="text-5xl mb-4 text-green-600 floating">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Beginner</h3>
+              <p class="text-sm mb-4">Simple arithmetic patterns<br>Easy to recognize</p>
+              <div class="text-xs bg-green-600 text-white px-3 py-1 rounded-full inline-block">180s</div>
+            </div>
+            
+            <div class="difficulty-btn bg-gradient-to-br from-blue-100 to-blue-50 border border-blue-200 p-6 rounded-xl cursor-pointer" data-level="medium">
+              <div class="text-5xl mb-4 text-blue-600 floating">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Intermediate</h3>
+              <p class="text-sm mb-4">Mixed patterns<br>Moderate challenge</p>
+              <div class="text-xs bg-blue-600 text-white px-3 py-1 rounded-full inline-block">150s</div>
+            </div>
+            
+            <div class="difficulty-btn bg-gradient-to-br from-purple-100 to-purple-50 border border-purple-200 p-6 rounded-xl cursor-pointer" data-level="hard">
+              <div class="text-5xl mb-4 text-purple-600 floating">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-2">Advanced</h3>
+              <p class="text-sm mb-4">Complex patterns<br>Expert challenge</p>
+              <div class="text-xs bg-purple-600 text-white px-3 py-1 rounded-full inline-block">120s</div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Add event listeners to level buttons
+      document.querySelectorAll('.difficulty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const level = btn.getAttribute('data-level');
+          startGame(level);
+        });
+      });
+    }
+    
+    // Start the game with selected level
+    function startGame(level) {
+      currentLevel = level;
+      const config = patterns[level];
+      const timeLimits = { easy: 180, medium: 150, hard: 120 };
+      
+      // Reset game state
+      score = 0;
+      timeLeft = timeLimits[level];
+      streak = 0;
+      levelProgress = 0;
+      questionsAnswered = 0;
+      userAnswers = [];
+      gameQuestions = [...config].sort(() => 0.5 - Math.random()).slice(0, 10);
+      
+      currentLevelEl.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+      currentScoreDisplay.textContent = score;
+      streakCounter.textContent = streak;
+      updateLevelProgress();
+      updateTimerRing();
+      
+      // Render game UI
+      renderQuestionScreen();
+      
+      // Start timer
+      startTimer();
+    }
+    
+    // Render the question screen
+    function renderQuestionScreen() {
+      if (questionsAnswered >= gameQuestions.length) {
+        endGame();
+        return;
+      }
+      
+      currentQuestion = gameQuestions[questionsAnswered];
+      const options = generateOptions(currentQuestion.answer, currentQuestion.options);
+      
+      gameScreen.innerHTML = `
+        <div class="text-center">
+          <div class="mb-6">
+            <div class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
+              Level: ${currentLevelEl.textContent}
+            </div>
+          </div>
+          
+          <div class="question-card p-8 mb-8">
+            <div class="text-3xl font-bold text-blue-700 mb-4">Question ${questionsAnswered + 1} of ${gameQuestions.length}</div>
+            <div class="text-2xl font-bold text-gray-800 mb-6">${formatSequence(currentQuestion.sequence)}</div>
+            <div class="text-xl text-gray-600">What comes next?</div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            ${options.map((option, index) => `
+              <div class="option-card p-6 border-2 border-gray-200 rounded-xl text-center cursor-pointer" data-answer="${option}">
+                <div class="text-2xl font-bold">${option}</div>
+              </div>
+            `).join('')}
+          </div>
+          
+          <button id="nextBtn" class="bg-gray-200 text-gray-700 font-bold py-3 px-8 rounded-xl text-lg transition opacity-50" disabled>
+            Next Question
+          </button>
+        </div>
+      `;
+      
+      // Add event listeners to options
+      document.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', () => {
+          // Remove selection from all cards
+          document.querySelectorAll('.option-card').forEach(c => {
+            c.classList.remove('selected');
+          });
+          
+          // Add selection to clicked card
+          card.classList.add('selected');
+          
+          // Enable next button
+          document.getElementById('nextBtn').disabled = false;
+          document.getElementById('nextBtn').classList.remove('bg-gray-200', 'text-gray-700', 'opacity-50');
+          document.getElementById('nextBtn').classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+        });
+      });
+      
+      // Add event listener to next button
+      document.getElementById('nextBtn').addEventListener('click', () => {
+        const selectedOption = document.querySelector('.option-card.selected');
+        if (selectedOption) {
+          const userAnswer = parseFloat(selectedOption.getAttribute('data-answer'));
+          checkAnswer(userAnswer);
+        }
+      });
+    }
+    
+    // Format sequence for display
+    function formatSequence(sequence) {
+      return sequence.map(num => num < 0 ? `(${num})` : num).join(', ') + ', ?';
+    }
+    
+    // Generate options for multiple choice
+    function generateOptions(correctAnswer, baseOptions) {
+      const options = [correctAnswer];
+      
+      // If we have base options, use them
+      if (baseOptions && baseOptions.length >= 3) {
+        for (let i = 0; i < 3; i++) {
+          if (!options.includes(baseOptions[i]) && baseOptions[i] !== correctAnswer) {
+            options.push(baseOptions[i]);
+          }
+        }
+        return options.sort(() => 0.5 - Math.random());
+      }
+      
+      // Generate random options if not provided
+      const range = Math.max(5, Math.abs(correctAnswer) * 0.5);
+      while (options.length < 4) {
+        const randomOffset = Math.floor(Math.random() * range * 2) - range;
+        const randomOption = correctAnswer + randomOffset;
+        
+        if (!options.includes(randomOption) && randomOption !== correctAnswer) {
+          options.push(randomOption);
+        }
+      }
+      
+      // Shuffle options
+      return options.sort(() => 0.5 - Math.random());
+    }
+    
+    // Start the timer
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `${timeLeft}s`;
+        updateTimerRing();
+        
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+    
+    // Update timer ring
+    function updateTimerRing() {
+      const timeLimits = { easy: 180, medium: 150, hard: 120 };
+      const maxTime = timeLimits[currentLevel];
+      const progressPercent = (timeLeft / maxTime) * 100;
+      const circumference = 2 * Math.PI * 15.9;
+      const offset = circumference - (progressPercent / 100) * circumference;
+      timerRing.style.strokeDashoffset = offset;
+      
+      // Change color when time is low
+      if (timeLeft <= 10) {
+        timerRing.style.stroke = '#ef4444';
+      }
+    }
+    
+    // Check user's answer
+    function checkAnswer(userAnswer) {
+      const isCorrect = userAnswer === currentQuestion.answer;
+      
+      // Record answer
+      userAnswers.push({
+        sequence: currentQuestion.sequence,
+        correctAnswer: currentQuestion.answer,
+        userAnswer: userAnswer,
+        isCorrect: isCorrect,
+        type: currentQuestion.type
+      });
+      
+      // Show feedback for selected option
+      const selectedCard = document.querySelector('.option-card.selected');
+      if (isCorrect) {
+        selectedCard.classList.add('correct');
+      } else {
+        selectedCard.classList.add('incorrect');
+      }
+      
+      // Disable all options
+      document.querySelectorAll('.option-card').forEach(card => {
+        card.style.pointerEvents = 'none';
+      });
+      
+      if (isCorrect) {
+        // Correct answer
+        const points = streak >= 3 ? 15 : 10;
+        score += points;
+        streak++;
+        
+        // Create floating score animation
+        const nextBtn = document.getElementById('nextBtn');
+        const btnRect = nextBtn.getBoundingClientRect();
+        createScoreAnimation(points, btnRect.left + btnRect.width/2, btnRect.top);
+      } else {
+        // Incorrect answer
+        streak = 0;
+      }
+      
+      // Update displays
+      streakCounter.textContent = streak;
+      currentScoreDisplay.textContent = score;
+      
+      // Update level progress
+      questionsAnswered++;
+      levelProgress = Math.min(100, Math.floor((questionsAnswered / gameQuestions.length) * 100));
+      updateLevelProgress();
+      
+      // Move to next question
+      setTimeout(() => {
+        renderQuestionScreen();
+      }, 1500);
+    }
+    
+    // Create floating score animation
+    function createScoreAnimation(points, x, y) {
+      const scoreFloat = document.createElement('div');
+      scoreFloat.classList.add('score-float');
+      scoreFloat.textContent = `+${points}`;
+      scoreFloat.style.left = `${x}px`;
+      scoreFloat.style.top = `${y}px`;
+      document.body.appendChild(scoreFloat);
+      
+      // Remove element after animation completes
+      setTimeout(() => {
+        scoreFloat.remove();
+      }, 1000);
+    }
+    
+    // Update level progress display
+    function updateLevelProgress() {
+      levelProgressEl.style.width = `${levelProgress}%`;
+    }
+    
+    // End game
+    function endGame() {
+      clearInterval(timerInterval);
+      showResults();
+    }
+    
+    // Show results screen
+    function showResults() {
+      const correctCount = userAnswers.filter(a => a.isCorrect).length;
+      const accuracy = Math.round((correctCount / userAnswers.length) * 100);
+      
+      gameScreen.innerHTML = `
+        <div class="text-center py-6">
+          <div class="mb-6">
+            <div class="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-trophy text-white text-5xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-blue-800 mb-2">Game Complete!</h2>
+            <p class="text-gray-600 mb-6">You answered ${userAnswers.length} questions with ${accuracy}% accuracy</p>
+          </div>
+          
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 mb-8">
+            <div class="text-4xl font-bold text-blue-700 mb-2">${score}</div>
+            <div class="text-gray-600">Final Score</div>
+          </div>
+          
+          <h3 class="text-xl font-bold text-blue-700 mb-4 text-left">Review your answers:</h3>
+          <div class="space-y-4 max-h-[300px] overflow-y-auto pr-2">
+            ${userAnswers.map((answer, index) => `
+              <div class="result-item p-4 bg-white rounded-xl border ${answer.isCorrect ? 'border-green-200' : 'border-red-200'}">
+                <div class="font-bold text-lg mb-2">${index + 1}. ${formatSequence(answer.sequence)}</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div class="${answer.isCorrect ? 'text-green-600' : 'text-red-600'}">
+                    <i class="fas ${answer.isCorrect ? 'fa-check-circle' : 'fa-times-circle'} mr-2"></i>
+                    Your answer: ${answer.userAnswer}
+                  </div>
+                  ${!answer.isCorrect ? `
+                    <div class="text-green-600">
+                      <i class="fas fa-check-circle mr-2"></i>
+                      Correct answer: ${answer.correctAnswer}
+                    </div>
+                  ` : ''}
+                </div>
+                <div class="mt-2 text-sm text-gray-500">
+                  <i class="fas fa-tag mr-1"></i> Pattern type: ${answer.type}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div class="flex flex-wrap gap-4 justify-center mt-8">
+            <button id="retryBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Play Again
+            </button>
+            <button id="changeLevelBtn" class="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+              Change Level
+            </button>
+          </div>
+        </div>
+      `;
+      
+      // Add event listeners
+      document.getElementById('retryBtn').addEventListener('click', () => startGame(currentLevel));
+      document.getElementById('changeLevelBtn').addEventListener('click', showLevelSelection);
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initGame();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analogy - Logical Reasoning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+        }
+        
+        .analogy-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #86efac;
+        }
+        
+        .answer.show {
+            display: block;
+        }
+        
+        .nav-link {
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: #eff6ff;
+        }
+        
+        .nav-link.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .practice-question {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .practice-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subsection-title {
+            color: #2563eb;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .solving-steps {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .solving-steps ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+        .solving-steps li {
+            margin: 8px 0;
+            color: #4b5563;
+        }
+
+        .relationship-box {
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .relationship-box pre {
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+
+        .analogy-pair {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .analogy-pair .arrow {
+            color: #3b82f6;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Analogy
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the art of solving analogy questions with our comprehensive guide.
+                Learn various types of analogies, relationships, and solving techniques.
+            </p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Table of Contents -->
+            <div class="lg:col-span-1">
+                <div class="card p-6 sticky top-8">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Table of Contents</h2>
+                    <nav class="space-y-2">
+                        <a href="#introduction" class="nav-link block">1. Introduction</a>
+                        <a href="#word-analogies" class="nav-link block">2. Word Analogies</a>
+                        <a href="#number-analogies" class="nav-link block">3. Number Analogies</a>
+                        <a href="#letter-analogies" class="nav-link block">4. Letter Analogies</a>
+                        <a href="#mixed-analogies" class="nav-link block">5. Mixed Analogies</a>
+                        <a href="#solving-methods" class="nav-link block">6. Solving Methods</a>
+                        <a href="#practice" class="nav-link block">7. Practice Questions</a>
+                        <a href="#tips" class="nav-link block">8. Pro Tips</a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:col-span-3">
+                <!-- Introduction -->
+                <section id="introduction" class="content-section card p-6">
+                    <h2 class="section-title">Introduction to Analogy</h2>
+                    <p class="text-gray-600 mb-4">
+                        Analogy is a comparison between two things that are similar in some way.
+                        It tests your ability to identify relationships and patterns.
+                    </p>
+                    
+                    <div class="tip-box p-4">
+                        <h3 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>Why is it important?
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Frequently asked in competitive exams (CAT, GMAT, Bank PO, SSC, UPSC)</li>
+                            <li>Improves logical thinking and pattern recognition</li>
+                            <li>Enhances vocabulary and general knowledge</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Word Analogies -->
+                <section id="word-analogies" class="content-section card p-6">
+                    <h2 class="section-title">Word Analogies</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Synonym Relationships</h3>
+                            <div class="analogy-box">
+                                <div class="analogy-pair">
+                                    <span>Happy</span>
+                                    <span class="arrow">→</span>
+                                    <span>Joyful</span>
+                                    <span class="arrow">::</span>
+                                    <span>Sad</span>
+                                    <span class="arrow">→</span>
+                                    <span>Miserable</span>
+                                </div>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Identify the relationship between first pair</li>
+                                    <li>Find a word with similar relationship</li>
+                                    <li>Verify the meaning matches</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Antonym Relationships</h3>
+                            <div class="analogy-box">
+                                <div class="analogy-pair">
+                                    <span>Hot</span>
+                                    <span class="arrow">→</span>
+                                    <span>Cold</span>
+                                    <span class="arrow">::</span>
+                                    <span>Light</span>
+                                    <span class="arrow">→</span>
+                                    <span>Dark</span>
+                                </div>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Identify the opposite relationship</li>
+                                    <li>Find a word with similar opposite meaning</li>
+                                    <li>Verify the relationship matches</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">3. Part-Whole Relationships</h3>
+                            <div class="analogy-box">
+                                <div class="analogy-pair">
+                                    <span>Wheel</span>
+                                    <span class="arrow">→</span>
+                                    <span>Car</span>
+                                    <span class="arrow">::</span>
+                                    <span>Branch</span>
+                                    <span class="arrow">→</span>
+                                    <span>Tree</span>
+                                </div>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Identify the part-whole relationship</li>
+                                    <li>Find a similar part-whole pair</li>
+                                    <li>Verify the relationship matches</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Number Analogies -->
+                <section id="number-analogies" class="content-section card p-6">
+                    <h2 class="section-title">Number Analogies</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Mathematical Operations</h3>
+                            <div class="analogy-box">
+                                <div class="analogy-pair">
+                                    <span>2</span>
+                                    <span class="arrow">→</span>
+                                    <span>4</span>
+                                    <span class="arrow">::</span>
+                                    <span>3</span>
+                                    <span class="arrow">→</span>
+                                    <span>6</span>
+                                </div>
+                                <p class="text-sm text-gray-500">(Multiply by 2)</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Identify the mathematical operation</li>
+                                    <li>Apply the same operation to the second pair</li>
+                                    <li>Verify the result matches</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Square/Cube Relationships</h3>
+                            <div class="analogy-box">
+                                <div class="analogy-pair">
+                                    <span>2</span>
+                                    <span class="arrow">→</span>
+                                    <span>4</span>
+                                    <span class="arrow">::</span>
+                                    <span>3</span>
+                                    <span class="arrow">→</span>
+                                    <span>9</span>
+                                </div>
+                                <p class="text-sm text-gray-500">(Square the number)</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Identify the power relationship</li>
+                                    <li>Apply the same power to the second number</li>
+                                    <li>Verify the result matches</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Letter Analogies -->
+                <section id="letter-analogies" class="content-section card p-6">
+                    <h2 class="section-title">Letter Analogies</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="subsection-title">1. Alphabet Position</h3>
+                            <div class="analogy-box">
+                                <div class="analogy-pair">
+                                    <span>A</span>
+                                    <span class="arrow">→</span>
+                                    <span>C</span>
+                                    <span class="arrow">::</span>
+                                    <span>B</span>
+                                    <span class="arrow">→</span>
+                                    <span>D</span>
+                                </div>
+                                <p class="text-sm text-gray-500">(Skip one letter)</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Identify the letter pattern</li>
+                                    <li>Apply the same pattern to the second pair</li>
+                                    <li>Verify the result matches</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="subsection-title">2. Reverse Alphabet</h3>
+                            <div class="analogy-box">
+                                <div class="analogy-pair">
+                                    <span>A</span>
+                                    <span class="arrow">→</span>
+                                    <span>Z</span>
+                                    <span class="arrow">::</span>
+                                    <span>B</span>
+                                    <span class="arrow">→</span>
+                                    <span>Y</span>
+                                </div>
+                                <p class="text-sm text-gray-500">(Reverse position)</p>
+                            </div>
+                            <div class="solving-steps">
+                                <h4 class="font-semibold text-gray-800 mb-2">Solving Method:</h4>
+                                <ol>
+                                    <li>Identify the reverse pattern</li>
+                                    <li>Apply the same pattern to the second pair</li>
+                                    <li>Verify the result matches</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practice Questions -->
+                <section id="practice" class="content-section card p-6">
+                    <h2 class="section-title">Practice Questions</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 1</h3>
+                                <span class="difficulty-badge difficulty-easy">Easy</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                Book : Pages :: Tree : ?
+                            </p>
+                            <button onclick="toggleAnswer('answer1')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer1" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">Book is made up of Pages</p>
+                                <p class="text-sm text-gray-500">Similarly, Tree is made up of Leaves</p>
+                                <p class="text-sm font-semibold">Answer: Leaves</p>
+                            </div>
+                        </div>
+
+                        <div class="practice-question">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700">Question 2</h3>
+                                <span class="difficulty-badge difficulty-medium">Medium</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">
+                                2 : 4 :: 3 : ?
+                            </p>
+                            <button onclick="toggleAnswer('answer2')" class="text-blue-600 hover:text-blue-700">
+                                Show Solution
+                            </button>
+                            <div id="answer2" class="answer">
+                                <p class="text-sm text-gray-500">Solution:</p>
+                                <p class="text-sm text-gray-500">2 × 2 = 4</p>
+                                <p class="text-sm text-gray-500">Similarly, 3 × 2 = 6</p>
+                                <p class="text-sm font-semibold">Answer: 6</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pro Tips -->
+                <section id="tips" class="content-section card p-6">
+                    <h2 class="section-title">Pro Tips</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">1. Identify the Relationship</h3>
+                            <p class="text-gray-700">First understand the relationship between the first pair.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">2. Look for Common Patterns</h3>
+                            <p class="text-gray-700">Check for common patterns in relationships.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">3. Verify Your Answer</h3>
+                            <p class="text-gray-700">Always verify if your answer maintains the same relationship.</p>
+                        </div>
+                        
+                        <div class="tip-box p-4">
+                            <h3 class="font-semibold text-yellow-800 mb-2">4. Consider Multiple Possibilities</h3>
+                            <p class="text-gray-700">Sometimes there can be multiple valid relationships.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+    </script>
+</body>
+</html> 

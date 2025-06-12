@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fact-item {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .fact-item:hover {
+            background: #e0f2fe;
+        }
+        
+        .fact-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .fact-content {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Geography
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Explore the physical and political geography of India and the world through comprehensive facts and figures.
+            </p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Physical Geography of India -->
+            <section id="physical-geography" class="card p-8">
+                <h2 class="section-title">Physical Geography of India</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Location and Extent</div>
+                        <div class="fact-content">India lies entirely in the Northern and Eastern hemispheres. Latitudinal range: ~8°4′ N to ~37°6′ N; longitudinal: ~68°7′ E to ~97°25′ E. North–South extent: ~3,214 km; East–West: ~2,933 km</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Area and Borders</div>
+                        <div class="fact-content">Total area: ~3.287 million km² (7th largest globally). Coastline length: ~7,516.6 km (mainland ~6,100 km). Land borders total ~15,200 km, shared with 7 countries. India shares longest frontier with Bangladesh</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Islands and Extreme Points</div>
+                        <div class="fact-content">Andaman & Nicobar Islands: 572 islands (325+247) covering ~7,935 km². India's only active volcano: Barren Island (erupted 2017). Indira Point is the southernmost point (6°45′ N)</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Waterways and Watersheds</div>
+                        <div class="fact-content">Inland navigable waterways: ~14,500 km. Major watersheds: Himalayan, Vindhya–Satpura, Western Ghats. Tropic of Cancer (23°30′ N) bisects India</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Global Position</div>
+                        <div class="fact-content">India accounts for ~2.42% of world land area. India spans multiple climate zones: equatorial to alpine. Lies on the Indian Plate (part of Indo-Australian Plate)</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Maritime and Territorial</div>
+                        <div class="fact-content">India's islands share maritime borders with Myanmar, Thailand, Indonesia. Includes Sriharikota, Elephanta, Majuli (largest river island). Seven states share border with international frontiers</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Major Physical Regions -->
+            <section id="physical-regions" class="card p-8">
+                <h2 class="section-title">Major Physical Regions</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Himalayas</div>
+                        <div class="fact-content">Extend ~2,400 km along northern India. Subranges: Siwaliks, Lesser Himalayas, Greater Himalayas. Contains 100+ peaks over 7,200 m; includes Everest (8,848 m). Formed by collision of Indian and Eurasian plates c. 55 Ma. Uplift rate: ~5 mm/year</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Indo-Gangetic Plain</div>
+                        <div class="fact-content">~700,000 km² of fertile alluvium. Eastern Himalayan plains: densely populated, flood-prone. Ganges–Brahmaputra delta: world's largest, spread over India & Bangladesh. Major Himalayan rivers: Indus, Ganges, Brahmaputra</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Thar Desert</div>
+                        <div class="fact-content">~200,000 km² (9th-largest hot desert). Spans Rajasthan, Gujarat, Punjab, Haryana, Sindh (Pakistan). 85% of Thar lies within India. Rann of Kutch: 27,900 km² salt marsh in Gujarat-Pakistan</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Peninsular India</div>
+                        <div class="fact-content">Deccan Plateau, elevated by basalt flows. Western Ghats: ~1,600 km long, peak Anamudi (2,695 m). Eastern Ghats: discontinuous, lower altitude. Vindhya and Satpura ranges form central highlands</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Coastal Regions</div>
+                        <div class="fact-content">Coastal Plains: Eastern Coastal Plain (400 km), Western Coastal Plain (50–100 km). Islands: Lakshadweep (36 islands), Andaman & Nicobar (572 islands)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rivers & Watersheds -->
+            <section id="rivers" class="card p-8">
+                <h2 class="section-title">Rivers & Watersheds</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Himalayan Rivers</div>
+                        <div class="fact-content">Perennial (snow-fed). Indus and tributaries: Jhelum, Chenab, Ravi, Beas, Sutlej (Punjab region). Ganges originates from Gangotri Glacier, Uttarakhand. Brahmaputra arises as Yarlung Tsangpo in Tibet</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Peninsular Rivers</div>
+                        <div class="fact-content">Godavari (Dakshin Ganga), Krishna, Cauvery, Narmada, Tapi. Narmada flows westwards between Vindhya and Satpura; Tapti similarly. Western Ghats rivers flow eastwards (deccan) or westwards (konkan)</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Major Basins</div>
+                        <div class="fact-content">Ganges Basin catchment: ~1.1 million km². Entire Indo-Gangetic ~1.6 million km². Flood-prone zones: Ganga–Brahmaputra delta, Brahmaputra valley. Sundarbans mangroves (UNESCO) in delta region</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Water Resources</div>
+                        <div class="fact-content">Hundreds of dams: Bhakra Nangal, Hirakud, Sardar Sarovar, Tehri. River islands: Majuli (Brahmaputra), world's largest. Inland waterways: Ganga, Brahmaputra, Sharavati, Krishna basin used for navigation</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Water Systems</div>
+                        <div class="fact-content">Monsoon rains feed river flow and recharge aquifers. Himalayan watersheds supply irrigation and hydro-power. Indo-Gangetic alluvium supports intensive agriculture. India's river systems interlinked by national waterways project</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Climate & Vegetation -->
+            <section id="climate" class="card p-8">
+                <h2 class="section-title">Climate & Vegetation</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Climate Zones</div>
+                        <div class="fact-content">Range from tropical monsoon to alpine tundra. Four phenological seasons in Himalayas (summer, monsoon, autumn, winter, spring). Southwest monsoon (June–Sept): main rainy season. Western disturbances bring winter rain to northwest</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Weather Patterns</div>
+                        <div class="fact-content">Eastern coast cyclones frequent (Bay of Bengal). Eastern & Western Ghats cause orographic rainfall. Rain shadow on Deccan east of Western Ghats. Monsoon variability causes droughts/floods alternately</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Vegetation Types</div>
+                        <div class="fact-content">Biomes include tropical evergreen, moist deciduous, thorn forests, alpine meadows. Himalayan vegetation ranges from subtropical to alpine. Western Ghats are a major biodiversity hotspot; UNESCO declared 39 sites in 2012</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Special Regions</div>
+                        <div class="fact-content">Sundarbans hosts mangrove forests and Bengal tigers. Thar Desert vegetation: xeric shrubs, grasses. Deccan plateau: scrub and deciduous forests. Coastal vegetation: salt marshes, palms, casuarinas</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Biodiversity</div>
+                        <div class="fact-content">Western Ghats shelter endemic species: Nilgiri tahr, many amphibians. Alpine pastures support nomadic grazing. Western and Eastern Ghats differ in geology and vegetation patterns. Indo-Gangetic plain supports intensive cropping</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Political Geography & Demography -->
+            <section id="political" class="card p-8">
+                <h2 class="section-title">Political Geography & Demography</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Administrative Divisions</div>
+                        <div class="fact-content">28 states and 8 Union Territories. NR states: Jammu & Kashmir, Himachal Pradesh… UT: Delhi, Chandigarh, etc. India's capital: New Delhi (NCT Delhi). Includes disputed territories JK, Ladakh, Aksai Chin, Arunachal North</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Population</div>
+                        <div class="fact-content">Population (2023 est): ~1.429 billion; most populous nation. Population density rank: 30th globally. Major metros: Delhi NCR, Mumbai, Kolkata, Bengaluru, Pune, Hyderabad, Chennai</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Borders and Territories</div>
+                        <div class="fact-content">Borders Pakistan (3,323 km), China, Nepal, Bhutan, Bangladesh, Myanmar, Afghanistan (Ladakh). Maritime boundaries with Sri Lanka, Maldives, Indonesia, Thailand. India's Exclusive Economic Zone: ~2 million km²</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Cities and States</div>
+                        <div class="fact-content">Major states by area: Rajasthan, Madhya Pradesh, Maharashtra. Coastal states (9) cover mainland coast. Island UTs: A&N, Lakshadweep. Largest city by area: Delhi (1483 km²). Highest city: Shimla (~2,200 m)</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Development Indicators</div>
+                        <div class="fact-content">Human development index ~0.685 (2023). Gini coefficient ~0.328 (2021). 22 scheduled languages, 1,600 dialects. India's time zone: IST (UTC +5:30); drives on left</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- World Geography Essentials -->
+            <section id="world-geography" class="card p-8">
+                <h2 class="section-title">World Geography Essentials</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Continents and Oceans</div>
+                        <div class="fact-content">7 continents; 5 oceans: Pacific, Atlantic, Indian, Southern, Arctic. Smallest country: Vatican City; largest: Russia. Highest waterfall: Angel Falls (Venezuela); longest river: Nile</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Natural Features</div>
+                        <div class="fact-content">Largest desert: Antarctic (cold); Sahara is largest hot desert. Largest island: Greenland; most lakes: Canada. Great Barrier Reef lies off Queensland, Australia. Dead Sea sits between Israel & Jordan</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Geographic Features</div>
+                        <div class="fact-content">Equator divides Earth into hemispheres. Isthmus: narrow land linking continents; e.g., Panama. Mountain range between Europe & Asia: Ural Mountains. "Land of Rising Sun" refers to Japan</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Earth's Structure</div>
+                        <div class="fact-content">Earth's major layers: lithosphere, asthenosphere, mantle, core. Continents drifting: plate tectonics unified Pangaea to drift. Mid-ocean ridges create new oceanic crust; subduction recycles</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Geological Features</div>
+                        <div class="fact-content">Volcano types: shield, composite, cinder cone. Ring of Fire: Pacific Ocean basin with active volcano systems. Polar ice coverage: Arctic/Antarctic contain ~90% of glacial ice</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Physical & Economic Geography Concepts -->
+            <section id="concepts" class="card p-8">
+                <h2 class="section-title">Physical & Economic Geography Concepts</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Earth's Features</div>
+                        <div class="fact-content">Earth's axial tilt (23.5°) drives seasons. Equator receives most direct sunlight. Latitude vs Longitude: horizontal vs vertical. A valley between mountains is called a 'glen' or 'vale'</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Landforms</div>
+                        <div class="fact-content">Plateau: elevated flat land (e.g., Deccan Plateau). Peninsula: land surrounded by water on 3 sides; India is major example. Delta: river mouth fan; e.g., Ganges–Brahmaputra. Isthmus: link between two large land masses</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Climate and Weather</div>
+                        <div class="fact-content">Monsoon-driven rain supports agriculture across South Asia. Orographic rain: forced uplift along hills (Western Ghats). Rain shadow forms leeward dry regions. Climate classification: Koppen system divides climates</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Geological Processes</div>
+                        <div class="fact-content">Tectonic plates create mountains and cause earthquakes. Glacial landforms: cirques, U-shaped valleys, moraines. River landforms: meanders, oxbow lakes, floodplains. Soil types: alluvial, laterite, black, red, arid zone soils</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Indian Terrain & Resources -->
+            <section id="terrain" class="card p-8">
+                <h2 class="section-title">Indian Terrain & Resources</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fact-item">
+                        <div class="fact-title">Forests and Parks</div>
+                        <div class="fact-content">~15% forest cover; classification: tropical, temperate, alpine. Major national parks: Jim Corbett, Sundarbans, Kaziranga. Western Ghats and Eastern Ghats extremely biodiverse</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Western Ghats</div>
+                        <div class="fact-content">~160,000 km² area. Anamudi (2,695 m) tallest peak. Formed during Gondwana breakup (Jurassic/Cretaceous). Western Ghats shelter endemic species</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Soil Types</div>
+                        <div class="fact-content">Black cotton soil in Deccan from volcanic basalt. Alluvial soils in northmost plains very fertile. Laterite soils in high rainfall areas (Ghats). Arid soils dominate Thar Desert. Saline soils in Rann of Kutch region</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Resources</div>
+                        <div class="fact-content">Multiple mineral belts: coal belt, iron ore (Odisha). Mineral resources: coal, iron ore, bauxite, manganese, copper. Hydropower plants in Himalayan and Western Ghats rivers</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-title">Maritime and Strategic</div>
+                        <div class="fact-content">Eastern coast hosts Mangalore, Vishakhapatnam ports. Western Indian ports: Mumbai, Kandla. Strategic Suez-Hormuz global chokepoints near India. India's Exclusive Economic Zone: rich in marine resources</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html> 
