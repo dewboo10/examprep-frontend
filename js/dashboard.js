@@ -1,6 +1,6 @@
 // dashboard.js
 
-const API_BASE = 'http://localhost:5050';
+const API_BASE = 'https://examprep-backend.onrender.com';
 const AUTH_API = `${API_BASE}/api/auth`;
 
 document.addEventListener('DOMContentLoaded', () => {

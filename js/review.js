@@ -11,14 +11,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // 1. Get all questions
-    const questionRes = await fetch(`http://localhost:5050/api/questions?exam=${exam}&day=${day}`, {
+    const questionRes = await fetch(`https://examprep-backend.onrender.com/api/questions?exam=${exam}&day=${day}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     const questionData = await questionRes.json();
     const questions = questionData.questions || questionData;
 
     // 2. Get user's submission
-    const submissionRes = await fetch(`http://localhost:5050/api/mock/review?exam=${exam}&day=${day}`, {
+    const submissionRes = await fetch(`https://examprep-backend.onrender.com/api/mock/review?exam=${exam}&day=${day}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     const submissionData = await submissionRes.json();

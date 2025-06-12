@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5050';
+const API_BASE = 'https://examprep-backend.onrender.com';
 
 const params = new URLSearchParams(window.location.search);
 const exam = params.get("exam");
@@ -425,7 +425,7 @@ function extractYouTubeId(url) {
 
 async function checkAlreadySubmitted(exam, day, token) {
   try {
-    const res = await fetch("http://localhost:5050/api/mock", {
+    const res = await fetch("https://examprep-backend.onrender.com/api/mock", {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,

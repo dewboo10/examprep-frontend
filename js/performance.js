@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!token) return alert("❌ You must be logged in");
 
   try {
-    const res = await fetch('http://localhost:5050/api/performance', {
+    const res = await fetch('https://examprep-backend.onrender.com/api/performance', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,

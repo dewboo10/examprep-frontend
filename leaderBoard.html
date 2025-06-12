@@ -261,7 +261,7 @@
         // Show loading state for a moment
         setTimeout(async () => {
           try {
-            const res = await fetch('http://localhost:5050/api/leaderboard/overall', {
+            const res = await fetch('https://examprep-backend.onrender.com/api/leaderboard/overall', {
               headers: { 'Authorization': `Bearer ${token}` }
             });
             
@@ -316,7 +316,7 @@
             });
             
             // Show logged-in user's rank
-            const yourRes = await fetch('http://localhost:5050/api/user', {
+            const yourRes = await fetch('https://examprep-backend.onrender.com/api/user', {
               headers: { 'Authorization': `Bearer ${token}` }
             });
             
