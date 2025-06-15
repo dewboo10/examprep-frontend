@@ -272,3 +272,14 @@ window.onpageshow = function (event) {
     location.reload();
   }
 };
+// Sidebar toggle for mobile
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebarToggle = document.getElementById('mobile-menu-button');
+  const sidebar = document.getElementById('sidebar');
+
+  if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('hidden');
+    });
+  }
+});

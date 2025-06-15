@@ -128,7 +128,7 @@
       const container = document.getElementById('exam-grid-container');
       container.innerHTML = ''; // clear old content
 
-      exams.forEach((exam, index) => {
+      exams.forEach((exam, index) => {  
         const delay = (index + 1) * 0.1;
         const card = document.createElement('div');
         card.className = `exam-card animate__animated animate__fadeInUp`;
