@@ -209,5 +209,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p class="text-red-700 font-medium">❌ Failed to load review data. Please try again later.</p>
       </div>
     `;
+    loader.classList.add("opacity-0");
+    setTimeout(() => loader.remove(), 300);
+
   }
 });
