@@ -1,42 +1,68 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const loader = document.getElementById("pageLoader");
+  const mainContent = document.getElementById("main-content");
   const body = document.body;
   const params = new URLSearchParams(window.location.search);
   const exam = params.get("exam");
   const day = params.get("day");
   const token = localStorage.getItem("token");
-   
-// Initialize loading state
-  body.style.overflow = 'hidden'; // Prevent scrolling during load
-  body.style.opacity = '0'; // Start with invisible content
-  loader.style.opacity = '1'; // Force loader visible
-  loader.style.display = 'flex'; // Ensure loader is displayed
+
+  // Initialize loading state
+  const showLoader = () => {
+    body.style.overflow = 'hidden';
+    body.style.opacity = '0';
+    loader.style.display = 'flex';
+    loader.style.opacity = '1';
+    mainContent.classList.add('hidden');
+  };
+
+  const hideLoader = () => {
+    loader.style.transition = "opacity 0.3s ease";
+    loader.style.opacity = "0";
     
+    setTimeout(() => {
+      loader.style.display = "none";
+      mainContent.classList.remove('hidden');
+      body.style.overflow = '';
+      body.style.opacity = '1';
+      body.style.transition = 'opacity 0.3s ease';
+    }, 300);
+  };
+
+  // Start loading
+  showLoader();
+
   if (!token || !exam || !day) {
     alert("Missing token, exam, or day!");
     hideLoader();
     return;
   }
 
-
   try {
     // 1. Get all questions
-    const questionRes = await fetch(`https://examprep-backend.onrender.com/api/questions?exam=${exam}&day=${day}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    const questionData = await questionRes.json();
-    const questions = questionData.questions || questionData;
+    const [questionRes, submissionRes] = await Promise.all([
+      fetch(`https://examprep-backend.onrender.com/api/questions?exam=${exam}&day=${day}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      }),
+      fetch(`https://examprep-backend.onrender.com/api/mock/review?exam=${exam}&day=${day}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+    ]);
 
-    // 2. Get user's submission
-    const submissionRes = await fetch(`https://examprep-backend.onrender.com/api/mock/review?exam=${exam}&day=${day}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    const submissionData = await submissionRes.json();
+    if (!questionRes.ok || !submissionRes.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    const [questionData, submissionData] = await Promise.all([
+      questionRes.json(),
+      submissionRes.json()
+    ]);
+
+    const questions = questionData.questions || questionData;
     const submission = submissionData.submission;
 
     if (!questions || !submission) {
-      document.getElementById("question-area").innerHTML = "<p class='text-red-600 p-4'>❌ No review data found.</p>";
-      return;
+      throw new Error('No review data found');
     }
 
     // 3. Group questions by section
@@ -207,29 +233,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderNavigator();
     updateStats();
     
-      // ✅ Hide loader after everything is rendered
-       hideLoader();
+    hideLoader();
    
   } catch (err) {
     console.error("Review load error:", err);
     hideLoader();
+    
     document.getElementById("question-area").innerHTML = `
       <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p class="text-red-700 font-medium">❌ Failed to load review data. Please try again.</p>
+        <p class="text-red-700 font-medium">❌ ${err.message || "Failed to load review data. Please try again."}</p>
+        ${err.message.includes('token') ? '<p class="mt-2 text-sm">You may need to <a href="/login.html" class="text-indigo-600 underline">log in again</a>.</p>' : ''}
       </div>
     `;
-  }
-    function hideLoader() {
-    // Fade out loader
-    loader.style.transition = "opacity 0.3s ease";
-    loader.style.opacity = "0";
-    
-    // Remove loader and restore page after fade completes
-    setTimeout(() => {
-      loader.remove();
-      body.style.overflow = ''; // Restore scrolling
-      body.style.opacity = '1'; // Fade in content
-      body.style.transition = 'opacity 0.3s ease';
-    }, 300);
   }
 });
