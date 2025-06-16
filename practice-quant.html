@@ -221,7 +221,7 @@
                 <a href="resources.html" class="nav-link text-gray-700 hover:text-blue-600">Resources</a>
             </div>
             
-            <button class="md:hidden text-gray-700">
+            <button id="openSidebar" class="md:hidden text-gray-700">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
@@ -616,19 +616,68 @@
 
     <script>
         // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 0) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+       document.addEventListener('DOMContentLoaded', () => {
+    // Navbar scroll effect
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 10) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
 
-        // Remove the intersection observer since we want everything visible
-        document.querySelectorAll('section').forEach(el => {
-            el.classList.add('fade-in');
-        });
+    // Section animation observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.tagName === 'FOOTER') {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, 500);
+          }
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('section, footer').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Sidebar toggle logic
+    const sidebar = document.getElementById('mobileSidebar');
+    const toggleBtn = document.getElementById('openSidebar');
+    const closeBtn = document.getElementById('closeSidebar');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('translate-x-full');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      sidebar.classList.add('translate-x-full');
+    });
+  });
     </script>
+    <!-- Mobile Sidebar -->
+<div id="mobileSidebar" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+    <div class="flex justify-between items-center px-4 py-4 border-b">
+        <span class="text-xl font-bold text-blue-600">Menu</span>
+        <button id="closeSidebar" class="text-gray-600 hover:text-red-500 text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <nav class="flex flex-col space-y-4 px-4 py-6 text-lg text-gray-700">
+        <a href="dashboard.html" class="hover:text-blue-600">Dashboard</a>
+        <a href="practice-quant.html" class="hover:text-blue-600">Quant</a>
+        <a href="practice-logical.html" class="hover:text-blue-600 font-semibold text-blue-600">Logical</a>
+        <a href="practice-verbal.html" class="hover:text-blue-600">Verbal</a>
+        <a href="practice-gk.html" class="hover:text-blue-600">GK</a>
+        <a href="resources.html" class="hover:text-blue-600">Resources</a>
+    </nav>
+</div>
+
 </body>
 </html>

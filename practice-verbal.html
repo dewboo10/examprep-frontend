@@ -1,519 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verbal Practice - ExamsPrepArena</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
-        }
-        
-        /* Navbar Styles */
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-        }
-        
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
-        
-        /* Logo Animation */
-        .logo {
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        
-        .logo:hover {
-            transform: rotate(-5deg) scale(1.05);
-        }
-        
-        /* Card Styles */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            transform: translateY(0);
-            will-change: transform;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-            border-color: rgba(59, 130, 246, 0.2);
-        }
-        
-        .topic-card {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .topic-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(99, 102, 241, 0.1));
-            opacity: 0;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            transform: scale(0.95);
-            z-index: 0;
-        }
-        
-        .topic-card:hover::before {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        .topic-card .icon-container {
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            transform: rotate(0deg);
-        }
-        
-        .topic-card:hover .icon-container {
-            transform: rotate(15deg) scale(1.1);
-        }
-        
-        .topic-card .content {
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-        
-        .topic-card:hover .content {
-            transform: translateX(5px);
-        }
-        
-        /* Decorations */
-        .decor {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.1;
-            z-index: -1;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .decor:nth-child(2) {
-            animation-delay: 1s;
-            animation-duration: 8s;
-        }
-        
-        .decor:nth-child(3) {
-            animation-delay: 2s;
-            animation-duration: 7s;
-        }
-        
-        @keyframes float {
-            0%, 100% { 
-                transform: translateY(0) translateX(0);
-            }
-            25% {
-                transform: translateY(-20px) translateX(10px);
-            }
-            50% {
-                transform: translateY(0) translateX(20px);
-            }
-            75% {
-                transform: translateY(10px) translateX(-10px);
-            }
-        }
-        
-        /* Header Text */
-        .header-text {
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-text::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-        
-        .header-text:hover::after {
-            transform: scaleX(1);
-        }
-        
-        /* Section Animations */
-        section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        footer {
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-        
-        footer.visible {
-            opacity: 1;
-        }
-        
-        /* Pulse Animation */
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        /* Button Styles */
-        .btn-primary {
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-        
-        /* Section Title Styles */
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 2rem;
-            margin-top: 3rem;
-            padding-bottom: 0.75rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
-            border-radius: 2px;
-        }
-        
-        /* Section Spacing */
-        section {
-            margin-bottom: 4rem;
-            padding-top: 1rem;
-        }
-        
-        /* Header Spacing */
-        header {
-            margin-bottom: 3rem;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verbal Practice - ExamPrep</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+    }
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+    }
+    .navbar.scrolled {
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+    .logo:hover {
+      transform: rotate(-5deg) scale(1.05);
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(99, 102, 241, 0.1));
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: scale(0.95);
+    }
+    .topic-card:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .header-text {
+      background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  </style>
 </head>
 <body class="gradient-bg min-h-screen">
-    <!-- Decorative elements -->
-    <div class="decor bg-blue-200 w-96 h-96 top-10 left-10" style="position:fixed;"></div>
-    <div class="decor bg-purple-200 w-80 h-80 bottom-20 right-10" style="position:fixed;"></div>
-    <div class="decor bg-indigo-200 w-64 h-64 top-1/3 right-1/4" style="position:fixed;"></div>
-    
-    <!-- Navbar -->
-    <nav class="navbar fixed w-full z-50 py-3 px-4 md:px-8">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center logo">
-                <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mr-2">
-                    <i class="fas fa-brain text-white text-lg"></i>
-                </div>
-                <span class="text-xl font-bold text-gray-800">Exam Prep</span>
-            </a>
-            <div class="flex space-x-6">
-                <a href="dashboard.html" class="nav-link">Dashboard</a>
-                <a href="practice-quant.html" class="nav-link">Quant</a>
-                <a href="practice-logical.html" class="nav-link">Logical</a>
-                <a href="practice-verbal.html" class="nav-link active">Verbal</a>
-                <a href="practice-gk.html" class="nav-link">GK</a>
-                <a href="resources.html" class="nav-link">Resources</a>
-            </div>
+  <!-- Decorations -->
+  <div class="decor bg-blue-200 w-96 h-96 top-10 left-10 fixed opacity-10 blur-3xl"></div>
+  <div class="decor bg-purple-200 w-80 h-80 bottom-20 right-10 fixed opacity-10 blur-3xl"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar fixed w-full z-50 py-3 px-4 md:px-8">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="#" class="flex items-center logo transition-transform">
+        <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+          <i class="fas fa-brain text-white text-lg"></i>
         </div>
+        <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">ExamPrep</span>
+      </a>
+      <div class="hidden md:flex space-x-8">
+        <a href="dashboard.html" class="nav-link text-gray-700 hover:text-blue-600">Dashboard</a>
+        <a href="practice-quant.html" class="nav-link text-gray-700 hover:text-blue-600">Quant</a>
+        <a href="practice-logical.html" class="nav-link text-gray-700 hover:text-blue-600">Logical</a>
+        <a href="practice-verbal.html" class="nav-link text-blue-600 font-medium active">Verbal</a>
+        <a href="practice-gk.html" class="nav-link text-gray-700 hover:text-blue-600">GK</a>
+        <a href="resources.html" class="nav-link text-gray-700 hover:text-blue-600">Resources</a>
+      </div>
+      <button id="openSidebar" class="md:hidden text-gray-700">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-4 py-24">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        <span class="header-text"><i class="fas fa-language mr-2"></i>Verbal Practice</span>
+      </h1>
+      <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+        Sharpen your verbal reasoning with topic-wise practice in comprehension, vocabulary, and grammar.
+      </p>
+    </header>
+
+    <div class="space-y-12">
+      <!-- Reading Comprehension -->
+      <section>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Reading Comprehension</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a href="verbal/chapters/science-rc.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-flask text-blue-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Science</h3>
+                <p class="text-sm text-gray-500">Scientific passages</p>
+              </div>
+            </div>
+          </a>
+          <a href="verbal/chapters/business-rc.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-chart-line text-green-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Business</h3>
+                <p class="text-sm text-gray-500">Business & economy</p>
+              </div>
+            </div>
+          </a>
+          <a href="verbal/chapters/literature-rc.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-book text-yellow-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Literature</h3>
+                <p class="text-sm text-gray-500">Fiction & poetry</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Vocabulary -->
+      <section>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Vocabulary</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a href="verbal/chapters/synonyms.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-exchange-alt text-red-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Synonyms</h3>
+                <p class="text-sm text-gray-500">Similar word meanings</p>
+              </div>
+            </div>
+          </a>
+          <a href="verbal/chapters/antonyms.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-minus-circle text-indigo-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Antonyms</h3>
+                <p class="text-sm text-gray-500">Opposite word meanings</p>
+              </div>
+            </div>
+          </a>
+          <a href="verbal/chapters/idioms.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-quote-right text-pink-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Idioms</h3>
+                <p class="text-sm text-gray-500">Common expressions</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Grammar -->
+      <section>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Grammar</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a href="verbal/chapters/tenses.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-clock text-teal-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Tenses</h3>
+                <p class="text-sm text-gray-500">Past, present, future forms</p>
+              </div>
+            </div>
+          </a>
+          <a href="verbal/chapters/parts-of-speech.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-puzzle-piece text-cyan-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Parts of Speech</h3>
+                <p class="text-sm text-gray-500">Nouns, verbs, adjectives...</p>
+              </div>
+            </div>
+          </a>
+          <a href="verbal/chapters/sentence-correction.html" class="topic-card card p-6 relative">
+            <div class="flex items-center gap-4">
+              <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-check-circle text-purple-600 text-xl"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Sentence Correction</h3>
+                <p class="text-sm text-gray-500">Fixing grammatical errors</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Mobile Sidebar -->
+  <div id="mobileSidebar" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+    <div class="flex justify-between items-center px-4 py-4 border-b">
+      <span class="text-xl font-bold text-blue-600">Menu</span>
+      <button id="closeSidebar" class="text-gray-600 hover:text-red-500 text-2xl">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col space-y-4 px-4 py-6 text-lg text-gray-700">
+      <a href="dashboard.html" class="hover:text-blue-600">Dashboard</a>
+      <a href="practice-quant.html" class="hover:text-blue-600">Quant</a>
+      <a href="practice-logical.html" class="hover:text-blue-600">Logical</a>
+      <a href="practice-verbal.html" class="font-semibold text-blue-600">Verbal</a>
+      <a href="practice-gk.html" class="hover:text-blue-600">GK</a>
+      <a href="resources.html" class="hover:text-blue-600">Resources</a>
     </nav>
+  </div>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 pt-20">
-        <!-- Header -->
-        <header class="text-center mb-12">
-            <h1 class="text-3xl font-bold text-gray-800 mb-3">Verbal <span class="header-text">Practice</span></h1>
-            <p class="text-gray-600 text-sm mb-8">Master your verbal skills with comprehensive practice materials</p>
-            
-            <!-- Practice Buttons -->
-            <div class="flex justify-center gap-4 mb-8">
-                <a href="practice-quant.html" class="btn-primary px-6 py-3 rounded-lg text-white font-medium hover:shadow-lg transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-calculator"></i>
-                    Quantitative Practice
-                </a>
-                <a href="practice-logical.html" class="btn-primary px-6 py-3 rounded-lg text-white font-medium hover:shadow-lg transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-brain"></i>
-                    Logical Practice
-                </a>
-                <a href="practice-verbal.html" class="btn-primary px-6 py-3 rounded-lg text-white font-medium hover:shadow-lg transition-all duration-300 flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600">
-                    <i class="fas fa-language"></i>
-                    Verbal Practice
-                </a>
-            </div>
-        </header>
+  <!-- Scripts -->
+  <script>
+    // Scroll navbar
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
 
-        <!-- Reading Comprehension -->
-        <section id="reading-comprehension">
-            <h2 class="section-title">Reading Comprehension</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                <a href="verbal/chapters/science-rc.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-blue-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-flask text-blue-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Science</h3>
-                            <p class="text-gray-500">Scientific passages and analysis</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/technology-rc.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-purple-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-microchip text-purple-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Technology</h3>
-                            <p class="text-gray-500">Tech-related passages</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/business-rc.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-green-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-chart-line text-green-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Business</h3>
-                            <p class="text-gray-500">Business and economics</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/literature-rc.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-yellow-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-book text-yellow-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Literature</h3>
-                            <p class="text-gray-500">Literary passages</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Vocabulary -->
-        <section id="vocabulary">
-            <h2 class="section-title">Vocabulary</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                <a href="verbal/chapters/synonyms.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-red-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-exchange-alt text-red-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Synonyms</h3>
-                            <p class="text-gray-500">Word meanings and alternatives</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/antonyms.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-indigo-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-random text-indigo-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Antonyms</h3>
-                            <p class="text-gray-500">Opposite words and meanings</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/idioms.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-pink-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-quote-right text-pink-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Idioms</h3>
-                            <p class="text-gray-500">Common phrases and expressions</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/phrases.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-orange-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-language text-orange-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Phrases</h3>
-                            <p class="text-gray-500">Common phrases and usage</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Grammar -->
-        <section id="grammar">
-            <h2 class="section-title">Grammar</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                <a href="verbal/chapters/tenses.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-teal-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-clock text-teal-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Tenses</h3>
-                            <p class="text-gray-500">Verb forms and time expressions</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/parts-of-speech.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-cyan-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-puzzle-piece text-cyan-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Parts of Speech</h3>
-                            <p class="text-gray-500">Word categories and functions</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/sentence-correction.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-blue-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-check-circle text-blue-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Sentence Correction</h3>
-                            <p class="text-gray-500">Error detection and correction</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="verbal/chapters/voice-mood.html" class="topic-card card p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="icon-container bg-purple-50 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-volume-up text-purple-500"></i>
-                        </div>
-                        <div class="content">
-                            <h3 class="text-gray-800">Voice & Mood</h3>
-                            <p class="text-gray-500">Active/Passive voice and moods</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 0) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Section visibility animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Topic card animation
-        document.querySelectorAll('.topic-card').forEach((card, index) => {
-            setTimeout(() => {
-                card.classList.add('visible');
-            }, index * 100);
-        });
-    </script>
+    // Sidebar toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebar = document.getElementById('mobileSidebar');
+      const toggle = document.getElementById('openSidebar');
+      const close = document.getElementById('closeSidebar');
+      toggle.addEventListener('click', () => sidebar.classList.toggle('translate-x-full'));
+      close.addEventListener('click', () => sidebar.classList.add('translate-x-full'));
+    });
+  </script>
 </body>
 </html>
