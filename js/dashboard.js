@@ -3,7 +3,21 @@
 const API_BASE = 'https://examprep-backend.onrender.com';
 const AUTH_API = `${API_BASE}/api/auth`;
 
-document.addEventListener('DOMContentLoaded', () => {
+const loader = document.getElementById("pageLoader");
+
+function showLoader() {
+  loader.style.display = "flex";
+}
+
+function hideLoader() {
+  loader.style.display = "none";
+}
+
+
+
+window.onload = async () => {
+  showLoader(); // ✅ Show loader immediately
+
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
   const usernameEl = document.getElementById('username');
@@ -25,13 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('auth-modal')?.classList.add('hidden');
     const welcome = document.getElementById('username');
     if (welcome) welcome.textContent = username || 'User';
-    
-    // ✅ Wrapped fetches with loader
-    fetchDashboardData();
+
+    // ✅ Only show dashboard after everything loads
+    await fetchDashboardData();
+    hideLoader(); // ✅ Hide loader only after all dashboard data has been fetched
   } else {
+    hideLoader(); // Hide loader before showing login modal
     showLoginModal();
   }
-});
+};
 
 // ✅ New wrapped loader-aware dashboard data fetch
 async function fetchDashboardData() {
