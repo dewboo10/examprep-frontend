@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  const loader = document.getElementById("pageLoader");
   const params = new URLSearchParams(window.location.search);
   const exam = params.get("exam");
   const day = params.get("day");
@@ -196,7 +197,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderQuestion();
     renderNavigator();
     updateStats();
-
+    
+      // ✅ Hide loader after everything is rendered
+    loader.classList.add("opacity-0");
+    setTimeout(() => loader.remove(), 300);
+  
   } catch (err) {
     console.error("Review load error:", err);
     document.getElementById("question-area").innerHTML = `

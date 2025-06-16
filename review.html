@@ -111,5 +111,17 @@
   </div>
 
   <script src="js/review.js" defer></script>
+<!-- Full Page Loader -->
+<div id="pageLoader" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center transition-opacity duration-300">
+  <div class="loader ease-linear rounded-full border-4 border-t-4 border-blue-500 h-12 w-12 animate-spin mb-4"></div>
+  <p class="text-gray-700 text-lg font-semibold">Loading Review...</p>
+</div>
+
+<style>
+  .loader {
+    border-top-color: #3b82f6; /* Tailwind indigo-500 */
+  }
+</style>
+
 </body>
 </html>
