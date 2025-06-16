@@ -5,8 +5,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   const day = params.get("day");
   const token = localStorage.getItem("token");
 
+    // Show loader immediately (already visible by default, but ensures state)
+  loader.classList.remove("hidden", "opacity-0");   
+  
   if (!token || !exam || !day) {
     alert("Missing token, exam, or day!");
+    // Enhanced loader dismissal
+    loader.style.transition = "opacity 0.3s ease";
+    loader.classList.add("opacity-0");
+    setTimeout(() => loader.remove(), 300);
     return;
   }
 
@@ -199,18 +206,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateStats();
     
       // ✅ Hide loader after everything is rendered
+   // After successful data loading and rendering:
+    loader.style.transition = "opacity 0.3s ease"; // Ensure transition is applied
     loader.classList.add("opacity-0");
-    setTimeout(() => loader.remove(), 300);
-  
-  } catch (err) {
-    console.error("Review load error:", err);
-    document.getElementById("question-area").innerHTML = `
-      <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p class="text-red-700 font-medium">❌ Failed to load review data. Please try again later.</p>
-      </div>
-    `;
-    loader.classList.add("opacity-0");
-    setTimeout(() => loader.remove(), 300);
 
+    // Wait for fade-out before removing
+    setTimeout(() => {
+      loader.remove();
+      // Optional: Add slight content fade-in
+      document.body.style.opacity = "1";
+      document.body.style.transition = "opacity 0.2s ease";
+    }, 300);
+
+   } catch (err) {
+    console.error("Review load error:", err);
+    // Error handling with loader dismissal
+    loader.style.transition = "opacity 0.3s ease";
+    loader.classList.add("opacity-0");
+    setTimeout(() => {
+      loader.remove();
+      document.getElementById("question-area").innerHTML = `
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p class="text-red-700 font-medium">❌ Failed to load review data. Please try again.</p>
+        </div>
+      `;
+    }, 300);
   }
 });
