@@ -7,15 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
   const usernameEl = document.getElementById('username');
+  const examLabel = document.getElementById('current-exam');
 
   if (username && usernameEl) {
-  usernameEl.textContent = username;
-}
+    usernameEl.textContent = username;
+  }
+
   const selectedExam = localStorage.getItem('selectedExam');
-if (selectedExam) {
-  const examLabel = document.getElementById('current-exam');
-  if (examLabel) examLabel.textContent = selectedExam;
-}
+  if (selectedExam && examLabel) {
+    examLabel.textContent = selectedExam;
+  }
 
   const logoutBtn = document.querySelector('.fa-sign-out-alt')?.parentElement;
   if (logoutBtn) logoutBtn.style.display = token ? 'block' : 'none';
@@ -24,24 +25,29 @@ if (selectedExam) {
     document.getElementById('auth-modal')?.classList.add('hidden');
     const welcome = document.getElementById('username');
     if (welcome) welcome.textContent = username || 'User';
-    fetchQuizSummary();
-    fetchRecentQuizzes();
-    fetchMockList();
+    
+    // ✅ Wrapped fetches with loader
+    fetchDashboardData();
   } else {
     showLoginModal();
   }
 });
 
-function showLoginModal() {
-  const modal = document.getElementById('auth-modal');
-  if (modal) modal.classList.remove('hidden');
+// ✅ New wrapped loader-aware dashboard data fetch
+async function fetchDashboardData() {
+  const loader = document.getElementById('pageLoader');
+  if (loader) loader.style.display = 'flex';
 
-  document.getElementById('login-form')?.classList.remove('hidden');
-  document.getElementById('step-1')?.classList.add('hidden');
-  document.getElementById('step-2')?.classList.add('hidden');
-  document.getElementById('step-3')?.classList.add('hidden');
+  try {
+    await fetchQuizSummary();
+    await fetchRecentQuizzes();
+    await fetchMockList();
+  } catch (err) {
+    console.error('Error loading dashboard:', err);
+  } finally {
+    if (loader) loader.style.display = 'none';
+  }
 }
-
 
 function logout() {
   localStorage.clear();

@@ -19,7 +19,35 @@
   <script src="js/main.js" defer></script>
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/style.css">
-   
+<style>
+  @keyframes spin-smooth {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes gradient-border {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes progress {
+    0% { width: 20%; left: -20%; }
+    100% { width: 120%; left: 100%; }
+  }
+  .animate-spin-slow {
+    animation: spin-smooth 1.8s linear infinite;
+  }
+  .animate-spin-slower {
+    animation: spin-smooth 2.4s linear infinite reverse;
+  }
+  .animate-gradient-border {
+    animation: gradient-border 4s ease infinite;
+    background-size: 200% 200%;
+  }
+  .animate-progress {
+    animation: progress 1.8s ease-in-out infinite;
+    position: relative;
+  }
+</style>
+
+    
 </head>
 
 <body class="bg-gray-50 text-gray-900">
@@ -306,6 +334,34 @@
 </div>
 </div>
 <button onclick="openOTPModal()" class="text-blue-600 underline">Forgot Password?</button>
+
+<!-- Premium Loader -->
+<div id="pageLoader" class="fixed inset-0 z-50 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center">
+  <div class="relative p-0.5 rounded-lg bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 animate-gradient-border">
+    <div class="relative bg-white rounded-lg p-8 flex flex-col items-center justify-center w-72 h-64">
+      <div class="relative w-20 h-20 mb-6">
+        <div class="absolute inset-0 rounded-full border-4 border-blue-500/20"></div>
+        <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-blue-600 border-r-blue-600 animate-spin-slow"></div>
+        <div class="absolute inset-1 rounded-full border-4 border-transparent border-t-purple-500 border-r-purple-500 animate-spin-slower"></div>
+      </div>
+      <div class="text-center space-y-2">
+        <h3 class="text-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Loading ExamPrep
+        </h3>
+        <p class="text-sm text-gray-500">Setting up your dashboard</p>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-1.5 mt-6 overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-full rounded-full animate-progress"></div>
+      </div>
+      <div class="flex items-center mt-4 text-xs text-blue-600">
+        <svg class="w-3 h-3 mr-1 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+        </svg>
+        <span>Secure Data Transfer</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
