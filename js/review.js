@@ -1,21 +1,23 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const loader = document.getElementById("pageLoader");
+  const body = document.body;
   const params = new URLSearchParams(window.location.search);
   const exam = params.get("exam");
   const day = params.get("day");
   const token = localStorage.getItem("token");
-
-    // Show loader immediately (already visible by default, but ensures state)
-  loader.classList.remove("hidden", "opacity-0");   
-  
+   
+// Initialize loading state
+  body.style.overflow = 'hidden'; // Prevent scrolling during load
+  body.style.opacity = '0'; // Start with invisible content
+  loader.style.opacity = '1'; // Force loader visible
+  loader.style.display = 'flex'; // Ensure loader is displayed
+    
   if (!token || !exam || !day) {
     alert("Missing token, exam, or day!");
-    // Enhanced loader dismissal
-    loader.style.transition = "opacity 0.3s ease";
-    loader.classList.add("opacity-0");
-    setTimeout(() => loader.remove(), 300);
+    hideLoader();
     return;
   }
+
 
   try {
     // 1. Get all questions
@@ -206,30 +208,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateStats();
     
       // ✅ Hide loader after everything is rendered
-   // After successful data loading and rendering:
-    loader.style.transition = "opacity 0.3s ease"; // Ensure transition is applied
-    loader.classList.add("opacity-0");
-
-    // Wait for fade-out before removing
-    setTimeout(() => {
-      loader.remove();
-      // Optional: Add slight content fade-in
-      document.body.style.opacity = "1";
-      document.body.style.transition = "opacity 0.2s ease";
-    }, 300);
-
-   } catch (err) {
+       hideLoader();
+   
+  } catch (err) {
     console.error("Review load error:", err);
-    // Error handling with loader dismissal
+    hideLoader();
+    document.getElementById("question-area").innerHTML = `
+      <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+        <p class="text-red-700 font-medium">❌ Failed to load review data. Please try again.</p>
+      </div>
+    `;
+  }
+    function hideLoader() {
+    // Fade out loader
     loader.style.transition = "opacity 0.3s ease";
-    loader.classList.add("opacity-0");
+    loader.style.opacity = "0";
+    
+    // Remove loader and restore page after fade completes
     setTimeout(() => {
       loader.remove();
-      document.getElementById("question-area").innerHTML = `
-        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p class="text-red-700 font-medium">❌ Failed to load review data. Please try again.</p>
-        </div>
-      `;
+      body.style.overflow = ''; // Restore scrolling
+      body.style.opacity = '1'; // Fade in content
+      body.style.transition = 'opacity 0.3s ease';
     }, 300);
   }
 });
