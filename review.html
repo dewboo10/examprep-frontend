@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="bg-gray-100 text-gray-900" style="opacity: 0; transition: opacity 0.3s ease;">
+<body class="bg-gray-100 text-gray-900" style="transition: opacity 0.3s ease;">
   <!-- PREMIUM LOADER -->
   <div id="pageLoader" class="fixed inset-0 z-50 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center">
     <!-- Animated gradient border container -->
@@ -154,6 +154,16 @@
 
   <style>
     /* Animation keyframes */
+    /* Add this to your style section */
+body {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+#pageLoader {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
     @keyframes spin-smooth {
       to { transform: rotate(360deg); }
     }

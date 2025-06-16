@@ -8,27 +8,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("token");
 
   // Initialize loading state
-  const showLoader = () => {
-    body.style.overflow = 'hidden';
-    body.style.opacity = '0';
-    loader.style.display = 'flex';
-    loader.style.opacity = '1';
-    mainContent.classList.add('hidden');
-  };
+const showLoader = () => {
+  body.style.overflow = 'hidden';
+  loader.style.display = 'flex';
+  // Force reflow to ensure display:flex is applied before opacity transition
+  void loader.offsetHeight;
+  loader.style.opacity = '1';
+  mainContent.classList.add('hidden');
+};
 
-  const hideLoader = () => {
-    loader.style.transition = "opacity 0.3s ease";
-    loader.style.opacity = "0";
+
+const hideLoader = () => {
+  loader.style.opacity = '0';
+  
+  setTimeout(() => {
+    loader.style.display = 'none';
+    mainContent.classList.remove('hidden');
+    body.style.overflow = '';
     
+    // Fade in the main content
     setTimeout(() => {
-      loader.style.display = "none";
-      mainContent.classList.remove('hidden');
-      body.style.overflow = '';
       body.style.opacity = '1';
-      body.style.transition = 'opacity 0.3s ease';
-    }, 300);
-  };
-
+    }, 50);
+  }, 300); // Match this with the CSS transition duration
+};
   // Start loading
   showLoader();
 
