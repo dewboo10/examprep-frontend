@@ -13,7 +13,7 @@ if (!token) {
 checkAlreadySubmitted(exam, day, token);
 
 let state = {
-  currentSection: 'Quant',
+  currentSection: 'VARC',
   currentQuestionIndex: 0,
   answers: {},
   flags: {},
@@ -274,8 +274,8 @@ function startTestTimer() {
 
   state.timerId = setInterval(() => {
     const elapsed = Math.floor((Date.now() - state.testStartTime) / 1000);
-    const totalTestTime = 3*3; // 30 minutes
-    const sectionDuration = 3*1; // 30 minutes per section
+    const totalTestTime = 10*3; // 30 minutes
+    const sectionDuration = 10*1; // minutes per section
     const sectionOrder = ["VARC", "LRDI", "Quants"];
 
     if (elapsed >= totalTestTime) {
