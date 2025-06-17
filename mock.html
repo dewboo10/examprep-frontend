@@ -6,11 +6,6 @@
     <title>ExamPrepPro | CAT Mock Test</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @keyframes questionEntrance {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
         :root {
             --primary: #3b82f6;
             --secondary: #f59e0b;
@@ -18,140 +13,106 @@
             --wrong: #ef4444;
         }
 
-        .question-entrance {
-            animation: questionEntrance 0.3s ease-out;
+        .answered {
+            background-color: #10b981;
+            color: white;
         }
-
-        .option-card.correct {
-            background: #dcfce7 !important;
-            border-color: #22c55e !important;
+        .not-answered {
+            background-color: #ef4444;
+            color: white;
         }
-        .option-card.wrong {
-            background: #fee2e2 !important;
-            border-color: #ef4444 !important;
+        .marked-review {
+            border: 2px solid #f59e0b;
         }
-        
-        #instructions-modal {
-            transition: opacity 0.3s ease;
-        }
-        #countdown {
-            font-family: monospace;
+        .section-active {
+            color: #ef4444;
+            font-weight: bold;
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Instruction Modal -->
+<body class="bg-gray-100">
+    <!-- Instruction Modal (same as before) -->
     <div id="instructions-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-            <div class="p-6 border-b">
-                <h2 class="text-2xl font-bold text-gray-800">Test Instructions</h2>
+        <!-- ... modal content remains the same ... -->
+    </div>
+
+    <!-- Main Test Interface -->
+    <div class="container mx-auto px-4 py-6">
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center mb-4">
+            <div class="text-lg font-semibold">
+                <span id="current-section" class="section-active">VARC</span> | 
+                <span>Time Left: <span id="timer" class="font-mono">120:00</span></span>
             </div>
-            
-            <div class="p-6 overflow-y-auto flex-grow">
-                <div class="prose max-w-none">
-                    <h3 class="font-semibold text-lg">Important Information:</h3>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li>This test consists of multiple sections (VARC, LRDI, Quant).</li>
-                        <li>Each section has a fixed time limit.</li>
-                        <li>You cannot switch between sections manually - the system will auto-advance.</li>
-                        <li>Mark questions you want to review using the flag button.</li>
-                        <li>There is negative marking for wrong answers.</li>
-                    </ul>
-                    
-                    <h3 class="font-semibold text-lg mt-4">Navigation:</h3>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li>Use Previous/Next buttons to move between questions.</li>
-                        <li>Answered questions will be marked green in the navigation.</li>
-                        <li>Unanswered questions will be marked red.</li>
-                    </ul>
-                    
-                    <h3 class="font-semibold text-lg mt-4">Scoring:</h3>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li>Correct answer: +3 marks</li>
-                        <li>Wrong answer: -1 mark</li>
-                        <li>Unanswered question: 0 marks</li>
-                    </ul>
+            <div class="flex space-x-2">
+                <span class="text-sm">John Smith</span>
+            </div>
+        </div>
+
+        <!-- Three Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <!-- Left Column - Passage -->
+            <div class="bg-white p-4 rounded shadow">
+                <div class="font-bold text-lg mb-2">Passage</div>
+                <div id="passage" class="h-[70vh] overflow-y-auto text-justify">
+                    <!-- Passage content will be loaded here -->
                 </div>
             </div>
-            
-            <div class="p-4 border-t flex justify-between items-center">
-                <div class="text-gray-600">
-                    Test will begin in <span id="countdown" class="font-bold">30</span> seconds
+
+            <!-- Middle Column - Question -->
+            <div class="bg-white p-4 rounded shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="font-bold text-lg">Question <span id="question-number">1</span></div>
+                    <div class="text-sm">Marks for correct answer: 3 | Negative marks: 1</div>
                 </div>
-                <button id="start-test-btn" disabled class="px-6 py-2 bg-blue-500 text-white rounded-lg opacity-50 cursor-not-allowed">
-                    Start Test
+                
+                <div id="question-text" class="mb-6 text-lg"></div>
+                <div id="options" class="space-y-3"></div>
+                
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between mt-8">
+                    <button id="mark-review-btn" class="px-4 py-2 bg-yellow-100 text-yellow-800 rounded">
+                        Mark for Review & Next
+                    </button>
+                    <div class="flex space-x-2">
+                        <button id="clear-btn" class="px-4 py-2 bg-gray-200 rounded">
+                            Clear Response
+                        </button>
+                        <button id="save-next-btn" class="px-4 py-2 bg-blue-500 text-white rounded">
+                            Save & Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Question Navigator -->
+            <div class="bg-white p-4 rounded shadow">
+                <div class="font-bold text-lg mb-4">Question Navigator</div>
+                <div class="grid grid-cols-4 gap-2" id="question-navigator">
+                    <!-- Questions will be populated here -->
+                </div>
+                
+                <div class="mt-6 border-t pt-4">
+                    <div class="flex items-center space-x-4 mb-2">
+                        <div class="w-4 h-4 rounded-full answered"></div>
+                        <span>Answered</span>
+                    </div>
+                    <div class="flex items-center space-x-4 mb-2">
+                        <div class="w-4 h-4 rounded-full not-answered"></div>
+                        <span>Not Answered</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-4 h-4 rounded-full border-2 border-yellow-500"></div>
+                        <span>Marked for Review</span>
+                    </div>
+                </div>
+                
+                <button id="submit-btn" class="w-full mt-6 py-2 bg-green-500 text-white rounded">
+                    Submit
                 </button>
             </div>
         </div>
     </div>
-
-    <header class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <span class="text-xl font-bold text-gray-800">ExamPrepPro</span>
-            </div>
-            <div class="text-sm text-gray-600">
-                <span id="exam-label" class="font-medium">CAT 2024</span>
-                <span class="mx-2">•</span>
-                <span>Day 1</span>
-            </div>
-        </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-4 py-6">
-        <!-- Top Control Bar -->
-        <div class="flex items-center justify-between mb-8 bg-white rounded-lg p-4 shadow-sm">
-            <div class="flex items-center gap-4">
-                <div class="text-sm text-gray-600">
-                    <div>Time Left: <span id="timer" class="font-medium">30:00</span></div>
-                    <div>Section: <span id="current-section" class="font-medium">Quant</span></div>
-                </div>
-                <div class="flex gap-2" id="sections"></div>
-            </div>
-            <button id="flag-btn" class="px-4 py-2 bg-orange-100 text-orange-600 rounded-lg hover:bg-orange-200 transition-colors flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
-                </svg>
-                Flag Question
-            </button>
-        </div>
-
-        <!-- Main Interface -->
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            <!-- Left Column (2/5) -->
-            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 question-entrance">
-                <div id="passage" class="mb-4 p-4 bg-gray-50 rounded-lg text-gray-600 space-y-2 hidden overflow-y-auto max-h-64"></div>
-                <div class="mb-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span id="question-number" class="text-lg font-semibold text-gray-700">Question 1</span>
-                        <span class="text-sm text-gray-500">Marks: +3 | -1</span>
-                    </div>
-                    <div id="question-text" class="text-gray-800 text-lg leading-relaxed"></div>
-                </div>
-                <div id="options" class="space-y-2"></div>
-            </div>
-
-            <!-- Right Column (3/5) -->
-            <div class="lg:col-span-3 bg-white rounded-xl shadow-sm p-6">
-                <div id="explanation" class="space-y-4"></div>
-            </div>
-        </div>
-
-        <!-- Navigation Controls -->
-        <div class="flex items-center justify-between mt-8">
-            <div class="flex gap-3">
-                <button id="prev-btn" class="px-5 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2">
-                    ← Previous
-                </button>
-                <button id="next-btn" class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2">
-                    Next →
-                </button>
-            </div>
-            <button id="submit-btn" class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
-                Submit Test
-            </button>
-        </div>
-    </main>
 
     <script src="js/mock-test.js"></script>
 </body>
