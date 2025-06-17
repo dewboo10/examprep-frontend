@@ -299,9 +299,9 @@ function startTestTimer() {
 
   state.timerId = setInterval(() => {
     const elapsed = Math.floor((Date.now() - state.testStartTime) / 1000);
-    const totalTestTime = 90* 60; // 30 minutes
-    const sectionDuration = 30 * 60; // 30 minutes per section
-    const sectionOrder = ["Quant", "VARC", "LRDI"];
+    const totalTestTime = 3*3; // 30 minutes
+    const sectionDuration = 3*1; // 30 minutes per section
+    const sectionOrder = ["VARC", "LRDI", "Quants"];
 
     if (elapsed >= totalTestTime) {
       clearInterval(state.timerId);
