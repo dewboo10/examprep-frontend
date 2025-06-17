@@ -61,8 +61,9 @@ async function fetchDashboardData() {
   } catch (err) {
     console.error('Error loading dashboard:', err);
   } finally {
-    if (loader) loader.style.display = 'none';
-  }
+  if (loader) loader.style.display = 'none';
+  document.body.classList.remove("overflow-hidden"); // ✅ Allow scrolling after loading
+}
 }
 
 function logout() {
