@@ -7,16 +7,18 @@ let state = {
     answers: {},
     flags: {},
     visited: {},
-    timeLeft: 7200, // 120 minutes in seconds
+    timeLeft: 1800, // 30 minutes in seconds
     questions: null,
     timerId: null,
-    isReview: false
+    isReview: false,
+    testStartTime: null
 };
 
 // DOM Elements
 const elements = {
     timer: document.getElementById('timer'),
     currentSection: document.getElementById('current-section'),
+    sections: document.getElementById('sections'),
     passage: document.getElementById('passage'),
     questionNumber: document.getElementById('question-number'),
     questionText: document.getElementById('question-text'),
@@ -25,47 +27,84 @@ const elements = {
     markReviewBtn: document.getElementById('mark-review-btn'),
     clearBtn: document.getElementById('clear-btn'),
     saveNextBtn: document.getElementById('save-next-btn'),
-    submitBtn: document.getElementById('submit-btn')
+    submitBtn: document.getElementById('submit-btn'),
+    startTestBtn: document.getElementById('start-test-btn'),
+    countdown: document.getElementById('countdown'),
+    instructionsModal: document.getElementById('instructions-modal')
 };
 
 // Check authentication and initialize
 async function init() {
+    const params = new URLSearchParams(window.location.search);
+    const exam = params.get("exam");
+    const day = params.get("day");
     const token = localStorage.getItem("token");
+
     if (!token) {
         alert("You must be logged in to take the quiz.");
         window.location.href = "/login.html";
         return;
     }
 
+    if (exam) localStorage.setItem('selectedExam', exam);
+    if (day) localStorage.setItem('selectedDay', day);
+
     // Check if already submitted
-    const exam = new URLSearchParams(window.location.search).get("exam");
-    const day = new URLSearchParams(window.location.search).get("day");
     await checkAlreadySubmitted(exam, day, token);
 
-    // Load questions
+    // Check for persisted state
+    const persisted = loadPersistedState();
+    
+    // If in review mode, skip the modal
+    const attempts = JSON.parse(localStorage.getItem(`mockAttempts_${exam}`) || '{}');
+    state.isReview = attempts[`mock${day}`] === 'completed';
+
+    if (state.isReview) {
+        await initializeTest();
+        return;
+    }
+
+    // Show instructions modal
+    let countdown = 30;
+    const countdownInterval = setInterval(() => {
+        countdown--;
+        elements.countdown.textContent = countdown;
+        
+        if (countdown <= 0) {
+            clearInterval(countdownInterval);
+            elements.startTestBtn.disabled = false;
+            elements.startTestBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            elements.startTestBtn.classList.add('hover:bg-blue-600');
+        }
+    }, 1000);
+
+    // Start test immediately if user clicks button
+    elements.startTestBtn.addEventListener('click', async () => {
+        clearInterval(countdownInterval);
+        elements.instructionsModal.style.opacity = '0';
+        setTimeout(() => {
+            elements.instructionsModal.style.display = 'none';
+        }, 300);
+        await initializeTest();
+    });
+
+    // Load questions in background while showing modal
     try {
-        const persisted = loadPersistedState();
         if (!persisted) {
             await loadQuestions();
+        } else {
+            // If we have persisted state, questions are already loaded
+            initializeTest();
         }
-
-        // Initialize UI
-        initializeState();
-        renderQuestionNavigator();
-        renderQuestion();
-        startTimer();
-
-        // Set up event listeners
-        setupEventListeners();
-    } catch (error) {
-        console.error("Initialization failed:", error);
-        alert("Failed to initialize test. Please try again.");
+    } catch (err) {
+        showError("❌ Failed to load questions.");
+        console.error(err);
     }
 }
 
 // Load questions from API
 async function loadQuestions() {
-    const exam = localStorage.getItem('selectedExam') || 'CAT';
+    const exam = localStorage.getItem('selectedExam');
     const day = localStorage.getItem('selectedDay') || 1;
     const token = localStorage.getItem('token');
 
@@ -74,6 +113,7 @@ async function loadQuestions() {
     });
     
     state.questions = await response.json();
+    initializeState();
 }
 
 // Initialize answer and visited states
@@ -84,6 +124,34 @@ function initializeState() {
         state.visited[section] = Array(state.questions[section].length).fill(false);
     });
     state.visited[state.currentSection][state.currentQuestionIndex] = true;
+}
+
+// Initialize the test (after modal)
+async function initializeTest() {
+    renderSections();
+    renderQuestion();
+    renderQuestionNavigator();
+    setupEventListeners();
+    
+    if (!state.isReview) {
+        startTestTimer();
+    } else {
+        elements.submitBtn.style.display = 'none';
+    }
+}
+
+// Render section tabs
+function renderSections() {
+    elements.sections.innerHTML = Object.keys(state.questions).map(section => `
+        <button class="px-4 py-2 rounded-lg transition-all 
+            ${section === state.currentSection ? 
+                'bg-blue-500 text-white' : 
+                'bg-gray-100 text-gray-700 hover:bg-gray-200'}
+            ${state.isReview ? 'cursor-pointer' : ''}"
+            data-section="${section}">
+            ${section}
+        </button>
+    `).join('');
 }
 
 // Render question navigator panel
@@ -98,13 +166,13 @@ function renderQuestionNavigator() {
         
         // Set button style based on state
         if (state.answers[state.currentSection][index] !== null) {
-            btn.classList.add('bg-green-500', 'text-white');
+            btn.classList.add('answered');
         } else if (state.visited[state.currentSection][index]) {
-            btn.classList.add('bg-red-500', 'text-white');
+            btn.classList.add('not-answered');
         }
         
         if (state.flags[state.currentSection][index]) {
-            btn.classList.add('border-2', 'border-yellow-500');
+            btn.classList.add('marked-review');
         }
         
         if (index === state.currentQuestionIndex) {
@@ -116,6 +184,7 @@ function renderQuestionNavigator() {
             state.visited[state.currentSection][index] = true;
             renderQuestion();
             updateQuestionNavigator();
+            persistState();
         });
         
         elements.questionNavigator.appendChild(btn);
@@ -132,9 +201,10 @@ function renderQuestion() {
     // Render passage if available
     if (question.passage) {
         elements.passage.innerHTML = Array.isArray(question.passage) ? 
-            question.passage.join('<br><br>') : question.passage;
+            question.passage.map(p => `<p class="mb-3">${p}</p>`).join('') : 
+            `<p>${question.passage}</p>`;
     } else {
-        elements.passage.innerHTML = 'No passage for this question';
+        elements.passage.innerHTML = '';
     }
     
     // Render question text
@@ -144,7 +214,10 @@ function renderQuestion() {
     elements.options.innerHTML = '';
     question.options.forEach((option, index) => {
         const div = document.createElement('div');
-        div.className = 'flex items-center space-x-3 p-3 border rounded hover:bg-gray-50 cursor-pointer';
+        div.className = `flex items-center space-x-3 p-3 border rounded hover:bg-gray-50 cursor-pointer option-card 
+            ${state.isReview ? 
+                (index === question.answerIndex ? 'correct' : 
+                (state.answers[state.currentSection][state.currentQuestionIndex] === index ? 'wrong' : '')) : ''}`;
         
         const input = document.createElement('input');
         input.type = 'radio';
@@ -178,13 +251,13 @@ function updateQuestionNavigator() {
         btn.className = 'w-full py-2 rounded flex justify-center items-center transition-all';
         
         if (state.answers[state.currentSection][index] !== null) {
-            btn.classList.add('bg-green-500', 'text-white');
+            btn.classList.add('answered');
         } else if (state.visited[state.currentSection][index]) {
-            btn.classList.add('bg-red-500', 'text-white');
+            btn.classList.add('not-answered');
         }
         
         if (state.flags[state.currentSection][index]) {
-            btn.classList.add('border-2', 'border-yellow-500');
+            btn.classList.add('marked-review');
         }
         
         if (index === state.currentQuestionIndex) {
@@ -201,11 +274,24 @@ function selectAnswer(index) {
 }
 
 // Start timer
-function startTimer() {
+function startTestTimer() {
     // Clear any existing timer
     if (state.timerId) clearInterval(state.timerId);
     
-    // Update timer display immediately
+    // Check for saved start time
+    const savedStart = localStorage.getItem("testStartTime");
+    const now = Date.now();
+    
+    if (savedStart) {
+        state.testStartTime = parseInt(savedStart);
+    } else {
+        state.testStartTime = now;
+        localStorage.setItem("testStartTime", state.testStartTime);
+    }
+    
+    // Calculate initial time left
+    const elapsed = Math.floor((now - state.testStartTime) / 1000);
+    state.timeLeft = Math.max(0, 1800 - elapsed);
     updateTimerDisplay();
     
     // Start countdown
@@ -216,6 +302,22 @@ function startTimer() {
         if (state.timeLeft <= 0) {
             clearInterval(state.timerId);
             submitTest();
+        }
+        
+        // Auto-switch sections based on time
+        const sectionOrder = ["VARC", "LRDI", "Quant"];
+        const sectionDuration = 600; // 10 minutes per section
+        
+        const sectionIndex = Math.floor((1800 - state.timeLeft) / sectionDuration);
+        if (sectionIndex >= sectionOrder.length) return;
+        
+        const nextSection = sectionOrder[sectionIndex];
+        if (nextSection !== state.currentSection) {
+            state.currentSection = nextSection;
+            state.currentQuestionIndex = 0;
+            renderSections();
+            renderQuestion();
+            renderQuestionNavigator();
         }
     }, 1000);
 }
@@ -229,6 +331,24 @@ function updateTimerDisplay() {
 
 // Set up event listeners
 function setupEventListeners() {
+    // Section switching
+    elements.sections.addEventListener('click', (e) => {
+        const section = e.target.dataset.section;
+        if (!section) return;
+        
+        if (!state.isReview && section !== state.currentSection) {
+            alert("Section locked! Wait for timer to switch automatically.");
+            return;
+        }
+        
+        state.currentSection = section;
+        state.currentQuestionIndex = 0;
+        renderSections();
+        renderQuestion();
+        renderQuestionNavigator();
+        persistState();
+    });
+    
     // Mark for Review
     elements.markReviewBtn.addEventListener('click', () => {
         state.flags[state.currentSection][state.currentQuestionIndex] = 
@@ -256,8 +376,8 @@ function setupEventListeners() {
 }
 
 // Navigate between questions
-function navigate(offset) {
-    const newIndex = state.currentQuestionIndex + offset;
+function navigate(dir) {
+    const newIndex = state.currentQuestionIndex + dir;
     const questions = state.questions[state.currentSection];
     
     if (newIndex >= 0 && newIndex < questions.length) {
@@ -288,12 +408,19 @@ async function submitTest() {
                 day,
                 answers: state.answers,
                 flags: state.flags,
-                timeSpent: 7200 - state.timeLeft
+                timeSpent: 1800 - state.timeLeft
             })
         });
         
         const result = await response.json();
         if (result.success) {
+            localStorage.removeItem("testStartTime");
+            localStorage.removeItem(`mockState_${exam}_Day${day}`);
+            
+            const attempts = JSON.parse(localStorage.getItem(`mockAttempts_${exam}`) || '{}');
+            attempts[`mock${day}`] = 'completed';
+            localStorage.setItem(`mockAttempts_${exam}`, JSON.stringify(attempts));
+            
             alert("Test submitted successfully!");
             window.location.href = "/dashboard.html";
         } else {
@@ -341,6 +468,18 @@ async function checkAlreadySubmitted(exam, day, token) {
         console.error("Failed to check submission status:", error);
     }
 }
+
+// Error handler
+function showError(msg) {
+    alert(msg);
+}
+
+// Fix for browser back/forward navigation
+window.onpageshow = function (event) {
+    if (event.persisted) {
+        location.reload();
+    }
+};
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
