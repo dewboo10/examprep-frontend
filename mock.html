@@ -22,7 +22,6 @@
             animation: questionEntrance 0.3s ease-out;
         }
 
-        /* Custom checkbox for options */
         .option-card.correct {
             background: #dcfce7 !important;
             border-color: #22c55e !important;
@@ -31,13 +30,64 @@
             background: #fee2e2 !important;
             border-color: #ef4444 !important;
         }
+        
+        #instructions-modal {
+            transition: opacity 0.3s ease;
+        }
+        #countdown {
+            font-family: monospace;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Instruction Modal -->
+    <div id="instructions-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+            <div class="p-6 border-b">
+                <h2 class="text-2xl font-bold text-gray-800">Test Instructions</h2>
+            </div>
+            
+            <div class="p-6 overflow-y-auto flex-grow">
+                <div class="prose max-w-none">
+                    <h3 class="font-semibold text-lg">Important Information:</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>This test consists of multiple sections (VARC, LRDI, Quant).</li>
+                        <li>Each section has a fixed time limit.</li>
+                        <li>You cannot switch between sections manually - the system will auto-advance.</li>
+                        <li>Mark questions you want to review using the flag button.</li>
+                        <li>There is negative marking for wrong answers.</li>
+                    </ul>
+                    
+                    <h3 class="font-semibold text-lg mt-4">Navigation:</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Use Previous/Next buttons to move between questions.</li>
+                        <li>Answered questions will be marked green in the navigation.</li>
+                        <li>Unanswered questions will be marked red.</li>
+                    </ul>
+                    
+                    <h3 class="font-semibold text-lg mt-4">Scoring:</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Correct answer: +3 marks</li>
+                        <li>Wrong answer: -1 mark</li>
+                        <li>Unanswered question: 0 marks</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t flex justify-between items-center">
+                <div class="text-gray-600">
+                    Test will begin in <span id="countdown" class="font-bold">30</span> seconds
+                </div>
+                <button id="start-test-btn" disabled class="px-6 py-2 bg-blue-500 text-white rounded-lg opacity-50 cursor-not-allowed">
+                    Start Test
+                </button>
+            </div>
+        </div>
+    </div>
+
     <header class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <!-- <img src="logo.svg" alt="ExamPrepPro" class="h-8 w-8"> -->
                 <span class="text-xl font-bold text-gray-800">ExamPrepPro</span>
             </div>
             <div class="text-sm text-gray-600">
@@ -70,31 +120,20 @@
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
             <!-- Left Column (2/5) -->
             <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 question-entrance">
-              <div id="passage" class="mb-4 p-4 bg-gray-50 rounded-lg text-gray-600 space-y-2 hidden overflow-y-auto max-h-64">
-            </div>
-           </div>
-                 
-  <!-- MIDDLE: Question + Options -->
-  <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6 question-entrance">
-    <div class="mb-6">
-      <div class="flex items-center justify-between mb-4">
-        <span id="question-number" class="text-lg font-semibold text-gray-700">Question 1</span>
-        <span class="text-sm text-gray-500">Marks: +3 | -1</span>
-      </div>
-      <div id="question-text" class="text-gray-800 text-lg leading-relaxed"></div>
-    </div>
-    <div id="options" class="space-y-2"></div>
-  </div>
-                
-                <!-- Options -->
-                <div id="options" class="space-y-3"></div>
+                <div id="passage" class="mb-4 p-4 bg-gray-50 rounded-lg text-gray-600 space-y-2 hidden overflow-y-auto max-h-64"></div>
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span id="question-number" class="text-lg font-semibold text-gray-700">Question 1</span>
+                        <span class="text-sm text-gray-500">Marks: +3 | -1</span>
+                    </div>
+                    <div id="question-text" class="text-gray-800 text-lg leading-relaxed"></div>
+                </div>
+                <div id="options" class="space-y-2"></div>
             </div>
 
             <!-- Right Column (3/5) -->
             <div class="lg:col-span-3 bg-white rounded-xl shadow-sm p-6">
-                <div id="explanation" class="space-y-4">
-                    <!-- Explanation and video will be populated here -->
-                </div>
+                <div id="explanation" class="space-y-4"></div>
             </div>
         </div>
 

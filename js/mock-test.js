@@ -36,7 +36,8 @@ const elements = {
   resultContainer: document.getElementById('result-container'),
   scoreDisplay: document.getElementById('score-display'),
   detailedResults: document.getElementById('detailed-results'),
-  submitBtn: document.getElementById('submit-btn')
+  submitBtn: document.getElementById('submit-btn'),
+  passage: document.getElementById('passage')
 };
 
 // 🧠 Restore quiz state if it exists
@@ -62,15 +63,6 @@ function persistState() {
   localStorage.setItem(`mockState_${exam}_Day${day}`, JSON.stringify(state));
 }
 
-// 📦 Load from URL and store exam/day
-function getQueryParam(name) {
-  return new URLSearchParams(window.location.search).get(name);
-}
-const urlExam = getQueryParam('exam');
-const urlDay = getQueryParam('day');
-if (urlExam) localStorage.setItem('selectedExam', urlExam);
-if (urlDay) localStorage.setItem('selectedDay', urlDay);
-
 // 📚 Fetch questions from API
 async function loadQuestions() {
   try {
@@ -79,8 +71,7 @@ async function loadQuestions() {
     if (!exam || !token) throw new Error('Missing exam or login');
 
     const day = localStorage.getItem('selectedDay') || 1;
-const res = await fetch(`${API_BASE}/api/questions?exam=${exam}&day=${day}`, {
-
+    const res = await fetch(`${API_BASE}/api/questions?exam=${exam}&day=${day}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
 
@@ -106,20 +97,19 @@ function initializeAnswers() {
 }
 
 // 📂 Render section tabs
- 
 function renderSections() {
-    elements.sections.innerHTML = Object.keys(state.questions).map(section => `
-        <button class="px-4 py-2 rounded-lg transition-all 
-            ${section === state.currentSection ? 
-                'bg-blue-500 text-white' : 
-                'bg-gray-100 text-gray-700 hover:bg-gray-200'}
-            ${state.isReview ? 'cursor-pointer' : ''}"
-            data-section="${section}">
-            ${section}
-        </button>
-    `).join('');
+  elements.sections.innerHTML = Object.keys(state.questions).map(section => `
+    <button class="px-4 py-2 rounded-lg transition-all 
+      ${section === state.currentSection ? 
+        'bg-blue-500 text-white' : 
+        'bg-gray-100 text-gray-700 hover:bg-gray-200'}
+      ${state.isReview ? 'cursor-pointer' : ''}"
+      data-section="${section}">
+      ${section}
+    </button>
+  `).join('');
 }
-// ❓ Show one question
+
 // ❓ Show one question
 function renderQuestion() {
   const section = state.currentSection;
@@ -139,96 +129,80 @@ function renderQuestion() {
   elements.questionText.innerHTML = q.question;
   elements.options.innerHTML = '';
 
+  // Render options
   q.options.forEach((opt, idx) => {
     const btn = document.createElement('button');
     btn.className = `w-full p-4 text-left rounded-lg mb-2 transition-all option-card 
-        ${state.isReview ? 
-            (idx === q.answerIndex ? 'correct border-2' : 
-            (selected === idx ? 'wrong border-2' : 'bg-gray-50')) : 
-            'bg-gray-50 hover:bg-blue-50 cursor-pointer'}
-        ${selected === idx && !state.isReview ? 'border-blue-500 border-2' : ''}`;
+      ${state.isReview ? 
+        (idx === q.answerIndex ? 'correct border-2' : 
+        (selected === idx ? 'wrong border-2' : 'bg-gray-50')) : 
+        'bg-gray-50 hover:bg-blue-50 cursor-pointer'}
+      ${selected === idx && !state.isReview ? 'border-blue-500 border-2' : ''}`;
     
     btn.textContent = opt;
     
     if (!state.isReview) {
-        btn.onclick = () => selectAnswer(idx);
+      btn.onclick = () => selectAnswer(idx);
     }
 
     elements.options.appendChild(btn);
-});
+  });
+
   // Render passage if available
-if (q.passage) {
-  if (!elements.passage) elements.passage = document.getElementById('passage');
-
-  elements.passage.classList.remove('hidden'); // 👈 SHOW IT
-
-  if (Array.isArray(q.passage)) {
-    elements.passage.innerHTML = q.passage.map(p => `<p>${p}</p>`).join('');
-    elements.passage.innerHTML = `<h3 class="font-semibold mb-2 text-gray-700">Passage</h3><p>${q.passage}</p>`;
+  if (q.passage) {
+    elements.passage.classList.remove('hidden');
+    if (Array.isArray(q.passage)) {
+      elements.passage.innerHTML = q.passage.map(p => `<p>${p}</p>`).join('');
+    } else {
+      elements.passage.innerHTML = `<p>${q.passage}</p>`;
+    }
   } else {
-    elements.passage.innerHTML = `<p>${q.passage}</p>`;
-  }
-} else {
-  if (elements.passage) {
     elements.passage.innerHTML = '';
-    elements.passage.classList.add('hidden'); // 👈 HIDE IT if no passage
+    elements.passage.classList.add('hidden');
   }
-}
 
   // Render explanation in review mode
   if (state.isReview) {
-    // Clear existing explanation
-    elements.explanation.innerHTML = '';
-
-    // Explanation + Video Tabs
-    const explanationHTML = `
+    elements.explanation.innerHTML = `
       <div class="space-y-4">
         <div class="flex space-x-4 border-b mb-4">
           <button class="tab-btn py-2 px-4 ${
             q.videoUrl ? '' : 'hidden'
           }" data-tab="video">🎥 Video Solution</button>
-          <button class="tab-btn py-2 px-4 border-b-2 border-primary text-primary" data-tab="text">📖 Explanation</button>
+          <button class="tab-btn py-2 px-4 border-b-2 border-blue-500 text-blue-500" data-tab="text">📖 Explanation</button>
         </div>
         <div id="text-explanation" class="tab-content">
-          <p class="text-gray-700 dark:text-gray-200">${q.explanation || 'No explanation available.'}</p>
+          <p class="text-gray-700">${q.explanation || 'No explanation available.'}</p>
         </div>
         <div id="video-explanation" class="tab-content hidden"></div>
       </div>
     `;
 
-    elements.explanation.innerHTML = explanationHTML;
-
     // Load video if available
-    // In renderQuestion function - Video explanation
-if (q.videoUrl) {
-  const videoId = extractYouTubeId(q.videoUrl);
-  const startTime = q.videoStart || 0;
-  
-  if (videoId) {
-    elements.explanation.innerHTML += `
-      <div class="mt-6 pt-4 border-t">
-        <h3 class="text-lg font-semibold mb-4">Video Solution</h3>
-        <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden">
-          <iframe 
-            class="w-full h-full"
-            src="https://www.youtube.com/embed/${videoId}?start=${startTime}&rel=0"
-            title="Video explanation"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    `;
-  } else {
-    console.warn("Invalid YouTube video URL:", q.videoUrl);
-  }
-}
+    if (q.videoUrl) {
+      const videoId = extractYouTubeId(q.videoUrl);
+      const startTime = q.videoStart || 0;
+      
+      if (videoId) {
+        document.getElementById('video-explanation').innerHTML = `
+          <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden">
+            <iframe 
+              class="w-full h-full"
+              src="https://www.youtube.com/embed/${videoId}?start=${startTime}&rel=0"
+              title="Video explanation"
+              allowfullscreen>
+            </iframe>
+          </div>
+        `;
+      }
+    }
 
     // Tab switching logic
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => 
-          b.classList.remove('border-primary', 'text-primary'));
-        btn.classList.add('border-primary', 'text-primary');
+          b.classList.remove('border-blue-500', 'text-blue-500'));
+        btn.classList.add('border-blue-500', 'text-blue-500');
 
         document.querySelectorAll('.tab-content').forEach(c =>
           c.classList.add('hidden'));
@@ -238,12 +212,12 @@ if (q.videoUrl) {
     });
   }
 }
-// Add this helper function at the bottom of mock-test.js
 
 // 🎯 Select answer
 function selectAnswer(index) {
   state.answers[state.currentSection][state.currentQuestionIndex] = index;
   renderQuestion();
+  persistState();
 }
 
 // 🚩 Toggle mark
@@ -251,6 +225,7 @@ function toggleFlag() {
   const flags = state.flags[state.currentSection];
   flags[state.currentQuestionIndex] = !flags[state.currentQuestionIndex];
   renderQuestion();
+  persistState();
 }
 
 // ⬅️➡️ Navigation
@@ -329,8 +304,8 @@ function updateTimerDisplay(remainingSeconds = 1800) {
   const s = String(remainingSeconds % 60).padStart(2, '0');
   elements.timer.textContent = `${m}:${s}`;
 }
-// ✅ Submit
 
+// ✅ Submit
 async function submitTest() {
   if (state.isReview) return;
 
@@ -367,12 +342,12 @@ async function submitTest() {
     state.isReview = true;
     elements.submitBtn.style.display = 'none';
     renderQuestion();
-    alert("✅ Test auto-submitted. You're now in review mode.");
   } catch (err) {
     console.error("❌ Submission failed:", err);
     showError("❌ Submission failed.");
   }
 }
+
 // 🚫 Error handler
 function showError(msg) {
   alert(msg);
@@ -392,31 +367,74 @@ async function init() {
   const exam = localStorage.getItem('selectedExam');
   const day = localStorage.getItem('selectedDay') || 1;
 
-const attempts = JSON.parse(localStorage.getItem(`mockAttempts_${exam}`) || '{}');
-state.isReview = attempts[`mock${day}`] === 'completed';
+  const attempts = JSON.parse(localStorage.getItem(`mockAttempts_${exam}`) || '{}');
+  state.isReview = attempts[`mock${day}`] === 'completed';
 
+  // If in review mode, skip the modal
+  if (state.isReview) {
+    await initializeTest();
+    return;
+  }
+
+  // Show instructions modal
+  const modal = document.getElementById('instructions-modal');
+  const startBtn = document.getElementById('start-test-btn');
+  const countdownEl = document.getElementById('countdown');
+
+  let countdown = 30;
+  const countdownInterval = setInterval(() => {
+    countdown--;
+    countdownEl.textContent = countdown;
+    
+    if (countdown <= 0) {
+      clearInterval(countdownInterval);
+      startBtn.disabled = false;
+      startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      startBtn.classList.add('hover:bg-blue-600');
+    }
+  }, 1000);
+
+  // Start test immediately if user clicks button
+  startBtn.addEventListener('click', async () => {
+    clearInterval(countdownInterval);
+    modal.style.opacity = '0';
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+    await initializeTest();
+  });
+
+  // Load questions in background while showing modal
   try {
     const persisted = loadPersistedState();
-    if (!persisted) await loadQuestions();
-
-    initializeAnswers();
-    setupEventListeners();
-    renderSections();
-    renderQuestion();
-    updateTimerDisplay();
-
-    if (!state.isReview) startTestTimer();
-
-    else elements.submitBtn.style.display = 'none';
-
+    if (!persisted) {
+      await loadQuestions(); // This happens while modal is visible
+    }
   } catch (err) {
-    showError("❌ Failed to initialize test.");
+    showError("❌ Failed to load questions.");
     console.error(err);
   }
 }
 
-document.addEventListener('DOMContentLoaded', init);
+// New function to initialize test after modal
+async function initializeTest() {
+  initializeAnswers();
+  setupEventListeners();
+  renderSections();
+  renderQuestion();
+  updateTimerDisplay();
 
+  if (!state.isReview) startTestTimer();
+  else elements.submitBtn.style.display = 'none';
+  
+  // Update exam label if needed
+  const examLabel = document.getElementById('exam-label');
+  if (examLabel) {
+    examLabel.textContent = localStorage.getItem('selectedExam') || 'CAT 2024';
+  }
+}
+
+// Helper function
 function extractYouTubeId(url) {
   const regex = /(?:youtube\.com.*[?&]v=|youtu\.be\/)([^"&?/\s]{11})/;
   const match = url.match(regex);
@@ -425,7 +443,7 @@ function extractYouTubeId(url) {
 
 async function checkAlreadySubmitted(exam, day, token) {
   try {
-    const res = await fetch("https://examprep-backend.onrender.com/api/mock", {
+    const res = await fetch(`${API_BASE}/api/mock`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -440,8 +458,8 @@ async function checkAlreadySubmitted(exam, day, token) {
     );
 
     if (match) {
-      alert("❌ You’ve already submitted this mock test. You can review it from the dashboard.");
-      window.location.href = "/dashboard.html"; // or show review page
+      alert("❌ You've already submitted this mock test. You can review it from the dashboard.");
+      window.location.href = "/dashboard.html";
     }
   } catch (err) {
     console.error("❌ Failed to check submission status:", err);
@@ -449,9 +467,12 @@ async function checkAlreadySubmitted(exam, day, token) {
     window.location.href = "/dashboard.html";
   }
 }
-// Fix for browser back/forward navigation (to re-trigger fetch)
+
+// Fix for browser back/forward navigation
 window.onpageshow = function (event) {
   if (event.persisted) {
     location.reload();
   }
 };
+
+document.addEventListener('DOMContentLoaded', init);
