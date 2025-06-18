@@ -97,6 +97,7 @@ const hideLoader = () => {
       btn.textContent = sec;
       btn.className = "px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition";
       btn.onclick = () => {
+        console.log(`Switching to section: ${sec}, resetting currentIndex to 0`);
         currentSection = sec;
         currentIndex = 0;
         renderQuestion();
@@ -134,6 +135,7 @@ const hideLoader = () => {
   const embedUrl = videoUrl ? videoUrl.replace("watch?v=", "embed/") + `?start=${videoStart}` : "";
 
   // Update question number
+  console.log(`Rendering question: Section=${currentSection}, Index=${currentIndex}, Question Number=${currentIndex + 1}`);
   document.getElementById("question-number").textContent = currentIndex + 1;
 
   // Update explanation text
@@ -216,6 +218,7 @@ const hideLoader = () => {
         btn.onclick = () => {
           currentIndex = idx;
           renderQuestion();
+          renderNavigator();
         };
         nav.appendChild(btn);
       });
@@ -225,6 +228,7 @@ const hideLoader = () => {
       const qList = sectionMap[currentSection];
       if (currentIndex < qList.length - 1) {
         currentIndex++;
+        console.log(`Next button: currentIndex now ${currentIndex}`);
         renderQuestion();
         renderNavigator();
       }
@@ -233,6 +237,7 @@ const hideLoader = () => {
     document.getElementById("prev-btn").onclick = () => {
       if (currentIndex > 0) {
         currentIndex--;
+        console.log(`Prev button: currentIndex now ${currentIndex}`);
         renderQuestion();
         renderNavigator();
       }
