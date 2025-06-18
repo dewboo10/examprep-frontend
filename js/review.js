@@ -124,67 +124,73 @@ const hideLoader = () => {
     }
 
     function renderQuestion() {
-      const qList = sectionMap[currentSection];
-      const q = qList[currentIndex];
-      const userAns = userAnswers[currentSection][currentIndex];
-      const correctAns = q.answerIndex;
-      const explanation = q.explanation || "No explanation available.";
-      const videoUrl = q.videoUrl || "";
-      const videoStart = q.videoStart || 0;
-      const embedUrl = videoUrl ? videoUrl.replace("watch?v=", "embed/") + `?start=${videoStart}` : "";
+  const qList = sectionMap[currentSection];
+  const q = qList[currentIndex];
+  const userAns = userAnswers[currentSection][currentIndex];
+  const correctAns = q.answerIndex;
+  const explanation = q.explanation || "No explanation available.";
+  const videoUrl = q.videoUrl || "";
+  const videoStart = q.videoStart || 0;
+  const embedUrl = videoUrl ? videoUrl.replace("watch?v=", "embed/") + `?start=${videoStart}` : "";
 
-      // Update explanation text
-      document.getElementById("explanation-text").textContent = explanation;
-      
-      // Update video
-      const videoFrame = document.getElementById("explanation-video");
-      const noVideoMsg = document.getElementById("no-video-message");
-      
-      if (embedUrl) {
-        videoFrame.src = embedUrl;
-        videoFrame.classList.remove("hidden");
-        noVideoMsg.classList.add("hidden");
-      } else {
-        videoFrame.classList.add("hidden");
-        noVideoMsg.classList.remove("hidden");
-      }
+  // Update explanation text
+  document.getElementById("explanation-text").textContent = explanation;
 
-      // Render question
-      const questionArea = document.getElementById("question-area");
-      questionArea.innerHTML = `
-        ${q.passage && q.passage.length > 0 ? `
-          <div class="bg-blue-50 p-4 rounded-lg mb-4">
-            ${q.passage.map(p => `<p class="mb-3 text-gray-700">${p}</p>`).join("")}
-          </div>
-        ` : ""}
-        <div class="text-lg font-medium text-gray-800">${q.question}</div>
-      `;
+  // Update video
+  const videoFrame = document.getElementById("explanation-video");
+  const noVideoMsg = document.getElementById("no-video-message");
 
-      // Render options
-      const optionsContainer = document.getElementById("options-container");
-      optionsContainer.innerHTML = q.options.map((opt, idx) => {
-        let base = "p-3 rounded-lg border-2 flex items-start";
-        let icon = "";
-        
-        if (idx === correctAns) {
-          base += " bg-green-50 border-green-400";
-          icon = `<i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>`;
-        } else if (idx === userAns) {
-          base += " bg-red-50 border-red-400";
-          icon = `<i class="fas fa-times-circle text-red-500 mr-3 mt-1"></i>`;
-        } else {
-          base += " border-gray-300";
-          icon = `<span class="mr-3 w-6 h-6 flex items-center justify-center">${String.fromCharCode(65 + idx)}.</span>`;
-        }
-        
-        return `
-          <div class="${base}">
-            ${icon}
-            <span class="flex-1">${opt}</span>
-          </div>
-        `;
-      }).join("");
+  if (embedUrl) {
+    videoFrame.src = embedUrl;
+    videoFrame.classList.remove("hidden");
+    noVideoMsg.classList.add("hidden");
+  } else {
+    videoFrame.classList.add("hidden");
+    noVideoMsg.classList.remove("hidden");
+  }
+
+  // ✅ FIXED: Now using q.passage instead of q.paragraph
+  let passageHTML = '';
+  if (q.passage && q.passage.length > 0) {
+    if (Array.isArray(q.passage)) {
+      passageHTML = q.passage.map(p => `<p class="mb-3 text-gray-700">${p}</p>`).join("");
+    } else {
+      passageHTML = `<p class="mb-3 text-gray-700">${q.passage}</p>`;
     }
+  }
+
+  // Render question
+  const questionArea = document.getElementById("question-area");
+  questionArea.innerHTML = `
+    ${passageHTML ? `<div class="bg-blue-50 p-4 rounded-lg mb-4">${passageHTML}</div>` : ""}
+    <div class="text-lg font-medium text-gray-800">${q.question}</div>
+  `;
+
+  // Render options
+  const optionsContainer = document.getElementById("options-container");
+  optionsContainer.innerHTML = q.options.map((opt, idx) => {
+    let base = "p-3 rounded-lg border-2 flex items-start";
+    let icon = "";
+
+    if (idx === correctAns) {
+      base += " bg-green-50 border-green-400";
+      icon = `<i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>`;
+    } else if (idx === userAns) {
+      base += " bg-red-50 border-red-400";
+      icon = `<i class="fas fa-times-circle text-red-500 mr-3 mt-1"></i>`;
+    } else {
+      base += " border-gray-300";
+      icon = `<span class="mr-3 w-6 h-6 flex items-center justify-center">${String.fromCharCode(65 + idx)}.</span>`;
+    }
+
+    return `
+      <div class="${base}">
+        ${icon}
+        <span class="flex-1">${opt}</span>
+      </div>
+    `;
+  }).join("");
+}
 
     function renderNavigator() {
       const nav = document.getElementById("navigator");
