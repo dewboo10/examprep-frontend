@@ -95,7 +95,7 @@ const hideLoader = () => {
     sections.forEach(sec => {
       const btn = document.createElement("button");
       btn.textContent = sec;
-      btn.className = "px-4 py-2 rounded-lg bg-white border border-indigo-300 text-indigo-700 font-medium hover:bg-indigo-50 transition";
+      btn.className = "px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition";
       btn.onclick = () => {
         currentSection = sec;
         currentIndex = 0;
@@ -133,6 +133,9 @@ const hideLoader = () => {
   const videoStart = q.videoStart || 0;
   const embedUrl = videoUrl ? videoUrl.replace("watch?v=", "embed/") + `?start=${videoStart}` : "";
 
+  // Update question number
+  document.getElementById("question-number").textContent = currentIndex + 1;
+
   // Update explanation text
   document.getElementById("explanation-text").textContent = explanation;
 
@@ -149,7 +152,8 @@ const hideLoader = () => {
     noVideoMsg.classList.remove("hidden");
   }
 
-  // ✅ FIXED: Now using q.passage instead of q.paragraph
+  // Render passage in separate box
+  const passageBox = document.getElementById("passage-box");
   let passageHTML = '';
   if (q.passage && q.passage.length > 0) {
     if (Array.isArray(q.passage)) {
@@ -158,13 +162,11 @@ const hideLoader = () => {
       passageHTML = `<p class="mb-3 text-gray-700">${q.passage}</p>`;
     }
   }
+  passageBox.innerHTML = passageHTML || '<p class="text-gray-500 italic">No passage for this question</p>';
 
-  // Render question
-  const questionArea = document.getElementById("question-area");
-  questionArea.innerHTML = `
-    ${passageHTML ? `<div class="bg-blue-50 p-4 rounded-lg mb-4">${passageHTML}</div>` : ""}
-    <div class="text-lg font-medium text-gray-800">${q.question}</div>
-  `;
+  // Render question in question box
+  const questionBox = document.getElementById("question-box");
+  questionBox.innerHTML = `<div class="text-lg font-medium text-gray-800">${q.question}</div>`;
 
   // Render options
   const optionsContainer = document.getElementById("options-container");
@@ -205,7 +207,7 @@ const hideLoader = () => {
         
         btn.className = `w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
           idx === currentIndex 
-            ? "ring-2 ring-indigo-500 ring-offset-2 scale-110" 
+            ? "ring-2 ring-blue-500 ring-offset-2 scale-110 bg-blue-500 text-white" 
             : isCorrect 
               ? "bg-green-100 text-green-800 border border-green-300" 
               : "bg-red-100 text-red-800 border border-red-300"
@@ -248,7 +250,7 @@ const hideLoader = () => {
     console.error("Review load error:", err);
     hideLoader();
     
-    document.getElementById("question-area").innerHTML = `
+    document.getElementById("question-box").innerHTML = `
       <div class="bg-red-50 border border-red-200 rounded-lg p-4">
         <p class="text-red-700 font-medium">❌ ${err.message || "Failed to load review data. Please try again."}</p>
         ${err.message.includes('token') ? '<p class="mt-2 text-sm">You may need to <a href="/login.html" class="text-indigo-600 underline">log in again</a>.</p>' : ''}

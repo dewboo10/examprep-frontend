@@ -48,28 +48,58 @@
 
   <!-- REAL CONTENT (initially hidden) -->
   <div id="main-content" class="hidden">
-    <div class="max-w-7xl mx-auto p-4 sm:p-6">
-      <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-indigo-800">Review Mode</h1>
-        <div class="flex gap-2" id="section-buttons">
+    <div class="container mx-auto px-4 py-6">
+      <!-- Top Bar -->
+      <div class="flex justify-between items-center mb-4 bg-white p-3 rounded shadow">
+        <div class="text-lg font-semibold">
+          <span id="current-section" class="section-active">VARC</span> | 
+          <span>Review Mode</span>
+        </div>
+        <div id="section-buttons" class="flex space-x-2">
           <!-- Section Switcher -->
         </div>
       </div>
-      
-      <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <!-- Left Column: Explanation & Video (2/5) -->
-        <div class="lg:col-span-2 bg-white rounded-xl shadow-md p-5 h-fit">
-          <div class="mb-6">
-            <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+
+      <!-- Three Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Left Column - Passage -->
+        <div class="bg-white p-4 rounded shadow question-entrance">
+          <div class="font-bold text-lg mb-4">Passage</div>
+          <div id="passage-box" class="h-[65vh] overflow-y-auto text-justify">
+            <!-- Passage content will be loaded here -->
+          </div>
+        </div>
+
+        <!-- Middle Column - Question & Explanation -->
+        <div class="bg-white p-4 rounded shadow question-entrance">
+          <div class="flex justify-between items-center mb-4">
+            <div class="font-bold text-lg">Question <span id="question-number">1</span></div>
+            <div class="text-sm">Marks: +3 | -1</div>
+          </div>
+          
+          <!-- Question Box -->
+          <div id="question-box" class="mb-6">
+            <!-- Question will render here -->
+          </div>
+          
+          <!-- Options Container -->
+          <div id="options-container" class="space-y-2 mb-6">
+            <!-- Options will render here -->
+          </div>
+          
+          <!-- Explanation Box -->
+          <div class="border-t pt-4">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
               <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Explanation
             </h3>
-            <div class="bg-blue-50 rounded-lg p-4 max-h-60 overflow-y-auto">
+            <div id="explanation-box" class="bg-gray-50 rounded-lg p-4 max-h-60 overflow-y-auto">
               <p id="explanation-text" class="text-gray-700"></p>
             </div>
           </div>
           
-          <div id="video-container">
-            <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+          <!-- Video Solution -->
+          <div id="video-container" class="mt-4">
+            <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
               <i class="fas fa-video text-red-500 mr-2"></i> Video Solution
             </h3>
             <div class="aspect-w-16 aspect-h-9 bg-gray-200 rounded-lg overflow-hidden">
@@ -79,42 +109,26 @@
               No video solution available
             </p>
           </div>
-        </div>
-        
-        <!-- Middle Column: Question & Options (2/5) -->
-        <div class="lg:col-span-2 bg-white rounded-xl shadow-md p-5">
-          <div class="mb-6">
-            <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
-              <i class="fas fa-question-circle text-indigo-600 mr-2"></i> Question
-            </h3>
-            <div id="question-area" class="bg-gray-50 rounded-lg p-4">
-              <!-- Question will render here -->
-            </div>
-          </div>
           
-          <div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
-              <i class="fas fa-list-ol text-purple-600 mr-2"></i> Options
-            </h3>
-            <div id="options-container" class="space-y-3">
-              <!-- Options will render here -->
-            </div>
+          <!-- Navigation Buttons -->
+          <div class="flex justify-between mt-8">
+            <button id="prev-btn" class="flex items-center bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded transition">
+              <i class="fas fa-arrow-left mr-2"></i> Previous
+            </button>
+            <button id="next-btn" class="flex items-center bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded transition">
+              Next <i class="fas fa-arrow-right ml-2"></i>
+            </button>
           </div>
         </div>
-        
-        <!-- Right Column: Question Navigator (1/5) -->
-        <div class="lg:col-span-1 bg-white rounded-xl shadow-md p-5 h-fit">
-          <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-            <i class="fas fa-map-marker-alt text-green-600 mr-2"></i> Navigation
-          </h3>
-          <div class="mb-4">
-            <h4 class="font-medium text-gray-700 mb-2">Current Section: <span id="current-section" class="font-bold text-indigo-700"></span></h4>
-          </div>
-          <div id="navigator" class="grid grid-cols-5 gap-2">
+
+        <!-- Right Column - Question Navigator -->
+        <div class="bg-white p-4 rounded shadow">
+          <div class="font-bold text-lg mb-4">Question Navigator</div>
+          <div class="grid grid-cols-4 gap-2" id="navigator">
             <!-- Question buttons go here -->
           </div>
           
-          <div class="mt-6 pt-4 border-t border-gray-200">
+          <div class="mt-6 border-t pt-4">
             <h4 class="font-medium text-gray-700 mb-3">Progress Summary</h4>
             <div class="space-y-2">
               <div class="flex justify-between">
@@ -137,16 +151,6 @@
           </div>
         </div>
       </div>
-      
-      <!-- Navigation Buttons -->
-      <div class="flex justify-between mt-6">
-        <button id="prev-btn" class="flex items-center bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-lg transition">
-          <i class="fas fa-arrow-left mr-2"></i> Previous
-        </button>
-        <button id="next-btn" class="flex items-center bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-lg transition">
-          Next <i class="fas fa-arrow-right ml-2"></i>
-        </button>
-      </div>
     </div>
   </div>
 
@@ -154,16 +158,55 @@
 
   <style>
     /* Animation keyframes */
-    /* Add this to your style section */
-body {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
+    @keyframes questionEntrance {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-#pageLoader {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+    :root {
+      --primary: #3b82f6;
+      --secondary: #f59e0b;
+      --correct: #10b981;
+      --wrong: #ef4444;
+    }
+
+    .question-entrance {
+      animation: questionEntrance 0.3s ease-out;
+    }
+
+    .option-card.correct {
+      background: #dcfce7 !important;
+      border-color: #22c55e !important;
+    }
+    .option-card.wrong {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+    }
+    
+    .answered {
+      background-color: #10b981;
+      color: white;
+    }
+    .not-answered {
+      background-color: #ef4444;
+      color: white;
+    }
+    .section-active {
+      color: #ef4444;
+      font-weight: bold;
+    }
+
+    /* Animation keyframes */
+    body {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    #pageLoader {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
     @keyframes spin-smooth {
       to { transform: rotate(360deg); }
     }
