@@ -192,24 +192,45 @@ function renderQuestionNavigator() {
 }
 
 // Render current question
+// Render current question
 function renderQuestion() {
     const question = state.questions[state.currentSection][state.currentQuestionIndex];
-    
+
     // Update question number
     elements.questionNumber.textContent = state.currentQuestionIndex + 1;
-    
-    // Render passage if available
-    if (question.passage) {
-        elements.passage.innerHTML = Array.isArray(question.passage) ? 
-            question.passage.map(p => `<p class="mb-3">${p}</p>`).join('') : 
-            `<p>${question.passage}</p>`;
+
+    // Render passage + image
+    elements.passage.innerHTML = ''; // Clear previous
+
+    if (question.passage || question.img) {
+        let passageHTML = '';
+
+        // If passage is an array of strings
+        if (Array.isArray(question.passage)) {
+            passageHTML += question.passage.map(p => `<p class="mb-3">${p}</p>`).join('');
+        }
+        // If passage is a single string
+        else if (typeof question.passage === 'string') {
+            // Convert newlines (\n or \\n) into <br>
+            const formatted = question.passage.replace(/\\n/g, '<br><br>');
+            passageHTML += `<p class="mb-3">${formatted}</p>`;
+        }
+
+        // If image is present, add image HTML
+        if (question.img) {
+            passageHTML += `<img src="${question.img}" alt="diagram" class="mt-4 max-w-full rounded border shadow">`;
+        }
+
+        elements.passage.innerHTML = passageHTML;
+        elements.passage.classList.remove('hidden');
     } else {
         elements.passage.innerHTML = '';
+        elements.passage.classList.add('hidden');
     }
-    
+
     // Render question text
     elements.questionText.innerHTML = question.question;
-    
+
     // Render options
     elements.options.innerHTML = '';
     question.options.forEach((option, index) => {
@@ -218,7 +239,7 @@ function renderQuestion() {
             ${state.isReview ? 
                 (index === question.answerIndex ? 'correct' : 
                 (state.answers[state.currentSection][state.currentQuestionIndex] === index ? 'wrong' : '')) : ''}`;
-        
+
         const input = document.createElement('input');
         input.type = 'radio';
         input.name = 'option';
@@ -228,19 +249,21 @@ function renderQuestion() {
             input.checked = true;
         }
         input.addEventListener('change', () => selectAnswer(index));
-        
+
         const label = document.createElement('label');
         label.className = 'flex-1';
         label.textContent = option;
         label.addEventListener('click', () => selectAnswer(index));
-        
+
         div.appendChild(input);
         div.appendChild(label);
         elements.options.appendChild(div);
     });
-    
+
     // Update section name
     elements.currentSection.textContent = state.currentSection;
+
+    // Update navigator colors
     updateQuestionNavigator();
 }
 
