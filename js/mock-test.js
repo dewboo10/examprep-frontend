@@ -192,7 +192,6 @@ function renderQuestionNavigator() {
 }
 
 // Render current question
-// Render current question
 function renderQuestion() {
     const question = state.questions[state.currentSection][state.currentQuestionIndex];
 
@@ -211,8 +210,8 @@ function renderQuestion() {
         }
         // If passage is a single string
         else if (typeof question.passage === 'string') {
-            // Convert newlines (\n or \\n) into <br>
-            const formatted = question.passage.replace(/\\n/g, '<br><br>');
+            // Convert actual newlines into <br><br> for proper paragraph spacing
+            const formatted = question.passage.replace(/\n/g, '<br><br>');
             passageHTML += `<p class="mb-3">${formatted}</p>`;
         }
 
@@ -266,7 +265,6 @@ function renderQuestion() {
     // Update navigator colors
     updateQuestionNavigator();
 }
-
 // Update question navigator styles
 function updateQuestionNavigator() {
     const buttons = elements.questionNavigator.querySelectorAll('button');
