@@ -296,6 +296,8 @@ window.onpageshow = function (event) {
   }
 };
 // Sidebar toggle for mobile
+// Ensures sidebar is hidden by default on mobile and only toggled by the menu button
+// Sidebar is always visible on desktop (md:block)
 document.addEventListener('DOMContentLoaded', () => {
   const sidebarToggle = document.getElementById('mobile-menu-button');
   const sidebar = document.getElementById('sidebar');
