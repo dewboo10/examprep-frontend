@@ -8,77 +8,160 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen">
-  <!-- Hero Section -->
-  <section class="py-12 bg-gradient-to-r from-blue-100 to-purple-100 mb-8">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2 flex items-center justify-center gap-3">
-        <i class="fas fa-clock-rotate-left text-yellow-500"></i>
-        Previous Year Questions
-      </h1>
-      <p class="text-lg text-gray-700 max-w-2xl mx-auto">Practice with real questions from past years' exams. Select an exam to view and solve previous year papers with solutions and explanations.</p>
-    </div>
-  </section>
+  <!-- Mobile Menu Button -->
+  <button id="mobile-menu-button" class="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
+    <i class="fas fa-bars text-xl text-indigo-600"></i>
+  </button>
 
-  <!-- Exam Grid -->
-  <section class="container mx-auto px-4 mb-16">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- CAT -->
-      <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-blue-500">
-        <i class="fas fa-graduation-cap text-3xl text-blue-600 mb-3"></i>
-        <h2 class="text-xl font-bold mb-1">CAT</h2>
-        <p class="text-gray-600 text-sm mb-2">Common Admission Test</p>
-        <span class="inline-block bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">MBA</span>
-      </a>
-      <!-- SSC -->
-      <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-green-500">
-        <i class="fas fa-briefcase text-3xl text-green-600 mb-3"></i>
-        <h2 class="text-xl font-bold mb-1">SSC</h2>
-        <p class="text-gray-600 text-sm mb-2">Staff Selection Commission</p>
-        <span class="inline-block bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full">Government</span>
-      </a>
-      <!-- Banking -->
-      <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-yellow-500">
-        <i class="fas fa-university text-3xl text-yellow-600 mb-3"></i>
-        <h2 class="text-xl font-bold mb-1">Banking</h2>
-        <p class="text-gray-600 text-sm mb-2">IBPS, SBI, RBI, etc.</p>
-        <span class="inline-block bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full">Finance</span>
-      </a>
-      <!-- UPSC -->
-      <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-red-500">
-        <i class="fas fa-landmark text-3xl text-red-600 mb-3"></i>
-        <h2 class="text-xl font-bold mb-1">UPSC</h2>
-        <p class="text-gray-600 text-sm mb-2">Civil Services Exam</p>
-        <span class="inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full">IAS/IPS</span>
-      </a>
-      <!-- Railway -->
-      <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-indigo-500">
-        <i class="fas fa-train text-3xl text-indigo-600 mb-3"></i>
-        <h2 class="text-xl font-bold mb-1">Railway</h2>
-        <p class="text-gray-600 text-sm mb-2">RRB NTPC, Group D, etc.</p>
-        <span class="inline-block bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full">Transport</span>
-      </a>
-      <!-- State Exams -->
-      <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-pink-500">
-        <i class="fas fa-map-marked-alt text-3xl text-pink-600 mb-3"></i>
-        <h2 class="text-xl font-bold mb-1">State PSC</h2>
-        <p class="text-gray-600 text-sm mb-2">State Public Service Commissions</p>
-        <span class="inline-block bg-pink-100 text-pink-700 text-xs px-3 py-1 rounded-full">State Govt</span>
-      </a>
-      <!-- NET/JRF -->
-      <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-purple-500">
-        <i class="fas fa-chalkboard-teacher text-3xl text-purple-600 mb-3"></i>
-        <h2 class="text-xl font-bold mb-1">UGC NET/JRF</h2>
-        <p class="text-gray-600 text-sm mb-2">Lectureship & Research</p>
-        <span class="inline-block bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full">Academics</span>
-      </a>
-      <!-- Other Exams -->
-      <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-gray-500">
-        <i class="fas fa-question-circle text-3xl text-gray-600 mb-3"></i>
-        <h2 class="text-xl font-bold mb-1">Other Exams</h2>
-        <p class="text-gray-600 text-sm mb-2">More coming soon...</p>
-        <span class="inline-block bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full">General</span>
-      </a>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="hidden md:block fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-40 p-4 flex flex-col overflow-y-auto">
+    <div class="flex items-center mb-6">
+      <h1 class="text-2xl font-bold gradient-text">Exam Prep</h1>
     </div>
-  </section>
+    <!-- User Profile -->
+    <div class="flex items-center mb-6 p-3 bg-indigo-50 rounded-lg">
+      <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mr-2">
+        <i class="fas fa-user-graduate text-lg"></i>
+      </div>
+      <div>
+        <p class="font-semibold text-sm" id="username">User</p>
+        <p class="text-xs text-gray-500">Premium Member</p>
+      </div>
+    </div>
+    <!-- Navigation Links (scrollable if needed) -->
+    <nav class="space-y-1 mb-2 pb-2 border-b border-gray-200 flex-1 min-h-0 hide-scrollbar">
+      <a href="dashboard.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-home mr-2"></i>
+        Dashboard
+      </a>
+      <a href="select-exam.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-list-ol mr-2"></i>
+        Select Exam
+      </a>
+      <a href="performance.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-chart-bar mr-2"></i>
+        Performance
+      </a>
+      <a href="mock-test.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-book-open mr-2"></i>
+        Practice Tests
+      </a>
+      <a href="leaderBoard.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-trophy mr-2"></i>
+        Leaderboard
+      </a>
+      <a href="practice-quant.html" class="menu-item flex items-center p-2 rounded-lg text-blue-700 hover:bg-blue-50 font-semibold">
+        <i class="fas fa-book mr-2"></i>
+        Study Notes
+      </a>
+      <a href="previous-year.html" class="menu-item flex items-center p-2 rounded-lg bg-indigo-50 text-indigo-700 font-medium">
+        <i class="fas fa-clock-rotate-left mr-2"></i>
+        Previous Year Questions
+      </a>
+    </nav>
+    <!-- Bottom Card: Brain Games & Current Exam -->
+    <div class="mt-2 p-3 bg-gray-50 rounded-xl shadow border-t border-gray-200">
+      <div class="mb-2">
+        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 px-1">Brain Boosters</p>
+        <a href="braingames.html" class="brain-games-item flex items-center p-2 font-medium text-sm rounded-lg bg-purple-50 hover:bg-purple-100 transition">
+          <i class="fas fa-gamepad mr-2 text-lg"></i>
+          Brain Games
+          <span class="ml-auto bg-white text-purple-600 text-xs px-2 py-0.5 rounded-full ml-2">New</span>
+        </a>
+      </div>
+      <div class="p-2 bg-white rounded-lg">
+        <p class="text-xs font-medium text-gray-500 mb-1">Current Exam</p>
+        <p class="font-semibold text-sm" id="current-exam">CAT</p>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebarToggle = document.getElementById('mobile-menu-button');
+      const sidebar = document.getElementById('sidebar');
+      if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
+
+  <!-- Main content should have ml-0 md:ml-64 -->
+  <main class="ml-0 md:ml-64 ...">
+    <!-- Hero Section -->
+    <section class="py-12 bg-gradient-to-r from-blue-100 to-purple-100 mb-8">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2 flex items-center justify-center gap-3">
+          <i class="fas fa-clock-rotate-left text-yellow-500"></i>
+          Previous Year Questions
+        </h1>
+        <p class="text-lg text-gray-700 max-w-2xl mx-auto">Practice with real questions from past years' exams. Select an exam to view and solve previous year papers with solutions and explanations.</p>
+      </div>
+    </section>
+
+    <!-- Exam Grid -->
+    <section class="container mx-auto px-4 mb-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- CAT -->
+        <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-blue-500">
+          <i class="fas fa-graduation-cap text-3xl text-blue-600 mb-3"></i>
+          <h2 class="text-xl font-bold mb-1">CAT</h2>
+          <p class="text-gray-600 text-sm mb-2">Common Admission Test</p>
+          <span class="inline-block bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">MBA</span>
+        </a>
+        <!-- SSC -->
+        <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-green-500">
+          <i class="fas fa-briefcase text-3xl text-green-600 mb-3"></i>
+          <h2 class="text-xl font-bold mb-1">SSC</h2>
+          <p class="text-gray-600 text-sm mb-2">Staff Selection Commission</p>
+          <span class="inline-block bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full">Government</span>
+        </a>
+        <!-- Banking -->
+        <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-yellow-500">
+          <i class="fas fa-university text-3xl text-yellow-600 mb-3"></i>
+          <h2 class="text-xl font-bold mb-1">Banking</h2>
+          <p class="text-gray-600 text-sm mb-2">IBPS, SBI, RBI, etc.</p>
+          <span class="inline-block bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full">Finance</span>
+        </a>
+        <!-- UPSC -->
+        <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-red-500">
+          <i class="fas fa-landmark text-3xl text-red-600 mb-3"></i>
+          <h2 class="text-xl font-bold mb-1">UPSC</h2>
+          <p class="text-gray-600 text-sm mb-2">Civil Services Exam</p>
+          <span class="inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full">IAS/IPS</span>
+        </a>
+        <!-- Railway -->
+        <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-indigo-500">
+          <i class="fas fa-train text-3xl text-indigo-600 mb-3"></i>
+          <h2 class="text-xl font-bold mb-1">Railway</h2>
+          <p class="text-gray-600 text-sm mb-2">RRB NTPC, Group D, etc.</p>
+          <span class="inline-block bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full">Transport</span>
+        </a>
+        <!-- State Exams -->
+        <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-pink-500">
+          <i class="fas fa-map-marked-alt text-3xl text-pink-600 mb-3"></i>
+          <h2 class="text-xl font-bold mb-1">State PSC</h2>
+          <p class="text-gray-600 text-sm mb-2">State Public Service Commissions</p>
+          <span class="inline-block bg-pink-100 text-pink-700 text-xs px-3 py-1 rounded-full">State Govt</span>
+        </a>
+        <!-- NET/JRF -->
+        <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-purple-500">
+          <i class="fas fa-chalkboard-teacher text-3xl text-purple-600 mb-3"></i>
+          <h2 class="text-xl font-bold mb-1">UGC NET/JRF</h2>
+          <p class="text-gray-600 text-sm mb-2">Lectureship & Research</p>
+          <span class="inline-block bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full">Academics</span>
+        </a>
+        <!-- Other Exams -->
+        <a href="#" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 text-center border-t-4 border-gray-500">
+          <i class="fas fa-question-circle text-3xl text-gray-600 mb-3"></i>
+          <h2 class="text-xl font-bold mb-1">Other Exams</h2>
+          <p class="text-gray-600 text-sm mb-2">More coming soon...</p>
+          <span class="inline-block bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full">General</span>
+        </a>
+      </div>
+    </section>
+  </main>
 </body>
 </html> 
