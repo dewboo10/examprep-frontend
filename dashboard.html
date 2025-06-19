@@ -233,29 +233,8 @@
     <i class="fas fa-bars text-xl text-indigo-600"></i>
   </button>
 
-  <!-- Mobile Sidebar Overlay -->
-  <div id="mobileSidebar" class="fixed inset-0 z-50 bg-white transition-transform duration-300 transform translate-x-full md:hidden flex flex-col" style="height: 100vh; overflow-y: auto;">
-    <div class="flex items-center justify-between px-4 py-4 border-b">
-      <h2 class="text-xl font-bold text-indigo-700">Menu</h2>
-      <button id="closeMobileSidebar" class="text-gray-600 hover:text-red-500 text-2xl">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-2">
-      <a href="dashboard.html" class="menu-item flex items-center p-2 rounded-lg text-indigo-700 font-medium bg-indigo-50"><i class="fas fa-home mr-2"></i>Dashboard</a>
-      <a href="select-exam.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-list-ol mr-2"></i>Select Exam</a>
-      <a href="performance.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-chart-bar mr-2"></i>Performance</a>
-      <a href="mock-test.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-book-open mr-2"></i>Practice Tests</a>
-      <a href="leaderBoard.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-trophy mr-2"></i>Leaderboard</a>
-      <a href="practice-quant.html" class="menu-item flex items-center p-2 rounded-lg text-blue-700 hover:bg-blue-50 font-semibold"><i class="fas fa-book mr-2"></i>Study Notes</a>
-      <a href="previous-year.html" class="menu-item flex items-center p-2 rounded-lg text-yellow-700 hover:bg-yellow-50 font-semibold"><i class="fas fa-clock-rotate-left mr-2"></i>Previous Year Questions</a>
-      <a href="braingames.html" class="menu-item flex items-center p-2 rounded-lg text-purple-700 hover:bg-purple-50 font-semibold"><i class="fas fa-gamepad mr-2"></i>Brain Games</a>
-    </nav>
-    <div class="px-4 py-2 text-xs text-gray-400 text-center border-t">Exam Prep &copy; 2024</div>
-  </div>
-
   <!-- Sidebar -->
-  <aside id="sidebar" class="hidden md:block fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-40 p-4 flex flex-col">
+  <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-40 p-4 flex flex-col overflow-y-auto">
     <div class="flex items-center mb-6">
       <h1 class="text-2xl font-bold gradient-text">Exam Prep</h1>
     </div>
@@ -270,7 +249,7 @@
       </div>
     </div>
     <!-- Navigation Links (scrollable if needed) -->
-    <nav class="space-y-1 mb-2 pb-2 border-b border-gray-200 overflow-y-auto flex-1 min-h-0 hide-scrollbar">
+    <nav class="space-y-1 mb-2 pb-2 border-b border-gray-200 flex-1 min-h-0 hide-scrollbar">
       <a href="#" class="menu-item flex items-center p-2 rounded-lg bg-indigo-50 text-indigo-700 font-medium">
         <i class="fas fa-home mr-2"></i>
         Dashboard
@@ -670,35 +649,6 @@ function displayQuizzes(quizzes, containerId) {
     container.appendChild(quizItem);
   });
 }
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const mobileSidebar = document.getElementById('mobileSidebar');
-    const openBtn = document.getElementById('mobile-menu-button');
-    const closeBtn = document.getElementById('closeMobileSidebar');
-    let scrollPosition = 0;
-    function openSidebar() {
-      scrollPosition = window.scrollY;
-      document.body.classList.add('sidebar-open');
-      document.body.style.top = `-${scrollPosition}px`;
-      mobileSidebar.classList.remove('translate-x-full');
-    }
-    function closeSidebar() {
-      document.body.classList.remove('sidebar-open');
-      mobileSidebar.classList.add('translate-x-full');
-      window.scrollTo(0, scrollPosition);
-      document.body.style.top = '';
-    }
-    if (openBtn && closeBtn && mobileSidebar) {
-      openBtn.addEventListener('click', openSidebar);
-      closeBtn.addEventListener('click', closeSidebar);
-    }
-    // Optional: close sidebar on nav link click (for SPA feel)
-    mobileSidebar.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeSidebar);
-    });
-  });
 </script>
 
 </body>
