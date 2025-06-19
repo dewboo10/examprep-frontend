@@ -443,7 +443,7 @@ async function submitTest() {
             localStorage.setItem(`mockAttempts_${exam}`, JSON.stringify(attempts));
             
             alert("Test submitted successfully!");
-            window.location.href = "/dashboard.html";
+            window.location.href = `review.html?exam=${exam}&day=${day}`;
         } else {
             throw new Error(result.message);
         }
