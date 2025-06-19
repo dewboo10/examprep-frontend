@@ -99,6 +99,117 @@
     left: 120%;
     transition: left 0.7s cubic-bezier(0.4,0,0.2,1);
   }
+  .modern-btn {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+    background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%);
+    color: #fff;
+    font-weight: 600;
+    transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+    z-index: 1;
+  }
+  .modern-btn:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.32) 40%, rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.0) 100%);
+    transform: rotate(25deg);
+    animation: shine-move 2.2s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+  }
+  @keyframes shine-move {
+    0% { left: -60%; }
+    100% { left: 100%; }
+  }
+  .modern-btn:hover, .modern-btn:focus {
+    box-shadow: 0 8px 32px 0 rgba(80, 40, 120, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
+    transform: translateY(-2px) scale(1.04);
+    background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%);
+  }
+  /* 1. Thin Shine for Explore All Brain Games */
+  .thin-shine-btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+    background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%);
+    color: #fff;
+    font-weight: 600;
+    transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+  }
+  .thin-shine-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -40%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 2;
+    transform: skewX(-20deg);
+    animation: thin-shine-move 2.2s linear infinite;
+  }
+  @keyframes thin-shine-move {
+    0% { left: -40%; }
+    100% { left: 120%; }
+  }
+  .thin-shine-btn:hover, .thin-shine-btn:focus {
+    box-shadow: 0 8px 32px 0 rgba(80, 40, 120, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
+    transform: translateY(-2px) scale(1.04);
+    background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%);
+  }
+
+  /* 2. Playful Bounce for Play Buttons */
+  .play-btn {
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.13), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+    background: linear-gradient(100deg, #a21caf 0%, #7c3aed 100%);
+    color: #fff;
+    font-weight: 600;
+    transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+  }
+  .play-btn:hover, .play-btn:focus {
+    animation: play-bounce 0.32s cubic-bezier(.36,1.56,.64,1) 1;
+    background: linear-gradient(100deg, #c026d3 0%, #9333ea 100%);
+    box-shadow: 0 8px 32px 0 rgba(130, 40, 180, 0.18), 0 3px 12px 0 rgba(0,0,0,0.13);
+  }
+  @keyframes play-bounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.12) rotate(-2deg); }
+    60% { transform: scale(0.96) rotate(2deg); }
+    100% { transform: scale(1); }
+  }
+
+  /* 3. Gentle Tilt/Shadow Pulse for Study Notes */
+  .notes-btn {
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 16px 0 rgba(40, 120, 200, 0.13), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+    background: linear-gradient(100deg, #2563eb 0%, #22d3ee 100%);
+    color: #fff;
+    font-weight: 600;
+    transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+  }
+  .notes-btn:hover, .notes-btn:focus {
+    animation: notes-tilt 0.38s cubic-bezier(.36,1.56,.64,1) 1;
+    background: linear-gradient(100deg, #1e40af 0%, #06b6d4 100%);
+    box-shadow: 0 12px 32px 0 rgba(40, 120, 200, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
+  }
+  @keyframes notes-tilt {
+    0% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(1.06) rotate(-2deg); }
+    60% { transform: scale(1.03) rotate(2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
 </style>
 
     
@@ -294,11 +405,7 @@
             <span class="hidden sm:inline">Sharpen your mind, boost your logic, and have fun with our collection of brain games.</span>
           </p>
         </div>
-        <a href="braingames.html" class="sparkle-btn inline-block mt-2 md:mt-0 bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 sm:px-8 sm:py-3 rounded-lg font-semibold shadow hover:from-purple-600 hover:to-indigo-700 transition-transform transform hover:scale-105 text-sm sm:text-base">
-          <span class="sparkle">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5L16 8l-4.5 1.5L10 14l-1.5-4.5L4 8l4.5-1.5L10 2z" fill="#fff8dc" stroke="#fbbf24" stroke-width="1.2"/></svg>
-          </span>
-          <span class="shimmer"></span>
+        <a href="braingames.html" class="thin-shine-btn mt-2 md:mt-0 px-4 py-2 sm:px-8 sm:py-3 text-sm sm:text-base shadow">
           Explore All Brain Games
         </a>
       </div>
@@ -310,11 +417,7 @@
             <span class="inline sm:hidden">Venn logic.</span>
             <span class="hidden sm:inline">Practice Venn diagram questions</span>
           </p>
-          <a href="games/venn-challenge.html" class="sparkle-btn mt-auto inline-flex items-center justify-center bg-purple-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-purple-700 text-xs sm:text-sm font-medium shadow transition-transform transform hover:scale-105">
-            <span class="sparkle">
-              <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5L16 8l-4.5 1.5L10 14l-1.5-4.5L4 8l4.5-1.5L10 2z" fill="#fff8dc" stroke="#fbbf24" stroke-width="1.2"/></svg>
-            </span>
-            <span class="shimmer"></span>
+          <a href="games/venn-challenge.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
             <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
           </a>
         </div>
@@ -324,11 +427,7 @@
             <span class="inline sm:hidden">3D cubes.</span>
             <span class="hidden sm:inline">Visualize and solve 3D cubes.</span>
           </p>
-          <a href="games/cube-visualizer.html" class="sparkle-btn mt-auto inline-flex items-center justify-center bg-blue-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-blue-700 text-xs sm:text-sm font-medium shadow transition-transform transform hover:scale-105">
-            <span class="sparkle">
-              <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5L16 8l-4.5 1.5L10 14l-1.5-4.5L4 8l4.5-1.5L10 2z" fill="#fff8dc" stroke="#fbbf24" stroke-width="1.2"/></svg>
-            </span>
-            <span class="shimmer"></span>
+          <a href="games/cube-visualizer.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
             <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
           </a>
         </div>
@@ -338,11 +437,7 @@
             <span class="inline sm:hidden">Fast math.</span>
             <span class="hidden sm:inline">Speed up your mental math.</span>
           </p>
-          <a href="games/quick-tables.html" class="sparkle-btn mt-auto inline-flex items-center justify-center bg-green-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-green-700 text-xs sm:text-sm font-medium shadow transition-transform transform hover:scale-105">
-            <span class="sparkle">
-              <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5L16 8l-4.5 1.5L10 14l-1.5-4.5L4 8l4.5-1.5L10 2z" fill="#fff8dc" stroke="#fbbf24" stroke-width="1.2"/></svg>
-            </span>
-            <span class="shimmer"></span>
+          <a href="games/quick-tables.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
             <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
           </a>
         </div>
@@ -352,11 +447,7 @@
             <span class="inline sm:hidden">Find the pattern.</span>
             <span class="hidden sm:inline">Identify and predict the next pattern in the sequence.</span>
           </p>
-          <a href="games/pattern-predictor.html" class="sparkle-btn mt-auto inline-flex items-center justify-center bg-pink-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-pink-700 text-xs sm:text-sm font-medium shadow transition-transform transform hover:scale-105">
-            <span class="sparkle">
-              <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5L16 8l-4.5 1.5L10 14l-1.5-4.5L4 8l4.5-1.5L10 2z" fill="#fff8dc" stroke="#fbbf24" stroke-width="1.2"/></svg>
-            </span>
-            <span class="shimmer"></span>
+          <a href="games/pattern-predictor.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
             <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
           </a>
         </div>
@@ -388,11 +479,7 @@
         <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Quantitative</h4>
         <p class="text-xs sm:text-sm text-blue-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
         <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Algebra, Geometry, more.</span> <span class="hidden sm:inline">Comprehensive notes, solved examples, and practice sets for Algebra, Geometry, Arithmetic, and more.</span></p>
-        <a href="practice-quant.html" class="sparkle-btn mt-auto block w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:from-blue-600 hover:to-blue-800 font-semibold flex items-center justify-center gap-2 shadow-md transition text-xs sm:text-base">
-          <span class="sparkle">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5L16 8l-4.5 1.5L10 14l-1.5-4.5L4 8l4.5-1.5L10 2z" fill="#fff8dc" stroke="#fbbf24" stroke-width="1.2"/></svg>
-          </span>
-          <span class="shimmer"></span>
+        <a href="practice-quant.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
           <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
         </a>
       </div>
@@ -407,11 +494,7 @@
         <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Verbal</h4>
         <p class="text-xs sm:text-sm text-purple-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
         <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Reading, Grammar, Vocab.</span> <span class="hidden sm:inline">Detailed notes, grammar rules, vocabulary lists, and reading strategies for Verbal Ability.</span></p>
-        <a href="practice-verbal.html" class="sparkle-btn mt-auto block w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:from-purple-600 hover:to-purple-800 font-semibold flex items-center justify-center gap-2 shadow-md transition text-xs sm:text-base">
-          <span class="sparkle">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5L16 8l-4.5 1.5L10 14l-1.5-4.5L4 8l4.5-1.5L10 2z" fill="#fff8dc" stroke="#fbbf24" stroke-width="1.2"/></svg>
-          </span>
-          <span class="shimmer"></span>
+        <a href="practice-verbal.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
           <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
         </a>
       </div>
@@ -426,11 +509,7 @@
         <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Logical</h4>
         <p class="text-xs sm:text-sm text-green-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
         <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Reasoning, puzzles, more.</span> <span class="hidden sm:inline">Reasoning concepts, solved puzzles, and practice questions for Logical Reasoning mastery.</span></p>
-        <a href="practice-logical.html" class="sparkle-btn mt-auto block w-full bg-gradient-to-r from-green-500 to-green-700 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:from-green-600 hover:to-green-800 font-semibold flex items-center justify-center gap-2 shadow-md transition text-xs sm:text-base">
-          <span class="sparkle">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5L16 8l-4.5 1.5L10 14l-1.5-4.5L4 8l4.5-1.5L10 2z" fill="#fff8dc" stroke="#fbbf24" stroke-width="1.2"/></svg>
-          </span>
-          <span class="shimmer"></span>
+        <a href="practice-logical.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
           <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
         </a>
       </div>
