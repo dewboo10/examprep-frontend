@@ -261,35 +261,48 @@
         Explore All Brain Games
       </a>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 mt-3 sm:mt-6">
-      <div class="bg-purple-50 rounded-xl p-4 sm:p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp">
-        <h4 class="font-bold text-purple-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-brain"></i> Venn Diagram</h4>
-        <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
-          <span class="inline sm:hidden">Venn logic puzzles.</span>
-          <span class="hidden sm:inline">Practice Venn diagram questions</span>
-        </p>
-        <a href="games/venn-challenge.html" class="mt-auto inline-flex items-center justify-center bg-purple-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-purple-700 text-xs sm:text-sm font-medium shadow transition-transform transform hover:scale-105">
-          <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+    <!-- Mobile: Horizontal scroll row -->
+    <div class="flex sm:hidden overflow-x-auto gap-x-3 pb-2 -mx-4 px-4">
+      <a href="games/venn-challenge.html" class="flex-shrink-0 bg-purple-50 rounded-xl p-3 flex flex-col items-center w-36 shadow-sm hover:-translate-y-1 transition-transform">
+        <i class="fas fa-brain text-purple-700 text-xl mb-1"></i>
+        <span class="font-bold text-purple-700 text-xs mb-1">Venn Diagram</span>
+        <span class="text-gray-600 text-xs mb-2">Venn logic</span>
+        <button class="bg-purple-600 text-white rounded px-2 py-1 text-xs flex items-center gap-1 hover:bg-purple-700"><i class="fas fa-play"></i>Play</button>
+      </a>
+      <a href="games/cube-visualizer.html" class="flex-shrink-0 bg-blue-50 rounded-xl p-3 flex flex-col items-center w-36 shadow-sm hover:-translate-y-1 transition-transform">
+        <i class="fas fa-cubes text-blue-700 text-xl mb-1"></i>
+        <span class="font-bold text-blue-700 text-xs mb-1">Cube Visualizer</span>
+        <span class="text-gray-600 text-xs mb-2">3D cubes</span>
+        <button class="bg-blue-600 text-white rounded px-2 py-1 text-xs flex items-center gap-1 hover:bg-blue-700"><i class="fas fa-play"></i>Play</button>
+      </a>
+      <a href="games/quick-tables.html" class="flex-shrink-0 bg-green-50 rounded-xl p-3 flex flex-col items-center w-36 shadow-sm hover:-translate-y-1 transition-transform">
+        <i class="fas fa-bolt text-green-700 text-xl mb-1"></i>
+        <span class="font-bold text-green-700 text-xs mb-1">Quick Tables</span>
+        <span class="text-gray-600 text-xs mb-2">Fast math</span>
+        <button class="bg-green-600 text-white rounded px-2 py-1 text-xs flex items-center gap-1 hover:bg-green-700"><i class="fas fa-play"></i>Play</button>
+      </a>
+    </div>
+    <!-- Desktop: Grid -->
+    <div class="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 mt-3 sm:mt-6">
+      <div class="bg-purple-50 rounded-xl p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp">
+        <h4 class="font-bold text-purple-700 mb-2 flex items-center gap-2 text-base"><i class="fas fa-brain"></i> Venn Diagram</h4>
+        <p class="text-gray-600 text-sm mb-4 flex-1">Practice Venn diagram questions</p>
+        <a href="games/venn-challenge.html" class="mt-auto inline-flex items-center justify-center bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 text-sm font-medium shadow transition-transform transform hover:scale-105">
+          <i class="fas fa-play mr-1"></i> Play
         </a>
       </div>
-      <div class="bg-blue-50 rounded-xl p-4 sm:p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.1s;">
-        <h4 class="font-bold text-blue-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-cubes"></i> Cube Visualizer</h4>
-        <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
-          <span class="inline sm:hidden">3D cube puzzles.</span>
-          <span class="hidden sm:inline">Visualize and solve 3D cubes.</span>
-        </p>
-        <a href="games/cube-visualizer.html" class="mt-auto inline-flex items-center justify-center bg-blue-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-blue-700 text-xs sm:text-sm font-medium shadow transition-transform transform hover:scale-105">
-          <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+      <div class="bg-blue-50 rounded-xl p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.1s;">
+        <h4 class="font-bold text-blue-700 mb-2 flex items-center gap-2 text-base"><i class="fas fa-cubes"></i> Cube Visualizer</h4>
+        <p class="text-gray-600 text-sm mb-4 flex-1">Visualize and solve 3D cubes.</p>
+        <a href="games/cube-visualizer.html" class="mt-auto inline-flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm font-medium shadow transition-transform transform hover:scale-105">
+          <i class="fas fa-play mr-1"></i> Play
         </a>
       </div>
-      <div class="bg-green-50 rounded-xl p-4 sm:p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.2s;">
-        <h4 class="font-bold text-green-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-bolt"></i> Quick Tables</h4>
-        <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
-          <span class="inline sm:hidden">Fast math drills.</span>
-          <span class="hidden sm:inline">Speed up your mental math.</span>
-        </p>
-        <a href="games/quick-tables.html" class="mt-auto inline-flex items-center justify-center bg-green-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded hover:bg-green-700 text-xs sm:text-sm font-medium shadow transition-transform transform hover:scale-105">
-          <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+      <div class="bg-green-50 rounded-xl p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.2s;">
+        <h4 class="font-bold text-green-700 mb-2 flex items-center gap-2 text-base"><i class="fas fa-bolt"></i> Quick Tables</h4>
+        <p class="text-gray-600 text-sm mb-4 flex-1">Speed up your mental math.</p>
+        <a href="games/quick-tables.html" class="mt-auto inline-flex items-center justify-center bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm font-medium shadow transition-transform transform hover:scale-105">
+          <i class="fas fa-play mr-1"></i> Play
         </a>
       </div>
     </div>
