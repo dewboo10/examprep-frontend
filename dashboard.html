@@ -45,6 +45,20 @@
     animation: progress 1.8s ease-in-out infinite;
     position: relative;
   }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  @keyframes fadein {
+    0% { opacity: 0; transform: translateY(10px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+  }
+  .animate-fadein {
+    animation: fadein 2.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
 </style>
 
     
@@ -57,89 +71,121 @@
   </button>
 
   <!-- Sidebar -->
-  <aside id="sidebar" class="hidden md:block fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-40 p-6">
-
-    <div class="flex items-center mb-8">
+  <aside id="sidebar" class="hidden md:block fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-40 p-4 flex flex-col">
+    <div class="flex items-center mb-6">
       <h1 class="text-2xl font-bold gradient-text">Exam Prep</h1>
     </div>
-    
     <!-- User Profile -->
-    <div class="flex items-center mb-8 p-4 bg-indigo-50 rounded-lg">
-      <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mr-3">
-        <i class="fas fa-user-graduate text-xl"></i>
+    <div class="flex items-center mb-6 p-3 bg-indigo-50 rounded-lg">
+      <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mr-2">
+        <i class="fas fa-user-graduate text-lg"></i>
       </div>
-      
       <div>
-        <p class="font-semibold" id="username">User</p>
+        <p class="font-semibold text-sm" id="username">User</p>
         <p class="text-xs text-gray-500">Premium Member</p>
       </div>
     </div>
-    
-    <a href="#" onclick="logout()" class="menu-item flex items-center p-3 rounded-lg text-red-600 hover:bg-red-100">
-  <i class="fas fa-sign-out-alt mr-3"></i>
-  Logout
-</a>
-
-    <!-- Navigation -->
-    <nav class="space-y-2 mb-4">
-      <a href="#" class="menu-item flex items-center p-3 rounded-lg bg-indigo-50 text-indigo-700 font-medium">
-        <i class="fas fa-home mr-3"></i>
+    <!-- Navigation Links (scrollable if needed) -->
+    <nav class="space-y-1 mb-2 pb-2 border-b border-gray-200 overflow-y-auto flex-1 min-h-0 hide-scrollbar">
+      <a href="#" class="menu-item flex items-center p-2 rounded-lg bg-indigo-50 text-indigo-700 font-medium">
+        <i class="fas fa-home mr-2"></i>
         Dashboard
       </a>
-      <a href="select-exam.html" class="menu-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100">
-        <i class="fas fa-list-ol mr-3"></i>
+      <a href="select-exam.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-list-ol mr-2"></i>
         Select Exam
       </a>
-      <a href="performance.html" class="menu-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100">
-        <i class="fas fa-chart-bar mr-3"></i>
+      <a href="performance.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-chart-bar mr-2"></i>
         Performance
       </a>
-      <a href="mock-test.html" class="menu-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100">
-        <i class="fas fa-book-open mr-3"></i>
+      <a href="mock-test.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-book-open mr-2"></i>
         Practice Tests
       </a>
-      <a href="leaderBoard.html" class="menu-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100">
-        <i class="fas fa-trophy mr-3"></i>
+      <a href="leaderBoard.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-trophy mr-2"></i>
         Leaderboard
       </a>
+      <a href="practice-quant.html" class="menu-item flex items-center p-2 rounded-lg text-blue-700 hover:bg-blue-50 font-semibold">
+        <i class="fas fa-book mr-2"></i>
+        Study Notes
+      </a>
+      <a href="previous-year.html" class="menu-item flex items-center p-2 rounded-lg text-yellow-700 hover:bg-yellow-50 font-semibold">
+        <i class="fas fa-clock-rotate-left mr-2"></i>
+        Previous Year Questions
+      </a>
     </nav>
-    
-    <!-- Brain Games Section -->
-    <div class="mb-4">
-      <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">Brain Boosters</p>
-      <a href="braingames.html" class="brain-games-item flex items-center p-3 font-medium">
-        <i class="fas fa-gamepad mr-3"></i>
-        Brain Games
-        <span class="ml-auto bg-white text-purple-600 text-xs px-2 py-1 rounded-full">New</span>
-      </a>
-    </div>
-    
-    <!-- Current Exam & Settings -->
-    <div class="mt-auto">
-      <div class="p-4 bg-gray-50 rounded-lg mb-4">
-        <p class="text-sm font-medium text-gray-500 mb-2">Current Exam</p>
-        <p class="font-semibold" id="current-exam">CAT</p>
+    <!-- Bottom Card: Brain Games & Current Exam -->
+    <div class="mt-2 p-3 bg-gray-50 rounded-xl shadow border-t border-gray-200">
+      <div class="mb-2">
+        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 px-1">Brain Boosters</p>
+        <a href="braingames.html" class="brain-games-item flex items-center p-2 font-medium text-sm rounded-lg bg-purple-50 hover:bg-purple-100 transition">
+          <i class="fas fa-gamepad mr-2 text-lg"></i>
+          Brain Games
+          <span class="ml-auto bg-white text-purple-600 text-xs px-2 py-0.5 rounded-full ml-2">New</span>
+        </a>
       </div>
-      
-      <a href="#" class="menu-item flex items-center p-3 rounded-lg text-gray-700 hover:bg-gray-100">
-        <i class="fas fa-cog mr-3"></i>
-        Settings
-      </a>
+      <div class="p-2 bg-white rounded-lg">
+        <p class="text-xs font-medium text-gray-500 mb-1">Current Exam</p>
+        <p class="font-semibold text-sm" id="current-exam">CAT</p>
+      </div>
     </div>
   </aside>
 
   <!-- Main Content (same as before) -->
   <main class="ml-0 md:ml-64 p-4 md:p-8 transition-all duration-300">
+    <!-- Hero Header Section (now inside main) -->
+    <section class="w-full mb-12 md:mb-16">
+      <div class="rounded-2xl bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-100 p-8 md:p-14 shadow flex flex-col items-center text-center relative overflow-hidden">
+        <h1 class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4 animate__animated animate__fadeInDown">
+          Premium-Quality Prep, Zero Price Tag – Start Today!
+        </h1>
+        <div class="relative h-8 md:h-10 flex items-center justify-center">
+          <span id="animated-tagline" class="text-base md:text-xl font-medium text-indigo-700 animate-fadein"></span>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Animated tagline rotation
+      document.addEventListener('DOMContentLoaded', function() {
+        const taglines = [
+          "Everything you need, nothing you don't.",
+          "Study free. Score high.",
+          "No subscription, no limits – just results."
+        ];
+        let idx = 0;
+        const taglineEl = document.getElementById('animated-tagline');
+        function showTagline() {
+          taglineEl.classList.remove('animate-fadein');
+          void taglineEl.offsetWidth; // trigger reflow
+          taglineEl.textContent = taglines[idx];
+          taglineEl.classList.add('animate-fadein');
+          idx = (idx + 1) % taglines.length;
+        }
+        showTagline();
+        setInterval(showTagline, 2600);
+      });
+    </script>
+    <style>
+      @keyframes fadein {
+        0% { opacity: 0; transform: translateY(10px); }
+        20% { opacity: 1; transform: translateY(0); }
+        80% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-10px); }
+      }
+      .animate-fadein {
+        animation: fadein 2.5s cubic-bezier(0.4,0,0.2,1);
+      }
+    </style>
+
     <!-- Header -->
     <header class="flex justify-between items-center mb-8">
       <div>
         <h2 class="text-2xl md:text-3xl font-bold" id="dashboard-title">Dashboard</h2>
         <p class="text-gray-600" id="dashboard-subtitle">Your preparation overview</p>
       </div>
-      <button class="flex items-center bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 ripple-button">
-        <i class="fas fa-plus mr-2"></i>
-        New Quiz
-      </button>
     </header>
     
   <div class="data-kpi px-4 py-6">
@@ -199,92 +245,100 @@
 
   </div>
 </div>
-  <!-- Daily Goal -->
-    <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-lg font-semibold">Daily Goal</h3>
-        <span id="goal-label" class="text-sm font-medium text-indigo-600">75% completed</span>
+  <!-- Brain Games Info Card (replaces Daily Goal) -->
+  <div class="bg-white p-8 rounded-2xl shadow-sm mb-12 md:mb-16">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-6">
+      <div>
+        <h3 class="text-xl font-bold text-purple-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-gamepad"></i> Hone Your Skills Through Games!
+        </h3>
+        <p class="text-gray-600 text-base max-w-xl">Sharpen your mind, boost your logic, and have fun with our collection of brain games.</p>
       </div>
-      <div class="w-full bg-gray-200 rounded-full h-2.5">
-        <div id="goal-bar" class="bg-indigo-600 h-2.5 rounded-full" style="width: 75%"></div>
+      <a href="braingames.html" class="inline-block mt-2 md:mt-0 bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-8 py-3 rounded-lg font-semibold shadow hover:from-purple-600 hover:to-indigo-700 transition-transform transform hover:scale-105">
+        Explore All Brain Games
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-6">
+      <div class="bg-purple-50 rounded-xl p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp">
+        <h4 class="font-bold text-purple-700 mb-2 flex items-center gap-2"><i class="fas fa-brain"></i> Venn Diagram</h4>
+        <p class="text-gray-600 text-xs mb-4 flex-1">Practice Venn diagram questions</p>
+        <a href="games/venn-challenge.html" class="mt-auto inline-flex items-center justify-center bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 text-xs font-medium shadow transition-transform transform hover:scale-105">
+          <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+        </a>
       </div>
-      <div class="flex justify-between mt-2 text-sm text-gray-500">
-        <span>2/3 quizzes</span>
-        <span>30/40 questions</span>
+      <div class="bg-blue-50 rounded-xl p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.1s;">
+        <h4 class="font-bold text-blue-700 mb-2 flex items-center gap-2"><i class="fas fa-cubes"></i> Cube Visualizer</h4>
+        <p class="text-gray-600 text-xs mb-4 flex-1">Visualize and solve 3D cubes.</p>
+        <a href="games/cube-visualizer.html" class="mt-auto inline-flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-xs font-medium shadow transition-transform transform hover:scale-105">
+          <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+        </a>
+      </div>
+      <div class="bg-green-50 rounded-xl p-6 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.2s;">
+        <h4 class="font-bold text-green-700 mb-2 flex items-center gap-2"><i class="fas fa-bolt"></i> Quick Tables</h4>
+        <p class="text-gray-600 text-xs mb-4 flex-1">Speed up your mental math.</p>
+        <a href="games/quick-tables.html" class="mt-auto inline-flex items-center justify-center bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-xs font-medium shadow transition-transform transform hover:scale-105">
+          <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+        </a>
       </div>
     </div>
-    
-<div class="bg-white p-6 rounded-xl shadow-sm mb-8">
-  <div class="flex justify-between items-center mb-4">
+  </div>
+
+<div class="bg-white p-8 rounded-2xl shadow-sm mb-12 md:mb-16">
+  <div class="flex justify-between items-center mb-6">
     <h3 class="text-lg font-semibold">Recent Quizzes</h3>
     <a href="#" class="text-sm font-medium text-indigo-600">View All</a>
   </div>
-  <div id="mock-quizzes" class="space-y-4">
+  <div id="mock-quizzes" class="space-y-6">
     <!-- Cards will be injected here -->
   </div>
 </div>
 
     <!-- Quiz Categories -->
-    <h3 class="text-lg font-semibold mb-4">Practice Areas</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-      <div class="exam-card p-6">
-        <div class="flex justify-between items-start mb-4">
-          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
-            <i class="fas fa-square-root-alt text-xl"></i>
+    <h3 class="text-lg font-semibold mb-6 md:mb-8">Study Notes & Practice Areas</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 md:mb-16">
+      <!-- Quantitative Card -->
+      <div class="exam-card p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mr-3">
+            <i class="fas fa-square-root-alt text-2xl"></i>
           </div>
-          <div class="relative w-12 h-12">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle class="text-gray-200" stroke-width="2" stroke="currentColor" fill="transparent" r="16" cx="18" cy="18"/>
-              <circle class="text-blue-600" stroke-width="2" stroke-dasharray="100, 100" stroke-dashoffset="25" stroke-linecap="round" stroke="currentColor" fill="transparent" r="16" cx="18" cy="18"/>
-              <text x="18" y="20" text-anchor="middle" font-size="10" fill="#4f46e5" font-weight="bold">75%</text>
-            </svg>
-          </div>
+          <span class="ml-auto bg-blue-600 text-white text-xs px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
         </div>
         <h4 class="text-xl font-bold text-gray-800 mb-2">Quantitative</h4>
-        <p class="text-gray-600 text-sm mb-4">Algebra, Geometry, Arithmetic</p>
-        <a href="practice-quant.html" class="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 ripple-button text-center">
-          Practice Now
+        <p class="text-sm text-blue-700 mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
+        <p class="text-gray-600 text-sm mb-4">Comprehensive notes, solved examples, and practice sets for Algebra, Geometry, Arithmetic, and more.</p>
+        <a href="practice-quant.html" class="mt-auto block w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-blue-800 font-semibold flex items-center justify-center gap-2 shadow-md transition">
+          <i class="fas fa-lightbulb"></i> Explore Study Notes
         </a>
       </div>
-      
-      <div class="exam-card p-6">
-        <div class="flex justify-between items-start mb-4">
-          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600">
-            <i class="fas fa-book text-xl"></i>
+      <!-- Verbal Card -->
+      <div class="exam-card p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mr-3">
+            <i class="fas fa-book text-2xl"></i>
           </div>
-          <div class="relative w-12 h-12">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle class="text-gray-200" stroke-width="2" stroke="currentColor" fill="transparent" r="16" cx="18" cy="18"/>
-              <circle class="text-purple-600" stroke-width="2" stroke-dasharray="100, 100" stroke-dashoffset="40" stroke-linecap="round" stroke="currentColor" fill="transparent" r="16" cx="18" cy="18"/>
-              <text x="18" y="20" text-anchor="middle" font-size="10" fill="#8b5cf6" font-weight="bold">60%</text>
-            </svg>
-          </div>
+          <span class="ml-auto bg-purple-600 text-white text-xs px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
         </div>
         <h4 class="text-xl font-bold text-gray-800 mb-2">Verbal</h4>
-        <p class="text-gray-600 text-sm mb-4">Reading, Grammar, Vocabulary</p>
-        <a href="practice-verbal.html" class="block w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 ripple-button text-center">
-          Practice Now
+        <p class="text-sm text-purple-700 mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
+        <p class="text-gray-600 text-sm mb-4">Detailed notes, grammar rules, vocabulary lists, and reading strategies for Verbal Ability.</p>
+        <a href="practice-verbal.html" class="mt-auto block w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-purple-800 font-semibold flex items-center justify-center gap-2 shadow-md transition">
+          <i class="fas fa-lightbulb"></i> Explore Study Notes
         </a>
       </div>
-      
-      <div class="exam-card p-6">
-        <div class="flex justify-between items-start mb-4">
-          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600">
-            <i class="fas fa-brain text-xl"></i>
+      <!-- Logical Card -->
+      <div class="exam-card p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mr-3">
+            <i class="fas fa-brain text-2xl"></i>
           </div>
-          <div class="relative w-12 h-12">
-            <svg class="w-full h-full" viewBox="0 0 36 36">
-              <circle class="text-gray-200" stroke-width="2" stroke="currentColor" fill="transparent" r="16" cx="18" cy="18"/>
-              <circle class="text-green-600" stroke-width="2" stroke-dasharray="100, 100" stroke-dashoffset="55" stroke-linecap="round" stroke="currentColor" fill="transparent" r="16" cx="18" cy="18"/>
-              <text x="18" y="20" text-anchor="middle" font-size="10" fill="#10b981" font-weight="bold">45%</text>
-            </svg>
-          </div>
+          <span class="ml-auto bg-green-600 text-white text-xs px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
         </div>
-      
         <h4 class="text-xl font-bold text-gray-800 mb-2">Logical</h4>
-        <p class="text-gray-600 text-sm mb-4">Puzzles, Patterns, Reasoning</p>
-        <a href="practice-logical.html" class="block w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 ripple-button text-center">
-          Practice Now
+        <p class="text-sm text-green-700 mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
+        <p class="text-gray-600 text-sm mb-4">Reasoning concepts, solved puzzles, and practice questions for Logical Reasoning mastery.</p>
+        <a href="practice-logical.html" class="mt-auto block w-full bg-gradient-to-r from-green-500 to-green-700 text-white px-4 py-2 rounded-lg hover:from-green-600 hover:to-green-800 font-semibold flex items-center justify-center gap-2 shadow-md transition">
+          <i class="fas fa-lightbulb"></i> Explore Study Notes
         </a>
       </div>
     </div>
@@ -361,6 +415,16 @@
     </div>
   </div>
 </div>
+
+<style>
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fadeInUp {
+    animation: fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1);
+  }
+</style>
 
 </body>
 </html>

@@ -235,7 +235,7 @@ function displayQuizzes(quizzes, containerId) {
           <p class="text-sm text-gray-500">Questions: ${totalQuestions}</p>
           <p class="text-xs text-gray-400">Submitted: ${formattedDate}</p>
         </div>
-        <a href="mock.html?exam=${quiz.exam}&day=${quiz.day}" class="text-sm text-blue-600 hover:underline">Review</a>
+        <a href="review.html?exam=${quiz.exam}&day=${quiz.day}" class="text-sm text-blue-600 hover:underline">Review</a>
       </div>
     `;
 
