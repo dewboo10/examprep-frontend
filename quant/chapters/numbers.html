@@ -217,11 +217,10 @@
         <!-- Header -->
         <header class="text-center mb-12">
             <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-                Number Theory
+                Number Systems
             </h1>
             <p class="text-gray-600 max-w-2xl mx-auto">
-                Master the fundamentals of number theory with our comprehensive guide.
-                Learn about number classifications, divisibility rules, and advanced concepts.
+                Number Systems is a vast and crucial topic in quantitative aptitude. Mastering concepts like divisibility, prime numbers, and remainder theorems through shortcuts can significantly improve your score. This guide covers the fundamentals up to advanced theorems to help you excel.
             </p>
         </header>
         
@@ -649,11 +648,52 @@
                             <p class="text-sm text-gray-600">This relationship is useful for finding LCM when HCF is known and vice versa</p>
                         </div>
                     </div>
+
+                    <div class="formula-box">
+                        <p class="font-semibold text-lg text-green-800">Key Formulas for LCM & HCF</p>
+                        <ul class="list-disc list-inside space-y-2 mt-2">
+                            <li>For any two numbers A and B: <br> \( \text{HCF}(A, B) \times \text{LCM}(A, B) = A \times B \)</li>
+                            <li>The greatest number that divides a, b, and c, leaving remainders x, y, and z respectively, is given by: <br> \( \text{HCF}(a-x, b-y, c-z) \)</li>
+                            <li>The greatest number that divides a, b, and c, leaving the same remainder in each case, is given by: <br> \( \text{HCF}(|a-b|, |b-c|, |c-a|) \)</li>
+                        </ul>
+                    </div>
+                    
+                    <h3 class="subsection-title mt-6">Co-prime Numbers</h3>
+                    <p>Two numbers are co-prime (or relatively prime) if their highest common factor (HCF) is 1. For example, (8, 9) and (15, 22) are co-prime pairs.</p>
+                     <div class="note-box">
+                        <p class="font-semibold">Property of Co-primes:</p>
+                        <p>If a number N is divisible by two co-prime numbers X and Y, then N is also divisible by their product, \( X \times Y \).</p>
+                    </div>
+                </section>
+
+                <!-- Prime and Composite Numbers -->
+                <section id="prime-composite" class="content-section card p-6">
+                    <h2 class="section-title">Prime & Composite Numbers</h2>
+                    <p>A <span class="font-semibold text-blue-600">prime number</span> is a natural number greater than 1 that has exactly two distinct factors: 1 and itself. Examples include 2, 3, 5, 7, 11. There are 25 prime numbers less than 100.</p>
+                    <p>A <span class="font-semibold text-blue-600">composite number</span> is a natural number greater than 1 that has more than two factors. Examples include 4, 6, 8, 9.</p>
+                    <p class="mt-2"><span class="font-semibold">Note:</span> The numbers 0 and 1 are neither prime nor composite.</p>
+
+                    <h3 class="subsection-title mt-6">Properties of Prime Numbers</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>To check if a number 'n' is prime, test for divisibility with all prime numbers less than or equal to \( \sqrt{n} \). If none of them divide n, then n is a prime number.</li>
+                        <li>All prime numbers greater than 3 can be expressed in the form \( 6k+1 \) or \( 6k-1 \), where k is an integer. However, the reverse is not always true.</li>
+                        <li>For any integer 'a' and a prime number 'p', the expression \( a^p - a \) is always divisible by p. This is a consequence of Fermat's Little Theorem.</li>
+                    </ul>
+
+                    <h3 class="subsection-title mt-6">Theorems on Prime Numbers</h3>
+                    <div class="formula-box">
+                        <p class="font-semibold text-lg text-green-800">Fermat's Little Theorem</p>
+                        <p>If p is a prime number, then for any integer a not divisible by p, the remainder of \( a^{p-1} \) when divided by p is 1. <br> \( a^{p-1} \equiv 1 \pmod{p} \)</p>
+                    </div>
+                    <div class="formula-box mt-4">
+                        <p class="font-semibold text-lg text-green-800">Wilson's Theorem</p>
+                        <p>For any prime number p, the remainder when \( (p-1)! \) is divided by p is always (p-1).<br> \( (p-1)! \equiv -1 \equiv (p-1) \pmod{p} \)</p>
+                    </div>
                 </section>
 
                 <!-- Remainder Theorems -->
                 <section id="remainder" class="content-section card p-6">
-                    <h2 class="section-title">4. Remainder Theorems & Modular Arithmetic</h2>
+                    <h2 class="section-title">4. Remainder Theorems</h2>
                     
                     <div class="practice-question">
                         <h3 class="subsection-title">(a) Basic Concepts</h3>
@@ -756,6 +796,23 @@
                             <p>If p is prime and a is not divisible by p, then a^(p-2) is the modular inverse of a modulo p.</p>
                             <p>That is, a × a^(p-2) ≡ 1 (mod p)</p>
                         </div>
+                    </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(e) Remainder of \( \frac{a^n + b^n}{a-b} \)</h3>
+                        <p class="text-gray-600">The remainder of \( \frac{a^n + b^n}{a-b} \) is \( 2b^n \) if n is odd, and 0 if n is even.</p>
+                    </div>
+
+                    <h3 class="subsection-title mt-6">Euler's Totient Theorem</h3>
+                    <p>Euler's totient function, denoted as \( \phi(N) \), counts the number of positive integers up to a given integer N that are relatively prime to N.</p>
+                    <p>If the prime factorization of N is \( N = a^p \cdot b^q \cdot c^r \ldots \), then the value of the totient function is:</p>
+                    <div class="formula-box">
+                        <p>\( \phi(N) = N \left(1 - \frac{1}{a}\right) \left(1 - \frac{1}{b}\right) \left(1 - \frac{1}{c}\right) \ldots \)</p>
+                    </div>
+                    <p class="mt-4">Euler's Remainder Theorem states that if M and N are co-prime integers, then the remainder when \( M^{\phi(N)} \) is divided by N is 1.</p>
+                    <div class="formula-box">
+                       <p>\( M^{\phi(N)} \equiv 1 \pmod{N} \)</p>
+                       <p class="text-sm">Note: If N is a prime number, \( \phi(N) = N-1 \), and Euler's theorem simplifies to Fermat's Little Theorem.</p>
                     </div>
                 </section>
 
@@ -862,178 +919,90 @@
                             <p>3. The unit digit will be the same as the unit digit of the base number raised to this remainder</p>
                         </div>
                     </div>
+
+                    <div class="practice-question">
+                        <h3 class="subsection-title">(d) A number represented in a decimal system is divisible by (b-1) if and only if the sum of its digits, when represented in base b, is divisible by (b-1).</h3>
+                    </div>
                 </section>
 
                 <!-- Advanced Concepts -->
                 <section id="advanced" class="content-section card p-6">
-                    <h2 class="section-title">6. Advanced Concepts (CAT/GMAT/GRE Level)</h2>
+                    <h2 class="section-title">6. Advanced Concepts: Factors & Factorials</h2>
                     
-                    <div class="practice-question">
-                        <h3 class="subsection-title">(a) Euler's Totient Function (ϕ(n))</h3>
-                        <p class="text-gray-600">Euler's Totient Function counts the numbers less than n that are coprime to n. It's fundamental in number theory and cryptography.</p>
-                        
-                        <div class="note-box">
-                            <p class="font-medium">Properties:</p>
-                            <ul class="list-disc list-inside space-y-2">
-                                <li>ϕ(1) = 1</li>
-                                <li>ϕ(p) = p-1 for prime p</li>
-                                <li>ϕ(mn) = ϕ(m) × ϕ(n) if m and n are coprime</li>
-                                <li>ϕ(p^k) = p^k - p^(k-1) for prime p</li>
-                            </ul>
-                        </div>
-
-                        <div class="formula-box">
-                            <p class="font-medium">Formula:</p>
-                            <p>For n = p₁^a × p₂^b × ...,</p>
-                            <p>ϕ(n) = n(1-1/p₁)(1-1/p₂)...</p>
-                        </div>
-
-                        <div class="example-box">
-                            <p class="font-medium">Example: Find ϕ(10)</p>
-                            <p>10 = 2 × 5</p>
-                            <p>ϕ(10) = 10 × (1-½)(1-⅕)</p>
-                            <p>= 10 × ½ × ⅘</p>
-                            <p>= 4</p>
-                            <p class="text-sm text-gray-600">Numbers coprime to 10: 1,3,7,9</p>
-                        </div>
+                    <h3 class="subsection-title">Number and Sum of Factors</h3>
+                    <p>If a number N can be expressed as a product of its prime factors as \( N = a^p \cdot b^q \cdot c^r \ldots \), then:</p>
+                    <div class="formula-box">
+                         <ul class="list-disc list-inside space-y-2">
+                            <li>Number of factors = \( (p+1)(q+1)(r+1)\ldots \)</li>
+                            <li>Sum of factors = \( \left(\frac{a^{p+1}-1}{a-1}\right) \left(\frac{b^{q+1}-1}{b-1}\right) \left(\frac{c^{r+1}-1}{c-1}\right) \ldots \)</li>
+                            <li>Product of factors = \( N^{\frac{\text{Number of factors}}{2}} \)</li>
+                            <li>A number is a perfect square if and only if it has an odd number of factors.</li>
+                         </ul>
                     </div>
 
-                    <div class="practice-question">
-                        <h3 class="subsection-title">(b) Number of Factors</h3>
-                        <p class="text-gray-600">The number of factors of a number can be found using its prime factorization. This is crucial in solving various number theory problems.</p>
-                        
-                        <div class="note-box">
-                            <p class="font-medium">Method:</p>
-                            <ol class="list-decimal list-inside space-y-2">
-                                <li>Find prime factorization</li>
-                                <li>Add 1 to each exponent</li>
-                                <li>Multiply these numbers</li>
-                            </ol>
-                        </div>
-
-                        <div class="example-box">
-                            <p class="font-medium">Example: Find number of factors of 24</p>
-                            <p>24 = 2³ × 3¹</p>
-                            <p>Number of factors = (3+1)(1+1) = 4 × 2 = 8</p>
-                            <p>Factors: 1,2,3,4,6,8,12,24</p>
-                        </div>
-
-                        <div class="formula-box">
-                            <p class="font-medium">Sum of Factors:</p>
-                            <p>If n = p₁^a × p₂^b × ...,</p>
-                            <p>Sum of factors = (p₁^(a+1)-1)/(p₁-1) × (p₂^(b+1)-1)/(p₂-1) × ...</p>
-                        </div>
+                    <h3 class="subsection-title mt-6">Number of Even & Odd Factors</h3>
+                    <p>If \( N = 2^p \cdot a^q \cdot b^r \ldots \) (where a, b are odd primes):</p>
+                    <div class="formula-box">
+                         <ul class="list-disc list-inside space-y-2">
+                            <li>Number of Even Factors = \( p(q+1)(r+1)\ldots \)</li>
+                            <li>Number of Odd Factors = \( (q+1)(r+1)\ldots \)</li>
+                         </ul>
                     </div>
 
-                    <div class="practice-question">
-                        <h3 class="subsection-title">(c) Chinese Remainder Theorem</h3>
-                        <p class="text-gray-600">This theorem provides a solution to simultaneous congruences with coprime moduli. It's essential in number theory and cryptography.</p>
-                        
-                        <div class="note-box">
-                            <p class="font-medium">Statement:</p>
-                            <p>If n₁, n₂, ..., nₖ are pairwise coprime integers, then for any integers a₁, a₂, ..., aₖ, there exists a unique solution modulo N = n₁n₂...nₖ to the system of congruences:</p>
-                            <p>x ≡ a₁ (mod n₁)</p>
-                            <p>x ≡ a₂ (mod n₂)</p>
-                            <p>...</p>
-                            <p>x ≡ aₖ (mod nₖ)</p>
-                        </div>
+                    <h3 class="subsection-title mt-6">Highest Power of a Prime in a Factorial</h3>
+                    <p>The highest power of a prime number 'n' that can divide m! (m factorial) is given by Legendre's formula:</p>
+                    <div class="formula-box">
+                        <p>\( \left[ \frac{m}{n} \right] + \left[ \frac{m}{n^2} \right] + \left[ \frac{m}{n^3} \right] + \ldots \)</p>
+                        <p class="text-sm">where [x] is the greatest integer function (floor function).</p>
+                        <p class="text-sm"><b>Example:</b> Highest power of 7 in 100! = \( [\frac{100}{7}] + [\frac{100}{49}] = 14 + 2 = 16 \).</p>
+                    </div>
+                    <div class="note-box mt-4">
+                        <p class="font-semibold">Number of Zeroes in a Factorial</p>
+                        <p>To find the number of trailing zeroes in n!, you need to find the highest power of 5 in n!, since zeroes are formed by pairs of 2 and 5, and the number of 5s is always the limiting factor.</p>
+                    </div>
 
-                        <div class="example-box">
-                            <p class="font-medium">Example:</p>
-                            <p>Solve:</p>
-                            <p>x ≡ 2 (mod 3)</p>
-                            <p>x ≡ 3 (mod 5)</p>
-                            <p>x ≡ 2 (mod 7)</p>
-                            <p class="text-sm text-gray-600">Solution: x ≡ 23 (mod 105)</p>
-                        </div>
+                    <h3 class="subsection-title mt-6">Difference of Two Squares</h3>
+                    <p>An even number that is not a multiple of 4 can never be expressed as the difference of two perfect squares.</p>
+                    <p>The number of positive integral solutions for the equation \( x^2 - y^2 = k \) depends on k:</p>
+                     <div class="formula-box">
+                         <ul class="list-disc list-inside space-y-2">
+                            <li>If k is odd and not a perfect square: \( \frac{\text{Total factors of k}}{2} \)</li>
+                            <li>If k is odd and a perfect square: \( \frac{(\text{Total factors of k}) - 1}{2} \)</li>
+                            <li>If k is even and not a perfect square: \( \frac{\text{Total factors of (k/4)}}{2} \)</li>
+                            <li>If k is even and a perfect square: \( \frac{(\text{Total factors of (k/4)}) - 1}{2} \)</li>
+                         </ul>
                     </div>
                 </section>
 
                 <!-- Shortcuts & Tricks -->
                 <section id="shortcuts" class="content-section card p-6">
-                    <h2 class="section-title">7. Shortcuts & Tricks for Exams</h2>
-                    
-                    <div class="practice-question">
-                        <h3 class="subsection-title">(a) HCF and LCM of Fractions</h3>
-                        <p class="text-gray-600">These shortcuts help quickly find HCF and LCM of fractions without converting to decimals.</p>
-                        
-                        <div class="formula-box">
-                            <p class="font-medium">Formulas:</p>
-                            <p>HCF of Fractions = HCF of Numerators / LCM of Denominators</p>
-                            <p>LCM of Fractions = LCM of Numerators / HCF of Denominators</p>
-                        </div>
-
-                        <div class="example-box">
-                            <p class="font-medium">Example:</p>
-                            <p>Find HCF and LCM of ⅔ and ¾</p>
-                            <p>HCF = HCF(2,3) / LCM(3,4) = 1/12</p>
-                            <p>LCM = LCM(2,3) / HCF(3,4) = 6/1 = 6</p>
-                        </div>
+                    <h2 class="section-title">7. Shortcuts & Tricks</h2>
+                    <h3 class="subsection-title">Summation Formulas</h3>
+                    <div class="formula-box">
+                         <ul class="list-disc list-inside space-y-2">
+                            <li>Sum of first n odd numbers = \( n^2 \)</li>
+                            <li>Sum of first n even numbers = \( n(n+1) \)</li>
+                         </ul>
                     </div>
 
-                    <div class="practice-question">
-                        <h3 class="subsection-title">(b) Sum Formulas</h3>
-                        <p class="text-gray-600">These formulas help quickly calculate sums of sequences, saving time in exams.</p>
-                        
-                        <div class="formula-box">
-                            <p class="font-medium">Important Formulas:</p>
-                            <p>1. Sum of first n natural numbers = n(n+1)/2</p>
-                            <p>2. Sum of squares = n(n+1)(2n+1)/6</p>
-                            <p>3. Sum of cubes = [n(n+1)/2]²</p>
-                            <p>4. Sum of first n odd numbers = n²</p>
-                            <p>5. Sum of first n even numbers = n(n+1)</p>
-                        </div>
-
-                        <div class="example-box">
-                            <p class="font-medium">Example:</p>
-                            <p>Find sum of first 10 natural numbers</p>
-                            <p>Sum = 10×11/2 = 55</p>
-                            <p>Find sum of squares of first 5 natural numbers</p>
-                            <p>Sum = 5×6×11/6 = 55</p>
-                        </div>
+                    <h3 class="subsection-title mt-6">Sum of Permuted Digits</h3>
+                    <p>If all possible permutations of n distinct digits are added together, the sum is:</p>
+                    <div class="formula-box">
+                        <p>Sum = \( (n-1)! \times (\text{sum of n digits}) \times (111\ldots \text{n times}) \)</p>
                     </div>
 
-                    <div class="practice-question">
-                        <h3 class="subsection-title">(c) Quick Multiplication Tricks</h3>
-                        <p class="text-gray-600">These mental math tricks help perform calculations quickly without paper.</p>
-                        
-                        <div class="note-box">
-                            <p class="font-medium">Common Tricks:</p>
-                            <ul class="list-disc list-inside space-y-2">
-                                <li>Multiplying by 11: Add adjacent digits</li>
-                                <li>Multiplying by 5: Multiply by 10 and divide by 2</li>
-                                <li>Multiplying by 9: Multiply by 10 and subtract the number</li>
-                                <li>Multiplying by 25: Multiply by 100 and divide by 4</li>
-                            </ul>
-                        </div>
-
-                        <div class="example-box">
-                            <p class="font-medium">Example: Multiply 23 by 11</p>
-                            <p>2 (2+3) 3 = 253</p>
-                            <p>Example: Multiply 48 by 5</p>
-                            <p>48 × 5 = 480 ÷ 2 = 240</p>
-                        </div>
+                    <h3 class="subsection-title mt-6">Finding Number of Digits</h3>
+                    <p>The number of digits in an integer N is given by \( \lfloor \log_{10}(N) \rfloor + 1 \). For large numbers in the form \( a^b \):</p>
+                    <div class="formula-box">
+                        <p>Number of digits in \( a^b = \lfloor b \times \log_{10}(a) \rfloor + 1 \)</p>
                     </div>
 
-                    <div class="practice-question">
-                        <h3 class="subsection-title">(d) Divisibility Shortcuts</h3>
-                        <p class="text-gray-600">Quick methods to check divisibility without performing full division.</p>
-                        
-                        <div class="note-box">
-                            <p class="font-medium">Advanced Rules:</p>
-                            <ul class="list-disc list-inside space-y-2">
-                                <li>For 7: Double last digit, subtract from rest</li>
-                                <li>For 13: Multiply last digit by 4, add to rest</li>
-                                <li>For 17: Multiply last digit by 5, subtract from rest</li>
-                                <li>For 19: Multiply last digit by 2, add to rest</li>
-                            </ul>
-                        </div>
-
-                        <div class="example-box">
-                            <p class="font-medium">Example: Check if 161 is divisible by 7</p>
-                            <p>16 - (2×1) = 14</p>
-                            <p>14 is divisible by 7, so 161 is divisible by 7</p>
-                        </div>
+                    <h3 class="subsection-title mt-6">Last Two Digits Patterns</h3>
+                    <div class="formula-box">
+                         <ul class="list-disc list-inside space-y-2">
+                            <li>The last two digits of \( a^2, (50 \pm a)^2, (100 \pm a)^2, \ldots \) are the same.</li>
+                            <li>For \( 2^{10n} \): The last two digits are 76 if n is even, and 24 if n is odd.</li>
+                         </ul>
                     </div>
                 </section>
             </div>
