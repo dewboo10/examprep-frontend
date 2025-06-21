@@ -6,23 +6,144 @@
   <title>Practice: Percentage Questions</title>
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    body { background: #f8fafc; font-family: 'Segoe UI', Arial, sans-serif; }
-    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px #0001; padding: 2rem; }
-    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: #2563eb; color: #fff; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background 0.2s; }
-    .back-btn:hover { background: #1d4ed8; }
-    h1 { font-size: 2rem; margin-bottom: 1.5rem; color: #1e293b; }
-    .question-block { margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
-    .question-title { font-weight: 600; color: #334155; cursor: pointer; display: flex; align-items: center; }
-    .toggle-arrow { margin-right: 0.5rem; transition: transform 0.2s; }
-    .answer-block { display: none; margin-top: 0.5rem; background: #f1f5f9; border-radius: 6px; padding: 0.75rem 1rem; color: #334155; }
-    .question-block.open .answer-block { display: block; }
-    .question-block.open .toggle-arrow { transform: rotate(90deg); }
-    .section-title { font-size: 1.2rem; color: #2563eb; margin: 2rem 0 1rem 0; font-weight: 700; }
-    @media (max-width: 600px) { .container { padding: 1rem; } }
+    body {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: var(--primary, #4f46e5);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #4f46e511;
+    }
+    .back-btn:hover {
+      background: #3730a3;
+      box-shadow: 0 4px 16px #4f46e522;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .question-block {
+      margin-bottom: 2rem;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0001;
+      border-left: 5px solid var(--primary, #4f46e5);
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .question-block:hover {
+      box-shadow: 0 6px 24px #4f46e522;
+      transform: translateY(-2px) scale(1.01);
+    }
+    .question-title {
+      font-weight: 600;
+      color: #334155;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.2rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .question-block.open .question-title {
+      color: var(--primary, #4f46e5);
+    }
+    .toggle-arrow {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+      color: var(--primary, #4f46e5);
+    }
+    .question-block.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+    .answer-block {
+      display: block;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      background: #eef2ff;
+      border-radius: 8px;
+      padding: 0 1rem;
+      color: #334155;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px #4f46e511;
+      transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+    }
+    .question-block.open .answer-block {
+      max-height: 500px;
+      opacity: 1;
+      padding: 0.75rem 1rem 1rem 1rem;
+      margin-top: 0.75rem;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      color: var(--primary, #4f46e5);
+      margin: 2rem 0 1rem 0;
+      font-weight: 700;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem 0.5rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .question-block {
+        padding: 1rem 0.7rem 0.7rem 0.7rem;
+        margin-bottom: 1.2rem;
+      }
+      .question-title {
+        font-size: 1rem;
+      }
+      .answer-block {
+        font-size: 0.97rem;
+        padding: 0 0.7rem;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="animated-bg"></div>
   <div class="container">
+    <!-- Motivational Hero Section -->
+    <div class="hero-section" style="text-align:center; margin-bottom:2.5rem; position:relative; z-index:2;">
+      <div style="display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <!-- Trophy SVG Icon -->
+        <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><circle cx="27" cy="27" r="27" fill="#fef9c3"/><path d="M38 13H16V21C16 27.0751 20.9249 32 27 32C33.0751 32 38 27.0751 38 21V13Z" fill="#f59e0b"/><path d="M21 41C21 38.2386 23.2386 36 26 36H28C30.7614 36 33 38.2386 33 41V43H21V41Z" fill="#fde68a"/><rect x="23" y="43" width="8" height="3" rx="1.5" fill="#f59e0b"/><path d="M16 13V21C16 27.0751 20.9249 32 27 32C33.0751 32 38 27.0751 38 21V13" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 18C11 20.2091 12.7909 22 15 22V13H11V18Z" fill="#fde68a"/><path d="M43 18C43 20.2091 41.2091 22 39 22V13H43V18Z" fill="#fde68a"/></svg>
+        <div>
+          <h2 class="hero-title" style="font-size:2rem;font-weight:700;color:#4f46e5;margin-bottom:0.2em;letter-spacing:-1px;">Practice Makes Progress!</h2>
+          <div class="motivational-tagline" id="motivationalTagline" style="font-size:1.15rem;color:#f59e0b;font-weight:600;min-height:2.2em;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- End Hero Section -->
+
     <a href="../quant/chapters/percentages.html" class="back-btn">&larr; Back to Percentages</a>
     <h1>Practice: Percentage Questions (Basic to Advanced)</h1>
     <p style="color:#64748b; margin-bottom:2rem; font-size:1rem;">Click on a question to see the answer and explanation.</p>
@@ -640,14 +761,161 @@
           <b>Correct Option: D</b>
         </div>
       </div>
+      <!-- Added questions from user -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>What percentage of 656 is 410?<br>A) 63.5% B) 60.5%<br>C) 64.5% D) 62.5%</div>
+        <div class="answer-block"><b>Answer:</b> D<br><b>Explanation:</b> (410/656) × 100 = 62.5%</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Two-fifth of one-third of three-seventh of a number is 15. What is 40 percent of that number?<br>A) 72 B) 84<br>C) 105 D) 140</div>
+        <div class="answer-block"><b>Answer:</b> C<br><b>Explanation:</b> Let the number be x. (2/5)×(1/3)×(3/7)×x = 15 ⇒ x = 105. 40% of 105 = 42</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>A number, when 35 is subtracted from it, reduces to its 80 percent. What is four-fifth of that number?<br>A) 70 B) 90<br>C) 120 D) 140</div>
+        <div class="answer-block"><b>Answer:</b> D<br><b>Explanation:</b> Let the number be x. x - 35 = 0.8x ⇒ x = 175. Four-fifth = 140</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>If A is 20% more than B, by what percent is B less than A?<br>A) 16.66% B) 26.36%<br>C) 9.09% D) 27.27%</div>
+        <div class="answer-block"><b>Answer:</b> A<br><b>Explanation:</b> If B = 100, A = 120. B is less than A by (20/120)×100 = 16.66%</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Passing percentage marks in an exam is 40. A obtained 72 out of 200. By what percent did he fail?<br>A) 8 B) 5 C) 4 D) 16</div>
+        <div class="answer-block"><b>Answer:</b> C<br><b>Explanation:</b> 40% of 200 = 80. He got 72, so failed by 8 marks. (8/200)×100 = 4%</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>In order to compute 0.15% of a number, it must be multiplied by:<br>A) 0.0015 B) 0.015<br>C) 0.15 D) 1.5</div>
+        <div class="answer-block"><b>Answer:</b> A<br><b>Explanation:</b> 0.15% = 0.15/100 = 0.0015</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>A man spends 75% of his income. If his income is increased by 20% and he increased his expenditure by 10%. By what % will saving increased?<br>A) 50% B) 55%<br>C) 25% D) 60%</div>
+        <div class="answer-block"><b>Answer:</b> A<br><b>Explanation:</b> Initial saving = 25%. New income = 120, new expenditure = 82.5. Saving = 37.5. % increase = (12.5/25)×100 = 50%</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>If 25% of a number is subtracted from a second number, the second number reduces to its five-sixth. What is the ratio of the first number to the second number?<br>A) 1:3 B) 2:3<br>C) 3:2 D) Data inadequate</div>
+        <div class="answer-block"><b>Answer:</b> B<br><b>Explanation:</b> Let first = x, second = y. y - 0.25x = (5/6)y ⇒ x/y = 2/3</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>A student has to obtain 33% of the total marks to pass. He got 125 marks and failed by 40 marks. The maximum marks are:<br>A) 300 B) 500<br>C) 800 D) 1000</div>
+        <div class="answer-block"><b>Answer:</b> B<br><b>Explanation:</b> Passing marks for X = 1225 + 125 = 1350.<br>Passing marks for IX = 2/3 × 1350 = 900.<br>Total = 500</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Out of total students 100/3 % are in hostel A and remaining are in hostel B. If 20 students from hostel B are shifted to hostel A, then total students in hostel A becomes 50% of total students. If 20 students from hostel A are shifted to hostel B, then the total students in hostel A becomes what per cent of total students?<br>A. 26.34% B. 16.67% C. 12.75% D. 20.67 E. None of these</div>
+        <div class="answer-block">
+          <b>Answer:</b> 16.67%<br>
+          <b>Explanation:</b><br>
+          Let total = N. Hostel A = N/3, Hostel B = 2N/3.<br>
+          N/3 + 20 = N/2 ⇒ N = 120.<br>
+          After shifting 20 from A to B: (N/3 - 20)/N × 100 = (40-20)/120 × 100 = 16.67%.<br>
+          <b>Correct Option: B</b>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>The price of rice has increased by 20% and then decreased by 20%, the final price as compared to original price is:<br>A) 4% less B) 4% more<br>C) 20% less D) 20% more</div>
+        <div class="answer-block"><b>Answer:</b> A<br><b>Explanation:</b> Net change = 20 - 20 + (-20×20)/100 = -4%</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>The numerator of a fraction is increased by 20% and its denominator be diminished by 10%. The value of new fraction is, then the fraction is:<br>A) (Correct Option) B) None of these<br>C) None of these D) None of these</div>
+        <div class="answer-block"><b>Answer:</b> A<br><b>Explanation:</b> Placeholder, as options were missing.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>A sample of 5 liters of glycerin is found to be adulterated to the extent of 20%. Find how much glycerin should be added to bring down percentage of impurity to 5%.<br>A) 10 liters B) 25 liters<br>C) 15 liters D) 20 liters</div>
+        <div class="answer-block"><b>Answer:</b> C<br><b>Explanation:</b> Let x be added. 1/(5+x) = 0.05 ⇒ x = 15</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>The daily wages of a worker increased by 20% but the number of hours worked by him also dropped by 20%. If originally he was getting Rs 200 per week then his wages per week now is:<br>A) Rs. 160 B) Rs. 192<br>C) Rs. 210 D) Rs. 198</div>
+        <div class="answer-block"><b>Answer:</b> B<br><b>Explanation:</b> 1.2×0.8×200 = 192</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>If A is 25% of B then what % is B of A?<br>A) 40 B) 400<br>C) 20 D) 140</div>
+        <div class="answer-block"><b>Answer:</b> B<br><b>Explanation:</b> If A = 25, B = 100. B is 400% of A</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Let x and y be two numbers such that x = 6y. Then y is less than x by:<br>A) 50% B) 60%<br>C) 75% D) 83.33%</div>
+        <div class="answer-block"><b>Answer:</b> D<br><b>Explanation:</b> (x-y)/x = (6y-y)/6y = 5/6 = 83.33%</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>The price of sugar rises by 50%. By what fraction a family reduces the consumption of sugar, so that its expenditure does not increase?<br>A) 1/3 B) 1/4<br>C) 1/2 D) 2/3</div>
+        <div class="answer-block"><b>Answer:</b> D<br><b>Explanation:</b> Let initial = 1, price = 1, so spend = 1. New price = 1.5, let new consumption = x. 1.5x = 1 ⇒ x = 2/3</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Area of a rectangle is A. If its length is reduced by 10% and its breadth is increased by 10% then which of the following statements is true?<br>A) A remains unchanged B) A is decreased by 1%<br>C) A is increased by 1% D) None of these</div>
+        <div class="answer-block"><b>Answer:</b> B<br><b>Explanation:</b> Net change = -10 + 10 + (-10×10)/100 = -1%</div>
+      </div>
     </div>
   </div>
   <script>
+    // Rotating motivational taglines
+    const taglines = [
+      "Every percent counts. Keep going!",
+      "You're getting better with every question!",
+      "Small steps, big results.",
+      "Believe in your progress!",
+      "Consistency is the key to mastery.",
+      "You're closer to your goal than you think!"
+    ];
+    let taglineIdx = 0;
+    const taglineEl = document.getElementById('motivationalTagline');
+    function showTagline(idx) {
+      taglineEl.style.opacity = 0;
+      setTimeout(() => {
+        taglineEl.textContent = taglines[idx];
+        taglineEl.style.opacity = 1;
+      }, 350);
+    }
+    showTagline(taglineIdx);
+    setInterval(() => {
+      taglineIdx = (taglineIdx + 1) % taglines.length;
+      showTagline(taglineIdx);
+    }, 3500);
+
+    // Question toggle
     document.querySelectorAll('.question-title').forEach(q => {
       q.addEventListener('click', function() {
         this.parentElement.classList.toggle('open');
       });
     });
   </script>
+  <style>
+    /* Animated background with floating circles */
+    .animated-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .animated-bg::before, .animated-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.18;
+      animation: float 12s linear infinite alternate;
+    }
+    .animated-bg::before {
+      width: 320px; height: 320px;
+      left: -80px; top: 10vh;
+      background: #f59e0b;
+      animation-delay: 0s;
+    }
+    .animated-bg::after {
+      width: 220px; height: 220px;
+      right: -60px; bottom: 8vh;
+      background: #4f46e5;
+      animation-delay: 3s;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-40px) scale(1.08); }
+    }
+    /* Hero section responsive tweaks */
+    .hero-title { font-size:2rem; }
+    @media (max-width: 600px) {
+      .hero-title { font-size:1.2rem; }
+      .hero-section svg { width: 38px; height: 38px; }
+    }
+    #motivationalTagline {
+      transition: opacity 0.35s;
+    }
+  </style>
 </body>
 </html> 
