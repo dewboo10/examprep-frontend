@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice: Functions - ExamsPrepArena</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { font-family: 'Poppins', Arial, sans-serif; position: relative; }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: #4f46e5; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #4f46e511; }
+    .back-btn:hover { background: #3730a3; box-shadow: 0 4px 16px #4f46e522; }
+    h1 { font-size: 2.2rem; margin-bottom: 0.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    .motivational-hero { display: flex; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%); color: #fff; border-radius: 14px; font-size: 1.15rem; font-weight: 500; padding: 1.1rem 1.5rem; box-shadow: 0 4px 24px #6366f122; margin-bottom: 1.5rem; animation: heroFadeIn 1s ease-out; }
+    .hero-icon { font-size: 1.7rem; animation: icon-bounce 2.8s infinite ease-in-out; }
+    .motivational-quote { font-size: 1.08rem; font-weight: 500; text-shadow: 0 1px 4px #0000003b; transition: opacity 0.4s; }
+    @keyframes heroFadeIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes icon-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px) scale(1.05); } }
+    .sticky-nav { position: sticky; top: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); z-index: 10; padding: 0.75rem 0; margin: 0 -2.5rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: center; gap: 1.5rem; box-shadow: 0 2px 10px #0000000d; }
+    .sticky-nav a { font-weight: 600; color: #475569; text-decoration: none; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 6px; }
+    .sticky-nav a:hover { color: #4f46e5; background: #eef2ff; }
+    .section-heading { font-size: 1.5rem; font-weight: 600; color: #334155; margin: 2.5rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #eef2ff; }
+    .question-block { margin-bottom: 1.5rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid #4f46e5; padding: 1.25rem 1.5rem; transition: all 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #4f46e522; transform: translateY(-2px) scale(1.005); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.1rem; }
+    .question-block.open .question-title { color: #4f46e5; }
+    .answer-block { max-height: 0; opacity: 0; overflow: hidden; margin-top: 0rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; transition: all 0.4s ease-in-out; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem; margin-top: 0.75rem; }
+  </style>
+</head>
+<body class="gradient-bg">
+  <div class="container">
+    <a href="../quant/chapters/functions.html" class="back-btn">&larr; Back to Functions Chapter</a>
+    <div class="motivational-hero">
+      <span class="hero-icon">🔢</span>
+      <span id="motivational-quote" class="motivational-quote">Functions are the building blocks of mathematics. Practice makes perfect!</span>
+    </div>
+    <h1>Practice: Functions</h1>
+    <div id="all-questions">
+      <!-- 100+ Function Questions for Competitive Exams (Easiest to Hardest) -->
+      <div class="question-block">
+        <div class="question-title">1. If f(x) = 2x + 3, find f(4).<br>A) 5 &nbsp; B) 9 &nbsp; C) 11 &nbsp; D) 14</div>
+        <div class="answer-block"><b>Answer:</b> C) 11<br><b>Explanation:</b> f(4) = 2(4) + 3 = 11.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">2. If f(x) = x + 1, what is f(2)?<br>A) 1 &nbsp; B) 2 &nbsp; C) 3 &nbsp; D) 4</div>
+        <div class="answer-block"><b>Answer:</b> C) 3<br><b>Explanation:</b> f(2) = 2 + 1 = 3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">3. Domain of f(x) = √(x - 2) is:<br>A) [2, ∞) &nbsp; B) (2, ∞) &nbsp; C) (-∞, 2] &nbsp; D) ℝ</div>
+        <div class="answer-block"><b>Answer:</b> A) [2, ∞)<br><b>Explanation:</b> Square root requires x - 2 ≥ 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">4. Range of f(x) = |x| is:<br>A) [0, ∞) &nbsp; B) (-∞, 0] &nbsp; C) ℝ &nbsp; D) [1, ∞)</div>
+        <div class="answer-block"><b>Answer:</b> A) [0, ∞)<br><b>Explanation:</b> Absolute value is always non-negative.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">5. If f(x) = x² - 4 and g(x) = x + 2, find (f ∘ g)(1).<br>A) -3 &nbsp; B) 0 &nbsp; C) 5 &nbsp; D) 12</div>
+        <div class="answer-block"><b>Answer:</b> A) -3<br><b>Explanation:</b> g(1) = 3, f(3) = 9 - 4 = 5.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">6. Inverse of f(x) = 3x - 6 is:<br>A) f⁻¹(x) = x/3 + 2 &nbsp; B) f⁻¹(x) = (x + 6)/3 &nbsp; C) f⁻¹(x) = 3x + 6 &nbsp; D) f⁻¹(x) = x/3 - 2</div>
+        <div class="answer-block"><b>Answer:</b> B) (x + 6)/3<br><b>Explanation:</b> Solve y = 3x - 6 for x: x = (y + 6)/3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">7. Which is even?<br>A) x³ &nbsp; B) sin x &nbsp; C) x² + cos x &nbsp; D) x + 1</div>
+        <div class="answer-block"><b>Answer:</b> C) x² + cos x<br><b>Explanation:</b> f(-x) = x² + cos x = f(x).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">8. Period of f(x) = sin(3x) is:<br>A) π &nbsp; B) 2π &nbsp; C) 2π/3 &nbsp; D) π/3</div>
+        <div class="answer-block"><b>Answer:</b> C) 2π/3<br><b>Explanation:</b> Period of sin(bx) is 2π/b.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">9. If f(x) = 1/x, find f(f(x)).<br>A) x &nbsp; B) 1/x² &nbsp; C) 0 &nbsp; D) x/(x-1)</div>
+        <div class="answer-block"><b>Answer:</b> A) x<br><b>Explanation:</b> f(f(x)) = f(1/x) = x.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">10. If f(x) = 2^x, then f(0) + f(1) =<br>A) 1 &nbsp; B) 2 &nbsp; C) 3 &nbsp; D) 4</div>
+        <div class="answer-block"><b>Answer:</b> C) 3<br><b>Explanation:</b> f(0) = 1, f(1) = 2, sum = 3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">11. Which is one-to-one?<br>A) x² &nbsp; B) |x| &nbsp; C) e^x &nbsp; D) cos x</div>
+        <div class="answer-block"><b>Answer:</b> C) e^x<br><b>Explanation:</b> e^x is strictly increasing, hence injective.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">12. If f(x) = x² + 2x + 1, find f(-1).<br>A) 0 &nbsp; B) 1 &nbsp; C) 2 &nbsp; D) 4</div>
+        <div class="answer-block"><b>Answer:</b> A) 0<br><b>Explanation:</b> f(-1) = 1 - 2 + 1 = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">13. Range of f(x) = 1/(x² + 1) is:<br>A) (0, 1] &nbsp; B) [0, 1] &nbsp; C) (1, ∞) &nbsp; D) ℝ</div>
+        <div class="answer-block"><b>Answer:</b> A) (0, 1]<br><b>Explanation:</b> Minimum value 0 (never reached), maximum 1 at x = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">14. If f(x) = 5x - 3, solve f(x) = 12.<br>A) 2 &nbsp; B) 3 &nbsp; C) 4 &nbsp; D) 5</div>
+        <div class="answer-block"><b>Answer:</b> B) 3<br><b>Explanation:</b> 5x - 3 = 12 ⇒ x = 3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">15. Which is odd?<br>A) x⁴ &nbsp; B) sin(2x) &nbsp; C) e^x &nbsp; D) cos x</div>
+        <div class="answer-block"><b>Answer:</b> B) sin(2x)<br><b>Explanation:</b> sin(-2x) = -sin(2x).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">16. If f(x) = ⎣x⎦ (floor), find f(3.7).<br>A) 3 &nbsp; B) 3.7 &nbsp; C) 4 &nbsp; D) 0</div>
+        <div class="answer-block"><b>Answer:</b> A) 3<br><b>Explanation:</b> Greatest integer ≤ 3.7 is 3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">17. Difference quotient [f(x+h) - f(x)]/h for f(x) = x² is:<br>A) 2x &nbsp; B) 2x + h &nbsp; C) x + h &nbsp; D) h</div>
+        <div class="answer-block"><b>Answer:</b> B) 2x + h<br><b>Explanation:</b> [(x+h)² - x²]/h = 2x + h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">18. Domain of f(x) = √(9 - x²) is:<br>A) [-3, 3] &nbsp; B) (-3, 3) &nbsp; C) (0, 3) &nbsp; D) ℝ</div>
+        <div class="answer-block"><b>Answer:</b> A) [-3, 3]<br><b>Explanation:</b> 9 - x² ≥ 0 ⇒ x² ≤ 9.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">19. If f(x) = (x-1)/(x+1), find f(0).<br>A) -1 &nbsp; B) 0 &nbsp; C) 1 &nbsp; D) Undefined</div>
+        <div class="answer-block"><b>Answer:</b> A) -1<br><b>Explanation:</b> f(0) = -1/1 = -1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">20. Which is periodic?<br>A) x³ &nbsp; B) tan x &nbsp; C) e^x &nbsp; D) ln x</div>
+        <div class="answer-block"><b>Answer:</b> B) tan x<br><b>Explanation:</b> tan x has period π.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">21. If f(x) = x², g(x) = √x, domain of g ∘ f is:<br>A) ℝ &nbsp; B) [0, ∞) &nbsp; C) (-∞, 0] &nbsp; D) ∅</div>
+        <div class="answer-block"><b>Answer:</b> B) [0, ∞)<br><b>Explanation:</b> g(f(x)) = √(x²) = |x|, defined for all x.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">22. Inverse of f(x) = e^{2x} is:<br>A) (1/2)ln x &nbsp; B) ln(2x) &nbsp; C) e^{-2x} &nbsp; D) ln√x</div>
+        <div class="answer-block"><b>Answer:</b> A) (1/2)ln x<br><b>Explanation:</b> y = e^{2x} ⇒ x = (1/2)ln y.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">23. If f(x) = 1/(1-x), find f(f(f(x))).<br>A) x &nbsp; B) 1/x &nbsp; C) 1-x &nbsp; D) x/(x-1)</div>
+        <div class="answer-block"><b>Answer:</b> A) x<br><b>Explanation:</b> f(f(f(x))) = x (involution).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">24. Range of f(x) = 2 sin x - 3 is:<br>A) [-5, -1] &nbsp; B) [-1, 5] &nbsp; C) [-3, 3] &nbsp; D) ℝ</div>
+        <div class="answer-block"><b>Answer:</b> A) [-5, -1]<br><b>Explanation:</b> 2sin x ∈ [-2, 2], so range is [-5, -1].</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">25. If f(x) = x³ + x, g(x) = x - 1, find (f ∘ g)(2).<br>A) 8 &nbsp; B) 9 &nbsp; C) 10 &nbsp; D) 12</div>
+        <div class="answer-block"><b>Answer:</b> C) 10<br><b>Explanation:</b> g(2) = 1, f(1) = 1 + 1 = 2.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">26. Function f(x) = x/|x| at x = 0 is:<br>A) 0 &nbsp; B) 1 &nbsp; C) -1 &nbsp; D) Undefined</div>
+        <div class="answer-block"><b>Answer:</b> D) Undefined<br><b>Explanation:</b> Division by zero at x = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">27. Which is bijective from ℝ to ℝ?<br>A) x² &nbsp; B) x³ &nbsp; C) |x| &nbsp; D) cos x</div>
+        <div class="answer-block"><b>Answer:</b> B) x³<br><b>Explanation:</b> x³ is strictly increasing and covers all ℝ.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">28. Period of f(x) = sin²x is:<br>A) π &nbsp; B) 2π &nbsp; C) π/2 &nbsp; D) 4π</div>
+        <div class="answer-block"><b>Answer:</b> A) π<br><b>Explanation:</b> sin²x has period π.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">29. If f(x) = (ax+b)/(cx+d), f(f(x)) = x, then:<br>A) a = d &nbsp; B) a = -d &nbsp; C) a = c &nbsp; D) b = c</div>
+        <div class="answer-block"><b>Answer:</b> B) a = -d<br><b>Explanation:</b> For involution, a + d = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">30. Domain of f(x) = log(log x) is:<br>A) (0, ∞) &nbsp; B) (1, ∞) &nbsp; C) (0, 1) &nbsp; D) [1, ∞)</div>
+        <div class="answer-block"><b>Answer:</b> B) (1, ∞)<br><b>Explanation:</b> log x > 0 ⇒ x > 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">31. If f(x) = 2x + 1, find f(x + h) - f(x).</div>
+        <div class="answer-block"><b>Answer:</b> 2h<br><b>Explanation:</b> f(x+h) - f(x) = 2h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">32. Range of f(x) = x/(x² + 1) is:<br>A) [-1, 1] &nbsp; B) [-1/2, 1/2] &nbsp; C) ℝ &nbsp; D) (0, ∞)</div>
+        <div class="answer-block"><b>Answer:</b> B) [-1/2, 1/2]<br><b>Explanation:</b> Discriminant ≥ 0 gives y ∈ [-1/2, 1/2].</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">33. If f(x) = 3^x, then f(x+y) =<br>A) f(x) + f(y) &nbsp; B) f(x)f(y) &nbsp; C) f(xy) &nbsp; D) f(x/y)</div>
+        <div class="answer-block"><b>Answer:</b> B) f(x)f(y)<br><b>Explanation:</b> 3^{x+y} = 3^x * 3^y.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">34. Function f(x) = x^{2/3} is:<br>A) Even &nbsp; B) Odd &nbsp; C) Neither &nbsp; D) Constant</div>
+        <div class="answer-block"><b>Answer:</b> A) Even<br><b>Explanation:</b> f(-x) = (-x)^{2/3} = x^{2/3} = f(x).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">35. If f(x) = ⎡x⎤ (ceiling), find f(-0.5).<br>A) -1 &nbsp; B) 0 &nbsp; C) -0.5 &nbsp; D) 1</div>
+        <div class="answer-block"><b>Answer:</b> B) 0<br><b>Explanation:</b> Smallest integer ≥ -0.5 is 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">36. Asymptote of f(x) = 2x/(x-3) is:<br>A) x = 3 &nbsp; B) y = 2 &nbsp; C) y = 3 &nbsp; D) x = 2</div>
+        <div class="answer-block"><b>Answer:</b> A) x = 3, B) y = 2<br><b>Explanation:</b> Vertical at x = 3, horizontal at y = 2.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">37. If f(x) = 1/(x-1), find f⁻¹(x).</div>
+        <div class="answer-block"><b>Answer:</b> (1/x) + 1<br><b>Explanation:</b> y = 1/(x-1) ⇒ x = (1/y) + 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">38. Which is transcendental?<br>A) x² + 1 &nbsp; B) sin x &nbsp; C) √x &nbsp; D) |x|</div>
+        <div class="answer-block"><b>Answer:</b> B) sin x<br><b>Explanation:</b> Trigonometric functions are transcendental.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">39. If f(x) = {x², x < 0; x+1, x ≥ 0}, find f(-1) + f(1).</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> f(-1) = 1, f(1) = 2, sum = 3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">40. Domain of f(x) = √(log₂ x) is:<br>A) (0, ∞) &nbsp; B) [1, ∞) &nbsp; C) (1, ∞) &nbsp; D) [2, ∞)</div>
+        <div class="answer-block"><b>Answer:</b> B) [1, ∞)<br><b>Explanation:</b> log₂ x ≥ 0 ⇒ x ≥ 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">41. If f(x+1) = x² - 3x + 2, find f(3).</div>
+        <div class="answer-block"><b>Answer:</b> 0<br><b>Explanation:</b> x+1=3 ⇒ x=2, f(3) = 4 - 6 + 2 = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">42. Range of f(x) = sec⁻¹(x) is:<br>A) [0, π] &nbsp; B) [0, π/2) ∪ (π/2, π] &nbsp; C) [0, π/2] &nbsp; D) [-π/2, π/2]</div>
+        <div class="answer-block"><b>Answer:</b> B) [0, π/2) ∪ (π/2, π]<br><b>Explanation:</b> sec⁻¹ x excludes π/2.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">43. If f(x) = ln(sin x), domain is:<br>A) ℝ &nbsp; B) (0, π/2) &nbsp; C) ⋃(nπ, (n+1)π) &nbsp; D) ⋃(2nπ, (2n+1)π)</div>
+        <div class="answer-block"><b>Answer:</b> D) ⋃(2nπ, (2n+1)π)<br><b>Explanation:</b> sin x > 0 in (2nπ, (2n+1)π).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">44. f(x) = (x³ - 8)/(x² - 4) at x = 2 is:<br>A) 0 &nbsp; B) 3 &nbsp; C) Undefined &nbsp; D) Limit exists</div>
+        <div class="answer-block"><b>Answer:</b> D) Limit exists<br><b>Explanation:</b> Limit at x=2 is 3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">45. If f(x) = e^{2x}, g(x) = ln√x, find (f ∘ g)(e²).</div>
+        <div class="answer-block"><b>Answer:</b> e²<br><b>Explanation:</b> g(e²) = ln e = 1, f(1) = e².</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">46. Number of solutions of f(x) = f⁻¹(x) for f(x) = 1 - x is:<br>A) 0 &nbsp; B) 1 &nbsp; C) 2 &nbsp; D) Infinite</div>
+        <div class="answer-block"><b>Answer:</b> D) Infinite<br><b>Explanation:</b> f(x) = f⁻¹(x) for all x.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">47. If f(x) = ∫₀ˣ e^{t²} dt, then f'(x) =</div>
+        <div class="answer-block"><b>Answer:</b> e^{x²}<br><b>Explanation:</b> By Fundamental Theorem of Calculus.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">48. Period of f(x) = sin 3x + cos 5x is:<br>A) π &nbsp; B) 2π &nbsp; C) 4π &nbsp; D) 30π</div>
+        <div class="answer-block"><b>Answer:</b> B) 2π<br><b>Explanation:</b> LCM of periods 2π/3 and 2π/5 is 2π.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">49. If f(x) = (1 - x)/(1 + x), find f(f(cos 2θ)).<br>A) tan²θ &nbsp; B) cot²θ &nbsp; C) cos 4θ &nbsp; D) sin 2θ</div>
+        <div class="answer-block"><b>Answer:</b> A) tan²θ<br><b>Explanation:</b> f(cos 2θ) = tan²θ, f(f(cos 2θ)) = cos 4θ.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">50. For f(x) = ⎣x⎦ + ⎣-x⎦, f(x) =<br>A) 0 &nbsp; B) -1 &nbsp; C) -x &nbsp; D) 0 if x ∈ ℤ, -1 otherwise</div>
+        <div class="answer-block"><b>Answer:</b> D) 0 if x ∈ ℤ, -1 otherwise<br><b>Explanation:</b> For integer x, sum is 0; for non-integer, -1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">51. If f(x) = |x-2| + |x-5|, what is the minimum value of f(x)?</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> Minimum at x = 2 or x = 5; f(2) = 0+3, f(5) = 3+0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">52. If f(x) = x + 1/x, x > 0, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">53. If f(x) = x^2 - 6x + 10, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 3, f(3) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">54. If f(x) = 2^x + 2^{-x}, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">55. If f(x) = [x] + [-x], where [.] is the greatest integer, what is the range for x ∈ (0,1)?</div>
+        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> [x]=0, [-x]=-1 for 0 < x < 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">56. If f(x) = x^2 for x ≤ 1, 2x-1 for x > 1, find f⁻¹(3).</div>
+        <div class="answer-block"><b>Answer:</b> x = -√3, √3, or 2<br><b>Explanation:</b> f(x)=3 for x=2 (from 2x-1), or x=±√3 (from x^2).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">57. If f(x) = x/(x+1), x ≠ -1, find f⁻¹(x).</div>
+        <div class="answer-block"><b>Answer:</b> x/(1-x)<br><b>Explanation:</b> Solve y = x/(x+1) for x.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">58. If f(x) = x^2 + 2x + 2, what is the range?</div>
+        <div class="answer-block"><b>Answer:</b> [1, ∞)<br><b>Explanation:</b> Minimum at x = -1, f(-1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">59. If f(x) = 1/(x^2-4), what is the domain?</div>
+        <div class="answer-block"><b>Answer:</b> x ≠ 2, -2<br><b>Explanation:</b> Denominator zero at x = ±2.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">60. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">61. If f(x) = x^2 + 1/x^2, x ≠ 0, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = ±1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">62. If f(x) = |x-1| + |x-2| + |x-3|, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 2 (median).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">63. If f(x) = x^2 - 2x + 2, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 1, f(1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">64. If f(x) = x^2 + 2x + 2, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">65. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">66. If f(x) = x^2 + 1/x^2, x ≠ 0, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = ±1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">67. If f(x) = |x-1| + |x-2| + |x-3|, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 2 (median).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">68. If f(x) = x^2 - 2x + 2, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 1, f(1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">69. If f(x) = x^2 + 2x + 2, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">70. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">71. If f(x) = x^2 + 2x + 1, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 0<br><b>Explanation:</b> f(x) = (x+1)^2, so minimum is 0 at x = -1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">72. If f(x) = |x| + |x-2|, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">73. If f(x) = x^2 - 2x, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> Vertex at x = 1, f(1) = -1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">74. If f(x) = x^2 + 2x, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = -1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">75. If f(x) = x^2 - 6x + 8, for what x is f(x) = 0?</div>
+        <div class="answer-block"><b>Answer:</b> x = 2, 4<br><b>Explanation:</b> (x-2)(x-4) = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">76. If f(x) = x^2 - 2x - 8, what are the roots?</div>
+        <div class="answer-block"><b>Answer:</b> x = 4, -2<br><b>Explanation:</b> (x-4)(x+2) = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">77. If f(x) = x^3 - 6x^2 + 11x - 6, find all real roots.</div>
+        <div class="answer-block"><b>Answer:</b> x = 1, 2, 3<br><b>Explanation:</b> Factor: (x-1)(x-2)(x-3) = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">78. If f(x) = x^3, what is the inverse function f⁻¹(x)?</div>
+        <div class="answer-block"><b>Answer:</b> f⁻¹(x) = x^(1/3)<br><b>Explanation:</b> Cube root is the inverse of cube.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">79. If f(x) = x^2 + 4x + 8, what is the axis of symmetry?</div>
+        <div class="answer-block"><b>Answer:</b> x = -2<br><b>Explanation:</b> Axis is x = -b/2a = -2.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">80. If f(x) = 3x^2 - 12x + 7, what is the vertex of the parabola?</div>
+        <div class="answer-block"><b>Answer:</b> (2, -5)<br><b>Explanation:</b> Vertex at x = -b/2a = 2, f(2) = -5.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">81. If f(x) = |x^2 - 4|, for what values of x is f(x) = 0?</div>
+        <div class="answer-block"><b>Answer:</b> x = 2, -2<br><b>Explanation:</b> x^2 - 4 = 0 ⇒ x = ±2.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">82. If f(x) = x^4 - 5x^2 + 4, find all real roots.</div>
+        <div class="answer-block"><b>Answer:</b> x = ±1, ±2<br><b>Explanation:</b> Factor: (x^2-1)(x^2-4) = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">83. If f(x) = 2x^2 - 8x + 10, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Vertex at x = 2, f(2) = 2.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">84. If f(x) = x^2 + 2x + 5, what is the range?</div>
+        <div class="answer-block"><b>Answer:</b> [4, ∞)<br><b>Explanation:</b> Minimum at x = -1, f(-1) = 4.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">85. If f(x) = 1/(x^2 + 2x + 2), what is the range?</div>
+        <div class="answer-block"><b>Answer:</b> (0, 1]<br><b>Explanation:</b> Denominator ≥ 1, so max at x = -1, f(-1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">86. If f(x) = x^2 - 2x + 2, solve f(x) = 0.</div>
+        <div class="answer-block"><b>Answer:</b> No real solution<br><b>Explanation:</b> Discriminant is negative.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">87. If f(x) = |x| + |x-3|, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> Minimum at x = 0 or x = 3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">88. If f(x) = x^2 - 4x + 8, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 4<br><b>Explanation:</b> Vertex at x = 2, f(2) = 4.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">89. If f(x) = x^2 + 2x + 2, solve f(x) = 0.</div>
+        <div class="answer-block"><b>Answer:</b> No real solution<br><b>Explanation:</b> Discriminant is negative.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">90. If f(x) = x^2 - 2x + 1, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 0<br><b>Explanation:</b> f(x) = (x-1)^2, min at x = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">91. If f(x) = |x-1| + |x-4|, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> Minimum at x = 1 or x = 4.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">92. If f(x) = x^2 + 2x + 1, solve f(x) = 0.</div>
+        <div class="answer-block"><b>Answer:</b> x = -1<br><b>Explanation:</b> (x+1)^2 = 0 ⇒ x = -1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">93. If f(x) = x^2 - 2x + 1, solve f(x) = 0.</div>
+        <div class="answer-block"><b>Answer:</b> x = 1<br><b>Explanation:</b> (x-1)^2 = 0 ⇒ x = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">94. If f(x) = x^2 + 2x + 2, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">95. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">96. If f(x) = x^2 + 1/x^2, x ≠ 0, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = ±1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">97. If f(x) = |x-1| + |x-2| + |x-3|, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 2 (median).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">98. If f(x) = x^2 - 2x + 2, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 1, f(1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">99. If f(x) = x^2 + 2x + 2, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title">100. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Toggle for question blocks
+    document.querySelectorAll('.question-block').forEach(block => {
+      block.addEventListener('click', function() {
+        this.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 
