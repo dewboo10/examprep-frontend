@@ -6,26 +6,210 @@
   <title>Practice: Functions - ExamsPrepArena</title>
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    body { font-family: 'Poppins', Arial, sans-serif; position: relative; }
-    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; }
-    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: #4f46e5; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #4f46e511; }
-    .back-btn:hover { background: #3730a3; box-shadow: 0 4px 16px #4f46e522; }
-    h1 { font-size: 2.2rem; margin-bottom: 0.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
-    .motivational-hero { display: flex; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%); color: #fff; border-radius: 14px; font-size: 1.15rem; font-weight: 500; padding: 1.1rem 1.5rem; box-shadow: 0 4px 24px #6366f122; margin-bottom: 1.5rem; animation: heroFadeIn 1s ease-out; }
-    .hero-icon { font-size: 1.7rem; animation: icon-bounce 2.8s infinite ease-in-out; }
-    .motivational-quote { font-size: 1.08rem; font-weight: 500; text-shadow: 0 1px 4px #0000003b; transition: opacity 0.4s; }
-    @keyframes heroFadeIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes icon-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px) scale(1.05); } }
-    .sticky-nav { position: sticky; top: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); z-index: 10; padding: 0.75rem 0; margin: 0 -2.5rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: center; gap: 1.5rem; box-shadow: 0 2px 10px #0000000d; }
-    .sticky-nav a { font-weight: 600; color: #475569; text-decoration: none; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 6px; }
-    .sticky-nav a:hover { color: #4f46e5; background: #eef2ff; }
-    .section-heading { font-size: 1.5rem; font-weight: 600; color: #334155; margin: 2.5rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #eef2ff; }
-    .question-block { margin-bottom: 1.5rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid #4f46e5; padding: 1.25rem 1.5rem; transition: all 0.2s; position: relative; cursor: pointer; }
-    .question-block:hover { box-shadow: 0 6px 24px #4f46e522; transform: translateY(-2px) scale(1.005); }
-    .question-title { font-weight: 600; color: #334155; font-size: 1.1rem; }
-    .question-block.open .question-title { color: #4f46e5; }
-    .answer-block { max-height: 0; opacity: 0; overflow: hidden; margin-top: 0rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; transition: all 0.4s ease-in-out; }
-    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem; margin-top: 0.75rem; }
+    body {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+      font-family: 'Poppins', Arial, sans-serif;
+      position: relative;
+    }
+    /* Animated background using floating circles */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 20% 30%, #a5b4fc55 0, #e0e7ff00 60%),
+                  radial-gradient(circle at 80% 70%, #f472b655 0, #e0e7ff00 60%),
+                  radial-gradient(circle at 60% 10%, #34d39944 0, #e0e7ff00 60%);
+      animation: bgmove 12s linear infinite alternate;
+    }
+    @keyframes bgmove {
+      0% { background-position: 20% 30%, 80% 70%, 60% 10%; }
+      100% { background-position: 25% 35%, 75% 65%, 65% 15%; }
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: #4f46e5;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #4f46e511;
+    }
+    .back-btn:hover {
+      background: #3730a3;
+      box-shadow: 0 4px 16px #4f46e522;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    /* Motivational Hero */
+    .motivational-hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+      color: #fff;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 500;
+      padding: 1.1rem 1.5rem 1.1rem 1.2rem;
+      box-shadow: 0 4px 24px #6366f122;
+      letter-spacing: 0.01em;
+      min-height: 3.2rem;
+      position: relative;
+      overflow: hidden;
+      animation: heroFadeIn 1.2s cubic-bezier(.4,2,.6,1);
+      margin-bottom: 1.5rem;
+    }
+    .hero-icon {
+      font-size: 1.7rem;
+      filter: drop-shadow(0 2px 6px #fff8);
+      animation: icon-bounce 2.5s infinite cubic-bezier(.4,2,.6,1);
+    }
+    @keyframes icon-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px) scale(1.08); }
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+      to { opacity: 1; transform: none; }
+    }
+    .motivational-quote {
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 2px 8px #3730a355;
+      transition: opacity 0.5s;
+      min-width: 220px;
+      display: inline-block;
+    }
+    @media (max-width: 600px) {
+      .motivational-hero { font-size: 0.98rem; padding: 0.7rem 0.7rem; }
+      .motivational-quote { font-size: 0.97rem; min-width: 120px; }
+      .hero-icon { font-size: 1.2rem; }
+    }
+    /* Sticky Nav for Sections */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      padding: 0.75rem 0;
+      margin: 0 -2.5rem 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      box-shadow: 0 2px 10px #0000000d;
+    }
+    .sticky-nav a {
+      font-weight: 600;
+      color: #475569;
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+    .sticky-nav a:hover {
+      color: #4f46e5;
+      background: #eef2ff;
+    }
+    /* Section Heading */
+    .section-heading {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #334155;
+      margin: 2.5rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #eef2ff;
+    }
+    /* Question Block */
+    .question-block {
+      margin-bottom: 1.5rem;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0001;
+      border-left: 5px solid #4f46e5;
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .question-block:hover {
+      box-shadow: 0 6px 24px #4f46e522;
+      transform: translateY(-2px) scale(1.01);
+    }
+    .question-title {
+      font-weight: 600;
+      color: #334155;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.2rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .question-block.open .question-title {
+      color: #4f46e5;
+    }
+    .toggle-arrow {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+      color: #4f46e5;
+    }
+    .question-block.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+    .answer-block {
+      display: block;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      background: #eef2ff;
+      border-radius: 8px;
+      padding: 0 1rem;
+      color: #334155;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px #4f46e511;
+      transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+    }
+    .question-block.open .answer-block {
+      max-height: 500px;
+      opacity: 1;
+      padding: 0.75rem 1rem 1rem 1rem;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1rem 0.5rem; }
+      h1 { font-size: 1.3rem; }
+      .question-block { padding: 1rem 0.7rem 0.7rem 0.7rem; margin-bottom: 1.2rem; }
+      .question-title { font-size: 1rem; }
+      .answer-block { font-size: 0.97rem; padding: 0 0.7rem; }
+    }
   </style>
 </head>
 <body class="gradient-bg">
@@ -267,84 +451,84 @@
         <div class="answer-block"><b>Answer:</b> x/(1-x)<br><b>Explanation:</b> Solve y = x/(x+1) for x.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">58. If f(x) = x^2 + 2x + 2, what is the range?</div>
-        <div class="answer-block"><b>Answer:</b> [1, ∞)<br><b>Explanation:</b> Minimum at x = -1, f(-1) = 1.</div>
+        <div class="question-title">58. Let f(x) = |x-3| + |x+1|. For what value of x is f(x) minimum?</div>
+        <div class="answer-block"><b>Answer:</b> x = 3<br><b>Explanation:</b> Minimum occurs at the median of the points, here x = 3.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">59. If f(x) = 1/(x^2-4), what is the domain?</div>
-        <div class="answer-block"><b>Answer:</b> x ≠ 2, -2<br><b>Explanation:</b> Denominator zero at x = ±2.</div>
+        <div class="question-title">59. If f(x) = [x] + [2x], where [.] is the greatest integer function, find the number of integers x in [0,2) for which f(x) = 2x - 1.</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Only at x = 1 does the equation hold.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">60. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+        <div class="question-title">60. If f(x) = x/(x+1), x ≠ -1, and g(x) = 1/x, find (f ∘ g)(2).</div>
+        <div class="answer-block"><b>Answer:</b> 1/3<br><b>Explanation:</b> g(2) = 1/2, f(1/2) = (1/2)/(1/2+1) = 1/3.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">61. If f(x) = x^2 + 1/x^2, x ≠ 0, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = ±1.</div>
+        <div class="question-title">61. If f(x) = x^2 for x ≤ 0, 2x+1 for x > 0, find the range of f(x).</div>
+        <div class="answer-block"><b>Answer:</b> [0, ∞)<br><b>Explanation:</b> x^2 covers [0, ∞) for x ≤ 0, 2x+1 covers (1, ∞) for x > 0. So, range is [0, ∞).</div>
       </div>
       <div class="question-block">
-        <div class="question-title">62. If f(x) = |x-1| + |x-2| + |x-3|, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 2 (median).</div>
+        <div class="question-title">62. If f(x) = x^2 + 1 for x ≤ 1, 2x-1 for x > 1, find f⁻¹(3).</div>
+        <div class="answer-block"><b>Answer:</b> x = -√2, √2, or 2<br><b>Explanation:</b> f(x)=3 for x=2 (from 2x-1), or x=±√2 (from x^2+1).</div>
       </div>
       <div class="question-block">
-        <div class="question-title">63. If f(x) = x^2 - 2x + 2, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 1, f(1) = 1.</div>
+        <div class="question-title">63. If f(x) = x^2 - 2x + 2, and f(a) = f(b), show that a + b = 2.</div>
+        <div class="answer-block"><b>Answer:</b> True<br><b>Explanation:</b> f(a) = f(b) ⇒ (a-b)(a+b-2) = 0 ⇒ a = b or a + b = 2.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">64. If f(x) = x^2 + 2x + 2, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = 1.</div>
+        <div class="question-title">64. Let f(x) = x^3 - 3x + 1. Find all real solutions to f(x) = 0.</div>
+        <div class="answer-block"><b>Answer:</b> x ≈ 1.532, -1.879, 0.347<br><b>Explanation:</b> Use Cardano's method or numerical methods for cubic roots.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">65. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+        <div class="question-title">65. Let f(x) = x^2 + 2x + 2, g(x) = x - 1, find (f ∘ g)(x).</div>
+        <div class="answer-block"><b>Answer:</b> (x-1)^2 + 2(x-1) + 2 = x^2 - 2x + 3<br><b>Explanation:</b> Substitute g(x) into f(x).</div>
       </div>
       <div class="question-block">
-        <div class="question-title">66. If f(x) = x^2 + 1/x^2, x ≠ 0, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = ±1.</div>
+        <div class="question-title">66. Let f(x) = x^3 - 3x. Find all real roots of f(x) = 0.</div>
+        <div class="answer-block"><b>Answer:</b> x = 0, √3, -√3<br><b>Explanation:</b> Factor: x(x^2-3) = 0.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">67. If f(x) = |x-1| + |x-2| + |x-3|, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 2 (median).</div>
+        <div class="question-title">67. If f(x) = e^x + e^{-x}, what is the minimum value?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = 0.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">68. If f(x) = x^2 - 2x + 2, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 1, f(1) = 1.</div>
+        <div class="question-title">68. If f(x) = tan^{-1}(x) + tan^{-1}(1/x), x > 0, what is the value of f(x)?</div>
+        <div class="answer-block"><b>Answer:</b> π/2<br><b>Explanation:</b> tan^{-1}(x) + tan^{-1}(1/x) = π/2 for x > 0.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">69. If f(x) = x^2 + 2x + 2, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = 1.</div>
+        <div class="question-title">69. If f(x) = sin(x) + sin(2x), what is the period of f(x)?</div>
+        <div class="answer-block"><b>Answer:</b> 2π<br><b>Explanation:</b> LCM of periods 2π and π is 2π.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">70. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+        <div class="question-title">70. If f(x) = ln(x^2 + 1), what is the range of f(x)?</div>
+        <div class="answer-block"><b>Answer:</b> [0, ∞)<br><b>Explanation:</b> x^2 + 1 ≥ 1, so ln(x^2 + 1) ≥ 0.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">71. If f(x) = x^2 + 2x + 1, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 0<br><b>Explanation:</b> f(x) = (x+1)^2, so minimum is 0 at x = -1.</div>
+        <div class="question-title">71. If f(x) = [x] + [-x], where [.] is the greatest integer, what is the range for x ∈ (0,1)?</div>
+        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> [x]=0, [-x]=-1 for 0 < x < 1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">72. If f(x) = |x| + |x-2|, what is the minimum value?</div>
         <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 1.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">73. If f(x) = x^2 - 2x, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> Vertex at x = 1, f(1) = -1.</div>
+        <div class="question-title">73. If f(x) = x/(x+1), x ≠ -1, find f⁻¹(x).</div>
+        <div class="answer-block"><b>Answer:</b> x/(1-x)<br><b>Explanation:</b> Solve y = x/(x+1) for x.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">74. If f(x) = x^2 + 2x, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = -1.</div>
+        <div class="question-title">74. Let f(x) = |x-2| + |x-5|. For what value(s) of x is f(x) minimum?</div>
+        <div class="answer-block"><b>Answer:</b> x = 2 or x = 5<br><b>Explanation:</b> Minimum occurs at the endpoints of the interval between 2 and 5.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">75. If f(x) = x^2 - 6x + 8, for what x is f(x) = 0?</div>
-        <div class="answer-block"><b>Answer:</b> x = 2, 4<br><b>Explanation:</b> (x-2)(x-4) = 0.</div>
+        <div class="question-title">75. If f(x) = [x] + [-x], where [.] is the greatest integer, what is the range for x ∈ (0,1)?</div>
+        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> [x]=0, [-x]=-1 for 0 < x < 1.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">76. If f(x) = x^2 - 2x - 8, what are the roots?</div>
-        <div class="answer-block"><b>Answer:</b> x = 4, -2<br><b>Explanation:</b> (x-4)(x+2) = 0.</div>
+        <div class="question-title">76. If f(x) = x^2 + 1, g(x) = √x, find the domain of (g ∘ f)(x).</div>
+        <div class="answer-block"><b>Answer:</b> All real x<br><b>Explanation:</b> f(x) ≥ 1 for all x, so g(f(x)) is defined for all real x.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">77. If f(x) = x^3 - 6x^2 + 11x - 6, find all real roots.</div>
-        <div class="answer-block"><b>Answer:</b> x = 1, 2, 3<br><b>Explanation:</b> Factor: (x-1)(x-2)(x-3) = 0.</div>
+        <div class="question-title">77. If f(x) = x^2 + 2x + 2, is f(x) one-one? Justify.</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> Quadratic functions are not one-one over ℝ.</div>
       </div>
       <div class="question-block">
         <div class="question-title">78. If f(x) = x^3, what is the inverse function f⁻¹(x)?</div>
@@ -359,92 +543,118 @@
         <div class="answer-block"><b>Answer:</b> (2, -5)<br><b>Explanation:</b> Vertex at x = -b/2a = 2, f(2) = -5.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">81. If f(x) = |x^2 - 4|, for what values of x is f(x) = 0?</div>
-        <div class="answer-block"><b>Answer:</b> x = 2, -2<br><b>Explanation:</b> x^2 - 4 = 0 ⇒ x = ±2.</div>
+        <div class="question-title">81. Define a surjective (onto) function. Give an example from ℝ to ℝ.</div>
+        <div class="answer-block"><b>Answer:</b> A function f: A → B is surjective if every element of B has a pre-image in A. Example: f(x) = x³ is surjective from ℝ to ℝ.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">82. If f(x) = x^4 - 5x^2 + 4, find all real roots.</div>
-        <div class="answer-block"><b>Answer:</b> x = ±1, ±2<br><b>Explanation:</b> Factor: (x^2-1)(x^2-4) = 0.</div>
+        <div class="question-title">82. What is an injective (one-to-one) function? Give an example from ℝ to ℝ.</div>
+        <div class="answer-block"><b>Answer:</b> A function f: A → B is injective if f(a₁) = f(a₂) ⇒ a₁ = a₂. Example: f(x) = 2x + 1 is injective from ℝ to ℝ.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">83. If f(x) = 2x^2 - 8x + 10, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Vertex at x = 2, f(2) = 2.</div>
+        <div class="question-title">83. What is a bijective function? State its significance in finding inverses.</div>
+        <div class="answer-block"><b>Answer:</b> A function is bijective if it is both injective and surjective. Only bijective functions have well-defined inverses.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">84. If f(x) = x^2 + 2x + 5, what is the range?</div>
-        <div class="answer-block"><b>Answer:</b> [4, ∞)<br><b>Explanation:</b> Minimum at x = -1, f(-1) = 4.</div>
+        <div class="question-title">84. If f: ℝ → ℝ is defined by f(x) = x², is f invertible? Why or why not?</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> f(x) = x² is not one-to-one on ℝ, so it is not invertible on ℝ.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">85. If f(x) = 1/(x^2 + 2x + 2), what is the range?</div>
-        <div class="answer-block"><b>Answer:</b> (0, 1]<br><b>Explanation:</b> Denominator ≥ 1, so max at x = -1, f(-1) = 1.</div>
+        <div class="question-title">85. State the definition of a functional equation and give an example relevant to CAT exams.</div>
+        <div class="answer-block"><b>Answer:</b> A functional equation is an equation in which the unknowns are functions. Example: Find all f: ℝ → ℝ such that f(x+y) = f(x) + f(y).</div>
       </div>
       <div class="question-block">
-        <div class="question-title">86. If f(x) = x^2 - 2x + 2, solve f(x) = 0.</div>
-        <div class="answer-block"><b>Answer:</b> No real solution<br><b>Explanation:</b> Discriminant is negative.</div>
+        <div class="question-title">86. If f(x) = |x|, is f differentiable at x = 0? Justify.</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> The left and right derivatives at x = 0 are not equal.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">87. If f(x) = |x| + |x-3|, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> Minimum at x = 0 or x = 3.</div>
+        <div class="question-title">87. If f(x) = [x], where [.] is the greatest integer function, is f continuous at x = 1? Why or why not?</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> There is a jump discontinuity at every integer.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">88. If f(x) = x^2 - 4x + 8, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 4<br><b>Explanation:</b> Vertex at x = 2, f(2) = 4.</div>
+        <div class="question-title">88. If f(x) = x² for x ≤ 0, f(x) = 2x+1 for x > 0, is f continuous at x = 0?</div>
+        <div class="answer-block"><b>Answer:</b> Yes<br><b>Explanation:</b> Both left and right limits at x = 0 are 0, and f(0) = 0.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">89. If f(x) = x^2 + 2x + 2, solve f(x) = 0.</div>
-        <div class="answer-block"><b>Answer:</b> No real solution<br><b>Explanation:</b> Discriminant is negative.</div>
+        <div class="question-title">89. If f(x) = x/(x+1), x ≠ -1, is f invertible? If yes, find f⁻¹(x).</div>
+        <div class="answer-block"><b>Answer:</b> Yes, f⁻¹(x) = x/(1-x)<br><b>Explanation:</b> Solve y = x/(x+1) for x.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">90. If f(x) = x^2 - 2x + 1, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 0<br><b>Explanation:</b> f(x) = (x-1)^2, min at x = 1.</div>
+        <div class="question-title">90. If f(x) = sin x, what is the period of f(x)?</div>
+        <div class="answer-block"><b>Answer:</b> 2π<br><b>Explanation:</b> sin x repeats every 2π.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">91. If f(x) = |x-1| + |x-4|, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> Minimum at x = 1 or x = 4.</div>
+        <div class="question-title">91. If f(x) = x² + 1, g(x) = √x, find the domain of (g ∘ f)(x).</div>
+        <div class="answer-block"><b>Answer:</b> All real x<br><b>Explanation:</b> f(x) ≥ 1 for all x, so g(f(x)) is defined for all real x.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">92. If f(x) = x^2 + 2x + 1, solve f(x) = 0.</div>
-        <div class="answer-block"><b>Answer:</b> x = -1<br><b>Explanation:</b> (x+1)^2 = 0 ⇒ x = -1.</div>
+        <div class="question-title">92. If f(x) = x² - 2x + 2, and f(a) = f(b), show that a + b = 2.</div>
+        <div class="answer-block"><b>Answer:</b> True<br><b>Explanation:</b> f(a) = f(b) ⇒ (a-b)(a+b-2) = 0 ⇒ a = b or a + b = 2.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">93. If f(x) = x^2 - 2x + 1, solve f(x) = 0.</div>
-        <div class="answer-block"><b>Answer:</b> x = 1<br><b>Explanation:</b> (x-1)^2 = 0 ⇒ x = 1.</div>
+        <div class="question-title">93. If f(x) = x² + 2x + 2, is f(x) one-one? Justify.</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> Quadratic functions are not one-one over ℝ.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">94. If f(x) = x^2 + 2x + 2, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = 1.</div>
+        <div class="question-title">94. If f(x) = x³, what is the inverse function f⁻¹(x)?</div>
+        <div class="answer-block"><b>Answer:</b> f⁻¹(x) = x^(1/3)<br><b>Explanation:</b> Cube root is the inverse of cube.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">95. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
+        <div class="question-title">95. If f(x) = x² + 4x + 8, what is the axis of symmetry?</div>
+        <div class="answer-block"><b>Answer:</b> x = -2<br><b>Explanation:</b> Axis is x = -b/2a = -2.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">96. If f(x) = x^2 + 1/x^2, x ≠ 0, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = ±1.</div>
+        <div class="question-title">96. If f(x) = 3x² - 12x + 7, what is the vertex of the parabola?</div>
+        <div class="answer-block"><b>Answer:</b> (2, -5)<br><b>Explanation:</b> Vertex at x = -b/2a = 2, f(2) = -5.</div>
       </div>
       <div class="question-block">
         <div class="question-title">97. If f(x) = |x-1| + |x-2| + |x-3|, what is the minimum value?</div>
         <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 2 (median).</div>
       </div>
       <div class="question-block">
-        <div class="question-title">98. If f(x) = x^2 - 2x + 2, what is the minimum value?</div>
+        <div class="question-title">98. If f(x) = x² - 2x + 2, what is the minimum value?</div>
         <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 1, f(1) = 1.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">99. If f(x) = x^2 + 2x + 2, what is the minimum value?</div>
+        <div class="question-title">99. If f(x) = x² + 2x + 2, what is the minimum value?</div>
         <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = -1, f(-1) = 1.</div>
       </div>
       <div class="question-block">
-        <div class="question-title">100. If f(x) = x^2 - 4x + 5, what is the minimum value?</div>
+        <div class="question-title">100. If f(x) = x² - 4x + 5, what is the minimum value?</div>
         <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 2, f(2) = 1.</div>
       </div>
     </div>
   </div>
+  <div class="sticky-nav">
+    <a href="#basic">Basic to Moderate</a>
+    <a href="#moderate">Moderate to Advanced</a>
+    <a href="#advanced">Advanced & Tricky</a>
+  </div>
   <script>
-    // Toggle for question blocks
-    document.querySelectorAll('.question-block').forEach(block => {
-      block.addEventListener('click', function() {
-        this.classList.toggle('open');
+    // Rotating motivational quotes
+    const quotes = [
+      "Functions are the building blocks of mathematics. Practice makes perfect!",
+      "Every function has a purpose. Find yours!",
+      "Mastering functions unlocks new math worlds.",
+      "Persistence is the key to understanding.",
+      "Every question is a step closer to CAT success!",
+      "Great things are done by a series of small things brought together.",
+      "Believe in yourself and all that you are."
+    ];
+    let quoteIdx = 0;
+    const quoteEl = document.getElementById('motivational-quote');
+    setInterval(() => {
+      quoteIdx = (quoteIdx + 1) % quotes.length;
+      quoteEl.style.opacity = 0;
+      setTimeout(() => {
+        quoteEl.textContent = quotes[quoteIdx];
+        quoteEl.style.opacity = 1;
+      }, 400);
+    }, 4200);
+
+    // Question toggle
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
       });
     });
   </script>

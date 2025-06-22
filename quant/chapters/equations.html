@@ -259,6 +259,30 @@
                         Solution: x = -5/2 = -2.5</p>
                     </div>
 
+                    <div class="note-box">
+                        <b>CAT Focus: Linear Equations & Systems</b><br>
+                        <ul style="margin:0 0 0 1.2em; padding:0;">
+                            <li>Linear equations are the backbone of Quant. Their concepts often appear in other topics too.</li>
+                            <li>Graphically, a linear equation in two variables (ax + by = c) represents a straight line. The solution to two such equations is the intersection point of their lines.</li>
+                            <li>For two equations:<br>
+                                <ul style="margin:0 0 0 1.2em;">
+                                    <li>If the ratios of coefficients of x and y are equal, but the constant ratio is different, the lines are parallel (no solution).</li>
+                                    <li>If all ratios are equal, the lines coincide (infinite solutions).</li>
+                                    <li>If the ratios of x and y are different, the lines intersect at a unique point (one solution).</li>
+                                </ul>
+                            </li>
+                            <li>For n variables, you generally need n independent equations for a unique solution. Fewer equations usually mean infinite or indeterminate solutions, unless extra conditions (like integer values) are given.</li>
+                            <li>For three variables, the system can be solved using determinants:<br>
+                                <ul style="margin:0 0 0 1.2em;">
+                                    <li>If the main determinant (D) ≠ 0, there is a unique solution.</li>
+                                    <li>If D = 0, but at least one of Dx, Dy, Dz is nonzero, there is no solution.</li>
+                                    <li>If D = Dx = Dy = Dz = 0, there are infinitely many solutions.</li>
+                                </ul>
+                            </li>
+                            <li>CAT Tip: Use elimination, substitution, or LCM methods for speed. For two equations, align coefficients and subtract to eliminate variables quickly.</li>
+                        </ul>
+                    </div>
+
                     <div class="example-box">
                         <p class="font-medium">Example 1: Basic Linear Equations</p>
                         <p class="question-number">Q1.</p>
@@ -312,6 +336,37 @@
                         Here, a = 1, b = 5, c = 6<br>
                         D = 25 - 24 = 1 > 0 (two real roots)<br>
                         x = (-5 ± √1)/2 = -2 or -3</p>
+                    </div>
+
+                    <div class="note-box">
+                        <b>CAT Focus: Quadratic Equations & Roots</b><br>
+                        <ul style="margin:0 0 0 1.2em; padding:0;">
+                            <li>Quadratic equations are crucial for CAT. Mastery of their properties can save time in the exam.</li>
+                            <li>The roots of ax² + bx + c = 0 are given by x = [-b ± √(b²-4ac)]/(2a). The discriminant (D = b²-4ac) determines the nature of the roots:</li>
+                            <ul style="margin:0 0 0 1.2em;">
+                                <li>D &gt; 0 and a perfect square: roots are real, rational, and distinct.</li>
+                                <li>D &gt; 0 and not a perfect square: roots are real, irrational, and distinct.</li>
+                                <li>D = 0: roots are real and equal.</li>
+                                <li>D &lt; 0: roots are complex conjugates.</li>
+                            </ul>
+                            <li>Sum of roots = -b/a, Product of roots = c/a.</li>
+                            <li>Signs of roots:<br>
+                                <ul style="margin:0 0 0 1.2em;">
+                                    <li>If product &gt; 0 and sum &gt; 0: both roots positive.</li>
+                                    <li>If product &gt; 0 and sum &lt; 0: both roots negative.</li>
+                                    <li>If product &lt; 0: roots have opposite signs.</li>
+                                </ul>
+                            </li>
+                            <li>Minimum/maximum value of ax² + bx + c occurs at x = -b/(2a).<br>
+                                <ul style="margin:0 0 0 1.2em;">
+                                    <li>If a &gt; 0: minimum value = (4ac-b²)/(4a).</li>
+                                    <li>If a &lt; 0: maximum value = (4ac-b²)/(4a).</li>
+                                </ul>
+                            </li>
+                            <li>CAT Tip: Use options, value plugging, and symmetry for quick solutions. If roots are reciprocals, c = a. If b = 0, roots are equal in magnitude and opposite in sign.</li>
+                            <li>Descartes' Rule: The number of sign changes in the polynomial gives the maximum number of positive roots. For negative roots, check f(-x).</li>
+                            <li>Any polynomial of odd degree always has at least one real root.</li>
+                        </ul>
                     </div>
 
                     <div class="example-box">
@@ -583,6 +638,20 @@
                         <p class="solution-text">x = 4 or x = -1</p>
                     </div>
                 </div>
+
+                <!-- Practice Questions Section -->
+                <section id="practice" class="mt-12">
+                    <div class="practice-card" style="background: linear-gradient(120deg, #f0f9ff 0%, #e0e7ff 100%); border-radius: 20px; box-shadow: 0 8px 32px #6366f122; padding: 2.5rem 2rem 2rem 2rem; margin: 2.5rem auto 0 auto; max-width: 520px; text-align: center; border: 1.5px solid #c7d2fe;">
+                        <div style="display:flex;justify-content:center;align-items:center;gap:1rem;margin-bottom:1.2rem;">
+                          <svg width="48" height="48" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="27" cy="27" r="27" fill="#fef9c3"/><path d="M38 13H16V21C16 27.0751 20.9249 32 27 32C33.0751 32 38 27.0751 38 21V13Z" fill="#f59e0b"/><path d="M21 41C21 38.2386 23.2386 36 26 36H28C30.7614 36 33 38.2386 33 41V43H21V41Z" fill="#fde68a"/><rect x="23" y="43" width="8" height="3" rx="1.5" fill="#f59e0b"/><path d="M16 13V21C16 27.0751 20.9249 32 27 32C33.0751 32 38 27.0751 38 21V13" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 18C11 20.2091 12.7909 22 15 22V13H11V18Z" fill="#fde68a"/><path d="M43 18C43 20.2091 41.2091 22 39 22V13H43V18Z" fill="#fde68a"/></svg>
+                          <h2 style="font-size:1.6rem;font-weight:700;color:#4f46e5;margin:0;letter-spacing:-1px;">Ready to Test Your Knowledge?</h2>
+                        </div>
+                        <p style="color:#64748b; margin-bottom:2rem; font-size:1.08rem;">Challenge yourself with a comprehensive set of practice questions on equations, including linear, quadratic, and more.</p>
+                        <a href="../../practiceQuestions/equationQ.html" style="display:inline-block; background:#4f46e5; color:#fff; font-weight:700; font-size:1.15rem; padding:0.9rem 2.5rem; border-radius:12px; box-shadow:0 2px 12px #4f46e522; text-decoration:none; transition:background 0.2s, transform 0.2s; margin-top:0.5rem; letter-spacing:0.01em;" onmouseover="this.style.background='#3730a3';this.style.transform='scale(1.04)'" onmouseout="this.style.background='#4f46e5';this.style.transform='none'">
+                          Start Practice Session &rarr;
+                        </a>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
