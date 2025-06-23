@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Theorems - ExamsPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #f0f9ff 0%, #fef6e4 100%); }
+        .card { background: rgba(255,255,255,0.97); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .theorem-box { background: #f8fafc; border-left: 5px solid #fbbf24; border-radius: 0 12px 12px 0; padding: 1.5rem; margin: 1.5rem 0; box-shadow: 0 2px 8px #fbbf2411; }
+        .theorem-title { color: #be185d; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .theorem-desc { color: #374151; font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .theorem-example { color: #f59e42; font-size: 1rem; margin-left: 1.2rem; margin-bottom: 0.5rem; }
+        .section-title { color: #1e40af; font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: linear-gradient(90deg, #fbbf24, #f472b6); transition: width 0.3s; }
+        .section-title:hover::after { width: 100px; }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="max-w-3xl mx-auto py-8 px-4">
+        <div class="card p-8 mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-pink-700 mb-2">Arithmetic Theorems</h1>
+            <p class="text-lg text-gray-600 font-medium">Master the most powerful theorems for remainders, divisibility, and modular arithmetic. These tools are essential for CAT, XAT, and other competitive exams!</p>
+        </div>
+        <div class="card p-6 mb-8">
+            <h2 class="section-title">Key Arithmetic Theorems & Properties</h2>
+            <ul class="list-disc pl-6 text-gray-700 text-base">
+                <li>Divisibility rules for quick checks (2, 3, 4, 5, 6, 8, 9, 10, 11, etc.)</li>
+                <li>Remainder Theorem for polynomials: The remainder when f(x) is divided by (x - a) is f(a).</li>
+                <li>Euclid's Division Lemma: For any integers a, b (b > 0), a = bq + r, 0 ≤ r &lt; b.</li>
+                <li>LCM and GCD: For any positive integers a, b: LCM(a, b) × GCD(a, b) = a × b.</li>
+                <li>Properties of even/odd numbers: Even + Even = Even, Odd × Odd = Odd, etc.</li>
+                <li>Prime numbers: Only two positive divisors (1 and itself).</li>
+            </ul>
+        </div>
+        <div class="card p-6 mb-8">
+            <h2 class="section-title">Advanced Remainder Theorems (In-Depth)</h2>
+            <!-- Fermat's Little Theorem -->
+            <div class="theorem-box">
+                <div class="theorem-title">Fermat's Little Theorem</div>
+                <div class="theorem-desc">
+                    <b>Statement:</b> If <b>p</b> is a prime number and <b>a</b> is any integer, then <b>a<sup>p</sup> ≡ a (mod p)</b>. If <b>a</b> and <b>p</b> are coprime, then <b>a<sup>p-1</sup> ≡ 1 (mod p)</b>.<br><br>
+                    <b>When to Use:</b> Use this theorem to quickly find remainders of large powers when divided by a prime, especially when the base and the prime are coprime.<br><br>
+                    <b>Why It Works:</b> The theorem is rooted in the properties of modular arithmetic and the fact that multiplying all nonzero residues modulo a prime cycles through all possible values.<br><br>
+                    <b>Step-by-Step Example 1:</b><br>
+                    Find the remainder when 2<sup>256</sup> is divided by 17.<br>
+                    <ul class="list-disc pl-6">
+                        <li>17 is prime, 2 and 17 are coprime.</li>
+                        <li>By Fermat: 2<sup>16</sup> ≡ 1 (mod 17).</li>
+                        <li>256 = 16 × 16, so 2<sup>256</sup> = (2<sup>16</sup>)<sup>16</sup>.</li>
+                        <li>So, (1)<sup>16</sup> ≡ 1 (mod 17).</li>
+                        <li><b>Final Answer:</b> Remainder is 1.</li>
+                    </ul>
+                    <b>Step-by-Step Example 2:</b><br>
+                    Find the remainder when 3<sup>75</sup> is divided by 37.<br>
+                    <ul class="list-disc pl-6">
+                        <li>37 is prime, 3 and 37 are coprime.</li>
+                        <li>By Fermat: 3<sup>36</sup> ≡ 1 (mod 37).</li>
+                        <li>75 = 2×36 + 3, so 3<sup>75</sup> = (3<sup>36</sup>)<sup>2</sup> × 3<sup>3</sup>.</li>
+                        <li>(1)<sup>2</sup> × 27 = 27 (mod 37).</li>
+                        <li><b>Final Answer:</b> Remainder is 27.</li>
+                    </ul>
+                    <b>Edge Case:</b> If a is a multiple of p, then a<sup>p-1</sup> ≡ 0 (mod p).<br><br>
+                    <b>Tips & Pitfalls:</b>
+                    <ul class="list-disc pl-6">
+                        <li>Always check if the divisor is prime.</li>
+                        <li>Check if the base and the prime are coprime for the second part.</li>
+                        <li>For composite divisors, use Euler's theorem instead.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Euler's Theorem & Totient -->
+            <div class="theorem-box">
+                <div class="theorem-title">Euler's Theorem & Euler's Totient Function</div>
+                <div class="theorem-desc">
+                    <b>Statement:</b> If <b>a</b> and <b>n</b> are coprime, then <b>a<sup>ϕ(n)</sup> ≡ 1 (mod n)</b>, where ϕ(n) is the Euler's totient function (the count of numbers less than n that are coprime to n).<br><br>
+                    <b>How to Compute ϕ(n):</b> For n = p<sub>1</sub><sup>k1</sup> × p<sub>2</sub><sup>k2</sup> × ... × p<sub>m</sub><sup>km</sup> (prime factorization),<br>
+                    ϕ(n) = n × (1 - 1/p<sub>1</sub>) × (1 - 1/p<sub>2</sub>) × ... × (1 - 1/p<sub>m</sub>)<br><br>
+                    <b>When to Use:</b> Use Euler's theorem for large exponents with composite moduli, provided the base and modulus are coprime.<br><br>
+                    <b>Step-by-Step Example 1:</b><br>
+                    Find the remainder when 2<sup>256</sup> is divided by 15.<br>
+                    <ul class="list-disc pl-6">
+                        <li>2 and 15 are coprime. 15 = 3 × 5.</li>
+                        <li>ϕ(15) = 15 × (1 - 1/3) × (1 - 1/5) = 15 × (2/3) × (4/5) = 8.</li>
+                        <li>2<sup>8</sup> ≡ 1 (mod 15), so 2<sup>256</sup> = (2<sup>8</sup>)<sup>32</sup> ≡ 1 (mod 15).</li>
+                        <li><b>Final Answer:</b> Remainder is 1.</li>
+                    </ul>
+                    <b>Step-by-Step Example 2:</b><br>
+                    What are the last two digits of 7<sup>2008</sup>?<br>
+                    <ul class="list-disc pl-6">
+                        <li>Last two digits = remainder when divided by 100.</li>
+                        <li>7 and 100 are coprime. 100 = 2<sup>2</sup> × 5<sup>2</sup>.</li>
+                        <li>ϕ(100) = 100 × (1 - 1/2) × (1 - 1/5) = 100 × (1/2) × (4/5) = 40.</li>
+                        <li>7<sup>40</sup> ≡ 1 (mod 100), so 7<sup>2000</sup> ≡ 1 (mod 100).</li>
+                        <li>7<sup>2008</sup> = 7<sup>2000</sup> × 7<sup>8</sup>, so remainder is 7<sup>8</sup> mod 100 = 01.</li>
+                    </ul>
+                    <b>Edge Case:</b> If a and n are not coprime, Euler's theorem does not apply.<br><br>
+                    <b>Tips & Pitfalls:</b>
+                    <ul class="list-disc pl-6">
+                        <li>Always check coprimality before applying Euler's theorem.</li>
+                        <li>For prime moduli, Euler's theorem reduces to Fermat's Little Theorem.</li>
+                        <li>ϕ(n) is always less than n for n > 1.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Wilson's Theorem -->
+            <div class="theorem-box">
+                <div class="theorem-title">Wilson's Theorem</div>
+                <div class="theorem-desc">
+                    <b>Statement:</b> For any prime p, (p-1)! ≡ -1 (mod p), or equivalently, (p-1)! mod p = p-1.<br><br>
+                    <b>Corollary:</b> (p-2)! mod p = 1 for any prime p.<br><br>
+                    <b>When to Use:</b> Use Wilson's theorem for factorial remainders with prime divisors.<br><br>
+                    <b>Step-by-Step Example 1:</b><br>
+                    Find the remainder when 568! is divided by 569.<br>
+                    <ul class="list-disc pl-6">
+                        <li>569 is prime, so 568! mod 569 = 568.</li>
+                    </ul>
+                    <b>Step-by-Step Example 2:</b><br>
+                    Find the remainder when 225! is divided by 227.<br>
+                    <ul class="list-disc pl-6">
+                        <li>227 is prime, so (227-2)! mod 227 = 1, so 225! mod 227 = 1.</li>
+                    </ul>
+                    <b>Advanced Example:</b><br>
+                    Find the remainder when 15! is divided by 19.<br>
+                    <ul class="list-disc pl-6">
+                        <li>19 is prime. By the corollary, (19-2)! mod 19 = 1, so 17! mod 19 = 1.</li>
+                        <li>17! = 17 × 16 × 15! ≡ 1 (mod 19).</li>
+                        <li>17 ≡ -2, 16 ≡ -3 (mod 19), so (-2) × (-3) × 15! ≡ 1 (mod 19).</li>
+                        <li>6 × 15! ≡ 1 (mod 19), so 15! ≡ 16 (mod 19).</li>
+                        <li><b>Final Answer:</b> Remainder is 16.</li>
+                    </ul>
+                    <b>Tips & Pitfalls:</b>
+                    <ul class="list-disc pl-6">
+                        <li>Only applies to primes.</li>
+                        <li>For (p-2)! mod p, answer is always 1 for prime p.</li>
+                        <li>For large factorials, reduce step by step using modular arithmetic.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Chinese Remainder Theorem -->
+            <div class="theorem-box">
+                <div class="theorem-title">Chinese Remainder Theorem (CRT)</div>
+                <div class="theorem-desc">
+                    <b>Statement:</b> If you know the remainders of a number when divided by several pairwise coprime numbers, you can uniquely determine the remainder when divided by their product.<br><br>
+                    <b>How to Use:</b>
+                    <ol class="list-decimal pl-6">
+                        <li>Break the divisor into coprime factors (e.g., 119 = 17 × 7).</li>
+                        <li>Find the remainder for each factor.</li>
+                        <li>Set up congruences and solve for the original number using the system of equations.</li>
+                    </ol>
+                    <b>Step-by-Step Example 1:</b><br>
+                    Find the remainder when 344237 is divided by 119.<br>
+                    <ul class="list-disc pl-6">
+                        <li>119 = 17 × 7 (coprime).</li>
+                        <li>344237 mod 17 = 4, 344237 mod 7 = 1.</li>
+                        <li>Set up: x ≡ 4 (mod 17), x ≡ 1 (mod 7).</li>
+                        <li>Find x that satisfies both. The answer is 106.</li>
+                    </ul>
+                    <b>Step-by-Step Example 2:</b><br>
+                    Find the remainder when 4952517 is divided by 78.<br>
+                    <ul class="list-disc pl-6">
+                        <li>78 = 13 × 6 (coprime).</li>
+                        <li>4952517 mod 13 = 1, 4952517 mod 6 = 3.</li>
+                        <li>Set up: x ≡ 1 (mod 13), x ≡ 3 (mod 6).</li>
+                        <li>Find x that satisfies both. The answer is 27.</li>
+                    </ul>
+                    <b>Tips & Pitfalls:</b>
+                    <ul class="list-disc pl-6">
+                        <li>Only works if divisors are coprime.</li>
+                        <li>For more than two divisors, apply iteratively.</li>
+                        <li>CRT is powerful for reconstructing numbers from modular information.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <section id="practice" class="mt-12">
+            <div class="card p-8 text-center bg-blue-50 border-2 border-blue-200 mt-8" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">Practice More Set</h2>
+                <p class="text-gray-600 mb-6 max-w-lg mx-auto">
+                    Test your understanding of arithmetic theorems with a handpicked set of practice questions. Perfect for CAT, XAT, and other competitive exams!
+                </p>
+                <a href="../../practiceQuestions/arithmeticTheoremsQ.html" class="inline-block bg-gradient-to-r from-yellow-400 to-pink-400 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg hover:from-pink-500 hover:to-yellow-400 transition-transform transform hover:scale-105">
+                    <span class="mr-2">🧮</span>Start Arithmetic Theorems Practice
+                </a>
+            </div>
+        </section>
+    </div>
+</body>
+</html> 
