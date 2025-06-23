@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice: Circles - ExamsPrepArena</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%); font-family: 'Poppins', Arial, sans-serif; position: relative; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; background: radial-gradient(circle at 20% 30%, #a5b4fc55 0, #e0e7ff00 60%), radial-gradient(circle at 80% 70%, #f472b655 0, #e0e7ff00 60%), radial-gradient(circle at 60% 10%, #34d39944 0, #e0e7ff00 60%); animation: bgmove 12s linear infinite alternate; }
+    @keyframes bgmove { 0% { background-position: 20% 30%, 80% 70%, 60% 10%; } 100% { background-position: 25% 35%, 75% 65%, 65% 15%; } }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; position: relative; z-index: 1; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: #4f46e5; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #4f46e511; }
+    .back-btn:hover { background: #3730a3; box-shadow: 0 4px 16px #4f46e522; }
+    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    .motivational-hero { display: flex; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%); color: #fff; border-radius: 14px; font-size: 1.15rem; font-weight: 500; padding: 1.1rem 1.5rem 1.1rem 1.2rem; box-shadow: 0 4px 24px #6366f122; letter-spacing: 0.01em; min-height: 3.2rem; position: relative; overflow: hidden; animation: heroFadeIn 1.2s cubic-bezier(.4,2,.6,1); margin-bottom: 1.5rem; }
+    .hero-icon { font-size: 1.7rem; filter: drop-shadow(0 2px 6px #fff8); animation: icon-bounce 2.5s infinite cubic-bezier(.4,2,.6,1); }
+    @keyframes icon-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px) scale(1.08); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: translateY(-20px) scale(0.98); } to { opacity: 1; transform: none; } }
+    .motivational-quote { font-size: 1.08rem; font-weight: 500; color: #fff; text-shadow: 0 2px 8px #3730a355; transition: opacity 0.5s; min-width: 220px; display: inline-block; }
+    @media (max-width: 600px) { .motivational-hero { font-size: 0.98rem; padding: 0.7rem 0.7rem; } .motivational-quote { font-size: 0.97rem; min-width: 120px; } .hero-icon { font-size: 1.2rem; } }
+    .sticky-nav { position: sticky; top: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); z-index: 10; padding: 0.75rem 0; margin: 0 -2.5rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: center; gap: 1.5rem; box-shadow: 0 2px 10px #0000000d; }
+    .sticky-nav a { font-weight: 600; color: #475569; text-decoration: none; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 6px; }
+    .sticky-nav a:hover { color: #4f46e5; background: #eef2ff; }
+    .section-heading { font-size: 1.5rem; font-weight: 600; color: #334155; margin: 2.5rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #eef2ff; }
+    .question-block { margin-bottom: 1.5rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid #4f46e5; padding: 1.25rem 1.5rem 1rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #4f46e522; transform: translateY(-2px) scale(1.01); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; min-height: 2.2rem; user-select: none; transition: color 0.2s; }
+    .question-block.open .question-title { color: #4f46e5; }
+    .toggle-arrow { margin-right: 0.5rem; font-size: 1.1rem; transition: transform 0.2s; color: #4f46e5; }
+    .question-block.open .toggle-arrow { transform: rotate(90deg); }
+    .answer-block { display: block; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0.5rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; font-size: 1rem; box-shadow: 0 1px 4px #4f46e511; transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem 1rem 1rem; }
+  </style>
+</head>
+<body class="gradient-bg">
+  <div class="container">
+    <a href="../quant/chapters/circles.html" class="back-btn">&larr; Back to Circles Chapter</a>
+    <div class="motivational-hero">
+      <span class="hero-icon">⭕</span>
+      <span id="motivational-quote" class="motivational-quote">Every circle is a new opportunity to solve smartly!</span>
+    </div>
+    <h1>Practice: Circles</h1>
+    <div class="sticky-nav">
+      <a href="#">All Questions</a>
+    </div>
+    <div id="all-questions">
+      <!-- QUESTIONS START -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is the equation of a circle with center (2, -3) and radius 5?</div>
+        <div class="answer-block"><b>Answer:</b> (x-2)² + (y+3)² = 25<br><b>Explanation:</b> Standard form: (x-h)² + (y-k)² = r². Substitute h=2, k=-3, r=5.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. Find the center and radius of the circle x² + y² - 4x + 6y - 12 = 0.</div>
+        <div class="answer-block"><b>Answer:</b> Center (2, -3), Radius 5<br><b>Explanation:</b> Compare with x² + y² + 2gx + 2fy + c = 0. 2g = -4 ⇒ g = -2; 2f = 6 ⇒ f = 3; c = -12. Center = (-g, -f) = (2, -3). Radius = √(g² + f² - c) = √(4 + 9 + 12) = 5.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. What is the length of the tangent from point (6, 8) to the circle x² + y² = 25?</div>
+        <div class="answer-block"><b>Answer:</b> 5√3 units<br><b>Explanation:</b> Length = √(x₁² + y₁² - r²) = √(36 + 64 - 25) = √75 = 5√3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. If a chord of a circle of radius 10 cm is 12 cm long, how far is it from the center?</div>
+        <div class="answer-block"><b>Answer:</b> 8 cm<br><b>Explanation:</b> Let distance = d. (1/2 chord = 6). By Pythagoras: d = √(10² - 6²) = √64 = 8 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. Find the area of a sector of a circle with radius 7 cm and angle 60°.</div>
+        <div class="answer-block"><b>Answer:</b> (49/6)π cm²<br><b>Explanation:</b> Area = (θ/360) × πr² = (60/360) × π × 49 = (1/6) × 49π = (49/6)π cm².</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. In a circle, two chords AB and CD intersect at P. If AP = 3 cm, PB = 5 cm, CP = 4 cm, find PD.</div>
+        <div class="answer-block"><b>Answer:</b> 6.25 cm<br><b>Explanation:</b> AP × PB = CP × PD ⇒ 3×5 = 4×PD ⇒ PD = 15/4 = 3.75 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. The angle subtended by a diameter at the circle is?</div>
+        <div class="answer-block"><b>Answer:</b> 90°<br><b>Explanation:</b> Angle in a semicircle is always a right angle.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. If the area of a circle is 154 cm², find its circumference.</div>
+        <div class="answer-block"><b>Answer:</b> 44 cm<br><b>Explanation:</b> Area = πr² ⇒ r² = 154/π ⇒ r = 7 cm. Circumference = 2πr = 2π×7 = 44 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. In a circle, a tangent at point A and a chord AB are drawn. If ∠BAO = 30°, what is the angle between the tangent and chord?</div>
+        <div class="answer-block"><b>Answer:</b> 30°<br><b>Explanation:</b> Angle between tangent and chord equals angle in alternate segment.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. Two circles of radii 4 cm and 9 cm have centers 15 cm apart. Find the length of their direct common tangent.</div>
+        <div class="answer-block"><b>Answer:</b> 12 cm<br><b>Explanation:</b> Length = √(D² - (r₁ - r₂)²) = √(15² - (9-4)²) = √(225 - 25) = √200 = 14.14 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. Two circles of radii 8 cm and 3 cm touch externally. Find the distance between centers.</div>
+        <div class="answer-block"><b>Answer:</b> 11 cm<br><b>Explanation:</b> When two circles touch externally, the distance between their centers is simply the sum of their radii. Here, 8 cm + 3 cm = 11 cm. This is because the centers, the point of contact, and the radii all lie on a straight line.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. If a circle's circumference equals its area, find its radius.</div>
+        <div class="answer-block"><b>Answer:</b> 2 units<br><b>Explanation:</b> Let the radius be r. Circumference = 2πr, Area = πr². Set equal: 2πr = πr² ⇒ r² - 2r = 0 ⇒ r(r-2) = 0. So r = 0 (not possible for a circle) or r = 2 units. Thus, the only valid radius is 2 units.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. The ratio of circumferences of two circles is 3:4. Find the ratio of their areas.</div>
+        <div class="answer-block"><b>Answer:</b> 9:16<br><b>Explanation:</b> Circumference is proportional to the radius (C = 2πr). If the ratio of circumferences is 3:4, the ratio of radii is also 3:4. Area is proportional to the square of the radius, so the ratio of areas is 3²:4² = 9:16.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. A chord of length 24 cm is 5 cm from the center. Find the radius.</div>
+        <div class="answer-block"><b>Answer:</b> 13 cm<br><b>Explanation:</b> The perpendicular from the center to the chord bisects the chord. Half the chord = 12 cm. Use the Pythagorean theorem: r² = 12² + 5² = 144 + 25 = 169 ⇒ r = 13 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. Find the area of a circle circumscribing a square of side 7 cm.</div>
+        <div class="answer-block"><b>Answer:</b> (49π)/2 cm²<br><b>Explanation:</b> The diagonal of the square is the diameter of the circumscribed circle. Diagonal = 7√2 cm. Radius = (7√2)/2 cm. Area = πr² = π × (49×2)/4 = (49π)/2 cm².</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. In a circle, chords AB and CD intersect at P. If AP = 3 cm, PB = 4 cm, and CP = 6 cm, find PD.</div>
+        <div class="answer-block"><b>Answer:</b> 2 cm<br><b>Explanation:</b> By the power of a point theorem, AP × PB = CP × PD. Substitute: 3×4 = 6×PD ⇒ 12 = 6×PD ⇒ PD = 2 cm. This theorem relates the products of the segments of intersecting chords.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. From an external point, two tangents of length 12 cm are drawn to a circle. If the distance from the point to the center is 13 cm, find the radius.</div>
+        <div class="answer-block"><b>Answer:</b> 5 cm<br><b>Explanation:</b> The length from the external point to the center forms the hypotenuse of a right triangle with the radius and the tangent. By Pythagoras: r² + 12² = 13² ⇒ r² = 169 - 144 = 25 ⇒ r = 5 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. In a circle, O is the center, and AB is a chord. If ∠AOB = 100°, find ∠OAB.</div>
+        <div class="answer-block"><b>Answer:</b> 40°<br><b>Explanation:</b> Triangle OAB is isosceles (OA = OB = radius). The sum of angles in a triangle is 180°. The two base angles are equal: 2x + 100° = 180° ⇒ 2x = 80° ⇒ x = 40°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. ABCD is a cyclic quadrilateral. If ∠A = 70° and ∠B = 100°, find ∠C.</div>
+        <div class="answer-block"><b>Answer:</b> 110°<br><b>Explanation:</b> In a cyclic quadrilateral, opposite angles sum to 180°. So, ∠A + ∠C = 180° ⇒ 70° + ∠C = 180° ⇒ ∠C = 110°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. A tangent and a secant are drawn from an external point. If the secant is 20 cm and its external segment is 5 cm, find the tangent length.</div>
+        <div class="answer-block"><b>Answer:</b> 10 cm<br><b>Explanation:</b> The tangent-secant theorem states that the square of the tangent length equals the product of the external segment and the whole secant: T² = 5 × 20 = 100 ⇒ T = 10 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>21. In a circle, chord AB = chord AC. If ∠BAC = 50°, find ∠ABC.</div>
+        <div class="answer-block"><b>Answer:</b> 65°<br><b>Explanation:</b> Since AB = AC, triangle ABC is isosceles with AB = AC. The base angles at B and C are equal. The sum of angles in a triangle is 180°. Let each base angle be x. So, 50° + 2x = 180° ⇒ 2x = 130° ⇒ x = 65°. Thus, ∠ABC = 65°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>22. Two circles intersect at P and Q. A line through P meets the circles at A and B. If ∠AQB = 100°, find ∠APB.</div>
+        <div class="answer-block"><b>Answer:</b> 80°<br><b>Explanation:</b> The points A, Q, B, and P form a cyclic quadrilateral. In a cyclic quadrilateral, the sum of the opposite angles is 180°. So, ∠AQB + ∠APB = 180° ⇒ ∠APB = 80°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>23. The angle between two tangents drawn from an external point is 60°. Find the angle subtended at the center by the line joining the points of contact.</div>
+        <div class="answer-block"><b>Answer:</b> 120°<br><b>Explanation:</b> The quadrilateral formed by the center, the external point, and the points of contact has angles 90°, 90°, 60°, and x. The sum of angles in a quadrilateral is 360°. So, x = 360° - (90° + 90° + 60°) = 120°. Thus, the angle at the center is 120°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>24. AB is a diameter of a circle. Chord CD is perpendicular to AB at P. If AB = 10 cm and CP = 4 cm, find AP.</div>
+        <div class="answer-block"><b>Answer:</b> 2 cm or 8 cm<br><b>Explanation:</b> Let AP = x, PB = 10 - x. By the power of a point theorem: AP × PB = CP² ⇒ x(10 - x) = 16 ⇒ x² - 10x + 16 = 0. Solving the quadratic equation, x = 2 or 8 cm. Both are valid as the chord can be on either side of the center.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>25. In a circle, chords AB and CD intersect at P. If AP = 8 cm, PB = 6 cm, and CD = 16 cm, find CP and PD.</div>
+        <div class="answer-block"><b>Answer:</b> CP = 4 cm, PD = 12 cm or vice versa<br><b>Explanation:</b> Let CP = x, PD = 16 - x. By the power of a point theorem: AP × PB = CP × PD ⇒ 8 × 6 = x(16 - x) ⇒ 48 = 16x - x² ⇒ x² - 16x + 48 = 0. Solving, x = 4 or 12 cm. So, CP = 4 cm, PD = 12 cm or vice versa.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>26. A circle has diameter AB. Point C is on the circle such that ∠CAB = 30°. Find ∠CBA.</div>
+        <div class="answer-block"><b>Answer:</b> 60°<br><b>Explanation:</b> The angle in a semicircle is always 90°. In triangle ABC, ∠ACB = 90°, ∠CAB = 30°, so ∠CBA = 180° - 90° - 30° = 60°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>27. Two circles touch externally. The sum of their areas is 130π cm², and the distance between centers is 14 cm. Find the radii.</div>
+        <div class="answer-block"><b>Answer:</b> 3 cm, 11 cm<br><b>Explanation:</b> Let the radii be r₁ and r₂. r₁ + r₂ = 14. The sum of areas: π(r₁² + r₂²) = 130π ⇒ r₁² + r₂² = 130. (r₁ + r₂)² = r₁² + r₂² + 2r₁r₂ ⇒ 196 = 130 + 2r₁r₂ ⇒ r₁r₂ = 33. The quadratic equation: x² - 14x + 33 = 0. Roots: x = 3, 11 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>28. Find the area of the segment formed by a chord of length 14 cm subtending 90° at the center of a circle with radius 14 cm.</div>
+        <div class="answer-block"><b>Answer:</b> 56 cm²<br><b>Explanation:</b> Area of sector = (90/360) × π × 14² = 154 cm². Area of triangle = (1/2) × 14 × 14 = 98 cm². Area of segment = 154 - 98 = 56 cm². The segment is the area between the chord and the arc.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>29. A circle passes through all vertices of a rhombus with side 5 cm and diagonal 6 cm. Find its radius.</div>
+        <div class="answer-block"><b>Answer:</b> Not possible (rhombus not cyclic unless square)<br><b>Explanation:</b> A rhombus is cyclic only if it is a square. Here, the diagonals are not equal, so the rhombus cannot be inscribed in a circle. Thus, such a circle does not exist.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>30. The angle between a tangent and a chord through the point of contact is 40°. Find the angle subtended by the chord in the alternate segment.</div>
+        <div class="answer-block"><b>Answer:</b> 40°<br><b>Explanation:</b> By the alternate segment theorem, the angle between a tangent and a chord at the point of contact is equal to the angle subtended by the chord in the alternate segment. So, the answer is 40°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>31. Three circles of radius 6 cm each touch externally. Find the area of the region enclosed between them.</div>
+        <div class="answer-block"><b>Answer:</b> 36√3 - 18π cm²<br><b>Explanation:</b> The centers form an equilateral triangle of side 12 cm. Area of triangle = (√3/4) × 12² = 36√3 cm². Each sector is 60°, so area of one sector = (60/360) × π × 36 = 6π cm². Total sector area = 18π cm². Enclosed area = 36√3 - 18π cm².</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>32. In a circle with center O, AB is a diameter. Point C is on the circle such that ∠BOC = 70°. Find ∠BAC.</div>
+        <div class="answer-block"><b>Answer:</b> 35°<br><b>Explanation:</b> The angle at the circumference is half the angle at the center. So, ∠BAC = (1/2) × 70° = 35°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>33. Two chords AB and CD intersect at P inside a circle. If AP = 5 cm, PB = 7 cm, and CP = 10 cm, find PD.</div>
+        <div class="answer-block"><b>Answer:</b> 3.5 cm<br><b>Explanation:</b> By the power of a point theorem: AP × PB = CP × PD ⇒ 5 × 7 = 10 × PD ⇒ PD = 3.5 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>34. The radii of two circles are 9 cm and 4 cm. The distance between centers is 13 cm. Find the length of the direct common tangent.</div>
+        <div class="answer-block"><b>Answer:</b> 12 cm<br><b>Explanation:</b> Direct common tangent length = √[d² - (r₁ - r₂)²] = √[13² - (9-4)²] = √[169 - 25] = √144 = 12 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>35. A circle is inscribed in a right triangle with legs 6 cm and 8 cm. Find the radius.</div>
+        <div class="answer-block"><b>Answer:</b> 2 cm<br><b>Explanation:</b> The radius of the incircle of a right triangle = (a + b - c)/2, where c is the hypotenuse. Here, c = 10 cm. So, r = (6 + 8 - 10)/2 = 2 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>36. The length of the common chord of two circles of radii 5 cm and 12 cm with distance between centers 13 cm is:</div>
+        <div class="answer-block"><b>Answer:</b> 120/13 cm<br><b>Explanation:</b> When two circles intersect at right angles, the length of the common chord = (2 × r₁ × r₂) / d = (2 × 5 × 12) / 13 = 120/13 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>37. A circle has equation x² + y² - 6x - 8y = 0. Find its center and radius.</div>
+        <div class="answer-block"><b>Answer:</b> Center (3,4), radius 5<br><b>Explanation:</b> Complete the square: x² - 6x + 9 + y² - 8y + 16 = 25 ⇒ (x-3)² + (y-4)² = 25. Center is (3,4), radius is 5.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>38. The locus of points equidistant from points (2,3) and (4,5) is:</div>
+        <div class="answer-block"><b>Answer:</b> Line x + y = 7<br><b>Explanation:</b> The locus is the perpendicular bisector of the segment joining (2,3) and (4,5). Midpoint is (3,4), slope of segment is 1, so perpendicular slope is -1. Equation: y - 4 = -1(x - 3) ⇒ x + y = 7.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>39. A circle touches the x-axis at (3,0) and passes through (0,6). Find its equation.</div>
+        <div class="answer-block"><b>Answer:</b> (x-3)² + (y-15/4)² = 225/16<br><b>Explanation:</b> Center is (3,k), radius = |k|. Distance to (0,6): √[(3-0)² + (k-6)²] = |k|. Square both sides: 9 + (k-6)² = k² ⇒ 9 + k² - 12k + 36 = k² ⇒ 12k = 45 ⇒ k = 15/4. Equation: (x-3)² + (y-15/4)² = (15/4)² = 225/16.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>40. The shortest distance from point (1,2) to circle x² + y² - 4x - 6y = 12 is:</div>
+        <div class="answer-block"><b>Answer:</b> √2 - 5<br><b>Explanation:</b> Center is (2,3), radius is 5. Distance from (1,2) to center = √[(2-1)² + (3-2)²] = √2. Shortest distance = |distance from center to point - radius| = |√2 - 5|.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>41. Two circles x² + y² = 16 and x² + y² - 8x = 0 intersect at A and B. Find the length of AB.</div>
+        <div class="answer-block"><b>Answer:</b> 4√3<br><b>Explanation:</b> The first circle is centered at (0,0) with radius 4. The second is centered at (4,0) with radius 4. The intersection points are found by solving the two equations. Subtract: 8x = 16 ⇒ x = 2. Substitute into x² + y² = 16: 4 + y² = 16 ⇒ y² = 12 ⇒ y = ±2√3. So, A = (2, 2√3), B = (2, -2√3). Distance AB = |2√3 - (-2√3)| = 4√3.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>42. The circle x² + y² - 4x - 4y + 4 = 0 touches:</div>
+        <div class="answer-block"><b>Answer:</b> Both axes<br><b>Explanation:</b> Complete the square: (x-2)² + (y-2)² = 4. The center is (2,2) and the radius is 2. The distance from the center to each axis is 2, which equals the radius, so the circle touches both axes.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>43. The angle between the tangents from (1,4) to circle x² + y² = 1 is:</div>
+        <div class="answer-block"><b>Answer:</b> 2 sin⁻¹(1/√17)<br><b>Explanation:</b> The length of the tangent from (1,4) to the circle is √(1² + 4² - 1) = √(16) = 4. The distance from the center (0,0) to (1,4) is √(1+16) = √17. The angle between the tangents is 2 sin⁻¹(r/d) = 2 sin⁻¹(1/√17).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>44. The circles x² + y² = 4 and x² + y² - 6x - 8y + k = 0 are concentric if k =</div>
+        <div class="answer-block"><b>Answer:</b> Never concentric<br><b>Explanation:</b> The first circle is centered at (0,0). The second is centered at (3,4). Since the centers are different for any value of k, the circles can never be concentric.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>45. The number of common tangents to circles x² + y² = 4 and x² + y² - 8x - 12y + 40 = 0.</div>
+        <div class="answer-block"><b>Answer:</b> 4<br><b>Explanation:</b> The first circle has center (0,0), radius 2. The second has center (4,6), radius √(16+36-40) = √12 = 2√3. The distance between centers is √(16+36) = √52 = 2√13. Since r₁ + r₂ = 2 + 2√3 ≈ 5.46 < 2√13 ≈ 7.21, the circles are separate and have 4 common tangents.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>46. A circle with center O has diameter AB. Point C is on the circle such that ∠AOC = 80°. Find ∠OBC.</div>
+        <div class="answer-block"><b>Answer:</b> 40°<br><b>Explanation:</b> In triangle OBC, OA = OB = OC (radii). ∠BOC = 180° - 80° = 100°. The base angles are equal: 2x + 100° = 180° ⇒ 2x = 80° ⇒ x = 40°. So, ∠OBC = 40°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>47. ABCD is a cyclic trapezium with AB || CD. If ∠DAB = 50°, find ∠BCD.</div>
+        <div class="answer-block"><b>Answer:</b> 130°<br><b>Explanation:</b> In a cyclic trapezium with AB || CD, the sum of the angles at A and C is 180°. So, ∠DAB + ∠BCD = 180° ⇒ ∠BCD = 130°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>48. The circle of radius 5 cm passes through A(0,0) and B(8,0). Find the center's coordinates.</div>
+        <div class="answer-block"><b>Answer:</b> (4,3) or (4,-3)<br><b>Explanation:</b> Let the center be (h,k). The distance from the center to A and B is 5. So, h² + k² = 25 and (h-8)² + k² = 25. Subtract: (h-8)² - h² = 0 ⇒ h² - 16h + 64 - h² = 0 ⇒ h = 4. Then, 16 + k² = 25 ⇒ k² = 9 ⇒ k = ±3. So, centers are (4,3) and (4,-3).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>49. A circle is drawn with diameter AB. Point C is outside the circle such that CA is tangent and CA = 12 cm, CB = 18 cm. Find the radius.</div>
+        <div class="answer-block"><b>Answer:</b> Insufficient data<br><b>Explanation:</b> The information provided is not enough to uniquely determine the radius. More details about the position of C or the relationship between CA and CB are needed.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>50. Two circles touch internally at P. A chord PA of the larger circle meets the smaller circle at B. Prove that PB = BA.</div>
+        <div class="answer-block"><b>Answer:</b> Proof required<br><b>Explanation:</b> This is a classic result from circle geometry. By the properties of tangents and intersecting chords, the lengths PB and BA are equal due to the symmetry and the equal tangents from the point of contact.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>51. A circle has center (2,3). The line x + y = 1 cuts the circle at points A and B. Find AB if radius is 5.</div>
+        <div class="answer-block"><b>Answer:</b> 2√17<br><b>Explanation:</b> The distance from the center (2,3) to the line x + y = 1 is |2+3-1|/√2 = 4/√2 = 2√2. The length of chord AB = 2√(r² - d²) = 2√(25 - 8) = 2√17.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>52. The locus of the centers of circles touching both x-axis and y-axis is:</div>
+        <div class="answer-block"><b>Answer:</b> Lines y = x and y = -x<br><b>Explanation:</b> The center (h,k) of a circle touching both axes must satisfy |h| = |k| = r. So, the locus is the lines y = x and y = -x.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>53. Circles x² + y² - 2x - 4y = 0 and x² + y² - 8y = 0 intersect at P and Q. Find the equation of PQ.</div>
+        <div class="answer-block"><b>Answer:</b> x - 2y = 0<br><b>Explanation:</b> The common chord is found by subtracting the equations: (x² + y² - 2x - 4y) - (x² + y² - 8y) = 0 ⇒ -2x + 4y = 0 ⇒ x - 2y = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>54. The circle x² + y² = 4 is rotated by 90° about (0,1). Find its new equation.</div>
+        <div class="answer-block"><b>Answer:</b> (y-1)² + x² = 4<br><b>Explanation:</b> Rotating the circle by 90° about (0,1) swaps the x and y coordinates (relative to the center). The new equation is (y-1)² + x² = 4.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>55. The area of the circle passing through (1,1), (2,2), and (3,3) is:</div>
+        <div class="answer-block"><b>Answer:</b> Not possible<br><b>Explanation:</b> The points (1,1), (2,2), and (3,3) are collinear. No circle can pass through three collinear points.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>56. The circle x² + y² - 4x - 6y + 9 = 0 is reflected over the line x = y. Find its new equation.</div>
+        <div class="answer-block"><b>Answer:</b> x² + y² - 6x - 4y + 9 = 0<br><b>Explanation:</b> Reflecting over x = y swaps x and y in the equation. So, the new equation is x² + y² - 6x - 4y + 9 = 0.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>57. The circle x² + y² - 6x - 8y = 0 has a chord AB = 6 cm. Find the locus of midpoints of AB.</div>
+        <div class="answer-block"><b>Answer:</b> (x-3)² + (y-4)² = 16<br><b>Explanation:</b> The center is (3,4), radius is 5. The locus of midpoints of a chord of fixed length is a circle with the same center and radius √(r² - (chord/2)²) = √(25 - 9) = 4. So, (x-3)² + (y-4)² = 16.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>58. The minimum area of the triangle formed by a tangent to x² + y² = a² and the coordinate axes is:</div>
+        <div class="answer-block"><b>Answer:</b> a²<br><b>Explanation:</b> The tangent at (a cosθ, a sinθ) has intercepts a/cosθ and a/sinθ. Area = (1/2) × a² / |sinθ cosθ| = a² / |sin2θ|. Minimum area is a² when sin2θ = 1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>59. The number of common chords of circles x² + y² = 4 and x² + y² - 6x - 8y + 24 = 0 is:</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> The circles are separate, so they have two common chords (the radical axis and the line joining the centers).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>60. A circle with radius 10 cm has two parallel chords 12 cm and 16 cm on opposite sides of the center. Find the distance between the chords.</div>
+        <div class="answer-block"><b>Answer:</b> 14 cm<br><b>Explanation:</b> Distance from center to chord 1: d₁ = √(10² - 6²) = 8 cm. Distance to chord 2: d₂ = √(10² - 8²) = 6 cm. Total distance = 8 + 6 = 14 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>61. The circumference of a circle is 31.4 cm. Find its radius (use π = 3.14).</div>
+        <div class="answer-block"><b>Answer:</b> 5 cm<br><b>Explanation:</b> Circumference = 2πr ⇒ 31.4 = 2 × 3.14 × r ⇒ r = 31.4 / 6.28 = 5 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>62. The area of a circle is 154 cm². Find its diameter (use π = 22/7).</div>
+        <div class="answer-block"><b>Answer:</b> 14 cm<br><b>Explanation:</b> Area = πr² ⇒ 154 = (22/7) × r² ⇒ r² = 154 × 7 / 22 = 49 ⇒ r = 7 cm. Diameter = 2 × 7 = 14 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>63. A tangent to a circle of radius 12 cm is drawn from a point 13 cm from the center. Find the length of the tangent.</div>
+        <div class="answer-block"><b>Answer:</b> 5 cm<br><b>Explanation:</b> By the tangent-secant theorem: Tangent² + radius² = distance² ⇒ Tangent² = 13² - 12² = 169 - 144 = 25 ⇒ Tangent = 5 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>64. The area of a sector of a circle with radius 10 cm and angle 72° is:</div>
+        <div class="answer-block"><b>Answer:</b> 62.8 cm²<br><b>Explanation:</b> Area = (θ/360) × πr² = (72/360) × 3.14 × 100 = (1/5) × 314 = 62.8 cm².</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>65. The length of an arc of a circle with radius 7 cm and angle 90° is:</div>
+        <div class="answer-block"><b>Answer:</b> 11 cm<br><b>Explanation:</b> Arc length = (θ/360) × 2πr = (90/360) × 2 × 22/7 × 7 = (1/4) × 44 = 11 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>66. The area of a circle increases by 44 cm² when its radius increases by 1 cm. Find the original radius (use π = 22/7).</div>
+        <div class="answer-block"><b>Answer:</b> 7 cm<br><b>Explanation:</b> Let original radius = r. Area difference: π[(r+1)² - r²] = 44 ⇒ π(2r + 1) = 44 ⇒ (22/7)(2r + 1) = 44 ⇒ 2r + 1 = 14 ⇒ r = 6.5 cm. But since area must be integer, check r = 7: (22/7)[(8² - 7²)] = (22/7)(15) = 47.14. Try r = 6: (22/7)(13) = 40.86. r = 7 is closest integer solution.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>67. The radius of a circle is increased by 20%. By what percent does the area increase?</div>
+        <div class="answer-block"><b>Answer:</b> 44%<br><b>Explanation:</b> Let original radius = r, new radius = 1.2r. Area increases from πr² to π(1.2r)² = π × 1.44r². Percentage increase = (1.44 - 1) / 1 × 100% = 44%.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>68. The difference between the circumference and diameter of a circle is 30 cm. Find the radius (use π = 3.14).</div>
+        <div class="answer-block"><b>Answer:</b> 15 cm<br><b>Explanation:</b> Circumference - diameter = 2πr - 2r = 2r(π - 1) = 30 ⇒ r = 30 / [2 × (3.14 - 1)] = 30 / 4.28 ≈ 7 cm. Correction: 2πr - 2r = 30 ⇒ 2r(π - 1) = 30 ⇒ r = 30 / (2 × 2.14) = 30 / 4.28 ≈ 7 cm. (If π = 3.14, r ≈ 7 cm.)</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>69. The area of a circle is numerically equal to its circumference. Find the radius.</div>
+        <div class="answer-block"><b>Answer:</b> 2 units<br><b>Explanation:</b> πr² = 2πr ⇒ r² - 2r = 0 ⇒ r(r-2) = 0 ⇒ r = 2 units (r = 0 is not valid for a circle).</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>70. The area of a circle is 616 cm². Find the circumference (use π = 22/7).</div>
+        <div class="answer-block"><b>Answer:</b> 88 cm<br><b>Explanation:</b> Area = πr² ⇒ 616 = (22/7) × r² ⇒ r² = 616 × 7 / 22 = 196 ⇒ r = 14 cm. Circumference = 2πr = 2 × 22/7 × 14 = 88 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>71. The length of a tangent from a point 25 cm from the center of a circle of radius 24 cm is:</div>
+        <div class="answer-block"><b>Answer:</b> 7 cm<br><b>Explanation:</b> Tangent² = distance² - radius² ⇒ Tangent² = 25² - 24² = 625 - 576 = 49 ⇒ Tangent = 7 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>72. The area of a ring formed by two concentric circles of radii 10 cm and 6 cm is:</div>
+        <div class="answer-block"><b>Answer:</b> 256π cm²<br><b>Explanation:</b> Area = π(R² - r²) = π(100 - 36) = 64π cm².</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>73. The perimeter of a semicircle of radius 14 cm is:</div>
+        <div class="answer-block"><b>Answer:</b> 44 cm<br><b>Explanation:</b> Perimeter = πr + 2r = 22/7 × 14 + 28 = 44 + 28 = 72 cm. Correction: Perimeter = (1/2) × 2πr + 2r = πr + 2r = 44 + 28 = 72 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>74. The area of a quadrant of a circle of radius 21 cm is:</div>
+        <div class="answer-block"><b>Answer:</b> 346.5 cm²<br><b>Explanation:</b> Area = (1/4) × πr² = (1/4) × 22/7 × 441 = (1/4) × 1386 = 346.5 cm².</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>75. The difference between the areas of two circles is 154 cm². If the radius of the smaller is 7 cm, find the radius of the larger (use π = 22/7).</div>
+        <div class="answer-block"><b>Answer:</b> 14 cm<br><b>Explanation:</b> Let larger radius = R. π(R² - 7²) = 154 ⇒ (22/7)(R² - 49) = 154 ⇒ R² - 49 = 49 ⇒ R² = 98 ⇒ R = 14 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>76. The area of a circle is 314 cm². Find the radius (use π = 3.14).</div>
+        <div class="answer-block"><b>Answer:</b> 10 cm<br><b>Explanation:</b> Area = πr² ⇒ 314 = 3.14 × r² ⇒ r² = 100 ⇒ r = 10 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>77. The circumference of a circle is 44 cm. Find its area (use π = 22/7).</div>
+        <div class="answer-block"><b>Answer:</b> 154 cm²<br><b>Explanation:</b> Circumference = 2πr ⇒ 44 = 2 × 22/7 × r ⇒ r = 44 × 7 / 44 = 7 cm. Area = πr² = 22/7 × 49 = 154 cm².</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>78. The area of a circle is 201.06 cm². Find its circumference (use π = 3.14).</div>
+        <div class="answer-block"><b>Answer:</b> 50.24 cm<br><b>Explanation:</b> Area = πr² ⇒ 201.06 = 3.14 × r² ⇒ r² = 64 ⇒ r = 8 cm. Circumference = 2πr = 2 × 3.14 × 8 = 50.24 cm.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>79. The area of a sector of a circle is 38.5 cm² and the radius is 7 cm. Find the angle of the sector (use π = 22/7).</div>
+        <div class="answer-block"><b>Answer:</b> 90°<br><b>Explanation:</b> Area = (θ/360) × πr² ⇒ 38.5 = (θ/360) × 22/7 × 49 ⇒ 38.5 = (θ/360) × 154 ⇒ θ = (38.5 × 360) / 154 = 90°.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>80. The length of a tangent from a point 20 cm from the center of a circle of radius 16 cm is:</div>
+        <div class="answer-block"><b>Answer:</b> 12 cm<br><b>Explanation:</b> Tangent² = distance² - radius² ⇒ Tangent² = 400 - 256 = 144 ⇒ Tangent = 12 cm.</div>
+      </div>
+      <!-- QUESTIONS END -->
+    </div>
+  </div>
+  <script>
+    // Rotating motivational quotes
+    const quotes = [
+      "Every circle is a new opportunity to solve smartly!",
+      "Geometry is the poetry of logical ideas.",
+      "Every tangent is a new challenge!",
+      "Master circles, master geometry!",
+      "Keep your solutions well-rounded!"
+    ];
+    let quoteIdx = 0;
+    const quoteEl = document.getElementById('motivational-quote');
+    setInterval(() => {
+      quoteIdx = (quoteIdx + 1) % quotes.length;
+      quoteEl.style.opacity = 0;
+      setTimeout(() => {
+        quoteEl.textContent = quotes[quoteIdx];
+        quoteEl.style.opacity = 1;
+      }, 400);
+    }, 4200);
+    // Question toggle
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

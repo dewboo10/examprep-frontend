@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice: Coordinate Geometry - ExamsPrepArena</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body { background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%); font-family: 'Poppins', Arial, sans-serif; position: relative; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; background: radial-gradient(circle at 20% 30%, #a5b4fc55 0, #e0e7ff00 60%), radial-gradient(circle at 80% 70%, #f472b655 0, #e0e7ff00 60%), radial-gradient(circle at 60% 10%, #34d39944 0, #e0e7ff00 60%); animation: bgmove 12s linear infinite alternate; }
+        @keyframes bgmove { 0% { background-position: 20% 30%, 80% 70%, 60% 10%; } 100% { background-position: 25% 35%, 75% 65%, 65% 15%; } }
+        .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; position: relative; z-index: 1; }
+        .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: #4f46e5; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #4f46e511; }
+        .back-btn:hover { background: #3730a3; box-shadow: 0 4px 16px #4f46e522; }
+        h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+        .motivational-hero { display: flex; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%); color: #fff; border-radius: 14px; font-size: 1.15rem; font-weight: 500; padding: 1.1rem 1.5rem 1.1rem 1.2rem; box-shadow: 0 4px 24px #6366f122; letter-spacing: 0.01em; min-height: 3.2rem; position: relative; overflow: hidden; animation: heroFadeIn 1.2s cubic-bezier(.4,2,.6,1); margin-bottom: 1.5rem; }
+        .hero-icon { font-size: 1.7rem; filter: drop-shadow(0 2px 6px #fff8); animation: icon-bounce 2.5s infinite cubic-bezier(.4,2,.6,1); }
+        @keyframes icon-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px) scale(1.08); } }
+        @keyframes heroFadeIn { from { opacity: 0; transform: translateY(-20px) scale(0.98); } to { opacity: 1; transform: none; } }
+        .motivational-quote { font-size: 1.08rem; font-weight: 500; color: #fff; text-shadow: 0 2px 8px #3730a355; transition: opacity 0.5s; min-width: 220px; display: inline-block; }
+        @media (max-width: 600px) { .motivational-hero { font-size: 0.98rem; padding: 0.7rem 0.7rem; } .motivational-quote { font-size: 0.97rem; min-width: 120px; } .hero-icon { font-size: 1.2rem; } }
+        .sticky-nav { position: sticky; top: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); z-index: 10; padding: 0.75rem 0; margin: 0 -2.5rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: center; gap: 1.5rem; box-shadow: 0 2px 10px #0000000d; }
+        .sticky-nav a { font-weight: 600; color: #475569; text-decoration: none; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 6px; }
+        .sticky-nav a:hover { color: #4f46e5; background: #eef2ff; }
+        .section-heading { font-size: 1.5rem; font-weight: 600; color: #334155; margin: 2.5rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #eef2ff; }
+        .question-block { margin-bottom: 1.5rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid #4f46e5; padding: 1.25rem 1.5rem 1rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s; position: relative; cursor: pointer; }
+        .question-block:hover { box-shadow: 0 6px 24px #4f46e522; transform: translateY(-2px) scale(1.01); }
+        .question-title { font-weight: 600; color: #334155; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; min-height: 2.2rem; user-select: none; transition: color 0.2s; }
+        .question-block.open .question-title { color: #4f46e5; }
+        .toggle-arrow { margin-right: 0.5rem; font-size: 1.1rem; transition: transform 0.2s; color: #4f46e5; }
+        .question-block.open .toggle-arrow { transform: rotate(90deg); }
+        .answer-block { display: block; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0.5rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; font-size: 1rem; box-shadow: 0 1px 4px #4f46e511; transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s; }
+        .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem 1rem 1rem; }
+    </style>
+</head>
+<body class="gradient-bg">
+    <div class="container">
+        <a href="../quant/chapters/coordinate.html" class="back-btn">&larr; Back to Coordinate Geometry Chapter</a>
+        <div class="motivational-hero">
+            <span class="hero-icon">📈</span>
+            <span id="motivational-quote" class="motivational-quote">Every point is a new beginning—plot your path to success!</span>
+        </div>
+        <h1>Practice: Coordinate Geometry</h1>
+        <div class="sticky-nav">
+            <a href="#all-questions">All Questions</a>
+        </div>
+        <div id="all-questions">
+            <!-- QUESTIONS START -->
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>1. Find the distance between points (3, 4) and (7, 7).</div>
+                <div class="answer-block"><b>Answer:</b> 5 units.<br><b>Explanation:</b> Use the distance formula: \(\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}\). Plug in the coordinates: \(x_1 = 3\), \(y_1 = 4\), \(x_2 = 7\), \(y_2 = 7\). Calculate: \(x_2 - x_1 = 7 - 3 = 4\), \(y_2 - y_1 = 7 - 4 = 3\). Distance = \(\sqrt{4^2 + 3^2} = \sqrt{16 + 9} = \sqrt{25} = 5\) units.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>2. Find the midpoint of the line segment joining (2, 3) and (4, 5).</div>
+                <div class="answer-block"><b>Answer:</b> (3, 4).<br><b>Explanation:</b> Use the midpoint formula: \(\left( \frac{x_1 + x_2}{2}, \frac{y_1 + y_2}{2} \right)\). Plug in: \(x_1 = 2\), \(y_1 = 3\), \(x_2 = 4\), \(y_2 = 5\). Calculate: \(x_{\text{mid}} = \frac{2 + 4}{2} = 3\), \(y_{\text{mid}} = \frac{3 + 5}{2} = 4\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>3. Find the slope of the line passing through (1, 2) and (3, 6).</div>
+                <div class="answer-block"><b>Answer:</b> 2.<br><b>Explanation:</b> Slope formula: \(m = \frac{y_2 - y_1}{x_2 - x_1}\). Plug in: \(x_1 = 1\), \(y_1 = 2\), \(x_2 = 3\), \(y_2 = 6\). Calculate: \(m = \frac{6 - 2}{3 - 1} = 2\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>4. If the slope of the line joining (2, y) and (4, 5) is 2, find y.</div>
+                <div class="answer-block"><b>Answer:</b> 1.<br><b>Explanation:</b> Slope formula: \(m = \frac{5 - y}{4 - 2} = \frac{5 - y}{2}\). Given \(m = 2\), so: \(\frac{5 - y}{2} = 2\). Solve for \(y\): \(5 - y = 4\) → \(y = 1\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>5. Find the area of the triangle with vertices (0, 0), (3, 0), and (0, 4).</div>
+                <div class="answer-block"><b>Answer:</b> 6 square units.<br><b>Explanation:</b> Area formula: \(\frac{1}{2} \left| x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2) \right|\). Plug in: \((x_1, y_1) = (0, 0)\), \((x_2, y_2) = (3, 0)\), \((x_3, y_3) = (0, 4)\). Calculate: \(\frac{1}{2} \left| 0 \cdot (0 - 4) + 3 \cdot (4 - 0) + 0 \cdot (0 - 0) \right| = 6\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>6. Find the point dividing the line segment joining (1, 2) and (6, 7) in the ratio 2:3.</div>
+                <div class="answer-block"><b>Answer:</b> (3, 4).<br><b>Explanation:</b> Section formula: \(\left( \frac{m x_2 + n x_1}{m + n}, \frac{m y_2 + n y_1}{m + n} \right)\). Ratio \(m:n = 2:3\), so \(m = 2\), \(n = 3\). Plug in: \(x = \frac{2 \cdot 6 + 3 \cdot 1}{5} = 3\), \(y = \frac{2 \cdot 7 + 3 \cdot 2}{5} = 4\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>7. Find the equation of the line passing through (2, 3) with slope 4.</div>
+                <div class="answer-block"><b>Answer:</b> \(y = 4x - 5\).<br><b>Explanation:</b> Point-slope form: \(y - y_1 = m(x - x_1)\). Plug in: \(x_1 = 2\), \(y_1 = 3\), \(m = 4\). Equation: \(y - 3 = 4(x - 2)\) → \(y = 4x - 5\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>8. Find the equation of the line passing through (1, 2) and (3, 4).</div>
+                <div class="answer-block"><b>Answer:</b> \(y = x + 1\).<br><b>Explanation:</b> First, find slope: \(m = \frac{4 - 2}{3 - 1} = 1\). Use point-slope form with (1, 2): \(y - 2 = 1(x - 1)\) → \(y = x + 1\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>9. Find the equation of the line with slope 3 and y-intercept 5.</div>
+                <div class="answer-block"><b>Answer:</b> \(y = 3x + 5\).<br><b>Explanation:</b> Slope-intercept form: \(y = mx + b\). Plug in: \(m = 3\), \(b = 5\). Equation: \(y = 3x + 5\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>10. Find the equation of the line passing through (0, 3) and (0, 7).</div>
+                <div class="answer-block"><b>Answer:</b> \(x = 0\).<br><b>Explanation:</b> Both x-coordinates are 0, so it's a vertical line. Vertical lines have equations like \(x = k\). Here, \(x = 0\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>11. Find the distance of (3, 4) from the origin.</div>
+                <div class="answer-block"><b>Answer:</b> 5 units.<br><b>Explanation:</b> Distance from (0, 0): \(\sqrt{(3 - 0)^2 + (4 - 0)^2} = 5\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>12. Find the centroid of the triangle with vertices (1, 2), (3, 4), and (5, 6).</div>
+                <div class="answer-block"><b>Answer:</b> (3, 4).<br><b>Explanation:</b> Centroid formula: \(\left( \frac{x_1 + x_2 + x_3}{3}, \frac{y_1 + y_2 + y_3}{3} \right)\). Plug in: \(x_{\text{cent}} = 3\), \(y_{\text{cent}} = 4\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>13. Are points (1, 1), (2, 2), and (3, 3) collinear?</div>
+                <div class="answer-block"><b>Answer:</b> Yes.<br><b>Explanation:</b> Points are collinear if the area of the triangle they form is 0. Area formula: \(\frac{1}{2} \left| 1(2 - 3) + 2(3 - 1) + 3(1 - 2) \right| = 0\). Since area is 0, points are collinear.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>14. Find the equation of the circle with center (2, 3) and radius 4.</div>
+                <div class="answer-block"><b>Answer:</b> \((x - 2)^2 + (y - 3)^2 = 16\).<br><b>Explanation:</b> Standard form: \((x - h)^2 + (y - k)^2 = r^2\). Plug in: \(h = 2\), \(k = 3\), \(r = 4\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>15. Find the center and radius of \(x^2 + y^2 - 4x - 6y + 9 = 0\).</div>
+                <div class="answer-block"><b>Answer:</b> Center (2, 3), radius 2.<br><b>Explanation:</b> Complete the square: \((x - 2)^2 + (y - 3)^2 = 4\). Center: (2, 3), radius: \(2\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>16. Find the distance between \(3x + 4y = 10\) and \(3x + 4y = 20\).</div>
+                <div class="answer-block"><b>Answer:</b> 2 units.<br><b>Explanation:</b> Convert to standard form: \(3x + 4y - 10 = 0\) and \(3x + 4y - 20 = 0\). Distance formula: \(\frac{|c_1 - c_2|}{\sqrt{a^2 + b^2}} = 2\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>17. Find the intersection of \(2x + 3y = 7\) and \(4x + 5y = 13\).</div>
+                <div class="answer-block"><b>Answer:</b> (2, 1).<br><b>Explanation:</b> Solve the system: Multiply first equation by 2: \(4x + 6y = 14\). Subtract second: \(y = 1\). Substitute into first: \(x = 2\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>18. Find the angle between lines \(y = 2x + 3\) and \(y = 3x + 5\).</div>
+                <div class="answer-block"><b>Answer:</b> \(\tan^{-1}(1/7)\).<br><b>Explanation:</b> Slopes: \(m_1 = 2\), \(m_2 = 3\). Formula: \(\tan \theta = \left| \frac{m_2 - m_1}{1 + m_1 m_2} \right| = 1/7\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>19. Find the reflection of (2, 3) in the x-axis.</div>
+                <div class="answer-block"><b>Answer:</b> (2, -3).<br><b>Explanation:</b> Reflection in x-axis: y-coordinate changes sign. So, (2, 3) → (2, -3).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>20. Find the area of the quadrilateral with vertices (0, 0), (1, 1), (2, 0), and (1, -1).</div>
+                <div class="answer-block"><b>Answer:</b> 2 square units.<br><b>Explanation:</b> Use shoelace formula. Area = \(\frac{1}{2} |-2 - 2| = 2\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>21. Find the tangent to \(x^2 + y^2 = 25\) at (3, 4).</div>
+                <div class="answer-block"><b>Answer:</b> \(3x + 4y = 25\).<br><b>Explanation:</b> Tangent formula: \(xx_1 + yy_1 = r^2\). Plug in: \(x_1 = 3\), \(y_1 = 4\), \(r^2 = 25\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>22. Find the length of the tangent from (4, 5) to \(x^2 + y^2 - 2x - 4y - 4 = 0\).</div>
+                <div class="answer-block"><b>Answer:</b> 3 units.<br><b>Explanation:</b> Tangent length: \(\sqrt{S_1}\), where \(S_1 = x_1^2 + y_1^2 - 2x_1 - 4y_1 - 4\). Plug in: \(S_1 = 9\). Length = 3.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>23. Find the circle passing through (1, 0), (0, 1), and (0, 0).</div>
+                <div class="answer-block"><b>Answer:</b> \(x^2 + y^2 - x - y = 0\).<br><b>Explanation:</b> Let circle equation: \(x^2 + y^2 + Dx + Ey + F = 0\). Plug in points to solve: \(D = -1\), \(E = -1\), \(F = 0\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>24. Find the distance from (2, 3) to \(3x + 4y + 5 = 0\).</div>
+                <div class="answer-block"><b>Answer:</b> 4.6 units.<br><b>Explanation:</b> Distance formula: \(\frac{|3(2) + 4(3) + 5|}{5} = 4.6\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>25. Find the chord length cut by \(3x + 4y = 15\) on \(x^2 + y^2 = 25\).</div>
+                <div class="answer-block"><b>Answer:</b> 8 units.<br><b>Explanation:</b> Distance from center (0,0) to line: 3. Radius \(r = 5\). Half chord length = 4. Full length = 8.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>26. Find the line through (1, 1) perpendicular to \(3x + 4y = 5\).</div>
+                <div class="answer-block"><b>Answer:</b> \(4x - 3y = 1\).<br><b>Explanation:</b> Slope of given line: \(-3/4\). Perpendicular slope: \(4/3\). Equation: \(y - 1 = \frac{4}{3}(x - 1)\) → \(4x - 3y = 1\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>27. Find the circle with diameter endpoints (1, 2) and (3, 4).</div>
+                <div class="answer-block"><b>Answer:</b> \((x - 2)^2 + (y - 3)^2 = 2\).<br><b>Explanation:</b> Center: midpoint = (2, 3). Radius: \(\sqrt{2}\). Equation: \((x - 2)^2 + (y - 3)^2 = 2\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>28. Find the area of the triangle formed by \(x = 0\), \(y = 0\), and \(3x + 4y = 12\).</div>
+                <div class="answer-block"><b>Answer:</b> 6 square units.<br><b>Explanation:</b> Intercepts: (4, 0), (0, 3). Area = \(\frac{1}{2} \times 4 \times 3 = 6\).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>29. Find the equation of the circle touching both axes with radius 5.</div>
+                <div class="answer-block"><b>Answer:</b> Four possible circles (e.g., \((x - 5)^2 + (y - 5)^2 = 25\)).<br><b>Explanation:</b> Center: (±5, ±5). Possible circles: \((x - 5)^2 + (y - 5)^2 = 25\), etc.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>30. Find the foot of the perpendicular from (1, 2) to 3x + 4y + 5 = 0.</div>
+                <div class="answer-block"><b>Answer:</b> (-23/25, -14/25).<br><b>Explanation:</b> The line perpendicular to 3x + 4y + 5 = 0 has slope 4/3. The equation from (1,2) is y - 2 = (4/3)(x - 1). Solve this with the original line to get the foot of the perpendicular: x = -23/25, y = -14/25.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>71. What is the name of the horizontal and vertical lines used to determine the position of a point in the Cartesian plane?</div>
+                <div class="answer-block"><b>Answer:</b> The horizontal line is the x-axis and the vertical line is the y-axis.<br><b>Explanation:</b> In the Cartesian plane, the x-axis is horizontal and the y-axis is vertical. They are perpendicular and intersect at the origin.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>72. In which quadrant does the point (-5, 3) lie?</div>
+                <div class="answer-block"><b>Answer:</b> Quadrant II.<br><b>Explanation:</b> The x-coordinate is negative and the y-coordinate is positive, so the point lies in the second quadrant.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>73. What are the coordinates of the origin?</div>
+                <div class="answer-block"><b>Answer:</b> (0, 0).<br><b>Explanation:</b> The origin is the point where the x-axis and y-axis intersect.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>74. What are the coordinates of a point on the y-axis with ordinate -6?</div>
+                <div class="answer-block"><b>Answer:</b> (0, -6).<br><b>Explanation:</b> Any point on the y-axis has x = 0. The ordinate is the y-coordinate.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>75. Find the distance between A(-1, 2) and B(3, 2).</div>
+                <div class="answer-block"><b>Answer:</b> 4 units.<br><b>Explanation:</b> Distance = sqrt((3 - (-1))^2 + (2 - 2)^2) = sqrt(4^2 + 0) = 4.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>76. If the distance between P(-3, -14) and Q(a, -5) is 9 units, find a.</div>
+                <div class="answer-block"><b>Answer:</b> -3.<br><b>Explanation:</b> Distance = sqrt((a + 3)^2 + (9)^2) = 9. So (a + 3)^2 = 0, so a = -3.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>77. Find the coordinates of the point dividing (4, -3) and (8, 5) in the ratio 3:1 internally.</div>
+                <div class="answer-block"><b>Answer:</b> (7, 3).<br><b>Explanation:</b> x = (3*8 + 1*4)/4 = 28/4 = 7; y = (3*5 + 1*(-3))/4 = 12/4 = 3.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>78. If the midpoint of (3, 4) and (k, 6) is (x, y) and x + y = 10, find k.</div>
+                <div class="answer-block"><b>Answer:</b> 7.<br><b>Explanation:</b> Midpoint x = (3 + k)/2, y = (4 + 6)/2 = 5. x + 5 = 10, so x = 5. (3 + k)/2 = 5, so k = 7.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>79. Find the area of the triangle with vertices (1, -1), (-4, 6), and (-3, -5).</div>
+                <div class="answer-block"><b>Answer:</b> 24 square units.<br><b>Explanation:</b> Area = (1/2) * |1(6 + 5) + (-4)(-5 + 1) + (-3)(-1 - 6)| = (1/2) * |11 + 16 + 21| = 24.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>80. If (5, 1), (-2, -3), and (8, 2m) are collinear, find m.</div>
+                <div class="answer-block"><b>Answer:</b> 19/14.<br><b>Explanation:</b> Area of triangle = 0 for collinear points. Set up the area formula and solve for m to get m = 19/14.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>81. Find the equation of the line passing through (2, 3) and perpendicular to 3x + 2y + 4 = 0.</div>
+                <div class="answer-block"><b>Answer:</b> 3y - 2x - 5 = 0.<br><b>Explanation:</b> Slope of given line is -3/2. Perpendicular slope is 2/3. Equation: y - 3 = (2/3)(x - 2) => 3y - 2x - 5 = 0.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>82. Find the coordinates of the point dividing (3, 5) and (11, 8) externally in the ratio 5:2.</div>
+                <div class="answer-block"><b>Answer:</b> (49/3, 10).<br><b>Explanation:</b> x = (5*11 - 2*3)/(5-2) = 49/3; y = (5*8 - 2*5)/(5-2) = 10.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>83. Find the coordinate dividing (2,4) and (7,9) internally in the ratio 1:2.</div>
+                <div class="answer-block"><b>Answer:</b> (11/3, 17/3).<br><b>Explanation:</b> x = (1*7 + 2*2)/3 = 11/3; y = (1*9 + 2*4)/3 = 17/3.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>84. What is the slope of the line through (-2, 3) and (2, 7)?</div>
+                <div class="answer-block"><b>Answer:</b> 1.<br><b>Explanation:</b> Slope = (7 - 3)/(2 - (-2)) = 4/4 = 1.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>85. Find the equation of the line with slope 3 and y-intercept -4.</div>
+                <div class="answer-block"><b>Answer:</b> y = 3x - 4.<br><b>Explanation:</b> Use y = mx + c, m = 3, c = -4.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>86. Find the equation of the line through (2, -1) and parallel to 2x - y = 4.</div>
+                <div class="answer-block"><b>Answer:</b> y = 2x - 5.<br><b>Explanation:</b> Slope of given line is 2. Parallel line through (2, -1): y + 1 = 2(x - 2) => y = 2x - 5.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>87. Find the equation of the line parallel to the line through (5,7) and (2,3) and having x-intercept -4.</div>
+                <div class="answer-block"><b>Answer:</b> 3y = 4x + 16.<br><b>Explanation:</b> Slope = (7-3)/(5-2) = 4/3. Parallel line through (-4,0): y = (4/3)(x + 4). Multiply by 3: 3y = 4x + 16.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>88. Find the circumcentre and circumradius of the triangle with vertices (0,0), (8,0), (0,6).</div>
+                <div class="answer-block"><b>Answer:</b> Circumcentre (4,3), circumradius 5.<br><b>Explanation:</b> The perpendicular bisectors meet at (4,3). Distance from (4,3) to (0,0) is sqrt(16+9)=5.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>89. Find the equation of the line through (2, -1) and perpendicular to 2x - y = 4.</div>
+                <div class="answer-block"><b>Answer:</b> x + 2y = 0.<br><b>Explanation:</b> Slope of given line is 2. Perpendicular slope is -1/2. Equation: y + 1 = -1/2(x - 2) => x + 2y = 0.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>90. Find the equation of a line parallel to 4x - y = 22 and passing through the origin.</div>
+                <div class="answer-block"><b>Answer:</b> 4x - y = 0.<br><b>Explanation:</b> Parallel lines have the same slope. Through the origin, so y = 4x.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>91. What is the equation of a line parallel to 2x + 5y = 6 through (5, 3)?</div>
+                <div class="answer-block"><b>Answer:</b> y = -2/5x + 5.<br><b>Explanation:</b> Slope of given line is -2/5. Parallel line through (5,3): y - 3 = -2/5(x - 5) => y = -2/5x + 5.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>92. Find the equation of a line parallel to y = 1/2x + 3 and passing through (4,2).</div>
+                <div class="answer-block"><b>Answer:</b> y = 1/2x.<br><b>Explanation:</b> Slope is 1/2. y - 2 = 1/2(x - 4) => y = 1/2x.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>93. If the line through (5, -3) and (-2, p) is parallel to y = -2x - 3, find p.</div>
+                <div class="answer-block"><b>Answer:</b> 11.<br><b>Explanation:</b> Slope of given line is -2. Set (p + 3)/(-2 - 5) = -2, solve for p: p = 11.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>94. Find the area of the triangle with vertices (4, 5), (10, 12), and (-3, 2).</div>
+                <div class="answer-block"><b>Answer:</b> 3.5 square units.<br><b>Explanation:</b> Use the area formula: (1/2)|4(12-2) + 10(2-5) + (-3)(5-12)| = 3.5.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>95. Find the area of the triangle with vertices (1,3), (4,8), and (6,2).</div>
+                <div class="answer-block"><b>Answer:</b> 15.5 square units.<br><b>Explanation:</b> Area = (1/2)|1(8-2) + 4(2-3) + 6(3-8)| = (1/2)|6 + (-4) + (-30)| = (1/2)*28 = 14.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>96. Find the perimeter of the triangle with vertices (0,0), (3,0), and (0,4).</div>
+                <div class="answer-block"><b>Answer:</b> 12 units.<br><b>Explanation:</b> Sides: 3, 4, 5. Perimeter = 3 + 4 + 5 = 12.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>97. Find the area of the parallelogram with vertices (0,0), (4,0), (5,3), (1,3).</div>
+                <div class="answer-block"><b>Answer:</b> 12 square units.<br><b>Explanation:</b> Area = base * height = 4 * 3 = 12.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>98. Find the coordinates of the midpoint of the segment joining (-8,-4) and (3,6).</div>
+                <div class="answer-block"><b>Answer:</b> (-2.5, 1).<br><b>Explanation:</b> Midpoint: ((-8+3)/2, (-4+6)/2) = (-2.5, 1).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>99. Find the length of the radius of the circle with center (2,1) passing through (7,2).</div>
+                <div class="answer-block"><b>Answer:</b> sqrt(26) units.<br><b>Explanation:</b> Radius = sqrt((7-2)^2 + (2-1)^2) = sqrt(25 + 1) = sqrt(26).</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>100. Find the equation of the circle with diameter endpoints (-1,5) and (4,-3).</div>
+                <div class="answer-block"><b>Answer:</b> (x - 1.5)^2 + (y + 1)^2 = 26.<br><b>Explanation:</b> Center: ((-1+4)/2, (5+(-3))/2) = (1.5, 1). Radius = (1/2)*sqrt((4+1)^2 + (-3-5)^2) = (1/2)*sqrt(25 + 64) = (1/2)*sqrt(89). Equation: (x - 1.5)^2 + (y + 1)^2 = 26.</div>
+            </div>
+            <!-- QUESTIONS END -->
+        </div>
+    </div>
+    <script>
+        // Expand/collapse for question blocks
+        document.querySelectorAll('.question-block').forEach(block => {
+            block.addEventListener('click', function(e) {
+                // Only toggle if clicking on the title or arrow
+                if (e.target.classList.contains('question-title') || e.target.classList.contains('toggle-arrow')) {
+                    this.classList.toggle('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
