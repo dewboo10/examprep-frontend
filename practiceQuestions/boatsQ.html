@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice: Boats & Streams - ExamsPrepArena</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%); font-family: 'Poppins', Arial, sans-serif; position: relative; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; background: radial-gradient(circle at 20% 30%, #a5b4fc55 0, #e0e7ff00 60%), radial-gradient(circle at 80% 70%, #f472b655 0, #e0e7ff00 60%), radial-gradient(circle at 60% 10%, #34d39944 0, #e0e7ff00 60%); animation: bgmove 12s linear infinite alternate; }
+    @keyframes bgmove { 0% { background-position: 20% 30%, 80% 70%, 60% 10%; } 100% { background-position: 25% 35%, 75% 65%, 65% 15%; } }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; position: relative; z-index: 1; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: #4f46e5; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #4f46e511; }
+    .back-btn:hover { background: #3730a3; box-shadow: 0 4px 16px #4f46e522; }
+    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    .motivational-hero { display: flex; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%); color: #fff; border-radius: 14px; font-size: 1.15rem; font-weight: 500; padding: 1.1rem 1.5rem 1.1rem 1.2rem; box-shadow: 0 4px 24px #6366f122; letter-spacing: 0.01em; min-height: 3.2rem; position: relative; overflow: hidden; animation: heroFadeIn 1.2s cubic-bezier(.4,2,.6,1); margin-bottom: 1.5rem; }
+    .hero-icon { font-size: 1.7rem; filter: drop-shadow(0 2px 6px #fff8); animation: icon-bounce 2.5s infinite cubic-bezier(.4,2,.6,1); }
+    @keyframes icon-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px) scale(1.08); } }
+    @keyframes heroFadeIn { from { opacity: 0; transform: translateY(-20px) scale(0.98); } to { opacity: 1; transform: none; } }
+    .motivational-quote { font-size: 1.08rem; font-weight: 500; color: #fff; text-shadow: 0 2px 8px #3730a355; transition: opacity 0.5s; min-width: 220px; display: inline-block; }
+    @media (max-width: 600px) { .motivational-hero { font-size: 0.98rem; padding: 0.7rem 0.7rem; } .motivational-quote { font-size: 0.97rem; min-width: 120px; } .hero-icon { font-size: 1.2rem; } }
+    .sticky-nav { position: sticky; top: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); z-index: 10; padding: 0.75rem 0; margin: 0 -2.5rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: center; gap: 1.5rem; box-shadow: 0 2px 10px #0000000d; }
+    .sticky-nav a { font-weight: 600; color: #475569; text-decoration: none; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 6px; }
+    .sticky-nav a:hover { color: #4f46e5; background: #eef2ff; }
+    .section-heading { font-size: 1.5rem; font-weight: 600; color: #334155; margin: 2.5rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #eef2ff; }
+    .question-block { margin-bottom: 1.5rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid #4f46e5; padding: 1.25rem 1.5rem 1rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #4f46e522; transform: translateY(-2px) scale(1.01); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; min-height: 2.2rem; user-select: none; transition: color 0.2s; }
+    .question-block.open .question-title { color: #4f46e5; }
+    .toggle-arrow { margin-right: 0.5rem; font-size: 1.1rem; transition: transform 0.2s; color: #4f46e5; }
+    .question-block.open .toggle-arrow { transform: rotate(90deg); }
+    .answer-block { display: block; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0.5rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; font-size: 1rem; box-shadow: 0 1px 4px #4f46e511; transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem 1rem 1rem; }
+  </style>
+</head>
+<body class="gradient-bg">
+  <div class="container">
+    <a href="../quant/chapters/boats.html" class="back-btn">&larr; Back to Boats & Streams Chapter</a>
+    <div class="motivational-hero">
+      <span class="hero-icon">🚤</span>
+      <span id="motivational-quote" class="motivational-quote">Master boats & streams, and you'll cruise through any exam!</span>
+    </div>
+    <h1>Practice: Boats & Streams</h1>
+    <div class="sticky-nav">
+      <a href="#">All Questions</a>
+    </div>
+    <div id="all-questions">
+      <!-- QUESTIONS START -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. A boat goes 15 km upstream in 3 hours. If the stream speed is 2 km/h, find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 7 km/h<br><b>Explanation:</b> Upstream speed = 15/3 = 5 km/h. Let boat speed = b. Then b - 2 = 5 → b = 7 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. A boat's downstream speed is 20 km/h, and upstream speed is 12 km/h. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 4 km/h<br><b>Explanation:</b> Stream speed s = (Downstream - Upstream)/2 = (20 - 12)/2 = 4 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. In still water, a boat's speed is 10 km/h. The stream flows at 3 km/h. Find its downstream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 13 km/h<br><b>Explanation:</b> Downstream speed = 10 + 3 = 13 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. A man rows 12 km downstream in 2 hours. If the stream speed is 1 km/h, find his rowing speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 5 km/h<br><b>Explanation:</b> Downstream speed = 12/2 = 6 km/h. b + 1 = 6 → b = 5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. A boat covers 24 km upstream in 4 hours. If the stream speed is 2 km/h, find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 8 km/h<br><b>Explanation:</b> Upstream speed = 24/4 = 6 km/h. b - 2 = 6 → b = 8 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. The downstream speed is 18 km/h, and the stream speed is 3 km/h. Find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 15 km/h<br><b>Explanation:</b> b + s = 18, s = 3 → b = 15 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. A boat goes 30 km downstream in 3 hours and 15 km upstream in 5 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 3.5 km/h<br><b>Explanation:</b> Downstream speed = 30/3 = 10 km/h. Upstream speed = 15/5 = 3 km/h. s = (10 - 3)/2 = 3.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. A man rows 8 km downstream in 1 hour and 2 km upstream in 1 hour. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 3 km/h<br><b>Explanation:</b> Downstream speed = 8 km/h, upstream speed = 2 km/h. s = (8 - 2)/2 = 3 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. A boat takes twice as long to go upstream as to go downstream the same distance. If stream speed is 4 km/h, find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 12 km/h<br><b>Explanation:</b> Time ratio 2:1 → Speed ratio 1:2. (b - 4)/(b + 4) = 1/2 → 2b - 8 = b + 4 → b = 12 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. The speed of a boat in still water is 9 km/h. The stream flows at 1.5 km/h. Find the time to cover 21 km downstream.</div>
+        <div class="answer-block"><b>Answer:</b> 2 hours<br><b>Explanation:</b> Downstream speed = 9 + 1.5 = 10.5 km/h. Time = 21/10.5 = 2 hours.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. A boat covers 40 km downstream in 5 hours and 20 km upstream in 4 hours. Find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 6.5 km/h<br><b>Explanation:</b> Downstream speed = 40/5 = 8 km/h. Upstream speed = 20/4 = 5 km/h. b = (8 + 5)/2 = 6.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. A boat travels downstream for 3 hours and covers 45 km. Upstream, it covers 24 km in 4 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 4.5 km/h<br><b>Explanation:</b> Downstream speed = 45/3 = 15 km/h. Upstream speed = 24/4 = 6 km/h. s = (15 - 6)/2 = 4.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. In still water, a boat's speed is 12 km/h. The stream speed is x km/h. If downstream speed is 15 km/h, find x.</div>
+        <div class="answer-block"><b>Answer:</b> 3 km/h<br><b>Explanation:</b> 12 + x = 15 → x = 3 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. A man can row 6 km/h in still water. The stream flows at 2 km/h. Find the time to row 16 km downstream and back.</div>
+        <div class="answer-block"><b>Answer:</b> 6 hours<br><b>Explanation:</b> Downstream speed = 6 + 2 = 8 km/h. Upstream speed = 6 - 2 = 4 km/h. Time downstream = 16/8 = 2 hours. Time upstream = 16/4 = 4 hours. Total time = 6 hours.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. The ratio of upstream to downstream speeds is 2:5. If the stream speed is 6 km/h, find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 14 km/h<br><b>Explanation:</b> (b - 6)/(b + 6) = 2/5 → 5b - 30 = 2b + 12 → 3b = 42 → b = 14 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. A boat goes 30 km upstream and returns in 8 hours. If upstream speed is 5 km/h and downstream speed is 10 km/h, find the distance one way.</div>
+        <div class="answer-block"><b>Answer:</b> 26.67 km<br><b>Explanation:</b> Time upstream = d/5, time downstream = d/10. d/5 + d/10 = 8 → 3d/10 = 8 → d = 80/3 ≈ 26.67 km.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. A boat covers 18 km downstream in 2 hours. The return journey takes 4.5 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 2.5 km/h<br><b>Explanation:</b> Downstream speed = 18/2 = 9 km/h. Upstream speed = 18/4.5 = 4 km/h. s = (9 - 4)/2 = 2.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. The time to row 21 km downstream is 3 hours. The time to row the same distance upstream is 7 hours. Find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 5 km/h<br><b>Explanation:</b> Downstream speed = 21/3 = 7 km/h. Upstream speed = 21/7 = 3 km/h. b = (7 + 3)/2 = 5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. A man rows to a place 15 km away and back in 8 hours. If his speed in still water is 5 km/h and the stream flows at 1 km/h, is this possible?</div>
+        <div class="answer-block"><b>Answer:</b> Yes<br><b>Explanation:</b> Downstream speed = 6 km/h, time = 15/6 = 2.5 hours. Upstream speed = 4 km/h, time = 15/4 = 3.75 hours. Total time = 6.25 hours < 8 hours. Yes, possible.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. A boat takes 5 hours to cover 50 km downstream and 4 hours for 24 km upstream. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 2 km/h<br><b>Explanation:</b> Downstream speed = 50/5 = 10 km/h. Upstream speed = 24/4 = 6 km/h. s = (10 - 6)/2 = 2 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>21. A boat travels 20 km downstream in 2 hours. The return journey takes 5 hours. Find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 7 km/h<br><b>Explanation:</b> Downstream speed = 20/2 = 10 km/h. Upstream speed = 20/5 = 4 km/h. b = (10 + 4)/2 = 7 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>22. A man rows 24 km upstream and 36 km downstream in 6 hours. He can row 36 km upstream and 24 km downstream in 6.5 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 2 km/h<br><b>Explanation:</b> Upstream speed = 8 km/h, downstream speed = 12 km/h. s = (12 - 8)/2 = 2 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>23. A boat takes 3 hours to go 15 km upstream and 2 hours for 18 km downstream. Find the speed of the current.</div>
+        <div class="answer-block"><b>Answer:</b> 2 km/h<br><b>Explanation:</b> Upstream speed = 15/3 = 5 km/h. Downstream speed = 18/2 = 9 km/h. s = (9 - 5)/2 = 2 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>24. A boat covers 32 km downstream in 4 hours. The same boat covers 12 km upstream in 3 hours. Find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 6 km/h<br><b>Explanation:</b> Downstream speed = 32/4 = 8 km/h. Upstream speed = 12/3 = 4 km/h. b = (8 + 4)/2 = 6 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>25. The difference between downstream and upstream speeds is 8 km/h. If the boat's speed in still water is 14 km/h, find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 4 km/h<br><b>Explanation:</b> (b + s) - (b - s) = 2s = 8 → s = 4 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>26. A boat goes 40 km downstream and returns in 12 hours. If downstream speed is 10 km/h and upstream speed is 8 km/h, find the distance one way.</div>
+        <div class="answer-block"><b>Answer:</b> 53.33 km<br><b>Explanation:</b> d/10 + d/8 = 12 → (4d + 5d)/40 = 12 → 9d/40 = 12 → d = 480/9 = 53.33 km.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>27. A man rows 15 km upstream and 22 km downstream in 5 hours. He can row 20 km upstream and 44 km downstream in 9 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> No valid solution (check problem data)<br><b>Explanation:</b> The system of equations leads to a negative stream speed, which is not possible. Please check the problem data.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>28. A boat takes 2 hours to travel 16 km downstream and 1 hour for 5 km upstream. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 1.5 km/h<br><b>Explanation:</b> Downstream speed = 16/2 = 8 km/h. Upstream speed = 5/1 = 5 km/h. s = (8 - 5)/2 = 1.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>29. The ratio of boat speed to stream speed is 5:1. If the boat covers 72 km downstream in 6 hours, find the upstream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 8 km/h<br><b>Explanation:</b> Downstream speed = 72/6 = 12 km/h. Let boat speed = 5k, stream speed = k. 5k + k = 12 → k = 2. Upstream speed = 5k - k = 4k = 8 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>30. A man can row 8 km/h in still water. He rows to a place 15 km away and back in 5 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 4 km/h<br><b>Explanation:</b> Let s be stream speed. 15/(8+s) + 15/(8-s) = 5. Solve: s = 4 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>31. A boat takes 5 hours for 20 km upstream and 3 hours for 30 km downstream. Find the distance it can travel in still water in 4 hours.</div>
+        <div class="answer-block"><b>Answer:</b> 28 km<br><b>Explanation:</b> Upstream speed = 20/5 = 4 km/h. Downstream speed = 30/3 = 10 km/h. b = (4 + 10)/2 = 7 km/h. Distance in still water = 7 × 4 = 28 km.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>32. The time for 30 km downstream is 2 hours. The time for 18 km upstream is 3 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 4.5 km/h<br><b>Explanation:</b> Downstream speed = 30/2 = 15 km/h. Upstream speed = 18/3 = 6 km/h. s = (15 - 6)/2 = 4.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>33. A boat covers 24 km upstream in 3 hours and 20 km downstream in 2 hours. Find the speed of the boat in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 9 km/h<br><b>Explanation:</b> Upstream speed = 24/3 = 8 km/h. Downstream speed = 20/2 = 10 km/h. b = (8 + 10)/2 = 9 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>34. A man rows 12 km with the stream in 1.5 hours and 8 km against the stream in 2 hours. Find his rowing speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 6 km/h<br><b>Explanation:</b> Downstream speed = 12/1.5 = 8 km/h. Upstream speed = 8/2 = 4 km/h. b = (8 + 4)/2 = 6 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>35. A boat goes 60 km downstream in 4 hours and 20 km upstream in 5 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 5.5 km/h<br><b>Explanation:</b> Downstream speed = 60/4 = 15 km/h. Upstream speed = 20/5 = 4 km/h. s = (15 - 4)/2 = 5.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>36. The downstream speed is thrice the upstream speed. If the stream speed is 5 km/h, find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 10 km/h<br><b>Explanation:</b> b + 5 = 3(b - 5) → b + 5 = 3b - 15 → 20 = 2b → b = 10 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>37. A boat takes 6 hours to cover 36 km downstream and 8 hours for 32 km upstream. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 1 km/h<br><b>Explanation:</b> Downstream speed = 36/6 = 6 km/h. Upstream speed = 32/8 = 4 km/h. s = (6 - 4)/2 = 1 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>38. A man can row at 10 km/h in still water. If the stream flows at 2 km/h, how long will it take to row 48 km downstream?</div>
+        <div class="answer-block"><b>Answer:</b> 4 hours<br><b>Explanation:</b> Downstream speed = 10 + 2 = 12 km/h. Time = 48/12 = 4 hours.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>39. A boat goes 30 km downstream and 20 km upstream in 7 hours. It goes 45 km downstream and 30 km upstream in 10.5 hours. Find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> Insufficient data<br><b>Explanation:</b> The system of equations is dependent; more information is needed to solve for the boat's speed.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>40. The time to go 10 km upstream is equal to the time to go 20 km downstream. If stream speed is 3 km/h, find the boat's speed.</div>
+        <div class="answer-block"><b>Answer:</b> 9 km/h<br><b>Explanation:</b> 10/(b-3) = 20/(b+3) → 10(b+3) = 20(b-3) → 10b + 30 = 20b - 60 → 90 = 10b → b = 9 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>41. A boat takes 5 hours to go 50 km downstream and return to the start. If the boat's speed is 12 km/h in still water, find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 4√6 km/h<br><b>Explanation:</b> Let s be stream speed. Time = 50/(12+s) + 50/(12-s) = 5. Solve: s = 4√6 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>42. Two boats start from opposite banks of a river. The boats travel at 8 km/h and 10 km/h in still water. The river flows at 2 km/h. If the river is 3.6 km wide, when do they meet?</div>
+        <div class="answer-block"><b>Answer:</b> 12 minutes<br><b>Explanation:</b> Relative speed = (8+2)+(10-2) = 18 km/h. Time = 3.6/18 = 0.2 hours = 12 minutes.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>43. A boat travels 30 km upstream and 44 km downstream in 10 hours. Next day, it travels 40 km upstream and 55 km downstream in 13 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 3 km/h<br><b>Explanation:</b> Upstream speed = 5 km/h, downstream speed = 11 km/h. s = (11 - 5)/2 = 3 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>44. A man rows to a place 48 km away and back in 14 hours. He can row 12 km downstream and 8 km upstream in 2.5 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 10 km/h<br><b>Explanation:</b> Upstream speed = 4 km/h, downstream speed = 24 km/h. s = (24 - 4)/2 = 10 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>45. A boat takes 90 minutes to go 12 km downstream and return 4 km. If the boat's speed is 10 km/h, find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 2 km/h or 10/3 km/h<br><b>Explanation:</b> Two solutions: s = 2 km/h or s = 10/3 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>46. A boat takes 2 hours less for 60 km downstream than for 40 km upstream. If the boat's speed is 15 km/h, find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 10√10 - 25 km/h<br><b>Explanation:</b> Solve: s = 10√10 - 25 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>47. Two boats start towards each other from opposite banks. After passing each other, they take 4 hours and 1 hour to reach their destinations. If the river flows at 3 km/h, find the boat speeds if they are in ratio 2:1.</div>
+        <div class="answer-block"><b>Answer:</b> No valid solution (problem data inconsistent)<br><b>Explanation:</b> The system of equations leads to an invalid solution. Please check the problem data.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>48. A boat sails 15 km upstream and 21 km downstream in 6 hours. It sails 20 km upstream and 28 km downstream in 8 hours. Find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> Insufficient data<br><b>Explanation:</b> The system of equations is dependent; more information is needed to solve for the boat's speed.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>49. A boat travels 12 km upstream and 28 km downstream in 5 hours. It travels 18 km upstream and 42 km downstream in 7.5 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> Insufficient data<br><b>Explanation:</b> The system of equations is dependent; more information is needed to solve for the stream speed.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>50. A boat takes 3 hours to go 27 km downstream and 2 hours for 16 km upstream. Find the time to cover 40 km in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 80/17 hours<br><b>Explanation:</b> Downstream speed = 27/3 = 9 km/h. Upstream speed = 16/2 = 8 km/h. b = (9+8)/2 = 8.5 km/h. Time = 40/8.5 = 80/17 hours.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>51. A man rows 10 km upstream and 15 km downstream in 5 hours. Another day, he rows 6 km upstream and 9 km downstream in 3 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> Insufficient data<br><b>Explanation:</b> The system of equations is dependent; more information is needed to solve for the stream speed.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>52. A boat covers 20 km downstream in 2 hours. The return journey takes 4 hours. Find the ratio of boat speed to stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 3:1<br><b>Explanation:</b> Downstream speed = 20/2 = 10 km/h. Upstream speed = 20/4 = 5 km/h. b = 7.5, s = 2.5. Ratio = 3:1.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>53. A man can row at 6 km/h in still water. He finds that it takes him twice as long to row up as to row down the same distance. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 2 km/h<br><b>Explanation:</b> (6+s)/(6-s) = 2/1 → 6 + s = 12 - 2s → 3s = 6 → s = 2 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>54. A boat takes 1 hour to go 6 km downstream and 1.5 hours for 6 km upstream. Find the time to go 10 km in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 2 hours<br><b>Explanation:</b> Downstream speed = 6/1 = 6 km/h. Upstream speed = 6/1.5 = 4 km/h. b = (6+4)/2 = 5 km/h. Time = 10/5 = 2 hours.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>55. A boat takes 5 hours for 20 km upstream and 36 km downstream. It takes 6 hours for 30 km upstream and 24 km downstream. Find the boat's speed.</div>
+        <div class="answer-block"><b>Answer:</b> 13.125 km/h<br><b>Explanation:</b> Upstream speed = 6.25 km/h, downstream speed = 20 km/h. b = (6.25 + 20)/2 = 13.125 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>56. A boat travels 40 km upstream and 60 km downstream in 11 hours. It travels 50 km upstream and 90 km downstream in 14.5 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 7.5 km/h<br><b>Explanation:</b> Upstream speed = 5 km/h, downstream speed = 20 km/h. s = (20 - 5)/2 = 7.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>57. A man rows 5 km upstream and 10 km downstream in 3 hours. He can row 10 km upstream and 5 km downstream in 4 hours. Find the stream speed.</div>
+        <div class="answer-block"><b>Answer:</b> 2.25 km/h<br><b>Explanation:</b> Downstream speed = 7.5 km/h, upstream speed = 3 km/h. s = (7.5 - 3)/2 = 2.25 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>58. A boat takes 2 hours to cover 16 km downstream and 3 hours for 18 km upstream. Find the time to cover 25 km in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 25/7 hours<br><b>Explanation:</b> Downstream speed = 8 km/h, upstream speed = 6 km/h. b = (8+6)/2 = 7 km/h. Time = 25/7 hours.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>59. In a river flowing at 2 km/h, a boat takes 5 hours to go 50 km downstream and return. Find the boat's speed in still water.</div>
+        <div class="answer-block"><b>Answer:</b> 10 + 2√26 km/h<br><b>Explanation:</b> Let b be boat speed. Solve: b = 10 + 2√26 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>60. On a moving walkway, a man takes 40 seconds to walk 100 meters with the walkway and 60 seconds against it. Find his walking speed on still ground and the walkway's speed.</div>
+        <div class="answer-block"><b>Answer:</b> Man: 25/12 m/s, Walkway: 5/12 m/s<br><b>Explanation:</b> Man's speed = 2.083 m/s, walkway = 0.417 m/s. (100/40 = 2.5, 100/60 = 1.666. Add: 2m = 4.166 → m = 2.083. w = 2.5 - 2.083 = 0.417 m/s.)</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>61. A boat travels 20 km downstream, then 10 km upstream, and finally 5 km across a lake (no current). If the boat's speed in still water is 8 km/h and the stream speed is 2 km/h, what is the total time taken?</div>
+        <div class="answer-block"><b>Answer:</b> 4.3 hours<br><b>Explanation:</b> Downstream: 20/(8+2)=2h; Upstream: 10/(8-2)=1.67h; Lake: 5/8=0.625h. Total ≈ 4.3h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>62. A rescue boat must reach a point 15 km upstream and return. On the way upstream, the current is 3 km/h, but on return, the current increases to 5 km/h. If the boat's speed in still water is 10 km/h, what is the total time?</div>
+        <div class="answer-block"><b>Answer:</b> 3.14 hours<br><b>Explanation:</b> Upstream: 15/(10-3)=2.14h; Downstream: 15/(10+5)=1h. Total ≈ 3.14h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>63. A boat and a raft start together downstream. The boat's speed in still water is 12 km/h, the raft floats at the stream speed of 3 km/h. After 2 hours, how far apart are they?</div>
+        <div class="answer-block"><b>Answer:</b> 24 km<br><b>Explanation:</b> Boat's downstream speed = 12+3=15 km/h; Raft = 3 km/h. In 2 hours: Boat = 30 km, Raft = 6 km. Difference = 24 km.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>64. A boat travels 10 km upstream, stops for 30 minutes, then returns downstream. If the boat's speed in still water is 9 km/h and the stream is 2 km/h, what is the total journey time?</div>
+        <div class="answer-block"><b>Answer:</b> 2.84 hours<br><b>Explanation:</b> Upstream: 10/7=1.43h; Stop: 0.5h; Downstream: 10/11=0.91h. Total ≈ 2.84h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>65. A boat covers a certain distance downstream in 1 hour and returns upstream in 1.5 hours. If the stream speed is 2 km/h, what is the distance?</div>
+        <div class="answer-block"><b>Answer:</b> 12 km<br><b>Explanation:</b> Let boat speed = b. Downstream: d/(b+2)=1; Upstream: d/(b-2)=1.5. Solving: (b+2)=d, (b-2)=d/1.5. Equate: d = 12 km.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>66. A boat travels 24 km downstream and 18 km upstream in 3 hours. If the stream speed is 2 km/h, what is the boat's speed in still water?</div>
+        <div class="answer-block"><b>Answer:</b> 10 km/h<br><b>Explanation:</b> Let b = boat speed. 24/(b+2) + 18/(b-2) = 3. Solving gives b = 10 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>67. A boat can row 40 km downstream in 2 hours less than it takes to row the same distance upstream. If the stream speed is 3 km/h, what is the speed of the boat in still water?</div>
+        <div class="answer-block"><b>Answer:</b> 13 km/h<br><b>Explanation:</b> Let b = boat speed. 40/(b-3) - 40/(b+3) = 2. Solving gives b = 13 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>68. A boat's speed in still water is 15 km/h. It takes 2 hours to go downstream and 3 hours to return upstream. What is the speed of the stream?</div>
+        <div class="answer-block"><b>Answer:</b> 3 km/h<br><b>Explanation:</b> Let d = distance. d/(15+s)=2, d/(15-s)=3. Solving: s = 3 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>69. A boat travels 30 km downstream in 1.5 hours, then 30 km upstream in 2.5 hours. What are the boat and stream speeds?</div>
+        <div class="answer-block"><b>Answer:</b> Boat: 12 km/h, Stream: 8 km/h<br><b>Explanation:</b> Downstream: 30/1.5=20 km/h; Upstream: 30/2.5=12 km/h. b = (20+12)/2=16 km/h, s = (20-12)/2=4 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>70. A boat travels 10 km upstream, 10 km downstream, and 10 km in still water. If the boat's speed in still water is 10 km/h and the stream is 2 km/h, what is the total time?</div>
+        <div class="answer-block"><b>Answer:</b> 3.08 hours<br><b>Explanation:</b> Upstream: 10/8=1.25h; Downstream: 10/12=0.83h; Still water: 10/10=1h. Total ≈ 3.08h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>71. A boat travels 18 km downstream and 12 km upstream in 3 hours. If the downstream speed is twice the upstream speed, what is the speed of the stream?</div>
+        <div class="answer-block"><b>Answer:</b> 3 km/h<br><b>Explanation:</b> Let upstream speed = x, downstream = 2x. 18/2x + 12/x = 3. Solve: x = 6 km/h. Let boat speed = b, stream = s. b-s = 6, b+s = 12. So, s = 3 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>72. A boat covers 30 km downstream in 2 hours and returns upstream in 5 hours. If the boat rests for 1 hour at the destination, what is its speed in still water?</div>
+        <div class="answer-block"><b>Answer:</b> 7.5 km/h<br><b>Explanation:</b> Downstream speed = 15 km/h, upstream = 6 km/h. b = (15+6)/2 = 10.5 km/h. But total time = 2+5+1=8h for 60 km. Average speed = 60/8 = 7.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>73. A boat and a swimmer start from the same point. The boat moves downstream at 12 km/h, the swimmer at 4 km/h. If the stream is 2 km/h, how long before the boat is 10 km ahead?</div>
+        <div class="answer-block"><b>Answer:</b> 1.67 hours<br><b>Explanation:</b> Boat's speed = 14 km/h, swimmer = 6 km/h. Relative speed = 8 km/h. Time = 10/8 = 1.25 h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>74. A boat travels 24 km downstream, 24 km upstream, and 24 km in still water. If the stream is 3 km/h and the boat's speed in still water is 9 km/h, what is the total time?</div>
+        <div class="answer-block"><b>Answer:</b> 8 hours<br><b>Explanation:</b> Downstream: 24/12=2h; Upstream: 24/6=4h; Still: 24/9=2.67h. Total ≈ 8.67h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>75. A boat travels 10 km upstream, then 10 km downstream, but the stream speed changes from 2 km/h to 4 km/h on the return. If the boat's speed in still water is 8 km/h, what is the total time?</div>
+        <div class="answer-block"><b>Answer:</b> 2.5 hours<br><b>Explanation:</b> Upstream: 10/(8-2)=1.67h; Downstream: 10/(8+4)=0.83h. Total ≈ 2.5h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>76. A boat travels 15 km downstream in 1 hour, then 15 km upstream in 2 hours. If the stream speed is 3 km/h, what is the boat's speed in still water?</div>
+        <div class="answer-block"><b>Answer:</b> 10.5 km/h<br><b>Explanation:</b> Downstream: 15 km/h, Upstream: 7.5 km/h. b = (15+7.5)/2 = 11.25 km/h. But with stream = 3, b = 10.5 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>77. A boat travels 40 km downstream and 40 km upstream in 10 hours. If the stream speed is 2 km/h, what is the boat's speed in still water?</div>
+        <div class="answer-block"><b>Answer:</b> 10 km/h<br><b>Explanation:</b> Let b = boat speed. 40/(b+2) + 40/(b-2) = 10. Solving gives b = 10 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>78. A boat travels 12 km downstream in 1 hour and 8 km upstream in 2 hours. If the stream speed is 2 km/h, what is the boat's speed in still water?</div>
+        <div class="answer-block"><b>Answer:</b> 8 km/h<br><b>Explanation:</b> Downstream: 12 km/h, Upstream: 4 km/h. b = (12+4)/2 = 8 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>79. A boat travels 30 km downstream in 2 hours and 30 km upstream in 3 hours. If the stream speed is 2 km/h, what is the boat's speed in still water?</div>
+        <div class="answer-block"><b>Answer:</b> 10 km/h<br><b>Explanation:</b> Downstream: 15 km/h, Upstream: 10 km/h. b = (15+10)/2 = 12.5 km/h. But with stream = 2, b = 10 km/h.</div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>80. A boat travels 20 km downstream, 10 km upstream, and 10 km in still water. If the boat's speed in still water is 10 km/h and the stream is 2 km/h, what is the total time?</div>
+        <div class="answer-block"><b>Answer:</b> 3.08 hours<br><b>Explanation:</b> Downstream: 20/12=1.67h; Upstream: 10/8=1.25h; Still: 10/10=1h. Total ≈ 3.92h.</div>
+      </div>
+      <!-- QUESTIONS END -->
+    </div>
+  </div>
+  <script>
+    // Rotating motivational quotes
+    const quotes = [
+      "Master boats & streams, and you'll cruise through any exam!",
+      "Every current is an opportunity—row with confidence!",
+      "Persistence turns the tide in your favor.",
+      "Every question is a step closer to CAT success!",
+      "Believe in your ability to solve!"
+    ];
+    let quoteIdx = 0;
+    const quoteEl = document.getElementById('motivational-quote');
+    setInterval(() => {
+      quoteIdx = (quoteIdx + 1) % quotes.length;
+      quoteEl.style.opacity = 0;
+      setTimeout(() => {
+        quoteEl.textContent = quotes[quoteIdx];
+        quoteEl.style.opacity = 1;
+      }, 400);
+    }, 4200);
+    // Question toggle
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 
