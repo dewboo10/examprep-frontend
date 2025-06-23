@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Questions - ExamPrepArena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        .gradient-bg { background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%); }
+        .card { background: rgba(255,255,255,0.95); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1); border: 1px solid rgba(255,255,255,0.2); }
+        .card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 35px rgba(0,0,0,0.12); border-color: rgba(59,130,246,0.2); }
+        .topic-card { position: relative; overflow: hidden; }
+        .topic-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, rgba(59,130,246,0.1), rgba(99,102,241,0.1)); opacity: 0; transition: opacity 0.4s, transform 0.4s; transform: scale(0.95); z-index: 0; }
+        .topic-card:hover::before { opacity: 1; transform: scale(1); }
+        .topic-card .icon-container { transition: all 0.4s cubic-bezier(0.68,-0.55,0.27,1.55); }
+        .topic-card:hover .icon-container { transform: rotate(15deg) scale(1.1); }
+        .topic-card .content { position: relative; z-index: 1; transition: transform 0.3s; }
+        .topic-card:hover .content { transform: translateX(5px); }
+        .header-text { background: linear-gradient(135deg, #3B82F6, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; position: relative; overflow: hidden; }
+        .header-text::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #3B82F6, #8B5CF6); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+        .header-text:hover::after { transform: scaleX(1); }
+        @media (max-width: 768px) { .md\:ml-64 { margin-left: 0 !important; } }
+        /* Fix logo alignment in sidebar */
+        #sidebar .flex.items-center.mb-6 { margin-bottom: 2rem; justify-content: center; }
+        /* Navbar hide/show animation */
+        .navbar { transition: top 0.4s cubic-bezier(.4,2,.6,1); top: 0; position: fixed; width: 100%; z-index: 50; }
+        .navbar.hide-navbar { top: -80px; }
+    </style>
+    <script>
+    // Navbar hide on scroll down, show on scroll up
+    document.addEventListener('DOMContentLoaded', function() {
+      let lastScroll = window.scrollY;
+      const navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', function() {
+        if (!navbar) return;
+        if (window.scrollY > lastScroll && window.scrollY > 60) {
+          navbar.classList.add('hide-navbar');
+        } else {
+          navbar.classList.remove('hide-navbar');
+        }
+        lastScroll = window.scrollY;
+      });
+    });
+    </script>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Sidebar (copied from practice-logical.html) -->
+    <button id="mobile-menu-button" class="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
+        <i class="fas fa-bars text-xl text-indigo-600"></i>
+    </button>
+    <aside id="sidebar" class="hidden md:block fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-40 p-4 flex flex-col overflow-y-auto">
+        <div class="flex items-center mb-6">
+            <h1 class="text-2xl font-bold gradient-text">Exam Prep</h1>
+        </div>
+        <div class="flex items-center mb-6 p-3 bg-indigo-50 rounded-lg">
+            <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mr-2">
+                <i class="fas fa-user-graduate text-lg"></i>
+            </div>
+            <div>
+                <p class="font-semibold text-sm" id="username">User</p>
+                <p class="text-xs text-gray-500">Premium Member</p>
+            </div>
+        </div>
+        <nav class="space-y-1 mb-2 pb-2 border-b border-gray-200 flex-1 min-h-0 hide-scrollbar">
+            <a href="dashboard.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-home mr-2"></i>Dashboard</a>
+            <a href="select-exam.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-list-ol mr-2"></i>Select Exam</a>
+            <a href="performance.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-chart-bar mr-2"></i>Performance</a>
+            <a href="mock-test.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-book-open mr-2"></i>Practice Tests</a>
+            <a href="PracticeQuestion.html" class="menu-item flex items-center p-2 rounded-lg text-pink-700 hover:bg-pink-50 font-semibold"><i class="fas fa-question-circle mr-2"></i>Practice Questions</a>
+            <a href="leaderBoard.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100"><i class="fas fa-trophy mr-2"></i>Leaderboard</a>
+            <a href="practice-quant.html" class="menu-item flex items-center p-2 rounded-lg text-blue-700 hover:bg-blue-50 font-semibold"><i class="fas fa-book mr-2"></i>Study Notes</a>
+            <a href="previous-year.html" class="menu-item flex items-center p-2 rounded-lg text-yellow-700 hover:bg-yellow-50 font-semibold"><i class="fas fa-clock-rotate-left mr-2"></i>Previous Year Questions</a>
+        </nav>
+        <div class="mt-2 p-3 bg-gray-50 rounded-xl shadow border-t border-gray-200">
+            <div class="mb-2">
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 px-1">Brain Boosters</p>
+                <a href="braingames.html" class="brain-games-item flex items-center p-2 font-medium text-sm rounded-lg bg-purple-50 hover:bg-purple-100 transition"><i class="fas fa-gamepad mr-2 text-lg"></i>Brain Games<span class="ml-auto bg-white text-purple-600 text-xs px-2 py-0.5 rounded-full ml-2">New</span></a>
+            </div>
+            <div class="p-2 bg-white rounded-lg">
+                <p class="text-xs font-medium text-gray-500 mb-1">Current Exam</p>
+                <p class="font-semibold text-sm" id="current-exam">CAT</p>
+            </div>
+        </div>
+    </aside>
+    <!-- Navbar -->
+    <nav class="navbar fixed w-full z-50 py-3 px-4 md:px-8 md:ml-64">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="dashboard.html" class="flex items-center logo md:hidden">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                    <i class="fas fa-brain text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">ExamPrep</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="dashboard.html" class="nav-link text-gray-700 hover:text-blue-600">Dashboard</a>
+                <a href="practice-quant.html" class="nav-link text-gray-700 hover:text-blue-600">Quant</a>
+                <a href="practice-logical.html" class="nav-link text-gray-700 hover:text-blue-600">Logical</a>
+                <a href="practice-verbal.html" class="nav-link text-gray-700 hover:text-blue-600">Verbal</a>
+                <a href="practice-gk.html" class="nav-link text-gray-700 hover:text-blue-600">GK</a>
+                <a href="resources.html" class="nav-link text-gray-700 hover:text-blue-600">Resources</a>
+            </div>
+            <button id="openSidebar" class="md:hidden text-gray-700"><i class="fas fa-bars text-xl"></i></button>
+        </div>
+    </nav>
+    <main class="ml-0 md:ml-64 container mx-auto px-4 py-8 pt-24">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                <span class="header-text"><i class="fas fa-question-circle mr-2"></i>Practice Questions</span>
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg">Sharpen your skills with topic-wise practice sets. Click a topic to start practicing. More topics coming soon!</p>
+        </header>
+        <div class="space-y-12">
+            <!-- Quants Section -->
+            <section id="quants">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Quantitative Aptitude</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="practiceQuestions/ageQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-birthday-cake text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Ages</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practiceQuestions/averagesQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-balance-scale text-green-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Averages</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practiceQuestions/boatsQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-ship text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Boats & Streams</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practiceQuestions/circlesQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-circle text-pink-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Circles</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practiceQuestions/coordinateQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-crosshairs text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Coordinate Geometry</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practiceQuestions/equationQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-equals text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Equations</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practiceQuestions/functionsQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-function text-teal-600 text-xl">ƒ</i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Functions</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practiceQuestions/numberQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-hashtag text-red-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Numbers</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="practiceQuestions/percentageQ.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-percent text-orange-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Percentages</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            <!-- Logical Reasoning Section -->
+            <section id="logical">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Logical Reasoning</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="logical/chapters/seating-arrangement.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chair text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Seating Arrangement</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="logical/chapters/blood-relations.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-users text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Blood Relations</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="logical/chapters/direction-sense.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-compass text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Direction Sense</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="logical/chapters/syllogisms.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-sitemap text-green-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Syllogisms</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="logical/chapters/coding-decoding.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-code text-red-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Coding-Decoding</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="logical/chapters/puzzles.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-puzzle-piece text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Puzzles</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            <!-- Verbal Ability Section -->
+            <section id="verbal">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Verbal Ability</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="verbal/chapters/critical-reasoning.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-lightbulb text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Critical Reasoning</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="verbal/chapters/sentence-correction.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-spell-check text-green-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Sentence Correction</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="verbal/chapters/cloze-test.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-pen-fancy text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Cloze Test</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="verbal/chapters/para-jumbles.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-random text-pink-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Para Jumbles</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="verbal/chapters/error-spotting.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-exclamation-circle text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Error Spotting</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="verbal/chapters/prepositions.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-language text-teal-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Prepositions</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            <!-- General Knowledge Section -->
+            <section id="gk">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">General Knowledge</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="gk/chapters/history.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-landmark text-yellow-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">History</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="gk/chapters/geography.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-globe-asia text-green-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Geography</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="gk/chapters/science.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-flask text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Science</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="gk/chapters/economy.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-rupee-sign text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">Economy</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="gk/chapters/national.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-flag text-pink-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">National</h3>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="gk/chapters/international.html" class="topic-card card p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-globe text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="content">
+                                <h3 class="font-semibold">International</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html> 

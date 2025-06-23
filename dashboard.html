@@ -266,6 +266,10 @@
         <i class="fas fa-book-open mr-2"></i>
         Practice Tests
       </a>
+      <a href="PracticeQuestion.html" class="menu-item flex items-center p-2 rounded-lg text-pink-700 hover:bg-pink-50 font-semibold">
+        <i class="fas fa-question-circle mr-2"></i>
+        Practice Questions
+      </a>
       <a href="leaderBoard.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">
         <i class="fas fa-trophy mr-2"></i>
         Leaderboard
@@ -466,16 +470,26 @@
       </div>
     </div>
     
-    <!-- Recent Quizzes Styled Row -->
-    <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-sm mb-8 sm:mb-12 md:mb-16">
-      <div class="flex justify-between items-center mb-6">
-    <h3 class="text-lg font-semibold">Recent Quizzes</h3>
-    <a href="#" class="text-sm font-medium text-indigo-600">View All</a>
-  </div>
-      <div id="mock-quizzes" class="flex overflow-x-auto gap-x-4 pb-2 -mx-4 px-4 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-x-visible sm:mx-0 sm:px-0">
-    <!-- Cards will be injected here -->
-  </div>
-</div>
+    <!-- Mock Test Promo Section (replaces Recent Quizzes) -->
+    <div class="bg-gradient-to-br from-yellow-50 via-purple-50 to-blue-100 p-6 sm:p-10 rounded-2xl shadow-md mb-8 sm:mb-12 md:mb-16 flex flex-col md:flex-row items-center gap-8">
+      <div class="flex-1 flex flex-col justify-center items-start">
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-purple-800 mb-2 flex items-center gap-2">
+          <span>Free Mock Tests for Everyone!</span>
+          <span class="ml-2 inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full animate-bounce">Performance Analysis Included</span>
+        </h3>
+        <p class="text-gray-700 text-base sm:text-lg mb-4 max-w-xl">
+          Get <span class="font-bold text-indigo-700">5 full-length mocks</span> absolutely free.<br>
+          Unlock <span class="font-bold text-indigo-700">50+ premium mocks</span> with detailed performance analysis for just <span class="font-bold text-green-700">₹1999</span>.
+        </p>
+        <a href="mock-test.html" class="modern-btn px-6 py-3 text-lg font-semibold mt-2 flex items-center gap-2 shadow-lg">
+          <i class="fas fa-rocket"></i> Try a Free Mock
+        </a>
+      </div>
+      <div class="flex-1 flex justify-center items-center">
+        <!-- Cartoon/Illustration -->
+        <img src="https://raw.githubusercontent.com/undraw/undraw/master/static/undraw_online_test_re_kyfx.svg" alt="Mock Test Cartoon" class="w-48 h-48 object-contain drop-shadow-xl rounded-xl bg-white p-2 border border-purple-100" loading="lazy">
+      </div>
+    </div>
 
     <!-- Quiz Categories -->
     <h3 class="text-lg font-semibold mb-4 sm:mb-6 md:mb-8">Study Notes & Practice Areas</h3>
