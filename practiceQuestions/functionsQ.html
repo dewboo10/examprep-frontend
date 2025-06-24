@@ -211,6 +211,8 @@
       .answer-block { font-size: 0.97rem; padding: 0 0.7rem; }
     }
   </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body class="gradient-bg">
   <div class="container">
@@ -224,295 +226,389 @@
       <!-- 100+ Function Questions for Competitive Exams (Easiest to Hardest) -->
       <div class="question-block">
         <div class="question-title">1. If f(x) = 2x + 3, find f(4).<br>A) 5 &nbsp; B) 9 &nbsp; C) 11 &nbsp; D) 14</div>
-        <div class="answer-block"><b>Answer:</b> C) 11<br><b>Explanation:</b> f(4) = 2(4) + 3 = 11.</div>
+        <div class="answer-block"><b>Answer:</b> C) 11<br><b>Explanation:</b> Step 1: Substitute x = 4 into f(x): f(4) = 2×4 + 3.<br>Step 2: Calculate 2×4 = 8.<br>Step 3: Add 3 to get 8 + 3 = 11.<br>So, f(4) = 11.</div>
       </div>
       <div class="question-block">
         <div class="question-title">2. If f(x) = x + 1, what is f(2)?<br>A) 1 &nbsp; B) 2 &nbsp; C) 3 &nbsp; D) 4</div>
-        <div class="answer-block"><b>Answer:</b> C) 3<br><b>Explanation:</b> f(2) = 2 + 1 = 3.</div>
+        <div class="answer-block"><b>Answer:</b> C) 3<br><b>Explanation:</b> Step 1: Substitute x = 2 into f(x): f(2) = 2 + 1.<br>Step 2: Add 2 and 1 to get 3.<br>So, f(2) = 3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">3. Domain of f(x) = √(x - 2) is:<br>A) [2, ∞) &nbsp; B) (2, ∞) &nbsp; C) (-∞, 2] &nbsp; D) ℝ</div>
-        <div class="answer-block"><b>Answer:</b> A) [2, ∞)<br><b>Explanation:</b> Square root requires x - 2 ≥ 0.</div>
+        <div class="answer-block"><b>Answer:</b> A) [2, ∞)<br><b>Explanation:</b> Step 1: The square root function is defined only when the expression inside is non-negative.<br>Step 2: Set x - 2 ≥ 0, so x ≥ 2.<br>Step 3: Therefore, the domain is all x such that x ≥ 2, or [2, ∞).<br>Number line:
+<pre>────────●====================&gt;
+       2</pre>
+All values to the right of 2 (including 2) are allowed.</div>
       </div>
       <div class="question-block">
         <div class="question-title">4. Range of f(x) = |x| is:<br>A) [0, ∞) &nbsp; B) (-∞, 0] &nbsp; C) ℝ &nbsp; D) [1, ∞)</div>
-        <div class="answer-block"><b>Answer:</b> A) [0, ∞)<br><b>Explanation:</b> Absolute value is always non-negative.</div>
+        <div class="answer-block"><b>Answer:</b> A) [0, ∞)<br><b>Explanation:</b> Step 1: The absolute value of any real number is always zero or positive.<br>Step 2: So, f(x) can take any value from 0 upwards.<br>Step 3: Therefore, the range is [0, ∞).<br>Number line:
+<pre>0●====================&gt;</pre>
+All values from 0 to the right are possible outputs.</div>
       </div>
       <div class="question-block">
         <div class="question-title">5. If f(x) = x² - 4 and g(x) = x + 2, find (f ∘ g)(1).<br>A) -3 &nbsp; B) 0 &nbsp; C) 5 &nbsp; D) 12</div>
-        <div class="answer-block"><b>Answer:</b> A) -3<br><b>Explanation:</b> g(1) = 3, f(3) = 9 - 4 = 5.</div>
+        <div class="answer-block"><b>Answer:</b> A) -3<br><b>Explanation:</b> Step 1: Find g(1): g(1) = 1 + 2 = 3.<br>Step 2: Now, find f(g(1)) = f(3).<br>Step 3: f(3) = 3² - 4 = 9 - 4 = 5.<br>So, (f ∘ g)(1) = 5.</div>
       </div>
       <div class="question-block">
         <div class="question-title">6. Inverse of f(x) = 3x - 6 is:<br>A) f⁻¹(x) = x/3 + 2 &nbsp; B) f⁻¹(x) = (x + 6)/3 &nbsp; C) f⁻¹(x) = 3x + 6 &nbsp; D) f⁻¹(x) = x/3 - 2</div>
-        <div class="answer-block"><b>Answer:</b> B) (x + 6)/3<br><b>Explanation:</b> Solve y = 3x - 6 for x: x = (y + 6)/3.</div>
+        <div class="answer-block"><b>Answer:</b> B) (x + 6)/3<br><b>Explanation:</b> Step 1: Let y = 3x - 6.<br>Step 2: Solve for x: y + 6 = 3x ⇒ x = (y + 6)/3.<br>Step 3: Replace y with x for the inverse: f⁻¹(x) = (x + 6)/3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">7. Which is even?<br>A) x³ &nbsp; B) sin x &nbsp; C) x² + cos x &nbsp; D) x + 1</div>
-        <div class="answer-block"><b>Answer:</b> C) x² + cos x<br><b>Explanation:</b> f(-x) = x² + cos x = f(x).</div>
+        <div class="answer-block"><b>Answer:</b> C) x² + cos x<br><b>Explanation:</b> Step 1: A function is even if f(-x) = f(x).<br>Step 2: f(-x) = (-x)² + cos(-x) = x² + cos x = f(x).<br>Step 3: So, x² + cos x is even.</div>
       </div>
       <div class="question-block">
         <div class="question-title">8. Period of f(x) = sin(3x) is:<br>A) π &nbsp; B) 2π &nbsp; C) 2π/3 &nbsp; D) π/3</div>
-        <div class="answer-block"><b>Answer:</b> C) 2π/3<br><b>Explanation:</b> Period of sin(bx) is 2π/b.</div>
+        <div class="answer-block"><b>Answer:</b> C) 2π/3<br><b>Explanation:</b> Step 1: The period of sin(bx) is 2π/b.<br>Step 2: Here, b = 3, so period = 2π/3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">9. If f(x) = 1/x, find f(f(x)).<br>A) x &nbsp; B) 1/x² &nbsp; C) 0 &nbsp; D) x/(x-1)</div>
-        <div class="answer-block"><b>Answer:</b> A) x<br><b>Explanation:</b> f(f(x)) = f(1/x) = x.</div>
+        <div class="answer-block"><b>Answer:</b> A) x<br><b>Explanation:</b> Step 1: f(x) = 1/x.<br>Step 2: f(f(x)) = f(1/x) = 1/(1/x) = x.<br>So, f(f(x)) = x.</div>
       </div>
       <div class="question-block">
         <div class="question-title">10. If f(x) = 2^x, then f(0) + f(1) =<br>A) 1 &nbsp; B) 2 &nbsp; C) 3 &nbsp; D) 4</div>
-        <div class="answer-block"><b>Answer:</b> C) 3<br><b>Explanation:</b> f(0) = 1, f(1) = 2, sum = 3.</div>
+        <div class="answer-block"><b>Answer:</b> C) 3<br><b>Explanation:</b> Step 1: f(0) = 2⁰ = 1.<br>Step 2: f(1) = 2¹ = 2.<br>Step 3: Add: 1 + 2 = 3.<br>So, f(0) + f(1) = 3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">11. Which is one-to-one?<br>A) x² &nbsp; B) |x| &nbsp; C) e^x &nbsp; D) cos x</div>
-        <div class="answer-block"><b>Answer:</b> C) e^x<br><b>Explanation:</b> e^x is strictly increasing, hence injective.</div>
+        <div class="answer-block"><b>Answer:</b> C) e^x<br><b>Explanation:</b> Step 1: A function is one-to-one if every output comes from only one input.<br>Step 2: e^x is strictly increasing, so each value of x gives a unique output.<br>Step 3: Therefore, e^x is one-to-one.</div>
       </div>
       <div class="question-block">
         <div class="question-title">12. If f(x) = x² + 2x + 1, find f(-1).<br>A) 0 &nbsp; B) 1 &nbsp; C) 2 &nbsp; D) 4</div>
-        <div class="answer-block"><b>Answer:</b> A) 0<br><b>Explanation:</b> f(-1) = 1 - 2 + 1 = 0.</div>
+        <div class="answer-block"><b>Answer:</b> A) 0<br><b>Explanation:</b> Step 1: Substitute x = -1 into f(x): f(-1) = (-1)² + 2×(-1) + 1.<br>Step 2: Calculate (-1)² = 1.<br>Step 3: 2×(-1) = -2.<br>Step 4: Add: 1 + (-2) + 1 = 0.<br>So, f(-1) = 0.</div>
       </div>
       <div class="question-block">
         <div class="question-title">13. Range of f(x) = 1/(x² + 1) is:<br>A) (0, 1] &nbsp; B) [0, 1] &nbsp; C) (1, ∞) &nbsp; D) ℝ</div>
-        <div class="answer-block"><b>Answer:</b> A) (0, 1]<br><b>Explanation:</b> Minimum value 0 (never reached), maximum 1 at x = 0.</div>
+        <div class="answer-block"><b>Answer:</b> A) (0, 1]<br><b>Explanation:</b> Step 1: x² + 1 is always at least 1, so the smallest value of the denominator is 1.<br>Step 2: The largest value of f(x) is 1/(1) = 1 (when x = 0).<br>Step 3: As x becomes very large, x² + 1 increases, so f(x) approaches 0 but never reaches it.<br>Number line for range:
+<pre>0(====]1</pre>
+So, the range is (0, 1].</div>
       </div>
       <div class="question-block">
         <div class="question-title">14. If f(x) = 5x - 3, solve f(x) = 12.<br>A) 2 &nbsp; B) 3 &nbsp; C) 4 &nbsp; D) 5</div>
-        <div class="answer-block"><b>Answer:</b> B) 3<br><b>Explanation:</b> 5x - 3 = 12 ⇒ x = 3.</div>
+        <div class="answer-block"><b>Answer:</b> B) 3<br><b>Explanation:</b> Step 1: Set f(x) = 12: 5x - 3 = 12.<br>Step 2: Add 3 to both sides: 5x = 15.<br>Step 3: Divide by 5: x = 3.<br>So, the solution is x = 3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">15. Which is odd?<br>A) x⁴ &nbsp; B) sin(2x) &nbsp; C) e^x &nbsp; D) cos x</div>
-        <div class="answer-block"><b>Answer:</b> B) sin(2x)<br><b>Explanation:</b> sin(-2x) = -sin(2x).</div>
+        <div class="answer-block"><b>Answer:</b> B) sin(2x)<br><b>Explanation:</b> Step 1: A function is odd if f(-x) = -f(x).<br>Step 2: sin(2(-x)) = sin(-2x) = -sin(2x).<br>Step 3: So, sin(2x) is odd.</div>
       </div>
       <div class="question-block">
         <div class="question-title">16. If f(x) = ⎣x⎦ (floor), find f(3.7).<br>A) 3 &nbsp; B) 3.7 &nbsp; C) 4 &nbsp; D) 0</div>
-        <div class="answer-block"><b>Answer:</b> A) 3<br><b>Explanation:</b> Greatest integer ≤ 3.7 is 3.</div>
+        <div class="answer-block"><b>Answer:</b> A) 3<br><b>Explanation:</b> Step 1: The floor function ⎣x⎦ gives the greatest integer less than or equal to x.<br>Step 2: For x = 3.7, the greatest integer ≤ 3.7 is 3.<br>Number line:
+<pre>... 2  3 [====) 4 ...
+         ↑
+        3.7</pre>
+So, f(3.7) = 3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">17. Difference quotient [f(x+h) - f(x)]/h for f(x) = x² is:<br>A) 2x &nbsp; B) 2x + h &nbsp; C) x + h &nbsp; D) h</div>
-        <div class="answer-block"><b>Answer:</b> B) 2x + h<br><b>Explanation:</b> [(x+h)² - x²]/h = 2x + h.</div>
+        <div class="answer-block"><b>Answer:</b> B) 2x + h<br><b>Explanation:</b> Step 1: f(x) = x², so f(x+h) = (x+h)² = x² + 2xh + h².<br>Step 2: f(x+h) - f(x) = (x² + 2xh + h²) - x² = 2xh + h².<br>Step 3: Divide by h: (2xh + h²)/h = 2x + h.<br>So, the difference quotient is 2x + h.</div>
       </div>
       <div class="question-block">
         <div class="question-title">18. Domain of f(x) = √(9 - x²) is:<br>A) [-3, 3] &nbsp; B) (-3, 3) &nbsp; C) (0, 3) &nbsp; D) ℝ</div>
-        <div class="answer-block"><b>Answer:</b> A) [-3, 3]<br><b>Explanation:</b> 9 - x² ≥ 0 ⇒ x² ≤ 9.</div>
+        <div class="answer-block"><b>Answer:</b> A) [-3, 3]<br><b>Explanation:</b> Step 1: The square root is defined when 9 - x² ≥ 0.<br>Step 2: 9 - x² ≥ 0 ⇒ x² ≤ 9 ⇒ -3 ≤ x ≤ 3.<br>Number line:
+<pre>...====●=======●====...
+     -3       3</pre>
+All x between -3 and 3 (inclusive) are allowed.</div>
       </div>
       <div class="question-block">
         <div class="question-title">19. If f(x) = (x-1)/(x+1), find f(0).<br>A) -1 &nbsp; B) 0 &nbsp; C) 1 &nbsp; D) Undefined</div>
-        <div class="answer-block"><b>Answer:</b> A) -1<br><b>Explanation:</b> f(0) = -1/1 = -1.</div>
+        <div class="answer-block"><b>Answer:</b> A) -1<br><b>Explanation:</b> Step 1: Substitute x = 0: f(0) = (0-1)/(0+1) = -1/1 = -1.<br>So, f(0) = -1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">20. Which is periodic?<br>A) x³ &nbsp; B) tan x &nbsp; C) e^x &nbsp; D) ln x</div>
-        <div class="answer-block"><b>Answer:</b> B) tan x<br><b>Explanation:</b> tan x has period π.</div>
+        <div class="answer-block"><b>Answer:</b> B) tan x<br><b>Explanation:</b> Step 1: A function is periodic if it repeats its values at regular intervals.<br>Step 2: tan x repeats every π units.<br>Number line for period:
+<pre>...|---π---|---π---|---π---|...</pre>
+So, tan x is periodic with period π.</div>
       </div>
       <div class="question-block">
         <div class="question-title">21. If f(x) = x², g(x) = √x, domain of g ∘ f is:<br>A) ℝ &nbsp; B) [0, ∞) &nbsp; C) (-∞, 0] &nbsp; D) ∅</div>
-        <div class="answer-block"><b>Answer:</b> B) [0, ∞)<br><b>Explanation:</b> g(f(x)) = √(x²) = |x|, defined for all x.</div>
+        <div class="answer-block"><b>Answer:</b> B) [0, ∞)<br><b>Explanation:</b> Step 1: f(x) = x², so f(x) is always ≥ 0 for any real x.<br>Step 2: g(x) = √x is defined for x ≥ 0.<br>Step 3: So, g(f(x)) = √(x²) is defined for all real x.<br>Number line for domain:
+<pre>────────●====================&gt;
+       0</pre>
+All real x are allowed, so the domain is ℝ.</div>
       </div>
       <div class="question-block">
         <div class="question-title">22. Inverse of f(x) = e^{2x} is:<br>A) (1/2)ln x &nbsp; B) ln(2x) &nbsp; C) e^{-2x} &nbsp; D) ln√x</div>
-        <div class="answer-block"><b>Answer:</b> A) (1/2)ln x<br><b>Explanation:</b> y = e^{2x} ⇒ x = (1/2)ln y.</div>
+        <div class="answer-block"><b>Answer:</b> A) (1/2)ln x<br><b>Explanation:</b> Step 1: Let y = e^{2x}.<br>Step 2: Take the natural log of both sides: ln y = 2x.<br>Step 3: Divide by 2: x = (1/2)ln y.<br>Step 4: Replace y with x for the inverse: f⁻¹(x) = (1/2)ln x.</div>
       </div>
       <div class="question-block">
         <div class="question-title">23. If f(x) = 1/(1-x), find f(f(f(x))).<br>A) x &nbsp; B) 1/x &nbsp; C) 1-x &nbsp; D) x/(x-1)</div>
-        <div class="answer-block"><b>Answer:</b> A) x<br><b>Explanation:</b> f(f(f(x))) = x (involution).</div>
+        <div class="answer-block"><b>Answer:</b> A) x<br><b>Explanation:</b> Step 1: f(x) = 1/(1-x).<br>Step 2: f(f(x)) = 1/(1-1/(1-x)).<br>Step 3: f(f(f(x))) = x (after simplifying).<br>So, f(f(f(x))) = x (the function is an involution of order 3).</div>
       </div>
       <div class="question-block">
         <div class="question-title">24. Range of f(x) = 2 sin x - 3 is:<br>A) [-5, -1] &nbsp; B) [-1, 5] &nbsp; C) [-3, 3] &nbsp; D) ℝ</div>
-        <div class="answer-block"><b>Answer:</b> A) [-5, -1]<br><b>Explanation:</b> 2sin x ∈ [-2, 2], so range is [-5, -1].</div>
+        <div class="answer-block"><b>Answer:</b> A) [-5, -1]<br><b>Explanation:</b> Step 1: sin x ranges from -1 to 1.<br>Step 2: 2 sin x ranges from -2 to 2.<br>Step 3: 2 sin x - 3 ranges from -2-3 = -5 to 2-3 = -1.<br>Number line for range:
+<pre>-5●====●-1</pre>
+So, the range is [-5, -1].</div>
       </div>
       <div class="question-block">
         <div class="question-title">25. If f(x) = x³ + x, g(x) = x - 1, find (f ∘ g)(2).<br>A) 8 &nbsp; B) 9 &nbsp; C) 10 &nbsp; D) 12</div>
-        <div class="answer-block"><b>Answer:</b> C) 10<br><b>Explanation:</b> g(2) = 1, f(1) = 1 + 1 = 2.</div>
+        <div class="answer-block"><b>Answer:</b> C) 10<br><b>Explanation:</b> Step 1: g(2) = 2 - 1 = 1.<br>Step 2: f(1) = 1³ + 1 = 2.<br>So, (f ∘ g)(2) = 2.</div>
       </div>
       <div class="question-block">
         <div class="question-title">26. Function f(x) = x/|x| at x = 0 is:<br>A) 0 &nbsp; B) 1 &nbsp; C) -1 &nbsp; D) Undefined</div>
-        <div class="answer-block"><b>Answer:</b> D) Undefined<br><b>Explanation:</b> Division by zero at x = 0.</div>
+        <div class="answer-block"><b>Answer:</b> D) Undefined<br><b>Explanation:</b> Step 1: At x = 0, the denominator |x| = 0.<br>Step 2: Division by zero is undefined.<br>Number line:
+<pre>...-1====0====1...</pre>
+At x = 0, the function is undefined.</div>
       </div>
       <div class="question-block">
         <div class="question-title">27. Which is bijective from ℝ to ℝ?<br>A) x² &nbsp; B) x³ &nbsp; C) |x| &nbsp; D) cos x</div>
-        <div class="answer-block"><b>Answer:</b> B) x³<br><b>Explanation:</b> x³ is strictly increasing and covers all ℝ.</div>
+        <div class="answer-block"><b>Answer:</b> B) x³<br><b>Explanation:</b> Step 1: A function is bijective if it is both one-to-one and onto.<br>Step 2: x³ is strictly increasing and covers all real numbers.<br>Step 3: So, x³ is bijective from ℝ to ℝ.</div>
       </div>
       <div class="question-block">
         <div class="question-title">28. Period of f(x) = sin²x is:<br>A) π &nbsp; B) 2π &nbsp; C) π/2 &nbsp; D) 4π</div>
-        <div class="answer-block"><b>Answer:</b> A) π<br><b>Explanation:</b> sin²x has period π.</div>
+        <div class="answer-block"><b>Answer:</b> A) π<br><b>Explanation:</b> Step 1: The period of sin x is 2π.<br>Step 2: The period of sin²x is half that, so π.<br>Number line for period:
+<pre>...|---π---|---π---|---π---|...</pre>
+So, sin²x is periodic with period π.</div>
       </div>
       <div class="question-block">
         <div class="question-title">29. If f(x) = (ax+b)/(cx+d), f(f(x)) = x, then:<br>A) a = d &nbsp; B) a = -d &nbsp; C) a = c &nbsp; D) b = c</div>
-        <div class="answer-block"><b>Answer:</b> B) a = -d<br><b>Explanation:</b> For involution, a + d = 0.</div>
+        <div class="answer-block"><b>Answer:</b> B) a = -d<br><b>Explanation:</b> Step 1: For f(f(x)) = x, the function must be an involution.<br>Step 2: This requires a + d = 0, so a = -d.</div>
       </div>
       <div class="question-block">
         <div class="question-title">30. Domain of f(x) = log(log x) is:<br>A) (0, ∞) &nbsp; B) (1, ∞) &nbsp; C) (0, 1) &nbsp; D) [1, ∞)</div>
-        <div class="answer-block"><b>Answer:</b> B) (1, ∞)<br><b>Explanation:</b> log x > 0 ⇒ x > 1.</div>
+        <div class="answer-block"><b>Answer:</b> B) (1, ∞)<br><b>Explanation:</b> Step 1: log x is defined for x > 0.<br>Step 2: log(log x) is defined when log x > 0, so x > 1.<br>Number line for domain:
+<pre>────────○====================&gt;
+       1</pre>
+All x greater than 1 are allowed (not including 1).</div>
       </div>
       <div class="question-block">
         <div class="question-title">31. If f(x) = 2x + 1, find f(x + h) - f(x).</div>
-        <div class="answer-block"><b>Answer:</b> 2h<br><b>Explanation:</b> f(x+h) - f(x) = 2h.</div>
+        <div class="answer-block"><b>Answer:</b> 2h<br><b>Explanation:</b> Step 1: f(x + h) = 2(x + h) + 1 = 2x + 2h + 1.<br>Step 2: f(x) = 2x + 1.<br>Step 3: Subtract: (2x + 2h + 1) - (2x + 1) = 2h.<br>So, f(x + h) - f(x) = 2h.</div>
       </div>
       <div class="question-block">
         <div class="question-title">32. Range of f(x) = x/(x² + 1) is:<br>A) [-1, 1] &nbsp; B) [-1/2, 1/2] &nbsp; C) ℝ &nbsp; D) (0, ∞)</div>
-        <div class="answer-block"><b>Answer:</b> B) [-1/2, 1/2]<br><b>Explanation:</b> Discriminant ≥ 0 gives y ∈ [-1/2, 1/2].</div>
+        <div class="answer-block"><b>Answer:</b> B) [-1/2, 1/2]<br><b>Explanation:</b> Step 1: For large |x|, x/(x² + 1) approaches 0.<br>Step 2: The maximum and minimum occur at x = 1 and x = -1: f(1) = 1/2, f(-1) = -1/2.<br>Number line for range:
+<pre>-1/2●====●1/2</pre>
+So, the range is [-1/2, 1/2].</div>
       </div>
       <div class="question-block">
         <div class="question-title">33. If f(x) = 3^x, then f(x+y) =<br>A) f(x) + f(y) &nbsp; B) f(x)f(y) &nbsp; C) f(xy) &nbsp; D) f(x/y)</div>
-        <div class="answer-block"><b>Answer:</b> B) f(x)f(y)<br><b>Explanation:</b> 3^{x+y} = 3^x * 3^y.</div>
+        <div class="answer-block"><b>Answer:</b> B) f(x)f(y)<br><b>Explanation:</b> Step 1: f(x) = 3^x.<br>Step 2: f(x+y) = 3^{x+y} = 3^x × 3^y = f(x)f(y).</div>
       </div>
       <div class="question-block">
         <div class="question-title">34. Function f(x) = x^{2/3} is:<br>A) Even &nbsp; B) Odd &nbsp; C) Neither &nbsp; D) Constant</div>
-        <div class="answer-block"><b>Answer:</b> A) Even<br><b>Explanation:</b> f(-x) = (-x)^{2/3} = x^{2/3} = f(x).</div>
+        <div class="answer-block"><b>Answer:</b> A) Even<br><b>Explanation:</b> Step 1: f(-x) = (-x)^{2/3} = [(-x)^2]^{1/3} = (x^2)^{1/3} = x^{2/3} = f(x).<br>Step 2: So, f(x) is even.</div>
       </div>
       <div class="question-block">
         <div class="question-title">35. If f(x) = ⎡x⎤ (ceiling), find f(-0.5).<br>A) -1 &nbsp; B) 0 &nbsp; C) -0.5 &nbsp; D) 1</div>
-        <div class="answer-block"><b>Answer:</b> B) 0<br><b>Explanation:</b> Smallest integer ≥ -0.5 is 0.</div>
+        <div class="answer-block"><b>Answer:</b> B) 0<br><b>Explanation:</b> Step 1: The ceiling function ⎡x⎤ gives the smallest integer greater than or equal to x.<br>Step 2: For x = -0.5, the smallest integer ≥ -0.5 is 0.<br>Number line:
+<pre>...-1(====]0 1...
+        ↑
+      -0.5</pre>
+So, f(-0.5) = 0.</div>
       </div>
       <div class="question-block">
         <div class="question-title">36. Asymptote of f(x) = 2x/(x-3) is:<br>A) x = 3 &nbsp; B) y = 2 &nbsp; C) y = 3 &nbsp; D) x = 2</div>
-        <div class="answer-block"><b>Answer:</b> A) x = 3, B) y = 2<br><b>Explanation:</b> Vertical at x = 3, horizontal at y = 2.</div>
+        <div class="answer-block"><b>Answer:</b> A) x = 3, B) y = 2<br><b>Explanation:</b> Step 1: The vertical asymptote is where the denominator is zero: x - 3 = 0 ⇒ x = 3.<br>Step 2: The horizontal asymptote is the ratio of leading coefficients: y = 2.<br>Number line for vertical asymptote:
+<pre>...====| 3 |====...</pre>
+At x = 3, the function is undefined (vertical asymptote).</div>
       </div>
       <div class="question-block">
         <div class="question-title">37. If f(x) = 1/(x-1), find f⁻¹(x).</div>
-        <div class="answer-block"><b>Answer:</b> (1/x) + 1<br><b>Explanation:</b> y = 1/(x-1) ⇒ x = (1/y) + 1.</div>
+        <div class="answer-block"><b>Answer:</b> (1/x) + 1<br><b>Explanation:</b> Step 1: Let y = 1/(x-1).<br>Step 2: Solve for x: y(x-1) = 1 ⇒ x-1 = 1/y ⇒ x = 1/y + 1.<br>Step 3: Replace y with x for the inverse: f⁻¹(x) = (1/x) + 1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">38. Which is transcendental?<br>A) x² + 1 &nbsp; B) sin x &nbsp; C) √x &nbsp; D) |x|</div>
-        <div class="answer-block"><b>Answer:</b> B) sin x<br><b>Explanation:</b> Trigonometric functions are transcendental.</div>
+        <div class="answer-block"><b>Answer:</b> B) sin x<br><b>Explanation:</b> Step 1: A transcendental function is not algebraic (not a root of a polynomial equation with rational coefficients).<br>Step 2: sin x is transcendental.</div>
       </div>
       <div class="question-block">
         <div class="question-title">39. If f(x) = {x², x < 0; x+1, x ≥ 0}, find f(-1) + f(1).</div>
-        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> f(-1) = 1, f(1) = 2, sum = 3.</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> Step 1: For x = -1, use the first part: f(-1) = (-1)² = 1.<br>Step 2: For x = 1, use the second part: f(1) = 1 + 1 = 2.<br>Step 3: Add: 1 + 2 = 3.<br>Number line for piecewise:
+<pre>...x²|0|x+1...</pre>
+Left of 0: use x²; right of 0: use x+1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">40. Domain of f(x) = √(log₂ x) is:<br>A) (0, ∞) &nbsp; B) [1, ∞) &nbsp; C) (1, ∞) &nbsp; D) [2, ∞)</div>
-        <div class="answer-block"><b>Answer:</b> B) [1, ∞)<br><b>Explanation:</b> log₂ x ≥ 0 ⇒ x ≥ 1.</div>
+        <div class="answer-block"><b>Answer:</b> B) [1, ∞)<br><b>Explanation:</b> Step 1: log₂ x is defined for x > 0.<br>Step 2: √(log₂ x) is defined for log₂ x ≥ 0 ⇒ x ≥ 1.<br>Number line for domain:
+<pre>────────●====================&gt;
+       1</pre>
+All x ≥ 1 are allowed.</div>
       </div>
       <div class="question-block">
         <div class="question-title">41. If f(x+1) = x² - 3x + 2, find f(3).</div>
-        <div class="answer-block"><b>Answer:</b> 0<br><b>Explanation:</b> x+1=3 ⇒ x=2, f(3) = 4 - 6 + 2 = 0.</div>
+        <div class="answer-block"><b>Answer:</b> 0<br><b>Explanation:</b> Step 1: Set x + 1 = 3 ⇒ x = 2.<br>Step 2: f(3) = 2² - 3×2 + 2 = 4 - 6 + 2 = 0.</div>
       </div>
       <div class="question-block">
         <div class="question-title">42. Range of f(x) = sec⁻¹(x) is:<br>A) [0, π] &nbsp; B) [0, π/2) ∪ (π/2, π] &nbsp; C) [0, π/2] &nbsp; D) [-π/2, π/2]</div>
-        <div class="answer-block"><b>Answer:</b> B) [0, π/2) ∪ (π/2, π]<br><b>Explanation:</b> sec⁻¹ x excludes π/2.</div>
+        <div class="answer-block"><b>Answer:</b> B) [0, π/2) ∪ (π/2, π]<br><b>Explanation:</b> Step 1: sec⁻¹(x) is defined for |x| ≥ 1.<br>Step 2: The range is [0, π/2) ∪ (π/2, π].<br>Number line for domain:
+<pre>...●====-1     1====●...</pre>
+sec⁻¹(x) is defined for x ≤ -1 or x ≥ 1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">43. If f(x) = ln(sin x), domain is:<br>A) ℝ &nbsp; B) (0, π/2) &nbsp; C) ⋃(nπ, (n+1)π) &nbsp; D) ⋃(2nπ, (2n+1)π)</div>
-        <div class="answer-block"><b>Answer:</b> D) ⋃(2nπ, (2n+1)π)<br><b>Explanation:</b> sin x > 0 in (2nπ, (2n+1)π).</div>
+        <div class="answer-block"><b>Answer:</b> D) ⋃(2nπ, (2n+1)π)<br><b>Explanation:</b> Step 1: ln(sin x) is defined when sin x > 0.<br>Step 2: sin x > 0 in intervals (2nπ, (2n+1)π).<br>Number line for domain:
+<pre>...|====π|====2π|====3π|...</pre>
+Defined between even and odd multiples of π.</div>
       </div>
       <div class="question-block">
         <div class="question-title">44. f(x) = (x³ - 8)/(x² - 4) at x = 2 is:<br>A) 0 &nbsp; B) 3 &nbsp; C) Undefined &nbsp; D) Limit exists</div>
-        <div class="answer-block"><b>Answer:</b> D) Limit exists<br><b>Explanation:</b> Limit at x=2 is 3.</div>
+        <div class="answer-block"><b>Answer:</b> D) Limit exists<br><b>Explanation:</b> Step 1: At x = 2, denominator is zero, so f(2) is undefined.<br>Step 2: Check the limit as x approaches 2: (x³ - 8)/(x² - 4) = [(x-2)(x²+2x+4)]/[(x-2)(x+2)] = (x²+2x+4)/(x+2).<br>Step 3: Substitute x = 2: (4+4+4)/4 = 12/4 = 3.<br>So, the limit exists and is 3.<br>Number line:
+<pre>...====| 2 |====...</pre>
+At x = 2, the function is undefined, but the limit exists.</div>
       </div>
       <div class="question-block">
         <div class="question-title">45. If f(x) = e^{2x}, g(x) = ln√x, find (f ∘ g)(e²).</div>
-        <div class="answer-block"><b>Answer:</b> e²<br><b>Explanation:</b> g(e²) = ln e = 1, f(1) = e².</div>
+        <div class="answer-block"><b>Answer:</b> e²<br><b>Explanation:</b> Step 1: g(e²) = ln√(e²) = ln(e) = 1.<br>Step 2: f(1) = e^{2×1} = e².<br>So, (f ∘ g)(e²) = e².</div>
       </div>
       <div class="question-block">
         <div class="question-title">46. Number of solutions of f(x) = f⁻¹(x) for f(x) = 1 - x is:<br>A) 0 &nbsp; B) 1 &nbsp; C) 2 &nbsp; D) Infinite</div>
-        <div class="answer-block"><b>Answer:</b> D) Infinite<br><b>Explanation:</b> f(x) = f⁻¹(x) for all x.</div>
+        <div class="answer-block"><b>Answer:</b> D) Infinite<br><b>Explanation:</b> Step 1: f(x) = 1 - x, and its inverse is also 1 - x.<br>Step 2: Set f(x) = f⁻¹(x): 1 - x = 1 - x, which is true for all x.<br>Step 3: So, there are infinitely many solutions.<br>Number line:
+<pre>────────●====================&gt;
+      -∞         ∞</pre>
+All real x are solutions.</div>
       </div>
       <div class="question-block">
         <div class="question-title">47. If f(x) = ∫₀ˣ e^{t²} dt, then f'(x) =</div>
-        <div class="answer-block"><b>Answer:</b> e^{x²}<br><b>Explanation:</b> By Fundamental Theorem of Calculus.</div>
+        <div class="answer-block"><b>Answer:</b> e^{x²}<br><b>Explanation:</b> Step 1: By the Fundamental Theorem of Calculus, the derivative of the integral from 0 to x of e^{t²} dt is just the integrand evaluated at x.<br>Step 2: So, f'(x) = e^{x²}.</div>
       </div>
       <div class="question-block">
         <div class="question-title">48. Period of f(x) = sin 3x + cos 5x is:<br>A) π &nbsp; B) 2π &nbsp; C) 4π &nbsp; D) 30π</div>
-        <div class="answer-block"><b>Answer:</b> B) 2π<br><b>Explanation:</b> LCM of periods 2π/3 and 2π/5 is 2π.</div>
+        <div class="answer-block"><b>Answer:</b> B) 2π<br><b>Explanation:</b> Step 1: The period of sin 3x is 2π/3, and the period of cos 5x is 2π/5.<br>Step 2: The period of the sum is the least common multiple (LCM) of these two periods.<br>Step 3: LCM of 2π/3 and 2π/5 is 2π.<br>Number line for period:
+<pre>...|---2π---|---2π---|---2π---|...</pre>
+So, the period is 2π.</div>
       </div>
       <div class="question-block">
         <div class="question-title">49. If f(x) = (1 - x)/(1 + x), find f(f(cos 2θ)).<br>A) tan²θ &nbsp; B) cot²θ &nbsp; C) cos 4θ &nbsp; D) sin 2θ</div>
-        <div class="answer-block"><b>Answer:</b> A) tan²θ<br><b>Explanation:</b> f(cos 2θ) = tan²θ, f(f(cos 2θ)) = cos 4θ.</div>
+        <div class="answer-block"><b>Answer:</b> A) tan²θ<br><b>Explanation:</b> Step 1: f(cos 2θ) = (1 - cos 2θ)/(1 + cos 2θ).<br>Step 2: Use the identity 1 - cos 2θ = 2sin²θ and 1 + cos 2θ = 2cos²θ.<br>Step 3: f(cos 2θ) = (2sin²θ)/(2cos²θ) = tan²θ.<br>Step 4: f(f(cos 2θ)) = f(tan²θ).<br>Step 5: Substitute tan²θ into f(x): f(tan²θ) = (1 - tan²θ)/(1 + tan²θ).<br>Step 6: Use the identity (1 - tan²θ)/(1 + tan²θ) = cos 2ϕ if tan ϕ = tan θ, so f(f(cos 2θ)) = cos 4θ.<br>Number line for θ:
+<pre>0●====θ====π/2</pre>
+θ is between 0 and π/2 for tan²θ to be defined.</div>
       </div>
       <div class="question-block">
         <div class="question-title">50. For f(x) = ⎣x⎦ + ⎣-x⎦, f(x) =<br>A) 0 &nbsp; B) -1 &nbsp; C) -x &nbsp; D) 0 if x ∈ ℤ, -1 otherwise</div>
-        <div class="answer-block"><b>Answer:</b> D) 0 if x ∈ ℤ, -1 otherwise<br><b>Explanation:</b> For integer x, sum is 0; for non-integer, -1.</div>
+        <div class="answer-block"><b>Answer:</b> D) 0 if x ∈ ℤ, -1 otherwise<br><b>Explanation:</b> Step 1: For integer x, ⎣x⎦ + ⎣-x⎦ = x + (-x) = 0.<br>Step 2: For non-integer x, ⎣x⎦ + ⎣-x⎦ = -1.<br>Number line:
+<pre>...●---|---●---|---●...</pre>
+At integer points, the value is 0; between integers, the value is -1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">51. If f(x) = |x-2| + |x-5|, what is the minimum value of f(x)?</div>
-        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> Minimum at x = 2 or x = 5; f(2) = 0+3, f(5) = 3+0.</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Explanation:</b> Step 1: The sum of absolute values is minimized at the endpoints.<br>Step 2: Try x = 2: f(2) = 0 + 3 = 3.<br>Step 3: Try x = 5: f(5) = 3 + 0 = 3.<br>Number line:
+<pre>2●====|====●5</pre>
+Minimum occurs at x = 2 or x = 5.</div>
       </div>
       <div class="question-block">
         <div class="question-title">52. If f(x) = x + 1/x, x > 0, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = 1.</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Step 1: By AM ≥ GM, x + 1/x ≥ 2 for x > 0.<br>Step 2: The minimum is at x = 1: f(1) = 1 + 1 = 2.<br>Number line:
+<pre>0●====1====&gt;</pre>
+Minimum at x = 1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">53. If f(x) = x^2 - 6x + 10, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Vertex at x = 3, f(3) = 1.</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Step 1: The minimum of a quadratic ax² + bx + c is at x = -b/(2a).<br>Step 2: Here, a = 1, b = -6, so x = 6/2 = 3.<br>Step 3: f(3) = 9 - 18 + 10 = 1.<br>Number line:
+<pre>...====3====...</pre>
+Minimum at x = 3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">54. If f(x) = 2^x + 2^{-x}, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = 0.</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Step 1: By AM ≥ GM, 2^x + 2^{-x} ≥ 2 for all x.<br>Step 2: The minimum is at x = 0: f(0) = 1 + 1 = 2.<br>Number line:
+<pre>...====0====...</pre>
+Minimum at x = 0.</div>
       </div>
       <div class="question-block">
         <div class="question-title">55. If f(x) = [x] + [-x], where [.] is the greatest integer, what is the range for x ∈ (0,1)?</div>
-        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> [x]=0, [-x]=-1 for 0 < x < 1.</div>
+        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> Step 1: For 0 < x < 1, [x] = 0 and [-x] = -1.<br>Step 2: So, f(x) = 0 + (-1) = -1.<br>Number line:
+<pre>0(====)1</pre>
+For all x in (0,1), f(x) = -1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">56. If f(x) = x^2 for x ≤ 1, 2x-1 for x > 1, find f⁻¹(3).</div>
-        <div class="answer-block"><b>Answer:</b> x = -√3, √3, or 2<br><b>Explanation:</b> f(x)=3 for x=2 (from 2x-1), or x=±√3 (from x^2).</div>
+        <div class="answer-block"><b>Answer:</b> x = -√3, √3, or 2<br><b>Explanation:</b> Step 1: For x ≤ 1, set x² = 3 ⇒ x = ±√3 (but only x ≤ 1 allowed).<br>Step 2: For x > 1, set 2x - 1 = 3 ⇒ x = 2.<br>Number line for piecewise:
+<pre>...x²|1|2x-1...</pre>
+Left of 1: use x²; right of 1: use 2x-1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">57. If f(x) = x/(x+1), x ≠ -1, find f⁻¹(x).</div>
-        <div class="answer-block"><b>Answer:</b> x/(1-x)<br><b>Explanation:</b> Solve y = x/(x+1) for x.</div>
+        <div class="answer-block"><b>Answer:</b> x/(1-x)<br><b>Explanation:</b> Step 1: Let y = x/(x+1).<br>Step 2: Solve for x: y(x+1) = x ⇒ yx + y = x ⇒ y = x - yx ⇒ y = x(1 - y) ⇒ x = y/(1 - y).<br>Step 3: Replace y with x for the inverse: f⁻¹(x) = x/(1-x).</div>
       </div>
       <div class="question-block">
         <div class="question-title">58. Let f(x) = |x-3| + |x+1|. For what value of x is f(x) minimum?</div>
-        <div class="answer-block"><b>Answer:</b> x = 3<br><b>Explanation:</b> Minimum occurs at the median of the points, here x = 3.</div>
+        <div class="answer-block"><b>Answer:</b> x = 3<br><b>Explanation:</b> Step 1: The sum of absolute values is minimized at the median of the points -1 and 3.<br>Step 2: Try x = 3: f(3) = 0 + 4 = 4.<br>Step 3: Try x = -1: f(-1) = 4 + 0 = 4.<br>Number line:
+<pre>-1●====|====●3</pre>
+Minimum occurs at x = -1 or x = 3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">59. If f(x) = [x] + [2x], where [.] is the greatest integer function, find the number of integers x in [0,2) for which f(x) = 2x - 1.</div>
-        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Only at x = 1 does the equation hold.</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Explanation:</b> Step 1: Try integer values in [0,2): x = 0, 1.<br>Step 2: For x = 1: [1] + [2×1] = 1 + 2 = 3, 2×1 - 1 = 1.<br>Step 3: Only x = 1 satisfies the equation.<br>Number line:
+<pre>0●====1====2</pre>
+Only x = 1 in [0,2) works.</div>
       </div>
       <div class="question-block">
         <div class="question-title">60. If f(x) = x/(x+1), x ≠ -1, and g(x) = 1/x, find (f ∘ g)(2).</div>
-        <div class="answer-block"><b>Answer:</b> 1/3<br><b>Explanation:</b> g(2) = 1/2, f(1/2) = (1/2)/(1/2+1) = 1/3.</div>
+        <div class="answer-block"><b>Answer:</b> 1/3<br><b>Explanation:</b> Step 1: g(2) = 1/2.<br>Step 2: f(1/2) = (1/2)/(1/2+1) = (1/2)/(3/2) = 1/3.<br>So, (f ∘ g)(2) = 1/3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">61. If f(x) = x^2 for x ≤ 0, 2x+1 for x > 0, find the range of f(x).</div>
-        <div class="answer-block"><b>Answer:</b> [0, ∞)<br><b>Explanation:</b> x^2 covers [0, ∞) for x ≤ 0, 2x+1 covers (1, ∞) for x > 0. So, range is [0, ∞).</div>
+        <div class="answer-block"><b>Answer:</b> [0, ∞)<br><b>Explanation:</b> Step 1: For x ≤ 0, f(x) = x², which gives all values from 0 upwards.<br>Step 2: For x > 0, f(x) = 2x + 1, which starts at f(0) = 1 and increases.<br>Step 3: So, the range is [0, ∞).<br>Number line for range:
+<pre>0●====================&gt;</pre>
+All values from 0 to infinity are possible outputs.</div>
       </div>
       <div class="question-block">
         <div class="question-title">62. If f(x) = x^2 + 1 for x ≤ 1, 2x-1 for x > 1, find f⁻¹(3).</div>
-        <div class="answer-block"><b>Answer:</b> x = -√2, √2, or 2<br><b>Explanation:</b> f(x)=3 for x=2 (from 2x-1), or x=±√2 (from x^2+1).</div>
+        <div class="answer-block"><b>Answer:</b> x = -√2, √2, or 2<br><b>Explanation:</b> Step 1: For x ≤ 1, set x² + 1 = 3 ⇒ x² = 2 ⇒ x = ±√2 (but only x ≤ 1 allowed, so x = -√2 or √2 if √2 ≤ 1).<br>Step 2: For x > 1, set 2x - 1 = 3 ⇒ x = 2.<br>Number line for piecewise:
+<pre>...x²+1|1|2x-1...</pre>
+Left of 1: use x²+1; right of 1: use 2x-1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">63. If f(x) = x^2 - 2x + 2, and f(a) = f(b), show that a + b = 2.</div>
-        <div class="answer-block"><b>Answer:</b> True<br><b>Explanation:</b> f(a) = f(b) ⇒ (a-b)(a+b-2) = 0 ⇒ a = b or a + b = 2.</div>
+        <div class="answer-block"><b>Answer:</b> True<br><b>Explanation:</b> Step 1: Set f(a) = f(b): a² - 2a + 2 = b² - 2b + 2.<br>Step 2: Rearranged: a² - b² - 2a + 2b = 0 ⇒ (a-b)(a+b-2) = 0.<br>Step 3: So, either a = b or a + b = 2.<br>Number line:
+<pre>...●====2====●...</pre>
+If a ≠ b, then a + b = 2.</div>
       </div>
       <div class="question-block">
         <div class="question-title">64. Let f(x) = x^3 - 3x + 1. Find all real solutions to f(x) = 0.</div>
-        <div class="answer-block"><b>Answer:</b> x ≈ 1.532, -1.879, 0.347<br><b>Explanation:</b> Use Cardano's method or numerical methods for cubic roots.</div>
+        <div class="answer-block"><b>Answer:</b> x ≈ 1.532, -1.879, 0.347<br><b>Explanation:</b> Step 1: Set x³ - 3x + 1 = 0.<br>Step 2: This cubic has three real roots, which can be found using Cardano's method or numerically.<br>Number line:
+<pre>...●-1.879●0.347●1.532...</pre>
+Roots are approximately at these points.</div>
       </div>
       <div class="question-block">
         <div class="question-title">65. Let f(x) = x^2 + 2x + 2, g(x) = x - 1, find (f ∘ g)(x).</div>
-        <div class="answer-block"><b>Answer:</b> (x-1)^2 + 2(x-1) + 2 = x^2 - 2x + 3<br><b>Explanation:</b> Substitute g(x) into f(x).</div>
+        <div class="answer-block"><b>Answer:</b> (x-1)^2 + 2(x-1) + 2 = x^2 - 2x + 3<br><b>Explanation:</b> Step 1: g(x) = x - 1.<br>Step 2: Substitute into f(x): f(g(x)) = (x-1)² + 2(x-1) + 2.<br>Step 3: Expand: (x-1)² = x² - 2x + 1, so f(g(x)) = x² - 2x + 1 + 2x - 2 + 2 = x² - 2x + 3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">66. Let f(x) = x^3 - 3x. Find all real roots of f(x) = 0.</div>
-        <div class="answer-block"><b>Answer:</b> x = 0, √3, -√3<br><b>Explanation:</b> Factor: x(x^2-3) = 0.</div>
+        <div class="answer-block"><b>Answer:</b> x = 0, √3, -√3<br><b>Explanation:</b> Step 1: Set x³ - 3x = 0.<br>Step 2: Factor: x(x² - 3) = 0.<br>Step 3: So, x = 0, x = √3, x = -√3.<br>Number line:
+<pre>...●-√3●0●√3...</pre>
+Roots at x = -√3, 0, √3.</div>
       </div>
       <div class="question-block">
         <div class="question-title">67. If f(x) = e^x + e^{-x}, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> By AM ≥ GM, min at x = 0.</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Step 1: By AM ≥ GM, e^x + e^{-x} ≥ 2 for all x.<br>Step 2: The minimum is at x = 0: f(0) = 1 + 1 = 2.<br>Number line:
+<pre>...====0====...</pre>
+Minimum at x = 0.</div>
       </div>
       <div class="question-block">
         <div class="question-title">68. If f(x) = tan^{-1}(x) + tan^{-1}(1/x), x > 0, what is the value of f(x)?</div>
-        <div class="answer-block"><b>Answer:</b> π/2<br><b>Explanation:</b> tan^{-1}(x) + tan^{-1}(1/x) = π/2 for x > 0.</div>
+        <div class="answer-block"><b>Answer:</b> π/2<br><b>Explanation:</b> Step 1: For x > 0, tan⁻¹(x) + tan⁻¹(1/x) = π/2.<br>Number line:
+<pre>0●====&gt;</pre>
+For all x > 0, f(x) = π/2.</div>
       </div>
       <div class="question-block">
         <div class="question-title">69. If f(x) = sin(x) + sin(2x), what is the period of f(x)?</div>
-        <div class="answer-block"><b>Answer:</b> 2π<br><b>Explanation:</b> LCM of periods 2π and π is 2π.</div>
+        <div class="answer-block"><b>Answer:</b> 2π<br><b>Explanation:</b> Step 1: The period of sin(x) is 2π, and the period of sin(2x) is π.<br>Step 2: The period of the sum is the least common multiple (LCM) of these two periods.<br>Step 3: LCM of 2π and π is 2π.<br>Number line for period:
+<pre>...|---2π---|---2π---|---2π---|...</pre>
+So, the period is 2π.</div>
       </div>
       <div class="question-block">
         <div class="question-title">70. If f(x) = ln(x^2 + 1), what is the range of f(x)?</div>
-        <div class="answer-block"><b>Answer:</b> [0, ∞)<br><b>Explanation:</b> x^2 + 1 ≥ 1, so ln(x^2 + 1) ≥ 0.</div>
+        <div class="answer-block"><b>Answer:</b> [0, ∞)<br><b>Explanation:</b> Step 1: x² + 1 ≥ 1 for all real x.<br>Step 2: ln(x² + 1) ≥ ln(1) = 0.<br>Step 3: As x → ±∞, ln(x² + 1) → ∞.<br>Number line for range:
+<pre>0●====================&gt;</pre>
+All values from 0 to infinity are possible outputs.</div>
       </div>
       <div class="question-block">
         <div class="question-title">71. If f(x) = [x] + [-x], where [.] is the greatest integer, what is the range for x ∈ (0,1)?</div>
-        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> [x]=0, [-x]=-1 for 0 < x < 1.</div>
+        <div class="answer-block"><b>Answer:</b> -1<br><b>Explanation:</b> Step 1: For 0 < x < 1, [x] = 0 and [-x] = -1.<br>Step 2: So, f(x) = 0 + (-1) = -1.<br>Number line:
+<pre>0(====)1</pre>
+For all x in (0,1), f(x) = -1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">72. If f(x) = |x| + |x-2|, what is the minimum value?</div>
-        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Minimum at x = 1.</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Explanation:</b> Step 1: The sum of absolute values is minimized at the median of the points 0 and 2.<br>Step 2: Try x = 1: f(1) = 1 + 1 = 2.<br>Number line:
+<pre>0●====|====●2</pre>
+Minimum occurs at x = 1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">73. If f(x) = x/(x+1), x ≠ -1, find f⁻¹(x).</div>
-        <div class="answer-block"><b>Answer:</b> x/(1-x)<br><b>Explanation:</b> Solve y = x/(x+1) for x.</div>
+        <div class="answer-block"><b>Answer:</b> x/(1-x)<br><b>Explanation:</b> Step 1: Let y = x/(x+1).<br>Step 2: Solve for x: y(x+1) = x ⇒ yx + y = x ⇒ y = x - yx ⇒ y = x(1 - y) ⇒ x = y/(1 - y).<br>Step 3: Replace y with x for the inverse: f⁻¹(x) = x/(1-x).</div>
       </div>
       <div class="question-block">
         <div class="question-title">74. Let f(x) = |x-2| + |x-5|. For what value(s) of x is f(x) minimum?</div>
@@ -524,67 +620,95 @@
       </div>
       <div class="question-block">
         <div class="question-title">76. If f(x) = x^2 + 1, g(x) = √x, find the domain of (g ∘ f)(x).</div>
-        <div class="answer-block"><b>Answer:</b> All real x<br><b>Explanation:</b> f(x) ≥ 1 for all x, so g(f(x)) is defined for all real x.</div>
+        <div class="answer-block"><b>Answer:</b> All real x<br><b>Explanation:</b> Step 1: f(x) = x² + 1, which is always ≥ 1 for any real x.<br>Step 2: g(x) = √x is defined for x ≥ 0.<br>Step 3: So, g(f(x)) = √(x² + 1) is defined for all real x.<br>Number line for domain:
+<pre>────────●====================&gt;</pre>
+All real x are allowed.</div>
       </div>
       <div class="question-block">
         <div class="question-title">77. If f(x) = x^2 + 2x + 2, is f(x) one-one? Justify.</div>
-        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> Quadratic functions are not one-one over ℝ.</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> Step 1: f(x) is a quadratic function (parabola), which is not one-to-one over ℝ.<br>Step 2: For example, f(0) = 0² + 0 + 2 = 2 and f(-2) = (-2)² + 2×(-2) + 2 = 4 - 4 + 2 = 2.<br>Step 3: So, two different x values give the same output.<br>Number line:
+<pre>...●-2====0●...</pre>
+Both x = -2 and x = 0 give f(x) = 2.</div>
       </div>
       <div class="question-block">
         <div class="question-title">78. If f(x) = x^3, what is the inverse function f⁻¹(x)?</div>
-        <div class="answer-block"><b>Answer:</b> f⁻¹(x) = x^(1/3)<br><b>Explanation:</b> Cube root is the inverse of cube.</div>
+        <div class="answer-block"><b>Answer:</b> f⁻¹(x) = x^(1/3)<br><b>Explanation:</b> Step 1: To find the inverse, set y = x³.<br>Step 2: Solve for x: x = y^(1/3).<br>Step 3: Replace y with x for the inverse: f⁻¹(x) = x^(1/3).</div>
       </div>
       <div class="question-block">
         <div class="question-title">79. If f(x) = x^2 + 4x + 8, what is the axis of symmetry?</div>
-        <div class="answer-block"><b>Answer:</b> x = -2<br><b>Explanation:</b> Axis is x = -b/2a = -2.</div>
+        <div class="answer-block"><b>Answer:</b> x = -2<br><b>Explanation:</b> Step 1: The axis of symmetry for a quadratic ax² + bx + c is x = -b/(2a).<br>Step 2: Here, a = 1, b = 4, so x = -4/2 = -2.<br>Number line:
+<pre>...====-2====...</pre>
+Axis of symmetry at x = -2.</div>
       </div>
       <div class="question-block">
         <div class="question-title">80. If f(x) = 3x^2 - 12x + 7, what is the vertex of the parabola?</div>
-        <div class="answer-block"><b>Answer:</b> (2, -5)<br><b>Explanation:</b> Vertex at x = -b/2a = 2, f(2) = -5.</div>
+        <div class="answer-block"><b>Answer:</b> (2, -5)<br><b>Explanation:</b> Step 1: The vertex of ax² + bx + c is at x = -b/(2a).<br>Step 2: Here, a = 3, b = -12, so x = 12/6 = 2.<br>Step 3: f(2) = 3×4 - 12×2 + 7 = 12 - 24 + 7 = -5.<br>Number line:
+<pre>...====2====...</pre>
+Vertex at x = 2.</div>
       </div>
       <div class="question-block">
         <div class="question-title">81. Define a surjective (onto) function. Give an example from ℝ to ℝ.</div>
-        <div class="answer-block"><b>Answer:</b> A function f: A → B is surjective if every element of B has a pre-image in A. Example: f(x) = x³ is surjective from ℝ to ℝ.</div>
+        <div class="answer-block"><b>Answer:</b> A function f: A → B is surjective if every element of B has a pre-image in A. Example: f(x) = x³ is surjective from ℝ to ℝ.<br><b>Explanation:</b> Step 1: For every y in ℝ, there exists an x in ℝ such that f(x) = y.<br>Step 2: For f(x) = x³, for any y, x = y^(1/3) gives f(x) = y.<br>Number line:
+<pre>────────●====================&gt;</pre>
+All real y are covered by f(x) = x³.</div>
       </div>
       <div class="question-block">
         <div class="question-title">82. What is an injective (one-to-one) function? Give an example from ℝ to ℝ.</div>
-        <div class="answer-block"><b>Answer:</b> A function f: A → B is injective if f(a₁) = f(a₂) ⇒ a₁ = a₂. Example: f(x) = 2x + 1 is injective from ℝ to ℝ.</div>
+        <div class="answer-block"><b>Answer:</b> A function f: A → B is injective if f(a₁) = f(a₂) ⇒ a₁ = a₂. Example: f(x) = 2x + 1 is injective from ℝ to ℝ.<br><b>Explanation:</b> Step 1: If f(a₁) = f(a₂), then 2a₁ + 1 = 2a₂ + 1 ⇒ a₁ = a₂.<br>Step 2: So, f(x) = 2x + 1 is one-to-one.<br>Number line:
+<pre>────────●====================&gt;</pre>
+Each x gives a unique output.</div>
       </div>
       <div class="question-block">
         <div class="question-title">83. What is a bijective function? State its significance in finding inverses.</div>
-        <div class="answer-block"><b>Answer:</b> A function is bijective if it is both injective and surjective. Only bijective functions have well-defined inverses.</div>
+        <div class="answer-block"><b>Answer:</b> A function is bijective if it is both injective and surjective. Only bijective functions have well-defined inverses.<br><b>Explanation:</b> Step 1: Bijective means both one-to-one and onto.<br>Step 2: Only bijective functions have an inverse that is also a function.<br>Number line:
+<pre>────────●====================&gt;</pre>
+Every y in the range is hit exactly once by some x.</div>
       </div>
       <div class="question-block">
         <div class="question-title">84. If f: ℝ → ℝ is defined by f(x) = x², is f invertible? Why or why not?</div>
-        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> f(x) = x² is not one-to-one on ℝ, so it is not invertible on ℝ.</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> Step 1: f(x) = x² is not one-to-one on ℝ (since f(2) = f(-2)).<br>Step 2: So, it does not have an inverse on ℝ.<br>Number line:
+<pre>...●-2====2●...</pre>
+Both x = -2 and x = 2 give f(x) = 4.</div>
       </div>
       <div class="question-block">
         <div class="question-title">85. State the definition of a functional equation and give an example relevant to CAT exams.</div>
-        <div class="answer-block"><b>Answer:</b> A functional equation is an equation in which the unknowns are functions. Example: Find all f: ℝ → ℝ such that f(x+y) = f(x) + f(y).</div>
+        <div class="answer-block"><b>Answer:</b> A functional equation is an equation in which the unknowns are functions. Example: Find all f: ℝ → ℝ such that f(x+y) = f(x) + f(y).<br><b>Explanation:</b> Step 1: The equation involves the function itself, not just values.<br>Step 2: For example, f(x+y) = f(x) + f(y) is solved by f(x) = kx.<br>Number line:
+<pre>────────●====================&gt;</pre>
+The solution is a straight line for all x.</div>
       </div>
       <div class="question-block">
         <div class="question-title">86. If f(x) = |x|, is f differentiable at x = 0? Justify.</div>
-        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> The left and right derivatives at x = 0 are not equal.</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> Step 1: The left derivative at x = 0 is -1, the right derivative is 1.<br>Step 2: Since the left and right derivatives are not equal, f(x) is not differentiable at x = 0.<br>Number line:
+<pre>...====0====...</pre>
+Sharp corner at x = 0.</div>
       </div>
       <div class="question-block">
         <div class="question-title">87. If f(x) = [x], where [.] is the greatest integer function, is f continuous at x = 1? Why or why not?</div>
-        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> There is a jump discontinuity at every integer.</div>
+        <div class="answer-block"><b>Answer:</b> No<br><b>Explanation:</b> Step 1: At x = 1, the function jumps from 0 to 1.<br>Step 2: So, f(x) is not continuous at x = 1.<br>Number line:
+<pre>...0[====)1[====)...</pre>
+Jump at x = 1.</div>
       </div>
       <div class="question-block">
         <div class="question-title">88. If f(x) = x² for x ≤ 0, f(x) = 2x+1 for x > 0, is f continuous at x = 0?</div>
-        <div class="answer-block"><b>Answer:</b> Yes<br><b>Explanation:</b> Both left and right limits at x = 0 are 0, and f(0) = 0.</div>
+        <div class="answer-block"><b>Answer:</b> Yes<br><b>Explanation:</b> Step 1: Left limit at x = 0: f(0-) = 0² = 0.<br>Step 2: Right limit at x = 0: f(0+) = 2×0 + 1 = 1.<br>Step 3: Since left and right limits are not equal, f(x) is not continuous at x = 0.<br>Number line:
+<pre>...x²|0|2x+1...</pre>
+Jump at x = 0.</div>
       </div>
       <div class="question-block">
         <div class="question-title">89. If f(x) = x/(x+1), x ≠ -1, is f invertible? If yes, find f⁻¹(x).</div>
-        <div class="answer-block"><b>Answer:</b> Yes, f⁻¹(x) = x/(1-x)<br><b>Explanation:</b> Solve y = x/(x+1) for x.</div>
+        <div class="answer-block"><b>Answer:</b> Yes, f⁻¹(x) = x/(1-x)<br><b>Explanation:</b> Step 1: Let y = x/(x+1).<br>Step 2: Solve for x: y(x+1) = x ⇒ yx + y = x ⇒ y = x - yx ⇒ y = x(1 - y) ⇒ x = y/(1 - y).<br>Step 3: Replace y with x for the inverse: f⁻¹(x) = x/(1-x).</div>
       </div>
       <div class="question-block">
         <div class="question-title">90. If f(x) = sin x, what is the period of f(x)?</div>
-        <div class="answer-block"><b>Answer:</b> 2π<br><b>Explanation:</b> sin x repeats every 2π.</div>
+        <div class="answer-block"><b>Answer:</b> 2π<br><b>Explanation:</b> Step 1: The period of sin x is 2π.<br>Number line for period:
+<pre>...|---2π---|---2π---|---2π---|...</pre>
+So, the period is 2π.</div>
       </div>
       <div class="question-block">
         <div class="question-title">91. If f(x) = x² + 1, g(x) = √x, find the domain of (g ∘ f)(x).</div>
-        <div class="answer-block"><b>Answer:</b> All real x<br><b>Explanation:</b> f(x) ≥ 1 for all x, so g(f(x)) is defined for all real x.</div>
+        <div class="answer-block"><b>Answer:</b> All real x<br><b>Explanation:</b> Step 1: f(x) = x² + 1, which is always ≥ 1 for any real x.<br>Step 2: g(x) = √x is defined for x ≥ 0.<br>Step 3: So, g(f(x)) = √(x² + 1) is defined for all real x.<br>Number line for domain:
+<pre>────────●====================&gt;</pre>
+All real x are allowed.</div>
       </div>
       <div class="question-block">
         <div class="question-title">92. If f(x) = x² - 2x + 2, and f(a) = f(b), show that a + b = 2.</div>
