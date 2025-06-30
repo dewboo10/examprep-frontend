@@ -75,6 +75,7 @@
       -webkit-background-clip: text;
       color: transparent;
     }
+    html, body { overflow-x: hidden !important; }
   </style>
 </head>
 <body class="gradient-bg min-h-screen">
@@ -178,12 +179,12 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="ml-0 md:ml-64 container mx-auto px-4 py-24">
+  <main class="ml-0 md:ml-64 max-w-screen-xl w-full mx-auto px-2 md:px-4 py-24">
     <header class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-center">
         <span class="header-text"><i class="fas fa-language mr-2"></i>Verbal Practice</span>
       </h1>
-      <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+      <p class="text-gray-600 max-w-2xl mx-auto text-lg text-center">
         Sharpen your verbal reasoning with topic-wise practice in comprehension, vocabulary, and grammar.
       </p>
     </header>
@@ -191,12 +192,12 @@
     <div class="space-y-12">
       <!-- Reading Comprehension -->
       <section>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Reading Comprehension</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <a href="verbal/chapters/science-rc.html" class="topic-card card p-6 relative">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Reading Comprehension</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+          <a href="verbal/chapters/science-rc.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-flask text-blue-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-flask text-blue-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Science</h3>
@@ -204,10 +205,10 @@
               </div>
             </div>
           </a>
-          <a href="verbal/chapters/business-rc.html" class="topic-card card p-6 relative">
+          <a href="verbal/chapters/business-rc.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-chart-line text-green-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-chart-line text-green-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Business</h3>
@@ -215,10 +216,10 @@
               </div>
             </div>
           </a>
-          <a href="verbal/chapters/literature-rc.html" class="topic-card card p-6 relative">
+          <a href="verbal/chapters/literature-rc.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-book text-yellow-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-book text-yellow-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Literature</h3>
@@ -231,12 +232,12 @@
 
       <!-- Vocabulary -->
       <section>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Vocabulary</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <a href="verbal/chapters/synonyms.html" class="topic-card card p-6 relative">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Vocabulary</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+          <a href="verbal/chapters/synonyms.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-exchange-alt text-red-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-exchange-alt text-red-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Synonyms</h3>
@@ -244,10 +245,10 @@
               </div>
             </div>
           </a>
-          <a href="verbal/chapters/antonyms.html" class="topic-card card p-6 relative">
+          <a href="verbal/chapters/antonyms.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-minus-circle text-indigo-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-minus-circle text-indigo-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Antonyms</h3>
@@ -255,10 +256,10 @@
               </div>
             </div>
           </a>
-          <a href="verbal/chapters/idioms.html" class="topic-card card p-6 relative">
+          <a href="verbal/chapters/idioms.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-quote-right text-pink-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-quote-right text-pink-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Idioms</h3>
@@ -271,12 +272,12 @@
 
       <!-- Grammar -->
       <section>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Grammar</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <a href="verbal/chapters/tenses.html" class="topic-card card p-6 relative">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Grammar</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+          <a href="verbal/chapters/tenses.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-clock text-teal-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-clock text-teal-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Tenses</h3>
@@ -284,10 +285,10 @@
               </div>
             </div>
           </a>
-          <a href="verbal/chapters/parts-of-speech.html" class="topic-card card p-6 relative">
+          <a href="verbal/chapters/parts-of-speech.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-puzzle-piece text-cyan-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-cyan-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-puzzle-piece text-cyan-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Parts of Speech</h3>
@@ -295,10 +296,10 @@
               </div>
             </div>
           </a>
-          <a href="verbal/chapters/sentence-correction.html" class="topic-card card p-6 relative">
+          <a href="verbal/chapters/sentence-correction.html" class="topic-card card p-3 relative">
             <div class="flex items-center gap-4">
-              <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-check-circle text-purple-600 text-xl"></i>
+              <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-check-circle text-purple-600 text-lg"></i>
               </div>
               <div>
                 <h3 class="font-semibold">Sentence Correction</h3>

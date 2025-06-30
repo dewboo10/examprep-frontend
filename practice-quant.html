@@ -194,6 +194,8 @@
             opacity: 1 !important;
             transform: none !important;
         }
+
+        html, body { overflow-x: hidden !important; }
     </style>
 </head>
 <body class="gradient-bg min-h-screen">
@@ -299,15 +301,15 @@
         </div>
     </nav>
     
-    <main class="ml-0 md:ml-64 container mx-auto px-4 py-8 pt-24">
+    <main class="ml-0 md:ml-64 max-w-screen-xl w-full mx-auto px-2 md:px-4 py-8 pt-24">
         <!-- Header -->
         <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-center">
                 <span class="header-text">
                     <i class="fas fa-calculator mr-2"></i>Quantitative Aptitude
                 </span>
             </h1>
-            <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg text-center">
                 Master quantitative aptitude with comprehensive study materials and practice questions.
                 Perfect for competitive exams and aptitude tests.
             </p>
@@ -317,11 +319,11 @@
         <div class="space-y-12">
             <!-- Arithmetic -->
             <section id="arithmetic">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Arithmetic</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    <a href="quant/chapters/numbers.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Arithmetic</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="quant/chapters/numbers.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-sort-numeric-up text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -331,9 +333,9 @@
                         </div>
                     </a>
                     
-                    <a href="quant/chapters/percentages.html" class="topic-card card p-6">
+                    <a href="quant/chapters/percentages.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-percentage text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -343,9 +345,9 @@
                         </div>
                     </a>
                     
-                    <a href="quant/chapters/time-work.html" class="topic-card card p-6">
+                    <a href="quant/chapters/time-work.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-clock text-purple-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -355,9 +357,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/ratio.html" class="topic-card card p-6">
+                    <a href="quant/chapters/ratio.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-balance-scale text-yellow-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -367,9 +369,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/interest.html" class="topic-card card p-6">
+                    <a href="quant/chapters/interest.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-coins text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -379,9 +381,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/speed.html" class="topic-card card p-6">
+                    <a href="quant/chapters/speed.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-tachometer-alt text-indigo-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -391,9 +393,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/trains.html" class="topic-card card p-6">
+                    <a href="quant/chapters/trains.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-train text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -403,9 +405,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/boats.html" class="topic-card card p-6">
+                    <a href="quant/chapters/boats.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-ship text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -415,9 +417,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/mixtures.html" class="topic-card card p-6">
+                    <a href="quant/chapters/mixtures.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-flask text-purple-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -427,9 +429,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/averages.html" class="topic-card card p-6">
+                    <a href="quant/chapters/averages.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-chart-bar text-yellow-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -439,9 +441,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/age.html" class="topic-card card p-6">
+                    <a href="quant/chapters/age.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-user text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -451,9 +453,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/partnership.html" class="topic-card card p-6">
+                    <a href="quant/chapters/partnership.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-handshake text-indigo-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -463,9 +465,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/Arthemtic-theorems.html" class="topic-card card p-6">
+                    <a href="quant/chapters/Arthemtic-theorems.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-lightbulb text-pink-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -479,11 +481,11 @@
             
             <!-- Algebra -->
             <section id="algebra">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Algebra</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    <a href="quant/chapters/equations.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Algebra</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="quant/chapters/equations.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-equals text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -493,9 +495,9 @@
                         </div>
                     </a>
                     
-                    <a href="quant/chapters/inequalities.html" class="topic-card card p-6">
+                    <a href="quant/chapters/inequalities.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-less-than-equal text-yellow-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -505,9 +507,9 @@
                         </div>
                     </a>
                     
-                    <a href="quant/chapters/functions.html" class="topic-card card p-6">
+                    <a href="quant/chapters/functions.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-function text-indigo-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -517,9 +519,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/sequences.html" class="topic-card card p-6">
+                    <a href="quant/chapters/sequences.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-sort-numeric-down text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -529,9 +531,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/logarithms.html" class="topic-card card p-6">
+                    <a href="quant/chapters/logarithms.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-calculator text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -541,9 +543,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/surds.html" class="topic-card card p-6">
+                    <a href="quant/chapters/surds.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-square-root-alt text-purple-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -553,9 +555,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/polynomials.html" class="topic-card card p-6">
+                    <a href="quant/chapters/polynomials.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-superscript text-yellow-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -565,9 +567,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/identities.html" class="topic-card card p-6">
+                    <a href="quant/chapters/identities.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-square text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -577,9 +579,9 @@
                         </div>
                     </a>
 
-                    <a href="quant/chapters/maxima.html" class="topic-card card p-6">
+                    <a href="quant/chapters/maxima.html" class="topic-card card p-3">
                         <div class="flex items-center gap-3">
-                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                            <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
                                 <i class="fas fa-chart-line text-indigo-600 text-lg"></i>
                             </div>
                             <div class="content">
@@ -593,12 +595,12 @@
             
             <!-- Geometry -->
             <section id="geometry">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Geometry</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="quant/chapters/triangles.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Geometry</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="quant/chapters/triangles.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-triangle text-blue-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-triangle text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Triangles</h3>
@@ -607,10 +609,10 @@
                         </div>
                     </a>
                     
-                    <a href="quant/chapters/circles.html" class="topic-card card p-6">
+                    <a href="quant/chapters/circles.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-circle text-green-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-circle text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Circles</h3>
@@ -619,10 +621,10 @@
                         </div>
                     </a>
                     
-                    <a href="quant/chapters/coordinate.html" class="topic-card card p-6">
+                    <a href="quant/chapters/coordinate.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-map-marked-alt text-purple-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-map-marked-alt text-purple-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Coordinate Geometry</h3>
@@ -635,12 +637,12 @@
             
             <!-- Statistics & Probability -->
             <section id="statistics">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Statistics & Probability</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="quant/chapters/statistics.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Statistics & Probability</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="quant/chapters/statistics.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-chart-bar text-red-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chart-bar text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Statistics</h3>
@@ -649,10 +651,10 @@
                         </div>
                     </a>
                     
-                    <a href="quant/chapters/probability.html" class="topic-card card p-6">
+                    <a href="quant/chapters/probability.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-dice text-yellow-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-dice text-yellow-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Probability</h3>
@@ -661,10 +663,10 @@
                         </div>
                     </a>
                     
-                    <a href="quant/chapters/permutations.html" class="topic-card card p-6">
+                    <a href="quant/chapters/permutations.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-random text-indigo-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-random text-indigo-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Permutations & Combinations</h3>

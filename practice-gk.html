@@ -113,6 +113,8 @@
         .topic-card:hover .content {
             transform: translateX(5px);
         }
+
+        html, body { overflow-x: hidden !important; }
     </style>
 </head>
 <body class="gradient-bg min-h-screen">
@@ -223,15 +225,15 @@
       });
     </script>
 
-    <main class="ml-0 md:ml-64 container mx-auto px-4 py-8 pt-24">
+    <main class="ml-0 md:ml-64 max-w-screen-xl w-full mx-auto px-2 md:px-4 py-8 pt-24">
         <!-- Header -->
         <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-center">
                 <span class="header-text">
                     <i class="fas fa-globe mr-2"></i>General Knowledge
                 </span>
             </h1>
-            <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg text-center">
                 Enhance your general knowledge with comprehensive study materials and practice questions.
                 Perfect for competitive exams and general awareness.
             </p>
@@ -241,12 +243,12 @@
         <div class="space-y-12">
             <!-- Current Affairs -->
             <section id="current-affairs">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Current Affairs</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="gk/chapters/national.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Current Affairs</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="gk/chapters/national.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-flag text-red-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-flag text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">National Affairs</h3>
@@ -255,10 +257,10 @@
                         </div>
                     </a>
                     
-                    <a href="gk/chapters/international.html" class="topic-card card p-6">
+                    <a href="gk/chapters/international.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-globe-americas text-blue-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-globe-americas text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">International Affairs</h3>
@@ -267,10 +269,10 @@
                         </div>
                     </a>
                     
-                    <a href="gk/chapters/economy.html" class="topic-card card p-6">
+                    <a href="gk/chapters/economy.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chart-line text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Economic Affairs</h3>
@@ -283,12 +285,12 @@
             
             <!-- Static GK -->
             <section id="static-gk">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Static GK</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="gk/chapters/history.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Static GK</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="gk/chapters/history.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-landmark text-yellow-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-landmark text-yellow-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">History</h3>
@@ -297,10 +299,10 @@
                         </div>
                     </a>
                     
-                    <a href="gk/chapters/geography.html" class="topic-card card p-6">
+                    <a href="gk/chapters/geography.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-mountain text-indigo-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-mountain text-indigo-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Geography</h3>
@@ -309,10 +311,10 @@
                         </div>
                     </a>
                     
-                    <a href="gk/chapters/science.html" class="topic-card card p-6">
+                    <a href="gk/chapters/science.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-flask text-purple-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-flask text-purple-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Science & Technology</h3>
@@ -325,12 +327,12 @@
             
             <!-- Awards & Honors -->
             <section id="awards">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Awards & Honors</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="gk/chapters/national-awards.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Awards & Honors</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="gk/chapters/national-awards.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-medal text-red-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-medal text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">National Awards</h3>
@@ -339,10 +341,10 @@
                         </div>
                     </a>
                     
-                    <a href="gk/chapters/international-awards.html" class="topic-card card p-6">
+                    <a href="gk/chapters/international-awards.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-trophy text-blue-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-trophy text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">International Awards</h3>
@@ -351,10 +353,10 @@
                         </div>
                     </a>
                     
-                    <a href="gk/chapters/sports-awards.html" class="topic-card card p-6">
+                    <a href="gk/chapters/sports-awards.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-running text-green-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-running text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Sports Awards</h3>

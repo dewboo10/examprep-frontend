@@ -233,6 +233,8 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
+        
+        html, body { overflow-x: hidden !important; }
     </style>
 </head>
 <body class="gradient-bg min-h-screen">
@@ -338,15 +340,15 @@
         </div>
     </nav>
     
-    <main class="ml-0 md:ml-64 container mx-auto px-4 py-8 pt-24">
+    <main class="ml-0 md:ml-64 max-w-screen-xl w-full mx-auto px-2 md:px-4 py-8 pt-24">
         <!-- Header -->
         <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-center">
                 <span class="header-text">
                     <i class="fas fa-brain mr-2"></i>Logical Reasoning
                 </span>
             </h1>
-            <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg text-center">
                 Master logical reasoning with comprehensive study materials and practice questions.
                 Perfect for competitive exams and aptitude tests.
             </p>
@@ -356,12 +358,12 @@
         <div class="space-y-12">
             <!-- Arrangement & Relations -->
             <section id="arrangement">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Arrangement & Relations</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="logical/chapters/seating-arrangement.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Arrangement & Relations</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="logical/chapters/seating-arrangement.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-chair text-indigo-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-chair text-indigo-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Seating Arrangement</h3>
@@ -370,10 +372,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/blood-relations.html" class="topic-card card p-6">
+                    <a href="logical/chapters/blood-relations.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-users text-purple-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-users text-purple-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Blood Relations</h3>
@@ -382,10 +384,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/direction-sense.html" class="topic-card card p-6">
+                    <a href="logical/chapters/direction-sense.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-compass text-yellow-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-compass text-yellow-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Direction Sense</h3>
@@ -398,12 +400,12 @@
             
             <!-- Logical Deductions -->
             <section id="deductions">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Logical Deductions</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="logical/chapters/syllogisms.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Logical Deductions</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="logical/chapters/syllogisms.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-sitemap text-green-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-sitemap text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Syllogisms</h3>
@@ -412,10 +414,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/coding-decoding.html" class="topic-card card p-6">
+                    <a href="logical/chapters/coding-decoding.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-code text-red-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-code text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Coding-Decoding</h3>
@@ -424,10 +426,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/puzzles.html" class="topic-card card p-6">
+                    <a href="logical/chapters/puzzles.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-puzzle-piece text-blue-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-puzzle-piece text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Puzzles</h3>
@@ -440,12 +442,12 @@
             
             <!-- Series & Patterns -->
             <section id="series">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Series & Patterns</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="logical/chapters/number-series.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Series & Patterns</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="logical/chapters/number-series.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-sort-numeric-down text-blue-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-sort-numeric-down text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Number Series</h3>
@@ -454,10 +456,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/letter-series.html" class="topic-card card p-6">
+                    <a href="logical/chapters/letter-series.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-font text-green-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-font text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Letter Series</h3>
@@ -466,10 +468,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/analogy.html" class="topic-card card p-6">
+                    <a href="logical/chapters/analogy.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-random text-purple-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-random text-purple-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Analogy</h3>
@@ -482,12 +484,12 @@
             
             <!-- Diagrammatic Reasoning -->
             <section id="diagrammatic">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Diagrammatic Reasoning</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="logical/chapters/venn-diagrams.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Diagrammatic Reasoning</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="logical/chapters/venn-diagrams.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-project-diagram text-indigo-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-project-diagram text-indigo-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Venn Diagrams</h3>
@@ -496,10 +498,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/cubes-dice.html" class="topic-card card p-6">
+                    <a href="logical/chapters/cubes-dice.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-dice text-yellow-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-dice text-yellow-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Cubes & Dice</h3>
@@ -508,10 +510,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/calendar-clock.html" class="topic-card card p-6">
+                    <a href="logical/chapters/calendar-clock.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-clock text-red-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-clock text-red-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Calendar & Clock</h3>
@@ -524,12 +526,12 @@
             
             <!-- Critical Reasoning -->
             <section id="critical">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Critical Reasoning</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="logical/chapters/statement-conclusion.html" class="topic-card card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Critical Reasoning</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+                    <a href="logical/chapters/statement-conclusion.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-comment-dots text-blue-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-comment-dots text-blue-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Statement & Conclusion</h3>
@@ -538,10 +540,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/cause-effect.html" class="topic-card card p-6">
+                    <a href="logical/chapters/cause-effect.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-arrow-right text-green-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-arrow-right text-green-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Cause and Effect</h3>
@@ -550,10 +552,10 @@
                         </div>
                     </a>
                     
-                    <a href="logical/chapters/course-of-action.html" class="topic-card card p-6">
+                    <a href="logical/chapters/course-of-action.html" class="topic-card card p-3">
                         <div class="flex items-center gap-4">
-                            <div class="icon-container w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                                <i class="fas fa-tasks text-purple-600 text-xl"></i>
+                            <div class="icon-container w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-tasks text-purple-600 text-lg"></i>
                             </div>
                             <div class="content">
                                 <h3 class="font-semibold">Course of Action</h3>

@@ -355,6 +355,40 @@
             
             <!-- Main Content Area -->
             <div class="lg:col-span-3">
+                <!-- Simplified Summary -->
+                <div class="card bg-white rounded-2xl shadow p-6 mb-8">
+                    <h2 class="text-xl font-bold text-blue-700 mb-2 flex items-center gap-2"><i class="fas fa-percent"></i> Simplified Quantitative Formulas: Simple & Compound Interest</h2>
+                    <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                        <li><b>Principal (P):</b> Initial amount of money.</li>
+                        <li><b>Simple Interest (SI):</b> Interest only on principal. SI = (P × R × T)/100.</li>
+                        <li><b>Amount (A):</b> Principal + Interest.</li>
+                        <li><b>Compound Interest (CI):</b> Interest on principal + previous interest. A = P × (1 + R/100)^N.</li>
+                        <li><b>Compounding Frequency:</b> Adjust rate/periods for half-yearly, quarterly, etc.</li>
+                        <li><b>Changing Rates:</b> Multiply for each year: A = P × (1+R₁/100) × (1+R₂/100)...</li>
+                        <li><b>CI vs SI:</b> CI > SI for same P, R, T > 1 year.</li>
+                        <li><b>Difference CI–SI:</b> For 2 years, CI–SI ≈ P × (R/100)².</li>
+                        <li><b>Fractional Time:</b> Handle integer and fraction parts separately.</li>
+                        <li><b>Present Worth:</b> Present value of future sum: K/(1+R/100)^N.</li>
+                        <li><b>Installments (EMI):</b> x = P × (r/100) × (1+r/100)^n / [(1+r/100)^n – 1].</li>
+                    </ul>
+                    <div class="bg-blue-50 rounded-xl p-4 mt-6 text-base text-blue-900">
+                        <h3 class="font-semibold text-blue-700 mb-2">What do these mean? (Super Simple Explanations & Examples)</h3>
+                        <ul class="list-disc pl-6 space-y-4">
+                            <li><b>Principal (P):</b> This is the starting money you put in or borrow. <br><span class="block mt-1 text-blue-800">Example: If you put ₹100 in a piggy bank, your principal is ₹100.</span></li>
+                            <li><b>Simple Interest (SI):</b> This is extra money you get (or pay) just for the original amount, not on any interest earned before. <br><span class="block mt-1 text-blue-800">Example: If you borrow ₹100 at 5% per year for 2 years, SI = (100×5×2)/100 = ₹10.</span></li>
+                            <li><b>Amount (A):</b> This is the total you have at the end: your starting money plus all the interest. <br><span class="block mt-1 text-blue-800">Example: If you earned ₹10 interest, your amount is ₹100 + ₹10 = ₹110.</span></li>
+                            <li><b>Compound Interest (CI):</b> Here, you earn interest on your interest too! Each year, the interest is added to your money, and next year you get interest on the new total. <br><span class="block mt-1 text-blue-800">Example: ₹100 at 5% for 2 years: Year 1: ₹5, Year 2: ₹5.25 (because now you have ₹105, so 5% of ₹105 = ₹5.25). Total = ₹110.25.</span></li>
+                            <li><b>Compounding Frequency:</b> If interest is added more often (like every 6 months), you use half the rate but double the periods. <br><span class="block mt-1 text-blue-800">Example: ₹100 at 10% per year, compounded half-yearly for 1 year: Rate = 5%, periods = 2. A = 100×(1+0.05)^2 = ₹110.25.</span></li>
+                            <li><b>Changing Rates:</b> If the rate changes each year, multiply for each year. <br><span class="block mt-1 text-blue-800">Example: ₹100 at 10% first year, 20% second year: A = 100×1.1×1.2 = ₹132.</span></li>
+                            <li><b>CI vs SI:</b> Compound interest is always more than simple interest if you leave your money for more than 1 year, because you earn interest on interest. <br><span class="block mt-1 text-blue-800">Example: For ₹100 at 10% for 2 years: SI = ₹20, CI = ₹21.</span></li>
+                            <li><b>Difference CI–SI:</b> For 2 years, the extra you get from compounding is about P×(R/100)². <br><span class="block mt-1 text-blue-800">Example: ₹100 at 10% for 2 years: Difference = 100×(0.1)² = ₹1.</span></li>
+                            <li><b>Fractional Time:</b> If you invest for 2.5 years, do 2 years as usual, then add half a year's interest. <br><span class="block mt-1 text-blue-800">Example: ₹100 at 10% for 2.5 years: First 2 years: 100×(1.1)² = ₹121. Half year: 10% of ₹121 = ₹6.05, so total = ₹127.05.</span></li>
+                            <li><b>Present Worth:</b> This is how much a future sum is worth today. <br><span class="block mt-1 text-blue-800">Example: If you'll get ₹110 in 1 year at 10%, present worth = 110/(1.1) = ₹100.</span></li>
+                            <li><b>Installments (EMI):</b> If you borrow money and pay it back in equal parts, this formula tells you how much to pay each time. <br><span class="block mt-1 text-blue-800">Example: Borrow ₹1000 for 2 years at 10%: EMI = 1000×0.1×(1.1)²/[(1.1)²–1] ≈ ₹576.20 per year.</span></li>
+                        </ul>
+                    </div>
+                </div>
+                
                 <!-- Basic Concepts -->
                 <section id="basics" class="content-section card p-6">
                     <h2 class="section-title">1. Basic Concepts</h2>
