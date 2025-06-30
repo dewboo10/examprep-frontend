@@ -4,407 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sequences and Series - Quantitative Aptitude</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #1f2937;
-            margin: 0;
-            padding: 0;
-            background: #f3f4f6;
-        }
-
-        .header {
-            background: white;
-            color: #1e40af;
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 2px solid #e5e7eb;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .sidebar {
-            width: 250px;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            height: fit-content;
-            position: sticky;
-            top: 2rem;
-        }
-
-        .sidebar h3 {
-            color: #1e40af;
-            margin-top: 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e5e7eb;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .sidebar li {
-            margin: 0.5rem 0;
-        }
-
-        .sidebar a {
-            color: #4b5563;
-            text-decoration: none;
-            display: block;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar a:hover {
-            background: #f3f4f6;
-            color: #1e40af;
-        }
-
-        .main-content {
-            flex: 1;
-            background: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .section {
-            margin-bottom: 3rem;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        .section h2 {
-            color: #1e40af;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 0.5rem;
-            margin-top: 0;
-        }
-
-        .formula-box {
-            background: #f8fafc;
-            border-left: 4px solid #3b82f6;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0.5rem;
-        }
-
-        .formula-box h3 {
-            color: #1e40af;
-            margin-top: 0;
-        }
-
-        .example-box {
-            background: #f8fafc;
-            border-left: 4px solid #3b82f6;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0.5rem;
-        }
-
-        .question-number {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1e40af;
-            margin-bottom: 0.5rem;
-        }
-
-        .question-text {
-            font-size: 1.05rem;
-            color: #374151;
-            margin-bottom: 1rem;
-            padding-left: 0.5rem;
-            border-left: 3px solid #3b82f6;
-        }
-
-        .solution-label {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #059669;
-            margin-bottom: 0.5rem;
-            background: #ecfdf5;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            display: inline-block;
-        }
-
-        .solution-text {
-            color: #374151;
-            margin-bottom: 0.5rem;
-            padding-left: 0.5rem;
-            border-left: 3px solid #059669;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                padding: 1rem;
-            }
-
-            .sidebar {
-                width: auto;
-                position: static;
-            }
-
-            .main-content {
-                padding: 1rem;
-            }
-        }
+        body { font-family: 'Poppins', sans-serif; }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h1>Sequences and Series</h1>
-        <p>Master the concepts of arithmetic, geometric, and other types of sequences</p>
-    </div>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 py-10">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                Sequences and Series
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Master the concepts of arithmetic, geometric, and other types of sequences with clear explanations and examples.
+            </p>
+        </header>
 
-    <div class="container">
-        <div class="sidebar">
-            <h3>Contents</h3>
-            <ul>
-                <li><a href="#arithmetic-sequences">Arithmetic Sequences</a></li>
-                <li><a href="#geometric-sequences">Geometric Sequences</a></li>
-                <li><a href="#harmonic-sequences">Harmonic Sequences</a></li>
-                <li><a href="#fibonacci-sequence">Fibonacci Sequence</a></li>
-                <li><a href="#special-sequences">Special Sequences</a></li>
-            </ul>
-        </div>
-
-        <div class="main-content">
-            <div class="section" id="arithmetic-sequences">
-                <h2>Arithmetic Sequences</h2>
-                <p>An arithmetic sequence is a sequence where the difference between consecutive terms is constant. This constant difference is called the common difference (d).</p>
-
-                <div class="formula-box">
-                    <h3>General Form</h3>
-                    <p>a₁, a₁ + d, a₁ + 2d, a₁ + 3d, ...</p>
-                    <p>where:</p>
-                    <ul>
-                        <li>a₁ is the first term</li>
-                        <li>d is the common difference</li>
-                        <li>nth term = a₁ + (n-1)d</li>
-                        <li>Sum of n terms = n/2 × (2a₁ + (n-1)d)</li>
-                    </ul>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Q1</p>
-                    <p class="question-text">Find the 10th term of the arithmetic sequence: 3, 7, 11, 15, ...</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">First term (a₁) = 3</p>
-                    <p class="solution-text">Common difference (d) = 7 - 3 = 4</p>
-                    <p class="solution-text">nth term = a₁ + (n-1)d</p>
-                    <p class="solution-text">10th term = 3 + (10-1)4 = 3 + 36 = 39</p>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Q2</p>
-                    <p class="question-text">Find the sum of first 20 terms of the arithmetic sequence: 5, 9, 13, 17, ...</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">First term (a₁) = 5</p>
-                    <p class="solution-text">Common difference (d) = 9 - 5 = 4</p>
-                    <p class="solution-text">Sum = n/2 × (2a₁ + (n-1)d)</p>
-                    <p class="solution-text">Sum = 20/2 × (2×5 + (20-1)4)</p>
-                    <p class="solution-text">Sum = 10 × (10 + 76) = 10 × 86 = 860</p>
-                </div>
+        <!-- Arithmetic Sequences -->
+        <section class="card bg-white rounded-2xl shadow p-8 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Arithmetic Sequences</h2>
+            <p>An arithmetic sequence is a sequence where the difference between consecutive terms is constant. This constant difference is called the common difference (d).</p>
+            <div class="bg-blue-50 border-l-4 border-blue-400 rounded-lg p-4 my-4">
+                <h3 class="font-semibold text-blue-700 mb-2">General Form</h3>
+                <p>a₁, a₁+d, a₁+2d, a₁+3d, ...</p>
+                <ul class="list-disc list-inside text-sm mt-2">
+                    <li>a₁ is the first term</li>
+                    <li>d is the common difference</li>
+                    <li>nth term = a₁ + (n-1)d</li>
+                    <li>Sum of n terms = n/2 × (2a₁ + (n-1)d)</li>
+                </ul>
             </div>
-
-            <div class="section" id="geometric-sequences">
-                <h2>Geometric Sequences</h2>
-                <p>A geometric sequence is a sequence where the ratio between consecutive terms is constant. This constant ratio is called the common ratio (r).</p>
-
-                <div class="formula-box">
-                    <h3>General Form</h3>
-                    <p>a₁, a₁r, a₁r², a₁r³, ...</p>
-                    <p>where:</p>
-                    <ul>
-                        <li>a₁ is the first term</li>
-                        <li>r is the common ratio</li>
-                        <li>nth term = a₁r^(n-1)</li>
-                        <li>Sum of n terms = a₁(1-r^n)/(1-r) when r ≠ 1</li>
-                        <li>Sum of infinite terms = a₁/(1-r) when |r| < 1</li>
-                    </ul>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Q1</p>
-                    <p class="question-text">Find the 8th term of the geometric sequence: 2, 6, 18, 54, ...</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">First term (a₁) = 2</p>
-                    <p class="solution-text">Common ratio (r) = 6/2 = 3</p>
-                    <p class="solution-text">nth term = a₁r^(n-1)</p>
-                    <p class="solution-text">8th term = 2 × 3^(8-1) = 2 × 3^7 = 2 × 2187 = 4374</p>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Q2</p>
-                    <p class="question-text">Find the sum of first 6 terms of the geometric sequence: 4, 12, 36, 108, ...</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">First term (a₁) = 4</p>
-                    <p class="solution-text">Common ratio (r) = 12/4 = 3</p>
-                    <p class="solution-text">Sum = a₁(1-r^n)/(1-r)</p>
-                    <p class="solution-text">Sum = 4(1-3^6)/(1-3)</p>
-                    <p class="solution-text">Sum = 4(1-729)/(-2) = 4(-728)/(-2) = 1456</p>
-                </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 my-4">
+                <div class="font-semibold text-blue-700 mb-1">Example</div>
+                <div class="mb-1">Find the sum of the first 20 terms of the arithmetic sequence: 5, 9, 13, ...</div>
+                <div class="text-green-700 font-medium">Solution:</div>
+                <ul class="list-disc list-inside ml-4 text-sm">
+                    <li>First term (a₁) = 5</li>
+                    <li>Common difference (d) = 9 - 5 = 4</li>
+                    <li>Sum = n/2 × (2a₁ + (n-1)d)</li>
+                    <li>Sum = 20/2 × (2×5 + (20-1)4)</li>
+                    <li>Sum = 10 × (10 + 76) = 10 × 86 = 860</li>
+                </ul>
             </div>
+        </section>
 
-            <div class="section" id="harmonic-sequences">
-                <h2>Harmonic Sequences</h2>
-                <p>A harmonic sequence is a sequence where the reciprocals of the terms form an arithmetic sequence.</p>
-
-                <div class="formula-box">
-                    <h3>General Form</h3>
-                    <p>1/a₁, 1/(a₁+d), 1/(a₁+2d), 1/(a₁+3d), ...</p>
-                    <p>where:</p>
-                    <ul>
-                        <li>a₁ is the first term of the arithmetic sequence</li>
-                        <li>d is the common difference</li>
-                        <li>nth term = 1/(a₁ + (n-1)d)</li>
-                    </ul>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Q1</p>
-                    <p class="question-text">Find the 5th term of the harmonic sequence: 1, 1/2, 1/3, 1/4, ...</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">The reciprocals form an arithmetic sequence: 1, 2, 3, 4, ...</p>
-                    <p class="solution-text">First term (a₁) = 1</p>
-                    <p class="solution-text">Common difference (d) = 1</p>
-                    <p class="solution-text">5th term = 1/(a₁ + (5-1)d)</p>
-                    <p class="solution-text">5th term = 1/(1 + 4) = 1/5</p>
-                </div>
+        <!-- Geometric Sequences -->
+        <section class="card bg-white rounded-2xl shadow p-8 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Geometric Sequences</h2>
+            <p>A geometric sequence is a sequence where the ratio between consecutive terms is constant. This constant ratio is called the common ratio (r).</p>
+            <div class="bg-blue-50 border-l-4 border-blue-400 rounded-lg p-4 my-4">
+                <h3 class="font-semibold text-blue-700 mb-2">General Form</h3>
+                <p>a₁, a₁r, a₁r², a₁r³, ...</p>
+                <ul class="list-disc list-inside text-sm mt-2">
+                    <li>a₁ is the first term</li>
+                    <li>r is the common ratio</li>
+                    <li>nth term = a₁r^(n-1)</li>
+                    <li>Sum of n terms = a₁(1-r^n)/(1-r) when r ≠ 1</li>
+                    <li>Sum of infinite terms = a₁/(1-r) when |r| &lt; 1</li>
+                </ul>
             </div>
-
-            <div class="section" id="fibonacci-sequence">
-                <h2>Fibonacci Sequence</h2>
-                <p>The Fibonacci sequence is a sequence where each term is the sum of the two preceding terms.</p>
-
-                <div class="formula-box">
-                    <h3>General Form</h3>
-                    <p>F(n) = F(n-1) + F(n-2)</p>
-                    <p>where:</p>
-                    <ul>
-                        <li>F(1) = 1</li>
-                        <li>F(2) = 1</li>
-                        <li>F(n) is the nth term</li>
-                    </ul>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Q1</p>
-                    <p class="question-text">Find the first 8 terms of the Fibonacci sequence</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">F(1) = 1</p>
-                    <p class="solution-text">F(2) = 1</p>
-                    <p class="solution-text">F(3) = F(2) + F(1) = 1 + 1 = 2</p>
-                    <p class="solution-text">F(4) = F(3) + F(2) = 2 + 1 = 3</p>
-                    <p class="solution-text">F(5) = F(4) + F(3) = 3 + 2 = 5</p>
-                    <p class="solution-text">F(6) = F(5) + F(4) = 5 + 3 = 8</p>
-                    <p class="solution-text">F(7) = F(6) + F(5) = 8 + 5 = 13</p>
-                    <p class="solution-text">F(8) = F(7) + F(6) = 13 + 8 = 21</p>
-                </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 my-4">
+                <div class="font-semibold text-blue-700 mb-1">Example 1</div>
+                <div class="mb-1">Find the 8th term of the geometric sequence: 2, 6, 18, 54, ...</div>
+                <div class="text-green-700 font-medium">Solution:</div>
+                <ul class="list-disc list-inside ml-4 text-sm">
+                    <li>First term (a₁) = 2</li>
+                    <li>Common ratio (r) = 6/2 = 3</li>
+                    <li>nth term = a₁r^(n-1)</li>
+                    <li>8th term = 2 × 3^(8-1) = 2 × 3^7 = 2 × 2187 = 4374</li>
+                </ul>
             </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 my-4">
+                <div class="font-semibold text-blue-700 mb-1">Example 2</div>
+                <div class="mb-1">Find the sum of first 6 terms of the geometric sequence: 4, 12, 36, 108, ...</div>
+                <div class="text-green-700 font-medium">Solution:</div>
+                <ul class="list-disc list-inside ml-4 text-sm">
+                    <li>First term (a₁) = 4</li>
+                    <li>Common ratio (r) = 12/4 = 3</li>
+                    <li>Sum = a₁(1-r^n)/(1-r)</li>
+                    <li>Sum = 4(1-3^6)/(1-3)</li>
+                    <li>Sum = 4(1-729)/(-2) = 4(-728)/(-2) = 1456</li>
+                </ul>
+            </div>
+        </section>
 
-            <div class="section" id="special-sequences">
-                <h2>Special Sequences</h2>
-                <p>Some important special sequences and their properties.</p>
+        <!-- Harmonic Sequences -->
+        <section class="card bg-white rounded-2xl shadow p-8 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Harmonic Sequences</h2>
+            <p>A harmonic sequence is a sequence where the reciprocals of the terms form an arithmetic sequence.</p>
+            <div class="bg-blue-50 border-l-4 border-blue-400 rounded-lg p-4 my-4">
+                <h3 class="font-semibold text-blue-700 mb-2">General Form</h3>
+                <p>1/a₁, 1/(a₁+d), 1/(a₁+2d), 1/(a₁+3d), ...</p>
+                <ul class="list-disc list-inside text-sm mt-2">
+                    <li>a₁ is the first term of the arithmetic sequence</li>
+                    <li>d is the common difference</li>
+                    <li>nth term = 1/(a₁ + (n-1)d)</li>
+                </ul>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 my-4">
+                <div class="font-semibold text-blue-700 mb-1">Example</div>
+                <div class="mb-1">Find the 5th term of the harmonic sequence: 1, 1/2, 1/3, 1/4, ...</div>
+                <div class="text-green-700 font-medium">Solution:</div>
+                <ul class="list-disc list-inside ml-4 text-sm">
+                    <li>The reciprocals form an arithmetic sequence: 1, 2, 3, 4, ...</li>
+                    <li>First term (a₁) = 1</li>
+                    <li>Common difference (d) = 1</li>
+                    <li>5th term = 1/(a₁ + (5-1)d)</li>
+                    <li>5th term = 1/(1 + 4) = 1/5</li>
+                </ul>
+            </div>
+        </section>
 
-                <div class="formula-box">
-                    <h3>Square Numbers</h3>
-                    <p>1, 4, 9, 16, 25, ...</p>
-                    <p>nth term = n²</p>
-                    <p>Sum of first n terms = n(n+1)(2n+1)/6</p>
-                </div>
+        <!-- Fibonacci Sequence -->
+        <section class="card bg-white rounded-2xl shadow p-8 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Fibonacci Sequence</h2>
+            <p>The Fibonacci sequence is a sequence where each term is the sum of the two preceding terms.</p>
+            <div class="bg-blue-50 border-l-4 border-blue-400 rounded-lg p-4 my-4">
+                <h3 class="font-semibold text-blue-700 mb-2">General Form</h3>
+                <p>F(n) = F(n-1) + F(n-2)</p>
+                <ul class="list-disc list-inside text-sm mt-2">
+                    <li>F(1) = 1</li>
+                    <li>F(2) = 1</li>
+                    <li>F(n) is the nth term</li>
+                </ul>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 my-4">
+                <div class="font-semibold text-blue-700 mb-1">Example</div>
+                <div class="mb-1">Find the first 8 terms of the Fibonacci sequence</div>
+                <div class="text-green-700 font-medium">Solution:</div>
+                <ul class="list-disc list-inside ml-4 text-sm">
+                    <li>F(1) = 1</li>
+                    <li>F(2) = 1</li>
+                    <li>F(3) = F(2) + F(1) = 1 + 1 = 2</li>
+                    <li>F(4) = F(3) + F(2) = 2 + 1 = 3</li>
+                    <li>F(5) = F(4) + F(3) = 3 + 2 = 5</li>
+                    <li>F(6) = F(5) + F(4) = 5 + 3 = 8</li>
+                    <li>F(7) = F(6) + F(5) = 8 + 5 = 13</li>
+                    <li>F(8) = F(7) + F(6) = 13 + 8 = 21</li>
+                </ul>
+            </div>
+        </section>
 
-                <div class="formula-box">
-                    <h3>Cube Numbers</h3>
-                    <p>1, 8, 27, 64, 125, ...</p>
-                    <p>nth term = n³</p>
-                    <p>Sum of first n terms = [n(n+1)/2]²</p>
-                </div>
+        <!-- Special Sequences -->
+        <section class="card bg-white rounded-2xl shadow p-8 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">Special Sequences</h2>
+            <p>Some important special sequences and their properties.</p>
+            <div class="bg-blue-50 border-l-4 border-blue-400 rounded-lg p-4 my-4">
+                <h3 class="font-semibold text-blue-700 mb-2">Square Numbers</h3>
+                <p>1, 4, 9, 16, 25, ...</p>
+                <p>nth term = n²</p>
+                <p>Sum of first n terms = n(n+1)(2n+1)/6</p>
+            </div>
+            <div class="bg-blue-50 border-l-4 border-blue-400 rounded-lg p-4 my-4">
+                <h3 class="font-semibold text-blue-700 mb-2">Cube Numbers</h3>
+                <p>1, 8, 27, 64, 125, ...</p>
+                <p>nth term = n³</p>
+                <p>Sum of first n terms = [n(n+1)/2]²</p>
+            </div>
+            <div class="bg-blue-50 border-l-4 border-blue-400 rounded-lg p-4 my-4">
+                <h3 class="font-semibold text-blue-700 mb-2">Triangular Numbers</h3>
+                <p>1, 3, 6, 10, 15, ...</p>
+                <p>nth term = n(n+1)/2</p>
+                <p>Sum of first n terms = n(n+1)(n+2)/6</p>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 my-4">
+                <div class="font-semibold text-blue-700 mb-1">Example 1</div>
+                <div class="mb-1">Find the sum of first 5 square numbers</div>
+                <div class="text-green-700 font-medium">Solution:</div>
+                <ul class="list-disc list-inside ml-4 text-sm">
+                    <li>Sum = n(n+1)(2n+1)/6</li>
+                    <li>Sum = 5(5+1)(2×5+1)/6</li>
+                    <li>Sum = 5×6×11/6 = 55</li>
+                </ul>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 my-4">
+                <div class="font-semibold text-blue-700 mb-1">Example 2</div>
+                <div class="mb-1">Find the 6th triangular number</div>
+                <div class="text-green-700 font-medium">Solution:</div>
+                <ul class="list-disc list-inside ml-4 text-sm">
+                    <li>nth term = n(n+1)/2</li>
+                    <li>6th term = 6(6+1)/2</li>
+                    <li>6th term = 6×7/2 = 21</li>
+                </ul>
+            </div>
+        </section>
 
-                <div class="formula-box">
-                    <h3>Triangular Numbers</h3>
-                    <p>1, 3, 6, 10, 15, ...</p>
-                    <p>nth term = n(n+1)/2</p>
-                    <p>Sum of first n terms = n(n+1)(n+2)/6</p>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Q1</p>
-                    <p class="question-text">Find the sum of first 5 square numbers</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">Sum = n(n+1)(2n+1)/6</p>
-                    <p class="solution-text">Sum = 5(5+1)(2×5+1)/6</p>
-                    <p class="solution-text">Sum = 5×6×11/6 = 55</p>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Q2</p>
-                    <p class="question-text">Find the 6th triangular number</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">nth term = n(n+1)/2</p>
-                    <p class="solution-text">6th term = 6(6+1)/2</p>
-                    <p class="solution-text">6th term = 6×7/2 = 21</p>
-                </div>
+        <!-- Practice Questions Card -->
+        <div style="margin-top: 5rem;"></div>
+        <div class="max-w-2xl mx-auto mt-10">
+            <div class="card bg-white rounded-2xl shadow-lg flex flex-col items-center p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <i class="fas fa-list-ol text-blue-500"></i>
+                    Practice Questions
+                </h2>
+                <p class="text-gray-600 mb-6 text-center">Test your understanding of Sequences & Series with 20 fully solved, step-by-step questions designed for beginners.</p>
+                <a href="../../practiceQuestions/sequencesQ.html" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition text-lg flex items-center gap-2">
+                    <i class="fas fa-pen"></i>
+                    Start Practice
+                </a>
             </div>
         </div>
     </div>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Highlight active section in sidebar
-        const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('.sidebar a');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 60) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
 </body>
 </html> 

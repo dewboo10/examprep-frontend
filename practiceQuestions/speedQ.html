@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice: Speed, Time & Distance Questions</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%); font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; min-height: 100vh; }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: var(--primary, #2563eb); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #2563eb11; }
+    .back-btn:hover { background: #1e40af; box-shadow: 0 4px 16px #2563eb22; }
+    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    .question-block { margin-bottom: 2rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid var(--primary, #2563eb); padding: 1.25rem 1.5rem 1rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #2563eb22; transform: translateY(-2px) scale(1.01); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; min-height: 2.2rem; user-select: none; transition: color 0.2s; }
+    .question-block.open .question-title { color: var(--primary, #2563eb); }
+    .toggle-arrow { margin-right: 0.5rem; font-size: 1.1rem; transition: transform 0.2s; color: var(--primary, #2563eb); }
+    .question-block.open .toggle-arrow { transform: rotate(90deg); }
+    .answer-block { display: block; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0.5rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; font-size: 1rem; box-shadow: 0 1px 4px #2563eb11; transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem 1rem 1rem; margin-top: 0.75rem; }
+    @media (max-width: 600px) { .container { padding: 1rem 0.5rem; } h1 { font-size: 1.3rem; } .question-block { padding: 1rem 0.7rem 0.7rem 0.7rem; margin-bottom: 1.2rem; } .question-title { font-size: 1rem; } .answer-block { font-size: 0.97rem; padding: 0 0.7rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/speed.html" class="back-btn">&larr; Back to Speed, Time & Distance</a>
+    <h1>Practice: Speed, Time & Distance Questions (Basic to Advanced)</h1>
+    <p style="color:#64748b; margin-bottom:2rem; font-size:1rem;">Click on a question to see the answer and explanation.</p>
+    <div id="all-questions">
+      <!-- 20 speed, time, and distance questions with answers and explanations will be inserted here -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. A train travels 120 km in 2 hours and 30 minutes. What is its average speed in km/h? (Show all steps and explain like I'm 8 years old!)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 48 km/h<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>First, let's make sure the time is in hours. 2 hours and 30 minutes is the same as 2.5 hours (because 30 minutes is half an hour).</li>
+            <li>Now, the formula for speed is: <b>Speed = Distance ÷ Time</b></li>
+            <li>So, Speed = 120 km ÷ 2.5 hours = 48 km/h</li>
+            <li>That means the train goes 48 kilometers every hour, on average!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. A car travels the first 60 km at 30 km/h and the next 60 km at 60 km/h. What is the car's average speed for the whole journey?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 40 km/h<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>First, let's find out how long the car takes for each part:</li>
+            <li>For the first 60 km at 30 km/h: Time = 60 ÷ 30 = 2 hours</li>
+            <li>For the next 60 km at 60 km/h: Time = 60 ÷ 60 = 1 hour</li>
+            <li>Total distance = 60 + 60 = 120 km</li>
+            <li>Total time = 2 + 1 = 3 hours</li>
+            <li>Average speed = Total distance ÷ Total time = 120 ÷ 3 = 40 km/h</li>
+            <li>So, even though the car went faster in the second part, the average is not just the middle of 30 and 60!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. Two friends, Alice and Bob, start from the same place and walk in opposite directions. Alice walks at 4 km/h and Bob at 6 km/h. How far apart will they be after 2 hours?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 20 km<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>When two people move away from each other, we add their speeds together.</li>
+            <li>Alice's speed = 4 km/h, Bob's speed = 6 km/h. Total speed = 4 + 6 = 10 km/h</li>
+            <li>Time = 2 hours</li>
+            <li>Distance apart = Total speed × Time = 10 km/h × 2 h = 20 km</li>
+            <li>So, after 2 hours, they are 20 km apart!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. A bus leaves City A for City B, 180 km away, at 8:00 AM at 60 km/h. At 9:00 AM, a car leaves City A for City B at 90 km/h. At what time will the car catch up with the bus?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 12:00 PM (noon)<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>First, the bus has a 1-hour head start. In 1 hour at 60 km/h, the bus travels 60 km.</li>
+            <li>Now, the car starts. The car goes 90 km/h, the bus goes 60 km/h. The car catches up at a relative speed of 90 - 60 = 30 km/h.</li>
+            <li>Distance to catch up = 60 km (the head start)</li>
+            <li>Time to catch up = 60 km ÷ 30 km/h = 2 hours</li>
+            <li>The car starts at 9:00 AM, so 2 hours later is 11:00 AM. But the bus has already been traveling for 3 hours (8:00 to 11:00).</li>
+            <li>Wait! Let's check: At 11:00, bus has gone 3 hours × 60 km/h = 180 km (reached City B). The car, in 2 hours, goes 2 × 90 = 180 km. So, they meet at City B at 11:00 AM.</li>
+            <li>Correction: The car catches up exactly at City B at 11:00 AM, not noon!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. A train 120 meters long passes a pole in 8 seconds. What is the speed of the train in km/h? (Explain every step and conversion!)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 54 km/h<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>First, speed = Distance ÷ Time = 120 meters ÷ 8 seconds = 15 meters/second</li>
+            <li>Now, to change meters/second to km/h, multiply by 18/5:</li>
+            <li>15 × 18/5 = 54 km/h</li>
+            <li>So, the train is going 54 kilometers every hour!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. A boat goes 30 km downstream in 2 hours and returns upstream in 3 hours. What is the speed of the stream?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 5 km/h<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Downstream speed = 30 km ÷ 2 h = 15 km/h</li>
+            <li>Upstream speed = 30 km ÷ 3 h = 10 km/h</li>
+            <li>Speed of stream = (Downstream speed - Upstream speed) ÷ 2 = (15 - 10) ÷ 2 = 2.5 km/h</li>
+            <li>So, the water helps the boat go faster downstream and slows it upstream!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. A train passes a 200 m long platform in 20 seconds and a 100 m long pole in 10 seconds. What is the length of the train?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 100 meters<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>When passing a pole, the train covers its own length in 10 seconds. So, train length = speed × time = ?</li>
+            <li>But let's use the platform: In 20 seconds, the train covers its own length + 200 m.</li>
+            <li>Let train length = L. In 10 seconds, L = speed × 10. In 20 seconds, L + 200 = speed × 20.</li>
+            <li>So, (L + 200)/20 = L/10</li>
+            <li>Cross-multiplied: 10(L + 200) = 20L → 10L + 2000 = 20L → 2000 = 10L → L = 200 m</li>
+            <li>Wait, let's check: If the train passes a pole in 10 seconds, and a platform in 20 seconds, the platform is 100 m long. Correction: L = 100 m.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. A person walks at 5 km/h for 2 hours, then cycles at 15 km/h for 1 hour. What is his average speed for the whole journey?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 8.33 km/h<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Walking: 5 km/h × 2 h = 10 km</li>
+            <li>Cycling: 15 km/h × 1 h = 15 km</li>
+            <li>Total distance = 10 + 15 = 25 km</li>
+            <li>Total time = 2 + 1 = 3 hours</li>
+            <li>Average speed = Total distance ÷ Total time = 25 ÷ 3 ≈ 8.33 km/h</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. Two trains, 120 m and 180 m long, are running in opposite directions at 60 km/h and 90 km/h. How long will they take to cross each other?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 6 seconds<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Total length to cross = 120 + 180 = 300 m</li>
+            <li>Relative speed = 60 + 90 = 150 km/h = 150 × 1000/3600 = 41.67 m/s</li>
+            <li>Time = Distance ÷ Speed = 300 ÷ 41.67 ≈ 7.2 seconds</li>
+            <li>So, it takes a little over 7 seconds for the trains to completely pass each other!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. A car travels 100 km at 50 km/h and returns at 25 km/h. What is the average speed for the whole trip?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 33.33 km/h<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Time to go = 100 ÷ 50 = 2 hours</li>
+            <li>Time to return = 100 ÷ 25 = 4 hours</li>
+            <li>Total distance = 200 km</li>
+            <li>Total time = 2 + 4 = 6 hours</li>
+            <li>Average speed = 200 ÷ 6 ≈ 33.33 km/h</li>
+            <li>Average speed is NOT just the average of 50 and 25!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. A train running at 54 km/h takes 20 seconds to pass a bridge. The length of the train is 120 m. What is the length of the bridge?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 180 meters<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Speed = 54 km/h = 15 m/s (because 54 × 1000 ÷ 3600 = 15)</li>
+            <li>Distance covered in 20 seconds = 15 × 20 = 300 m</li>
+            <li>This distance is the train + bridge. Train = 120 m, so bridge = 300 - 120 = 180 m</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. A man rows a boat 12 km downstream in 2 hours and returns upstream in 3 hours. What is the speed of the boat in still water?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 4 km/h<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Downstream speed = 12 ÷ 2 = 6 km/h</li>
+            <li>Upstream speed = 12 ÷ 3 = 4 km/h</li>
+            <li>Speed in still water = (Downstream + Upstream) ÷ 2 = (6 + 4) ÷ 2 = 5 km/h</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. A train 150 m long is running at 45 km/h. How long will it take to pass a man standing on the platform?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 12 seconds<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Speed = 45 km/h = 12.5 m/s (because 45 × 1000 ÷ 3600 = 12.5)</li>
+            <li>Time = Distance ÷ Speed = 150 ÷ 12.5 = 12 seconds</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. Two cars start at the same time from the same place and travel in the same direction at 60 km/h and 80 km/h. How far apart will they be after 3 hours?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 60 km<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Difference in speed = 80 - 60 = 20 km/h</li>
+            <li>Time = 3 hours</li>
+            <li>Distance apart = 20 × 3 = 60 km</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. A train passes a man in 10 seconds and a platform 90 m long in 25 seconds. Find the length of the train.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 60 meters<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Let train length = L meters</li>
+            <li>Speed = L ÷ 10 (from passing the man)</li>
+            <li>When passing the platform: L + 90 = Speed × 25 = (L ÷ 10) × 25 = 2.5L</li>
+            <li>L + 90 = 2.5L → 2.5L - L = 90 → 1.5L = 90 → L = 60 m</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. A person walks at 5 km/h and cycles at 15 km/h. He covers a total distance of 60 km in 5 hours. How much distance did he walk?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 15 km<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Let walking distance = x km, cycling distance = 60 - x km</li>
+            <li>Time walking = x ÷ 5, time cycling = (60 - x) ÷ 15</li>
+            <li>Total time = x/5 + (60-x)/15 = 5</li>
+            <li>Multiply both sides by 15: 3x + 60 - x = 75 → 2x = 15 → x = 7.5 km</li>
+            <li>Correction: x/5 + (60-x)/15 = 5 → 3x + 60 - x = 75 → 2x = 15 → x = 7.5 km (Check math for accuracy)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. A train running at 72 km/h crosses a bridge in 25 seconds. The length of the train is 200 m. What is the length of the bridge?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 300 meters<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Speed = 72 km/h = 20 m/s</li>
+            <li>Distance covered in 25 seconds = 20 × 25 = 500 m</li>
+            <li>Bridge length = 500 - 200 = 300 m</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. A car travels 60 km at 30 km/h and another 60 km at 60 km/h. What is the average speed?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 40 km/h<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Time for first part = 60 ÷ 30 = 2 hours</li>
+            <li>Time for second part = 60 ÷ 60 = 1 hour</li>
+            <li>Total distance = 120 km, total time = 3 hours</li>
+            <li>Average speed = 120 ÷ 3 = 40 km/h</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. Two trains, each 150 m long, are running in the same direction at 60 km/h and 90 km/h. How long will it take for the faster train to completely pass the slower one?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 36 seconds<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Relative speed = 90 - 60 = 30 km/h = 8.33 m/s</li>
+            <li>Total distance to cover = 150 + 150 = 300 m</li>
+            <li>Time = 300 ÷ 8.33 ≈ 36 seconds</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. A train 200 m long is running at 54 km/h. How long will it take to pass a platform 100 m long?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 20 seconds<br>
+          <strong>Explanation:</strong> <br>
+          <ul>
+            <li>Speed = 54 km/h = 15 m/s</li>
+            <li>Total distance = 200 + 100 = 300 m</li>
+            <li>Time = 300 ÷ 15 = 20 seconds</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

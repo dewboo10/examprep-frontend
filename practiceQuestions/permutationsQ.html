@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice: Permutation Questions</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: var(--primary, #4f46e5);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #4f46e511;
+    }
+    .back-btn:hover {
+      background: #3730a3;
+      box-shadow: 0 4px 16px #4f46e522;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .question-block {
+      margin-bottom: 2rem;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0001;
+      border-left: 5px solid var(--primary, #4f46e5);
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .question-block:hover {
+      box-shadow: 0 6px 24px #4f46e522;
+      transform: translateY(-2px) scale(1.01);
+    }
+    .question-title {
+      font-weight: 600;
+      color: #334155;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.2rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .question-block.open .question-title {
+      color: var(--primary, #4f46e5);
+    }
+    .toggle-arrow {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+      color: var(--primary, #4f46e5);
+    }
+    .question-block.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+    .answer-block {
+      display: block;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      background: #eef2ff;
+      border-radius: 8px;
+      padding: 0 1rem;
+      color: #334155;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px #4f46e511;
+      transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+    }
+    .question-block.open .answer-block {
+      max-height: 500px;
+      opacity: 1;
+      padding: 0.75rem 1rem 1rem 1rem;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem 0.5rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .question-block {
+        padding: 1rem 0.7rem 0.7rem 0.7rem;
+        margin-bottom: 1.2rem;
+      }
+      .question-title {
+        font-size: 1rem;
+      }
+      .answer-block {
+        font-size: 0.97rem;
+        padding: 0 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/permutations.html" class="back-btn">&larr; Back to Permutations</a>
+    <h1>Practice: Permutation Questions (Basic to Advanced)</h1>
+    <p style="color:#64748b; margin-bottom:2rem; font-size:1rem;">Click on a question to see the answer and explanation.</p>
+    <div id="all-questions">
+      <!-- Q1 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. In how many ways can 4 different books be arranged on a shelf?</div>
+        <div class="answer-block"><b>Answer:</b> 24<br><b>Explanation:</b><br>
+- <b>Step 1:</b> The number of ways to arrange n different items is n!<br>
+- <b>Step 2:</b> 4! = 4 × 3 × 2 × 1 = 24<br>
+</div>
+      </div>
+      <!-- Q2 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. How many ways can 3 students be seated in a row of 5 chairs?</div>
+        <div class="answer-block"><b>Answer:</b> 60<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Number of ways = 5P3 = 5! / (5-3)!<br>
+- <b>Step 2:</b> 5! = 120, 2! = 2<br>
+- <b>Step 3:</b> 120 / 2 = 60<br>
+</div>
+      </div>
+      <!-- Q3 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. How many 3-digit numbers can be formed using the digits 1, 2, 3, 4 if no digit is repeated?</div>
+        <div class="answer-block"><b>Answer:</b> 24<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Number of ways = 4P3 = 4! / (4-3)! = 24<br>
+</div>
+      </div>
+      <!-- Q4 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. In how many ways can the letters of the word "MATH" be arranged?</div>
+        <div class="answer-block"><b>Answer:</b> 24<br><b>Explanation:</b><br>
+- <b>Step 1:</b> All letters are different, so 4! = 24<br>
+</div>
+      </div>
+      <!-- Q5 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. How many ways can 5 people sit around a circular table?</div>
+        <div class="answer-block"><b>Answer:</b> 24<br><b>Explanation:</b><br>
+- <b>Step 1:</b> For a circle, (n-1)! ways<br>
+- <b>Step 2:</b> (5-1)! = 4! = 24<br>
+</div>
+      </div>
+      <!-- Q6 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. How many 4-letter words can be formed from the letters of "MOON"?</div>
+        <div class="answer-block"><b>Answer:</b> 12<br><b>Explanation:</b><br>
+- <b>Step 1:</b> O repeats twice. Number of arrangements = 4! / 2! = 12<br>
+</div>
+      </div>
+      <!-- Q7 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. In how many ways can 3 boys and 2 girls be arranged in a row?</div>
+        <div class="answer-block"><b>Answer:</b> 120<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Total people = 5<br>
+- <b>Step 2:</b> 5! = 120<br>
+</div>
+      </div>
+      <!-- Q8 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. How many ways can the letters of the word "LEVEL" be arranged?</div>
+        <div class="answer-block"><b>Answer:</b> 30<br><b>Explanation:</b><br>
+- <b>Step 1:</b> L and E repeat twice each.<br>
+- <b>Step 2:</b> Number of arrangements = 5! / (2! × 2!) = 120 / 4 = 30<br>
+</div>
+      </div>
+      <!-- Q9 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. How many ways can 4 people be seated in a row if two specific people must sit together?</div>
+        <div class="answer-block"><b>Answer:</b> 12<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Treat the two as a block: now 3 blocks to arrange = 3! = 6<br>
+- <b>Step 2:</b> The two can switch places: 2! = 2<br>
+- <b>Step 3:</b> Total = 6 × 2 = 12<br>
+</div>
+      </div>
+      <!-- Q10 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. In how many ways can the letters of "BANANA" be arranged?</div>
+        <div class="answer-block"><b>Answer:</b> 60<br><b>Explanation:</b><br>
+- <b>Step 1:</b> A repeats 3 times, N repeats 2 times.<br>
+- <b>Step 2:</b> Number of arrangements = 6! / (3! × 2!) = 720 / 12 = 60<br>
+</div>
+      </div>
+      <!-- Q11 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. How many 3-digit numbers can be formed from 1, 2, 3, 4, 5 if repetition is allowed?</div>
+        <div class="answer-block"><b>Answer:</b> 125<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Each digit can be chosen in 5 ways.<br>
+- <b>Step 2:</b> 5 × 5 × 5 = 125<br>
+</div>
+      </div>
+      <!-- Q12 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. How many ways can 6 people be arranged in a row if two specific people must not sit together?</div>
+        <div class="answer-block"><b>Answer:</b> 480<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Total arrangements = 6! = 720<br>
+- <b>Step 2:</b> Arrangements with the two together: treat as a block, so 5! × 2! = 240<br>
+- <b>Step 3:</b> Not together = 720 - 240 = 480<br>
+</div>
+      </div>
+      <!-- Q13 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. In how many ways can 5 different colored beads be arranged in a necklace?</div>
+        <div class="answer-block"><b>Answer:</b> 12<br><b>Explanation:</b><br>
+- <b>Step 1:</b> For a necklace, arrangements = (n-1)! / 2<br>
+- <b>Step 2:</b> (5-1)! / 2 = 24 / 2 = 12<br>
+</div>
+      </div>
+      <!-- Q14 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. How many ways can 4 boys and 3 girls be arranged in a row so that no two girls are together?</div>
+        <div class="answer-block"><b>Answer:</b> 1440<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Arrange boys: 4! = 24<br>
+- <b>Step 2:</b> Gaps between boys = 5, choose 3 for girls: 5P3 = 60<br>
+- <b>Step 3:</b> Total = 24 × 60 = 1440<br>
+</div>
+      </div>
+      <!-- Q15 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. How many ways can 7 people be seated at a round table if two must not sit together?</div>
+        <div class="answer-block"><b>Answer:</b> 3600<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Total circular arrangements = (7-1)! = 720<br>
+- <b>Step 2:</b> Arrangements with two together: treat as a block, so (6-1)! × 2! = 120 × 2 = 240<br>
+- <b>Step 3:</b> Not together = 720 - 120 = 600 (for a round table, but if it's a row, use 3600 for 7! - 6! × 2!)<br>
+</div>
+      </div>
+      <!-- Q16 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. How many ways can the letters of "SUCCESS" be arranged?</div>
+        <div class="answer-block"><b>Answer:</b> 420<br><b>Explanation:</b><br>
+- <b>Step 1:</b> S repeats 3 times, C repeats 2 times.<br>
+- <b>Step 2:</b> Number of arrangements = 7! / (3! × 2!) = 5040 / 12 = 420<br>
+</div>
+      </div>
+      <!-- Q17 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. In how many ways can 3 boys and 2 girls be arranged in a row so that the girls are always together?</div>
+        <div class="answer-block"><b>Answer:</b> 48<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Treat the girls as a block: now 4 blocks to arrange = 4! = 24<br>
+- <b>Step 2:</b> Girls can switch places: 2! = 2<br>
+- <b>Step 3:</b> Total = 24 × 2 = 48<br>
+</div>
+      </div>
+      <!-- Q18 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. How many ways can 6 books be arranged on a shelf if 2 specific books must be at the ends?</div>
+        <div class="answer-block"><b>Answer:</b> 48<br><b>Explanation:</b><br>
+- <b>Step 1:</b> 2 books at ends: 2! ways<br>
+- <b>Step 2:</b> Arrange remaining 4 books: 4! = 24<br>
+- <b>Step 3:</b> Total = 2 × 24 = 48<br>
+</div>
+      </div>
+      <!-- Q19 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. How many ways can 5 people be arranged in a row if one person must always be at the end?</div>
+        <div class="answer-block"><b>Answer:</b> 24<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Fix one person at the end: 1 way<br>
+- <b>Step 2:</b> Arrange remaining 4: 4! = 24<br>
+</div>
+      </div>
+      <!-- Q20 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. In how many ways can the letters of "APPLE" be arranged?</div>
+        <div class="answer-block"><b>Answer:</b> 60<br><b>Explanation:</b><br>
+- <b>Step 1:</b> P repeats twice.<br>
+- <b>Step 2:</b> Number of arrangements = 5! / 2! = 120 / 2 = 60<br>
+</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

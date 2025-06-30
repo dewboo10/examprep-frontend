@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice: Probability Questions</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%); font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; min-height: 100vh; }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: var(--primary, #2563eb); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #2563eb11; }
+    .back-btn:hover { background: #1e40af; box-shadow: 0 4px 16px #2563eb22; }
+    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    .question-block { margin-bottom: 2rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid var(--primary, #2563eb); padding: 1.25rem 1.5rem 1rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #2563eb22; transform: translateY(-2px) scale(1.01); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; min-height: 2.2rem; user-select: none; transition: color 0.2s; }
+    .question-block.open .question-title { color: var(--primary, #2563eb); }
+    .toggle-arrow { margin-right: 0.5rem; font-size: 1.1rem; transition: transform 0.2s; color: var(--primary, #2563eb); }
+    .question-block.open .toggle-arrow { transform: rotate(90deg); }
+    .answer-block { display: block; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0.5rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; font-size: 1rem; box-shadow: 0 1px 4px #2563eb11; transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem 1rem 1rem; margin-top: 0.75rem; }
+    @media (max-width: 600px) { .container { padding: 1rem 0.5rem; } h1 { font-size: 1.3rem; } .question-block { padding: 1rem 0.7rem 0.7rem 0.7rem; margin-bottom: 1.2rem; } .question-title { font-size: 1rem; } .answer-block { font-size: 0.97rem; padding: 0 0.7rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/probability.html" class="back-btn">&larr; Back to Probability</a>
+    <h1>Practice: Probability Questions (Basic to Advanced)</h1>
+    <p style="color:#64748b; margin-bottom:2rem; font-size:1rem;">Click on a question to see the answer and explanation.</p>
+    <div id="all-questions">
+      <!-- 20 probability questions with answers and explanations will be inserted here -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is the probability of getting a head when tossing a fair coin?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 1/2<br>
+          <strong>Explanation:</strong> There are 2 possible outcomes (head or tail). Only 1 is a head. Probability = 1/2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. What is the probability of rolling a 3 on a standard six-sided die?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 1/6<br>
+          <strong>Explanation:</strong> There are 6 faces, only 1 shows a 3. Probability = 1/6.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. What is the probability of getting an even number when rolling a die?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3/6 or 1/2<br>
+          <strong>Explanation:</strong> Even numbers are 2, 4, 6. So, 3 favorable outcomes out of 6. Probability = 3/6 = 1/2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. A bag has 5 red and 3 blue balls. What is the probability of picking a blue ball?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3/8<br>
+          <strong>Explanation:</strong> Total balls = 5 + 3 = 8. Blue balls = 3. Probability = 3/8.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. What is the probability of drawing an ace from a standard deck of 52 cards?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 4/52 or 1/13<br>
+          <strong>Explanation:</strong> There are 4 aces in a deck. Probability = 4/52 = 1/13.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. What is the probability of getting a number less than 5 when rolling a die?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 4/6 or 2/3<br>
+          <strong>Explanation:</strong> Numbers less than 5 are 1, 2, 3, 4. Probability = 4/6 = 2/3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. If you pick a card at random from a deck, what is the probability it is a heart?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 13/52 or 1/4<br>
+          <strong>Explanation:</strong> There are 13 hearts in a deck of 52. Probability = 13/52 = 1/4.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. What is the probability of getting a tail when tossing two coins?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 1/4 (for both tails)<br>
+          <strong>Explanation:</strong> Outcomes: HH, HT, TH, TT. Only TT is both tails. Probability = 1/4.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. What is the probability of getting at least one head when tossing two coins?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3/4<br>
+          <strong>Explanation:</strong> Outcomes: HH, HT, TH, TT. At least one head: HH, HT, TH (3 outcomes). Probability = 3/4.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. A bag has 4 green, 2 yellow, and 4 red balls. What is the probability of picking a yellow ball?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 2/10 or 1/5<br>
+          <strong>Explanation:</strong> Total balls = 10. Yellow balls = 2. Probability = 2/10 = 1/5.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. What is the probability of drawing a king or a queen from a deck of cards?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 8/52 or 2/13<br>
+          <strong>Explanation:</strong> 4 kings + 4 queens = 8 cards. Probability = 8/52 = 2/13.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. What is the probability of rolling a number greater than 4 on a die?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 2/6 or 1/3<br>
+          <strong>Explanation:</strong> Numbers greater than 4 are 5 and 6. Probability = 2/6 = 1/3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. If a letter is chosen at random from the word 'PROBABILITY', what is the probability it is a 'B'?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 2/11<br>
+          <strong>Explanation:</strong> 'PROBABILITY' has 11 letters, 2 of which are 'B'. Probability = 2/11.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. What is the probability of picking a vowel from the word 'MOUSE'?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3/5<br>
+          <strong>Explanation:</strong> Vowels: O, U, E. Total letters = 5. Probability = 3/5.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. What is the probability of getting a sum of 7 when rolling two dice?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 6/36 or 1/6<br>
+          <strong>Explanation:</strong> Possible pairs: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1). 6 out of 36 outcomes. Probability = 6/36 = 1/6.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. What is the probability of drawing a red card from a deck?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 26/52 or 1/2<br>
+          <strong>Explanation:</strong> There are 26 red cards (hearts and diamonds) in a deck of 52. Probability = 26/52 = 1/2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. What is the probability of getting a prime number when rolling a die?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3/6 or 1/2<br>
+          <strong>Explanation:</strong> Prime numbers on a die: 2, 3, 5. Probability = 3/6 = 1/2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. A bag contains 6 black and 4 white balls. What is the probability of not picking a black ball?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 4/10 or 2/5<br>
+          <strong>Explanation:</strong> Probability of not black = probability of white = 4/10 = 2/5.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. What is the probability of getting two heads when tossing two coins?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 1/4<br>
+          <strong>Explanation:</strong> Outcomes: HH, HT, TH, TT. Only HH is two heads. Probability = 1/4.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. What is the probability of drawing a face card (Jack, Queen, King) from a deck?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 12/52 or 3/13<br>
+          <strong>Explanation:</strong> There are 12 face cards (4 Jacks, 4 Queens, 4 Kings). Probability = 12/52 = 3/13.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

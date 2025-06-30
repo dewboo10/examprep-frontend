@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice: Triangle Questions</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: var(--primary, #4f46e5);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #4f46e511;
+    }
+    .back-btn:hover {
+      background: #3730a3;
+      box-shadow: 0 4px 16px #4f46e522;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .question-block {
+      margin-bottom: 2rem;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0001;
+      border-left: 5px solid var(--primary, #4f46e5);
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .question-block:hover {
+      box-shadow: 0 6px 24px #4f46e522;
+      transform: translateY(-2px) scale(1.01);
+    }
+    .question-title {
+      font-weight: 600;
+      color: #334155;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.2rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .question-block.open .question-title {
+      color: var(--primary, #4f46e5);
+    }
+    .toggle-arrow {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+      color: var(--primary, #4f46e5);
+    }
+    .question-block.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+    .answer-block {
+      display: block;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      background: #eef2ff;
+      border-radius: 8px;
+      padding: 0 1rem;
+      color: #334155;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px #4f46e511;
+      transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+    }
+    .question-block.open .answer-block {
+      max-height: 500px;
+      opacity: 1;
+      padding: 0.75rem 1rem 1rem 1rem;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem 0.5rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .question-block {
+        padding: 1rem 0.7rem 0.7rem 0.7rem;
+        margin-bottom: 1.2rem;
+      }
+      .question-title {
+        font-size: 1rem;
+      }
+      .answer-block {
+        font-size: 0.97rem;
+        padding: 0 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/triangles.html" class="back-btn">&larr; Back to Triangles</a>
+    <h1>Practice: Triangle Questions (Basic to Advanced)</h1>
+    <p style="color:#64748b; margin-bottom:2rem; font-size:1rem;">Click on a question to see the answer and explanation.</p>
+    <div id="all-questions">
+      <!-- Q1 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is the sum of the angles in any triangle?</div>
+        <div class="answer-block"><b>Answer:</b> 180°<br><b>Explanation:</b><br>
+- <b>Step 1:</b> The sum of the angles in any triangle is always the same.<br>
+- <b>Step 2:</b> This is a basic property of triangles.<br>
+</div>
+      </div>
+      <!-- Q2 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. A triangle has angles 50° and 60°. What is the third angle?</div>
+        <div class="answer-block"><b>Answer:</b> 70°<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Sum of angles = 180°.<br>
+- <b>Step 2:</b> Third angle = 180° - (50° + 60°) = 70°.<br>
+</div>
+      </div>
+      <!-- Q3 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. If the sides of a triangle are 5 cm, 6 cm, and 7 cm, what is its perimeter?</div>
+        <div class="answer-block"><b>Answer:</b> 18 cm<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Perimeter = sum of all sides.<br>
+- <b>Step 2:</b> Perimeter = 5 + 6 + 7 = 18 cm.<br>
+</div>
+      </div>
+      <!-- Q4 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. Find the area of a right-angled triangle with base 8 cm and height 6 cm.</div>
+        <div class="answer-block"><b>Answer:</b> 24 cm²<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Area = (1/2) × base × height.<br>
+- <b>Step 2:</b> Area = (1/2) × 8 × 6 = 24 cm².<br>
+</div>
+      </div>
+      <!-- Q5 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. A triangle has sides 3 cm, 4 cm, and 5 cm. Is it a right-angled triangle?</div>
+        <div class="answer-block"><b>Answer:</b> Yes<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Check if a² + b² = c² (Pythagoras Theorem).<br>
+- <b>Step 2:</b> 3² + 4² = 9 + 16 = 25; 5² = 25.<br>
+- <b>Step 3:</b> Since 9 + 16 = 25, it is a right-angled triangle.<br>
+</div>
+      </div>
+      <!-- Q6 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. What type of triangle has all sides equal?</div>
+        <div class="answer-block"><b>Answer:</b> Equilateral triangle<br><b>Explanation:</b><br>
+- <b>Step 1:</b> A triangle with all sides equal is called an equilateral triangle.<br>
+</div>
+      </div>
+      <!-- Q7 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. What is the area of an equilateral triangle with side 6 cm?</div>
+        <div class="answer-block"><b>Answer:</b> 9√3 cm²<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Area = (√3/4) × side².<br>
+- <b>Step 2:</b> Area = (√3/4) × 6² = (√3/4) × 36 = 9√3 cm².<br>
+</div>
+      </div>
+      <!-- Q8 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. If two angles of a triangle are 40° and 70°, what is the third angle?</div>
+        <div class="answer-block"><b>Answer:</b> 70°<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Sum of angles = 180°.<br>
+- <b>Step 2:</b> Third angle = 180° - (40° + 70°) = 70°.<br>
+</div>
+      </div>
+      <!-- Q9 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. A triangle has sides 7 cm, 24 cm, and 25 cm. Is it a right-angled triangle?</div>
+        <div class="answer-block"><b>Answer:</b> Yes<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Check if a² + b² = c².<br>
+- <b>Step 2:</b> 7² + 24² = 49 + 576 = 625; 25² = 625.<br>
+- <b>Step 3:</b> Since 49 + 576 = 625, it is a right-angled triangle.<br>
+</div>
+      </div>
+      <!-- Q10 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. Find the perimeter of an equilateral triangle with side 9 cm.</div>
+        <div class="answer-block"><b>Answer:</b> 27 cm<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Perimeter = 3 × side.<br>
+- <b>Step 2:</b> Perimeter = 3 × 9 = 27 cm.<br>
+</div>
+      </div>
+      <!-- Q11 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. If a triangle has sides 8 cm, 15 cm, and 17 cm, what is its area?</div>
+        <div class="answer-block"><b>Answer:</b> 60 cm²<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Check if it is a right-angled triangle: 8² + 15² = 64 + 225 = 289; 17² = 289.<br>
+- <b>Step 2:</b> Since it is right-angled, area = (1/2) × base × height = (1/2) × 8 × 15 = 60 cm².<br>
+</div>
+      </div>
+      <!-- Q12 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. What is the name of a triangle with two equal sides?</div>
+        <div class="answer-block"><b>Answer:</b> Isosceles triangle<br><b>Explanation:</b><br>
+- <b>Step 1:</b> A triangle with two equal sides is called an isosceles triangle.<br>
+</div>
+      </div>
+      <!-- Q13 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. Find the area of a triangle with sides 7 cm, 8 cm, and 9 cm (use Heron's formula).</div>
+        <div class="answer-block"><b>Answer:</b> ≈ 26.83 cm²<br><b>Explanation:</b><br>
+- <b>Step 1:</b> s = (7 + 8 + 9)/2 = 12 cm.<br>
+- <b>Step 2:</b> Area = √[s(s-a)(s-b)(s-c)] = √[12 × 5 × 4 × 3] = √[720] ≈ 26.83 cm².<br>
+</div>
+      </div>
+      <!-- Q14 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. If all angles of a triangle are equal, what type of triangle is it?</div>
+        <div class="answer-block"><b>Answer:</b> Equilateral triangle<br><b>Explanation:</b><br>
+- <b>Step 1:</b> If all angles are equal, each angle is 60°.<br>
+- <b>Step 2:</b> Such a triangle is called an equilateral triangle.<br>
+</div>
+      </div>
+      <!-- Q15 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. A triangle has sides 10 cm, 10 cm, and 12 cm. What is its perimeter?</div>
+        <div class="answer-block"><b>Answer:</b> 32 cm<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Perimeter = 10 + 10 + 12 = 32 cm.<br>
+</div>
+      </div>
+      <!-- Q16 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. What is the length of the altitude to the base of 10 cm in an equilateral triangle of side 10 cm?</div>
+        <div class="answer-block"><b>Answer:</b> 5√3 cm<br><b>Explanation:</b><br>
+- <b>Step 1:</b> Altitude = (√3/2) × side.<br>
+- <b>Step 2:</b> Altitude = (√3/2) × 10 = 5√3 cm.<br>
+</div>
+      </div>
+      <!-- Q17 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. If two triangles have all their corresponding angles equal, what can you say about them?</div>
+        <div class="answer-block"><b>Answer:</b> They are similar triangles<br><b>Explanation:</b><br>
+- <b>Step 1:</b> If all corresponding angles are equal, the triangles are similar.<br>
+</div>
+      </div>
+      <!-- Q18 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. A triangle has sides 13 cm, 14 cm, and 15 cm. Find its area (use Heron's formula).</div>
+        <div class="answer-block"><b>Answer:</b> ≈ 84 cm²<br><b>Explanation:</b><br>
+- <b>Step 1:</b> s = (13 + 14 + 15)/2 = 21 cm.<br>
+- <b>Step 2:</b> Area = √[21 × 8 × 7 × 6] = √[7056] ≈ 84 cm².<br>
+</div>
+      </div>
+      <!-- Q19 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. What is the sum of the exterior angles of any triangle?</div>
+        <div class="answer-block"><b>Answer:</b> 360°<br><b>Explanation:</b><br>
+- <b>Step 1:</b> The sum of the exterior angles of any polygon is 360°.<br>
+- <b>Step 2:</b> For a triangle, the sum is also 360°.<br>
+</div>
+      </div>
+      <!-- Q20 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. A ladder leans against a wall, making a triangle with the ground. If the ladder is 10 m long and the base is 6 m from the wall, how high does the ladder reach?</div>
+        <div class="answer-block"><b>Answer:</b> 8 m<br><b>Explanation:</b><br>
+- <b>Step 1:</b> This forms a right-angled triangle. Use Pythagoras Theorem: hypotenuse² = base² + height².<br>
+- <b>Step 2:</b> 10² = 6² + height² → 100 = 36 + height² → height² = 64 → height = 8 m.<br>
+</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

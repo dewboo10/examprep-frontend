@@ -216,6 +216,58 @@
                 padding-top: 0;
             }
         }
+
+        .practice-card-surds {
+            max-width: 480px;
+            margin: 3rem auto 2rem auto;
+            background: #fff;
+            border-radius: 1.25rem;
+            box-shadow: 0 6px 32px #3b82f622;
+            padding: 2.5rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .practice-card-surds h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .practice-card-surds .icon {
+            color: #2563eb;
+            font-size: 2rem;
+            margin-right: 0.3rem;
+        }
+        .practice-card-surds p {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 1.08rem;
+        }
+        .practice-btn-surds {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(90deg,#3b82f6,#6366f1);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 2.2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 12px #3b82f633;
+            text-decoration: none;
+            border: none;
+            transition: background 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .practice-btn-surds:hover {
+            background: #3730a3;
+            box-shadow: 0 4px 16px #6366f144;
+        }
     </style>
 </head>
 <body>
@@ -420,6 +472,13 @@
                     <p class="solution-text">h² = 2</p>
                     <p class="solution-text">h = √2</p>
                 </div>
+            </div>
+
+            <!-- Practice Questions Card -->
+            <div class="practice-card-surds">
+                <h2><span class="icon"><i class="fas fa-square-root-alt"></i></span>Practice Questions</h2>
+                <p>Test your understanding of Surds with 20 fully solved, step-by-step questions designed for beginners.</p>
+                <a href="../../practiceQuestions/surdsQ.html" class="practice-btn-surds"><i class="fas fa-pen"></i>Start Practice</a>
             </div>
         </div>
     </div>

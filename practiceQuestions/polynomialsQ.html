@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice: Polynomial Questions</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: var(--primary, #4f46e5);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #4f46e511;
+    }
+    .back-btn:hover {
+      background: #3730a3;
+      box-shadow: 0 4px 16px #4f46e522;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .question-block {
+      margin-bottom: 2rem;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0001;
+      border-left: 5px solid var(--primary, #4f46e5);
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .question-block:hover {
+      box-shadow: 0 6px 24px #4f46e522;
+      transform: translateY(-2px) scale(1.01);
+    }
+    .question-title {
+      font-weight: 600;
+      color: #334155;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.2rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .question-block.open .question-title {
+      color: var(--primary, #4f46e5);
+    }
+    .toggle-arrow {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+      color: var(--primary, #4f46e5);
+    }
+    .question-block.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+    .answer-block {
+      display: block;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      background: #eef2ff;
+      border-radius: 8px;
+      padding: 0 1rem;
+      color: #334155;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px #4f46e511;
+      transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+    }
+    .question-block.open .answer-block {
+      max-height: 500px;
+      opacity: 1;
+      padding: 0.75rem 1rem 1rem 1rem;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem 0.5rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .question-block {
+        padding: 1rem 0.7rem 0.7rem 0.7rem;
+        margin-bottom: 1.2rem;
+      }
+      .question-title {
+        font-size: 1rem;
+      }
+      .answer-block {
+        font-size: 0.97rem;
+        padding: 0 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/polynomials.html" class="back-btn">&larr; Back to Polynomials</a>
+    <h1>Practice: Polynomial Questions (Basic to Advanced)</h1>
+    <p style="color:#64748b; margin-bottom:2rem; font-size:1rem;">Click on a question to see the answer and explanation.</p>
+    <div id="all-questions">
+      <!-- Questions will be inserted here -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is the degree of the polynomial P(x) = 4x³ - 2x² + 7?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3<br>
+          <strong>Explanation:</strong> The degree of a polynomial is the highest power of x. Here, the highest power is 3 (from 4x³). So, the degree is 3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. Identify the constant term in the polynomial Q(x) = 5x² - 3x + 8.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 8<br>
+          <strong>Explanation:</strong> The constant term is the term without any variable. Here, it is 8.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. Is 7x⁴ - 2x + 5 a quadratic polynomial?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> No<br>
+          <strong>Explanation:</strong> A quadratic polynomial has degree 2. Here, the highest degree is 4, so it is not quadratic.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. Add the polynomials: (2x² + 3x + 1) and (x² - x + 4).</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3x² + 2x + 5<br>
+          <strong>Explanation:</strong> Add like terms:
+          <ul><li>2x² + x² = 3x²</li><li>3x + (-x) = 2x</li><li>1 + 4 = 5</li></ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. Subtract (x² + 2x - 3) from (3x² - x + 5).</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 2x² - 3x + 8<br>
+          <strong>Explanation:</strong> (3x² - x + 5) - (x² + 2x - 3) = (3x² - x²) + (-x - 2x) + (5 - (-3)) = 2x² - 3x + 8
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. Multiply: (x + 2)(x - 5)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> x² - 3x - 10<br>
+          <strong>Explanation:</strong> (x + 2)(x - 5) = x(x - 5) + 2(x - 5) = x² - 5x + 2x - 10 = x² - 3x - 10
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. Factor: x² - 9</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> (x + 3)(x - 3)<br>
+          <strong>Explanation:</strong> This is a difference of squares: x² - 9 = (x + 3)(x - 3)
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. Find the value of the polynomial P(x) = 2x² - 3x + 4 at x = 2.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 6<br>
+          <strong>Explanation:</strong> Substitute x = 2: 2(2)² - 3(2) + 4 = 2(4) - 6 + 4 = 8 - 6 + 4 = 6
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. What is the sum of the roots of x² - 7x + 10 = 0?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 7<br>
+          <strong>Explanation:</strong> For ax² + bx + c = 0, sum of roots = -b/a. Here, a = 1, b = -7, so sum = -(-7)/1 = 7
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. If x = 1 is a root of P(x) = x² - 2x + k, find k.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 1<br>
+          <strong>Explanation:</strong> Substitute x = 1: 1² - 2(1) + k = 0 ⇒ 1 - 2 + k = 0 ⇒ k = 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. Divide x³ - 8 by x - 2 and state the remainder.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 0<br>
+          <strong>Explanation:</strong> By Remainder Theorem, remainder = P(2) = (2)³ - 8 = 8 - 8 = 0
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. Is x² + 2x + 1 a perfect square trinomial?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Yes<br>
+          <strong>Explanation:</strong> x² + 2x + 1 = (x + 1)², which is a perfect square trinomial.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. Find the product of the roots of x² - 5x + 6 = 0.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 6<br>
+          <strong>Explanation:</strong> For ax² + bx + c = 0, product of roots = c/a. Here, c = 6, a = 1, so product = 6/1 = 6
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. Expand (x + 3)².</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> x² + 6x + 9<br>
+          <strong>Explanation:</strong> (x + 3)² = x² + 2×3x + 3² = x² + 6x + 9
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. If P(x) = x² - 4x + 3, find P(0).</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3<br>
+          <strong>Explanation:</strong> Substitute x = 0: (0)² - 4×0 + 3 = 0 - 0 + 3 = 3
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. Factor: x² + 5x + 6</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> (x + 2)(x + 3)<br>
+          <strong>Explanation:</strong> Find two numbers that multiply to 6 and add to 5: 2 and 3. So, x² + 5x + 6 = (x + 2)(x + 3)
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. What is the coefficient of x in 7x² - 4x + 9?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> -4<br>
+          <strong>Explanation:</strong> The coefficient of x is the number in front of x, which is -4.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. If x = -1 is a root of x² + kx + 2 = 0, find k.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> -3<br>
+          <strong>Explanation:</strong> Substitute x = -1: (-1)² + k(-1) + 2 = 0 ⇒ 1 - k + 2 = 0 ⇒ k = 3
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. Expand (x - 2)(x + 5).</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> x² + 3x - 10<br>
+          <strong>Explanation:</strong> (x - 2)(x + 5) = x² + 5x - 2x - 10 = x² + 3x - 10
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. If P(x) = x³ - 6x² + 11x - 6, find the sum of its roots.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 6<br>
+          <strong>Explanation:</strong> For a cubic ax³ + bx² + cx + d, sum of roots = -b/a. Here, b = -6, a = 1, so sum = -(-6)/1 = 6
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

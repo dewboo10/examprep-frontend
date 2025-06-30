@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice: Ratio & Proportion Questions</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%); font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; min-height: 100vh; }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: var(--primary, #2563eb); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #2563eb11; }
+    .back-btn:hover { background: #1e40af; box-shadow: 0 4px 16px #2563eb22; }
+    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    .question-block { margin-bottom: 2rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid var(--primary, #2563eb); padding: 1.25rem 1.5rem 1rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #2563eb22; transform: translateY(-2px) scale(1.01); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; min-height: 2.2rem; user-select: none; transition: color 0.2s; }
+    .question-block.open .question-title { color: var(--primary, #2563eb); }
+    .toggle-arrow { margin-right: 0.5rem; font-size: 1.1rem; transition: transform 0.2s; color: var(--primary, #2563eb); }
+    .question-block.open .toggle-arrow { transform: rotate(90deg); }
+    .answer-block { display: block; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0.5rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; font-size: 1rem; box-shadow: 0 1px 4px #2563eb11; transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem 1rem 1rem; margin-top: 0.75rem; }
+    @media (max-width: 600px) { .container { padding: 1rem 0.5rem; } h1 { font-size: 1.3rem; } .question-block { padding: 1rem 0.7rem 0.7rem 0.7rem; margin-bottom: 1.2rem; } .question-title { font-size: 1rem; } .answer-block { font-size: 0.97rem; padding: 0 0.7rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/ratio.html" class="back-btn">&larr; Back to Ratio & Proportion</a>
+    <h1>Practice: Ratio & Proportion Questions (Basic to Advanced)</h1>
+    <p style="color:#64748b; margin-bottom:2rem; font-size:1rem;">Click on a question to see the answer and explanation.</p>
+    <div id="all-questions">
+      <!-- 20 ratio and proportion questions with answers and explanations will be inserted here -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is the ratio of 8 to 12?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 2:3<br>
+          <strong>Explanation:</strong> Divide both numbers by their greatest common divisor (4): 8 ÷ 4 = 2, 12 ÷ 4 = 3. So, the ratio is 2:3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. If the ratio of boys to girls in a class is 3:5 and there are 15 boys, how many girls are there?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 25<br>
+          <strong>Explanation:</strong> 3 parts = 15 boys, so 1 part = 5. Girls = 5 parts = 5 × 5 = 25.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. Simplify the ratio 45:60.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3:4<br>
+          <strong>Explanation:</strong> Divide both by 15: 45 ÷ 15 = 3, 60 ÷ 15 = 4. So, 3:4.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. If 2:3 = x:12, find x.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 8<br>
+          <strong>Explanation:</strong> 2/3 = x/12 ⇒ x = (2 × 12)/3 = 24/3 = 8.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. Divide 90 in the ratio 2:7.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 20 and 70<br>
+          <strong>Explanation:</strong> Total parts = 2 + 7 = 9. First part = (2/9) × 90 = 20. Second part = (7/9) × 90 = 70.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. If a:b = 4:5 and b:c = 2:3, find a:b:c.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 8:10:15<br>
+          <strong>Explanation:</strong> Make b the same in both ratios: a:b = 4:5, b:c = 2:3. LCM of 5 and 2 is 10. So, a:b = 8:10, b:c = 10:15. So, a:b:c = 8:10:15.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. What is the fourth proportional to 2, 6, 8?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 24<br>
+          <strong>Explanation:</strong> Fourth proportional x = (6 × 8)/2 = 48/2 = 24.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. If 5:7 = 15:x, find x.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 21<br>
+          <strong>Explanation:</strong> 5/7 = 15/x ⇒ x = (7 × 15)/5 = 21.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. If the ratio of ages of A and B is 3:4 and A is 18, what is B's age?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 24<br>
+          <strong>Explanation:</strong> 3 parts = 18, so 1 part = 6. B = 4 parts = 4 × 6 = 24.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. If x:y = 7:9 and y:z = 3:5, find x:y:z.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 21:27:45<br>
+          <strong>Explanation:</strong> Make y the same: x:y = 7:9, y:z = 3:5. LCM of 9 and 3 is 9. x:y = 7:9, y:z = 9:15. So, x:y:z = 21:27:45.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. If 3x = 4y, what is x:y?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 4:3<br>
+          <strong>Explanation:</strong> 3x = 4y ⇒ x/y = 4/3. So, x:y = 4:3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. If a:b = 2:5, b:c = 3:4, find a:b:c.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 6:15:20<br>
+          <strong>Explanation:</strong> Make b the same: a:b = 2:5, b:c = 3:4. LCM of 5 and 3 is 15. a:b = 6:15, b:c = 15:20. So, a:b:c = 6:15:20.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. If 2:3 = 4:x, find x.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 6<br>
+          <strong>Explanation:</strong> 2/3 = 4/x ⇒ x = (3 × 4)/2 = 6.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. If the ratio of two numbers is 5:8 and their sum is 65, find the numbers.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 25 and 40<br>
+          <strong>Explanation:</strong> Total parts = 5 + 8 = 13. Each part = 65/13 = 5. Numbers: 5 × 5 = 25, 8 × 5 = 40.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. If a:b = 3:4 and b:c = 5:6, find a:b:c.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 15:20:24<br>
+          <strong>Explanation:</strong> Make b the same: a:b = 3:4, b:c = 5:6. LCM of 4 and 5 is 20. a:b = 15:20, b:c = 20:24. So, a:b:c = 15:20:24.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. If 5:7 = x:21, find x.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 15<br>
+          <strong>Explanation:</strong> 5/7 = x/21 ⇒ x = (5 × 21)/7 = 15.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. If 2x = 3y, what is x:y?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 3:2<br>
+          <strong>Explanation:</strong> 2x = 3y ⇒ x/y = 3/2. So, x:y = 3:2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. If the ratio of two numbers is 7:9 and their difference is 8, find the numbers.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 28 and 36<br>
+          <strong>Explanation:</strong> Difference in ratio = 9 - 7 = 2. Each part = 8/2 = 4. Numbers: 7 × 4 = 28, 9 × 4 = 36.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. If a:b = 2:3 and b:c = 4:5, find a:b:c.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 8:12:15<br>
+          <strong>Explanation:</strong> Make b the same: a:b = 2:3, b:c = 4:5. LCM of 3 and 4 is 12. a:b = 8:12, b:c = 12:15. So, a:b:c = 8:12:15.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. If 3:4 = x:20, find x.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 15<br>
+          <strong>Explanation:</strong> 3/4 = x/20 ⇒ x = (3 × 20)/4 = 15.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

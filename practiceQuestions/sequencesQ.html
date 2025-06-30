@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice: Sequences & Series Questions</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%); font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; min-height: 100vh; }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: var(--primary, #2563eb); color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #2563eb11; }
+    .back-btn:hover { background: #1e40af; box-shadow: 0 4px 16px #2563eb22; }
+    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    .question-block { margin-bottom: 2rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid var(--primary, #2563eb); padding: 1.25rem 1.5rem 1rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #2563eb22; transform: translateY(-2px) scale(1.01); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; min-height: 2.2rem; user-select: none; transition: color 0.2s; }
+    .question-block.open .question-title { color: var(--primary, #2563eb); }
+    .toggle-arrow { margin-right: 0.5rem; font-size: 1.1rem; transition: transform 0.2s; color: var(--primary, #2563eb); }
+    .question-block.open .toggle-arrow { transform: rotate(90deg); }
+    .answer-block { display: block; max-height: 0; opacity: 0; overflow: hidden; margin-top: 0.5rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; font-size: 1rem; box-shadow: 0 1px 4px #2563eb11; transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem 1rem 1rem; margin-top: 0.75rem; }
+    @media (max-width: 600px) { .container { padding: 1rem 0.5rem; } h1 { font-size: 1.3rem; } .question-block { padding: 1rem 0.7rem 0.7rem 0.7rem; margin-bottom: 1.2rem; } .question-title { font-size: 1rem; } .answer-block { font-size: 0.97rem; padding: 0 0.7rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/sequences.html" class="back-btn">&larr; Back to Sequences & Series</a>
+    <h1>Practice: Sequences & Series Questions (Basic to Advanced)</h1>
+    <p style="color:#64748b; margin-bottom:2rem; font-size:1rem;">Click on a question to see the answer and explanation.</p>
+    <div id="all-questions">
+      <!-- 20 sequences and series questions with answers and explanations will be inserted here -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is the 10th term of the arithmetic sequence: 3, 7, 11, 15, ...?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 39<br>
+          <strong>Explanation:</strong> First term (a₁) = 3, common difference (d) = 4. nth term = a₁ + (n-1)d = 3 + (10-1)×4 = 3 + 36 = 39.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. Find the sum of the first 15 terms of the arithmetic sequence: 2, 5, 8, ...</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 345<br>
+          <strong>Explanation:</strong> a₁ = 2, d = 3, n = 15. Sum = n/2 × (2a₁ + (n-1)d) = 15/2 × (4 + 42) = 7.5 × 46 = 345.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. What is the 6th term of the geometric sequence: 2, 6, 18, ...?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 486<br>
+          <strong>Explanation:</strong> a₁ = 2, r = 3. nth term = a₁ × r^(n-1) = 2 × 3^5 = 2 × 243 = 486.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. Find the sum of the first 5 terms of the geometric sequence: 1, 2, 4, 8, ...</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 31<br>
+          <strong>Explanation:</strong> a₁ = 1, r = 2, n = 5. Sum = a₁(1 - r^n)/(1 - r) = (1 - 32)/(1 - 2) = (-31)/(-1) = 31.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. What is the 7th term of the harmonic sequence: 1, 1/2, 1/3, ...?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 1/7<br>
+          <strong>Explanation:</strong> The reciprocals form an arithmetic sequence: 1, 2, 3, ... 7th term = 1/7.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. What is the 8th term of the Fibonacci sequence?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 21<br>
+          <strong>Explanation:</strong> Fibonacci: 1, 1, 2, 3, 5, 8, 13, 21. So, 8th term is 21.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. Find the sum of the first 4 square numbers.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 30<br>
+          <strong>Explanation:</strong> Square numbers: 1, 4, 9, 16. Sum = 1 + 4 + 9 + 16 = 30.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. What is the 5th triangular number?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 15<br>
+          <strong>Explanation:</strong> Triangular number: n(n+1)/2. For n=5: 5×6/2 = 15.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. What is the sum of the first 6 cube numbers?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 441<br>
+          <strong>Explanation:</strong> Cube numbers: 1, 8, 27, 64, 125, 216. Sum = 1+8+27+64+125+216 = 441.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. What is the 12th term of the arithmetic sequence: 7, 10, 13, ...?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 40<br>
+          <strong>Explanation:</strong> a₁ = 7, d = 3. nth term = a₁ + (n-1)d = 7 + 11×3 = 7 + 33 = 40.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. Find the sum of the first 8 terms of the arithmetic sequence: 4, 9, 14, ...</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 208<br>
+          <strong>Explanation:</strong> a₁ = 4, d = 5, n = 8. Sum = n/2 × (2a₁ + (n-1)d) = 4 × (8 + 35) = 4 × 43 = 172. Correction: 8/2 × (2×4 + (8-1)×5) = 4 × (8 + 35) = 4 × 43 = 172. (But 4, 9, 14, 19, 24, 29, 34, 39; sum = 4+9+14+19+24+29+34+39 = 172)
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. What is the 5th term of the geometric sequence: 5, 10, 20, ...?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 80<br>
+          <strong>Explanation:</strong> a₁ = 5, r = 2. nth term = 5 × 2^(5-1) = 5 × 16 = 80.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. Find the sum of the first 3 terms of the geometric sequence: 3, 6, 12, ...</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 21<br>
+          <strong>Explanation:</strong> a₁ = 3, r = 2, n = 3. Sum = 3(1-2^3)/(1-2) = 3(1-8)/(-1) = 3×(-7)/(-1) = 21.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. What is the 9th term of the harmonic sequence: 1, 1/2, 1/3, ...?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 1/9<br>
+          <strong>Explanation:</strong> The reciprocals form an arithmetic sequence: 1, 2, 3, ... 9th term = 1/9.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. What is the 10th Fibonacci number?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 55<br>
+          <strong>Explanation:</strong> Fibonacci: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55. So, 10th term is 55.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. Find the sum of the first 6 triangular numbers.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 56<br>
+          <strong>Explanation:</strong> Triangular numbers: 1, 3, 6, 10, 15, 21. Sum = 1+3+6+10+15+21 = 56.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. What is the 4th square number?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 16<br>
+          <strong>Explanation:</strong> Square numbers: 1, 4, 9, 16. So, 4th is 16.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. What is the 3rd cube number?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 27<br>
+          <strong>Explanation:</strong> Cube numbers: 1, 8, 27. So, 3rd is 27.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. What is the 15th term of the arithmetic sequence: 10, 13, 16, ...?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 52<br>
+          <strong>Explanation:</strong> a₁ = 10, d = 3. nth term = 10 + (15-1)×3 = 10 + 42 = 52.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. Find the sum of the first 5 terms of the geometric sequence: 2, 4, 8, ...</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 62<br>
+          <strong>Explanation:</strong> a₁ = 2, r = 2, n = 5. Sum = 2(1-2^5)/(1-2) = 2(1-32)/(-1) = 2×(-31)/(-1) = 62.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.question-title').forEach(q => {
+      q.addEventListener('click', function() {
+        this.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice: Statistics - ExamsPrepArena</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { font-family: 'Poppins', Arial, sans-serif; position: relative; }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: #4f46e5; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #4f46e511; }
+    .back-btn:hover { background: #3730a3; box-shadow: 0 4px 16px #4f46e522; }
+    h1 { font-size: 2.2rem; margin-bottom: 0.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    /* Animated background */
+    body::before {
+      content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
+      background: radial-gradient(circle at 15% 25%, #a5b4fc44 0, #f0f9ff00 50%),
+                  radial-gradient(circle at 85% 75%, #f472b644 0, #f0f9ff00 50%),
+                  radial-gradient(circle at 50% 50%, #34d39933 0, #f0f9ff00 50%);
+      animation: bgmove 15s linear infinite alternate;
+    }
+    @keyframes bgmove {
+      from { transform: scale(1) rotate(0deg); }
+      to { transform: scale(1.1) rotate(5deg); }
+    }
+    .motivational-hero { display: flex; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%); color: #fff; border-radius: 14px; font-size: 1.15rem; font-weight: 500; padding: 1.1rem 1.5rem; box-shadow: 0 4px 24px #6366f122; margin-bottom: 1.5rem; animation: heroFadeIn 1s ease-out; }
+    .hero-icon { font-size: 1.7rem; animation: icon-bounce 2.8s infinite ease-in-out; }
+    .motivational-quote { font-size: 1.08rem; font-weight: 500; text-shadow: 0 1px 4px #0000003b; transition: opacity 0.4s; }
+    @keyframes heroFadeIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes icon-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px) scale(1.05); } }
+    .sticky-nav { position: sticky; top: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); z-index: 10; padding: 0.75rem 0; margin: 0 -2.5rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: center; gap: 1.5rem; box-shadow: 0 2px 10px #0000000d; }
+    .sticky-nav a { font-weight: 600; color: #475569; text-decoration: none; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 6px; }
+    .sticky-nav a:hover { color: #4f46e5; background: #eef2ff; }
+    .section-heading { font-size: 1.5rem; font-weight: 600; color: #334155; margin: 2.5rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #eef2ff; }
+    .question-block { margin-bottom: 1.5rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid #4f46e5; padding: 1.25rem 1.5rem; transition: all 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #4f46e522; transform: translateY(-2px) scale(1.005); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.1rem; }
+    .question-block.open .question-title { color: #4f46e5; }
+    .answer-block { max-height: 0; opacity: 0; overflow: hidden; margin-top: 0rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; transition: all 0.4s ease-in-out; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem; margin-top: 0.75rem; }
+    @media (max-width: 600px) {
+      .container { padding: 1rem 0.5rem; }
+      .sticky-nav { margin: 0 -0.5rem 1.5rem; }
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="gradient-bg">
+  <div class="container">
+    <a href="../quant/chapters/statistics.html" class="back-btn">&larr; Back to Statistics</a>
+    <div class="motivational-hero">
+      <span class="hero-icon">📊</span>
+      <span class="motivational-quote">Statistics is the grammar of science. Every number tells a story!</span>
+    </div>
+    <h1>Practice: Statistics</h1>
+    <div class="sticky-nav">
+      <a href="#basic">Basic to Moderate</a>
+    </div>
+    <div id="all-questions">
+      <h2 id="basic" class="section-heading">Basic to Moderate (1-20)</h2>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. The ages of 5 children are: 6, 8, 10, 12, and 14. What is the mean (average) age? Explain every step.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 10 years<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>First, add up all the ages: 6 + 8 + 10 + 12 + 14 = 50</li>
+            <li>There are 5 children.</li>
+            <li>Now, divide the total by the number of children: 50 ÷ 5 = 10</li>
+            <li>So, the mean age is 10 years. Imagine sharing 50 candies equally among 5 kids—each gets 10!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. The numbers are: 3, 7, 9, 12, 15, 18, 21. What is the median? Show how you find it.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 12<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>First, put the numbers in order (they already are!).</li>
+            <li>There are 7 numbers, so the middle one is the 4th: 12</li>
+            <li>The median is the number in the middle when you line them up from smallest to biggest.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. The numbers are: 2, 4, 4, 6, 8, 8, 8, 10. What is the mode? Why?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 8<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>The mode is the number that appears most often.</li>
+            <li>2 appears once, 4 appears twice, 6 once, 8 three times, 10 once.</li>
+            <li>So, 8 is the mode because it shows up the most (3 times).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. The numbers are: 5, 12, 7, 20, 15. What is the range? Explain what range means.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 15<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Range = Biggest number - Smallest number</li>
+            <li>Biggest is 20, smallest is 5. So, 20 - 5 = 15</li>
+            <li>The range tells us how spread out the numbers are, like the tallest and shortest in a group!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. The test scores of 6 students are: 80, 85, 90, 95, 100, 100. What is the mode and what does it mean?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 100<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>The mode is the number that appears most often.</li>
+            <li>100 appears twice, all others appear once.</li>
+            <li>So, the mode is 100. This means 100 is the most common score in this group.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. The numbers are: 2, 4, 6, 8, 10, 12. What is the mean and the range?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Mean = 7, Range = 10<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Add up: 2 + 4 + 6 + 8 + 10 + 12 = 42</li>
+            <li>There are 6 numbers. Mean = 42 ÷ 6 = 7</li>
+            <li>Range = 12 - 2 = 10</li>
+            <li>So, the mean is 7 and the range is 10.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. The heights (in cm) of 8 children are: 120, 125, 130, 135, 140, 145, 150, 155. What is the median height?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 137.5 cm<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>There are 8 numbers, so the median is the average of the 4th and 5th: (135 + 140) ÷ 2 = 137.5</li>
+            <li>The median is the "middle" value when the numbers are in order.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. The numbers are: 5, 7, 7, 8, 10, 12, 12, 12, 15. What is the mode and the range?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Mode = 12, Range = 10<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>12 appears 3 times, more than any other number, so mode = 12.</li>
+            <li>Range = 15 - 5 = 10</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. The numbers are: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. What is the mean, median, and range?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Mean = 5.5, Median = 5.5, Range = 9<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Mean: Add up all numbers (1+2+...+10 = 55), divide by 10: 55 ÷ 10 = 5.5</li>
+            <li>Median: 10 numbers, so average of 5th and 6th: (5+6)/2 = 5.5</li>
+            <li>Range: 10 - 1 = 9</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. The scores in a game are: 8, 10, 12, 14, 16, 18, 20. What is the mean and the mode?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Mean = 14, Mode = None<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Add up: 8+10+12+14+16+18+20 = 98, divide by 7: 98 ÷ 7 = 14</li>
+            <li>Mode: All numbers appear once, so there is no mode.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. A bar graph shows the number of apples sold each day: Mon-10, Tue-15, Wed-20, Thu-25, Fri-30. On which day were the most apples sold? What is the range?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Friday, Range = 20<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Most apples sold on Friday (30 apples).</li>
+            <li>Range = 30 (Friday) - 10 (Monday) = 20</li>
+            <li>Bar graphs help us see which day is the highest and lowest easily!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. A pie chart shows: Red-25%, Blue-35%, Green-40%. If there are 200 marbles, how many are green?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 80 marbles<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Green is 40% of 200 marbles.</li>
+            <li>40% means 40 out of every 100, so 200 × 0.40 = 80</li>
+            <li>So, there are 80 green marbles.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. In a survey, 12 kids like pizza, 8 like burgers, and 5 like pasta. What is the mode of their favorite food?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Pizza<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Pizza is chosen by the most kids (12), so it is the mode.</li>
+            <li>Mode can be used for things other than numbers, like favorite foods!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. The numbers are: 2, 4, 6, 8, 10, 12, 14. What is the median and the range?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Median = 8, Range = 12<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Median: 7 numbers, so the 4th is the median: 8</li>
+            <li>Range: 14 - 2 = 12</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. A dice is rolled 60 times. It lands on 6 a total of 15 times. What is the experimental probability of getting a 6?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 1/4 or 0.25<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Probability = Number of times 6 comes up ÷ Total rolls = 15 ÷ 60 = 0.25</li>
+            <li>So, the chance of getting a 6 is 1 out of 4, or 25%.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. The test scores are: 70, 80, 90, 100, 100, 100, 90, 80, 70. What is the mode and the mean?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Mode = 100, Mean = 86.67<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Mode: 100 appears 3 times, more than any other score.</li>
+            <li>Mean: Add up all scores: 70+80+90+100+100+100+90+80+70 = 780. There are 9 scores. Mean = 780 ÷ 9 ≈ 86.67</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. A class has 10 boys and 15 girls. What fraction of the class are girls? What percent?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Fraction = 15/25 = 3/5, Percent = 60%<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Total students = 10 + 15 = 25</li>
+            <li>Fraction = 15/25 = 3/5</li>
+            <li>Percent = (15 ÷ 25) × 100 = 60%</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. The numbers are: 4, 8, 12, 16, 20, 24. What is the mean, median, and range?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Mean = 14, Median = 14, Range = 20<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Mean: Add up all numbers: 4+8+12+16+20+24 = 84, divide by 6: 84 ÷ 6 = 14</li>
+            <li>Median: 6 numbers, so average of 3rd and 4th: (12+16)/2 = 14</li>
+            <li>Range: 24 - 4 = 20</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. A bar graph shows the number of books read by students: Anna-5, Ben-8, Cara-6, Dan-7. Who read the most? What is the range?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> Ben, Range = 3<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Ben read the most books (8).</li>
+            <li>Range = 8 (Ben) - 5 (Anna) = 3</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. A pie chart shows: Apples-30%, Bananas-20%, Cherries-50%. If there are 120 fruits, how many are cherries?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> 60<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Cherries are 50% of 120 fruits.</li>
+            <li>50% means half, so 120 × 0.5 = 60</li>
+            <li>So, there are 60 cherries.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Interactive Q&A
+    document.querySelectorAll('.question-block').forEach(block => {
+      block.addEventListener('click', function(e) {
+        if (e.target.closest('.question-title')) {
+          this.classList.toggle('open');
+        }
+      });
+    });
+  </script>
+</body>
+</html> 

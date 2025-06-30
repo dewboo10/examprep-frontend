@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice: Surds - ExamsPrepArena</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { font-family: 'Poppins', Arial, sans-serif; position: relative; }
+    .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; padding: 2.5rem 2.5rem 2rem 2.5rem; }
+    .back-btn { display: inline-block; margin-bottom: 1.5rem; padding: 0.5rem 1.2rem; background: #4f46e5; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 1rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 8px #4f46e511; }
+    .back-btn:hover { background: #3730a3; box-shadow: 0 4px 16px #4f46e522; }
+    h1 { font-size: 2.2rem; margin-bottom: 0.5rem; color: #1e293b; font-weight: 700; letter-spacing: -1px; }
+    body::before {
+      content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
+      background: radial-gradient(circle at 15% 25%, #a5b4fc44 0, #f0f9ff00 50%),
+                  radial-gradient(circle at 85% 75%, #f472b644 0, #f0f9ff00 50%),
+                  radial-gradient(circle at 50% 50%, #34d39933 0, #f0f9ff00 50%);
+      animation: bgmove 15s linear infinite alternate;
+    }
+    @keyframes bgmove {
+      from { transform: scale(1) rotate(0deg); }
+      to { transform: scale(1.1) rotate(5deg); }
+    }
+    .motivational-hero { display: flex; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%); color: #fff; border-radius: 14px; font-size: 1.15rem; font-weight: 500; padding: 1.1rem 1.5rem; box-shadow: 0 4px 24px #6366f122; margin-bottom: 1.5rem; animation: heroFadeIn 1s ease-out; }
+    .hero-icon { font-size: 1.7rem; animation: icon-bounce 2.8s infinite ease-in-out; }
+    .motivational-quote { font-size: 1.08rem; font-weight: 500; text-shadow: 0 1px 4px #0000003b; transition: opacity 0.4s; }
+    @keyframes heroFadeIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes icon-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px) scale(1.05); } }
+    .sticky-nav { position: sticky; top: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); z-index: 10; padding: 0.75rem 0; margin: 0 -2.5rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: center; gap: 1.5rem; box-shadow: 0 2px 10px #0000000d; }
+    .sticky-nav a { font-weight: 600; color: #475569; text-decoration: none; transition: color 0.2s; padding: 0.25rem 0.5rem; border-radius: 6px; }
+    .sticky-nav a:hover { color: #4f46e5; background: #eef2ff; }
+    .section-heading { font-size: 1.5rem; font-weight: 600; color: #334155; margin: 2.5rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #eef2ff; }
+    .question-block { margin-bottom: 1.5rem; background: #f8fafc; border-radius: 14px; box-shadow: 0 2px 12px #0001; border-left: 5px solid #4f46e5; padding: 1.25rem 1.5rem; transition: all 0.2s; position: relative; cursor: pointer; }
+    .question-block:hover { box-shadow: 0 6px 24px #4f46e522; transform: translateY(-2px) scale(1.005); }
+    .question-title { font-weight: 600; color: #334155; font-size: 1.1rem; }
+    .question-block.open .question-title { color: #4f46e5; }
+    .answer-block { max-height: 0; opacity: 0; overflow: hidden; margin-top: 0rem; background: #eef2ff; border-radius: 8px; padding: 0 1rem; color: #334155; transition: all 0.4s ease-in-out; }
+    .question-block.open .answer-block { max-height: 500px; opacity: 1; padding: 0.75rem 1rem; margin-top: 0.75rem; }
+    @media (max-width: 600px) {
+      .container { padding: 1rem 0.5rem; }
+      .sticky-nav { margin: 0 -0.5rem 1.5rem; }
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="gradient-bg">
+  <div class="container">
+    <a href="../quant/chapters/surds.html" class="back-btn">&larr; Back to Surds</a>
+    <div class="motivational-hero">
+      <span class="hero-icon">√</span>
+      <span class="motivational-quote">Every root has a solution!</span>
+    </div>
+    <h1>Practice: Surds</h1>
+    <div class="sticky-nav">
+      <a href="#basic">Basic to Moderate</a>
+    </div>
+    <div id="all-questions">
+      <h2 id="basic" class="section-heading">Basic to Moderate (1-20)</h2>
+      <!-- QUESTIONS START -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is a surd? Give one example.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> A surd is an irrational root that cannot be simplified to a rational number.<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>For example, \( \sqrt{2} \) is a surd because it cannot be written as a simple fraction and its decimal goes on forever without repeating.</li>
+            <li>But \( \sqrt{4} = 2 \) is <b>not</b> a surd, because it is a whole number.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. Is \( \sqrt{9} \) a surd? Why or why not?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> No, \( \sqrt{9} = 3 \) is not a surd.<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>\( \sqrt{9} = 3 \), which is a rational number (a whole number).</li>
+            <li>Surds are only for roots that are <b>irrational</b> (cannot be written as a fraction or whole number).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. Simplify: \( 2\sqrt{3} + 5\sqrt{3} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 7\sqrt{3} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Both terms have the same surd (\( \sqrt{3} \)), so you can add the numbers in front.</li>
+            <li>\( 2\sqrt{3} + 5\sqrt{3} = (2+5)\sqrt{3} = 7\sqrt{3} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. Simplify: \( 4\sqrt{2} - 3\sqrt{2} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( \sqrt{2} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Both terms have \( \sqrt{2} \), so subtract the numbers in front.</li>
+            <li>\( 4\sqrt{2} - 3\sqrt{2} = (4-3)\sqrt{2} = 1\sqrt{2} = \sqrt{2} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. Simplify: \( \sqrt{18} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 3\sqrt{2} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Break 18 into 9 × 2: \( \sqrt{18} = \sqrt{9 \times 2} \)</li>
+            <li>\( \sqrt{9} = 3 \), so \( \sqrt{18} = 3\sqrt{2} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. Simplify: \( \sqrt{50} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 5\sqrt{2} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Break 50 into 25 × 2: \( \sqrt{50} = \sqrt{25 \times 2} \)</li>
+            <li>\( \sqrt{25} = 5 \), so \( \sqrt{50} = 5\sqrt{2} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. Simplify: \( 2\sqrt{5} \times 3\sqrt{2} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 6\sqrt{10} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Multiply the numbers in front: 2 × 3 = 6</li>
+            <li>Multiply the surds: \( \sqrt{5} \times \sqrt{2} = \sqrt{10} \)</li>
+            <li>So, \( 2\sqrt{5} \times 3\sqrt{2} = 6\sqrt{10} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. Simplify: \( \sqrt{12} + \sqrt{27} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 5\sqrt{3} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>\( \sqrt{12} = \sqrt{4 \times 3} = 2\sqrt{3} \)</li>
+            <li>\( \sqrt{27} = \sqrt{9 \times 3} = 3\sqrt{3} \)</li>
+            <li>So, \( 2\sqrt{3} + 3\sqrt{3} = 5\sqrt{3} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. Simplify: \( \sqrt{8} - \sqrt{2} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( \sqrt{8} = 2\sqrt{2} \), so \( 2\sqrt{2} - \sqrt{2} = \sqrt{2} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>\( \sqrt{8} = \sqrt{4 \times 2} = 2\sqrt{2} \)</li>
+            <li>\( 2\sqrt{2} - \sqrt{2} = (2-1)\sqrt{2} = \sqrt{2} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. Simplify: \( \sqrt{45} + \sqrt{20} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 3\sqrt{5} + 2\sqrt{5} = 5\sqrt{5} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>\( \sqrt{45} = \sqrt{9 \times 5} = 3\sqrt{5} \)</li>
+            <li>\( \sqrt{20} = \sqrt{4 \times 5} = 2\sqrt{5} \)</li>
+            <li>So, \( 3\sqrt{5} + 2\sqrt{5} = 5\sqrt{5} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. Multiply: \( \sqrt{3} \times \sqrt{12} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 6 \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>\( \sqrt{3} \times \sqrt{12} = \sqrt{3 \times 12} = \sqrt{36} = 6 \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. Divide: \( 6\sqrt{8} \div 2\sqrt{2} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 6\sqrt{8} \div 2\sqrt{2} = 3\sqrt{4} = 6 \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Divide the numbers: 6 ÷ 2 = 3</li>
+            <li>Divide the surds: \( \sqrt{8} \div \sqrt{2} = \sqrt{8/2} = \sqrt{4} = 2 \)</li>
+            <li>So, \( 3 \times 2 = 6 \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. Rationalize the denominator: \( \frac{3}{\sqrt{5}} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( \frac{3\sqrt{5}}{5} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Multiply top and bottom by \( \sqrt{5} \):</li>
+            <li>\( \frac{3}{\sqrt{5}} \times \frac{\sqrt{5}}{\sqrt{5}} = \frac{3\sqrt{5}}{5} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. Rationalize the denominator: \( \frac{1}{\sqrt{2} + 1} \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( \sqrt{2} - 1 \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Multiply top and bottom by the conjugate (\( \sqrt{2} - 1 \)):</li>
+            <li>\( \frac{1}{\sqrt{2} + 1} \times \frac{\sqrt{2} - 1}{\sqrt{2} - 1} = \frac{\sqrt{2} - 1}{(\sqrt{2})^2 - 1^2} = \frac{\sqrt{2} - 1}{2 - 1} = \sqrt{2} - 1 \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. What is the conjugate of \( 2 + 3\sqrt{5} \)?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 2 - 3\sqrt{5} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>The conjugate is made by changing the plus to minus: \( 2 + 3\sqrt{5} \rightarrow 2 - 3\sqrt{5} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. Simplify: \( (\sqrt{3} + 2)^2 \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 7 + 4\sqrt{3} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Use the formula \( (a+b)^2 = a^2 + 2ab + b^2 \)</li>
+            <li>\( (\sqrt{3})^2 = 3 \), \( 2^2 = 4 \), \( 2 \times \sqrt{3} \times 2 = 4\sqrt{3} \)</li>
+            <li>So, \( 3 + 4 + 4\sqrt{3} = 7 + 4\sqrt{3} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. Simplify: \( (\sqrt{5} - 1)^2 \)</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( 6 - 2\sqrt{5} \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Use the formula \( (a-b)^2 = a^2 - 2ab + b^2 \)</li>
+            <li>\( (\sqrt{5})^2 = 5 \), \( 1^2 = 1 \), \( 2 \times \sqrt{5} \times 1 = 2\sqrt{5} \)</li>
+            <li>So, \( 5 - 2\sqrt{5} + 1 = 6 - 2\sqrt{5} \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. If \( \sqrt{a} = 5 \), what is the value of \( a \)?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( a = 25 \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Square both sides: \( (\sqrt{a})^2 = 5^2 \)</li>
+            <li>\( a = 25 \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. If \( \sqrt{49x} = 21 \), what is the value of \( x \)?</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> \( x = 9 \)<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Square both sides: \( 49x = 21^2 = 441 \)</li>
+            <li>\( x = 441 \div 49 = 9 \)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. True or False: Every square root is a surd.</div>
+        <div class="answer-block">
+          <strong>Answer:</strong> False.<br>
+          <strong>Explanation:</strong>
+          <ul>
+            <li>Only square roots that are <b>irrational</b> (like \( \sqrt{2} \), \( \sqrt{3} \)) are surds.</li>
+            <li>Square roots that are whole numbers (like \( \sqrt{4} = 2 \)) are <b>not</b> surds.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- QUESTIONS END -->
+    </div>
+  </div>
+  <script>
+    // Interactive Q&A
+    document.querySelectorAll('.question-block').forEach(block => {
+      block.addEventListener('click', function(e) {
+        if (e.target.closest('.question-title')) {
+          this.classList.toggle('open');
+        }
+      });
+    });
+  </script>
+</body>
+</html> 
