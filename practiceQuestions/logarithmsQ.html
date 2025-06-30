@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice: Logarithms - ExamsPrepArena</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      font-family: 'Poppins', Arial, sans-serif;
+      position: relative;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #2563eb11;
+    }
+    .back-btn:hover {
+      background: #1e40af;
+      box-shadow: 0 4px 16px #2563eb22;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .motivational-hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+      color: #fff;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 500;
+      padding: 1.1rem 1.5rem 1.1rem 1.2rem;
+      box-shadow: 0 4px 24px #2563eb11;
+      letter-spacing: 0.01em;
+      min-height: 3.2rem;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .hero-icon {
+      font-size: 1.7rem;
+      filter: drop-shadow(0 2px 6px #fff8);
+    }
+    .motivational-quote {
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 2px 8px #2563eb55;
+      min-width: 220px;
+      display: inline-block;
+    }
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      padding: 0.75rem 0;
+      margin: 0 -2.5rem 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      box-shadow: 0 2px 10px #0000000d;
+    }
+    .sticky-nav a {
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+    .sticky-nav a:hover {
+      color: #1e40af;
+      background: #dbeafe;
+    }
+    .section-heading {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2563eb;
+      margin: 2.5rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #dbeafe;
+    }
+    .question-block {
+      margin-bottom: 1.5rem;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0001;
+      border-left: 5px solid #2563eb;
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .question-block:hover {
+      box-shadow: 0 6px 24px #2563eb22;
+      transform: translateY(-2px) scale(1.01);
+    }
+    .question-title {
+      font-weight: 600;
+      color: #2563eb;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.2rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .question-block.open .question-title {
+      color: #1e40af;
+    }
+    .toggle-arrow {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+      color: #2563eb;
+    }
+    .question-block.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+    .answer-block {
+      display: block;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      background: #dbeafe;
+      border-radius: 8px;
+      padding: 0 1rem;
+      color: #2563eb;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px #2563eb11;
+      transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+    }
+    .question-block.open .answer-block {
+      max-height: 500px;
+      opacity: 1;
+      padding: 0.75rem 1rem 1rem 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/logarithms.html" class="back-btn">&larr; Back to Logarithms</a>
+    <div class="motivational-hero">
+      <span class="hero-icon"><i class="fas fa-chart-line"></i></span>
+      <span class="motivational-quote">Logarithms turn multiplication into addition—unlock the power of exponents!</span>
+    </div>
+    <h1>Practice: Logarithms</h1>
+    <div class="sticky-nav">
+      <a href="#basic">Basic</a>
+      <a href="#moderate">Moderate</a>
+      <a href="#advanced">Advanced</a>
+    </div>
+    <div id="all-questions">
+      <h2 id="basic" class="section-heading">Basic (1-10)</h2>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is log<sub>10</sub>(100)?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>10</sub>(100) means "to what power should 10 be raised to get 100?"<br>
+2. 10<sup>2</sup> = 100.<br>
+3. So, log<sub>10</sub>(100) = 2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. What is log<sub>2</sub>(8)?</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>2</sub>(8) means "to what power should 2 be raised to get 8?"<br>
+2. 2<sup>3</sup> = 8.<br>
+3. So, log<sub>2</sub>(8) = 3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. What is log<sub>5</sub>(1)?</div>
+        <div class="answer-block"><b>Answer:</b> 0<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>5</sub>(1) means "to what power should 5 be raised to get 1?"<br>
+2. 5<sup>0</sup> = 1.<br>
+3. So, log<sub>5</sub>(1) = 0.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. What is log<sub>3</sub>(27)?</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>3</sub>(27) means "to what power should 3 be raised to get 27?"<br>
+2. 3<sup>3</sup> = 27.<br>
+3. So, log<sub>3</sub>(27) = 3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. What is log<sub>4</sub>(16)?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>4</sub>(16) means "to what power should 4 be raised to get 16?"<br>
+2. 4<sup>2</sup> = 16.<br>
+3. So, log<sub>4</sub>(16) = 2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. What is log<sub>7</sub>(49)?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>7</sub>(49) means "to what power should 7 be raised to get 49?"<br>
+2. 7<sup>2</sup> = 49.<br>
+3. So, log<sub>7</sub>(49) = 2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. What is log<sub>2</sub>(1/8)?</div>
+        <div class="answer-block"><b>Answer:</b> -3<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>2</sub>(1/8) means "to what power should 2 be raised to get 1/8?"<br>
+2. 2<sup>-3</sup> = 1/8.<br>
+3. So, log<sub>2</sub>(1/8) = -3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. Simplify: log<sub>10</sub>(1000) - log<sub>10</sub>(10)</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Step-by-step Explanation:</b><br>
+1. Use the property: log<sub>a</sub>(b) - log<sub>a</sub>(c) = log<sub>a</sub>(b/c).<br>
+2. log<sub>10</sub>(1000) - log<sub>10</sub>(10) = log<sub>10</sub>(1000/10) = log<sub>10</sub>(100).<br>
+3. log<sub>10</sub>(100) = 2 (from earlier).<br>
+4. So, the answer is 2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. Simplify: log<sub>2</sub>(32) + log<sub>2</sub>(4)</div>
+        <div class="answer-block"><b>Answer:</b> 7<br><b>Step-by-step Explanation:</b><br>
+1. Use the property: log<sub>a</sub>(b) + log<sub>a</sub>(c) = log<sub>a</sub>(b × c).<br>
+2. log<sub>2</sub>(32) + log<sub>2</sub>(4) = log<sub>2</sub>(32 × 4) = log<sub>2</sub>(128).<br>
+3. 2<sup>7</sup> = 128.<br>
+4. So, the answer is 7.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. If log<sub>3</sub>(x) = 4, what is x?</div>
+        <div class="answer-block"><b>Answer:</b> 81<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>3</sub>(x) = 4 means 3<sup>4</sup> = x.<br>
+2. 3<sup>4</sup> = 81.<br>
+3. So, x = 81.
+        </div>
+      </div>
+      <h2 id="moderate" class="section-heading">Moderate (11-14)</h2>
+      <!-- 4 Moderate Questions -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. If log<sub>5</sub>(y) = -1, what is y?</div>
+        <div class="answer-block"><b>Answer:</b> 1/5<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>5</sub>(y) = -1 means 5<sup>-1</sup> = y.<br>
+2. 5<sup>-1</sup> = 1/5.<br>
+3. So, y = 1/5.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. Simplify: 2log<sub>10</sub>(5)</div>
+        <div class="answer-block"><b>Answer:</b> log<sub>10</sub>(25) or approximately 1.39794<br><b>Step-by-step Explanation:</b><br>
+1. Use the property: k·log<sub>a</sub>(b) = log<sub>a</sub>(b<sup>k</sup>).<br>
+2. 2log<sub>10</sub>(5) = log<sub>10</sub>(5<sup>2</sup>) = log<sub>10</sub>(25).<br>
+3. log<sub>10</sub>(25) ≈ 1.39794.<br>
+4. So, the answer is log<sub>10</sub>(25) or approximately 1.39794.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. If log<sub>2</sub>(x) = 5, what is x?</div>
+        <div class="answer-block"><b>Answer:</b> 32<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>2</sub>(x) = 5 means 2<sup>5</sup> = x.<br>
+2. 2<sup>5</sup> = 32.<br>
+3. So, x = 32.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. Simplify: log<sub>4</sub>(64) - log<sub>4</sub>(4)</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Step-by-step Explanation:</b><br>
+1. Use the property: log<sub>a</sub>(b) - log<sub>a</sub>(c) = log<sub>a</sub>(b/c).<br>
+2. log<sub>4</sub>(64) - log<sub>4</sub>(4) = log<sub>4</sub>(64/4) = log<sub>4</sub>(16).<br>
+3. 4<sup>2</sup> = 16.<br>
+4. So, the answer is 2.
+        </div>
+      </div>
+      <h2 id="advanced" class="section-heading">Advanced (15-20)</h2>
+      <!-- 6 Advanced Questions -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. Solve for x: log<sub>2</sub>(x) + log<sub>2</sub>(x-2) = 3</div>
+        <div class="answer-block"><b>Answer:</b> x = 4<br><b>Step-by-step Explanation:</b><br>
+1. Use the property: log<sub>a</sub>(b) + log<sub>a</sub>(c) = log<sub>a</sub>(b × c).<br>
+2. log<sub>2</sub>(x) + log<sub>2</sub>(x-2) = log<sub>2</sub>(x(x-2)).<br>
+3. Set equal to 3: log<sub>2</sub>(x(x-2)) = 3.<br>
+4. 2<sup>3</sup> = x(x-2) → 8 = x(x-2).<br>
+5. x<sup>2</sup> - 2x - 8 = 0.<br>
+6. Factor: (x-4)(x+2) = 0 → x = 4 or x = -2.<br>
+7. Since log is only defined for positive numbers, x = 4.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. Solve for x: log<sub>3</sub>(x) = 2 + log<sub>3</sub>(4)</div>
+        <div class="answer-block"><b>Answer:</b> x = 36<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>3</sub>(x) = 2 + log<sub>3</sub>(4).<br>
+2. 2 = log<sub>3</sub>(9), since 3<sup>2</sup> = 9.<br>
+3. So, log<sub>3</sub>(x) = log<sub>3</sub>(9) + log<sub>3</sub>(4) = log<sub>3</sub>(9 × 4) = log<sub>3</sub>(36).<br>
+4. So, x = 36.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. Solve for y: log<sub>5</sub>(y) + log<sub>5</sub>(y-4) = 1</div>
+        <div class="answer-block"><b>Answer:</b> y = 5<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>5</sub>(y) + log<sub>5</sub>(y-4) = log<sub>5</sub>(y(y-4)).<br>
+2. Set equal to 1: log<sub>5</sub>(y(y-4)) = 1.<br>
+3. 5<sup>1</sup> = y(y-4) → 5 = y(y-4).<br>
+4. y<sup>2</sup> - 4y - 5 = 0.<br>
+5. Factor: (y-5)(y+1) = 0 → y = 5 or y = -1.<br>
+6. Since log is only defined for positive numbers, y = 5.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. If log<sub>2</sub>(x) = 4, what is log<sub>2</sub>(x/8)?</div>
+        <div class="answer-block"><b>Answer:</b> 1<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>2</sub>(x) = 4 means x = 2<sup>4</sup> = 16.<br>
+2. log<sub>2</sub>(x/8) = log<sub>2</sub>(16/8) = log<sub>2</sub>(2) = 1.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. If log<sub>10</sub>(x) = 3, what is log<sub>10</sub>(100x)?</div>
+        <div class="answer-block"><b>Answer:</b> 5<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>10</sub>(x) = 3 means x = 10<sup>3</sup> = 1000.<br>
+2. log<sub>10</sub>(100x) = log<sub>10</sub>(100) + log<sub>10</sub>(x) = 2 + 3 = 5.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. If log<sub>4</sub>(x) = 2, what is log<sub>2</sub>(x)?</div>
+        <div class="answer-block"><b>Answer:</b> 4<br><b>Step-by-step Explanation:</b><br>
+1. log<sub>4</sub>(x) = 2 means x = 4<sup>2</sup> = 16.<br>
+2. log<sub>2</sub>(16) = 4, since 2<sup>4</sup> = 16.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Collapsible Q&A
+    document.querySelectorAll('.question-block').forEach(block => {
+      block.addEventListener('click', function() {
+        this.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

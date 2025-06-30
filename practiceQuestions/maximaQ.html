@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice: Maxima & Minima - ExamsPrepArena</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      font-family: 'Poppins', Arial, sans-serif;
+      position: relative;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #2563eb11;
+    }
+    .back-btn:hover {
+      background: #1e40af;
+      box-shadow: 0 4px 16px #2563eb22;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .motivational-hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+      color: #fff;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 500;
+      padding: 1.1rem 1.5rem 1.1rem 1.2rem;
+      box-shadow: 0 4px 24px #2563eb11;
+      letter-spacing: 0.01em;
+      min-height: 3.2rem;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .hero-icon {
+      font-size: 1.7rem;
+      filter: drop-shadow(0 2px 6px #fff8);
+    }
+    .motivational-quote {
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 2px 8px #2563eb55;
+      min-width: 220px;
+      display: inline-block;
+    }
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      padding: 0.75rem 0;
+      margin: 0 -2.5rem 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      box-shadow: 0 2px 10px #0000000d;
+    }
+    .sticky-nav a {
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+    .sticky-nav a:hover {
+      color: #1e40af;
+      background: #dbeafe;
+    }
+    .section-heading {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2563eb;
+      margin: 2.5rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #dbeafe;
+    }
+    .question-block {
+      margin-bottom: 1.5rem;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0001;
+      border-left: 5px solid #2563eb;
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .question-block:hover {
+      box-shadow: 0 6px 24px #2563eb22;
+      transform: translateY(-2px) scale(1.01);
+    }
+    .question-title {
+      font-weight: 600;
+      color: #2563eb;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.2rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .question-block.open .question-title {
+      color: #1e40af;
+    }
+    .toggle-arrow {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+      color: #2563eb;
+    }
+    .question-block.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+    .answer-block {
+      display: block;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      background: #dbeafe;
+      border-radius: 8px;
+      padding: 0 1rem;
+      color: #2563eb;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px #2563eb11;
+      transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+    }
+    .question-block.open .answer-block {
+      max-height: 500px;
+      opacity: 1;
+      padding: 0.75rem 1rem 1rem 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../quant/chapters/maxima.html" class="back-btn">&larr; Back to Maxima & Minima</a>
+    <div class="motivational-hero">
+      <span class="hero-icon"><i class="fas fa-mountain"></i></span>
+      <span class="motivational-quote">Maxima and minima help us find the highest and lowest points—master optimization!</span>
+    </div>
+    <h1>Practice: Maxima & Minima</h1>
+    <div class="sticky-nav">
+      <a href="#basic">Basic</a>
+      <a href="#moderate">Moderate</a>
+      <a href="#advanced">Advanced</a>
+    </div>
+    <div id="all-questions">
+      <h2 id="basic" class="section-heading">Basic (1-7)</h2>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. What is a maximum point of a function?</div>
+        <div class="answer-block"><b>Answer:</b> The highest point on the graph of a function in a given interval.<br><b>Step-by-step Explanation:</b><br>
+1. A maximum point is where the function reaches its greatest value in a region.<br>
+2. If you draw the graph, the maximum is the "peak" or "top" of the curve.<br>
+3. At this point, the slope (derivative) is zero, and the curve changes from increasing to decreasing.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. What is a minimum point of a function?</div>
+        <div class="answer-block"><b>Answer:</b> The lowest point on the graph of a function in a given interval.<br><b>Step-by-step Explanation:</b><br>
+1. A minimum point is where the function reaches its smallest value in a region.<br>
+2. On the graph, the minimum is the "valley" or "bottom" of the curve.<br>
+3. At this point, the slope (derivative) is zero, and the curve changes from decreasing to increasing.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. What is a critical point?</div>
+        <div class="answer-block"><b>Answer:</b> A point where the derivative is zero or undefined.<br><b>Step-by-step Explanation:</b><br>
+1. A critical point is where the function might have a maximum, minimum, or neither.<br>
+2. It occurs when the first derivative (slope) is zero or does not exist.<br>
+3. We check these points to find maxima and minima.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. Find the critical points of f(x) = x² - 4x + 3.</div>
+        <div class="answer-block"><b>Answer:</b> x = 2<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 2x - 4.<br>
+2. Set f'(x) = 0: 2x - 4 = 0.<br>
+3. Solve for x: 2x = 4 → x = 2.<br>
+4. So, the critical point is at x = 2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. Find the maximum or minimum value of f(x) = -x² + 4x - 1.</div>
+        <div class="answer-block"><b>Answer:</b> Maximum at x = 2, value = 3<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = -2x + 4.<br>
+2. Set f'(x) = 0: -2x + 4 = 0 → x = 2.<br>
+3. Find the second derivative: f''(x) = -2 (which is negative, so it's a maximum).<br>
+4. Substitute x = 2 into f(x): f(2) = -(2)² + 4×2 - 1 = -4 + 8 - 1 = 3.<br>
+5. So, maximum value is 3 at x = 2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. Find the minimum value of f(x) = x² + 6x + 5.</div>
+        <div class="answer-block"><b>Answer:</b> Minimum at x = -3, value = -4<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 2x + 6.<br>
+2. Set f'(x) = 0: 2x + 6 = 0 → x = -3.<br>
+3. Find the second derivative: f''(x) = 2 (which is positive, so it's a minimum).<br>
+4. Substitute x = -3 into f(x): f(-3) = (-3)² + 6×(-3) + 5 = 9 - 18 + 5 = -4.<br>
+5. So, minimum value is -4 at x = -3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. Find the maximum value of f(x) = -2x² + 8x + 1.</div>
+        <div class="answer-block"><b>Answer:</b> Maximum at x = 2, value = 9<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = -4x + 8.<br>
+2. Set f'(x) = 0: -4x + 8 = 0 → x = 2.<br>
+3. Find the second derivative: f''(x) = -4 (which is negative, so it's a maximum).<br>
+4. Substitute x = 2 into f(x): f(2) = -2×(2)² + 8×2 + 1 = -8 + 16 + 1 = 9.<br>
+5. So, maximum value is 9 at x = 2.
+        </div>
+      </div>
+      <h2 id="moderate" class="section-heading">Moderate (8-14)</h2>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. Find the minimum value of f(x) = x² - 10x + 25.</div>
+        <div class="answer-block"><b>Answer:</b> Minimum at x = 5, value = 0<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 2x - 10.<br>
+2. Set f'(x) = 0: 2x - 10 = 0 → x = 5.<br>
+3. Find the second derivative: f''(x) = 2 (which is positive, so it's a minimum).<br>
+4. Substitute x = 5 into f(x): f(5) = (5)² - 10×5 + 25 = 25 - 50 + 25 = 0.<br>
+5. So, minimum value is 0 at x = 5.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. Find the maximum value of f(x) = -x² + 6x - 8.</div>
+        <div class="answer-block"><b>Answer:</b> Maximum at x = 3, value = 1<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = -2x + 6.<br>
+2. Set f'(x) = 0: -2x + 6 = 0 → x = 3.<br>
+3. Find the second derivative: f''(x) = -2 (which is negative, so it's a maximum).<br>
+4. Substitute x = 3 into f(x): f(3) = -(3)² + 6×3 - 8 = -9 + 18 - 8 = 1.<br>
+5. So, maximum value is 1 at x = 3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. Find the minimum value of f(x) = 2x² - 12x + 20.</div>
+        <div class="answer-block"><b>Answer:</b> Minimum at x = 3, value = 2<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 4x - 12.<br>
+2. Set f'(x) = 0: 4x - 12 = 0 → x = 3.<br>
+3. Find the second derivative: f''(x) = 4 (which is positive, so it's a minimum).<br>
+4. Substitute x = 3 into f(x): f(3) = 2×(3)² - 12×3 + 20 = 18 - 36 + 20 = 2.<br>
+5. So, minimum value is 2 at x = 3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. Find the maximum value of f(x) = -3x² + 12x - 7.</div>
+        <div class="answer-block"><b>Answer:</b> Maximum at x = 2, value = 5<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = -6x + 12.<br>
+2. Set f'(x) = 0: -6x + 12 = 0 → x = 2.<br>
+3. Find the second derivative: f''(x) = -6 (which is negative, so it's a maximum).<br>
+4. Substitute x = 2 into f(x): f(2) = -3×(2)² + 12×2 - 7 = -12 + 24 - 7 = 5.<br>
+5. So, maximum value is 5 at x = 2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. Find the minimum value of f(x) = x² + 2x + 1.</div>
+        <div class="answer-block"><b>Answer:</b> Minimum at x = -1, value = 0<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 2x + 2.<br>
+2. Set f'(x) = 0: 2x + 2 = 0 → x = -1.<br>
+3. Find the second derivative: f''(x) = 2 (which is positive, so it's a minimum).<br>
+4. Substitute x = -1 into f(x): f(-1) = (-1)² + 2×(-1) + 1 = 1 - 2 + 1 = 0.<br>
+5. So, minimum value is 0 at x = -1.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. Find the maximum value of f(x) = -x² + 2x + 3.</div>
+        <div class="answer-block"><b>Answer:</b> Maximum at x = 1, value = 4<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = -2x + 2.<br>
+2. Set f'(x) = 0: -2x + 2 = 0 → x = 1.<br>
+3. Find the second derivative: f''(x) = -2 (which is negative, so it's a maximum).<br>
+4. Substitute x = 1 into f(x): f(1) = -1 + 2 + 3 = 4.<br>
+5. So, maximum value is 4 at x = 1.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. Find the minimum value of f(x) = 3x² - 18x + 27.</div>
+        <div class="answer-block"><b>Answer:</b> Minimum at x = 3, value = 0<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 6x - 18.<br>
+2. Set f'(x) = 0: 6x - 18 = 0 → x = 3.<br>
+3. Find the second derivative: f''(x) = 6 (which is positive, so it's a minimum).<br>
+4. Substitute x = 3 into f(x): f(3) = 3×(3)² - 18×3 + 27 = 27 - 54 + 27 = 0.<br>
+5. So, minimum value is 0 at x = 3.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. Find the maximum value of f(x) = -2x² + 4x + 6.</div>
+        <div class="answer-block"><b>Answer:</b> Maximum at x = 1, value = 8<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = -4x + 4.<br>
+2. Set f'(x) = 0: -4x + 4 = 0 → x = 1.<br>
+3. Find the second derivative: f''(x) = -4 (which is negative, so it's a maximum).<br>
+4. Substitute x = 1 into f(x): f(1) = -2×(1)² + 4×1 + 6 = -2 + 4 + 6 = 8.<br>
+5. So, maximum value is 8 at x = 1.
+        </div>
+      </div>
+      <h2 id="advanced" class="section-heading">Advanced (16-20)</h2>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. Find the minimum value of f(x) = x² - 8x + 16.</div>
+        <div class="answer-block"><b>Answer:</b> Minimum at x = 4, value = 0<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 2x - 8.<br>
+2. Set f'(x) = 0: 2x - 8 = 0 → x = 4.<br>
+3. Find the second derivative: f''(x) = 2 (which is positive, so it's a minimum).<br>
+4. Substitute x = 4 into f(x): f(4) = (4)² - 8×4 + 16 = 16 - 32 + 16 = 0.<br>
+5. So, minimum value is 0 at x = 4.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. Find the maximum value of f(x) = -x² + 10x - 21.</div>
+        <div class="answer-block"><b>Answer:</b> Maximum at x = 5, value = 4<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = -2x + 10.<br>
+2. Set f'(x) = 0: -2x + 10 = 0 → x = 5.<br>
+3. Find the second derivative: f''(x) = -2 (which is negative, so it's a maximum).<br>
+4. Substitute x = 5 into f(x): f(5) = -25 + 50 - 21 = 4.<br>
+5. So, maximum value is 4 at x = 5.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. Find the minimum value of f(x) = x² + 4x + 4.</div>
+        <div class="answer-block"><b>Answer:</b> Minimum at x = -2, value = 0<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 2x + 4.<br>
+2. Set f'(x) = 0: 2x + 4 = 0 → x = -2.<br>
+3. Find the second derivative: f''(x) = 2 (which is positive, so it's a minimum).<br>
+4. Substitute x = -2 into f(x): f(-2) = (-2)² + 4×(-2) + 4 = 4 - 8 + 4 = 0.<br>
+5. So, minimum value is 0 at x = -2.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. Find the maximum value of f(x) = -x² + 12x - 36.</div>
+        <div class="answer-block"><b>Answer:</b> Maximum at x = 6, value = 0<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = -2x + 12.<br>
+2. Set f'(x) = 0: -2x + 12 = 0 → x = 6.<br>
+3. Find the second derivative: f''(x) = -2 (which is negative, so it's a maximum).<br>
+4. Substitute x = 6 into f(x): f(6) = -36 + 72 - 36 = 0.<br>
+5. So, maximum value is 0 at x = 6.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. Find the minimum value of f(x) = 2x² - 16x + 32.</div>
+        <div class="answer-block"><b>Answer:</b> Minimum at x = 4, value = 0<br><b>Step-by-step Explanation:</b><br>
+1. Find the first derivative: f'(x) = 4x - 16.<br>
+2. Set f'(x) = 0: 4x - 16 = 0 → x = 4.<br>
+3. Find the second derivative: f''(x) = 4 (which is positive, so it's a minimum).<br>
+4. Substitute x = 4 into f(x): f(4) = 2×(4)² - 16×4 + 32 = 32 - 64 + 32 = 0.<br>
+5. So, minimum value is 0 at x = 4.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Collapsible Q&A
+    document.querySelectorAll('.question-block').forEach(block => {
+      block.addEventListener('click', function() {
+        this.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

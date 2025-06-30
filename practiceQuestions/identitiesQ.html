@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice: Identities - ExamsPrepArena</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+      font-family: 'Poppins', Arial, sans-serif;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 20% 30%, #a5b4fc55 0, #e0e7ff00 60%),
+                  radial-gradient(circle at 80% 70%, #818cf855 0, #e0e7ff00 60%),
+                  radial-gradient(circle at 60% 10%, #34d39944 0, #e0e7ff00 60%);
+      animation: bgmove 12s linear infinite alternate;
+    }
+    @keyframes bgmove {
+      0% { background-position: 20% 30%, 80% 70%, 60% 10%; }
+      100% { background-position: 25% 35%, 75% 65%, 65% 15%; }
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px #0002;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: #6366f1;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px #6366f111;
+    }
+    .back-btn:hover {
+      background: #3730a3;
+      box-shadow: 0 4px 16px #6366f122;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1e293b;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .motivational-hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+      color: #fff;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 500;
+      padding: 1.1rem 1.5rem 1.1rem 1.2rem;
+      box-shadow: 0 4px 24px #6366f122;
+      letter-spacing: 0.01em;
+      min-height: 3.2rem;
+      position: relative;
+      overflow: hidden;
+      animation: heroFadeIn 1.2s cubic-bezier(.4,2,.6,1);
+      margin-bottom: 1.5rem;
+    }
+    .hero-icon {
+      font-size: 1.7rem;
+      filter: drop-shadow(0 2px 6px #fff8);
+      animation: icon-bounce 2.5s infinite cubic-bezier(.4,2,.6,1);
+    }
+    @keyframes icon-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px) scale(1.08); }
+    }
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+      to { opacity: 1; transform: none; }
+    }
+    .motivational-quote {
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 2px 8px #3730a355;
+      transition: opacity 0.5s;
+      min-width: 220px;
+      display: inline-block;
+    }
+    @media (max-width: 600px) {
+      .motivational-hero { font-size: 0.98rem; padding: 0.7rem 0.7rem; }
+      .motivational-quote { font-size: 0.97rem; min-width: 120px; }
+      .hero-icon { font-size: 1.2rem; }
+    }
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      padding: 0.75rem 0;
+      margin: 0 -2.5rem 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      box-shadow: 0 2px 10px #0000000d;
+    }
+    .sticky-nav a {
+      font-weight: 600;
+      color: #475569;
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+    .sticky-nav a:hover {
+      color: #6366f1;
+      background: #eef2ff;
+    }
+    .section-heading {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #334155;
+      margin: 2.5rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #eef2ff;
+    }
+    .question-block {
+      margin-bottom: 1.5rem;
+      background: #f8fafc;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0001;
+      border-left: 5px solid #6366f1;
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    .question-block:hover {
+      box-shadow: 0 6px 24px #6366f122;
+      transform: translateY(-2px) scale(1.01);
+    }
+    .question-title {
+      font-weight: 600;
+      color: #334155;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.2rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .question-block.open .question-title {
+      color: #6366f1;
+    }
+    .toggle-arrow {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+      color: #6366f1;
+    }
+    .question-block.open .toggle-arrow {
+      transform: rotate(90deg);
+    }
+    .answer-block {
+      display: block;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0.5rem;
+      background: #eef2ff;
+      border-radius: 8px;
+      padding: 0 1rem;
+      color: #334155;
+      font-size: 1rem;
+      box-shadow: 0 1px 4px #6366f111;
+      transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+    }
+    .question-block.open .answer-block {
+      max-height: 500px;
+      opacity: 1;
+      padding: 0.75rem 1rem 1rem 1rem;
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="gradient-bg">
+  <div class="container">
+    <a href="../quant/chapters/identities.html" class="back-btn">&larr; Back to Identities Chapter</a>
+    <div class="motivational-hero">
+      <span class="hero-icon"><i class="fas fa-fingerprint"></i></span>
+      <span id="motivational-quote" class="motivational-quote">Algebraic identities are the fingerprints of mathematics—unique, powerful, and everywhere!</span>
+    </div>
+    <h1>Practice: Identities</h1>
+    <div class="sticky-nav">
+      <a href="#basic">Basic</a>
+      <a href="#moderate">Moderate</a>
+      <a href="#advanced">Advanced</a>
+    </div>
+    <div id="all-questions">
+      <h2 id="basic" class="section-heading">Basic (1-7)</h2>
+      <!-- 7 Basic Questions -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>1. Expand: (a + b)<sup>2</sup></div>
+        <div class="answer-block"><b>Answer:</b> a<sup>2</sup> + 2ab + b<sup>2</sup><br><b>Step-by-step Explanation:</b><br>
+1. We use the identity <b>(a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup></b>.<br>
+2. This means we multiply (a + b) by itself: (a + b) × (a + b).<br>
+3. First, multiply <b>a</b> by both terms in the second bracket: a × a = a<sup>2</sup>, a × b = ab.<br>
+4. Next, multiply <b>b</b> by both terms: b × a = ab, b × b = b<sup>2</sup>.<br>
+5. Add all the terms: a<sup>2</sup> + ab + ab + b<sup>2</sup>.<br>
+6. Combine like terms: a<sup>2</sup> + 2ab + b<sup>2</sup>.<br>
+7. So, (a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>2. Factorize: x<sup>2</sup> - 9</div>
+        <div class="answer-block"><b>Answer:</b> (x + 3)(x - 3)<br><b>Step-by-step Explanation:</b><br>
+1. We use the identity <b>a<sup>2</sup> - b<sup>2</sup> = (a + b)(a - b)</b>.<br>
+2. Here, x<sup>2</sup> - 9 can be written as x<sup>2</sup> - 3<sup>2</sup>.<br>
+3. So, a = x and b = 3.<br>
+4. Substitute into the identity: (x + 3)(x - 3).<br>
+5. Therefore, x<sup>2</sup> - 9 = (x + 3)(x - 3).
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>3. Expand: (a - b)<sup>2</sup></div>
+        <div class="answer-block"><b>Answer:</b> a<sup>2</sup> - 2ab + b<sup>2</sup><br><b>Step-by-step Explanation:</b><br>
+1. We use the identity <b>(a - b)<sup>2</sup> = a<sup>2</sup> - 2ab + b<sup>2</sup></b>.<br>
+2. This means we multiply (a - b) by itself: (a - b) × (a - b).<br>
+3. First, multiply <b>a</b> by both terms: a × a = a<sup>2</sup>, a × (-b) = -ab.<br>
+4. Next, multiply <b>-b</b> by both terms: -b × a = -ab, -b × -b = b<sup>2</sup>.<br>
+5. Add all the terms: a<sup>2</sup> - ab - ab + b<sup>2</sup>.<br>
+6. Combine like terms: a<sup>2</sup> - 2ab + b<sup>2</sup>.<br>
+7. So, (a - b)<sup>2</sup> = a<sup>2</sup> - 2ab + b<sup>2</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>4. Factorize: x<sup>2</sup> + 6x + 9</div>
+        <div class="answer-block"><b>Answer:</b> (x + 3)<sup>2</sup><br><b>Step-by-step Explanation:</b><br>
+1. Notice that x<sup>2</sup> + 6x + 9 looks like the expansion of (x + b)<sup>2</sup>.<br>
+2. Let's compare: (x + 3)<sup>2</sup> = x<sup>2</sup> + 2×x×3 + 3<sup>2</sup> = x<sup>2</sup> + 6x + 9.<br>
+3. So, x<sup>2</sup> + 6x + 9 = (x + 3)<sup>2</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>5. Expand: (2x - 5y)<sup>2</sup></div>
+        <div class="answer-block"><b>Answer:</b> 4x<sup>2</sup> - 20xy + 25y<sup>2</sup><br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>(a - b)<sup>2</sup> = a<sup>2</sup> - 2ab + b<sup>2</sup></b>.<br>
+2. Here, a = 2x and b = 5y.<br>
+3. (2x - 5y)<sup>2</sup> = (2x)<sup>2</sup> - 2×2x×5y + (5y)<sup>2</sup>.<br>
+4. Calculate each part: (2x)<sup>2</sup> = 4x<sup>2</sup>, 2×2x×5y = 20xy, (5y)<sup>2</sup> = 25y<sup>2</sup>.<br>
+5. Put it together: 4x<sup>2</sup> - 20xy + 25y<sup>2</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>6. Factorize: a<sup>2</sup> + 2ab + b<sup>2</sup></div>
+        <div class="answer-block"><b>Answer:</b> (a + b)<sup>2</sup><br><b>Step-by-step Explanation:</b><br>
+1. This is the expansion of (a + b)<sup>2</sup>.<br>
+2. (a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup>.<br>
+3. So, a<sup>2</sup> + 2ab + b<sup>2</sup> = (a + b)<sup>2</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>7. Expand: (x + 4)<sup>2</sup></div>
+        <div class="answer-block"><b>Answer:</b> x<sup>2</sup> + 8x + 16<br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>(a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup></b>.<br>
+2. Here, a = x and b = 4.<br>
+3. (x + 4)<sup>2</sup> = x<sup>2</sup> + 2×x×4 + 4<sup>2</sup>.<br>
+4. Calculate: x<sup>2</sup> + 8x + 16.
+        </div>
+      </div>
+      <h2 id="moderate" class="section-heading">Moderate (8-14)</h2>
+      <!-- 7 Moderate Questions -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>8. Expand: (a + b + c)<sup>2</sup></div>
+        <div class="answer-block"><b>Answer:</b> a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + 2ab + 2bc + 2ca<br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>(a + b + c)<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + 2ab + 2bc + 2ca</b>.<br>
+2. Expand (a + b + c) × (a + b + c).<br>
+3. Multiply each term in the first bracket by each in the second.<br>
+4. Collect like terms: a<sup>2</sup>, b<sup>2</sup>, c<sup>2</sup>, ab, bc, ca.<br>
+5. Add: a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + ab + ab + bc + bc + ca + ca.<br>
+6. Combine: a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + 2ab + 2bc + 2ca.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>9. Factorize: x<sup>2</sup> - 2xy + y<sup>2</sup></div>
+        <div class="answer-block"><b>Answer:</b> (x - y)<sup>2</sup><br><b>Step-by-step Explanation:</b><br>
+1. This is the expansion of (x - y)<sup>2</sup>.<br>
+2. (x - y)<sup>2</sup> = x<sup>2</sup> - 2xy + y<sup>2</sup>.<br>
+3. So, x<sup>2</sup> - 2xy + y<sup>2</sup> = (x - y)<sup>2</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>10. Expand: (a + b)<sup>3</sup></div>
+        <div class="answer-block"><b>Answer:</b> a<sup>3</sup> + 3a<sup>2</sup>b + 3ab<sup>2</sup> + b<sup>3</sup><br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>(a + b)<sup>3</sup> = a<sup>3</sup> + 3a<sup>2</sup>b + 3ab<sup>2</sup> + b<sup>3</sup></b>.<br>
+2. (a + b)<sup>3</sup> = (a + b) × (a + b) × (a + b).<br>
+3. First, expand (a + b) × (a + b) = a<sup>2</sup> + 2ab + b<sup>2</sup>.<br>
+4. Now, multiply (a + b) by (a<sup>2</sup> + 2ab + b<sup>2</sup>):<br>
+   - a × a<sup>2</sup> = a<sup>3</sup>
+   - a × 2ab = 2a<sup>2</sup>b
+   - a × b<sup>2</sup> = ab<sup>2</sup>
+   - b × a<sup>2</sup> = a<sup>2</sup>b
+   - b × 2ab = 2ab<sup>2</sup>
+   - b × b<sup>2</sup> = b<sup>3</sup>
+5. Add all terms: a<sup>3</sup> + 2a<sup>2</sup>b + ab<sup>2</sup> + a<sup>2</sup>b + 2ab<sup>2</sup> + b<sup>3</sup>.<br>
+6. Combine like terms: a<sup>3</sup> + 3a<sup>2</sup>b + 3ab<sup>2</sup> + b<sup>3</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>11. Factorize: x<sup>3</sup> + 27</div>
+        <div class="answer-block"><b>Answer:</b> (x + 3)(x<sup>2</sup> - 3x + 9)<br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>a<sup>3</sup> + b<sup>3</sup> = (a + b)(a<sup>2</sup> - ab + b<sup>2</sup>)</b>.<br>
+2. Here, x<sup>3</sup> + 27 = x<sup>3</sup> + 3<sup>3</sup>.<br>
+3. So, a = x and b = 3.<br>
+4. Substitute into the identity: (x + 3)(x<sup>2</sup> - 3x + 9).
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>12. Expand: (2x - 3y)<sup>3</sup></div>
+        <div class="answer-block"><b>Answer:</b> 8x<sup>3</sup> - 36x<sup>2</sup>y + 54xy<sup>2</sup> - 27y<sup>3</sup><br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>(a - b)<sup>3</sup> = a<sup>3</sup> - 3a<sup>2</sup>b + 3ab<sup>2</sup> - b<sup>3</sup></b>.<br>
+2. Here, a = 2x and b = 3y.<br>
+3. (2x - 3y)<sup>3</sup> = (2x)<sup>3</sup> - 3×(2x)<sup>2</sup>×3y + 3×2x×(3y)<sup>2</sup> - (3y)<sup>3</sup>.<br>
+4. Calculate each part: (2x)<sup>3</sup> = 8x<sup>3</sup>, (2x)<sup>2</sup> = 4x<sup>2</sup>, 3×4x<sup>2</sup>×3y = 36x<sup>2</sup>y, (3y)<sup>2</sup> = 9y<sup>2</sup>, 3×2x×9y<sup>2</sup> = 54xy<sup>2</sup>, (3y)<sup>3</sup> = 27y<sup>3</sup>.<br>
+5. Put it together: 8x<sup>3</sup> - 36x<sup>2</sup>y + 54xy<sup>2</sup> - 27y<sup>3</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>13. Factorize: a<sup>3</sup> - b<sup>3</sup></div>
+        <div class="answer-block"><b>Answer:</b> (a - b)(a<sup>2</sup> + ab + b<sup>2</sup>)<br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>a<sup>3</sup> - b<sup>3</sup> = (a - b)(a<sup>2</sup> + ab + b<sup>2</sup>)</b>.<br>
+2. Substitute a and b into the identity.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>14. Expand: (x + 2y + 3z)<sup>2</sup></div>
+        <div class="answer-block"><b>Answer:</b> x<sup>2</sup> + 4xy + 9z<sup>2</sup> + 4y<sup>2</sup> + 12yz + 12xz<br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>(a + b + c)<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + 2ab + 2bc + 2ca</b>.<br>
+2. Here, a = x, b = 2y, c = 3z.<br>
+3. (x + 2y + 3z)<sup>2</sup> = x<sup>2</sup> + (2y)<sup>2</sup> + (3z)<sup>2</sup> + 2×x×2y + 2×2y×3z + 2×3z×x.<br>
+4. Calculate: x<sup>2</sup> + 4y<sup>2</sup> + 9z<sup>2</sup> + 4xy + 12yz + 6xz.
+        </div>
+      </div>
+      <h2 id="advanced" class="section-heading">Advanced (15-20)</h2>
+      <!-- 6 Advanced Questions -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>15. Prove: (a + b + c)<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + 2ab + 2bc + 2ca</div>
+        <div class="answer-block"><b>Answer:</b> True<br><b>Step-by-step Explanation:</b><br>
+1. Expand (a + b + c) × (a + b + c).<br>
+2. Multiply each term in the first bracket by each in the second.<br>
+3. Collect like terms: a<sup>2</sup>, b<sup>2</sup>, c<sup>2</sup>, ab, bc, ca.<br>
+4. Add: a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + ab + ab + bc + bc + ca + ca.<br>
+5. Combine: a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + 2ab + 2bc + 2ca.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>16. If a + b + c = 0, show that a<sup>3</sup> + b<sup>3</sup> + c<sup>3</sup> = 3abc</div>
+        <div class="answer-block"><b>Answer:</b> True<br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>a<sup>3</sup> + b<sup>3</sup> + c<sup>3</sup> - 3abc = (a + b + c)(a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> - ab - bc - ca)</b>.<br>
+2. If a + b + c = 0, then the right side becomes 0.<br>
+3. So, a<sup>3</sup> + b<sup>3</sup> + c<sup>3</sup> - 3abc = 0 ⇒ a<sup>3</sup> + b<sup>3</sup> + c<sup>3</sup> = 3abc.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>17. Factorize: x<sup>4</sup> - 16</div>
+        <div class="answer-block"><b>Answer:</b> (x<sup>2</sup> + 4)(x + 2)(x - 2)<br><b>Step-by-step Explanation:</b><br>
+1. x<sup>4</sup> - 16 = (x<sup>2</sup>)<sup>2</sup> - 4<sup>2</sup>.<br>
+2. Use the identity <b>a<sup>2</sup> - b<sup>2</sup> = (a + b)(a - b)</b>.<br>
+3. Here, a = x<sup>2</sup>, b = 4.<br>
+4. So, (x<sup>2</sup> + 4)(x<sup>2</sup> - 4).<br>
+5. Now, factor x<sup>2</sup> - 4 again: (x + 2)(x - 2).
+6. Final answer: (x<sup>2</sup> + 4)(x + 2)(x - 2).
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>18. Expand: (a - b)<sup>3</sup></div>
+        <div class="answer-block"><b>Answer:</b> a<sup>3</sup> - 3a<sup>2</sup>b + 3ab<sup>2</sup> - b<sup>3</sup><br><b>Step-by-step Explanation:</b><br>
+1. Use the identity <b>(a - b)<sup>3</sup> = a<sup>3</sup> - 3a<sup>2</sup>b + 3ab<sup>2</sup> - b<sup>3</sup></b>.<br>
+2. (a - b)<sup>3</sup> = (a - b) × (a - b) × (a - b).<br>
+3. First, expand (a - b) × (a - b) = a<sup>2</sup> - 2ab + b<sup>2</sup>.<br>
+4. Now, multiply (a - b) by (a<sup>2</sup> - 2ab + b<sup>2</sup>):<br>
+   - a × a<sup>2</sup> = a<sup>3</sup>
+   - a × -2ab = -2a<sup>2</sup>b
+   - a × b<sup>2</sup> = ab<sup>2</sup>
+   - -b × a<sup>2</sup> = -a<sup>2</sup>b
+   - -b × -2ab = 2ab<sup>2</sup>
+   - -b × b<sup>2</sup> = -b<sup>3</sup>
+5. Add all terms: a<sup>3</sup> - 2a<sup>2</sup>b + ab<sup>2</sup> - a<sup>2</sup>b + 2ab<sup>2</sup> - b<sup>3</sup>.<br>
+6. Combine like terms: a<sup>3</sup> - 3a<sup>2</sup>b + 3ab<sup>2</sup> - b<sup>3</sup>.
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>19. Factorize: a<sup>4</sup> - b<sup>4</sup></div>
+        <div class="answer-block"><b>Answer:</b> (a<sup>2</sup> + b<sup>2</sup>)(a + b)(a - b)<br><b>Step-by-step Explanation:</b><br>
+1. a<sup>4</sup> - b<sup>4</sup> = (a<sup>2</sup>)<sup>2</sup> - (b<sup>2</sup>)<sup>2</sup>.<br>
+2. Use the identity <b>a<sup>2</sup> - b<sup>2</sup> = (a + b)(a - b)</b>.<br>
+3. Here, a = a<sup>2</sup>, b = b<sup>2</sup>.<br>
+4. So, (a<sup>2</sup> + b<sup>2</sup>)(a<sup>2</sup> - b<sup>2</sup>).<br>
+5. Now, factor a<sup>2</sup> - b<sup>2</sup> again: (a + b)(a - b).
+6. Final answer: (a<sup>2</sup> + b<sup>2</sup>)(a + b)(a - b).
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>20. If x + 1/x = 2, find x<sup>3</sup> + 1/x<sup>3</sup></div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Step-by-step Explanation:</b><br>
+1. We are given x + 1/x = 2.<br>
+2. Use the identity <b>(a + b)<sup>3</sup> = a<sup>3</sup> + b<sup>3</sup> + 3ab(a + b)</b>.<br>
+3. Let a = x, b = 1/x.<br>
+4. So, (x + 1/x)<sup>3</sup> = x<sup>3</sup> + 1/x<sup>3</sup> + 3x × 1/x × (x + 1/x).<br>
+5. x × 1/x = 1, so 3 × 1 × (x + 1/x) = 3 × 2 = 6.<br>
+6. (x + 1/x)<sup>3</sup> = 8 (since 2<sup>3</sup> = 8).<br>
+7. So, 8 = x<sup>3</sup> + 1/x<sup>3</sup> + 6 ⇒ x<sup>3</sup> + 1/x<sup>3</sup> = 2.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Collapsible Q&A
+    document.querySelectorAll('.question-block').forEach(block => {
+      block.addEventListener('click', function() {
+        this.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 

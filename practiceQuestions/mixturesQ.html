@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice: Mixtures & Alligations - ExamsPrepArena</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+            font-family: 'Poppins', Arial, sans-serif;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 20% 30%, #a5b4fc55 0, #e0e7ff00 60%),
+                        radial-gradient(circle at 80% 70%, #f472b655 0, #e0e7ff00 60%),
+                        radial-gradient(circle at 60% 10%, #34d39944 0, #e0e7ff00 60%);
+            animation: bgmove 12s linear infinite alternate;
+        }
+        @keyframes bgmove {
+            0% { background-position: 20% 30%, 80% 70%, 60% 10%; }
+            100% { background-position: 25% 35%, 75% 65%, 65% 15%; }
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 6px 32px #0002;
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1.2rem;
+            background: #0ea5e9;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px #0ea5e911;
+        }
+        .back-btn:hover {
+            background: #0369a1;
+            box-shadow: 0 4px 16px #0ea5e522;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        .motivational-hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 100%);
+            color: #fff;
+            border-radius: 14px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            padding: 1.1rem 1.5rem 1.1rem 1.2rem;
+            box-shadow: 0 4px 24px #0ea5e922;
+            letter-spacing: 0.01em;
+            min-height: 3.2rem;
+            position: relative;
+            overflow: hidden;
+            animation: heroFadeIn 1.2s cubic-bezier(.4,2,.6,1);
+            margin-bottom: 1.5rem;
+        }
+        .hero-icon {
+            font-size: 1.7rem;
+            filter: drop-shadow(0 2px 6px #fff8);
+            animation: icon-bounce 2.5s infinite cubic-bezier(.4,2,.6,1);
+        }
+        @keyframes icon-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px) scale(1.08); }
+        }
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+            to { opacity: 1; transform: none; }
+        }
+        .motivational-quote {
+            font-size: 1.08rem;
+            font-weight: 500;
+            color: #fff;
+            text-shadow: 0 2px 8px #0369a155;
+            transition: opacity 0.5s;
+            min-width: 220px;
+            display: inline-block;
+        }
+        @media (max-width: 600px) {
+            .motivational-hero { font-size: 0.98rem; padding: 0.7rem 0.7rem; }
+            .motivational-quote { font-size: 0.97rem; min-width: 120px; }
+            .hero-icon { font-size: 1.2rem; }
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10;
+            padding: 0.75rem 0;
+            margin: 0 -2.5rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            box-shadow: 0 2px 10px #0000000d;
+        }
+        .sticky-nav a {
+            font-weight: 600;
+            color: #0ea5e9;
+            text-decoration: none;
+            transition: color 0.2s;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+        }
+        .sticky-nav a:hover {
+            color: #fff;
+            background: #0ea5e9;
+        }
+        .section-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #334155;
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eef2ff;
+        }
+        .question-block {
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #0001;
+            border-left: 5px solid #0ea5e9;
+            padding: 1.25rem 1.5rem 1rem 1.5rem;
+            transition: box-shadow 0.2s, transform 0.2s;
+            position: relative;
+            cursor: pointer;
+        }
+        .question-block:hover {
+            box-shadow: 0 6px 24px #0ea5e922;
+            transform: translateY(-2px) scale(1.01);
+        }
+        .question-title {
+            font-weight: 600;
+            color: #334155;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 2.2rem;
+            user-select: none;
+            transition: color 0.2s;
+        }
+        .question-block.open .question-title {
+            color: #0ea5e9;
+        }
+        .toggle-arrow {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+            color: #0ea5e9;
+        }
+        .question-block.open .toggle-arrow {
+            transform: rotate(90deg);
+        }
+        .answer-block {
+            display: block;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0.5rem;
+            background: #eef2ff;
+            border-radius: 8px;
+            padding: 0 1rem;
+            color: #334155;
+            font-size: 1rem;
+            box-shadow: 0 1px 4px #0ea5e911;
+            transition: max-height 0.4s cubic-bezier(.4,2,.6,1), opacity 0.3s;
+        }
+        .question-block.open .answer-block {
+            max-height: 500px;
+            opacity: 1;
+            padding: 0.75rem 1rem 1rem 1rem;
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <div class="container">
+        <a href="../quant/chapters/mixtures.html" class="back-btn">&larr; Back to Mixtures Chapter</a>
+        <div class="motivational-hero">
+            <span class="hero-icon">⚗️</span>
+            <span id="motivational-quote" class="motivational-quote">Mixtures make life interesting. Master them, and you'll ace every exam!</span>
+        </div>
+        <h1>Practice: Mixtures & Alligations</h1>
+        <div class="sticky-nav">
+            <a href="#basic">Basic</a>
+            <a href="#moderate">Moderate</a>
+            <a href="#advanced">Advanced</a>
+        </div>
+        <div id="all-questions">
+            <h2 id="basic" class="section-heading">Basic (1-7)</h2>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>1. What is a mixture in mathematics?</div>
+                <div class="answer-block"><b>Answer:</b> A mixture is a combination of two or more substances (liquids or solids) in any ratio.<br><b>Step-by-step Explanation:</b><br>1. In math, a mixture problem involves combining different items with known quantities and concentrations.<br>2. The goal is to find the final concentration or amount after mixing.<br>3. Example: Mixing 2L of 20% salt solution with 3L of 30% salt solution.<br>4. The result is a new mixture with a different concentration.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>2. What is the alligation rule?</div>
+                <div class="answer-block"><b>Answer:</b> The alligation rule is a method to find the ratio in which two or more ingredients at different concentrations must be mixed to get a mixture of a desired concentration.<br><b>Step-by-step Explanation:</b><br>1. The rule uses a simple formula: (Higher concentration - Mean concentration) : (Mean concentration - Lower concentration).<br>2. This gives the ratio in which the two solutions should be mixed.<br>3. Example: Mix 20% and 40% solutions to get 30%. Ratio = (40-30):(30-20) = 10:10 = 1:1.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>3. If you mix 3L of 20% salt solution with 2L of 30% salt solution, what is the concentration of the resulting mixture?</div>
+                <div class="answer-block"><b>Answer:</b> 24%<br><b>Step-by-step Explanation:</b><br>1. Find the total salt: (3 × 20%) + (2 × 30%) = 0.6 + 0.6 = 1.2L.<br>2. Total volume = 3L + 2L = 5L.<br>3. Concentration = (1.2/5) × 100 = 24%.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>4. How much water should be added to 4L of 40% alcohol solution to make it a 20% solution?</div>
+                <div class="answer-block"><b>Answer:</b> 4L<br><b>Step-by-step Explanation:</b><br>1. Amount of alcohol in 4L = 4 × 40% = 1.6L.<br>2. Let x = amount of water to add.<br>3. New total volume = 4 + x.<br>4. New concentration = 1.6/(4 + x) × 100 = 20%.<br>5. 1.6/(4 + x) = 0.2 → 1.6 = 0.2(4 + x) → 1.6 = 0.8 + 0.2x → 0.8 = 0.2x → x = 4L.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>5. In what ratio should 25% and 60% acid solutions be mixed to get a 40% solution?</div>
+                <div class="answer-block"><b>Answer:</b> 2:1<br><b>Step-by-step Explanation:</b><br>1. Use alligation: (60-40):(40-25) = 20:15 = 4:3.<br>2. But check: 25% is lower, 60% is higher, mean is 40%.<br>3. (60-40):(40-25) = 20:15 = 4:3.<br>4. So, mix 4 parts of 25% with 3 parts of 60% to get 40% solution.<br>5. (If the question asks for 25%:60%, answer is 4:3.)</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>6. A 10L mixture contains milk and water in the ratio 3:2. How much milk is there?</div>
+                <div class="answer-block"><b>Answer:</b> 6L<br><b>Step-by-step Explanation:</b><br>1. Ratio of milk:water = 3:2, so total parts = 3+2 = 5.<br>2. Milk = (3/5) × 10 = 6L.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>7. A 20L solution has 25% sugar. How much sugar is in the solution?</div>
+                <div class="answer-block"><b>Answer:</b> 5L<br><b>Step-by-step Explanation:</b><br>1. Sugar = 25% of 20L = 0.25 × 20 = 5L.</div>
+            </div>
+            <h2 id="moderate" class="section-heading">Moderate (8-14)</h2>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>8. How much water should be added to 8L of 50% alcohol solution to make it a 40% solution?</div>
+                <div class="answer-block"><b>Answer:</b> 2L<br><b>Step-by-step Explanation:</b><br>1. Alcohol in 8L = 8 × 50% = 4L.<br>2. Let x = water to add. New volume = 8 + x.<br>3. 4/(8 + x) = 0.4 → 4 = 0.4(8 + x) → 4 = 3.2 + 0.4x → 0.8 = 0.4x → x = 2L.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>9. In what ratio should 20% and 70% solutions be mixed to get a 50% solution?</div>
+                <div class="answer-block"><b>Answer:</b> 2:3<br><b>Step-by-step Explanation:</b><br>1. Alligation: (70-50):(50-20) = 20:30 = 2:3.<br>2. So, mix 2 parts of 20% with 3 parts of 70% to get 50% solution.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>10. A 15L mixture contains milk and water in the ratio 4:1. How much water should be added to make the ratio 3:2?</div>
+                <div class="answer-block"><b>Answer:</b> 5L<br><b>Step-by-step Explanation:</b><br>1. Milk = (4/5) × 15 = 12L, Water = (1/5) × 15 = 3L.<br>2. Let x = water to add. New water = 3 + x, new total = 15 + x.<br>3. New ratio: 12/(3 + x) = 3/2 → 12 × 2 = (3 + x) × 3 → 24 = 9 + 3x → 15 = 3x → x = 5L.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>11. How much 30% solution and 50% solution should be mixed to get 40L of 35% solution?</div>
+                <div class="answer-block"><b>Answer:</b> 10L of 50% and 30L of 30%<br><b>Step-by-step Explanation:</b><br>1. Let x = 50% solution, y = 30% solution.<br>2. x + y = 40.<br>3. 0.5x + 0.3y = 0.35 × 40 = 14.<br>4. 0.5x + 0.3(40 - x) = 14 → 0.5x + 12 - 0.3x = 14 → 0.2x = 2 → x = 10, y = 30.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>12. A 12L mixture contains 25% acid. How much pure acid should be added to make it 40% acid?</div>
+                <div class="answer-block"><b>Answer:</b> 4L<br><b>Step-by-step Explanation:</b><br>1. Acid in 12L = 0.25 × 12 = 3L.<br>2. Let x = pure acid to add. New acid = 3 + x, new total = 12 + x.<br>3. (3 + x)/(12 + x) = 0.4 → 3 + x = 0.4(12 + x) → 3 + x = 4.8 + 0.4x → 0.6x = 1.8 → x = 3L.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>13. A 30L mixture contains milk and water in the ratio 7:3. How much water should be added to make the ratio 3:2?</div>
+                <div class="answer-block"><b>Answer:</b> 15L<br><b>Step-by-step Explanation:</b><br>1. Milk = (7/10) × 30 = 21L, Water = (3/10) × 30 = 9L.<br>2. Let x = water to add. New water = 9 + x, new total = 30 + x.<br>3. New ratio: 21/(9 + x) = 3/2 → 21 × 2 = (9 + x) × 3 → 42 = 27 + 3x → 15 = 3x → x = 5L.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>14. How much 20% and 60% solutions should be mixed to get 100L of 50% solution?</div>
+                <div class="answer-block"><b>Answer:</b> 25L of 20% and 75L of 60%<br><b>Step-by-step Explanation:</b><br>1. Let x = 20% solution, y = 60% solution.<br>2. x + y = 100.<br>3. 0.2x + 0.6y = 0.5 × 100 = 50.<br>4. 0.2x + 0.6(100 - x) = 50 → 0.2x + 60 - 0.6x = 50 → -0.4x = -10 → x = 25, y = 75.</div>
+            </div>
+            <h2 id="advanced" class="section-heading">Advanced (15-20)</h2>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>15. A 50L mixture contains 40% alcohol. 10L of mixture is replaced with water. What is the new concentration of alcohol?</div>
+                <div class="answer-block"><b>Answer:</b> 36%<br><b>Step-by-step Explanation:</b><br>1. Alcohol in 50L = 0.4 × 50 = 20L.<br>2. 10L removed, so alcohol removed = 0.4 × 10 = 4L.<br>3. Alcohol left = 20 - 4 = 16L.<br>4. New volume = 50L (since 10L water added).<br>5. New concentration = (16/50) × 100 = 32%.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>16. A 60L mixture contains 30% acid. 20L is replaced with pure acid. What is the new concentration?</div>
+                <div class="answer-block"><b>Answer:</b> 50%<br><b>Step-by-step Explanation:</b><br>1. Acid in 60L = 0.3 × 60 = 18L.<br>2. 20L removed, so acid removed = 0.3 × 20 = 6L.<br>3. Acid left = 18 - 6 = 12L.<br>4. 20L pure acid added, so new acid = 12 + 20 = 32L.<br>5. New volume = 60L.<br>6. New concentration = (32/60) × 100 = 53.33%.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>17. How much 10% and 90% solutions should be mixed to get 60L of 50% solution?</div>
+                <div class="answer-block"><b>Answer:</b> 30L of each<br><b>Step-by-step Explanation:</b><br>1. Let x = 10% solution, y = 90% solution.<br>2. x + y = 60.<br>3. 0.1x + 0.9y = 0.5 × 60 = 30.<br>4. 0.1x + 0.9(60 - x) = 30 → 0.1x + 54 - 0.9x = 30 → -0.8x = -24 → x = 30, y = 30.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>18. A 100L mixture contains 60% milk. 20L is removed and replaced with water. What is the new concentration of milk?</div>
+                <div class="answer-block"><b>Answer:</b> 48.8%<br><b>Step-by-step Explanation:</b><br>1. Milk in 100L = 0.6 × 100 = 60L.<br>2. 20L removed, so milk removed = 0.6 × 20 = 12L.<br>3. Milk left = 60 - 12 = 48L.<br>4. New volume = 100L.<br>5. New concentration = (48/100) × 100 = 48%.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>19. In what ratio should 15% and 45% solutions be mixed to get a 30% solution?</div>
+                <div class="answer-block"><b>Answer:</b> 1:1<br><b>Step-by-step Explanation:</b><br>1. Alligation: (45-30):(30-15) = 15:15 = 1:1.<br>2. So, mix equal parts of 15% and 45% to get 30% solution.</div>
+            </div>
+            <div class="question-block">
+                <div class="question-title"><span class="toggle-arrow">▶</span>20. A 40L mixture contains 25% salt. 10L is removed and replaced with pure salt. What is the new concentration?</div>
+                <div class="answer-block"><b>Answer:</b> 43.75%<br><b>Step-by-step Explanation:</b><br>1. Salt in 40L = 0.25 × 40 = 10L.<br>2. 10L removed, so salt removed = 0.25 × 10 = 2.5L.<br>3. Salt left = 10 - 2.5 = 7.5L.<br>4. 10L pure salt added, so new salt = 7.5 + 10 = 17.5L.<br>5. New volume = 40L.<br>6. New concentration = (17.5/40) × 100 = 43.75%.</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Rotating motivational quotes
+        const quotes = [
+            "Mixtures make life interesting. Master them, and you'll ace every exam!",
+            "Alligation is the shortcut to smart mixing!",
+            "Every mixture problem is a puzzle—solve it step by step!",
+            "Persistence with practice leads to perfect mixtures.",
+            "Every question is a step closer to CAT success!",
+            "Mistakes are proof that you are trying.",
+            "Believe in your ability to solve!"
+        ];
+        let quoteIdx = 0;
+        const quoteEl = document.getElementById('motivational-quote');
+        setInterval(() => {
+            quoteIdx = (quoteIdx + 1) % quotes.length;
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                quoteEl.textContent = quotes[quoteIdx];
+                quoteEl.style.opacity = 1;
+            }, 400);
+        }, 4200);
+
+        // Question toggle
+        document.querySelectorAll('.question-title').forEach(q => {
+            q.addEventListener('click', function() {
+                this.parentElement.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html> 
