@@ -222,6 +222,33 @@
     height: 100vh;
     overflow-y: auto;
   }
+  .get-app-btn {
+    background: linear-gradient(90deg, #6366f1 0%, #3b82f6 100%);
+    color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px 0 rgba(99,102,241,0.10);
+    position: relative;
+    overflow: hidden;
+  }
+  .get-app-btn:hover, .get-app-btn:focus {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px 0 rgba(59,130,246,0.25), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+    background: linear-gradient(90deg, #3b82f6 0%, #6366f1 100%);
+  }
+  .get-app-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -75%;
+    width: 50%; height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+    pointer-events: none;
+    transition: left 0.5s;
+  }
+  .get-app-btn:hover::before {
+    left: 120%;
+    transition: left 0.7s cubic-bezier(0.4,0,0.2,1);
+  }
 </style>
 
     
@@ -492,8 +519,20 @@
         </a>
       </div>
       <div class="flex-1 flex justify-center items-center">
-        <!-- Optionally, add a simple icon or emoji for visual appeal -->
-        <span class="text-6xl md:text-7xl lg:text-8xl select-none" aria-label="Lightning">⚡</span>
+        <!-- App Download Promo (replaces thunder sticker) -->
+        <div id="appDownloadPromo" class="relative w-full max-w-xs bg-white rounded-xl shadow-md p-3 flex flex-col items-center animate__animated animate__fadeInUp">
+          <img src="assets/app-promo.png" alt="Download the Exam Prep App" class="rounded-lg mb-2 w-full max-h-64 object-contain shadow-sm">
+          <h4 class="text-base font-bold text-blue-800 text-center mb-1">Download the Exam Prep App</h4>
+          <p class="text-gray-700 text-center text-xs mb-1 leading-snug">1000+ Mock Tests, Brain Games, Study Notes & More — All Free</p>
+          <div class="flex gap-2 justify-center mb-1">
+            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold flex items-center"><i class="fas fa-mobile-alt mr-1"></i> Android</span>
+            <span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold flex items-center"><i class="fab fa-apple mr-1"></i> iOS</span>
+          </div>
+          <a href="#" class="get-app-btn px-3 py-1.5 text-sm font-semibold mt-1 flex items-center gap-2 w-full justify-center transition-all duration-200">
+            <i class="fas fa-download"></i> Get Started
+          </a>
+          <div id="appPromoDetails"></div>
+        </div>
       </div>
     </div>
 
@@ -669,6 +708,20 @@ function displayQuizzes(quizzes, containerId) {
     container.appendChild(quizItem);
   });
 }
+</script>
+
+<script>
+  // Show more details after 15 seconds
+  setTimeout(() => {
+    const details = document.getElementById('appPromoDetails');
+    if (details) {
+      details.innerHTML = `
+        <div class="mt-4 p-3 bg-blue-50 rounded-lg text-blue-800 text-center animate__animated animate__fadeInUp">
+          <strong>Coming soon:</strong> Web app, more features, and exclusive content for early users!
+        </div>
+      `;
+    }
+  }, 15000);
 </script>
 
 </body>

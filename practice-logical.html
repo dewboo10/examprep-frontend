@@ -589,48 +589,7 @@
         </footer>
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Navbar scroll effect
-            window.addEventListener('scroll', function () {
-                const navbar = document.querySelector('.navbar');
-                if (window.scrollY > 10) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // Section animation observer
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.tagName === 'FOOTER') {
-                            setTimeout(() => {
-                                entry.target.classList.add('visible');
-                            }, 500);
-                        }
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            document.querySelectorAll('section, footer').forEach(el => {
-                observer.observe(el);
-            });
-
-            // Sidebar toggle logic
-            const sidebarToggle = document.getElementById('mobile-menu-button');
-            const sidebar = document.getElementById('sidebar');
-            if (sidebarToggle && sidebar) {
-                sidebarToggle.addEventListener('click', () => {
-                    sidebar.classList.toggle('hidden');
-                });
-            }
-        });
-    </script>
+    <script src="js/main.js" defer></script>
 
     <!-- Mobile Sidebar -->
     <div id="mobileSidebar" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
