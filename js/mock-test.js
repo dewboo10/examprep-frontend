@@ -142,6 +142,10 @@ async function initializeTest() {
 
 // Render section tabs
 function renderSections() {
+    if (!state.questions || typeof state.questions !== 'object') {
+        showError("Questions not loaded. Please refresh the page or try again later. If the problem persists, clear your browser's saved data for this test from Application/LocalStorage.");
+        return;
+    }
     elements.sections.innerHTML = Object.keys(state.questions).map(section => `
         <button class="px-4 py-2 rounded-lg transition-all 
             ${section === state.currentSection ? 
