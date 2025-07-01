@@ -4,497 +4,309 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algebraic Identities - Quantitative Aptitude</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-
-        .header {
-            background: white;
-            color: #1e40af;
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 2px solid #e5e7eb;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-            padding-top: 60px;
-        }
-
-        .sidebar {
-            width: 280px;
-            background: white;
-            padding: 1.5rem;
-            border-right: 1px solid #e5e7eb;
-            position: fixed;
-            top: 60px;
-            bottom: 0;
-            left: 0;
-            overflow-y: auto;
-            z-index: 900;
-        }
-
-        .sidebar h3 {
-            color: #1e40af;
-            margin-top: 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e5e7eb;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-
-        .sidebar li {
-            margin: 0.5rem 0;
-        }
-
-        .sidebar a {
-            color: #4b5563;
-            text-decoration: none;
-            display: block;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .sidebar a:hover {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f3f4f6;
-            color: #1e40af;
-            transform: translateX(5px);
         }
-
-        .sidebar a.active {
-            background: #1e40af;
-            color: white;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 2rem;
-            margin-left: 280px;
-            max-width: calc(100% - 280px);
-        }
-
-        .section {
-            background: white;
-            padding: 2rem;
-            margin-bottom: 2rem;
+        .card {
+            background: #fff;
             border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-2px);
-        }
-
-        .section h2 {
-            color: #1e40af;
-            margin-top: 0;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e5e7eb;
-        }
-
-        .formula-box {
-            background: #f8fafc;
-            border-left: 4px solid #1e40af;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .formula-box h3 {
-            color: #1e40af;
-            margin-top: 0;
-            font-size: 1.2rem;
-        }
-
-        .example-box {
-            background: #f8fafc;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .example-box:hover {
-            transform: translateY(-2px);
-        }
-
-        .question-number {
-            color: #1e40af;
-            font-weight: bold;
-            margin: 0;
-            font-size: 1.1rem;
-        }
-
-        .question-text {
-            color: #1f2937;
-            margin: 0.75rem 0;
-            font-size: 1.05rem;
-        }
-
-        .solution-label {
-            color: #059669;
-            font-weight: bold;
-            margin: 1.25rem 0 0.75rem 0;
-            font-size: 1.1rem;
-        }
-
-        .solution-text {
-            color: #4b5563;
-            margin: 0.75rem 0;
-            line-height: 1.7;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #1e40af;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #1e3a8a;
-        }
-
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 240px;
-            }
-            .main-content {
-                margin-left: 240px;
-                max-width: calc(100% - 240px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                position: relative;
-                top: 0;
-                border-right: none;
-                border-bottom: 1px solid #e5e7eb;
-            }
-            .main-content {
-                margin-left: 0;
-                max-width: 100%;
-                padding: 1rem;
-            }
-            .header {
-                position: relative;
-            }
-            .container {
-                padding-top: 0;
-            }
+            box-shadow: 0 4px 16px #1e40af11;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Algebraic Identities</h1>
-    </div>
-
-    <div class="container">
-        <div class="sidebar">
-            <h3>Contents</h3>
-            <ul>
-                <li><a href="#introduction">Introduction</a></li>
-                <li><a href="#basic-identities">Basic Identities</a></li>
-                <li><a href="#square-identities">Square Identities</a></li>
-                <li><a href="#cube-identities">Cube Identities</a></li>
-                <li><a href="#special-identities">Special Identities</a></li>
-                <li><a href="#applications">Applications</a></li>
-            </ul>
-        </div>
-
-        <div class="main-content">
-            <div class="section" id="introduction">
-                <h2>Introduction to Algebraic Identities</h2>
-                <p>Algebraic identities are equations that are true for all values of the variables. They are fundamental tools in algebra and are used extensively in solving equations and simplifying expressions.</p>
-
-                <div class="formula-box">
-                    <h3>What are Algebraic Identities?</h3>
-                    <p>An algebraic identity is an equation that holds true for all values of the variables involved. Unlike equations, identities are always true regardless of the values substituted for the variables.</p>
+    <header class="bg-white py-8 shadow text-center mb-8">
+        <h1 class="text-3xl font-bold text-blue-800 tracking-tight">Algebraic Identities</h1>
+        <p class="text-gray-600 mt-2 text-lg">Master the key algebraic identities, their proofs, and applications</p>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar -->
+            <aside class="card p-6 lg:col-span-1 mb-4 lg:mb-0">
+                <h3 class="text-xl font-bold text-blue-700 mb-4">Contents</h3>
+                <ul class="space-y-2">
+                    <li><a href="#introduction" class="text-gray-700 hover:text-blue-700 transition">Introduction</a></li>
+                    <li><a href="#basic-identities" class="text-gray-700 hover:text-blue-700 transition">Basic Identities</a></li>
+                    <li><a href="#square-identities" class="text-gray-700 hover:text-blue-700 transition">Square Identities</a></li>
+                    <li><a href="#cube-identities" class="text-gray-700 hover:text-blue-700 transition">Cube Identities</a></li>
+                    <li><a href="#special-identities" class="text-gray-700 hover:text-blue-700 transition">Special Identities</a></li>
+                    <li><a href="#applications" class="text-gray-700 hover:text-blue-700 transition">Applications</a></li>
+                </ul>
+            </aside>
+            <!-- Main Content -->
+            <section class="lg:col-span-3">
+                <!-- Simplified Summary -->
+                <div class="card bg-white rounded-2xl shadow p-6 mb-8">
+                    <h2 class="text-xl font-bold text-blue-700 mb-2 flex items-center gap-2"><i class="fas fa-equals"></i> Simplified Quantitative Formulas: Algebraic Identities</h2>
+                    <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                        <li><b>Identity:</b> An equation true for all values of variables. E.g., (a+b)² = a²+2ab+b².</li>
+                        <li><b>Basic:</b> a+b=b+a, a×b=b×a, a(b+c)=ab+ac.</li>
+                        <li><b>Squares:</b> (a+b)², (a-b)², a²-b², (a+b+c)².</li>
+                        <li><b>Cubes:</b> (a+b)³, (a-b)³, a³+b³, a³-b³.</li>
+                        <li><b>Special:</b> (x+a)(x+b)=x²+(a+b)x+ab, etc.</li>
+                    </ul>
                 </div>
-
-                <div class="example-box">
-                    <p class="question-number">Example 1</p>
-                    <p class="question-text">Verify that (a + b)² = a² + 2ab + b² is an identity by substituting different values for a and b.</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">Let's try a = 2, b = 3:</p>
-                    <p class="solution-text">LHS: (2 + 3)² = 5² = 25</p>
-                    <p class="solution-text">RHS: 2² + 2(2)(3) + 3² = 4 + 12 + 9 = 25</p>
-                    <p class="solution-text">Let's try a = -1, b = 4:</p>
-                    <p class="solution-text">LHS: (-1 + 4)² = 3² = 9</p>
-                    <p class="solution-text">RHS: (-1)² + 2(-1)(4) + 4² = 1 - 8 + 16 = 9</p>
-                    <p class="solution-text">The identity holds true for all values of a and b.</p>
-                </div>
-            </div>
-
-            <div class="section" id="basic-identities">
-                <h2>Basic Algebraic Identities</h2>
-                <p>These are the fundamental identities that form the basis for more complex ones.</p>
-
-                <div class="formula-box">
-                    <h3>Basic Identities</h3>
-                    <ul>
-                        <li>a + b = b + a (Commutative Law of Addition)</li>
-                        <li>a × b = b × a (Commutative Law of Multiplication)</li>
-                        <li>(a + b) + c = a + (b + c) (Associative Law of Addition)</li>
-                        <li>(a × b) × c = a × (b × c) (Associative Law of Multiplication)</li>
-                        <li>a(b + c) = ab + ac (Distributive Law)</li>
+                <!-- What do these mean? (Super Simple Explanations & Examples) -->
+                <div class="card bg-blue-50 border-l-4 border-blue-400 rounded-2xl shadow p-6 mb-8">
+                    <h3 class="text-lg font-bold text-blue-700 mb-2 flex items-center gap-2"><i class="fas fa-lightbulb"></i> What do these mean? (Super Simple Explanations & Examples)</h3>
+                    <ul class="list-disc pl-6 text-gray-700 space-y-2">
+                        <li><b>Identity:</b> Always true, no matter what values you use.<br><span class="ml-2">- <b>Example:</b> (a+b)² = a²+2ab+b². Try a=2, b=3: (2+3)²=25, 2²+2×2×3+3²=25.</span></li>
+                        <li><b>Square:</b> (a-b)² = a²-2ab+b². <b>Example:</b> a=4, b=1: (4-1)²=9, 4²-2×4×1+1²=9.</li>
+                        <li><b>Cube:</b> (a+b)³ = a³+3a²b+3ab²+b³. <b>Example:</b> a=1, b=2: (1+2)³=27, 1³+3×1²×2+3×1×2²+2³=27.</li>
+                        <li><b>Special:</b> (x+a)(x+b)=x²+(a+b)x+ab. <b>Example:</b> x=2, a=1, b=3: (2+1)(2+3)=3×5=15, 2²+3×2+3=15.</li>
                     </ul>
                 </div>
 
-                <div class="example-box">
-                    <p class="question-number">Example 2</p>
-                    <p class="question-text">Simplify: 3(x + 2) + 4(x - 1)</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">Using distributive law:</p>
-                    <p class="solution-text">3(x + 2) + 4(x - 1)</p>
-                    <p class="solution-text">= 3x + 6 + 4x - 4</p>
-                    <p class="solution-text">= (3x + 4x) + (6 - 4)</p>
-                    <p class="solution-text">= 7x + 2</p>
+                <!-- Main Sections (card-wrapped) -->
+                <div class="card mb-8 p-6 section" id="introduction">
+                    <h2>Introduction to Algebraic Identities</h2>
+                    <p>Algebraic identities are equations that are true for all values of the variables. They are fundamental tools in algebra and are used extensively in solving equations and simplifying expressions.</p>
+
+                    <div class="formula-box">
+                        <h3>What are Algebraic Identities?</h3>
+                        <p>An algebraic identity is an equation that holds true for all values of the variables involved. Unlike equations, identities are always true regardless of the values substituted for the variables.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="question-number">Example 1</p>
+                        <p class="question-text">Verify that (a + b)² = a² + 2ab + b² is an identity by substituting different values for a and b.</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Let's try a = 2, b = 3:</p>
+                        <p class="solution-text">LHS: (2 + 3)² = 5² = 25</p>
+                        <p class="solution-text">RHS: 2² + 2(2)(3) + 3² = 4 + 12 + 9 = 25</p>
+                        <p class="solution-text">Let's try a = -1, b = 4:</p>
+                        <p class="solution-text">LHS: (-1 + 4)² = 3² = 9</p>
+                        <p class="solution-text">RHS: (-1)² + 2(-1)(4) + 4² = 1 - 8 + 16 = 9</p>
+                        <p class="solution-text">The identity holds true for all values of a and b.</p>
+                    </div>
                 </div>
-            </div>
+                <div class="card mb-8 p-6 section" id="basic-identities">
+                    <h2>Basic Algebraic Identities</h2>
+                    <p>These are the fundamental identities that form the basis for more complex ones.</p>
 
-            <div class="section" id="square-identities">
-                <h2>Square Identities</h2>
-                <p>These identities involve squares of expressions.</p>
+                    <div class="formula-box">
+                        <h3>Basic Identities</h3>
+                        <ul>
+                            <li>a + b = b + a (Commutative Law of Addition)</li>
+                            <li>a × b = b × a (Commutative Law of Multiplication)</li>
+                            <li>(a + b) + c = a + (b + c) (Associative Law of Addition)</li>
+                            <li>(a × b) × c = a × (b × c) (Associative Law of Multiplication)</li>
+                            <li>a(b + c) = ab + ac (Distributive Law)</li>
+                        </ul>
+                    </div>
 
-                <div class="formula-box">
-                    <h3>Square Identities with Proofs</h3>
-                    
-                    <h4>1. (a + b)² = a² + 2ab + b²</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a + b)² = (a + b)(a + b)</p>
-                    <p class="solution-text">= a(a + b) + b(a + b)</p>
-                    <p class="solution-text">= a² + ab + ba + b²</p>
-                    <p class="solution-text">= a² + 2ab + b²</p>
-                    <p class="solution-text">This identity shows that the square of a sum is equal to the sum of squares plus twice the product.</p>
-
-                    <h4>2. (a - b)² = a² - 2ab + b²</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a - b)² = (a - b)(a - b)</p>
-                    <p class="solution-text">= a(a - b) - b(a - b)</p>
-                    <p class="solution-text">= a² - ab - ba + b²</p>
-                    <p class="solution-text">= a² - 2ab + b²</p>
-                    <p class="solution-text">This identity shows that the square of a difference is equal to the sum of squares minus twice the product.</p>
-
-                    <h4>3. a² - b² = (a + b)(a - b)</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a + b)(a - b) = a(a - b) + b(a - b)</p>
-                    <p class="solution-text">= a² - ab + ba - b²</p>
-                    <p class="solution-text">= a² - b²</p>
-                    <p class="solution-text">This identity shows that the difference of squares can be factored into the product of sum and difference.</p>
-
-                    <h4>4. (a + b + c)² = a² + b² + c² + 2ab + 2bc + 2ca</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a + b + c)² = [(a + b) + c]²</p>
-                    <p class="solution-text">= (a + b)² + 2(a + b)c + c²</p>
-                    <p class="solution-text">= a² + 2ab + b² + 2ac + 2bc + c²</p>
-                    <p class="solution-text">= a² + b² + c² + 2ab + 2bc + 2ca</p>
-                    <p class="solution-text">This identity shows that the square of a trinomial is equal to the sum of squares of all terms plus twice the product of each pair of terms.</p>
+                    <div class="example-box">
+                        <p class="question-number">Example 2</p>
+                        <p class="question-text">Simplify: 3(x + 2) + 4(x - 1)</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using distributive law:</p>
+                        <p class="solution-text">3(x + 2) + 4(x - 1)</p>
+                        <p class="solution-text">= 3x + 6 + 4x - 4</p>
+                        <p class="solution-text">= (3x + 4x) + (6 - 4)</p>
+                        <p class="solution-text">= 7x + 2</p>
+                    </div>
                 </div>
+                <div class="card mb-8 p-6 section" id="square-identities">
+                    <h2>Square Identities</h2>
+                    <p>These identities involve squares of expressions.</p>
 
-                <div class="example-box">
-                    <p class="question-number">Example 3</p>
-                    <p class="question-text">Expand: (2x + 3y)²</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">Using (a + b)² = a² + 2ab + b²:</p>
-                    <p class="solution-text">(2x + 3y)² = (2x)² + 2(2x)(3y) + (3y)²</p>
-                    <p class="solution-text">= 4x² + 12xy + 9y²</p>
+                    <div class="formula-box">
+                        <h3>Square Identities with Proofs</h3>
+                        
+                        <h4>1. (a + b)² = a² + 2ab + b²</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a + b)² = (a + b)(a + b)</p>
+                        <p class="solution-text">= a(a + b) + b(a + b)</p>
+                        <p class="solution-text">= a² + ab + ba + b²</p>
+                        <p class="solution-text">= a² + 2ab + b²</p>
+                        <p class="solution-text">This identity shows that the square of a sum is equal to the sum of squares plus twice the product.</p>
+
+                        <h4>2. (a - b)² = a² - 2ab + b²</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a - b)² = (a - b)(a - b)</p>
+                        <p class="solution-text">= a(a - b) - b(a - b)</p>
+                        <p class="solution-text">= a² - ab - ba + b²</p>
+                        <p class="solution-text">= a² - 2ab + b²</p>
+                        <p class="solution-text">This identity shows that the square of a difference is equal to the sum of squares minus twice the product.</p>
+
+                        <h4>3. a² - b² = (a + b)(a - b)</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a + b)(a - b) = a(a - b) + b(a - b)</p>
+                        <p class="solution-text">= a² - ab + ba - b²</p>
+                        <p class="solution-text">= a² - b²</p>
+                        <p class="solution-text">This identity shows that the difference of squares can be factored into the product of sum and difference.</p>
+
+                        <h4>4. (a + b + c)² = a² + b² + c² + 2ab + 2bc + 2ca</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a + b + c)² = [(a + b) + c]²</p>
+                        <p class="solution-text">= (a + b)² + 2(a + b)c + c²</p>
+                        <p class="solution-text">= a² + 2ab + b² + 2ac + 2bc + c²</p>
+                        <p class="solution-text">= a² + b² + c² + 2ab + 2bc + 2ca</p>
+                        <p class="solution-text">This identity shows that the square of a trinomial is equal to the sum of squares of all terms plus twice the product of each pair of terms.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="question-number">Example 3</p>
+                        <p class="question-text">Expand: (2x + 3y)²</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using (a + b)² = a² + 2ab + b²:</p>
+                        <p class="solution-text">(2x + 3y)² = (2x)² + 2(2x)(3y) + (3y)²</p>
+                        <p class="solution-text">= 4x² + 12xy + 9y²</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="question-number">Example 4</p>
+                        <p class="question-text">Factorize: 9x² - 16y²</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using a² - b² = (a + b)(a - b):</p>
+                        <p class="solution-text">9x² - 16y² = (3x)² - (4y)²</p>
+                        <p class="solution-text">= (3x + 4y)(3x - 4y)</p>
+                    </div>
                 </div>
+                <div class="card mb-8 p-6 section" id="cube-identities">
+                    <h2>Cube Identities</h2>
+                    <p>These identities involve cubes of expressions.</p>
 
-                <div class="example-box">
-                    <p class="question-number">Example 4</p>
-                    <p class="question-text">Factorize: 9x² - 16y²</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">Using a² - b² = (a + b)(a - b):</p>
-                    <p class="solution-text">9x² - 16y² = (3x)² - (4y)²</p>
-                    <p class="solution-text">= (3x + 4y)(3x - 4y)</p>
+                    <div class="formula-box">
+                        <h3>Cube Identities with Proofs</h3>
+                        
+                        <h4>1. (a + b)³ = a³ + 3a²b + 3ab² + b³</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a + b)³ = (a + b)(a + b)²</p>
+                        <p class="solution-text">= (a + b)(a² + 2ab + b²)</p>
+                        <p class="solution-text">= a(a² + 2ab + b²) + b(a² + 2ab + b²)</p>
+                        <p class="solution-text">= a³ + 2a²b + ab² + a²b + 2ab² + b³</p>
+                        <p class="solution-text">= a³ + 3a²b + 3ab² + b³</p>
+                        <p class="solution-text">This identity shows that the cube of a sum is equal to the sum of cubes plus three times the product of square and linear terms.</p>
+
+                        <h4>2. (a - b)³ = a³ - 3a²b + 3ab² - b³</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a - b)³ = (a - b)(a - b)²</p>
+                        <p class="solution-text">= (a - b)(a² - 2ab + b²)</p>
+                        <p class="solution-text">= a(a² - 2ab + b²) - b(a² - 2ab + b²)</p>
+                        <p class="solution-text">= a³ - 2a²b + ab² - a²b + 2ab² - b³</p>
+                        <p class="solution-text">= a³ - 3a²b + 3ab² - b³</p>
+                        <p class="solution-text">This identity shows that the cube of a difference is equal to the difference of cubes minus three times the product of square and linear terms.</p>
+
+                        <h4>3. a³ + b³ = (a + b)(a² - ab + b²)</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a + b)(a² - ab + b²) = a(a² - ab + b²) + b(a² - ab + b²)</p>
+                        <p class="solution-text">= a³ - a²b + ab² + a²b - ab² + b³</p>
+                        <p class="solution-text">= a³ + b³</p>
+                        <p class="solution-text">This identity shows that the sum of cubes can be factored into the product of sum and a specific quadratic expression.</p>
+
+                        <h4>4. a³ - b³ = (a - b)(a² + ab + b²)</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a - b)(a² + ab + b²) = a(a² + ab + b²) - b(a² + ab + b²)</p>
+                        <p class="solution-text">= a³ + a²b + ab² - a²b - ab² - b³</p>
+                        <p class="solution-text">= a³ - b³</p>
+                        <p class="solution-text">This identity shows that the difference of cubes can be factored into the product of difference and a specific quadratic expression.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="question-number">Example 5</p>
+                        <p class="question-text">Expand: (x + 2)³</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using (a + b)³ = a³ + 3a²b + 3ab² + b³:</p>
+                        <p class="solution-text">(x + 2)³ = x³ + 3x²(2) + 3x(2)² + 2³</p>
+                        <p class="solution-text">= x³ + 6x² + 12x + 8</p>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="question-number">Example 6</p>
+                        <p class="question-text">Factorize: x³ + 8</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using a³ + b³ = (a + b)(a² - ab + b²):</p>
+                        <p class="solution-text">x³ + 8 = x³ + 2³</p>
+                        <p class="solution-text">= (x + 2)(x² - 2x + 4)</p>
+                    </div>
                 </div>
-            </div>
+                <div class="card mb-8 p-6 section" id="special-identities">
+                    <h2>Special Identities</h2>
+                    <p>These are additional useful identities for specific cases.</p>
 
-            <div class="section" id="cube-identities">
-                <h2>Cube Identities</h2>
-                <p>These identities involve cubes of expressions.</p>
+                    <div class="formula-box">
+                        <h3>Special Identities with Proofs</h3>
+                        
+                        <h4>1. (a + b + c)³ = a³ + b³ + c³ + 3(a + b)(b + c)(c + a)</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">(a + b + c)³ = [(a + b) + c]³</p>
+                        <p class="solution-text">= (a + b)³ + 3(a + b)²c + 3(a + b)c² + c³</p>
+                        <p class="solution-text">= a³ + 3a²b + 3ab² + b³ + 3(a² + 2ab + b²)c + 3(a + b)c² + c³</p>
+                        <p class="solution-text">= a³ + b³ + c³ + 3(a + b)(b + c)(c + a)</p>
+                        <p class="solution-text">This identity shows the expansion of a trinomial cube in terms of individual cubes and products of pairs.</p>
 
-                <div class="formula-box">
-                    <h3>Cube Identities with Proofs</h3>
-                    
-                    <h4>1. (a + b)³ = a³ + 3a²b + 3ab² + b³</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a + b)³ = (a + b)(a + b)²</p>
-                    <p class="solution-text">= (a + b)(a² + 2ab + b²)</p>
-                    <p class="solution-text">= a(a² + 2ab + b²) + b(a² + 2ab + b²)</p>
-                    <p class="solution-text">= a³ + 2a²b + ab² + a²b + 2ab² + b³</p>
-                    <p class="solution-text">= a³ + 3a²b + 3ab² + b³</p>
-                    <p class="solution-text">This identity shows that the cube of a sum is equal to the sum of cubes plus three times the product of square and linear terms.</p>
+                        <h4>2. a⁴ - b⁴ = (a² + b²)(a + b)(a - b)</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">a⁴ - b⁴ = (a²)² - (b²)²</p>
+                        <p class="solution-text">= (a² + b²)(a² - b²)</p>
+                        <p class="solution-text">= (a² + b²)(a + b)(a - b)</p>
+                        <p class="solution-text">This identity shows that the difference of fourth powers can be factored into the product of sum of squares and difference of squares.</p>
 
-                    <h4>2. (a - b)³ = a³ - 3a²b + 3ab² - b³</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a - b)³ = (a - b)(a - b)²</p>
-                    <p class="solution-text">= (a - b)(a² - 2ab + b²)</p>
-                    <p class="solution-text">= a(a² - 2ab + b²) - b(a² - 2ab + b²)</p>
-                    <p class="solution-text">= a³ - 2a²b + ab² - a²b + 2ab² - b³</p>
-                    <p class="solution-text">= a³ - 3a²b + 3ab² - b³</p>
-                    <p class="solution-text">This identity shows that the cube of a difference is equal to the difference of cubes minus three times the product of square and linear terms.</p>
+                        <h4>3. a³ + b³ + c³ - 3abc = (a + b + c)(a² + b² + c² - ab - bc - ca)</h4>
+                        <p class="solution-text">Proof:</p>
+                        <p class="solution-text">Let's expand the right side:</p>
+                        <p class="solution-text">(a + b + c)(a² + b² + c² - ab - bc - ca)</p>
+                        <p class="solution-text">= a³ + ab² + ac² - a²b - abc - a²c</p>
+                        <p class="solution-text">+ a²b + b³ + bc² - ab² - b²c - abc</p>
+                        <p class="solution-text">+ a²c + b²c + c³ - abc - bc² - ac²</p>
+                        <p class="solution-text">= a³ + b³ + c³ - 3abc</p>
+                        <p class="solution-text">This identity is particularly useful when a + b + c = 0, as it simplifies to a³ + b³ + c³ = 3abc.</p>
+                    </div>
 
-                    <h4>3. a³ + b³ = (a + b)(a² - ab + b²)</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a + b)(a² - ab + b²) = a(a² - ab + b²) + b(a² - ab + b²)</p>
-                    <p class="solution-text">= a³ - a²b + ab² + a²b - ab² + b³</p>
-                    <p class="solution-text">= a³ + b³</p>
-                    <p class="solution-text">This identity shows that the sum of cubes can be factored into the product of sum and a specific quadratic expression.</p>
-
-                    <h4>4. a³ - b³ = (a - b)(a² + ab + b²)</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a - b)(a² + ab + b²) = a(a² + ab + b²) - b(a² + ab + b²)</p>
-                    <p class="solution-text">= a³ + a²b + ab² - a²b - ab² - b³</p>
-                    <p class="solution-text">= a³ - b³</p>
-                    <p class="solution-text">This identity shows that the difference of cubes can be factored into the product of difference and a specific quadratic expression.</p>
+                    <div class="example-box">
+                        <p class="question-number">Example 7</p>
+                        <p class="question-text">If a + b + c = 0, prove that a³ + b³ + c³ = 3abc</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">Using the identity:</p>
+                        <p class="solution-text">a³ + b³ + c³ - 3abc = (a + b + c)(a² + b² + c² - ab - bc - ca)</p>
+                        <p class="solution-text">Since a + b + c = 0:</p>
+                        <p class="solution-text">a³ + b³ + c³ - 3abc = 0</p>
+                        <p class="solution-text">Therefore, a³ + b³ + c³ = 3abc</p>
+                    </div>
                 </div>
+                <div class="card mb-8 p-6 section" id="applications">
+                    <h2>Applications of Algebraic Identities</h2>
+                    <p>Algebraic identities are used in various mathematical and real-world applications.</p>
 
-                <div class="example-box">
-                    <p class="question-number">Example 5</p>
-                    <p class="question-text">Expand: (x + 2)³</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">Using (a + b)³ = a³ + 3a²b + 3ab² + b³:</p>
-                    <p class="solution-text">(x + 2)³ = x³ + 3x²(2) + 3x(2)² + 2³</p>
-                    <p class="solution-text">= x³ + 6x² + 12x + 8</p>
+                    <div class="formula-box">
+                        <h3>Common Applications</h3>
+                        <ul>
+                            <li>Simplifying complex expressions</li>
+                            <li>Solving equations</li>
+                            <li>Factorization</li>
+                            <li>Geometric proofs</li>
+                            <li>Physics and engineering calculations</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <p class="question-number">Example 8</p>
+                        <p class="question-text">Find the value of (1001)² using algebraic identities.</p>
+                        <p class="solution-label">Solution:</p>
+                        <p class="solution-text">(1001)² = (1000 + 1)²</p>
+                        <p class="solution-text">Using (a + b)² = a² + 2ab + b²:</p>
+                        <p class="solution-text">= 1000² + 2(1000)(1) + 1²</p>
+                        <p class="solution-text">= 1,000,000 + 2,000 + 1</p>
+                        <p class="solution-text">= 1,002,001</p>
+                    </div>
                 </div>
-
-                <div class="example-box">
-                    <p class="question-number">Example 6</p>
-                    <p class="question-text">Factorize: x³ + 8</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">Using a³ + b³ = (a + b)(a² - ab + b²):</p>
-                    <p class="solution-text">x³ + 8 = x³ + 2³</p>
-                    <p class="solution-text">= (x + 2)(x² - 2x + 4)</p>
+                <div class="card mb-8 p-6 flex flex-col items-center section" id="practice">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-equals text-blue-500"></i>
+                        Practice Questions
+                    </h2>
+                    <p class="text-gray-600 mb-6 text-center">Put your understanding of Algebraic Identities to the test with our comprehensive set of 20 practice questions, ranging from basic to advanced difficulty.</p>
+                    <a href="../../practiceQuestions/identitiesQ.html" class="inline-block bg-blue-700 hover:bg-blue-800 text-white font-bold text-lg px-8 py-3 rounded-xl shadow transition">Start Practice Session &rarr;</a>
                 </div>
-            </div>
-
-            <div class="section" id="special-identities">
-                <h2>Special Identities</h2>
-                <p>These are additional useful identities for specific cases.</p>
-
-                <div class="formula-box">
-                    <h3>Special Identities with Proofs</h3>
-                    
-                    <h4>1. (a + b + c)³ = a³ + b³ + c³ + 3(a + b)(b + c)(c + a)</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">(a + b + c)³ = [(a + b) + c]³</p>
-                    <p class="solution-text">= (a + b)³ + 3(a + b)²c + 3(a + b)c² + c³</p>
-                    <p class="solution-text">= a³ + 3a²b + 3ab² + b³ + 3(a² + 2ab + b²)c + 3(a + b)c² + c³</p>
-                    <p class="solution-text">= a³ + b³ + c³ + 3(a + b)(b + c)(c + a)</p>
-                    <p class="solution-text">This identity shows the expansion of a trinomial cube in terms of individual cubes and products of pairs.</p>
-
-                    <h4>2. a⁴ - b⁴ = (a² + b²)(a + b)(a - b)</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">a⁴ - b⁴ = (a²)² - (b²)²</p>
-                    <p class="solution-text">= (a² + b²)(a² - b²)</p>
-                    <p class="solution-text">= (a² + b²)(a + b)(a - b)</p>
-                    <p class="solution-text">This identity shows that the difference of fourth powers can be factored into the product of sum of squares and difference of squares.</p>
-
-                    <h4>3. a³ + b³ + c³ - 3abc = (a + b + c)(a² + b² + c² - ab - bc - ca)</h4>
-                    <p class="solution-text">Proof:</p>
-                    <p class="solution-text">Let's expand the right side:</p>
-                    <p class="solution-text">(a + b + c)(a² + b² + c² - ab - bc - ca)</p>
-                    <p class="solution-text">= a³ + ab² + ac² - a²b - abc - a²c</p>
-                    <p class="solution-text">+ a²b + b³ + bc² - ab² - b²c - abc</p>
-                    <p class="solution-text">+ a²c + b²c + c³ - abc - bc² - ac²</p>
-                    <p class="solution-text">= a³ + b³ + c³ - 3abc</p>
-                    <p class="solution-text">This identity is particularly useful when a + b + c = 0, as it simplifies to a³ + b³ + c³ = 3abc.</p>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Example 7</p>
-                    <p class="question-text">If a + b + c = 0, prove that a³ + b³ + c³ = 3abc</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">Using the identity:</p>
-                    <p class="solution-text">a³ + b³ + c³ - 3abc = (a + b + c)(a² + b² + c² - ab - bc - ca)</p>
-                    <p class="solution-text">Since a + b + c = 0:</p>
-                    <p class="solution-text">a³ + b³ + c³ - 3abc = 0</p>
-                    <p class="solution-text">Therefore, a³ + b³ + c³ = 3abc</p>
-                </div>
-            </div>
-
-            <div class="section" id="applications">
-                <h2>Applications of Algebraic Identities</h2>
-                <p>Algebraic identities are used in various mathematical and real-world applications.</p>
-
-                <div class="formula-box">
-                    <h3>Common Applications</h3>
-                    <ul>
-                        <li>Simplifying complex expressions</li>
-                        <li>Solving equations</li>
-                        <li>Factorization</li>
-                        <li>Geometric proofs</li>
-                        <li>Physics and engineering calculations</li>
-                    </ul>
-                </div>
-
-                <div class="example-box">
-                    <p class="question-number">Example 8</p>
-                    <p class="question-text">Find the value of (1001)² using algebraic identities.</p>
-                    <p class="solution-label">Solution:</p>
-                    <p class="solution-text">(1001)² = (1000 + 1)²</p>
-                    <p class="solution-text">Using (a + b)² = a² + 2ab + b²:</p>
-                    <p class="solution-text">= 1000² + 2(1000)(1) + 1²</p>
-                    <p class="solution-text">= 1,000,000 + 2,000 + 1</p>
-                    <p class="solution-text">= 1,002,001</p>
-                </div>
-            </div>
-
-            <!-- Practice Questions Link -->
-            <div class="section" id="practice">
-                <h2 style="color:#1e40af; font-size:1.7rem; font-weight:800; margin-bottom:1.1rem; letter-spacing:-1px;">Ready to Test Your Knowledge?</h2>
-                <p style="color:#4b5563; font-size:1.08rem; max-width:520px; margin:0 auto 2.2rem auto; font-weight:500;">
-                    Put your understanding of Algebraic Identities to the test with our comprehensive set of 20 practice questions, ranging from basic to advanced difficulty.
-                </p>
-                <a href="../../practiceQuestions/identitiesQ.html" style="display:inline-block; background:#1e40af; color:#fff; font-weight:700; font-size:1.15rem; padding:1rem 2.5rem; border-radius:0.7rem; box-shadow:0 4px 16px #1e40af22; text-decoration:none; margin-top:1.2rem; transition:background 0.2s, box-shadow 0.2s; letter-spacing:0.01em;">
-                    Start Practice Session &rarr;
-                </a>
-                <style>
-                    #practice a:hover {
-                        background: #1e3a8a;
-                        box-shadow: 0 8px 24px #1e40af33;
-                        transform: scale(1.05);
-                    }
-                </style>
-            </div>
+            </section>
         </div>
-    </div>
-
+    </main>
     <script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -503,27 +315,6 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-            });
-        });
-
-        // Highlight active section in sidebar
-        const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('.sidebar a');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 60) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === current) {
-                    link.classList.add('active');
-                }
             });
         });
     </script>

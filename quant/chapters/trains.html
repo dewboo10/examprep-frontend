@@ -199,6 +199,31 @@
             
             <!-- Main Content Area -->
             <div class="lg:col-span-3">
+                <!-- Simplified Summary -->
+                <div class="card bg-white rounded-2xl shadow p-6 mb-8">
+                    <h2 class="text-xl font-bold text-blue-700 mb-2 flex items-center gap-2"><i class="fas fa-subway"></i> Simplified Quantitative Formulas: Trains</h2>
+                    <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                        <li><b>Basic Formula:</b> <span class="text-blue-800">Distance = Speed × Time</span>. Rearranged: Speed = Distance/Time, Time = Distance/Speed.</li>
+                        <li><b>Unit Conversions:</b> 1 m/s = 3.6 km/h. To convert m/s to km/h, multiply by 3.6; km/h to m/s, multiply by 5/18.</li>
+                        <li><b>Train Crossing a Pole:</b> Time = Length of Train / Speed of Train.</li>
+                        <li><b>Train Crossing a Platform/Bridge:</b> Time = (Length of Train + Length of Platform/Bridge) / Speed of Train.</li>
+                        <li><b>Trains Crossing Each Other:</b> Time = (Length₁ + Length₂) / (Sum or Difference of Speeds, depending on direction).</li>
+                        <li><b>Relative Speed:</b> If trains move in opposite directions, add speeds; same direction, subtract.</li>
+                        <li><b>Overtaking:</b> Time = (Length₁ + Length₂) / (Speed₁ - Speed₂) (faster overtakes slower).</li>
+                        <li><b>Variable Definitions:</b> L = length, S = speed, T = time, L₁, L₂ = lengths of trains, S₁, S₂ = speeds of trains.</li>
+                    </ul>
+                    <div class="bg-blue-50 rounded-xl p-4 mt-6 text-base text-blue-900">
+                        <h3 class="font-semibold text-blue-700 mb-2">What do these mean? (Super Simple Explanations & Examples)</h3>
+                        <ul class="list-disc pl-6 space-y-4">
+                            <li><b>Train Crossing a Pole:</b> Train 120m, speed 60 km/h. Time = 120/(60×5/18) = 7.2s.</li>
+                            <li><b>Train Crossing a Platform:</b> Train 120m, platform 80m, speed 60 km/h. Time = (120+80)/(60×5/18) = 12s.</li>
+                            <li><b>Trains Crossing Each Other:</b> Train₁ 120m, Train₂ 80m, speeds 60 & 40 km/h, opposite directions. Time = (120+80)/((60+40)×5/18) = 10.8s.</li>
+                            <li><b>Overtaking:</b> Train₁ 120m, Train₂ 80m, speeds 60 & 40 km/h, same direction. Time = (120+80)/((60-40)×5/18) = 18s.</li>
+                            <li><b>Variable Definitions:</b> L = length, S = speed, T = time, L₁, L₂ = lengths of trains, S₁, S₂ = speeds of trains.</li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- Basic Concepts -->
                 <section id="basics" class="content-section card p-6">
                     <h2 class="section-title">1. Basic Concepts</h2>

@@ -246,15 +246,31 @@
                     <h2 class="text-xl font-bold text-blue-700 mb-2 flex items-center gap-2"><i class="fas fa-dice"></i> Simplified Quantitative Formulas: Probability & Bayes' Theorem</h2>
                     <ul class="list-disc pl-6 text-gray-700 space-y-1">
                         <li><b>Probability:</b> Probability = (favorable outcomes) / (total outcomes), always between 0 and 1.</li>
-                        <li><b>Independent Events:</b> One event does not affect the other (e.g., coin flips).</li>
-                        <li><b>Dependent Events:</b> One event affects the probability of another (e.g., cards without replacement).</li>
-                        <li><b>Conditional Probability:</b> P(B|A) = P(A ∩ B) / P(A).</li>
-                        <li><b>Bayes' Theorem:</b> P(A|B) = [P(B|A) × P(A)] / P(B).</li>
+                        <li><b>Independent Events:</b> Two events are independent if the outcome of one does not affect the other (e.g., coin flips).</li>
+                        <li><b>Dependent Events:</b> If the occurrence of one event affects the probability of another (e.g., drawing cards without replacement).</li>
+                        <li><b>Conditional Probability:</b> P(B|A) = P(A ∩ B) / P(A). Out of cases where A occurs, how many also have B.</li>
+                        <li><b>Bayes' Theorem:</b> P(A|B) = [P(B|A) × P(A)] / P(B). Allows "reversing" conditional probability.</li>
                         <li><b>Sum Rule:</b> For mutually exclusive events, P(A or B) = P(A) + P(B).</li>
                         <li><b>Product Rule:</b> For independent events, P(A and B) = P(A) × P(B).</li>
                         <li><b>Complement:</b> P(not A) = 1 – P(A).</li>
-                        <li><b>Multiple Causes:</b> For several causes, use extended Bayes' formula.</li>
+                        <li><b>Multiple Causes:</b> For several causes, use extended Bayes' formula: P(Ak | B) = P(B|Ak)*P(Ak) / Σ_i [P(B|Ai)*P(Ai)].</li>
+                        <li><b>Monty Hall/Dependent Example:</b> Probability can change when new information is revealed (see Monty Hall problem).</li>
                     </ul>
+                    <div class="bg-blue-50 rounded-xl p-4 mt-6 text-base text-blue-900">
+                        <h3 class="font-semibold text-blue-700 mb-2">What do these mean? (Super Simple Explanations & Examples)</h3>
+                        <ul class="list-disc pl-6 space-y-4">
+                            <li><b>Probability:</b> If you toss a coin, the chance of heads is 1 out of 2, so probability = 1/2.<br><span class="block mt-1 text-blue-800">Example: Rolling a die, probability of getting a 4 = 1/6.</span></li>
+                            <li><b>Independent Events:</b> Tossing two coins: the result of one does not affect the other.<br><span class="block mt-1 text-blue-800">Example: Probability of getting heads on both = 1/2 × 1/2 = 1/4.</span></li>
+                            <li><b>Dependent Events:</b> Drawing two cards from a deck without replacement: the first draw affects the second.<br><span class="block mt-1 text-blue-800">Example: Probability both are aces = 4/52 × 3/51.</span></li>
+                            <li><b>Conditional Probability:</b> Probability of B given A has happened.<br><span class="block mt-1 text-blue-800">Example: In a class of 30, 20 boys, 10 girls, 5 boys wear glasses. Probability a student wears glasses given they are a boy = 5/20 = 0.25.</span></li>
+                            <li><b>Bayes' Theorem:</b> Used to update probability when new information is available.<br><span class="block mt-1 text-blue-800">Example: If 1% have a disease, test is 90% accurate, Bayes' theorem tells you the chance someone has the disease if they test positive.</span></li>
+                            <li><b>Sum Rule:</b> Probability of A or B (if mutually exclusive) = P(A) + P(B).<br><span class="block mt-1 text-blue-800">Example: Probability of rolling a 1 or 2 on a die = 1/6 + 1/6 = 1/3.</span></li>
+                            <li><b>Product Rule:</b> Probability of A and B (if independent) = P(A) × P(B).<br><span class="block mt-1 text-blue-800">Example: Probability of getting two heads in two coin tosses = 1/2 × 1/2 = 1/4.</span></li>
+                            <li><b>Complement:</b> Probability of not getting a 6 on a die = 1 – 1/6 = 5/6.</li>
+                            <li><b>Multiple Causes:</b> If there are several possible causes for an event, use extended Bayes' formula.<br><span class="block mt-1 text-blue-800">Example: Three factories supply bulbs with different defect rates; Bayes' theorem finds the chance a defective bulb came from a specific factory.</span></li>
+                            <li><b>Monty Hall/Dependent Example:</b> In the Monty Hall problem, switching doors increases your chance of winning from 1/3 to 2/3 after the host opens a door.</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Introduction Section -->
