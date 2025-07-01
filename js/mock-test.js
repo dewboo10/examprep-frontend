@@ -7,7 +7,7 @@ let state = {
     answers: {},
     flags: {},
     visited: {},
-    timeLeft: 1800, // 30 minutes in seconds
+    timeLeft: 5400, // 90 minutes in seconds
     questions: null,
     timerId: null,
     isReview: false,
@@ -316,7 +316,7 @@ function startTestTimer() {
     
     // Calculate initial time left
     const elapsed = Math.floor((now - state.testStartTime) / 1000);
-    state.timeLeft = Math.max(0, 1800 - elapsed);
+    state.timeLeft = Math.max(0, 5400 - elapsed);
     updateTimerDisplay();
     
     // Start countdown
@@ -331,9 +331,9 @@ function startTestTimer() {
         
         // Auto-switch sections based on time
         const sectionOrder = ["VARC", "LRDI", "Quant"];
-        const sectionDuration = 600; // 10 minutes per section
+        const sectionDuration = 1800; // 30 minutes per section
         
-        const sectionIndex = Math.floor((1800 - state.timeLeft) / sectionDuration);
+        const sectionIndex = Math.floor((5400 - state.timeLeft) / sectionDuration);
         if (sectionIndex >= sectionOrder.length) return;
         
         const nextSection = sectionOrder[sectionIndex];
@@ -433,7 +433,7 @@ async function submitTest() {
                 day,
                 answers: state.answers,
                 flags: state.flags,
-                timeSpent: 1800 - state.timeLeft
+                timeSpent: 5400 - state.timeLeft
             })
         });
         
