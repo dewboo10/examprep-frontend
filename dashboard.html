@@ -271,18 +271,18 @@
   }
   @media (max-width: 639px) {
     #studyCatWidget {
-      width: 3rem !important;
-      height: 3rem !important;
-      min-width: 3rem !important;
-      min-height: 3rem !important;
+      width: 4rem !important;
+      height: 4rem !important;
+      min-width: 4rem !important;
+      min-height: 4rem !important;
     }
   }
   @media (min-width: 640px) and (max-width: 767px) {
     #studyCatWidget {
-      width: 4.5rem !important;
-      height: 4.5rem !important;
-      min-width: 4.5rem !important;
-      min-height: 4.5rem !important;
+      width: 5rem !important;
+      height: 5rem !important;
+      min-width: 5rem !important;
+      min-height: 5rem !important;
     }
   }
   @media (min-width: 768px) {
@@ -771,7 +771,7 @@ function displayQuizzes(quizzes, containerId) {
 </script>
 
 <!-- Floating Study Cat Widget -->
-<div id="studyCatWidget" style="display:none; pointer-events:none;" class="fixed bottom-6 right-6 z-50 cursor-pointer flex items-center justify-center rounded-full bg-white shadow-xl border border-blue-100">
+<div id="studyCatWidget" class="fixed bottom-6 right-6 z-50 cursor-pointer flex items-center justify-center rounded-full bg-white shadow-xl border border-blue-100">
   <img id="studyCatImage" src="assets/normalCat.gif" class="w-full h-full object-contain rounded-full transition-all" alt="Study Cat">
 </div>
 
@@ -908,6 +908,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <audio id="catMeow" src="assets/cat-meow.mp3" preload="auto"></audio>
 <audio id="catMeow2" src="assets/cat-meow2.mp3" preload="auto"></audio>
 
+<script>
+  // Show the cat widget with fade-in on page load, no interaction required
+  document.addEventListener('DOMContentLoaded', function() {
+    const cat = document.getElementById('studyCatWidget');
+    cat.classList.add('cat-visible');
+  });
+</script>
 
 </body>
 </html>
