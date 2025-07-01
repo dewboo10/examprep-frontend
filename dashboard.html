@@ -262,6 +262,37 @@
     background: transparent !important;
     box-shadow: none !important;
   }
+  #studyCatWidget {
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(.33,1.5,.68,1);
+  }
+  #studyCatWidget.cat-visible {
+    opacity: 1;
+  }
+  @media (max-width: 639px) {
+    #studyCatWidget {
+      width: 3rem !important;
+      height: 3rem !important;
+      min-width: 3rem !important;
+      min-height: 3rem !important;
+    }
+  }
+  @media (min-width: 640px) and (max-width: 767px) {
+    #studyCatWidget {
+      width: 4.5rem !important;
+      height: 4.5rem !important;
+      min-width: 4.5rem !important;
+      min-height: 4.5rem !important;
+    }
+  }
+  @media (min-width: 768px) {
+    #studyCatWidget {
+      width: 6rem !important;
+      height: 6rem !important;
+      min-width: 6rem !important;
+      min-height: 6rem !important;
+    }
+  }
 </style>
 
     
@@ -740,7 +771,7 @@ function displayQuizzes(quizzes, containerId) {
 </script>
 
 <!-- Floating Study Cat Widget -->
-<div id="studyCatWidget" class="fixed bottom-6 right-6 w-24 h-24 z-50 cursor-pointer flex items-center justify-center rounded-full bg-white shadow-xl border border-blue-100">
+<div id="studyCatWidget" style="display:none; pointer-events:none;" class="fixed bottom-6 right-6 z-50 cursor-pointer flex items-center justify-center rounded-full bg-white shadow-xl border border-blue-100">
   <img id="studyCatImage" src="assets/normalCat.gif" class="w-full h-full object-contain rounded-full transition-all" alt="Study Cat">
 </div>
 
@@ -770,62 +801,113 @@ function displayQuizzes(quizzes, containerId) {
 </style>
 
 <script>
-const studyCat = document.getElementById("studyCatImage");
-const messageBox = document.getElementById("catMessage");
-const messageText = document.getElementById("catMessageText");
-const closeCatMessage = document.getElementById("closeCatMessage");
-const catMeow = document.getElementById("catMeow");
-const catMeow2 = document.getElementById("catMeow2");
+document.addEventListener('DOMContentLoaded', function() {
+  const studyCatWidget = document.getElementById("studyCatWidget");
+  const studyCat = document.getElementById("studyCatImage");
+  const messageBox = document.getElementById("catMessage");
+  const messageText = document.getElementById("catMessageText");
+  const closeCatMessage = document.getElementById("closeCatMessage");
+  const catMeow = document.getElementById("catMeow");
+  const catMeow2 = document.getElementById("catMeow2");
+  let audioUnlocked = false;
 
-// Unlock audio on first user interaction
-document.body.addEventListener('click', function unlockAudio() {
-  if (catMeow) catMeow.play().then(() => catMeow.pause());
-  if (catMeow2) catMeow2.play().then(() => catMeow2.pause());
-  document.body.removeEventListener('click', unlockAudio);
-});
-
-const normalSrc = "assets/normalCat.gif";     // calm
-const angrySrc = "assets/cat-angry.png";      // angry (use image for now)
-
-function triggerCatMood(message = "📢 Hey! You've got a new notification!", sound = "notification") {
-  // Play appropriate sound
-  if (sound === "notification" && catMeow) {
-    catMeow.currentTime = 0;
-    catMeow.play();
-  } else if (sound === "click" && catMeow2) {
-    catMeow2.currentTime = 0;
-    catMeow2.play();
+  function showCatWidget() {
+    console.log("[DEBUG] Showing cat widget");
+    studyCatWidget.style.display = "flex";
+    setTimeout(() => {
+      studyCatWidget.classList.add("cat-visible");
+      studyCatWidget.style.pointerEvents = "auto";
+    }, 10); // allow DOM to update before transition
   }
-  studyCat.src = angrySrc;
-  messageText.textContent = message;
-  messageBox.classList.remove("hidden");
 
-  setTimeout(() => {
+  // Unlock audio and show cat on first user interaction (silent unlock)
+  function unlockAudio(e) {
+    if (!audioUnlocked) {
+      console.log("[DEBUG] Attempting to unlock audio (silent)...");
+      // Play and immediately pause to unlock, so user doesn't hear it
+      if (catMeow) {
+        catMeow.currentTime = 0;
+        catMeow.play().then(() => {
+          catMeow.pause();
+          catMeow.currentTime = 0;
+          console.log("[DEBUG] catMeow unlocked silently");
+        }).catch(err => {
+          console.error("[DEBUG] Error unlocking catMeow:", err);
+        });
+      } else {
+        console.warn("[DEBUG] catMeow audio element not found");
+      }
+      audioUnlocked = true;
+      showCatWidget();
+      // Enable cat click handler only after unlock
+      studyCat.addEventListener("click", catClickHandler);
+      document.body.removeEventListener('click', unlockAudio);
+      document.body.removeEventListener('keydown', unlockAudio);
+      // Prevent the first cat click from also triggering the meow (if the first click was on the cat)
+      if (e && e.target === studyCat) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }
+  }
+  document.body.addEventListener('click', unlockAudio);
+  document.body.addEventListener('keydown', unlockAudio);
+
+  const normalSrc = "assets/normalCat.gif";     // calm
+  const angrySrc = "assets/cat-angry.png";      // angry (use image for now)
+
+  function triggerCatMood(message = "📢 Hey! You've got a new notification!", sound = "notification") {
+    console.log(`[DEBUG] triggerCatMood called: message='${message}', sound='${sound}'`);
+    // Play appropriate sound
+    if (sound === "notification" && catMeow) {
+      catMeow.currentTime = 0;
+      catMeow.play().then(() => {
+        console.log("[DEBUG] catMeow played for notification");
+      }).catch(err => {
+        console.error("[DEBUG] Error playing catMeow (notification):", err);
+      });
+    } else if (sound === "click" && catMeow2) {
+      catMeow2.currentTime = 0;
+      catMeow2.play().then(() => {
+        console.log("[DEBUG] catMeow2 played for click");
+      }).catch(err => {
+        console.error("[DEBUG] Error playing catMeow2 (click):", err);
+      });
+    } else {
+      console.warn("[DEBUG] No audio element found for sound:", sound);
+    }
+    studyCat.src = angrySrc;
+    messageText.textContent = message;
+    messageBox.classList.remove("hidden");
+
+    setTimeout(() => {
+      studyCat.src = normalSrc;
+      messageBox.classList.add("hidden");
+    }, 4000); // Angry for 4 sec
+  }
+
+  function catClickHandler() {
+    console.log("[DEBUG] Cat clicked");
+    triggerCatMood("😾 Stop poking me! I'm studying!", "click");
+  }
+
+  // Close button
+  closeCatMessage.onclick = function() {
     studyCat.src = normalSrc;
     messageBox.classList.add("hidden");
-  }, 4000); // Angry for 4 sec
-}
+  };
 
-// On click behavior
-studyCat.addEventListener("click", () => {
-  triggerCatMood("😾 Stop poking me! I'm studying!", "click");
+  // Example: trigger notification after 8 seconds
+  setTimeout(() => {
+    if (audioUnlocked) triggerCatMood("📌 New lesson unlocked: 'Time Management 101'", "notification");
+  }, 8000);
 });
-
-// Close button
-closeCatMessage.onclick = function() {
-  studyCat.src = normalSrc;
-  messageBox.classList.add("hidden");
-};
-
-// Example: trigger notification after 8 seconds
-setTimeout(() => {
-  triggerCatMood("📌 New lesson unlocked: 'Time Management 101'", "notification");
-}, 8000);
 </script>
 
 <!-- Cat Sounds -->
 <audio id="catMeow" src="assets/cat-meow.mp3" preload="auto"></audio>
 <audio id="catMeow2" src="assets/cat-meow2.mp3" preload="auto"></audio>
+
 
 </body>
 </html>
