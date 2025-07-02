@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const topic = form.topic.value.trim();
     const difficulty = form.difficulty.value;
-    const numQuestions = parseInt(form.numQuestions.value, 10);
+    const numberOfQuestions = parseInt(form.numQuestions.value, 10);
     const token = localStorage.getItem('token');
 
-    if (!topic || !difficulty || !numQuestions) {
+    if (!topic || !difficulty || !numberOfQuestions) {
       messageDiv.textContent = 'Please fill all fields.';
       generateBtn.disabled = false;
       generateBtn.textContent = 'Generate Test';
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         body: JSON.stringify({
           topic,
           difficulty,
-          numQuestions
+          numberOfQuestions
         })
       });
       const result = await res.json();
@@ -40,12 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
           questions: result.questions,
           topic,
           difficulty,
-          numQuestions,
+          numberOfQuestions,
           createdAt: Date.now()
         }));
         window.location.href = 'custom-quiz.html';
       } else {
-        messageDiv.textContent = result.message || 'No questions generated. Try a different topic or settings.';
+        messageDiv.textContent = result.message || result.error || 'No questions generated. Try a different topic or settings.';
       }
     } catch (err) {
       messageDiv.textContent = 'Failed to generate test. Please try again.';
