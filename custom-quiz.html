@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Quiz - Exam Prep</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <main class="flex-1 flex items-center justify-center">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl animate__animated animate__fadeInDown">
+      <div id="quiz-header" class="mb-6">
+        <h2 class="text-2xl font-bold mb-2" id="quiz-title">Custom Test</h2>
+        <p class="text-sm text-gray-500" id="quiz-meta"></p>
+      </div>
+      <div id="timer" class="mb-4 text-center text-lg font-semibold text-red-600"></div>
+      <div id="quiz-content"></div>
+      <div id="quiz-controls" class="mt-6 flex justify-between items-center"></div>
+      <div id="quiz-summary" class="mt-8"></div>
+    </div>
+  </main>
+  <script>
+    // Quiz logic
+    let quizData = JSON.parse(localStorage.getItem('customMockQuestions') || '{}');
+    let questions = quizData.questions || [];
+    let topic = quizData.topic || '';
+    let difficulty = quizData.difficulty || '';
+    let numQuestions = quizData.numQuestions || 0;
+    let current = 0;
+    let answers = Array(questions.length).fill(null);
+    const quizTitle = document.getElementById('quiz-title');
+    const quizMeta = document.getElementById('quiz-meta');
+    const quizContent = document.getElementById('quiz-content');
+    const quizControls = document.getElementById('quiz-controls');
+    const quizSummary = document.getElementById('quiz-summary');
+    let timer = null;
+    let totalTime = questions.length * 180; // total time in seconds
+    const timerDiv = document.getElementById('timer');
+
+    function renderHeader() {
+      quizTitle.textContent = `Custom Test - Topic: ${topic}`;
+      quizMeta.textContent = `Difficulty: ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} | Questions: ${numQuestions}`;
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      updateTimerDisplay();
+      timer = setInterval(() => {
+        totalTime--;
+        updateTimerDisplay();
+        if (totalTime <= 0) {
+          clearInterval(timer);
+          showSummary();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const min = String(Math.floor(totalTime / 60)).padStart(2, '0');
+      const sec = String(totalTime % 60).padStart(2, '0');
+      timerDiv.textContent = `Total Time Left: ${min}:${sec}`;
+    }
+
+    function renderQuestion(idx) {
+      if (!questions[idx]) {
+        quizContent.innerHTML = '<p class="text-red-500">No question found.</p>';
+        quizControls.innerHTML = '';
+        timerDiv.textContent = '';
+        return;
+      }
+      const q = questions[idx];
+      quizContent.innerHTML = `
+        <div>
+          <div class="mb-4">
+            <span class="text-lg font-semibold">Q${idx + 1}:</span>
+            <span class="ml-2">${q.question}</span>
+          </div>
+          <div class="space-y-2">
+            ${q.options.map((opt, i) => `
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input type="radio" name="option" value="${i}" ${answers[idx] === i ? 'checked' : ''} class="form-radio text-indigo-600" />
+                <span>${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      quizControls.innerHTML = `
+        <button ${idx === 0 ? 'disabled' : ''} class="px-4 py-2 rounded bg-gray-200 text-gray-700 font-medium" id="prev-btn">Previous</button>
+        <span>Question ${idx + 1} of ${questions.length}</span>
+        <button ${idx === questions.length - 1 ? 'disabled' : ''} class="px-4 py-2 rounded bg-gray-200 text-gray-700 font-medium" id="next-btn">Next</button>
+        ${idx === questions.length - 1 ? '<button class="ml-4 px-4 py-2 rounded bg-green-600 text-white font-semibold" id="submit-btn">Submit</button>' : ''}
+      `;
+      document.querySelectorAll('input[name="option"]').forEach(input => {
+        input.addEventListener('change', (e) => {
+          answers[idx] = parseInt(e.target.value, 10);
+        });
+      });
+      document.getElementById('prev-btn').onclick = () => {
+        if (current > 0) {
+          current--;
+          renderQuestion(current);
+        }
+      };
+      document.getElementById('next-btn').onclick = () => {
+        if (current < questions.length - 1) {
+          current++;
+          renderQuestion(current);
+        }
+      };
+      if (idx === questions.length - 1) {
+        document.getElementById('submit-btn').onclick = () => {
+          clearInterval(timer);
+          showSummary();
+        };
+      }
+    }
+
+    function showSummary() {
+      clearInterval(timer);
+      let correct = 0;
+      let attempted = 0;
+      quizContent.innerHTML = '';
+      quizControls.innerHTML = '';
+      quizSummary.innerHTML = `<h3 class="text-xl font-bold mb-4">Summary</h3>`;
+      quizSummary.innerHTML += `<ul class="mb-4">${questions.map((q, i) => {
+        const isCorrect = answers[i] === q.answer;
+        if (answers[i] !== null) attempted++;
+        if (isCorrect) correct++;
+        return `<li class="mb-2">Q${i + 1}: <span class="${isCorrect ? 'text-green-600' : 'text-red-600'} font-semibold">${isCorrect ? 'Correct' : 'Incorrect'}</span></li>`;
+      }).join('')}</ul>`;
+      quizSummary.innerHTML += `<p class="mb-2">Attempted: <span class="font-semibold">${attempted}</span></p>`;
+      quizSummary.innerHTML += `<p class="mb-2">Correct: <span class="font-semibold text-green-600">${correct}</span></p>`;
+      quizSummary.innerHTML += `<p class="mb-2">Score: <span class="font-semibold">${correct} / ${questions.length}</span></p>`;
+      quizSummary.innerHTML += `<button class="mt-4 px-4 py-2 rounded bg-indigo-600 text-white font-semibold" onclick="window.location.href='custom-mock.html'">Create Another</button>`;
+    }
+
+    if (!questions.length) {
+      quizContent.innerHTML = '<p class="text-red-500">No custom mock found. <a href="custom-mock.html" class="text-indigo-600 underline">Create one?</a></p>';
+      quizControls.innerHTML = '';
+    } else {
+      renderHeader();
+      renderQuestion(current);
+      startTimer();
+    }
+  </script>
+</body>
+</html> 
