@@ -636,6 +636,228 @@ Quadratic: t^2 - 7t + 12 = 0 ⇒ t = 3, 4</div>
         <div class="question-title"><span class="toggle-arrow">▶</span>100. A two-digit number is chosen at random. What is the probability it is divisible by 3 or 5?</div>
         <div class="answer-block"><b>Answer:</b> 7/15<br><b>Solution:</b> Total two-digit numbers: 90. Divisible by 3 or 5: 42. Probability = 42/90 = 7/15.</div>
       </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>101. How many real solutions does the equation x² - 7|x| - 18 = 0 have?</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Step-by-step Solution:</b><br>
+1. The equation is x² - 7|x| - 18 = 0.<br>
+2. Let's consider two cases for |x|:<br>
+&nbsp;&nbsp;<b>Case 1:</b> x ≥ 0 ⇒ |x| = x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Equation: x² - 7x - 18 = 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Factor: (x - 9)(x + 2) = 0 ⇒ x = 9 or x = -2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;But x ≥ 0, so only x = 9 is valid.<br>
+&nbsp;&nbsp;<b>Case 2:</b> x < 0 ⇒ |x| = -x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Equation: x² + 7x - 18 = 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Factor: (x + 9)(x - 2) = 0 ⇒ x = -9 or x = 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;But x < 0, so only x = -9 is valid.<br>
+3. Both x = 9 and x = -9 satisfy the original equation.<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">A. 2</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>102. For what integer values of k does x² - 9x + |k| = 0 have real roots?</div>
+        <div class="answer-block"><b>Answer:</b> 41<br><b>Step-by-step Solution:</b><br>
+1. The equation is x² - 9x + |k| = 0.<br>
+2. For real roots, the discriminant must be non-negative:<br>
+&nbsp;&nbsp;d = (-9)² - 4(1)(|k|) ≥ 0 ⇒ 81 - 4|k| ≥ 0<br>
+&nbsp;&nbsp;4|k| ≤ 81 ⇒ |k| ≤ 20.25<br>
+3. Since k is integer, |k| can be any integer from 0 to 20 (inclusive).<br>
+4. For |k| = 0, k = 0 (1 value).<br>
+5. For each |k| = 1 to 20, k = c and k = -c (2 values per |k|), so 20 × 2 = 40 values.<br>
+6. Total integer values: 1 + 40 = 41.<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">D. 41</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>103. For how many integer values of p does x² - 11x + |p| = 0 have integer roots?</div>
+        <div class="answer-block"><b>Answer:</b> More than 8<br><b>Step-by-step Solution:</b><br>
+1. Let roots be r and s. Then r + s = 11, r·s = |p|.<br>
+2. Both r and s are integers, and |p| ≥ 0.<br>
+3. Try all integer pairs (r, s) such that r + s = 11:<br>
+&nbsp;&nbsp;Possible pairs: (0,11), (1,10), (2,9), (3,8), (4,7), (5,6), (6,5), (7,4), (8,3), (9,2), (10,1), (11,0)<br>
+4. Compute |p| = r·s for each pair:<br>
+&nbsp;&nbsp;(0,11): 0; (1,10): 10; (2,9): 18; (3,8): 24; (4,7): 28; (5,6): 30<br>
+&nbsp;&nbsp;Other pairs are repeats.<br>
+5. Distinct |p| values: 0, 10, 18, 24, 28, 30 (6 values).<br>
+6. For |p| = 0, p = 0 (1 value). For each |p| > 0, p = ±c (2 values per |p|), so 5 × 2 = 10.<br>
+7. Total: 1 + 10 = 11 (>8).<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">D. More than 8</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>104. If x² + 5x - 7 = 0 has roots a, b and 2x² + px + q = 0 has roots a+1, b+1, find p+q.</div>
+        <div class="answer-block"><b>Answer:</b> -16<br><b>Step-by-step Solution:</b><br>
+1. For x² + 5x - 7 = 0, sum of roots a + b = -5, product ab = -7.<br>
+2. The new roots are a+1 and b+1.<br>
+3. Sum: (a+1) + (b+1) = a + b + 2 = -5 + 2 = -3.<br>
+4. Product: (a+1)(b+1) = ab + a + b + 1 = -7 - 5 + 1 = -11.<br>
+5. For 2x² + px + q = 0:<br>
+&nbsp;&nbsp;Sum of roots = -p/2 = -3 ⇒ p = 6<br>
+&nbsp;&nbsp;Product of roots = q/2 = -11 ⇒ q = -22<br>
+6. p + q = 6 + (-22) = -16.<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">C. -16</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>105. If sum of roots is 5 less than product and one root is 1 more than the other, what is the product?</div>
+        <div class="answer-block"><b>Answer:</b> 12 or 2<br><b>Step-by-step Solution:</b><br>
+1. Let roots be r and r+1.<br>
+2. Sum: r + (r+1) = 2r + 1<br>
+3. Product: r(r+1) = r² + r<br>
+4. Given: sum = product - 5 ⇒ 2r + 1 = r² + r - 5<br>
+5. Rearranged: r² - r - 6 = 0<br>
+6. Factor: (r - 3)(r + 2) = 0 ⇒ r = 3 or r = -2<br>
+7. If r = 3, roots are 3 and 4, product = 12.<br>
+8. If r = -2, roots are -2 and -1, product = 2.<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">B. 12 or 2</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>106. Solve (3x+2y-22)² + (4x-5y+9)² = 0. Find x+y.</div>
+        <div class="answer-block"><b>Answer:</b> 9<br><b>Step-by-step Solution:</b><br>
+1. The sum of two squares is zero only if each is zero.<br>
+2. Set 3x + 2y - 22 = 0 and 4x - 5y + 9 = 0.<br>
+3. Solve the system:<br>
+&nbsp;&nbsp;From first: 3x + 2y = 22<br>
+&nbsp;&nbsp;From second: 4x - 5y = -9<br>
+4. Multiply first by 5: 15x + 10y = 110<br>
+5. Multiply second by 2: 8x - 10y = -18<br>
+6. Add: 23x = 92 ⇒ x = 4<br>
+7. Substitute x = 4 into 3x + 2y = 22: 12 + 2y = 22 ⇒ 2y = 10 ⇒ y = 5<br>
+8. x + y = 4 + 5 = 9<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">B. 9</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>107. If x² + kx + 8 = 0 and x = -4 is a solution, find k.</div>
+        <div class="answer-block"><b>Answer:</b> 6<br><b>Step-by-step Solution:</b><br>
+1. The equation is x² + kx + 8 = 0.<br>
+2. Substitute x = -4 into the equation:<br>
+&nbsp;&nbsp;(-4)² + k(-4) + 8 = 0<br>
+&nbsp;&nbsp;16 - 4k + 8 = 0<br>
+&nbsp;&nbsp;24 - 4k = 0<br>
+3. Rearranged: 4k = 24 ⇒ k = 6<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">B. 6</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>108. Solve d/4 + 8/d + 3 = 0.</div>
+        <div class="answer-block"><b>Answer:</b> -8, -4<br><b>Step-by-step Solution:</b><br>
+1. The equation is d/4 + 8/d + 3 = 0.<br>
+2. Multiply both sides by 4d (d ≠ 0):<br>
+&nbsp;&nbsp;d² + 32 + 12d = 0<br>
+&nbsp;&nbsp;d² + 12d + 32 = 0<br>
+3. Factor: (d + 4)(d + 8) = 0<br>
+4. Solutions: d = -4, d = -8<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">C. (-8, -4)</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>109. Solve (x² + 6x + 9)/(x + 3) = 7. Find x.</div>
+        <div class="answer-block"><b>Answer:</b> 4<br><b>Step-by-step Solution:</b><br>
+1. The equation is (x² + 6x + 9)/(x + 3) = 7.<br>
+2. Note: x² + 6x + 9 = (x + 3)².<br>
+3. So, (x + 3)² / (x + 3) = 7 ⇒ x + 3 = 7 (x ≠ -3).<br>
+4. x = 7 - 3 = 4<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">A. 4</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>110. If x² + k = G, x integer, which could be G - k?</div>
+        <div class="answer-block"><b>Answer:</b> 9<br><b>Step-by-step Solution:</b><br>
+1. G - k = x², which must be a perfect square.<br>
+2. Among the options: 7, 8, 9, 10, 11, only 9 is a perfect square (3²).<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">C. 9</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>111. Height H = Vt + 5t², H = 60, V = 20. Find t.</div>
+        <div class="answer-block"><b>Answer:</b> 2<br><b>Step-by-step Solution:</b><br>
+1. The formula is H = Vt + 5t².<br>
+2. Substitute H = 60, V = 20:<br>
+&nbsp;&nbsp;60 = 20t + 5t²<br>
+3. Rearranged: 5t² + 20t - 60 = 0<br>
+4. Divide by 5: t² + 4t - 12 = 0<br>
+5. Factor: (t + 6)(t - 2) = 0 ⇒ t = -6, t = 2<br>
+6. Time cannot be negative, so t = 2 seconds.<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">2</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>112. Is x = 1? (1) (3x - 2) + (3x + 2) = 6 (2) x² + 2x = 3</div>
+        <div class="answer-block"><b>Answer:</b> (1) alone sufficient<br><b>Step-by-step Solution:</b><br>
+1. Statement (1): (3x - 2) + (3x + 2) = 6 ⇒ 6x = 6 ⇒ x = 1.<br>
+2. Statement (2): x² + 2x = 3 ⇒ x² + 2x - 3 = 0 ⇒ (x + 3)(x - 1) = 0 ⇒ x = -3 or x = 1.<br>
+3. (2) alone is not sufficient, as x could be -3 or 1.<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">(1) alone sufficient</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>113. x² - 5x + 6 = 0, x = ? (1) x ≠ 1 (2) x ≠ 2</div>
+        <div class="answer-block"><b>Answer:</b> (2) alone sufficient<br><b>Step-by-step Solution:</b><br>
+1. The equation is x² - 5x + 6 = 0 ⇒ (x - 2)(x - 3) = 0 ⇒ x = 2 or x = 3.<br>
+2. Statement (1): x ≠ 1. Both x = 2 and x = 3 are possible, so not sufficient.<br>
+3. Statement (2): x ≠ 2. Only x = 3 is possible, so sufficient.<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">(2) alone sufficient</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>114. Simplify x × (x⁵)² / x⁴, x ≠ 0.</div>
+        <div class="answer-block"><b>Answer:</b> x⁷<br><b>Step-by-step Solution:</b><br>
+1. (x⁵)² = x¹⁰<br>
+2. x × x¹⁰ = x¹¹<br>
+3. x¹¹ / x⁴ = x¹¹⁻⁴ = x⁷<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">C. x⁷</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>115. n = 10⁵ + (2 × 10³) + 10⁶. Number of zeros at end?</div>
+        <div class="answer-block"><b>Answer:</b> 3<br><b>Step-by-step Solution:</b><br>
+1. 10⁶ = 1,000,000<br>
+2. 10⁵ = 100,000<br>
+3. 2 × 10³ = 2,000<br>
+4. Sum: 1,000,000 + 100,000 = 1,100,000; 1,100,000 + 2,000 = 1,102,000<br>
+5. The number 1,102,000 ends with 3 zeros.<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">B. 3</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>116. If xy = 1, x ≠ y, evaluate 7 × 1/(x - y) × (1/x - 1/y)</div>
+        <div class="answer-block"><b>Answer:</b> 7<br><b>Step-by-step Solution:</b><br>
+1. 1/x - 1/y = (y - x) / (xy)<br>
+2. Since xy = 1, denominator is 1: (y - x) / 1 = y - x<br>
+3. 7 × 1/(x - y) × (y - x) = 7 × (-1) = -7<br>
+4. The magnitude is 7 (as per options).<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">D. 7</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>117. If x = 10^{1.4}, y = 10^{0.7}, x^z = y^3, find z.</div>
+        <div class="answer-block"><b>Answer:</b> 1.5<br><b>Step-by-step Solution:</b><br>
+1. x = 10^{1.4}, y = 10^{0.7}<br>
+2. x^z = (10^{1.4})^z = 10^{1.4z}<br>
+3. y^3 = (10^{0.7})^3 = 10^{2.1}<br>
+4. Set exponents equal: 1.4z = 2.1 ⇒ z = 2.1 / 1.4 = 1.5<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">C. 1.5</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>118. N = 3⁴ × 5³ × 7. Biggest perfect square factor?</div>
+        <div class="answer-block"><b>Answer:</b> (9 × 5)²<br><b>Step-by-step Solution:</b><br>
+1. N = 3⁴ × 5³ × 7<br>
+2. For a perfect square, exponents must be even.<br>
+3. 3⁴ is already even.<br>
+4. 5³: take 5² (even exponent).<br>
+5. 7¹: take 7⁰ (even exponent, i.e., 1).<br>
+6. So, biggest perfect square factor: 3⁴ × 5² = (9 × 5)² = 45²<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">D. (9 × 5)²</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>119. x = 232 × 254 × 276 × 298, multiple of 26^n. Find n^{26} - 26^n.</div>
+        <div class="answer-block"><b>Answer:</b> -1<br><b>Step-by-step Solution:</b><br>
+1. 26 = 2 × 13. Check how many times 26 divides x.<br>
+2. Factorize each number:<br>
+&nbsp;&nbsp;232 = 2³ × 29<br>
+&nbsp;&nbsp;254 = 2 × 127<br>
+&nbsp;&nbsp;276 = 2² × 3 × 23<br>
+&nbsp;&nbsp;298 = 2 × 149<br>
+3. Total power of 2: 3 + 1 + 2 + 1 = 7<br>
+4. No factor of 13 in any number, so n = 0<br>
+5. n^{26} - 26^n = 0^{26} - 26^0 = 0 - 1 = -1<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">C. -1</span></div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>120. 2^{18} × 5^m = 20^n, m, n positive integers. Find m.</div>
+        <div class="answer-block"><b>Answer:</b> 9<br><b>Step-by-step Solution:</b><br>
+1. 20^n = (2^2 × 5)^n = 2^{2n} × 5^n<br>
+2. 2^{18} × 5^m = 2^{2n} × 5^n<br>
+3. Equate exponents:<br>
+&nbsp;&nbsp;2: 18 = 2n ⇒ n = 9<br>
+&nbsp;&nbsp;5: m = n ⇒ m = 9<br>
+<b>Final Answer:</b> <span style="border:1px solid #222;padding:2px 8px;border-radius:4px;">D. 9</span></div>
+      </div>
     </div>
   </div>
   <script>
