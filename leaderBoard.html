@@ -170,15 +170,24 @@
   </style>
 </head>
 <body class="bg-gray-100 text-gray-800 py-8">
-  <!-- Mobile Menu Button -->
+  <!-- Hamburger Button (always visible on mobile) -->
   <button id="mobile-menu-button" class="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
     <i class="fas fa-bars text-xl text-indigo-600"></i>
   </button>
 
   <!-- Sidebar -->
-  <aside id="sidebar" class="hidden md:block fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-40 p-4 flex flex-col overflow-y-auto">
-    <div class="flex items-center mb-6">
-      <h1 class="text-2xl font-bold gradient-text">Exam Prep</h1>
+  <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto block">
+    <!-- Sidebar Header with Close Button -->
+    <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
+          <i class="fas fa-graduation-cap text-white text-lg"></i>
+        </div>
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent ml-3">परीक्षा prep</h1>
+      </div>
+      <button id="mobile-menu-button-close" class="md:hidden text-gray-500 hover:text-indigo-600 transition-colors absolute top-4 right-4">
+        <i class="fas fa-times text-xl"></i>
+      </button>
     </div>
     <!-- User Profile -->
     <div class="flex items-center mb-6 p-3 bg-indigo-50 rounded-lg">
@@ -243,14 +252,48 @@
   </aside>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const sidebarToggle = document.getElementById('mobile-menu-button');
+    document.addEventListener('DOMContentLoaded', function () {
       const sidebar = document.getElementById('sidebar');
-      if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', () => {
-          sidebar.classList.toggle('hidden');
-        });
+      const openBtn = document.getElementById('mobile-menu-button');
+      const closeBtn = document.getElementById('mobile-menu-button-close');
+      const body = document.body;
+
+      function toggleSidebar(show = true) {
+        if (show) {
+          sidebar.classList.add('open');
+          body.classList.add('sidebar-open');
+        } else {
+          sidebar.classList.remove('open');
+          body.classList.remove('sidebar-open');
+        }
       }
+
+      openBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar(true);
+      });
+
+      closeBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar(false);
+      });
+
+      document.addEventListener('click', function (e) {
+        if (
+          window.innerWidth < 768 &&
+          sidebar.classList.contains('open') &&
+          !sidebar.contains(e.target) &&
+          !openBtn.contains(e.target)
+        ) {
+          toggleSidebar(false);
+        }
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 768) {
+          toggleSidebar(false);
+        }
+      });
     });
   </script>
 
