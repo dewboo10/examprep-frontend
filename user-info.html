@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Info - Exam Prep</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .user-card {
+      background: linear-gradient(135deg, #f3f4f6 0%, #e0e7ff 100%);
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem;
+      margin-top: 2rem;
+    }
+    .user-label {
+      color: #6366f1;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .user-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .info-icon {
+      color: #6366f1;
+      margin-right: 0.5rem;
+    }
+    .sidebar-link.active, .sidebar-link:hover {
+      background: #6366f1;
+      color: #fff;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="hidden md:block w-64 bg-white shadow-lg p-6">
+      <div class="flex items-center mb-8">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
+          <i class="fas fa-graduation-cap text-white text-lg"></i>
+        </div>
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent ml-3">परीक्षा prep</h1>
+      </div>
+      <nav class="space-y-2">
+        <a href="dashboard.html" class="sidebar-link flex items-center p-3 rounded-xl text-gray-700 font-medium transition-colors">
+          <i class="fas fa-home mr-3"></i> Dashboard
+        </a>
+        <a href="user-info.html" class="sidebar-link flex items-center p-3 rounded-xl text-indigo-600 font-bold active">
+          <i class="fas fa-user mr-3"></i> User Info
+        </a>
+        <a href="performance.html" class="sidebar-link flex items-center p-3 rounded-xl text-gray-700 font-medium transition-colors">
+          <i class="fas fa-chart-bar mr-3"></i> Performance
+        </a>
+        <a href="mock-test.html" class="sidebar-link flex items-center p-3 rounded-xl text-gray-700 font-medium transition-colors">
+          <i class="fas fa-book-open mr-3"></i> Practice Tests
+        </a>
+      </nav>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center p-4 md:p-12">
+      <div class="user-card w-full max-w-lg mx-auto">
+        <div class="flex items-center mb-6">
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center shadow-md mr-4">
+            <i class="fas fa-user text-white text-2xl"></i>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-indigo-700">User Information</h2>
+            <p class="text-gray-500 text-sm">Manage your account details</p>
+          </div>
+        </div>
+        <div class="space-y-5 mb-8">
+          <div class="flex items-center">
+            <i class="fas fa-user info-icon"></i>
+            <span class="user-label">Name:</span>
+            <span class="user-value ml-2" id="userName">John Doe</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-book info-icon"></i>
+            <span class="user-label">Active Course:</span>
+            <span class="user-value ml-2" id="userCourse">CAT 2024</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-calendar-check info-icon"></i>
+            <span class="user-label">Valid Till:</span>
+            <span class="user-value ml-2" id="userValidTill">31 Dec 2024</span>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <a href="#" class="text-indigo-600 hover:underline font-semibold flex items-center"><i class="fas fa-key mr-2"></i>Forgot Password?</a>
+          <a href="mailto:support@exam-prep.com" class="text-gray-700 hover:text-indigo-600 flex items-center"><i class="fas fa-envelope mr-2"></i>support@exam-prep.com</a>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html> 
