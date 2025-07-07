@@ -446,8 +446,8 @@ async function submitTest() {
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                examCode: exam,
-                mockNumber: day,
+                exam: exam,
+                day: day,
                 answers: state.answers,
                 reviewFlags: state.flags,
                 timeSpent: 5400 - state.timeLeft
