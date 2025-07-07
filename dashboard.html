@@ -504,9 +504,9 @@
   <main class="ml-0 md:ml-64 p-4 md:p-8 transition-all duration-300">
     <!-- Hero Header Section (now inside main) -->
     <section class="w-full mb-12 md:mb-16">
-      <div class="rounded-2xl bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-100 p-8 md:p-14 shadow flex flex-col items-center text-center relative overflow-hidden">
-        <h1 class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4 animate__animated animate__fadeInDown">
-          Premium-Quality Prep, Zero Price Tag – Start Today!
+      <div class="rounded-2xl p-8 md:p-14 shadow flex flex-col items-center text-center relative overflow-hidden animate-bg-gradient">
+        <h1 id="animated-hero-heading" class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4 animate__animated animate__fadeInDown">
+          Your All-in-One Exam Prep Hub
         </h1>
         <div class="relative h-8 md:h-10 flex items-center justify-center">
           <span id="animated-tagline" class="text-base md:text-xl font-medium text-indigo-700 animate-fadein"></span>
@@ -515,23 +515,43 @@
     </section>
 
     <script>
-      // Animated tagline rotation
+      // Animated heading and tagline rotation
       document.addEventListener('DOMContentLoaded', function() {
-        const taglines = [
-          "Everything you need, nothing you don't.",
-          "Study free. Score high.",
-          "No subscription, no limits – just results."
+        const headings = [
+          "Your All-in-One Exam Prep Hub",
+          "Master Concepts, Vocabulary & More",
+          "Ace Exams with Confidence"
         ];
-        let idx = 0;
+        const taglines = [
+          "Build a powerful vocabulary for every exam.",
+          "Comprehensive notes, practice questions, and vocab tools.",
+          "Master concepts, sharpen your vocab, boost your score.",
+          "All study material in one place—no more searching.",
+          "Practice smarter, learn faster, remember longer.",
+          "Your shortcut to exam success—start mastering today!"
+        ];
+        let headingIdx = 0;
+        let taglineIdx = 0;
+        const headingEl = document.getElementById('animated-hero-heading');
         const taglineEl = document.getElementById('animated-tagline');
+
+        function showHeading() {
+          headingEl.classList.remove('animate-fadein');
+          void headingEl.offsetWidth;
+          headingEl.textContent = headings[headingIdx];
+          headingEl.classList.add('animate-fadein');
+          headingIdx = (headingIdx + 1) % headings.length;
+        }
         function showTagline() {
           taglineEl.classList.remove('animate-fadein');
-          void taglineEl.offsetWidth; // trigger reflow
-          taglineEl.textContent = taglines[idx];
+          void taglineEl.offsetWidth;
+          taglineEl.textContent = taglines[taglineIdx];
           taglineEl.classList.add('animate-fadein');
-          idx = (idx + 1) % taglines.length;
+          taglineIdx = (taglineIdx + 1) % taglines.length;
         }
+        showHeading();
         showTagline();
+        setInterval(showHeading, 3500);
         setInterval(showTagline, 2600);
       });
     </script>
@@ -544,6 +564,27 @@
       }
       .animate-fadein {
         animation: fadein 2.5s cubic-bezier(0.4,0,0.2,1);
+      }
+      @keyframes bg-gradient-animated {
+        0% {
+          background: linear-gradient(120deg, #a5b4fc, #f0abfc, #c7d2fe);
+        }
+        25% {
+          background: linear-gradient(120deg, #f0abfc, #a5b4fc, #c7d2fe);
+        }
+        50% {
+          background: linear-gradient(120deg, #c7d2fe, #a5b4fc, #f0abfc);
+        }
+        75% {
+          background: linear-gradient(120deg, #a5b4fc, #c7d2fe, #f0abfc);
+        }
+        100% {
+          background: linear-gradient(120deg, #a5b4fc, #f0abfc, #c7d2fe);
+        }
+      }
+      .animate-bg-gradient {
+        animation: bg-gradient-animated 8s ease-in-out infinite;
+        background-size: 200% 200%;
       }
     </style>
 
@@ -891,20 +932,6 @@ function displayQuizzes(quizzes, containerId) {
 }
 </script>
 
-<script>
-  // Show more details after 15 seconds
-  setTimeout(() => {
-    const details = document.getElementById('appPromoDetails');
-    if (details) {
-      details.innerHTML = `
-        <div class="mt-4 p-3 bg-blue-50 rounded-lg text-blue-800 text-center animate__animated animate__fadeInUp">
-          <strong>Coming soon:</strong> Web app, more features, and exclusive content for early users!
-        </div>
-      `;
-    }
-  }, 15000);
-</script>
-
 <!-- Floating Study Cat Widget -->
 <div id="studyCatWidget" class="fixed bottom-6 right-6 z-50 cursor-pointer flex items-center justify-center rounded-full bg-white shadow-xl border border-blue-100">
   <img id="studyCatImage" src="assets/normalCat.gif" class="w-full h-full object-contain rounded-full transition-all" alt="Study Cat">
@@ -947,38 +974,27 @@ document.addEventListener('DOMContentLoaded', function() {
   let audioUnlocked = false;
 
   function showCatWidget() {
-    console.log("[DEBUG] Showing cat widget");
     studyCatWidget.style.display = "flex";
     setTimeout(() => {
       studyCatWidget.classList.add("cat-visible");
       studyCatWidget.style.pointerEvents = "auto";
-    }, 10); // allow DOM to update before transition
+    }, 10);
   }
 
-  // Unlock audio and show cat on first user interaction (silent unlock)
   function unlockAudio(e) {
     if (!audioUnlocked) {
-      console.log("[DEBUG] Attempting to unlock audio (silent)...");
-      // Play and immediately pause to unlock, so user doesn't hear it
       if (catMeow) {
         catMeow.currentTime = 0;
         catMeow.play().then(() => {
           catMeow.pause();
           catMeow.currentTime = 0;
-          console.log("[DEBUG] catMeow unlocked silently");
-        }).catch(err => {
-          console.error("[DEBUG] Error unlocking catMeow:", err);
-        });
-      } else {
-        console.warn("[DEBUG] catMeow audio element not found");
+        }).catch(err => {});
       }
       audioUnlocked = true;
       showCatWidget();
-      // Enable cat click handler only after unlock
       studyCat.addEventListener("click", catClickHandler);
       document.body.removeEventListener('click', unlockAudio);
       document.body.removeEventListener('keydown', unlockAudio);
-      // Prevent the first cat click from also triggering the meow (if the first click was on the cat)
       if (e && e.target === studyCat) {
         e.stopPropagation();
         e.preventDefault();
@@ -988,28 +1004,16 @@ document.addEventListener('DOMContentLoaded', function() {
   document.body.addEventListener('click', unlockAudio);
   document.body.addEventListener('keydown', unlockAudio);
 
-  const normalSrc = "assets/normalCat.gif";     // calm
-  const angrySrc = "assets/cat-angry.gif";      // angry (now use gif)
+  const normalSrc = "assets/normalCat.gif";
+  const angrySrc = "assets/cat-angry.gif";
 
   function triggerCatMood(message = "📢 Hey! You've got a new notification!", sound = "notification") {
-    console.log(`[DEBUG] triggerCatMood called: message='${message}', sound='${sound}'`);
-    // Play appropriate sound
     if (sound === "notification" && catMeow) {
       catMeow.currentTime = 0;
-      catMeow.play().then(() => {
-        console.log("[DEBUG] catMeow played for notification");
-      }).catch(err => {
-        console.error("[DEBUG] Error playing catMeow (notification):", err);
-      });
+      catMeow.play().then(() => {}).catch(err => {});
     } else if (sound === "click" && catMeow2) {
       catMeow2.currentTime = 0;
-      catMeow2.play().then(() => {
-        console.log("[DEBUG] catMeow2 played for click");
-      }).catch(err => {
-        console.error("[DEBUG] Error playing catMeow2 (click):", err);
-      });
-    } else {
-      console.warn("[DEBUG] No audio element found for sound:", sound);
+      catMeow2.play().then(() => {}).catch(err => {});
     }
     studyCat.src = angrySrc;
     messageText.textContent = message;
@@ -1018,21 +1022,18 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
       studyCat.src = normalSrc;
       messageBox.classList.add("hidden");
-    }, 4000); // Angry for 4 sec
+    }, 4000);
   }
 
   function catClickHandler() {
-    console.log("[DEBUG] Cat clicked");
     triggerCatMood("😾 Stop poking me! I'm studying!", "click");
   }
 
-  // Close button
   closeCatMessage.onclick = function() {
     studyCat.src = normalSrc;
     messageBox.classList.add("hidden");
   };
 
-  // Example: trigger notification after 8 seconds
   setTimeout(() => {
     if (audioUnlocked) triggerCatMood("📌 New lesson unlocked: 'Time Management 101'", "notification");
   }, 8000);
@@ -1044,7 +1045,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <audio id="catMeow2" src="assets/cat-meow2.mp3" preload="auto"></audio>
 
 <script>
-  // Show the cat widget with fade-in on page load, no interaction required
   document.addEventListener('DOMContentLoaded', function() {
     const cat = document.getElementById('studyCatWidget');
     cat.classList.add('cat-visible');
@@ -1095,6 +1095,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+</script>
+
+<script>
+// Show auth modal after 5 seconds only if user is not logged in
+setTimeout(function() {
+  var modal = document.getElementById('auth-modal');
+  var token = localStorage.getItem('token');
+  if ((!token || token === 'undefined' || token.length < 20) && modal) {
+    modal.style.display = 'flex';
+  }
+}, 5000);
 </script>
 
 </body>
