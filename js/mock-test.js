@@ -416,10 +416,29 @@ function navigate(dir) {
 // Submit test
 async function submitTest() {
     clearInterval(state.timerId);
+
+    // Defensive: Ensure exam and day are present
+    let exam = localStorage.getItem('selectedExam');
+    let day = localStorage.getItem('selectedDay');
+
+    // Fallback: Try to get from URL if missing
+    if (!exam || !day) {
+        const params = new URLSearchParams(window.location.search);
+        if (!exam) exam = params.get('exam');
+        if (!day) day = params.get('day');
+        if (exam) localStorage.setItem('selectedExam', exam);
+        if (day) localStorage.setItem('selectedDay', day);
+    }
+
+    // Final check
+    if (!exam || !day) {
+        alert('Missing exam or mock number. Please select your exam and mock again.');
+        window.location.href = '/mock-test.html';
+        return;
+    }
+
     try {
         const token = localStorage.getItem('token');
-        const exam = localStorage.getItem('selectedExam');
-        const day = localStorage.getItem('selectedDay') || 1;
         const response = await fetch(`${API_BASE}/api/mock/submit`, {
             method: 'POST',
             headers: {
