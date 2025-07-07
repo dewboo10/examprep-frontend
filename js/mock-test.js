@@ -416,12 +416,10 @@ function navigate(dir) {
 // Submit test
 async function submitTest() {
     clearInterval(state.timerId);
-    
     try {
         const token = localStorage.getItem('token');
         const exam = localStorage.getItem('selectedExam');
         const day = localStorage.getItem('selectedDay') || 1;
-        
         const response = await fetch(`${API_BASE}/api/mock/submit`, {
             method: 'POST',
             headers: {
@@ -429,25 +427,29 @@ async function submitTest() {
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                exam,
-                day,
+                examCode: exam,
+                mockNumber: day,
                 answers: state.answers,
-                flags: state.flags,
+                reviewFlags: state.flags,
                 timeSpent: 5400 - state.timeLeft
             })
         });
-        
         const result = await response.json();
         if (result.success) {
             localStorage.removeItem("testStartTime");
             localStorage.removeItem(`mockState_${exam}_Day${day}`);
-            
             const attempts = JSON.parse(localStorage.getItem(`mockAttempts_${exam}`) || '{}');
             attempts[`mock${day}`] = 'completed';
             localStorage.setItem(`mockAttempts_${exam}`, JSON.stringify(attempts));
-            
             alert("Test submitted successfully!");
             window.location.href = `review.html?exam=${exam}&day=${day}`;
+        } else if (
+            result.code === 'MOCK_LOCKED' ||
+            (result.message && result.message.toLowerCase().includes('upgrade'))
+        ) {
+            // Show upgrade modal
+            document.getElementById('upgrade-modal').style.display = 'block';
+            return;
         } else {
             throw new Error(result.message);
         }
@@ -508,3 +510,25 @@ window.onpageshow = function (event) {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
+
+// Add this modal HTML to the end of the file if not present
+if (!document.getElementById('upgrade-modal')) {
+  const modal = document.createElement('div');
+  modal.id = 'upgrade-modal';
+  modal.style = 'display:none; position:fixed; z-index:9999; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4);';
+  modal.innerHTML = `
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:white; border-radius:1rem; box-shadow:0 8px 32px #0002; padding:2rem 2.5rem; max-width:90vw; min-width:300px; text-align:center;">
+      <h2 style="font-size:1.3rem; font-weight:700; color:#4f46e5; margin-bottom:1rem;">Upgrade Required</h2>
+      <p style="color:#334155; margin-bottom:1.5rem;">This mock is available for premium users only.<br>Upgrade your account to unlock all mocks and features.</p>
+      <button id="upgrade-modal-btn" style="background:#6366f1; color:white; font-weight:600; border:none; border-radius:0.5rem; padding:0.7rem 2rem; font-size:1rem; cursor:pointer;">Upgrade Now</button>
+      <button id="upgrade-modal-close" style="margin-left:1rem; background:#e0e7ef; color:#334155; border:none; border-radius:0.5rem; padding:0.7rem 1.5rem; font-size:1rem; cursor:pointer;">Cancel</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  document.getElementById('upgrade-modal-btn').onclick = function() {
+    window.location.href = '/upgrade.html';
+  };
+  document.getElementById('upgrade-modal-close').onclick = function() {
+    document.getElementById('upgrade-modal').style.display = 'none';
+  };
+}
