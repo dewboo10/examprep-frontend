@@ -47,14 +47,14 @@
   }
   .hide-scrollbar::-webkit-scrollbar { display: none; }
   .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  @keyframes fadein {
-    0% { opacity: 0; transform: translateY(10px); }
-    20% { opacity: 1; transform: translateY(0); }
-    80% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-10px); }
+  @keyframes fadein-smooth {
+    0% { opacity: 0; transform: translateY(18px); }
+    12% { opacity: 1; transform: translateY(0); }
+    88% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-12px); }
   }
-  .animate-fadein {
-    animation: fadein 2.5s cubic-bezier(0.4,0,0.2,1);
+  .animate-fadein-smooth {
+    animation: fadein-smooth 4.2s cubic-bezier(0.4,0,0.2,1);
   }
   body {
     font-family: 'Poppins', sans-serif;
@@ -536,34 +536,34 @@
         const taglineEl = document.getElementById('animated-tagline');
 
         function showHeading() {
-          headingEl.classList.remove('animate-fadein');
+          headingEl.classList.remove('animate-fadein-smooth');
           void headingEl.offsetWidth;
           headingEl.textContent = headings[headingIdx];
-          headingEl.classList.add('animate-fadein');
+          headingEl.classList.add('animate-fadein-smooth');
           headingIdx = (headingIdx + 1) % headings.length;
         }
         function showTagline() {
-          taglineEl.classList.remove('animate-fadein');
+          taglineEl.classList.remove('animate-fadein-smooth');
           void taglineEl.offsetWidth;
           taglineEl.textContent = taglines[taglineIdx];
-          taglineEl.classList.add('animate-fadein');
+          taglineEl.classList.add('animate-fadein-smooth');
           taglineIdx = (taglineIdx + 1) % taglines.length;
         }
         showHeading();
         showTagline();
-        setInterval(showHeading, 3500);
-        setInterval(showTagline, 2600);
+        setInterval(showHeading, 5200); // was 3500, now longer
+        setInterval(showTagline, 4200); // was 2600, now longer
       });
     </script>
     <style>
-      @keyframes fadein {
-        0% { opacity: 0; transform: translateY(10px); }
-        20% { opacity: 1; transform: translateY(0); }
-        80% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-10px); }
+      @keyframes fadein-smooth {
+        0% { opacity: 0; transform: translateY(18px); }
+        12% { opacity: 1; transform: translateY(0); }
+        88% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-12px); }
       }
-      .animate-fadein {
-        animation: fadein 2.5s cubic-bezier(0.4,0,0.2,1);
+      .animate-fadein-smooth {
+        animation: fadein-smooth 4.2s cubic-bezier(0.4,0,0.2,1);
       }
       @keyframes bg-gradient-animated {
         0% {
@@ -889,6 +889,7 @@
   .animate-fadeInUp {
     animation: fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1);
   }
+  #pageLoader { display: none; }
 </style>
 
 <script>
@@ -1106,6 +1107,15 @@ setTimeout(function() {
     modal.style.display = 'flex';
   }
 }, 5000);
+</script>
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    var loader = document.getElementById('pageLoader');
+    if (loader) loader.style.display = 'none';
+  }, 4000); // fallback: hide after 4 seconds no matter what
+});
 </script>
 
 </body>
