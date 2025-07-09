@@ -190,15 +190,19 @@
       </button>
     </div>
     <!-- User Profile -->
-    <div class="flex items-center mb-6 p-3 bg-indigo-50 rounded-lg">
+    <a href="user-info.html" class="block focus:outline-none">
+    <div class="flex items-center mb-6 p-3 bg-indigo-50 rounded-lg hover:shadow-lg cursor-pointer relative">
       <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mr-2">
         <i class="fas fa-user-graduate text-lg"></i>
       </div>
-      <div>
+      <div class="flex-1 flex flex-col">
         <p class="font-semibold text-sm" id="username">User</p>
-        <p class="text-xs text-gray-500">Premium Member</p>
+        <span class="mt-2 inline-flex items-center text-xs text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded hover:bg-indigo-100 transition w-max">
+          <i class="fas fa-eye mr-1"></i> View Details
+        </span>
       </div>
     </div>
+    </a>
     <!-- Navigation Links (scrollable if needed) -->
     <nav class="space-y-1 mb-2 pb-2 border-b border-gray-200 flex-1 min-h-0 hide-scrollbar">
       <a href="dashboard.html" class="menu-item flex items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100">

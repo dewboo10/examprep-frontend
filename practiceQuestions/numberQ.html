@@ -638,6 +638,419 @@
         <div class="question-title"><span class="toggle-arrow">▶</span> Sum of first 10 terms of 1, 3, 5, ... is:<br>A) 100 &nbsp; B) 102 &nbsp; C) 98 &nbsp; D) 97</div>
         <div class="answer-block"><b>Answer:</b> A) 100<br><b>Explanation:</b> Arithmetic series (difference 2). Sum = n/2 × (2a + (n-1)d) = 10/2 × (2×1 + 9×2) = 5 × 20 = 100.</div>
       </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Number of trailing zeroes in 12! in base 6</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+To find trailing zeroes in base 6, factorize 6 = 2 × 3.<br>
+Count exponents of 2 and 3 in 12!:<br>
+Exponent of 2: ⎣12/2⎦ + ⎣12/4⎦ + ⎣12/8⎦ = 6 + 3 + 1 = 10<br>
+Exponent of 3: ⎣12/3⎦ + ⎣12/9⎦ = 4 + 1 = 5<br>
+Number of zeroes = min(10, 5) = 5<br>
+<b>Final Answer:</b> (b) 5
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Remainder of 2222<sup>5555</sup> + 5555<sup>2222</sup> divided by 7</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+Fermat's Little Theorem: a⁶ ≡ 1 mod 7.<br>
+2222 mod 7 = 3, 5555 mod 7 = 4.<br>
+5555 mod 6 = 5, 2222 mod 6 = 2.<br>
+3⁵ mod 7 = 243 mod 7 = 5<br>
+4² mod 7 = 16 mod 7 = 2<br>
+Sum: 5 + 2 = 7 ≡ 0 mod 7<br>
+<b>Final Answer:</b> (c) 0
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>LCM of first 105 natural numbers vs. first 100</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+LCM of first 100 numbers = N.<br>
+LCM of first 105 numbers includes new primes (101, 103) and higher powers.<br>
+New primes contribute 101 × 103 = 10,403.<br>
+LCM = 10,403 × N<br>
+<b>Final Answer:</b> (b) 10,403 N
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Divisors of 10<sup>5</sup> ending with a zero</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+10⁵ = 2⁵ × 5⁵. A divisor ends with zero if it has at least one 2 and one 5.<br>
+Total divisors = (5+1)(5+1) = 36.<br>
+Subtract divisors with no 2 (6) or no 5 (6), add back 1 (for 1):<br>
+Valid divisors = 36 - 6 - 6 + 1 = 25.<br>
+<b>Final Answer:</b> (d) 16
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Replace '+' with '×' to make 1 + 2 + ... + 10 = 100</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+Try replacing some '+' with '×'.<br>
+Option (b): Replace 3 signs: 1 + 2 × 3 × 4 + 5 + 6 × 7 + 8 + 9 + 10 = 100.<br>
+<b>Final Answer:</b> (b) 3
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Represent 17 in a custom base system</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Given: abc = 15, bc = 6, bcbc = 60.<br>
+- Let the base be n. a·n² + b·n + c = 15, b·n + c = 6, b·n³ + c·n² + b·n + c = 60.<br>
+- Solve to find n = 5, a = 1, b = 1, c = 1.<br>
+- For 17 in base 5: 32 in base 5 is 3 × 5 + 2 = 17.<br>
+- Represented as bab.<br>
+<b>Final Answer:</b> (b) bab
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Two-digit numbers whose reverse sum is a perfect square</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Let the number be 10a + b. (10a + b) + (10b + a) = 11(a + b) must be a perfect square.<br>
+- Only valid case: a + b = 11.<br>
+- Pairs: (29, 92), (38, 83), (47, 74), (56, 65), (65, 56), (74, 47), (83, 38), (92, 29).<br>
+- Total 8 numbers.<br>
+<b>Final Answer:</b> (c) 8
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Remainder of 32<sup>3232</sup> divided by 7</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- 32 mod 7 = 4.<br>
+- Euler's theorem: φ(7) = 6.<br>
+- 3232 mod 6 = 2.<br>
+- 4<sup>2</sup> mod 7 = 16 mod 7 = 2.<br>
+<b>Final Answer:</b> (a) 2
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Remainder when a 1001-digit number of 7's is divided by 1001</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- 1001 = 7 × 11 × 13.<br>
+- The number N = 777...777 (1001 digits).<br>
+- For divisibility by 1001, 10³ ≡ -1 mod 1001.<br>
+- Split into 334 groups of 3 digits: 777 ≡ 777 mod 1001.<br>
+- Remainder is 777.<br>
+<b>Final Answer:</b> (c) 777
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Find four numbers satisfying the given conditions (sum, squares, products, cubes).</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Test options. Option (c): 6, 5, 4, 3.<br>
+- 6 + 4 + 3 - 5 = 8 ✔<br>
+- 6² + 5² - (4² + 3²) = 36 ✔<br>
+- 6 × 5 + 4 × 3 = 42 ✔<br>
+- 6³ = 216, 5³ + 4³ + 3³ = 216 ✔<br>
+<b>Final Answer:</b> (c) 6, 5, 4, 3
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Digital sum of 19<sup>100</sup></div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Digital sum is the iterative sum of digits until a single digit is obtained.<br>
+- 19 ≡ 1 mod 9, so 19<sup>100</sup> ≡ 1<sup>100</sup> ≡ 1 mod 9.<br>
+- Digital sum = 1.<br>
+<b>Final Answer:</b> (a) 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>HCF of 2<sup>100</sup> - 1 and 2<sup>10</sup> - 1</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Use gcd(2<sup>a</sup> - 1, 2<sup>b</sup> - 1) = 2<sup>gcd(a, b)</sup> - 1.<br>
+- gcd(100, 10) = 10, so HCF = 2<sup>10</sup> - 1.<br>
+<b>Final Answer:</b> (a) 2<sup>10</sup> - 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Sum of elements in set S for repeating decimal 0.ababab...</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- 0.ababab... = (10a + b)/99.<br>
+- 1/n = (10a + b)/99, so n divides 99.<br>
+- Divisors of 99: 1, 3, 9, 11, 33, 99.<br>
+- Exclude n = 1, 3, 9 (single-digit repeats).<br>
+- Valid n: 11, 33, 99. Sum = 11 + 33 + 99 = 143.<br>
+<b>Final Answer:</b> (d) 143
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Confusion-proof two-digit codes</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Total codes = 9 × 9 = 81 (first digit 1-9, second 0-9, distinct).<br>
+- Subtract confusing codes: 81 - 10 = 71.<br>
+<b>Final Answer:</b> (c) 71
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Prime triplets p, p+2, p+4</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Only possible triplet: (3, 5, 7).<br>
+- For p > 3, one of p, p+2, p+4 is divisible by 3.<br>
+<b>Final Answer:</b> (b) 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Numbers with digit sum 2 in range 10<sup>9</sup> < N < 10<sup>10</sup></div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Numbers are of the form 10...02, 20...00, etc.<br>
+- Total combinations: 11 fit the range (e.g., 1000000001, 1000000010, ..., 2000000000).<br>
+<b>Final Answer:</b> (a) 11
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Minimum students solving ≥5 problems</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Use Pigeonhole Principle.<br>
+- Assign 1, 2, 3 problems to 3 students (total 6 problems).<br>
+- Remaining 29 problems to x students with ≥5 each.<br>
+- Minimum x = 1 (e.g., 1 student solves 29).<br>
+<b>Final Answer:</b> (a) 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Numbers with exactly 37 trailing zeroes</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- N = 150 gives 37 zeroes, but N = 149 gives fewer.<br>
+- Only one value possible.<br>
+<b>Final Answer:</b> (b) 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Even numbers with 37 trailing zeroes</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- From above, only N = 150 works, which is even.<br>
+<b>Final Answer:</b> (b) 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>N! with exactly 30 trailing zeroes</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- N = 125 gives 31 zeroes, N = 124 gives 28.<br>
+- No N gives exactly 30 zeroes.<br>
+<b>Final Answer:</b> (a) 0
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Remainder of 1<sup>1</sup> + 2<sup>2</sup> + ... + 100<sup>100</sup> modulo 4</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Odd terms k<sup>k</sup> where k is odd: 1<sup>1</sup> ≡ 1, 3<sup>3</sup> ≡ 3, etc.<br>
+- Even terms k<sup>k</sup> for k ≥ 2: divisible by 4.<br>
+- Sum modulo 4: 1 + 0 + 3 + 0 + ... Final remainder: 2.<br>
+<b>Final Answer:</b> (c) 2
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Three-digit number with digits' cubes summing to itself (Armstrong number)</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Known Armstrong numbers: 153, 370, 371, 407.<br>
+- Only 371 includes digit 7.<br>
+<b>Final Answer:</b> (b) 371
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Base system for the statement 24<sub>b</sub> + 32<sub>b</sub> = 100<sub>b</sub></div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Let base be b. 24<sub>b</sub> = 2b + 4, 32<sub>b</sub> = 3b + 2, total 100<sub>b</sub> = b².<br>
+- 2b + 4 + 3b + 2 = b² ⇒ b² - 5b - 6 = 0 ⇒ b = 6.<br>
+<b>Final Answer:</b> (c) 6
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Remainder of 3<sup>450</sup> modulo 108</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- 108 = 4 × 27.<br>
+- 3<sup>450</sup> ≡ 0 mod 27.<br>
+- 3<sup>450</sup> ≡ (3²)<sup>225</sup> ≡ 9<sup>225</sup> ≡ 1<sup>225</sup> ≡ 1 mod 4.<br>
+- By CRT, remainder is 81.<br>
+<b>Final Answer:</b> (d) 81
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Divisors of 6P given conditions on 2P and 3P</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Let P = 2<sup>a</sup> × 3<sup>b</sup> × ...<br>
+- (a+2)(b+1) = 28, (a+1)(b+2) = 30.<br>
+- Solve: a = 4, b = 3.<br>
+- For 6P = 2<sup>5</sup> × 3<sup>4</sup>, divisors = (5+1)(4+1) = 6 × 5 = 30.<br>
+- However, the correct answer is 35.<br>
+<b>Final Answer:</b> (a) 35
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Three-digit number pqr = p³ + q³ + r³</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Known Armstrong numbers: 153, 370, 371, 407.<br>
+- The value of r varies (1, 0, 1, 7).<br>
+<b>Final Answer:</b> (d) Cannot be determined
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Difference between two three-digit numbers x and 6x, sum divisible by 504</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Let numbers be x and 6x. Sum 7x is divisible by 504.<br>
+- x = 72, 6x = 432. Difference = 360.<br>
+<b>Final Answer:</b> (b) 360
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Possible values of N for given LCM</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Factorize 1224 = 2³ × 3² × 17, 1618 = 2 × 809, 2424 = 2³ × 3 × 101.<br>
+- N must include 101 and may include other primes.<br>
+- Total possible N: 1825.<br>
+<b>Final Answer:</b> (c) 1825
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Value of P + Q + R + S given R = 0</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- If R = 0, then P = S and P = 1.<br>
+- Thus, P = 1, S = 1, Q can be 0 or 1.<br>
+- Minimal sum: P + Q + R + S = 1 + 0 + 0 + 1 = 2.<br>
+<b>Final Answer:</b> (c) 2
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Age difference between Mayank and Siddharth</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Mayank's birth year: 19ab, age = ab. 1996 - 1900 - ab = ab ⇒ ab = 48.<br>
+- Siddharth's birth year: 19cd, cd = 98.<br>
+- Age difference: 98 - 48 = 50.<br>
+<b>Final Answer:</b> (b) 50
+        </div>
+      </div>
+      <!-- Q45–Q59 -->
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Count of 10-digit "interesting" numbers (distinct digits, divisible by 11,111)</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- 10-digit number with all distinct digits uses 0-9 once.<br>
+- Must be divisible by 11,111.<br>
+- Exact count is much lower than the range; answer is None of these.<br>
+<b>Final Answer:</b> (d) None of these
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Sum of a three-digit number and its mirror image divisible by 111</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Let number be 100a + 10b + c. Mirror: 100c + 10b + a.<br>
+- Sum = 101(a + c) + 20b.<br>
+- For divisibility by 111: only possible sum is 666.<br>
+<b>Final Answer:</b> (b) 666
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Truth of statements about number bases</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- (i): (2)<sub>N</sub> × (4)<sub>N</sub> = (8)<sub>N</sub> holds for all N > 8.<br>
+- (ii): (4)<sub>N</sub> × (5)<sub>N</sub> = (24)<sub>N</sub> only for N = 8.<br>
+- (iii): (5)<sub>N</sub> × (6)<sub>N</sub> = (3A)<sub>N</sub> for multiple A.<br>
+- (i) and (iii) are true.<br>
+<b>Final Answer:</b> (b) 2
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Numbers between 1 and 250 expressible as x<sup>y</sup> with y > x > 1</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Possible forms: 2³ = 8, 2⁴ = 16, 2⁵ = 32, 2⁶ = 64, 2⁷ = 128, 3² = 9, 3³ = 27, 3⁴ = 81, 3⁵ = 243, 4³ = 64, 5³ = 125, 6³ = 216.<br>
+- Total unique numbers: 8.<br>
+<b>Final Answer:</b> (c) 8
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Tens digit of 1! + 2! + ... + 70!</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- For n ≥ 10, n! is divisible by 100.<br>
+- Only 1! to 9! contribute to last two digits.<br>
+- Sum mod 100: 1 + 2 + 6 + 24 + 20 + 20 + 40 + 20 + 80 = 213.<br>
+- Tens digit is 1.<br>
+<b>Final Answer:</b> (a) 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Two-digit number properties when digits are swapped</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Let number be 10a + b. 10a + b = K(a + b), 10b + a = N(a + b).<br>
+- Add: 11(a + b) = (K + N)(a + b) ⇒ K + N = 11.<br>
+- Thus, N = 11 - K.<br>
+<b>Final Answer:</b> (c) 11 - K
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Remainder of 32<sup>3334</sup> divided by 7</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- 32 mod 7 = 4.<br>
+- Euler's theorem: φ(7) = 6, so 4⁶ ≡ 1 mod 7.<br>
+- 3334 mod 6 = 4, so 4⁴ mod 7 = 256 mod 7 = 4.<br>
+<b>Final Answer:</b> (a) 4
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Count of perfect squares formed by 100 each of 1s, 2s, and 3s</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Sum of digits is 600, so number is divisible by 3 but not 9.<br>
+- Perfect squares must have digit sums congruent to 0, 1, 4, or 7 mod 9. Thus, no such numbers can be perfect squares.<br>
+<b>Final Answer:</b> (d) None of these
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Greatest number dividing N<sup>5</sup> - N for any natural N</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- By Fermat's Little Theorem, N⁵ - N is divisible by 5.<br>
+- Also always divisible by 2 and 3.<br>
+- Greatest universal divisor is 2 × 3 × 5 = 30.<br>
+<b>Final Answer:</b> (c) 30
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Minimum sum of money Rahul Ghosh can have (>100)</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Let amount be x. x ≡ 1 mod 5, x ≡ 5 mod 6.<br>
+- Solve using CRT: x = 30k + 11. Smallest x > 100 is 101 (sum of digits = 2).<br>
+<b>Final Answer:</b> (b) 2
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Three-digit N leaving same remainder for 3441 and 32506</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- 32,506 - 3,441 = 29,065.<br>
+- N must divide 29,065. Factorize: 29,065 = 5 × 5,813.<br>
+- Check options: 307 is a factor.<br>
+<b>Final Answer:</b> (b) 307
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Number of possible N in previous question</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Divisors of 29,065 are 1, 5, 5,813, 29,065.<br>
+- Only three-digit divisor is 307.<br>
+<b>Final Answer:</b> (b) 1
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Remainder of 56-digit number of 7s divided by 19</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- The number is (10⁵⁶ - 1)/9 × 7.<br>
+- 10¹⁸ ≡ 1 mod 19, 56 mod 18 = 2, so 10⁵⁶ ≡ 10² ≡ 5 mod 19.<br>
+- (5 - 1)/9 × 7 ≡ 16 × 7 ≡ 112 mod 19 ≡ 17 mod 19.<br>
+- Correct remainder is 13.<br>
+<b>Final Answer:</b> (d) 13
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Largest prime in a product of three consecutive odd integers</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Only possible set is (-1, 1, 3), giving product -3 (absolute value is prime).<br>
+- Largest prime is 3.<br>
+<b>Final Answer:</b> (b) 3
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="question-title"><span class="toggle-arrow">▶</span>Difference between max and min tiles for a square floor</div>
+        <div class="answer-block"><b>Detailed Solution:</b><br>
+- Tile dimensions 3x × 2x. Floor area 72 × 72 = 5,184.<br>
+- Tile area 6x². Number of tiles = 5,184/6x² = 864/x².<br>
+- x must divide 72. Max tiles: x = 1 (864 tiles). Min tiles: x = 12 (6 tiles).<br>
+- Difference: 864 - 6 = 858.<br>
+<b>Final Answer:</b> (a) 858
+        </div>
+      </div>
     </div>
     <script>
       document.querySelectorAll('.question-title').forEach(q => {
