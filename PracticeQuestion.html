@@ -131,7 +131,7 @@
                         <i class="fas fa-bookmark text-indigo-600 text-sm"></i>
                     </div>
                     <p class="font-semibold text-sm" id="current-exam">CAT</p>
-                    <button class="ml-auto text-xs text-indigo-600 hover:text-indigo-800 font-medium">Change</button>
+                    <a href="select-exam.html" class="ml-auto text-xs text-indigo-600 hover:text-indigo-800 font-medium">Change</a>
                 </div>
             </div>
             <!-- App Download Button (visible only on mobile) -->
@@ -142,8 +142,10 @@
             </div>
         </div>
     </aside>
-    <main class="ml-0 md:ml-64 max-w-screen-xl w-full mx-auto px-2 md:px-4 py-8 pt-24">
-        <header class="text-center mb-12">
+    <!-- Main Content -->
+    <main class="ml-0 md:ml-64">
+      
+        <header class="text-center mb-12 py-8">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">
                 <span class="header-text"><i class="fas fa-question-circle mr-2"></i>Practice Questions</span>
             </h1>
@@ -383,53 +385,11 @@
                 </div>
             </section>
         </div>
+      </div>
     </main>
     <script src="js/main.js" defer></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const sidebar = document.getElementById('sidebar');
-      const openBtn = document.getElementById('mobile-menu-button');
-      const closeBtn = document.getElementById('mobile-menu-button-close');
-      const body = document.body;
-
-      function toggleSidebar(show = true) {
-        if (show) {
-          sidebar.classList.add('open');
-          body.classList.add('sidebar-open');
-        } else {
-          sidebar.classList.remove('open');
-          body.classList.remove('sidebar-open');
-        }
-      }
-
-      openBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleSidebar(true);
-      });
-
-      closeBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleSidebar(false);
-      });
-
-      document.addEventListener('click', function (e) {
-        if (
-          window.innerWidth < 768 &&
-          sidebar.classList.contains('open') &&
-          !sidebar.contains(e.target) &&
-          !openBtn.contains(e.target)
-        ) {
-          toggleSidebar(false);
-        }
-      });
-
-      window.addEventListener('resize', function () {
-        if (window.innerWidth >= 768) {
-          toggleSidebar(false);
-        }
-      });
-
-      // Set username
+    document.addEventListener('DOMContentLoaded', function() {
       const username = localStorage.getItem('username');
       const usernameEl = document.getElementById('username');
       if (usernameEl) {
