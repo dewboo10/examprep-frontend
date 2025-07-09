@@ -1,5 +1,21 @@
 const API_BASE = 'https://examprep-backend.onrender.com';
 
+// Exam section durations in seconds
+const EXAM_SECTION_DURATIONS = {
+  CAT:   { VARC: 30, LRDI: 30, Quant: 30 },
+  SNAP:  { VARC: 45, LRDI: 45, Quant: 45 },
+  NMAT:  { VARC: 30, LRDI: 30, Quant: 30 },
+  XAT:   { VARC: 30, LRDI: 30, Quant: 30, GK: 15 },
+};
+
+function getExamSections(exam) {
+  return Object.keys(EXAM_SECTION_DURATIONS[exam] || { VARC: 30, LRDI: 30, Quant: 30 });
+}
+
+function getSectionDuration(exam, section) {
+  return (EXAM_SECTION_DURATIONS[exam] && EXAM_SECTION_DURATIONS[exam][section]) || 30;
+}
+
 // Initialize state
 let state = {
     currentSection: 'VARC',
@@ -7,11 +23,13 @@ let state = {
     answers: {},
     flags: {},
     visited: {},
-    timeLeft: 5400, // 90 minutes in seconds
+    sectionTimeLeft: 30, // default, will be set on test start
     questions: null,
     timerId: null,
     isReview: false,
-    testStartTime: null
+    testStartTime: null,
+    sectionTimes: {}, // Track time spent per section
+    sectionIndex: 0
 };
 
 // DOM Elements
@@ -300,57 +318,47 @@ function selectAnswer(index) {
 
 // Start timer
 function startTestTimer() {
-    // Clear any existing timer
     if (state.timerId) clearInterval(state.timerId);
-    
-    // Check for saved start time
-    const savedStart = localStorage.getItem("testStartTime");
-    const now = Date.now();
-    
-    if (savedStart) {
-        state.testStartTime = parseInt(savedStart);
-    } else {
-        state.testStartTime = now;
-        localStorage.setItem("testStartTime", state.testStartTime);
-    }
-    
-    // Calculate initial time left
-    const elapsed = Math.floor((now - state.testStartTime) / 1000);
-    state.timeLeft = Math.max(0, 5400 - elapsed);
+    const exam = localStorage.getItem('selectedExam') || 'CAT';
+    const sections = getExamSections(exam);
+    state.sectionIndex = 0;
+    state.currentSection = sections[0];
+    state.sectionTimeLeft = getSectionDuration(exam, state.currentSection);
+    state.sectionTimes = {};
+    renderSections();
+    renderQuestion();
+    renderQuestionNavigator();
     updateTimerDisplay();
-    
-    // Start countdown
     state.timerId = setInterval(() => {
-        state.timeLeft--;
+        // Track time spent in this section
+        if (!state.sectionTimes[state.currentSection]) state.sectionTimes[state.currentSection] = 0;
+        state.sectionTimes[state.currentSection]++;
+        state.sectionTimeLeft--;
         updateTimerDisplay();
-        
-        if (state.timeLeft <= 0) {
-            clearInterval(state.timerId);
-            submitTest();
-        }
-        
-        // Auto-switch sections based on time
-        const sectionOrder = ["VARC", "LRDI", "Quant"];
-        const sectionDuration = 1800; // 30 minutes per section
-        
-        const sectionIndex = Math.floor((5400 - state.timeLeft) / sectionDuration);
-        if (sectionIndex >= sectionOrder.length) return;
-        
-        const nextSection = sectionOrder[sectionIndex];
-        if (nextSection !== state.currentSection) {
-            state.currentSection = nextSection;
-            state.currentQuestionIndex = 0;
-            renderSections();
-            renderQuestion();
-            renderQuestionNavigator();
+        if (state.sectionTimeLeft <= 0) {
+            // Move to next section or submit
+            const nextIndex = state.sectionIndex + 1;
+            if (nextIndex < sections.length) {
+                state.sectionIndex = nextIndex;
+                state.currentSection = sections[nextIndex];
+                state.currentQuestionIndex = 0;
+                state.sectionTimeLeft = getSectionDuration(exam, state.currentSection);
+                renderSections();
+                renderQuestion();
+                renderQuestionNavigator();
+                updateTimerDisplay();
+            } else {
+                clearInterval(state.timerId);
+                submitTest();
+            }
         }
     }, 1000);
 }
 
 // Update timer display
 function updateTimerDisplay() {
-    const minutes = Math.floor(state.timeLeft / 60);
-    const seconds = state.timeLeft % 60;
+    const minutes = Math.floor(state.sectionTimeLeft / 60);
+    const seconds = state.sectionTimeLeft % 60;
     elements.timer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
@@ -450,7 +458,7 @@ async function submitTest() {
                 day: day,
                 answers: state.answers,
                 reviewFlags: state.flags,
-                timeSpent: 5400 - state.timeLeft
+                timeSpent: Object.values(state.sectionTimes).reduce((a, b) => a + b, 0)
             })
         });
         const result = await response.json();
@@ -551,3 +559,6 @@ if (!document.getElementById('upgrade-modal')) {
     document.getElementById('upgrade-modal').style.display = 'none';
   };
 }
+
+
+ 
