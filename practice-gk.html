@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -148,38 +149,37 @@
     <button id="mobile-menu-button" class="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
       <i class="fas fa-bars text-xl text-indigo-600"></i>
     </button>
-
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto">
-      <!-- Sidebar Header with Close Button -->
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-        <div class="flex items-center">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
-            <i class="fas fa-graduation-cap text-white text-lg"></i>
-          </div>
-          <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent ml-3">परीक्षा prep</h1>
+    <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto block">
+        <!-- Sidebar Header with Close Button -->
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
+                    <i class="fas fa-graduation-cap text-white text-lg"></i>
+                </div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent ml-3">परीक्षा prep</h1>
+            </div>
+            <button id="mobile-menu-button-close" class="md:hidden text-gray-500 hover:text-indigo-600 transition-colors absolute top-4 right-4">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
-        <button id="mobile-menu-button-close" class="md:hidden text-gray-500 hover:text-indigo-600 transition-colors absolute top-4 right-4">
-          <i class="fas fa-times text-xl"></i>
-        </button>
-      </div>
-      <!-- User Profile Card -->
-      <div class="user-profile-card flex items-center mb-6 p-4 rounded-xl transition-all">
-        <div class="relative">
-          <div class="w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center text-indigo-600 shadow-inner">
-            <i class="fas fa-user-graduate text-xl"></i>
-          </div>
-          <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white flex items-center justify-center">
-            <i class="fas fa-crown text-white text-xs"></i>
-          </div>
+        <!-- User Profile Card -->
+        <div class="user-profile-card flex items-center mb-6 p-4 rounded-xl transition-all">
+            <div class="relative">
+                <div class="w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center text-indigo-600 shadow-inner">
+                    <i class="fas fa-user-graduate text-xl"></i>
+                </div>
+                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white flex items-center justify-center">
+                    <i class="fas fa-crown text-white text-xs"></i>
+                </div>
+            </div>
+            <div class="ml-3">
+                <p class="font-semibold text-sm" id="username">User</p>
+                <p class="text-xs text-purple-600 font-medium">Premium Member</p>
+            </div>
         </div>
-        <div class="ml-3">
-          <p class="font-semibold text-sm" id="username">User</p>
-          <p class="text-xs text-purple-600 font-medium">Premium Member</p>
-        </div>
-      </div>
-      <!-- Navigation Links -->
-      <nav class="flex-1 overflow-y-auto hide-scrollbar space-y-1 mb-4">
+        <!-- Navigation Links -->
+        <nav class="flex-1 overflow-y-auto hide-scrollbar space-y-1 mb-4">
         <a href="dashboard.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 font-medium">
           <i class="fas fa-home mr-3 text-indigo-500"></i>
           Dashboard
@@ -239,62 +239,7 @@
         </div>
       </div>
     </aside>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const sidebar = document.getElementById('sidebar');
-      const openBtn = document.getElementById('mobile-menu-button');
-      const closeBtn = document.getElementById('mobile-menu-button-close');
-      const body = document.body;
-
-      function toggleSidebar(show = true) {
-        if (show) {
-          sidebar.classList.add('open');
-          body.classList.add('sidebar-open');
-        } else {
-          sidebar.classList.remove('open');
-          body.classList.remove('sidebar-open');
-        }
-      }
-
-      openBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleSidebar(true);
-      });
-
-      closeBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleSidebar(false);
-      });
-
-      document.addEventListener('click', function (e) {
-        if (
-          window.innerWidth < 768 &&
-          sidebar.classList.contains('open') &&
-          !sidebar.contains(e.target) &&
-          !openBtn.contains(e.target)
-        ) {
-          toggleSidebar(false);
-        }
-      });
-
-      window.addEventListener('resize', function () {
-        if (window.innerWidth >= 768) {
-          toggleSidebar(false);
-        }
-      });
-    });
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const username = localStorage.getItem('username');
-      const usernameEl = document.getElementById('username');
-      if (usernameEl) {
-        usernameEl.textContent = username || 'Guest';
-      }
-    });
-    </script>
-
+    <!-- Main Content -->
     <main class="ml-0 md:ml-64 w-full py-8 pt-0">
         <div class="max-w-screen-xl px-0">
             <!-- Practice Switcher Navbar (centered with content) -->
@@ -472,6 +417,56 @@
     </main>
 
     <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebar = document.getElementById('sidebar');
+      const openBtn = document.getElementById('mobile-menu-button');
+      const closeBtn = document.getElementById('mobile-menu-button-close');
+      const body = document.body;
+      function toggleSidebar(show = true) {
+        if (show) {
+          sidebar.classList.add('open');
+          body.classList.add('sidebar-open');
+        } else {
+          sidebar.classList.remove('open');
+          body.classList.remove('sidebar-open');
+        }
+      }
+      openBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar(true);
+      });
+      closeBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar(false);
+      });
+      document.addEventListener('click', function (e) {
+        if (
+          window.innerWidth < 768 &&
+          sidebar.classList.contains('open') &&
+          !sidebar.contains(e.target) &&
+          !openBtn.contains(e.target)
+        ) {
+          toggleSidebar(false);
+        }
+      });
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 768) {
+          toggleSidebar(false);
+        }
+      });
+    });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const username = localStorage.getItem('username');
+      const usernameEl = document.getElementById('username');
+      if (usernameEl) {
+        usernameEl.textContent = username || 'Guest';
+      }
+    });
+    </script>
+
+    <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Navbar scroll effect
     window.addEventListener('scroll', () => {
@@ -500,17 +495,17 @@
     });
 
     // Sidebar toggle logic
-    const sidebar = document.getElementById('mobileSidebar');
-    const toggleBtn = document.getElementById('openSidebar');
-    const closeBtn = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('mobile-menu-button');
+    const closeBtn = document.getElementById('mobile-menu-button-close');
 
     if (toggleBtn && closeBtn && sidebar) {
       toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('translate-x-full');
+        sidebar.classList.toggle('open');
       });
 
       closeBtn.addEventListener('click', () => {
-        sidebar.classList.add('translate-x-full');
+        sidebar.classList.remove('open');
       });
     }
   });
