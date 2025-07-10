@@ -240,17 +240,33 @@
     <div class="modal">
       <h3><i class="fas fa-edit"></i> Edit Question</h3>
       <form id="editForm">
-        <input type="hidden" id="editId">
-        <label>Question: <input id="editQuestion" required></label>
-        <label>Section: <input id="editSection" required></label>
-        <label>Type: 
-          <select id="editType">
+        <label>Exam<span class="required-star">*</span>: <input id="editExam" required style="width: 160px;"></label>
+        <label id="labelEditDay">Day<span class="required-star" id="starEditDay">*</span>: <input id="editDay" type="number" style="width: 100px;"></label>
+        <label id="labelEditSection">Section<span class="required-star" id="starEditSection">*</span>: <input id="editSection" style="width: 160px;"></label>
+        <label>ID<span class="required-star">*</span>: <input id="editId" required style="width: 160px;" readonly></label>
+        <label>Image URL: <input id="editImg" style="width: 220px;"></label>
+        <label>Passage: <textarea id="editPassage" rows="4" style="width: 98%; min-width: 350px; min-height: 60px;"></textarea></label>
+        <label>Question<span class="required-star">*</span>: <textarea id="editQuestion" required rows="4" style="width: 98%; min-width: 350px; min-height: 60px;"></textarea></label>
+        <label>Options<span class="required-star">*</span>:</label>
+        <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <input id="editOption0" required placeholder="Option 1" style="flex:1 1 220px; min-width:180px; padding:0.7rem; font-size:1.1em;">
+          <input id="editOption1" required placeholder="Option 2" style="flex:1 1 220px; min-width:180px; padding:0.7rem; font-size:1.1em;">
+          <input id="editOption2" required placeholder="Option 3" style="flex:1 1 220px; min-width:180px; padding:0.7rem; font-size:1.1em;">
+          <input id="editOption3" required placeholder="Option 4" style="flex:1 1 220px; min-width:180px; padding:0.7rem; font-size:1.1em;">
+        </div>
+        <label>Answer Index<span class="required-star">*</span> (0-3): <input id="editAnswerIndex" type="number" min="0" max="3" required style="width: 100px;"></label>
+        <label>Explanation: <textarea id="editExplanation" rows="3" style="width: 98%; min-width: 350px; min-height: 50px;"></textarea></label>
+        <label>Video: <input id="editVideo" style="width: 220px;"></label>
+        <label>Video URL: <input id="editVideoUrl" style="width: 220px;"></label>
+        <label>Video Start (seconds): <input id="editVideoStart" type="number" min="0" style="width: 120px;"></label>
+        <label>Type<span class="required-star">*</span>: 
+          <select id="editType" required style="width: 120px;" onchange="updateEditMockFieldsRequired()">
             <option value="mock">Mock</option>
             <option value="practice">Practice</option>
           </select>
         </label>
         <div class="modal-actions">
-          <button type="submit" class="save"><i class="fas fa-save"></i> Save</button>
+          <button type="submit" class="save" id="editSubmitBtn"><span id="editSpinner" style="display:none;"><i class='fas fa-spinner fa-spin'></i></span> <i class="fas fa-save"></i> Save</button>
           <button type="button" class="cancel" onclick="closeEditModal()">Cancel</button>
         </div>
       </form>
@@ -331,7 +347,7 @@
           <td>${q.section || ''}</td>
           <td>${q.type || ''}</td>
           <td class="actions">
-            <button class="action-btn" title="Edit" onclick="showEditModal('${q._id}', '${q.question.replace(/'/g, "\'")}', '${q.section || ''}', '${q.type || ''}')"><i class="fas fa-edit"></i></button>
+            <button class="action-btn" title="Edit" onclick="window._editQuestionObj = ${JSON.stringify(q).replace(/"/g, '&quot;')}; showEditModal()"><i class="fas fa-edit"></i></button>
             <button class="action-btn" title="Delete" onclick="deleteQuestion('${q._id}')"><i class="fas fa-trash"></i></button>
           </td>
         `;
@@ -340,10 +356,26 @@
     }
 
     window.showEditModal = function(id, question, section, type) {
-      document.getElementById('editId').value = id;
-      document.getElementById('editQuestion').value = question;
-      document.getElementById('editSection').value = section;
-      document.getElementById('editType').value = type;
+      // Fetch the full question object from the table row or API if needed
+      const q = window._editQuestionObj || {};
+      document.getElementById('editId').value = q.id || '';
+      document.getElementById('editExam').value = q.exam || '';
+      document.getElementById('editDay').value = q.day || '';
+      document.getElementById('editSection').value = q.section || '';
+      document.getElementById('editImg').value = q.img || '';
+      document.getElementById('editPassage').value = q.passage || '';
+      document.getElementById('editQuestion').value = q.question || '';
+      (q.options || []).forEach((opt, i) => {
+        if (i < 4) document.getElementById('editOption'+i).value = opt;
+      });
+      for (let i = (q.options||[]).length; i < 4; i++) document.getElementById('editOption'+i).value = '';
+      document.getElementById('editAnswerIndex').value = q.answerIndex ?? '';
+      document.getElementById('editExplanation').value = q.explanation || '';
+      document.getElementById('editVideo').value = q.video || '';
+      document.getElementById('editVideoUrl').value = q.videoUrl || '';
+      document.getElementById('editVideoStart').value = q.videoStart ?? '';
+      document.getElementById('editType').value = q.type || 'mock';
+      updateEditMockFieldsRequired();
       document.getElementById('editModalBg').style.display = 'flex';
     }
 
@@ -353,20 +385,57 @@
 
     document.getElementById('editForm').onsubmit = async function(e) {
       e.preventDefault();
-      const id = document.getElementById('editId').value;
-      const question = document.getElementById('editQuestion').value;
-      const section = document.getElementById('editSection').value;
+      const btn = document.getElementById('editSubmitBtn');
+      const spinner = document.getElementById('editSpinner');
+      btn.disabled = true; spinner.style.display = '';
+      const exam = document.getElementById('editExam').value.trim();
+      const day = document.getElementById('editDay').value;
+      const section = document.getElementById('editSection').value.trim();
+      const id = document.getElementById('editId').value.trim();
+      const img = document.getElementById('editImg').value.trim() || null;
+      const passage = document.getElementById('editPassage').value.trim() || null;
+      const question = document.getElementById('editQuestion').value.trim();
+      const options = [
+        document.getElementById('editOption0').value.trim(),
+        document.getElementById('editOption1').value.trim(),
+        document.getElementById('editOption2').value.trim(),
+        document.getElementById('editOption3').value.trim()
+      ];
+      const answerIndex = Number(document.getElementById('editAnswerIndex').value);
+      const explanation = document.getElementById('editExplanation').value.trim();
+      const video = document.getElementById('editVideo').value.trim();
+      const videoUrl = document.getElementById('editVideoUrl').value.trim();
+      const videoStart = document.getElementById('editVideoStart').value ? Number(document.getElementById('editVideoStart').value) : undefined;
       const type = document.getElementById('editType').value;
-      await fetch(`${API_BASE}/questions/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + ADMIN_TOKEN
-        },
-        body: JSON.stringify({ question, section, type })
-      });
-      closeEditModal();
-      fetchQuestions();
+      // Validation
+      if (!exam || !id || !question || !type) {
+        showAdminMsg('Please fill all required fields.', true); btn.disabled = false; spinner.style.display = 'none'; return;
+      }
+      if (type === 'mock' && (day === '' || section === '')) {
+        showAdminMsg('Day and Section are required for mock questions.', true); btn.disabled = false; spinner.style.display = 'none'; return;
+      }
+      if (options.some(opt => !opt)) {
+        showAdminMsg('All options must be filled.', true); btn.disabled = false; spinner.style.display = 'none'; return;
+      }
+      if (answerIndex < 0 || answerIndex >= options.length || isNaN(answerIndex)) {
+        showAdminMsg('Answer Index must be between 0 and 3.', true); btn.disabled = false; spinner.style.display = 'none'; return;
+      }
+      try {
+        await fetch(`${API_BASE}/questions/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + ADMIN_TOKEN
+          },
+          body: JSON.stringify({ exam, day, section, id, img, passage, question, options, answerIndex, explanation, video, videoUrl, videoStart, type })
+        });
+        closeEditModal();
+        fetchQuestions();
+        showAdminMsg('Question updated successfully!');
+      } catch (e) {
+        showAdminMsg('Failed to update question.', true);
+      }
+      btn.disabled = false; spinner.style.display = 'none';
     };
 
     window.deleteQuestion = async function(id) {
@@ -531,6 +600,32 @@
     }
     document.getElementById('createType').addEventListener('change', updateMockFieldsRequired);
     updateMockFieldsRequired();
+    function updateEditMockFieldsRequired() {
+      const type = document.getElementById('editType').value;
+      const dayInput = document.getElementById('editDay');
+      const sectionInput = document.getElementById('editSection');
+      const dayLabel = document.getElementById('labelEditDay');
+      const sectionLabel = document.getElementById('labelEditSection');
+      const starDay = document.getElementById('starEditDay');
+      const starSection = document.getElementById('starEditSection');
+      if (type === 'mock') {
+        dayInput.required = true;
+        sectionInput.required = true;
+        starDay.style.display = '';
+        starSection.style.display = '';
+        dayLabel.style.opacity = 1;
+        sectionLabel.style.opacity = 1;
+      } else {
+        dayInput.required = false;
+        sectionInput.required = false;
+        starDay.style.display = 'none';
+        starSection.style.display = 'none';
+        dayLabel.style.opacity = 0.7;
+        sectionLabel.style.opacity = 0.7;
+      }
+    }
+    document.getElementById('editType').addEventListener('change', updateEditMockFieldsRequired);
+    updateEditMockFieldsRequired();
     window.downloadTemplateCSV = function() {
       const header = ['id','question','option1','option2','option3','option4','answerIndex','explanation','chapter','exam','day','section','type'];
       const exampleMock = ['32','What is the capital of France?','Berlin','Madrid','Paris','Rome','3','Paris is the capital of France.','Geography','Midterm','1','A','mock'];
