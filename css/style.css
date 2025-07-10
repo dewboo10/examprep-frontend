@@ -119,4 +119,21 @@
   transform: translateY(-2px) scale(1.04);
   background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%);
 }
+
+/* Minimal, modern sidebar scrollbar */
+.sidebar-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #a5b4fc #f3f4f6;
+}
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 7px;
+  background: #f3f4f6;
+}
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: #a5b4fc;
+  border-radius: 6px;
+}
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
   
