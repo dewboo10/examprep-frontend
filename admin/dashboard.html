@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      background: #f6f8fa;
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+    }
+    .sidebar {
+      width: 230px;
+      background: linear-gradient(120deg, #7c3aed 0%, #6366f1 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 2rem 1.2rem 1.2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 16px 0 rgba(80, 40, 120, 0.08);
+    }
+    .sidebar h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      letter-spacing: -1px;
+      color: #fff;
+      text-align: center;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.7rem 1rem;
+      border-radius: 0.7rem;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.08rem;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      transition: background 0.18s, color 0.18s;
+    }
+    .nav-link.active, .nav-link:hover {
+      background: rgba(255,255,255,0.13);
+      color: #fff;
+    }
+    .main {
+      flex: 1;
+      padding: 2.5rem 2rem 2rem 2rem;
+      background: #f6f8fa;
+      min-height: 100vh;
+    }
+    .dashboard-header {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #4f46e5;
+      margin-bottom: 2.2rem;
+      letter-spacing: -1px;
+    }
+    .stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 1.2rem;
+      box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.08);
+      padding: 2rem 2.2rem 1.5rem 2.2rem;
+      min-width: 220px;
+      flex: 1 1 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .stat-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.7rem;
+      color: #6366f1;
+    }
+    .stat-label {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 0.2rem;
+      font-weight: 500;
+    }
+    .stat-value {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #4f46e5;
+    }
+    @media (max-width: 900px) {
+      .stats { flex-direction: column; gap: 1.2rem; }
+      .main { padding: 1.2rem; }
+      .sidebar { padding: 1.2rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2><i class="fas fa-cogs"></i> Admin</h2>
+    <a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="admin-questions.html" class="nav-link"><i class="fas fa-question"></i> Questions</a>
+    <a href="#" class="nav-link"><i class="fas fa-list-ol"></i> Mocks</a>
+    <a href="#" class="nav-link"><i class="fas fa-users"></i> Users</a>
+    <a href="#" class="nav-link"><i class="fas fa-bell"></i> Notifications</a>
+    <a href="#" class="nav-link"><i class="fas fa-user-cog"></i> Profile</a>
+  </aside>
+  <main class="main">
+    <div class="dashboard-header"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</div>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-question"></i></div>
+        <div class="stat-label">Total Questions</div>
+        <div class="stat-value" id="totalQuestions">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-list-ol"></i></div>
+        <div class="stat-label">Total Mocks</div>
+        <div class="stat-value" id="totalMocks">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-label">Total Users</div>
+        <div class="stat-value" id="totalUsers">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+        <div class="stat-label">Active Today</div>
+        <div class="stat-value" id="activeToday">—</div>
+      </div>
+    </div>
+    <div style="color:#888; font-size:1.1rem; margin-top:2.5rem;">
+      Welcome to the admin dashboard. Use the sidebar to manage questions, mocks, users, notifications, and more.<br>
+      <span style="color:#6366f1;">Tip:</span> This dashboard is fully responsive and works great on mobile too!
+    </div>
+  </main>
+  <script>
+    // Set your backend API base URL here
+    const API_BASE = 'http://localhost:5050/api/admin';
+    let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+    if (!ADMIN_TOKEN) {
+      ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+      localStorage.setItem('adminToken', ADMIN_TOKEN);
+    }
+    async function fetchStats() {
+      try {
+        const res = await fetch(`${API_BASE}/stats`, {
+          headers: { Authorization: 'Bearer ' + ADMIN_TOKEN }
+        });
+        const stats = await res.json();
+        document.getElementById('totalQuestions').textContent = stats.totalQuestions ?? '—';
+        document.getElementById('totalMocks').textContent = stats.totalMocks ?? '—';
+        document.getElementById('totalUsers').textContent = stats.totalUsers ?? '—';
+        document.getElementById('activeToday').textContent = stats.activeToday ?? '—';
+      } catch (e) {
+        // fallback: show dashes
+      }
+    }
+    fetchStats();
+  </script>
+</body>
+</html> 
