@@ -470,7 +470,7 @@
       </a>
     </nav>
     <!-- Bottom Section -->
-    <div class="mt-auto pt-4 border-t border-gray-100">
+    <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col gap-4">
       <!-- Brain Games Card -->
       <div class="mb-4">
         <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Brain Boosters</p>
@@ -491,6 +491,15 @@
           <a href="select-exam.html" class="ml-auto text-xs text-indigo-600 hover:text-indigo-800 font-medium">Change</a>
         </div>
       </div>
+      <!-- Sidebar Logout Button -->
+      <button
+        onclick="logout()"
+        class="modern-btn w-full flex items-center justify-center gap-2 px-4 py-2 text-base font-semibold bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-red-400 transition mt-2 mb-2"
+        style="box-shadow: 0 4px 16px 0 rgba(239,68,68,0.12);"
+      >
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
       <!-- App Download Button (visible only on mobile) -->
       <div class="mt-4 md:hidden">
         <a href="#" class="get-app-btn w-full flex items-center justify-center px-4 py-3 text-sm font-semibold rounded-xl">

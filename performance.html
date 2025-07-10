@@ -15,110 +15,8 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8fafc;
-      scroll-behavior: smooth;
-    }
-    
-    .card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateY(0);
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.9);
-    }
-    
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-    
-    .animate-countup {
-      animation: countUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-    
-    @keyframes countUp {
-      from { 
-        opacity: 0; 
-        transform: translateY(20px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
-    }
-    
-    .progress-ring {
-      transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .fade-in {
-      animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-    
-    @keyframes fadeIn {
-      from { 
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to { 
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .gradient-bg {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .hover-scale {
-      transition: transform 0.3s ease;
-    }
-
-    .hover-scale:hover {
-      transform: scale(1.02);
-    }
-
-    .table-row-hover:hover {
-      background-color: rgba(59, 130, 246, 0.05);
-      transition: background-color 0.3s ease;
-    }
-
-    @media (max-width: 767px) {
-      #sidebar {
-        left: 0;
-        top: 0;
-        z-index: 50;
-        width: 280px;
-        height: 100vh;
-        background: #fff;
-        transition: transform 0.3s ease;
-        transform: translateX(-100%);
-      }
-      #sidebar.open {
-        transform: translateX(0);
-      }
-      body.sidebar-open {
-        overflow: hidden;
-      }
-      body.sidebar-open::after {
-        content: '';
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 40;
-      }
-    }
-  </style>
+  <!-- Custom Styles (must be last) -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="antialiased bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
   <!-- Mobile Toggle Button (always visible on mobile) -->
@@ -212,6 +110,8 @@
           <button class="ml-auto text-xs text-indigo-600 hover:text-indigo-800 font-medium">Change</button>
         </div>
       </div>
+      <!-- Sidebar Logout Button -->
+      <button onclick="logout()" class="modern-btn w-full flex items-center justify-center gap-2 px-4 py-2 text-base font-semibold mt-2 mb-2"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
       <!-- App Download Button (visible only on mobile) -->
       <div class="mt-4 md:hidden">
         <a href="#" class="get-app-btn w-full flex items-center justify-center px-4 py-3 text-sm font-semibold rounded-xl">
