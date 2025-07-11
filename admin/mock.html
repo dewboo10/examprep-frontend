@@ -161,14 +161,31 @@
       return token;
     }
     let editingMockId = null;
+    // Fetch exams and populate the filter dropdown with ObjectIds
+    async function loadExams() {
+      try {
+        const res = await fetch('https://examprep-backend.onrender.com/api/exams');
+        const exams = await res.json();
+        const filterExam = document.getElementById('filterExam');
+        filterExam.innerHTML = '<option value="">All Exams</option>';
+        exams.forEach(exam => {
+          filterExam.innerHTML += `<option value="${exam._id}">${exam.code} - ${exam.name}</option>`;
+        });
+      } catch (e) {
+        // fallback: show only default option
+      }
+    }
+    // Call loadExams on page load
+    document.addEventListener('DOMContentLoaded', loadExams);
+    // Update fetchMocks to use ObjectId for exam filter
     async function fetchMocks() {
       const token = getAdminToken();
-      const exam = document.getElementById('filterExam').value;
+      const examId = document.getElementById('filterExam').value;
       const day = document.getElementById('filterDay').value;
       const status = document.getElementById('filterStatus').value;
       const search = document.getElementById('filterSearch').value;
       let url = `${API_BASE}/mocks?`;
-      if (exam) url += `exam=${encodeURIComponent(exam)}&`;
+      if (examId) url += `exam=${encodeURIComponent(examId)}&`;
       if (day) url += `day=${encodeURIComponent(day)}&`;
       if (status) url += `status=${encodeURIComponent(status)}&`;
       if (search) url += `search=${encodeURIComponent(search)}&`;
