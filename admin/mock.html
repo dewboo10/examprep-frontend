@@ -175,8 +175,19 @@
         // fallback: show only default option
       }
     }
-    // Call loadExams on page load
-    document.addEventListener('DOMContentLoaded', loadExams);
+    // Ensure the search button triggers fetchMocks and uses ObjectId
+    document.addEventListener('DOMContentLoaded', function() {
+      loadExams();
+      const searchBtn = document.getElementById('filterSearchBtn');
+      if (searchBtn) {
+        searchBtn.onclick = function() {
+          // Debug: log the selected exam value
+          const examId = document.getElementById('filterExam').value;
+          console.log('Exam filter value (should be ObjectId):', examId);
+          fetchMocks();
+        };
+      }
+    });
     // Update fetchMocks to use ObjectId for exam filter
     async function fetchMocks() {
       const token = getAdminToken();
