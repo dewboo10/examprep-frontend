@@ -458,12 +458,21 @@
     };
 
     window.deleteQuestion = async function(id) {
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
       if (!confirm('Are you sure you want to delete this question?')) return;
-      await fetch(`${API_BASE}/questions/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: 'Bearer ' + ADMIN_TOKEN }
-      });
-      fetchQuestions();
+      try {
+        await fetch(`${API_BASE}/questions/${id}`, {
+          method: 'DELETE',
+          headers: { Authorization: 'Bearer ' + ADMIN_TOKEN }
+        });
+        fetchQuestions();
+      } catch (e) {
+        showAdminMsg('Failed to delete question.', true);
+      }
     }
 
     window.showCreateModal = function() {
@@ -504,6 +513,11 @@
       const btn = document.getElementById('createSubmitBtn');
       const spinner = document.getElementById('createSpinner');
       btn.disabled = true; spinner.style.display = '';
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
       // Validation
       const exam = document.getElementById('createExam').value.trim();
       const id = document.getElementById('createId').value.trim();
@@ -545,6 +559,11 @@
       btn.disabled = false; spinner.style.display = 'none';
     };
     window.handleCSVSelected = async function(event) {
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
       const file = event.target.files[0];
       if (!file) return;
       const formData = new FormData();
@@ -565,6 +584,11 @@
     }
 
     window.downloadQuestionsCSV = async function() {
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
       try {
         const exam = document.getElementById('exam').value;
         const day = document.getElementById('day').value;
