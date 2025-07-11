@@ -313,8 +313,8 @@
 
   <script>
     // Set your backend API base URL here
-    const API_BASE = 'http://localhost:5050/api/admin'; // For local testing
-    // const API_BASE = 'https://examprep-backend.onrender.com/api/admin'; // For production
+    // const API_BASE = 'http://localhost:5050/api/admin'; // For local testing
+    const API_BASE = 'https://examprep-backend.onrender.com/api/admin'; // For production
 
     function isTokenExpired(token) {
       if (!token) return true;
@@ -327,23 +327,32 @@
         return true; // Invalid token format
       }
     }
-    let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
-    if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
-      ADMIN_TOKEN = prompt('Enter your admin JWT token:');
-      localStorage.setItem('adminToken', ADMIN_TOKEN);
-    }
-
     async function fetchQuestions() {
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
       const exam = document.getElementById('exam').value;
       const day = document.getElementById('day').value;
       const type = document.getElementById('type').value;
       let url = `${API_BASE}/questions?exam=${encodeURIComponent(exam)}&day=${encodeURIComponent(day)}`;
       if (type) url += `&type=${encodeURIComponent(type)}`;
-      const res = await fetch(url, {
-        headers: { Authorization: 'Bearer ' + ADMIN_TOKEN }
-      });
-      const questions = await res.json();
-      renderQuestions(questions);
+      try {
+        const res = await fetch(url, {
+          headers: { Authorization: 'Bearer ' + ADMIN_TOKEN }
+        });
+        if (res.status === 401) {
+          alert('Session expired or unauthorized. Please log in again.');
+          localStorage.removeItem('adminToken');
+          window.location.reload();
+          return;
+        }
+        const questions = await res.json();
+        renderQuestions(questions);
+      } catch (e) {
+        alert('Failed to fetch questions. Please check your connection.');
+      }
     }
 
     function renderQuestions(questions) {
