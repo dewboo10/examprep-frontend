@@ -290,8 +290,7 @@
             </button>
         </div>
         <!-- User Profile Card -->
-        <a href="user-info.html" class="block focus:outline-none">
-        <div class="user-profile-card flex items-center mb-6 p-4 rounded-xl transition-all hover:shadow-lg cursor-pointer relative">
+        <div class="user-profile-card flex items-center mb-6 p-4 rounded-xl transition-all" id="userProfileCard" style="cursor:pointer;">
             <div class="relative">
                 <div class="w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center text-indigo-600 shadow-inner">
                     <i class="fas fa-user-graduate text-xl"></i>
@@ -300,14 +299,11 @@
                     <i class="fas fa-crown text-white text-xs"></i>
                 </div>
             </div>
-            <div class="ml-3 flex-1 flex flex-col">
+            <div class="ml-3">
                 <p class="font-semibold text-sm" id="username">User</p>
-                <span class="mt-2 inline-flex items-center text-xs text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded hover:bg-indigo-100 transition w-max">
-                  <i class="fas fa-eye mr-1"></i> View Details
-                </span>
+                <p class="text-xs text-purple-600 font-medium" id="userEmail"></p>
             </div>
         </div>
-        </a>
         <!-- Navigation Links -->
         <nav class="flex-1 overflow-y-auto sidebar-scrollbar space-y-1 mb-4">
             <a href="dashboard.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 font-medium">
@@ -362,7 +358,11 @@
                 </div>
             </div>
             <!-- Sidebar Logout Button -->
-            <button onclick="logout()" class="modern-btn w-full flex items-center justify-center gap-2 px-4 py-2 text-base font-semibold mt-2 mb-2"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+            <div class="mt-6">
+                <button id="logoutBtn" class="w-full bg-red-50 text-red-600 font-semibold py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-red-100 transition">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
             <!-- App Download Button (visible only on mobile) -->
             <div class="mt-4 md:hidden">
                 <a href="#" class="get-app-btn w-full flex items-center justify-center px-4 py-3 text-sm font-semibold rounded-xl">
@@ -716,6 +716,17 @@
         const usernameEl = document.getElementById('username');
         if (usernameEl) {
             usernameEl.textContent = username || 'Guest';
+        }
+        document.getElementById('userProfileCard').onclick = function() {
+            window.location.href = 'user-info.html';
+        };
+        document.getElementById('logoutBtn').onclick = function() {
+            logout();
+        };
+        // Show user email if available
+        const userEmail = localStorage.getItem('email');
+        if (userEmail) {
+            document.getElementById('userEmail').textContent = userEmail;
         }
     });
     </script>

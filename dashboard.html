@@ -419,7 +419,7 @@
         </button>
       </div>
       <!-- User Profile Card -->
-      <div class="user-profile-card flex items-center mb-6 p-4 rounded-xl transition-all">
+      <div class="user-profile-card flex items-center mb-6 p-4 rounded-xl transition-all" id="userProfileCard" style="cursor:pointer;">
         <div class="relative">
           <div class="w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center text-indigo-600 shadow-inner">
             <i class="fas fa-user-graduate text-xl"></i>
@@ -430,7 +430,7 @@
         </div>
         <div class="ml-3">
           <p class="font-semibold text-sm" id="username">User</p>
-          <p class="text-xs text-purple-600 font-medium">Premium Member</p>
+          <p class="text-xs text-purple-600 font-medium" id="userEmail"></p>
         </div>
       </div>
       <!-- Navigation Links -->
@@ -492,6 +492,11 @@
             <i class="fas fa-download mr-2"></i> Get Mobile App
           </a>
         </div>
+      </div>
+      <div class="mt-6">
+        <button id="logoutBtn" class="w-full bg-red-50 text-red-600 font-semibold py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-red-100 transition">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
       </div>
     </aside>
 
@@ -1090,6 +1095,20 @@
       }
     });
   });
+  </script>
+
+  <script>
+    document.getElementById('userProfileCard').onclick = function() {
+      window.location.href = 'user-info.html';
+    };
+    document.getElementById('logoutBtn').onclick = function() {
+      logout();
+    };
+    // Show user email if available
+    const userEmail = localStorage.getItem('email');
+    if (userEmail) {
+      document.getElementById('userEmail').textContent = userEmail;
+    }
   </script>
 
   </body>
