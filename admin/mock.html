@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Manage Mocks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Poppins', Arial, sans-serif; margin: 0; background: #f6f8fa; color: #222; }
+    .container { max-width: 1200px; margin: 2rem auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px 0 rgba(80, 40, 120, 0.08); padding: 2.5rem 2rem 2rem 2rem; }
+    h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 1.5rem; color: #4f46e5; letter-spacing: -1px; }
+    .filters { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .filters label { font-weight: 500; color: #555; }
+    .filters input, .filters select { padding: 0.4rem 0.7rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; background: #f9fafb; margin-left: 0.4rem; }
+    .filters button { background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%); color: #fff; border: none; border-radius: 0.5rem; padding: 0.5rem 1.2rem; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px 0 rgba(99,102,241,0.10); transition: background 0.2s, box-shadow 0.2s; }
+    .filters button:hover { background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%); box-shadow: 0 4px 16px 0 rgba(99,102,241,0.13); }
+    table { border-collapse: collapse; width: 100%; background: #fff; border-radius: 1rem; overflow: hidden; box-shadow: 0 2px 12px 0 rgba(80, 40, 120, 0.06); }
+    th, td { border-bottom: 1px solid #f1f1f1; padding: 0.85rem 0.7rem; text-align: left; font-size: 1rem; }
+    th { background: #f3f4f6; font-weight: 600; color: #4f46e5; letter-spacing: 0.5px; }
+    tr:last-child td { border-bottom: none; }
+    td.actions { min-width: 180px; }
+    .action-btn { background: none; border: none; color: #6366f1; font-size: 1.1rem; margin: 0 0.3rem; cursor: pointer; transition: color 0.18s; border-radius: 0.4rem; padding: 0.3rem 0.5rem; }
+    .action-btn:hover { background: #f3f4f6; color: #4f46e5; }
+    .modal-bg { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.18); z-index: 1000; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal { background: #fff; border-radius: 1rem; box-shadow: 0 8px 32px 0 rgba(80, 40, 120, 0.13); padding: 2rem 2.5rem 1.5rem 2.5rem; min-width: 340px; max-width: 98vw; position: relative; animation: popIn 0.18s; max-height: 90vh; overflow-y: auto; }
+    @keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal h3 { font-size: 1.3rem; font-weight: 700; color: #4f46e5; margin-bottom: 1.2rem; }
+    .modal label { display: block; margin-bottom: 0.7rem; color: #444; font-weight: 500; position: relative; }
+    .modal input, .modal select, .modal textarea { width: 100%; padding: 0.5rem 0.7rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; background: #f9fafb; margin-bottom: 1.1rem; }
+    .modal .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 0.5rem; }
+    .modal .modal-actions button { padding: 0.5rem 1.2rem; border-radius: 0.5rem; border: none; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background 0.18s; }
+    .modal .modal-actions .save { background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%); color: #fff; }
+    .modal .modal-actions .save:hover { background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%); }
+    .modal .modal-actions .cancel { background: #f3f4f6; color: #4f46e5; }
+    .modal .modal-actions .cancel:hover { background: #e0e7ef; }
+    .modal .modal-actions .danger { background: #f87171; color: #fff; }
+    .modal .modal-actions .danger:hover { background: #ef4444; }
+    .csv-btn { background: linear-gradient(100deg, #6366f1 0%, #10b981 100%); color: #fff; border: none; border-radius: 0.5rem; padding: 0.5rem 1.2rem; font-size: 1rem; font-weight: 600; cursor: pointer; margin-left: 1rem; box-shadow: 0 2px 8px 0 rgba(99,102,241,0.10); transition: background 0.2s, box-shadow 0.2s; }
+    .csv-btn:hover { background: linear-gradient(100deg, #10b981 0%, #6366f1 100%); }
+    @media (max-width: 600px) { .container { padding: 1rem 0.3rem; } .modal { padding: 1.2rem 0.7rem; } th, td { font-size: 0.95rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-list-ol"></i> Admin: Manage Mocks</h1>
+    <div id="adminMsg" style="margin-bottom:1rem;min-height:28px;font-weight:600;"></div>
+    <div class="filters">
+      <label>Exam: <input id="filterExam" placeholder="Exam"></label>
+      <label>Day: <input id="filterDay" type="number" min="1" placeholder="Day"></label>
+      <label>Status: 
+        <select id="filterStatus">
+          <option value="">All</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="draft">Draft</option>
+        </select>
+      </label>
+      <input id="filterSearch" placeholder="Search mocks..." style="flex:1;min-width:180px;">
+      <button onclick="fetchMocks()"><i class="fas fa-search"></i> Search</button>
+      <button onclick="showCreateMockModal()" style="margin-left:1rem;background:linear-gradient(100deg,#10b981 0%,#6366f1 100%);color:#fff;"><i class="fas fa-plus"></i> Create New Mock</button>
+      <label style="margin-left:1rem;display:flex;align-items:center;gap:0.5rem;">
+        <input type="file" id="csvMockFileInput" accept=".csv" style="display:none;" onchange="handleMockCSVSelected(event)">
+        <button type="button" onclick="document.getElementById('csvMockFileInput').click()" class="csv-btn"><i class="fas fa-upload"></i> Bulk Upload (CSV)</button>
+      </label>
+      <button type="button" onclick="downloadMocksCSV()" class="csv-btn"><i class="fas fa-download"></i> Download All as CSV</button>
+    </div>
+    <table id="mocksTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Exam</th>
+          <th>Day</th>
+          <th>Status</th>
+          <th>#Questions</th>
+          <th>Created</th>
+          <th>Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Create/Edit Mock Modal -->
+  <div id="mockModalBg" class="modal-bg" style="display:none;">
+    <div class="modal">
+      <h3 id="mockModalTitle"><i class="fas fa-plus"></i> Create/Edit Mock</h3>
+      <form id="mockForm">
+        <label>Name: <input id="mockName" required></label>
+        <label>Exam: <input id="mockExam" required></label>
+        <label>Day: <input id="mockDay" type="number" min="1" required></label>
+        <label>Description: <textarea id="mockDescription" rows="3"></textarea></label>
+        <label>Status: 
+          <select id="mockStatus" required>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="draft">Draft</option>
+          </select>
+        </label>
+        <label>Time Limit (minutes): <input id="mockTimeLimit" type="number" min="0"></label>
+        <label>Max Attempts: <input id="mockMaxAttempts" type="number" min="1"></label>
+        <label>Start Date: <input id="mockStartDate" type="datetime-local"></label>
+        <label>End Date: <input id="mockEndDate" type="datetime-local"></label>
+        <div class="modal-actions">
+          <button type="submit" class="save" id="mockSubmitBtn"><span id="mockSpinner" style="display:none;"><i class='fas fa-spinner fa-spin'></i></span> <i class="fas fa-save"></i> Save</button>
+          <button type="button" class="cancel" onclick="closeMockModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Assign Questions Modal -->
+  <div id="assignQuestionsModalBg" class="modal-bg" style="display:none;">
+    <div class="modal" style="max-width:700px;">
+      <h3><i class="fas fa-tasks"></i> Assign Questions to Mock</h3>
+      <div id="assignQuestionsContent">
+        <!-- Placeholder for question assignment UI -->
+        <p>Loading questions...</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="save" onclick="saveAssignedQuestions()"><i class="fas fa-save"></i> Save</button>
+        <button type="button" class="cancel" onclick="closeAssignQuestionsModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analytics Modal -->
+  <div id="analyticsModalBg" class="modal-bg" style="display:none;">
+    <div class="modal" style="max-width:700px;">
+      <h3><i class="fas fa-chart-bar"></i> Mock Analytics</h3>
+      <div id="analyticsContent">
+        <!-- Placeholder for analytics UI -->
+        <p>Loading analytics...</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel" onclick="closeAnalyticsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Set your backend API base URL here
+    const API_BASE = 'https://examprep-backend.onrender.com/api/admin';
+    function isTokenExpired(token) {
+      if (!token) return true;
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (!payload.exp) return false;
+        const now = Math.floor(Date.now() / 1000);
+        return payload.exp < now;
+      } catch (e) { return true; }
+    }
+    function getAdminToken() {
+      let token = localStorage.getItem('adminToken') || '';
+      if (!token || isTokenExpired(token)) {
+        token = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', token);
+      }
+      return token;
+    }
+    let editingMockId = null;
+    async function fetchMocks() {
+      const token = getAdminToken();
+      const exam = document.getElementById('filterExam').value;
+      const day = document.getElementById('filterDay').value;
+      const status = document.getElementById('filterStatus').value;
+      const search = document.getElementById('filterSearch').value;
+      let url = `${API_BASE}/mocks?`;
+      if (exam) url += `exam=${encodeURIComponent(exam)}&`;
+      if (day) url += `day=${encodeURIComponent(day)}&`;
+      if (status) url += `status=${encodeURIComponent(status)}&`;
+      if (search) url += `search=${encodeURIComponent(search)}&`;
+      try {
+        const res = await fetch(url, { headers: { Authorization: 'Bearer ' + token } });
+        if (!res.ok) throw new Error('Failed to fetch mocks');
+        const mocks = await res.json();
+        const tbody = document.querySelector('#mocksTable tbody');
+        tbody.innerHTML = '';
+        if (!mocks.length) {
+          tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;">No mocks found.</td></tr>`;
+          return;
+        }
+        mocks.forEach(mock => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${mock.id || mock._id}</td>
+            <td>${mock.name}</td>
+            <td>${mock.exam}</td>
+            <td>${mock.day}</td>
+            <td>${mock.status}</td>
+            <td>${mock.numQuestions || (mock.questions ? mock.questions.length : 0)}</td>
+            <td>${mock.createdAt ? new Date(mock.createdAt).toLocaleString() : ''}</td>
+            <td>${mock.updatedAt ? new Date(mock.updatedAt).toLocaleString() : ''}</td>
+            <td class="actions">
+              <button class="action-btn" title="Edit" onclick='showCreateMockModal(${JSON.stringify(mock)})'><i class="fas fa-edit"></i></button>
+              <button class="action-btn" title="Delete" onclick="deleteMock('${mock._id}')"><i class="fas fa-trash"></i></button>
+              <button class="action-btn" title="Assign Questions" onclick="showAssignQuestionsModal('${mock._id}')"><i class="fas fa-tasks"></i></button>
+              <button class="action-btn" title="Analytics" onclick="showAnalyticsModal('${mock._id}')"><i class="fas fa-chart-bar"></i></button>
+              <button class="action-btn" title="Clone" onclick="cloneMock('${mock._id}')"><i class="fas fa-copy"></i></button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        document.querySelector('#mocksTable tbody').innerHTML = `<tr><td colspan="9" style="text-align:center;color:#e11d48;">Error loading mocks.</td></tr>`;
+      }
+    }
+    function showCreateMockModal(mock) {
+      document.getElementById('mockModalBg').style.display = 'flex';
+      document.getElementById('mockModalTitle').innerHTML = mock ? '<i class="fas fa-edit"></i> Edit Mock' : '<i class="fas fa-plus"></i> Create Mock';
+      editingMockId = mock ? (mock.id || mock._id) : null;
+      document.getElementById('mockName').value = mock?.name || '';
+      document.getElementById('mockExam').value = mock?.exam || '';
+      document.getElementById('mockDay').value = mock?.day || '';
+      document.getElementById('mockDescription').value = mock?.description || '';
+      document.getElementById('mockStatus').value = mock?.status || 'active';
+      document.getElementById('mockTimeLimit').value = mock?.timeLimit || '';
+      document.getElementById('mockMaxAttempts').value = mock?.maxAttempts || '';
+      document.getElementById('mockStartDate').value = mock?.startDate ? new Date(mock.startDate).toISOString().slice(0,16) : '';
+      document.getElementById('mockEndDate').value = mock?.endDate ? new Date(mock.endDate).toISOString().slice(0,16) : '';
+    }
+    function closeMockModal() { document.getElementById('mockModalBg').style.display = 'none'; editingMockId = null; }
+    document.getElementById('mockForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const token = getAdminToken();
+      const data = {
+        name: document.getElementById('mockName').value,
+        exam: document.getElementById('mockExam').value,
+        day: document.getElementById('mockDay').value,
+        description: document.getElementById('mockDescription').value,
+        status: document.getElementById('mockStatus').value,
+        timeLimit: document.getElementById('mockTimeLimit').value,
+        maxAttempts: document.getElementById('mockMaxAttempts').value,
+        startDate: document.getElementById('mockStartDate').value,
+        endDate: document.getElementById('mockEndDate').value
+      };
+      try {
+        let res;
+        if (editingMockId) {
+          res = await fetch(`${API_BASE}/mocks/${editingMockId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+            body: JSON.stringify(data)
+          });
+        } else {
+          res = await fetch(`${API_BASE}/mocks`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+            body: JSON.stringify(data)
+          });
+        }
+        if (!res.ok) throw new Error('Failed to save mock');
+        closeMockModal();
+        fetchMocks();
+      } catch (e) {
+        alert('Error saving mock: ' + e.message);
+      }
+    };
+    async function deleteMock(id) {
+      if (!confirm('Are you sure you want to delete this mock?')) return;
+      const token = getAdminToken();
+      try {
+        const res = await fetch(`${API_BASE}/mocks/${id}`, {
+          method: 'DELETE',
+          headers: { Authorization: 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('Failed to delete mock');
+        fetchMocks();
+      } catch (e) {
+        alert('Error deleting mock: ' + e.message);
+      }
+    }
+    // Assign Questions
+    function showAssignQuestionsModal(mockId) {
+      document.getElementById('assignQuestionsModalBg').style.display = 'flex';
+      loadAssignQuestions(mockId);
+    }
+    function closeAssignQuestionsModal() { document.getElementById('assignQuestionsModalBg').style.display = 'none'; }
+    async function loadAssignQuestions(mockId) {
+      const token = getAdminToken();
+      const container = document.getElementById('assignQuestionsContent');
+      container.innerHTML = '<p>Loading questions...</p>';
+      try {
+        const res = await fetch(`${API_BASE}/mocks/${mockId}/questions`, {
+          headers: { Authorization: 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('Failed to load questions');
+        const data = await res.json();
+        // Render checkboxes for all questions (simplified for now)
+        container.innerHTML = '<div style="max-height:300px;overflow:auto;">' +
+          data.allQuestions.map(q => `
+            <label style="display:block;margin-bottom:4px;">
+              <input type="checkbox" value="${q._id}" ${data.assignedQuestions.includes(q._id) ? 'checked' : ''}> ${q.question}
+            </label>
+          `).join('') + '</div>';
+        container.innerHTML += '<p style="margin-top:1em;color:#888;font-size:0.95em;">Check to assign, uncheck to remove. Save to apply changes.</p>';
+        container.dataset.mockId = mockId;
+      } catch (e) {
+        container.innerHTML = '<p style="color:#e11d48;">Error loading questions.</p>';
+      }
+    }
+    async function saveAssignedQuestions() {
+      const token = getAdminToken();
+      const container = document.getElementById('assignQuestionsContent');
+      const mockId = container.dataset.mockId;
+      const checked = Array.from(container.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
+      try {
+        const res = await fetch(`${API_BASE}/mocks/${mockId}/questions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+          body: JSON.stringify({ questionIds: checked })
+        });
+        if (!res.ok) throw new Error('Failed to assign questions');
+        closeAssignQuestionsModal();
+        fetchMocks();
+      } catch (e) {
+        alert('Error assigning questions: ' + e.message);
+      }
+    }
+    // Analytics
+    function showAnalyticsModal(mockId) {
+      document.getElementById('analyticsModalBg').style.display = 'flex';
+      loadAnalytics(mockId);
+    }
+    function closeAnalyticsModal() { document.getElementById('analyticsModalBg').style.display = 'none'; }
+    async function loadAnalytics(mockId) {
+      const token = getAdminToken();
+      const container = document.getElementById('analyticsContent');
+      container.innerHTML = '<p>Loading analytics...</p>';
+      try {
+        const res = await fetch(`${API_BASE}/mocks/${mockId}/analytics`, {
+          headers: { Authorization: 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('Failed to load analytics');
+        const data = await res.json();
+        // Render analytics (simplified)
+        container.innerHTML = `
+          <div><b>Attempts:</b> ${data.attempts}</div>
+          <div><b>Average Score:</b> ${data.avgScore}</div>
+          <div><b>Completion Rate:</b> ${data.completionRate}%</div>
+          <div><b>Top Performers:</b><ul>${(data.topPerformers||[]).map(u => `<li>${u.name} (${u.score})</li>`).join('')}</ul></div>
+        `;
+      } catch (e) {
+        container.innerHTML = '<p style="color:#e11d48;">Error loading analytics.</p>';
+      }
+    }
+    // Clone Mock
+    async function cloneMock(id) {
+      if (!confirm('Clone this mock?')) return;
+      const token = getAdminToken();
+      try {
+        const res = await fetch(`${API_BASE}/mocks/${id}/clone`, {
+          method: 'POST',
+          headers: { Authorization: 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('Failed to clone mock');
+        fetchMocks();
+      } catch (e) {
+        alert('Error cloning mock: ' + e.message);
+      }
+    }
+    // Bulk Upload
+    async function handleMockCSVSelected(event) {
+      const token = getAdminToken();
+      const file = event.target.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        const res = await fetch(`${API_BASE}/mocks/upload-csv`, {
+          method: 'POST',
+          headers: { Authorization: 'Bearer ' + token },
+          body: formData
+        });
+        if (!res.ok) throw new Error('Failed to upload CSV');
+        alert('CSV uploaded successfully!');
+        fetchMocks();
+      } catch (e) {
+        alert('CSV upload failed: ' + e.message);
+      }
+      document.getElementById('csvMockFileInput').value = '';
+    }
+    // Bulk Download
+    async function downloadMocksCSV() {
+      const token = getAdminToken();
+      try {
+        const res = await fetch(`${API_BASE}/mocks/download-csv`, {
+          headers: { Authorization: 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('Failed to download CSV');
+        const blob = await res.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'mocks.csv';
+        a.click();
+      } catch (e) {
+        alert('CSV download failed: ' + e.message);
+      }
+    }
+    // Initial fetch
+    fetchMocks();
+  </script>
+</body>
+</html> 
