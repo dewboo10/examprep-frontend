@@ -46,7 +46,11 @@
     <h1><i class="fas fa-list-ol"></i> Admin: Manage Mocks</h1>
     <div id="adminMsg" style="margin-bottom:1rem;min-height:28px;font-weight:600;"></div>
     <div class="filters">
-      <label>Exam: <input id="filterExam" placeholder="Exam"></label>
+      <label>Exam: 
+        <select id="filterExam">
+          <option value="">All Exams</option>
+        </select>
+      </label>
       <label>Day: <input id="filterDay" type="number" min="1" placeholder="Day"></label>
       <label>Status: 
         <select id="filterStatus">
