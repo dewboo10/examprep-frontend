@@ -93,7 +93,11 @@
       <h3 id="mockModalTitle"><i class="fas fa-plus"></i> Create/Edit Mock</h3>
       <form id="mockForm">
         <label>Name: <input id="mockName" required></label>
-        <label>Exam: <input id="mockExam" required></label>
+        <label>Exam: 
+          <select id="mockExam" required>
+            <option value="">Select Exam</option>
+          </select>
+        </label>
         <label>Day: <input id="mockDay" type="number" min="1" required></label>
         <label>Description: <textarea id="mockDescription" rows="3"></textarea></label>
         <label>Status: 
@@ -239,12 +243,26 @@
         document.querySelector('#mocksTable tbody').innerHTML = `<tr><td colspan="9" style="text-align:center;color:#e11d48;">Error loading mocks.</td></tr>`;
       }
     }
+    // Add this function to populate the exam select in the modal
+    async function populateMockExamSelect(selectedExamId) {
+      try {
+        const res = await fetch('https://examprep-backend.onrender.com/api/exams');
+        const exams = await res.json();
+        const mockExamSelect = document.getElementById('mockExam');
+        mockExamSelect.innerHTML = '<option value="">Select Exam</option>';
+        exams.forEach(exam => {
+          mockExamSelect.innerHTML += `<option value="${exam._id}"${selectedExamId === exam._id ? ' selected' : ''}>${exam.code} - ${exam.name}</option>`;
+        });
+      } catch (e) {
+        // fallback: show only default option
+      }
+    }
     function showCreateMockModal(mock) {
       document.getElementById('mockModalBg').style.display = 'flex';
       document.getElementById('mockModalTitle').innerHTML = mock ? '<i class="fas fa-edit"></i> Edit Mock' : '<i class="fas fa-plus"></i> Create Mock';
       editingMockId = mock ? (mock.id || mock._id) : null;
       document.getElementById('mockName').value = mock?.name || '';
-      document.getElementById('mockExam').value = mock?.exam || '';
+      populateMockExamSelect(mock?.exam || '');
       document.getElementById('mockDay').value = mock?.day || '';
       document.getElementById('mockDescription').value = mock?.description || '';
       document.getElementById('mockStatus').value = mock?.status || 'active';
