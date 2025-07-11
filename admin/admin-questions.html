@@ -313,12 +313,22 @@
 
   <script>
     // Set your backend API base URL here
-    const API_BASE = 'http://localhost:5050/api/admin';
-    // Set your admin JWT token here (for demo, you can hardcode or prompt)
-    let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+    const API_BASE = 'http://localhost:5050/api/admin'; // For local testing
+    // const API_BASE = 'https://examprep-backend.onrender.com/api/admin'; // For production
 
-    // Prompt for token if not set
-    if (!ADMIN_TOKEN) {
+    function isTokenExpired(token) {
+      if (!token) return true;
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (!payload.exp) return false; // No exp field, assume not expired
+        const now = Math.floor(Date.now() / 1000);
+        return payload.exp < now;
+      } catch (e) {
+        return true; // Invalid token format
+      }
+    }
+    let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+    if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
       ADMIN_TOKEN = prompt('Enter your admin JWT token:');
       localStorage.setItem('adminToken', ADMIN_TOKEN);
     }
