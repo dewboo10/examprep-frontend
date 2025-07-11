@@ -1,426 +1,425 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Exam Prep</title>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Exam Prep</title>
 
-  <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- javascript -->
-   <script src ="js/dashboard.js" defer></script>
-   <!--JAVASCRIPT-->
-  <script src="js/main.js" defer></script>
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="css/style.css">
-<style>
-  @keyframes spin-smooth {
-    to { transform: rotate(360deg); }
-  }
-  @keyframes gradient-border {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  @keyframes progress {
-    0% { width: 20%; left: -20%; }
-    100% { width: 120%; left: 100%; }
-  }
-  .animate-spin-slow {
-    animation: spin-smooth 1.8s linear infinite;
-  }
-  .animate-spin-slower {
-    animation: spin-smooth 2.4s linear infinite reverse;
-  }
-  .animate-gradient-border {
-    animation: gradient-border 4s ease infinite;
-    background-size: 200% 200%;
-  }
-  .animate-progress {
-    animation: progress 1.8s ease-in-out infinite;
-    position: relative;
-  }
-  .hide-scrollbar::-webkit-scrollbar { display: none; }
-  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  @keyframes fadein-smooth {
-    0% { opacity: 0; transform: translateY(18px); }
-    12% { opacity: 1; transform: translateY(0); }
-    88% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-12px); }
-  }
-  .animate-fadein-smooth {
-    animation: fadein-smooth 4.2s cubic-bezier(0.4,0,0.2,1);
-  }
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-  .sparkle-btn {
-    position: relative;
-    overflow: hidden;
-  }
-  .sparkle-btn .sparkle {
-    position: absolute;
-    top: 50%;
-    left: 16px;
-    width: 18px;
-    height: 18px;
-    pointer-events: none;
-    transform: translateY(-50%) scale(0.8);
-    opacity: 0.7;
-    transition: transform 0.3s, opacity 0.3s;
-    z-index: 2;
-  }
-  .sparkle-btn:hover .sparkle {
-    animation: sparkle-rotate 0.7s cubic-bezier(0.4,0,0.2,1) 1;
-    opacity: 1;
-    transform: translateY(-50%) scale(1.1) rotate(20deg);
-  }
-  @keyframes sparkle-rotate {
-    0% { opacity: 0.7; transform: translateY(-50%) scale(0.8) rotate(0deg); }
-    50% { opacity: 1; transform: translateY(-50%) scale(1.2) rotate(20deg); }
-    100% { opacity: 0.7; transform: translateY(-50%) scale(0.8) rotate(0deg); }
-  }
-  .sparkle-btn .shimmer {
-    content: '';
-    position: absolute;
-    top: 0; left: -75%;
-    width: 50%; height: 100%;
-    background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
-    z-index: 1;
-    pointer-events: none;
-    transition: left 0.5s;
-  }
-  .sparkle-btn:hover .shimmer {
-    left: 120%;
-    transition: left 0.7s cubic-bezier(0.4,0,0.2,1);
-  }
-  .modern-btn {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    border: none;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
-    background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%);
-    color: #fff;
-    font-weight: 600;
-    transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
-    z-index: 1;
-  }
-  .modern-btn:before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(120deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.32) 40%, rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.0) 100%);
-    transform: rotate(25deg);
-    animation: shine-move 2.2s linear infinite;
-    pointer-events: none;
-    z-index: 2;
-  }
-  @keyframes shine-move {
-    0% { left: -60%; }
-    100% { left: 100%; }
-  }
-  .modern-btn:hover, .modern-btn:focus {
-    box-shadow: 0 8px 32px 0 rgba(80, 40, 120, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
-    transform: translateY(-2px) scale(1.04);
-    background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%);
-  }
-  /* 1. Thin Shine for Explore All Brain Games */
-  .thin-shine-btn {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
-    background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%);
-    color: #fff;
-    font-weight: 600;
-    transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
-  }
-  .thin-shine-btn:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -40%;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
-    opacity: 0.7;
-    pointer-events: none;
-    z-index: 2;
-    transform: skewX(-20deg);
-    animation: thin-shine-move 2.2s linear infinite;
-  }
-  @keyframes thin-shine-move {
-    0% { left: -40%; }
-    100% { left: 120%; }
-  }
-  .thin-shine-btn:hover, .thin-shine-btn:focus {
-    box-shadow: 0 8px 32px 0 rgba(80, 40, 120, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
-    transform: translateY(-2px) scale(1.04);
-    background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%);
-  }
-
-  /* 2. Playful Bounce for Play Buttons */
-  .play-btn {
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.13), 0 1.5px 6px 0 rgba(0,0,0,0.10);
-    background: linear-gradient(100deg, #a21caf 0%, #7c3aed 100%);
-    color: #fff;
-    font-weight: 600;
-    transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
-  }
-  .play-btn:hover, .play-btn:focus {
-    animation: play-bounce 0.32s cubic-bezier(.36,1.56,.64,1) 1;
-    background: linear-gradient(100deg, #c026d3 0%, #9333ea 100%);
-    box-shadow: 0 8px 32px 0 rgba(130, 40, 180, 0.18), 0 3px 12px 0 rgba(0,0,0,0.13);
-  }
-  @keyframes play-bounce {
-    0% { transform: scale(1); }
-    30% { transform: scale(1.12) rotate(-2deg); }
-    60% { transform: scale(0.96) rotate(2deg); }
-    100% { transform: scale(1); }
-  }
-
-  /* 3. Gentle Tilt/Shadow Pulse for Study Notes */
-  .notes-btn {
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 16px 0 rgba(40, 120, 200, 0.13), 0 1.5px 6px 0 rgba(0,0,0,0.10);
-    background: linear-gradient(100deg, #2563eb 0%, #22d3ee 100%);
-    color: #fff;
-    font-weight: 600;
-    transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
-  }
-  .notes-btn:hover, .notes-btn:focus {
-    animation: notes-tilt 0.38s cubic-bezier(.36,1.56,.64,1) 1;
-    background: linear-gradient(100deg, #1e40af 0%, #06b6d4 100%);
-    box-shadow: 0 12px 32px 0 rgba(40, 120, 200, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
-  }
-  @keyframes notes-tilt {
-    0% { transform: scale(1) rotate(0deg); }
-    30% { transform: scale(1.06) rotate(-2deg); }
-    60% { transform: scale(1.03) rotate(2deg); }
-    100% { transform: scale(1) rotate(0deg); }
-  }
-  body.sidebar-open {
-    position: fixed !important;
-    width: 100vw;
-    overflow-y: scroll;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  #mobileSidebar {
-    height: 100vh;
-    overflow-y: auto;
-  }
-  .get-app-btn {
-    background: linear-gradient(90deg, #6366f1 0%, #3b82f6 100%);
-    color: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 8px 0 rgba(99,102,241,0.10);
-    position: relative;
-    overflow: hidden;
-  }
-  .get-app-btn:hover, .get-app-btn:focus {
-    transform: scale(1.05);
-    box-shadow: 0 4px 16px 0 rgba(59,130,246,0.25), 0 1.5px 6px 0 rgba(0,0,0,0.10);
-    background: linear-gradient(90deg, #3b82f6 0%, #6366f1 100%);
-  }
-  .get-app-btn::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -75%;
-    width: 50%; height: 100%;
-    background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-    z-index: 1;
-    pointer-events: none;
-    transition: left 0.5s;
-  }
-  .get-app-btn:hover::before {
-    left: 120%;
-    transition: left 0.7s cubic-bezier(0.4,0,0.2,1);
-  }
-  .cat-fade {
-    transition: opacity 0.4s, transform 0.4s;
-    opacity: 1;
-    transform: scale(1);
-  }
-  .cat-hidden {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  #avatar {
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  #studyCatWidget {
-    opacity: 0;
-    transition: opacity 1.2s cubic-bezier(.33,1.5,.68,1);
-  }
-  #studyCatWidget.cat-visible {
-    opacity: 1;
-  }
-  @media (max-width: 639px) {
-    #studyCatWidget {
-      width: 4rem !important;
-      height: 4rem !important;
-      min-width: 4rem !important;
-      min-height: 4rem !important;
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- javascript -->
+    <script src ="js/dashboard.js" defer></script>
+    <!--JAVASCRIPT-->
+    <script src="js/main.js" defer></script>
+      <!-- Custom Styles -->
+      <link rel="stylesheet" href="css/style.css">
+  <style>
+    @keyframes spin-smooth {
+      to { transform: rotate(360deg); }
     }
-  }
-  @media (min-width: 640px) and (max-width: 767px) {
-    #studyCatWidget {
-      width: 5rem !important;
-      height: 5rem !important;
-      min-width: 5rem !important;
-      min-height: 5rem !important;
+    @keyframes gradient-border {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
-  }
-  @media (min-width: 768px) {
-    #studyCatWidget {
-      width: 6rem !important;
-      height: 6rem !important;
-      min-width: 6rem !important;
-      min-height: 6rem !important;
+    @keyframes progress {
+      0% { width: 20%; left: -20%; }
+      100% { width: 120%; left: 100%; }
     }
-  }
-  @media (max-width: 767px) {
-    .mobile-topbar {
-      z-index: 60;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      background: #fff;
-      padding: 0.75rem 1rem;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
-      height: 3.5rem;
+    .animate-spin-slow {
+      animation: spin-smooth 1.8s linear infinite;
     }
-    #sidebar {
-      left: 0;
-      top: 0;
-      z-index: 50;
-      width: 280px;
-      height: 100vh;
-      background: #fff;
-      transition: transform 0.3s ease;
-      transform: translateX(-100%);
+    .animate-spin-slower {
+      animation: spin-smooth 2.4s linear infinite reverse;
     }
-    #sidebar.open {
-      transform: translateX(0);
+    .animate-gradient-border {
+      animation: gradient-border 4s ease infinite;
+      background-size: 200% 200%;
     }
-    body.sidebar-open {
+    .animate-progress {
+      animation: progress 1.8s ease-in-out infinite;
+      position: relative;
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes fadein {
+      0% { opacity: 0; transform: translateY(10px); }
+      20% { opacity: 1; transform: translateY(0); }
+      80% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
+    .animate-fadein {
+      animation: fadein 2.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .sparkle-btn {
+      position: relative;
       overflow: hidden;
     }
-    body.sidebar-open::after {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 40;
+    .sparkle-btn .sparkle {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      transform: translateY(-50%) scale(0.8);
+      opacity: 0.7;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 2;
     }
-  }
-  /* Enhanced Sidebar Styles */
-  #sidebar {
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
-    border-right: 1px solid rgba(0, 0, 0, 0.05);
-    background: linear-gradient(to bottom, #ffffff 0%, #f9f9ff 100%);
-  }
-  #sidebar.hidden {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  .menu-item {
-    position: relative;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-  }
-  .menu-item:hover {
-    background: rgba(99, 102, 241, 0.1) !important;
-    border-left: 3px solid #6366f1;
-    transform: translateX(4px);
-  }
-  .menu-item.active {
-    background: rgba(99, 102, 241, 0.1) !important;
-    border-left: 3px solid #6366f1;
-  }
-  .menu-item i {
-    transition: transform 0.3s ease;
-  }
-  .menu-item:hover i {
-    transform: scale(1.1);
-  }
-  .brain-games-item {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-  .brain-games-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(to bottom, #8b5cf6, #6366f1);
-    transition: width 0.3s ease;
-  }
-  .brain-games-item:hover::before {
-    width: 8px;
-  }
-  .user-profile-card {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    transition: all 0.3s ease;
-  }
-  .user-profile-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
-  }
-  .current-exam-card {
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, rgba(217, 70, 239, 0.05) 100%);
-    border: 1px solid rgba(236, 72, 153, 0.1);
-  }
-</style>
+    .sparkle-btn:hover .sparkle {
+      animation: sparkle-rotate 0.7s cubic-bezier(0.4,0,0.2,1) 1;
+      opacity: 1;
+      transform: translateY(-50%) scale(1.1) rotate(20deg);
+    }
+    @keyframes sparkle-rotate {
+      0% { opacity: 0.7; transform: translateY(-50%) scale(0.8) rotate(0deg); }
+      50% { opacity: 1; transform: translateY(-50%) scale(1.2) rotate(20deg); }
+      100% { opacity: 0.7; transform: translateY(-50%) scale(0.8) rotate(0deg); }
+    }
+    .sparkle-btn .shimmer {
+      content: '';
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+      z-index: 1;
+      pointer-events: none;
+      transition: left 0.5s;
+    }
+    .sparkle-btn:hover .shimmer {
+      left: 120%;
+      transition: left 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+    .modern-btn {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      border: none;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+      background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%);
+      color: #fff;
+      font-weight: 600;
+      transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+      z-index: 1;
+    }
+    .modern-btn:before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.32) 40%, rgba(255,255,255,0.12) 60%, rgba(255,255,255,0.0) 100%);
+      transform: rotate(25deg);
+      animation: shine-move 2.2s linear infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+    @keyframes shine-move {
+      0% { left: -60%; }
+      100% { left: 100%; }
+    }
+    .modern-btn:hover, .modern-btn:focus {
+      box-shadow: 0 8px 32px 0 rgba(80, 40, 120, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
+      transform: translateY(-2px) scale(1.04);
+      background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%);
+    }
+    /* 1. Thin Shine for Explore All Brain Games */
+    .thin-shine-btn {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+      background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%);
+      color: #fff;
+      font-weight: 600;
+      transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+    }
+    .thin-shine-btn:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -40%;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 2;
+      transform: skewX(-20deg);
+      animation: thin-shine-move 2.2s linear infinite;
+    }
+    @keyframes thin-shine-move {
+      0% { left: -40%; }
+      100% { left: 120%; }
+    }
+    .thin-shine-btn:hover, .thin-shine-btn:focus {
+      box-shadow: 0 8px 32px 0 rgba(80, 40, 120, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
+      transform: translateY(-2px) scale(1.04);
+      background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%);
+    }
 
-    
-</head>
+    /* 2. Playful Bounce for Play Buttons */
+    .play-btn {
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 16px 0 rgba(80, 40, 120, 0.13), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+      background: linear-gradient(100deg, #a21caf 0%, #7c3aed 100%);
+      color: #fff;
+      font-weight: 600;
+      transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+    }
+    .play-btn:hover, .play-btn:focus {
+      animation: play-bounce 0.32s cubic-bezier(.36,1.56,.64,1) 1;
+      background: linear-gradient(100deg, #c026d3 0%, #9333ea 100%);
+      box-shadow: 0 8px 32px 0 rgba(130, 40, 180, 0.18), 0 3px 12px 0 rgba(0,0,0,0.13);
+    }
+    @keyframes play-bounce {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.12) rotate(-2deg); }
+      60% { transform: scale(0.96) rotate(2deg); }
+      100% { transform: scale(1); }
+    }
 
-<body class="bg-gray-50 text-gray-900 overflow-hidden">
-  <!-- Mobile Toggle Button (always visible on mobile) -->
-  <button id="mobile-menu-button" class="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
-    <i class="fas fa-bars text-xl text-indigo-600"></i>
-  </button>
+    /* 3. Gentle Tilt/Shadow Pulse for Study Notes */
+    .notes-btn {
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 16px 0 rgba(40, 120, 200, 0.13), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+      background: linear-gradient(100deg, #2563eb 0%, #22d3ee 100%);
+      color: #fff;
+      font-weight: 600;
+      transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+    }
+    .notes-btn:hover, .notes-btn:focus {
+      animation: notes-tilt 0.38s cubic-bezier(.36,1.56,.64,1) 1;
+      background: linear-gradient(100deg, #1e40af 0%, #06b6d4 100%);
+      box-shadow: 0 12px 32px 0 rgba(40, 120, 200, 0.22), 0 3px 12px 0 rgba(0,0,0,0.13);
+    }
+    @keyframes notes-tilt {
+      0% { transform: scale(1) rotate(0deg); }
+      30% { transform: scale(1.06) rotate(-2deg); }
+      60% { transform: scale(1.03) rotate(2deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    body.sidebar-open {
+      position: fixed !important;
+      width: 100vw;
+      overflow-y: scroll;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+    #mobileSidebar {
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .get-app-btn {
+      background: linear-gradient(90deg, #6366f1 0%, #3b82f6 100%);
+      color: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px 0 rgba(99,102,241,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+    .get-app-btn:hover, .get-app-btn:focus {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px 0 rgba(59,130,246,0.25), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+      background: linear-gradient(90deg, #3b82f6 0%, #6366f1 100%);
+    }
+    .get-app-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+      z-index: 1;
+      pointer-events: none;
+      transition: left 0.5s;
+    }
+    .get-app-btn:hover::before {
+      left: 120%;
+      transition: left 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+    .cat-fade {
+      transition: opacity 0.4s, transform 0.4s;
+      opacity: 1;
+      transform: scale(1);
+    }
+    .cat-hidden {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    #avatar {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    #studyCatWidget {
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(.33,1.5,.68,1);
+    }
+    #studyCatWidget.cat-visible {
+      opacity: 1;
+    }
+    @media (max-width: 639px) {
+      #studyCatWidget {
+        width: 4rem !important;
+        height: 4rem !important;
+        min-width: 4rem !important;
+        min-height: 4rem !important;
+      }
+    }
+    @media (min-width: 640px) and (max-width: 767px) {
+      #studyCatWidget {
+        width: 5rem !important;
+        height: 5rem !important;
+        min-width: 5rem !important;
+        min-height: 5rem !important;
+      }
+    }
+    @media (min-width: 768px) {
+      #studyCatWidget {
+        width: 6rem !important;
+        height: 6rem !important;
+        min-width: 6rem !important;
+        min-height: 6rem !important;
+      }
+    }
+    @media (max-width: 767px) {
+      .mobile-topbar {
+        z-index: 60;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        background: #fff;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+        height: 3.5rem;
+      }
+      #sidebar {
+        left: 0;
+        top: 0;
+        z-index: 50;
+        width: 280px;
+        height: 100vh;
+        background: #fff;
+        transition: transform 0.3s ease;
+        transform: translateX(-100%);
+      }
+      #sidebar.open {
+        transform: translateX(0);
+      }
+      body.sidebar-open {
+        overflow: hidden;
+      }
+      body.sidebar-open::after {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 40;
+      }
+    }
+    /* Enhanced Sidebar Styles */
+    #sidebar {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+      background: linear-gradient(to bottom, #ffffff 0%, #f9f9ff 100%);
+    }
+    #sidebar.hidden {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    .menu-item {
+      position: relative;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+    .menu-item:hover {
+      background: rgba(99, 102, 241, 0.1) !important;
+      border-left: 3px solid #6366f1;
+      transform: translateX(4px);
+    }
+    .menu-item.active {
+      background: rgba(99, 102, 241, 0.1) !important;
+      border-left: 3px solid #6366f1;
+    }
+    .menu-item i {
+      transition: transform 0.3s ease;
+    }
+    .menu-item:hover i {
+      transform: scale(1.1);
+    }
+    .brain-games-item {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .brain-games-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, #8b5cf6, #6366f1);
+      transition: width 0.3s ease;
+    }
+    .brain-games-item:hover::before {
+      width: 8px;
+    }
+    .user-profile-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s ease;
+    }
+    .user-profile-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+    }
+    .current-exam-card {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, rgba(217, 70, 239, 0.05) 100%);
+      border: 1px solid rgba(236, 72, 153, 0.1);
+    }
+  </style>
 
-  <!-- Sidebar -->
-  <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto block">
-    <!-- Sidebar Header with Close Button -->
-    <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-      <div class="flex items-center">
-        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
-          <i class="fas fa-graduation-cap text-white text-lg"></i>
+      
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 overflow-hidden">
+    <!-- Mobile Toggle Button (always visible on mobile) -->
+    <button id="mobile-menu-button" class="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg">
+      <i class="fas fa-bars text-xl text-indigo-600"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto block">
+      <!-- Sidebar Header with Close Button -->
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+        <div class="flex items-center">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
+            <i class="fas fa-graduation-cap text-white text-lg"></i>
+          </div>
+          <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent ml-3">परीक्षा prep</h1>
         </div>
-        <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent ml-3">परीक्षा prep</h1>
+        <button id="mobile-menu-button-close" class="md:hidden text-gray-500 hover:text-indigo-600 transition-colors absolute top-4 right-4">
+          <i class="fas fa-times text-xl"></i>
+        </button>
       </div>
-      <button id="mobile-menu-button-close" class="md:hidden text-gray-500 hover:text-indigo-600 transition-colors absolute top-4 right-4">
-        <i class="fas fa-times text-xl"></i>
-      </button>
-    </div>
-    <!-- User Profile Card -->
-    <a href="user-info.html" class="block focus:outline-none">
-      <div class="user-profile-card flex items-center mb-6 p-4 rounded-xl transition-all hover:shadow-lg cursor-pointer relative">
+      <!-- User Profile Card -->
+      <div class="user-profile-card flex items-center mb-6 p-4 rounded-xl transition-all">
         <div class="relative">
           <div class="w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center text-indigo-600 shadow-inner">
             <i class="fas fa-user-graduate text-xl"></i>
@@ -429,703 +428,669 @@
             <i class="fas fa-crown text-white text-xs"></i>
           </div>
         </div>
-        <div class="ml-3 flex-1 flex flex-col">
+        <div class="ml-3">
           <p class="font-semibold text-sm" id="username">User</p>
-          <p class="text-xs text-blue-600 font-medium">Account & Settings</p>
-          <span class="mt-2 inline-flex items-center text-xs text-indigo-600 font-semibold bg-indigo-50 px-2 py-0.5 rounded hover:bg-indigo-100 transition w-max">
-            <i class="fas fa-eye mr-1"></i> View Details
-          </span>
+          <p class="text-xs text-purple-600 font-medium">Premium Member</p>
         </div>
       </div>
-    </a>
-    <!-- Navigation Links -->
-    <nav class="flex-1 overflow-y-auto sidebar-scrollbar space-y-1 mb-4">
-      <a href="#" class="menu-item active flex items-center p-3 rounded-xl text-gray-700 font-medium">
-        <i class="fas fa-home mr-3 text-indigo-500"></i>
-        Dashboard
-      </a>
-      <a href="select-exam.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 hover:text-indigo-600">
-        <i class="fas fa-list-ol mr-3 text-blue-500"></i>
-        Select Exam
-      </a>
-      <a href="performance.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 hover:text-indigo-600">
-        <i class="fas fa-chart-bar mr-3 text-green-500"></i>
-        Performance
-      </a>
-      <a href="mock-test.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 hover:text-indigo-600">
-        <i class="fas fa-book-open mr-3 text-purple-500"></i>
-        Practice Tests
-      </a>
-      <a href="PracticeQuestion.html" class="menu-item flex items-center p-3 rounded-xl text-pink-600 hover:text-pink-700 font-medium">
-        <i class="fas fa-question-circle mr-3 text-pink-500"></i>
-        Practice Questions
-      </a>
-      <a href="practice-quant.html" class="menu-item flex items-center p-3 rounded-xl text-blue-600 hover:text-blue-700 font-medium">
-        <i class="fas fa-book mr-3 text-blue-400"></i>
-        Study Notes
-      </a>
-      <a href="previous-year.html" class="menu-item flex items-center p-3 rounded-xl text-yellow-600 hover:text-yellow-700 font-medium">
-        <i class="fas fa-clock-rotate-left mr-3 text-yellow-500"></i>
-        Previous Year Questions
-      </a>
-    </nav>
-    <!-- Bottom Section -->
-    <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col gap-4">
-      <!-- Brain Games Card -->
-      <div class="mb-4">
-        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Brain Boosters</p>
-        <a href="braingames.html" class="brain-games-item flex items-center p-3 font-medium rounded-xl text-purple-700 bg-purple-50">
-          <i class="fas fa-gamepad mr-3 text-lg text-purple-600"></i>
-          Brain Games
-          <span class="ml-auto bg-white text-purple-600 text-xs px-2 py-1 rounded-full font-bold shadow-sm">New</span>
+      <!-- Navigation Links -->
+      <nav class="flex-1 overflow-y-auto hide-scrollbar space-y-1 mb-4">
+        <a href="#" class="menu-item active flex items-center p-3 rounded-xl text-gray-700 font-medium">
+          <i class="fas fa-home mr-3 text-indigo-500"></i>
+          Dashboard
         </a>
-      </div>
-      <!-- Current Exam Card -->
-      <div class="current-exam-card p-3 rounded-xl">
-        <p class="text-xs font-medium text-gray-500 mb-1">Current Exam</p>
-        <div class="flex items-center">
-          <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-2">
-            <i class="fas fa-bookmark text-indigo-600 text-sm"></i>
+        <a href="select-exam.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 hover:text-indigo-600">
+          <i class="fas fa-list-ol mr-3 text-blue-500"></i>
+          Select Exam
+        </a>
+        <a href="performance.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 hover:text-indigo-600">
+          <i class="fas fa-chart-bar mr-3 text-green-500"></i>
+          Performance
+        </a>
+        <a href="mock-test.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 hover:text-indigo-600">
+          <i class="fas fa-book-open mr-3 text-purple-500"></i>
+          Practice Tests
+        </a>
+        <a href="PracticeQuestion.html" class="menu-item flex items-center p-3 rounded-xl text-pink-600 hover:text-pink-700 font-medium">
+          <i class="fas fa-question-circle mr-3 text-pink-500"></i>
+          Practice Questions
+        </a>
+        <a href="practice-quant.html" class="menu-item flex items-center p-3 rounded-xl text-blue-600 hover:text-blue-700 font-medium">
+          <i class="fas fa-book mr-3 text-blue-400"></i>
+          Study Notes
+        </a>
+        <a href="previous-year.html" class="menu-item flex items-center p-3 rounded-xl text-yellow-600 hover:text-yellow-700 font-medium">
+          <i class="fas fa-clock-rotate-left mr-3 text-yellow-500"></i>
+          Previous Year Questions
+        </a>
+      </nav>
+      <!-- Bottom Section -->
+      <div class="mt-auto pt-4 border-t border-gray-100">
+        <!-- Brain Games Card -->
+        <div class="mb-4">
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Brain Boosters</p>
+          <a href="braingames.html" class="brain-games-item flex items-center p-3 font-medium rounded-xl text-purple-700 bg-purple-50">
+            <i class="fas fa-gamepad mr-3 text-lg text-purple-600"></i>
+            Brain Games
+            <span class="ml-auto bg-white text-purple-600 text-xs px-2 py-1 rounded-full font-bold shadow-sm">New</span>
+          </a>
+        </div>
+        <!-- Current Exam Card -->
+        <div class="current-exam-card p-3 rounded-xl">
+          <p class="text-xs font-medium text-gray-500 mb-1">Current Exam</p>
+          <div class="flex items-center">
+            <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-2">
+              <i class="fas fa-bookmark text-indigo-600 text-sm"></i>
+            </div>
+            <p class="font-semibold text-sm" id="current-exam">CAT</p>
+            <button class="ml-auto text-xs text-indigo-600 hover:text-indigo-800 font-medium">Change</button>
           </div>
-          <p class="font-semibold text-sm" id="current-exam">CAT</p>
-          <a href="select-exam.html" class="ml-auto text-xs text-indigo-600 hover:text-indigo-800 font-medium">Change</a>
+        </div>
+        <!-- App Download Button (visible only on mobile) -->
+        <div class="mt-4 md:hidden">
+          <a href="#" class="get-app-btn w-full flex items-center justify-center px-4 py-3 text-sm font-semibold rounded-xl">
+            <i class="fas fa-download mr-2"></i> Get Mobile App
+          </a>
         </div>
       </div>
-      <!-- Sidebar Logout Button -->
-      <button
-        onclick="logout()"
-        class="modern-btn w-full flex items-center justify-center gap-2 px-4 py-2 text-base font-semibold bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-red-400 transition mt-2 mb-2"
-        style="box-shadow: 0 4px 16px 0 rgba(239,68,68,0.12);"
-      >
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Logout</span>
-      </button>
-      <!-- App Download Button (visible only on mobile) -->
-      <div class="mt-4 md:hidden">
-        <a href="#" class="get-app-btn w-full flex items-center justify-center px-4 py-3 text-sm font-semibold rounded-xl">
-          <i class="fas fa-download mr-2"></i> Get Mobile App
-        </a>
-      </div>
-    </div>
-  </aside>
+    </aside>
 
-  <!-- Main Content (same as before) -->
-  <main class="ml-0 md:ml-64 p-4 md:p-8 transition-all duration-300">
-    <!-- Hero Header Section (now inside main) -->
-    <section class="w-full mb-12 md:mb-16">
-      <div class="rounded-2xl p-8 md:p-14 shadow flex flex-col items-center text-center relative overflow-hidden animate-bg-gradient">
-        <h1 id="animated-hero-heading" class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4 animate__animated animate__fadeInDown">
-          Your All-in-One Exam Prep Hub
-        </h1>
-        <div class="relative h-8 md:h-10 flex items-center justify-center">
-          <span id="animated-tagline" class="text-base md:text-xl font-medium text-indigo-700 animate-fadein"></span>
+    <!-- Main Content (same as before) -->
+    <main class="ml-0 md:ml-64 p-4 md:p-8 transition-all duration-300">
+      <!-- Hero Header Section (now inside main) -->
+      <section class="w-full mb-12 md:mb-16">
+        <div class="rounded-2xl bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-100 p-8 md:p-14 shadow flex flex-col items-center text-center relative overflow-hidden">
+          <h1 class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4 animate__animated animate__fadeInDown">
+            Premium-Quality Prep, Zero Price Tag – Start Today!
+          </h1>
+          <div class="relative h-8 md:h-10 flex items-center justify-center">
+            <span id="animated-tagline" class="text-base md:text-xl font-medium text-indigo-700 animate-fadein"></span>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        // Animated tagline rotation
+        document.addEventListener('DOMContentLoaded', function() {
+          const taglines = [
+            "Everything you need, nothing you don't.",
+            "Study free. Score high.",
+            "No subscription, no limits – just results."
+          ];
+          let idx = 0;
+          const taglineEl = document.getElementById('animated-tagline');
+          function showTagline() {
+            taglineEl.classList.remove('animate-fadein');
+            void taglineEl.offsetWidth; // trigger reflow
+            taglineEl.textContent = taglines[idx];
+            taglineEl.classList.add('animate-fadein');
+            idx = (idx + 1) % taglines.length;
+          }
+          showTagline();
+          setInterval(showTagline, 2600);
+        });
+      </script>
+      <style>
+        @keyframes fadein {
+          0% { opacity: 0; transform: translateY(10px); }
+          20% { opacity: 1; transform: translateY(0); }
+          80% { opacity: 1; transform: translateY(0); }
+          100% { opacity: 0; transform: translateY(-10px); }
+        }
+        .animate-fadein {
+          animation: fadein 2.5s cubic-bezier(0.4,0,0.2,1);
+        }
+      </style>
+
+      <!-- Preparation Overview Subtitle -->
+      <div class="mb-4 sm:mb-8">
+        <p class="text-gray-600 text-base sm:text-lg font-medium">Your preparation overview</p>
+      </div>
+      
+    <div class="data-kpi px-4 py-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Completed -->
+      <div class="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-3xl font-bold text-green-700" data-kpi="completed">0</h3>
+            <p class="text-sm text-green-800 mt-1">Completed</p>
+          </div>
+          <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center text-green-800">
+            <i class="fas fa-check text-lg"></i>
+          </div>
         </div>
       </div>
-    </section>
 
-    <script>
-      // Animated heading and tagline rotation
-      document.addEventListener('DOMContentLoaded', function() {
-        const headings = [
-          "Your All-in-One Exam Prep Hub",
-          "Master Concepts, Vocabulary & More",
-          "Ace Exams with Confidence"
-        ];
-        const taglines = [
-          "Build a powerful vocabulary for every exam.",
-          "Comprehensive notes, practice questions, and vocab tools.",
-          "Master concepts, sharpen your vocab, boost your score.",
-          "All study material in one place—no more searching.",
-          "Practice smarter, learn faster, remember longer.",
-          "Your shortcut to exam success—start mastering today!"
-        ];
-        let headingIdx = 0;
-        let taglineIdx = 0;
-        const headingEl = document.getElementById('animated-hero-heading');
-        const taglineEl = document.getElementById('animated-tagline');
+      <!-- Accuracy -->
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-3xl font-bold text-blue-700" data-kpi="accuracy">0%</h3>
+            <p class="text-sm text-blue-800 mt-1">Accuracy</p>
+          </div>
+          <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-800">
+            <i class="fas fa-bullseye text-lg"></i>
+          </div>
+        </div>
+      </div>
 
-        function showHeading() {
-          headingEl.classList.remove('animate-fadein-smooth');
-          void headingEl.offsetWidth;
-          headingEl.textContent = headings[headingIdx];
-          headingEl.classList.add('animate-fadein-smooth');
-          headingIdx = (headingIdx + 1) % headings.length;
-        }
-        function showTagline() {
-          taglineEl.classList.remove('animate-fadein-smooth');
-          void taglineEl.offsetWidth;
-          taglineEl.textContent = taglines[taglineIdx];
-          taglineEl.classList.add('animate-fadein-smooth');
-          taglineIdx = (taglineIdx + 1) % taglines.length;
-        }
-        showHeading();
-        showTagline();
-        setInterval(showHeading, 5200); // was 3500, now longer
-        setInterval(showTagline, 4200); // was 2600, now longer
-      });
-    </script>
-    <style>
-      @keyframes fadein-smooth {
-        0% { opacity: 0; transform: translateY(18px); }
-        12% { opacity: 1; transform: translateY(0); }
-        88% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-12px); }
-      }
-      .animate-fadein-smooth {
-        animation: fadein-smooth 4.2s cubic-bezier(0.4,0,0.2,1);
-      }
-      @keyframes bg-gradient-animated {
-        0% {
-          background: linear-gradient(120deg, #a5b4fc, #f0abfc, #c7d2fe);
-        }
-        25% {
-          background: linear-gradient(120deg, #f0abfc, #a5b4fc, #c7d2fe);
-        }
-        50% {
-          background: linear-gradient(120deg, #c7d2fe, #a5b4fc, #f0abfc);
-        }
-        75% {
-          background: linear-gradient(120deg, #a5b4fc, #c7d2fe, #f0abfc);
-        }
-        100% {
-          background: linear-gradient(120deg, #a5b4fc, #f0abfc, #c7d2fe);
-        }
-      }
-      .animate-bg-gradient {
-        animation: bg-gradient-animated 8s ease-in-out infinite;
-        background-size: 200% 200%;
-      }
-    </style>
+      <!-- Streak -->
+      <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-3xl font-bold text-yellow-700" data-kpi="streak">0</h3>
+            <p class="text-sm text-yellow-800 mt-1">Streak</p>
+          </div>
+          <div class="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center text-yellow-800">
+            <i class="fas fa-fire text-lg"></i>
+          </div>
+        </div>
+      </div>
 
-    <!-- Preparation Overview Subtitle -->
-    <div class="mb-4 sm:mb-8">
-      <p class="text-gray-600 text-base sm:text-lg font-medium">Your preparation overview</p>
+      <!-- Time Spent -->
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-3xl font-bold text-purple-700" data-kpi="timeSpent">0 hrs</h3>
+            <p class="text-sm text-purple-800 mt-1">Time Spent</p>
+          </div>
+          <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-purple-800">
+            <i class="fas fa-clock text-lg"></i>
+          </div>
+        </div>
+      </div>
+
     </div>
     
-  <div class="data-kpi px-4 py-6">
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-    <!-- Completed -->
-    <div class="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
-      <div class="flex items-center justify-between">
-        <div>
-          <h3 class="text-3xl font-bold text-green-700" data-kpi="completed">0</h3>
-          <p class="text-sm text-green-800 mt-1">Completed</p>
-        </div>
-        <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center text-green-800">
-          <i class="fas fa-check text-lg"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- Accuracy -->
-    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
-      <div class="flex items-center justify-between">
-        <div>
-          <h3 class="text-3xl font-bold text-blue-700" data-kpi="accuracy">0%</h3>
-          <p class="text-sm text-blue-800 mt-1">Accuracy</p>
-        </div>
-        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-800">
-          <i class="fas fa-bullseye text-lg"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- Streak -->
-    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
-      <div class="flex items-center justify-between">
-        <div>
-          <h3 class="text-3xl font-bold text-yellow-700" data-kpi="streak">0</h3>
-          <p class="text-sm text-yellow-800 mt-1">Streak</p>
-        </div>
-        <div class="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center text-yellow-800">
-          <i class="fas fa-fire text-lg"></i>
-        </div>
-      </div>
-    </div>
-
-    <!-- Time Spent -->
-    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
-      <div class="flex items-center justify-between">
-        <div>
-          <h3 class="text-3xl font-bold text-purple-700" data-kpi="timeSpent">0 hrs</h3>
-          <p class="text-sm text-purple-800 mt-1">Time Spent</p>
-        </div>
-        <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-purple-800">
-          <i class="fas fa-clock text-lg"></i>
-        </div>
-      </div>
-    </div>
-
   </div>
-  
-</div>
-    <!-- Brain Games Info Card (replaces Daily Goal) -->
-    <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-sm mb-8 sm:mb-12 md:mb-16 mt-4 sm:mt-8">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 sm:mb-6 gap-3 sm:gap-6">
-        <div>
-          <h3 class="text-lg sm:text-xl font-bold text-purple-700 mb-1 sm:mb-2 flex items-center gap-2">
-            <i class="fas fa-gamepad"></i> Hone Your Skills Through Games!
+      <!-- Brain Games Info Card (replaces Daily Goal) -->
+      <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-sm mb-8 sm:mb-12 md:mb-16 mt-4 sm:mt-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 sm:mb-6 gap-3 sm:gap-6">
+          <div>
+            <h3 class="text-lg sm:text-xl font-bold text-purple-700 mb-1 sm:mb-2 flex items-center gap-2">
+              <i class="fas fa-gamepad"></i> Hone Your Skills Through Games!
+            </h3>
+            <p class="text-gray-600 text-xs sm:text-base max-w-xl">
+              <span class="inline sm:hidden">Sharpen your mind with fun games.</span>
+              <span class="hidden sm:inline">Sharpen your mind, boost your logic, and have fun with our collection of brain games.</span>
+            </p>
+          </div>
+          <a href="braingames.html" class="thin-shine-btn mt-2 md:mt-0 px-4 py-2 sm:px-8 sm:py-3 text-sm sm:text-base shadow">
+            Explore All Brain Games
+          </a>
+        </div>
+        <!-- 2x2 grid for all screens -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10 mt-3 sm:mt-6">
+          <div class="bg-purple-50 rounded-xl p-6 sm:p-8 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp">
+            <h4 class="font-bold text-purple-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-brain"></i> Venn Diagram</h4>
+            <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
+              <span class="inline sm:hidden">Venn logic.</span>
+              <span class="hidden sm:inline">Practice Venn diagram questions</span>
+            </p>
+            <a href="games/venn-challenge.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
+              <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+            </a>
+          </div>
+          <div class="bg-blue-50 rounded-xl p-6 sm:p-8 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.1s;">
+            <h4 class="font-bold text-blue-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-cubes"></i> Cube Visualizer</h4>
+            <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
+              <span class="inline sm:hidden">3D cubes.</span>
+              <span class="hidden sm:inline">Visualize and solve 3D cubes.</span>
+            </p>
+            <a href="games/cube-visualizer.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
+              <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+            </a>
+          </div>
+          <div class="bg-green-50 rounded-xl p-6 sm:p-8 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.2s;">
+            <h4 class="font-bold text-green-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-bolt"></i> Quick Tables</h4>
+            <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
+              <span class="inline sm:hidden">Fast math.</span>
+              <span class="hidden sm:inline">Speed up your mental math.</span>
+            </p>
+            <a href="games/quick-tables.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
+              <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+            </a>
+            
+          </div>
+          <div class="bg-pink-50 rounded-xl p-6 sm:p-8 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.3s;">
+            <h4 class="font-bold text-pink-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-shapes"></i> Pattern Predictor</h4>
+            <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
+              <span class="inline sm:hidden">Find the pattern.</span>
+              <span class="hidden sm:inline">Identify and predict the next pattern in the sequence.</span>
+            </p>
+            <a href="games/pattern-predictor.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
+              <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mock Test Promo Section (replaces Recent Quizzes) -->
+      <div class="bg-gradient-to-br from-yellow-50 via-purple-50 to-blue-100 p-8 sm:p-14 rounded-2xl shadow-md mb-8 sm:mb-12 md:mb-16 flex flex-col md:flex-row items-center gap-10">
+        <div class="flex-1 flex flex-col justify-center items-start">
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-purple-800 mb-2 flex items-center gap-2">
+            <span>Mock Tests</span>
+            <span class="ml-2 inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">5 Free</span>
+            <span class="ml-2 inline-block bg-yellow-200 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-crown text-yellow-500 mr-1"></i>Premium</span>
           </h3>
-          <p class="text-gray-600 text-xs sm:text-base max-w-xl">
-            <span class="inline sm:hidden">Sharpen your mind with fun games.</span>
-            <span class="hidden sm:inline">Sharpen your mind, boost your logic, and have fun with our collection of brain games.</span>
+          <p class="text-gray-700 text-base sm:text-lg mb-4 max-w-xl">
+            Practice with <span class="font-bold text-indigo-700">50 full-length mocks</span> designed for real exam experience.<br>
+            <span class="font-bold text-green-700">First 5 mocks are free</span> for everyone! Unlock all 50 with <span class="font-bold text-yellow-700">Premium</span>.
           </p>
-        </div>
-        <a href="braingames.html" class="thin-shine-btn mt-2 md:mt-0 px-4 py-2 sm:px-8 sm:py-3 text-sm sm:text-base shadow">
-          Explore All Brain Games
-        </a>
-      </div>
-      <!-- 2x2 grid for all screens -->
-      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10 mt-3 sm:mt-6">
-        <div class="bg-purple-50 rounded-xl p-6 sm:p-8 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp">
-          <h4 class="font-bold text-purple-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-brain"></i> Venn Diagram</h4>
-          <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
-            <span class="inline sm:hidden">Venn logic.</span>
-            <span class="hidden sm:inline">Practice Venn diagram questions</span>
-          </p>
-          <a href="games/venn-challenge.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
-            <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
-          </a>
-        </div>
-        <div class="bg-blue-50 rounded-xl p-6 sm:p-8 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.1s;">
-          <h4 class="font-bold text-blue-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-cubes"></i> Cube Visualizer</h4>
-          <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
-            <span class="inline sm:hidden">3D cubes.</span>
-            <span class="hidden sm:inline">Visualize and solve 3D cubes.</span>
-          </p>
-          <a href="games/cube-visualizer.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
-            <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
-          </a>
-        </div>
-        <div class="bg-green-50 rounded-xl p-6 sm:p-8 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.2s;">
-          <h4 class="font-bold text-green-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-bolt"></i> Quick Tables</h4>
-          <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
-            <span class="inline sm:hidden">Fast math.</span>
-            <span class="hidden sm:inline">Speed up your mental math.</span>
-          </p>
-          <a href="games/quick-tables.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
-            <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
-          </a>
-          
-        </div>
-        <div class="bg-pink-50 rounded-xl p-6 sm:p-8 flex flex-col h-full shadow-sm transition-transform transform hover:-translate-y-1 animate-fadeInUp" style="animation-delay:0.3s;">
-          <h4 class="font-bold text-pink-700 mb-1 sm:mb-2 flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-shapes"></i> Pattern Predictor</h4>
-          <p class="text-gray-600 text-xs mb-2 sm:mb-4 flex-1">
-            <span class="inline sm:hidden">Find the pattern.</span>
-            <span class="hidden sm:inline">Identify and predict the next pattern in the sequence.</span>
-          </p>
-          <a href="games/pattern-predictor.html" class="play-btn mt-auto inline-flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium shadow">
-            <i class="fas fa-play mr-1"></i> <span class="hidden sm:inline">Play</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Mock Test Promo Section (replaces Recent Quizzes) -->
-    <div class="bg-gradient-to-br from-yellow-50 via-purple-50 to-blue-100 p-8 sm:p-14 rounded-2xl shadow-md mb-8 sm:mb-12 md:mb-16 flex flex-col md:flex-row items-center gap-10">
-      <div class="flex-1 flex flex-col justify-center items-start">
-        <h3 class="text-2xl sm:text-3xl font-extrabold text-purple-800 mb-2 flex items-center gap-2">
-          <span>Mock Tests</span>
-          <span class="ml-2 inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">5 Free</span>
-          <span class="ml-2 inline-block bg-yellow-200 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full"><i class="fas fa-crown text-yellow-500 mr-1"></i>Premium</span>
-        </h3>
-        <p class="text-gray-700 text-base sm:text-lg mb-4 max-w-xl">
-          Practice with <span class="font-bold text-indigo-700">50 full-length mocks</span> designed for real exam experience.<br>
-          <span class="font-bold text-green-700">First 5 mocks are free</span> for everyone! Unlock all 50 with <span class="font-bold text-yellow-700">Premium</span>.
-        </p>
-        <ul class="list-disc pl-5 text-gray-700 mb-4">
-          <li>5 free mocks for all users</li>
-          <li>45 additional mocks for premium members</li>
-          <li>Track your accuracy and progress</li>
-          <li>Premium: Early access, detailed analytics, and more</li>
-        </ul>
-        <div class="flex gap-4">
-          <a href="mock-test.html" class="modern-btn px-6 py-3 text-lg font-semibold mt-2 flex items-center gap-2 shadow-lg">
-            <i class="fas fa-bolt"></i> Start Free Mock
-          </a>
-          <a href="#" class="modern-btn px-6 py-3 text-lg font-semibold mt-2 flex items-center gap-2 shadow-lg bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-2 border-yellow-500">
-            <i class="fas fa-crown"></i> Go Premium
-          </a>
-        </div>
-      </div>
-      <div class="flex-1 flex justify-center items-center">
-        <!-- App Download Promo (replaces thunder sticker) -->
-        <div id="appDownloadPromo" class="relative w-full max-w-xs bg-white rounded-xl shadow-md p-3 flex flex-col items-center animate__animated animate__fadeInUp">
-          <img src="assets/app-promo.png" alt="Download the Exam Prep App" class="rounded-lg mb-2 w-full max-h-64 object-contain shadow-sm">
-          <h4 class="text-base font-bold text-blue-800 text-center mb-1">Download the Exam Prep App</h4>
-          <p class="text-gray-700 text-center text-xs mb-1 leading-snug">1000+ Mock Tests, Brain Games, Study Notes & More — All Free</p>
-          <div class="flex gap-2 justify-center mb-1">
-            <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold flex items-center"><i class="fas fa-mobile-alt mr-1"></i> Android</span>
-            <span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold flex items-center"><i class="fab fa-apple mr-1"></i> iOS</span>
+          <ul class="list-disc pl-5 text-gray-700 mb-4">
+            <li>5 free mocks for all users</li>
+            <li>45 additional mocks for premium members</li>
+            <li>Track your accuracy and progress</li>
+            <li>Premium: Early access, detailed analytics, and more</li>
+          </ul>
+          <div class="flex gap-4">
+            <a href="mock-test.html" class="modern-btn px-6 py-3 text-lg font-semibold mt-2 flex items-center gap-2 shadow-lg">
+              <i class="fas fa-bolt"></i> Start Free Mock
+            </a>
+            <a href="#" class="modern-btn px-6 py-3 text-lg font-semibold mt-2 flex items-center gap-2 shadow-lg bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-2 border-yellow-500">
+              <i class="fas fa-crown"></i> Go Premium
+            </a>
           </div>
-          <a href="#" class="get-app-btn px-3 py-1.5 text-sm font-semibold mt-1 flex items-center gap-2 w-full justify-center transition-all duration-200">
-            <i class="fas fa-download"></i> Get Started
+        </div>
+        <div class="flex-1 flex justify-center items-center">
+          <!-- App Download Promo (replaces thunder sticker) -->
+          <div id="appDownloadPromo" class="relative w-full max-w-xs bg-white rounded-xl shadow-md p-3 flex flex-col items-center animate__animated animate__fadeInUp">
+            <img src="assets/app-promo.png" alt="Download the Exam Prep App" class="rounded-lg mb-2 w-full max-h-64 object-contain shadow-sm">
+            <h4 class="text-base font-bold text-blue-800 text-center mb-1">Download the Exam Prep App</h4>
+            <p class="text-gray-700 text-center text-xs mb-1 leading-snug">1000+ Mock Tests, Brain Games, Study Notes & More — All Free</p>
+            <div class="flex gap-2 justify-center mb-1">
+              <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold flex items-center"><i class="fas fa-mobile-alt mr-1"></i> Android</span>
+              <span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold flex items-center"><i class="fab fa-apple mr-1"></i> iOS</span>
+            </div>
+            <a href="#" class="get-app-btn px-3 py-1.5 text-sm font-semibold mt-1 flex items-center gap-2 w-full justify-center transition-all duration-200">
+              <i class="fas fa-download"></i> Get Started
+            </a>
+            <div id="appPromoDetails"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Categories -->
+      <h3 class="text-lg font-semibold mb-4 sm:mb-6 md:mb-8">Study Notes & Practice Areas</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mb-8 sm:mb-12 md:mb-16">
+        <!-- Quantitative Card -->
+        <div class="exam-card p-4 sm:p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
+          <div class="flex items-center mb-2 sm:mb-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mr-2 sm:mr-3">
+              <i class="fas fa-square-root-alt text-xl sm:text-2xl"></i>
+            </div>
+            <span class="ml-auto bg-blue-600 text-white text-xs px-2 sm:px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
+          </div>
+          <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Quantitative</h4>
+          <p class="text-xs sm:text-sm text-blue-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
+          <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Algebra, Geometry, more.</span> <span class="hidden sm:inline">Comprehensive notes, solved examples, and practice sets for Algebra, Geometry, Arithmetic, and more.</span></p>
+          <a href="practice-quant.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
+            <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
           </a>
-          <div id="appPromoDetails"></div>
         </div>
-      </div>
-    </div>
-
-    <!-- Quiz Categories -->
-    <h3 class="text-lg font-semibold mb-4 sm:mb-6 md:mb-8">Study Notes & Practice Areas</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mb-8 sm:mb-12 md:mb-16">
-      <!-- Quantitative Card -->
-      <div class="exam-card p-4 sm:p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
-        <div class="flex items-center mb-2 sm:mb-4">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mr-2 sm:mr-3">
-            <i class="fas fa-square-root-alt text-xl sm:text-2xl"></i>
+        <!-- Verbal Card -->
+        <div class="exam-card p-4 sm:p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
+          <div class="flex items-center mb-2 sm:mb-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mr-2 sm:mr-3">
+              <i class="fas fa-book text-xl sm:text-2xl"></i>
+            </div>
+            <span class="ml-auto bg-purple-600 text-white text-xs px-2 sm:px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
           </div>
-          <span class="ml-auto bg-blue-600 text-white text-xs px-2 sm:px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
+          <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Verbal</h4>
+          <p class="text-xs sm:text-sm text-purple-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
+          <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Reading, Grammar, Vocab.</span> <span class="hidden sm:inline">Detailed notes, grammar rules, vocabulary lists, and reading strategies for Verbal Ability.</span></p>
+          <a href="practice-verbal.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
+            <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
+          </a>
         </div>
-        <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Quantitative</h4>
-        <p class="text-xs sm:text-sm text-blue-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
-        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Algebra, Geometry, more.</span> <span class="hidden sm:inline">Comprehensive notes, solved examples, and practice sets for Algebra, Geometry, Arithmetic, and more.</span></p>
-        <a href="practice-quant.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
-          <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
-        </a>
-      </div>
-      <!-- Verbal Card -->
-      <div class="exam-card p-4 sm:p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
-        <div class="flex items-center mb-2 sm:mb-4">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mr-2 sm:mr-3">
-            <i class="fas fa-book text-xl sm:text-2xl"></i>
+        <!-- Logical Card -->
+        <div class="exam-card p-4 sm:p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
+          <div class="flex items-center mb-2 sm:mb-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mr-2 sm:mr-3">
+              <i class="fas fa-brain text-xl sm:text-2xl"></i>
+            </div>
+            <span class="ml-auto bg-green-600 text-white text-xs px-2 sm:px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
           </div>
-          <span class="ml-auto bg-purple-600 text-white text-xs px-2 sm:px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
+          <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Logical</h4>
+          <p class="text-xs sm:text-sm text-green-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
+          <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Reasoning, puzzles, more.</span> <span class="hidden sm:inline">Reasoning concepts, solved puzzles, and practice questions for Logical Reasoning mastery.</span></p>
+          <a href="practice-logical.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
+            <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
+          </a>
         </div>
-        <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Verbal</h4>
-        <p class="text-xs sm:text-sm text-purple-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
-        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Reading, Grammar, Vocab.</span> <span class="hidden sm:inline">Detailed notes, grammar rules, vocabulary lists, and reading strategies for Verbal Ability.</span></p>
-        <a href="practice-verbal.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
-          <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
-        </a>
       </div>
-      <!-- Logical Card -->
-      <div class="exam-card p-4 sm:p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col">
-        <div class="flex items-center mb-2 sm:mb-4">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mr-2 sm:mr-3">
-            <i class="fas fa-brain text-xl sm:text-2xl"></i>
-          </div>
-          <span class="ml-auto bg-green-600 text-white text-xs px-2 sm:px-3 py-1 rounded-full flex items-center"><i class="fas fa-book-open mr-1"></i> Study Notes</span>
-        </div>
-        <h4 class="text-base sm:text-xl font-bold text-gray-800 mb-1 sm:mb-2">Logical</h4>
-        <p class="text-xs sm:text-sm text-green-700 mb-1 sm:mb-2 font-semibold">Study Chapters & Hone Your Skills</p>
-        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4"> <span class="inline sm:hidden">Reasoning, puzzles, more.</span> <span class="hidden sm:inline">Reasoning concepts, solved puzzles, and practice questions for Logical Reasoning mastery.</span></p>
-        <a href="practice-logical.html" class="notes-btn mt-auto block w-full px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-base flex items-center justify-center gap-2 shadow-md">
-          <i class="fas fa-lightbulb"></i> <span class="hidden sm:inline">Explore Study Notes</span>
-        </a>
+    </main>
+    <!-- 🔐 Login/Register Modal -->
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <h2 class="text-xl font-semibold mb-4 text-center">Welcome to Exam Prep</h2>
+
+      <!-- Login Form -->
+      <div id="login-form">
+        <input id="login-email" type="email" placeholder="Email" class="w-full border p-2 mb-3 rounded" />
+        <input id="login-password" type="password" placeholder="Password" class="w-full border p-2 mb-3 rounded" />
+        <button onclick="loginUser()" class="w-full bg-blue-600 text-white py-2 rounded">Login</button>
+        <p class="text-sm text-center mt-2">New user? <a href="#" onclick="showRegisterForm()" class="text-blue-600">Register instead</a></p>
       </div>
-    </div>
-  </main>
-  <!-- 🔐 Login/Register Modal -->
-<!-- Auth Modal -->
-<div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display:none;">
-  <div class="bg-white rounded-lg p-6 w-full max-w-md">
-    <h2 class="text-xl font-semibold mb-4 text-center">Welcome to Exam Prep</h2>
 
-    <!-- Login Form -->
-    <div id="login-form">
-      <input id="login-email" type="email" placeholder="Email" class="w-full border p-2 mb-3 rounded" />
-      <input id="login-password" type="password" placeholder="Password" class="w-full border p-2 mb-3 rounded" />
-      <button onclick="loginUser()" class="w-full bg-blue-600 text-white py-2 rounded">Login</button>
-      <p class="text-sm text-center mt-2">New user? <a href="#" onclick="showRegisterForm()" class="text-blue-600">Register instead</a></p>
-    </div>
+      <!-- Register Form with OTP -->
+      <!-- ✅ OTP Modal -->
+  <div id="otp-modal" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white w-96 p-6 rounded-lg shadow-md">
+      <h2 id="otp-step-title" class="text-xl font-bold mb-2">Step 1: Enter Email</h2>
+      <p id="otp-message" class="text-sm text-green-600 mb-4 hidden">OTP sent successfully!</p>
 
-    <!-- Register Form with OTP -->
-    <!-- ✅ OTP Modal -->
-<div id="otp-modal" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
-  <div class="bg-white w-96 p-6 rounded-lg shadow-md">
-    <h2 id="otp-step-title" class="text-xl font-bold mb-2">Step 1: Enter Email</h2>
-    <p id="otp-message" class="text-sm text-green-600 mb-4 hidden">OTP sent successfully!</p>
+      <!-- Step 1: Email input -->
+      <div id="step-1">
+        <input type="email" id="email-input" placeholder="Enter your email" class="w-full p-2 border border-gray-300 rounded mb-4">
+        <button onclick="sendOTP()" class="w-full bg-blue-600 text-white p-2 rounded">Send OTP</button>
+      </div>
 
-    <!-- Step 1: Email input -->
-    <div id="step-1">
-      <input type="email" id="email-input" placeholder="Enter your email" class="w-full p-2 border border-gray-300 rounded mb-4">
-      <button onclick="sendOTP()" class="w-full bg-blue-600 text-white p-2 rounded">Send OTP</button>
-    </div>
-
-    <!-- Step 2: OTP input (hidden by default) -->
-    <div id="step-2" class="hidden">
-      <input type="text" id="otp-input" placeholder="Enter the OTP" class="w-full p-2 border border-gray-300 rounded mb-4">
-      <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-2 rounded">Verify OTP</button>
-    </div>
-    <!-- Step 3: Register User -->
-<div id="step-3" class="hidden">
-  <input id="reg-name" type="text" placeholder="Your Name" class="w-full p-2 border border-gray-300 rounded mb-3">
-  <input id="reg-password" type="password" placeholder="Create Password" class="w-full p-2 border border-gray-300 rounded mb-3">
-  <button onclick="registerUser()" class="w-full bg-indigo-600 text-white p-2 rounded">Complete Registration</button>
-</div>
-
+      <!-- Step 2: OTP input (hidden by default) -->
+      <div id="step-2" class="hidden">
+        <input type="text" id="otp-input" placeholder="Enter the OTP" class="w-full p-2 border border-gray-300 rounded mb-4">
+        <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-2 rounded">Verify OTP</button>
+      </div>
+      <!-- Step 3: Register User -->
+  <div id="step-3" class="hidden">
+    <input id="reg-name" type="text" placeholder="Your Name" class="w-full p-2 border border-gray-300 rounded mb-3">
+    <input id="reg-password" type="password" placeholder="Create Password" class="w-full p-2 border border-gray-300 rounded mb-3">
+    <button onclick="registerUser()" class="w-full bg-indigo-600 text-white p-2 rounded">Complete Registration</button>
   </div>
-</div>
-  </div>
-</div>
-</div>
 
-<!-- Premium Loader -->
-<div id="pageLoader" class="fixed inset-0 z-50 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center">
-  <div class="relative p-0.5 rounded-lg bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 animate-gradient-border">
-    <div class="relative bg-white rounded-lg p-8 flex flex-col items-center justify-center w-72 h-64">
-      <div class="relative w-20 h-20 mb-6">
-        <div class="absolute inset-0 rounded-full border-4 border-blue-500/20"></div>
-        <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-blue-600 border-r-blue-600 animate-spin-slow"></div>
-        <div class="absolute inset-1 rounded-full border-4 border-transparent border-t-purple-500 border-r-purple-500 animate-spin-slower"></div>
-      </div>
-      <div class="text-center space-y-2">
-        <h3 class="text-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Loading ExamPrep
-        </h3>
-        <p class="text-sm text-gray-500">Setting up your dashboard</p>
-      </div>
-      <div class="w-full bg-gray-200 rounded-full h-1.5 mt-6 overflow-hidden">
-        <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-full rounded-full animate-progress"></div>
-      </div>
-      <div class="flex items-center mt-4 text-xs text-blue-600">
-        <svg class="w-3 h-3 mr-1 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
-        </svg>
-        <span>Secure Data Transfer</span>
+    </div>
+  </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Premium Loader -->
+  <div id="pageLoader" class="fixed inset-0 z-50 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center">
+    <div class="relative p-0.5 rounded-lg bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 animate-gradient-border">
+      <div class="relative bg-white rounded-lg p-8 flex flex-col items-center justify-center w-72 h-64">
+        <div class="relative w-20 h-20 mb-6">
+          <div class="absolute inset-0 rounded-full border-4 border-blue-500/20"></div>
+          <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-blue-600 border-r-blue-600 animate-spin-slow"></div>
+          <div class="absolute inset-1 rounded-full border-4 border-transparent border-t-purple-500 border-r-purple-500 animate-spin-slower"></div>
+        </div>
+        <div class="text-center space-y-2">
+          <h3 class="text-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Loading ExamPrep
+          </h3>
+          <p class="text-sm text-gray-500">Setting up your dashboard</p>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-1.5 mt-6 overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-full rounded-full animate-progress"></div>
+        </div>
+        <div class="flex items-center mt-4 text-xs text-blue-600">
+          <svg class="w-3 h-3 mr-1 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span>Secure Data Transfer</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<style>
-  @keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fadeInUp {
-    animation: fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1);
-  }
-  #pageLoader { display: none; }
-</style>
-
-<script>
-// Limit to 5 most recent quizzes, newest on right, and style cards
-function displayQuizzes(quizzes, containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = "";
-  // Show only the 5 most recent, newest on right
-  const recent = quizzes.slice(-5);
-  recent.forEach((quiz, i) => {
-    const title = quiz.title || `${quiz.exam || "Exam"} - Day ${quiz.day || "?"}`;
-    const totalQuestions = quiz.noOfQuestions || quiz.totalQuestions || 0;
-    const rawDate = quiz.submittedAt || quiz.createdAt;
-    let formattedDate = 'Unknown';
-    if (rawDate) {
-      const dateObj = new Date(rawDate);
-      formattedDate = dateObj.toLocaleDateString('en-US', {
-        year: 'numeric', month: 'short', day: 'numeric'
-      });
+  <style>
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
-    // Colorful backgrounds cycling
-    const colors = [
-      'bg-blue-50', 'bg-purple-50', 'bg-green-50', 'bg-pink-50', 'bg-yellow-50'
-    ];
-    const color = colors[i % colors.length];
-    const quizItem = document.createElement("div");
-    quizItem.className = `${color} flex-shrink-0 rounded-xl p-4 sm:p-6 flex flex-col h-full shadow-sm min-w-[220px] max-w-xs transition-transform hover:-translate-y-1`;
-    quizItem.innerHTML = `
-      <div class="flex-1">
-        <h3 class="text-base font-semibold text-gray-800 mb-1">${title}</h3>
-        <p class="text-xs text-gray-500 mb-1">Questions: ${totalQuestions}</p>
-        <p class="text-xs text-gray-400 mb-2">${formattedDate}</p>
-      </div>
-      <a href="review.html?exam=${quiz.exam}&day=${quiz.day}" class="mt-auto inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-3 py-1.5 rounded hover:from-indigo-600 hover:to-purple-700 text-xs font-medium shadow transition-transform transform hover:scale-105">
-        <i class="fas fa-eye mr-1"></i> <span class="hidden sm:inline">Review</span>
-      </a>
-    `;
-    container.appendChild(quizItem);
-  });
-}
-</script>
+    .animate-fadeInUp {
+      animation: fadeInUp 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+  </style>
 
-<!-- Floating Study Cat Widget -->
-<div id="studyCatWidget" class="fixed bottom-6 right-6 z-50 cursor-pointer flex items-center justify-center rounded-full bg-white shadow-xl border border-blue-100">
-  <img id="studyCatImage" src="assets/normalCat.gif" class="w-full h-full object-contain rounded-full transition-all" alt="Study Cat">
-</div>
-
-<!-- Cat Message/Notification -->
-<div id="catMessage" class="hidden fixed bottom-32 right-6 bg-white shadow-xl rounded-xl p-4 max-w-xs text-sm text-gray-800 z-50 border border-blue-100 flex items-center gap-2">
-  <span id="catMessageText">📢 Hey! You've got a new notification!</span>
-  <button id="closeCatMessage" class="ml-auto text-gray-400 hover:text-gray-700 text-lg">&times;</button>
-</div>
-
-<style>
-  #studyCatWidget img {
-    transition: transform 0.3s cubic-bezier(.36,1.56,.64,1), box-shadow 0.3s, border-radius 0.3s;
-    border-radius: 9999px;
+  <script>
+  // Limit to 5 most recent quizzes, newest on right, and style cards
+  function displayQuizzes(quizzes, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = "";
+    // Show only the 5 most recent, newest on right
+    const recent = quizzes.slice(-5);
+    recent.forEach((quiz, i) => {
+      const title = quiz.title || `${quiz.exam || "Exam"} - Day ${quiz.day || "?"}`;
+      const totalQuestions = quiz.noOfQuestions || quiz.totalQuestions || 0;
+      const rawDate = quiz.submittedAt || quiz.createdAt;
+      let formattedDate = 'Unknown';
+      if (rawDate) {
+        const dateObj = new Date(rawDate);
+        formattedDate = dateObj.toLocaleDateString('en-US', {
+          year: 'numeric', month: 'short', day: 'numeric'
+        });
+      }
+      // Colorful backgrounds cycling
+      const colors = [
+        'bg-blue-50', 'bg-purple-50', 'bg-green-50', 'bg-pink-50', 'bg-yellow-50'
+      ];
+      const color = colors[i % colors.length];
+      const quizItem = document.createElement("div");
+      quizItem.className = `${color} flex-shrink-0 rounded-xl p-4 sm:p-6 flex flex-col h-full shadow-sm min-w-[220px] max-w-xs transition-transform hover:-translate-y-1`;
+      quizItem.innerHTML = `
+        <div class="flex-1">
+          <h3 class="text-base font-semibold text-gray-800 mb-1">${title}</h3>
+          <p class="text-xs text-gray-500 mb-1">Questions: ${totalQuestions}</p>
+          <p class="text-xs text-gray-400 mb-2">${formattedDate}</p>
+        </div>
+        <a href="review.html?exam=${quiz.exam}&day=${quiz.day}" class="mt-auto inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-3 py-1.5 rounded hover:from-indigo-600 hover:to-purple-700 text-xs font-medium shadow transition-transform transform hover:scale-105">
+          <i class="fas fa-eye mr-1"></i> <span class="hidden sm:inline">Review</span>
+        </a>
+      `;
+      container.appendChild(quizItem);
+    });
   }
-  #studyCatWidget:hover img {
-    transform: scale(1.08) rotate(-2deg);
-    box-shadow: 0 8px 32px 0 rgba(59,130,246,0.18);
-    border-radius: 9999px;
-  }
-  #catMessage {
-    animation: popIn 0.4s cubic-bezier(.36,1.56,.64,1);
-  }
-  @keyframes popIn {
-    0% { opacity: 0; transform: translateY(20px) scale(0.95);}
-    100% { opacity: 1; transform: translateY(0) scale(1);}
-  }
-</style>
+  </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const studyCatWidget = document.getElementById("studyCatWidget");
-  const studyCat = document.getElementById("studyCatImage");
-  const messageBox = document.getElementById("catMessage");
-  const messageText = document.getElementById("catMessageText");
-  const closeCatMessage = document.getElementById("closeCatMessage");
-  const catMeow = document.getElementById("catMeow");
-  const catMeow2 = document.getElementById("catMeow2");
-  let audioUnlocked = false;
-
-  function showCatWidget() {
-    studyCatWidget.style.display = "flex";
+  <script>
+    // Show more details after 15 seconds
     setTimeout(() => {
-      studyCatWidget.classList.add("cat-visible");
-      studyCatWidget.style.pointerEvents = "auto";
-    }, 10);
-  }
+      const details = document.getElementById('appPromoDetails');
+      if (details) {
+        details.innerHTML = `
+          <div class="mt-4 p-3 bg-blue-50 rounded-lg text-blue-800 text-center animate__animated animate__fadeInUp">
+            <strong>Coming soon:</strong> Web app, more features, and exclusive content for early users!
+          </div>
+        `;
+      }
+    }, 15000);
+  </script>
 
-  function unlockAudio(e) {
-    if (!audioUnlocked) {
-      if (catMeow) {
+  <!-- Floating Study Cat Widget -->
+  <div id="studyCatWidget" class="fixed bottom-6 right-6 z-50 cursor-pointer flex items-center justify-center rounded-full bg-white shadow-xl border border-blue-100">
+    <img id="studyCatImage" src="assets/normalCat.gif" class="w-full h-full object-contain rounded-full transition-all" alt="Study Cat">
+  </div>
+
+  <!-- Cat Message/Notification -->
+  <div id="catMessage" class="hidden fixed bottom-32 right-6 bg-white shadow-xl rounded-xl p-4 max-w-xs text-sm text-gray-800 z-50 border border-blue-100 flex items-center gap-2">
+    <span id="catMessageText">📢 Hey! You've got a new notification!</span>
+    <button id="closeCatMessage" class="ml-auto text-gray-400 hover:text-gray-700 text-lg">&times;</button>
+  </div>
+
+  <style>
+    #studyCatWidget img {
+      transition: transform 0.3s cubic-bezier(.36,1.56,.64,1), box-shadow 0.3s, border-radius 0.3s;
+      border-radius: 9999px;
+    }
+    #studyCatWidget:hover img {
+      transform: scale(1.08) rotate(-2deg);
+      box-shadow: 0 8px 32px 0 rgba(59,130,246,0.18);
+      border-radius: 9999px;
+    }
+    #catMessage {
+      animation: popIn 0.4s cubic-bezier(.36,1.56,.64,1);
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: translateY(20px) scale(0.95);}
+      100% { opacity: 1; transform: translateY(0) scale(1);}
+    }
+  </style>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const studyCatWidget = document.getElementById("studyCatWidget");
+    const studyCat = document.getElementById("studyCatImage");
+    const messageBox = document.getElementById("catMessage");
+    const messageText = document.getElementById("catMessageText");
+    const closeCatMessage = document.getElementById("closeCatMessage");
+    const catMeow = document.getElementById("catMeow");
+    const catMeow2 = document.getElementById("catMeow2");
+    let audioUnlocked = false;
+
+    function showCatWidget() {
+      console.log("[DEBUG] Showing cat widget");
+      studyCatWidget.style.display = "flex";
+      setTimeout(() => {
+        studyCatWidget.classList.add("cat-visible");
+        studyCatWidget.style.pointerEvents = "auto";
+      }, 10); // allow DOM to update before transition
+    }
+
+    // Unlock audio and show cat on first user interaction (silent unlock)
+    function unlockAudio(e) {
+      if (!audioUnlocked) {
+        console.log("[DEBUG] Attempting to unlock audio (silent)...");
+        // Play and immediately pause to unlock, so user doesn't hear it
+        if (catMeow) {
+          catMeow.currentTime = 0;
+          catMeow.play().then(() => {
+            catMeow.pause();
+            catMeow.currentTime = 0;
+            console.log("[DEBUG] catMeow unlocked silently");
+          }).catch(err => {
+            console.error("[DEBUG] Error unlocking catMeow:", err);
+          });
+        } else {
+          console.warn("[DEBUG] catMeow audio element not found");
+        }
+        audioUnlocked = true;
+        showCatWidget();
+        // Enable cat click handler only after unlock
+        studyCat.addEventListener("click", catClickHandler);
+        document.body.removeEventListener('click', unlockAudio);
+        document.body.removeEventListener('keydown', unlockAudio);
+        // Prevent the first cat click from also triggering the meow (if the first click was on the cat)
+        if (e && e.target === studyCat) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      }
+    }
+    document.body.addEventListener('click', unlockAudio);
+    document.body.addEventListener('keydown', unlockAudio);
+
+    const normalSrc = "assets/normalCat.gif";     // calm
+    const angrySrc = "assets/cat-angry.gif";      // angry (now use gif)
+
+    function triggerCatMood(message = "📢 Hey! You've got a new notification!", sound = "notification") {
+      console.log(`[DEBUG] triggerCatMood called: message='${message}', sound='${sound}'`);
+      // Play appropriate sound
+      if (sound === "notification" && catMeow) {
         catMeow.currentTime = 0;
         catMeow.play().then(() => {
-          catMeow.pause();
-          catMeow.currentTime = 0;
-        }).catch(err => {});
+          console.log("[DEBUG] catMeow played for notification");
+        }).catch(err => {
+          console.error("[DEBUG] Error playing catMeow (notification):", err);
+        });
+      } else if (sound === "click" && catMeow2) {
+        catMeow2.currentTime = 0;
+        catMeow2.play().then(() => {
+          console.log("[DEBUG] catMeow2 played for click");
+        }).catch(err => {
+          console.error("[DEBUG] Error playing catMeow2 (click):", err);
+        });
+      } else {
+        console.warn("[DEBUG] No audio element found for sound:", sound);
       }
-      audioUnlocked = true;
-      showCatWidget();
-      studyCat.addEventListener("click", catClickHandler);
-      document.body.removeEventListener('click', unlockAudio);
-      document.body.removeEventListener('keydown', unlockAudio);
-      if (e && e.target === studyCat) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
+      studyCat.src = angrySrc;
+      messageText.textContent = message;
+      messageBox.classList.remove("hidden");
+
+      setTimeout(() => {
+        studyCat.src = normalSrc;
+        messageBox.classList.add("hidden");
+      }, 4000); // Angry for 4 sec
     }
-  }
-  document.body.addEventListener('click', unlockAudio);
-  document.body.addEventListener('keydown', unlockAudio);
 
-  const normalSrc = "assets/normalCat.gif";
-  const angrySrc = "assets/cat-angry.gif";
-
-  function triggerCatMood(message = "📢 Hey! You've got a new notification!", sound = "notification") {
-    if (sound === "notification" && catMeow) {
-      catMeow.currentTime = 0;
-      catMeow.play().then(() => {}).catch(err => {});
-    } else if (sound === "click" && catMeow2) {
-      catMeow2.currentTime = 0;
-      catMeow2.play().then(() => {}).catch(err => {});
+    function catClickHandler() {
+      console.log("[DEBUG] Cat clicked");
+      triggerCatMood("😾 Stop poking me! I'm studying!", "click");
     }
-    studyCat.src = angrySrc;
-    messageText.textContent = message;
-    messageBox.classList.remove("hidden");
 
-    setTimeout(() => {
+    // Close button
+    closeCatMessage.onclick = function() {
       studyCat.src = normalSrc;
       messageBox.classList.add("hidden");
-    }, 4000);
-  }
+    };
 
-  function catClickHandler() {
-    triggerCatMood("😾 Stop poking me! I'm studying!", "click");
-  }
-
-  closeCatMessage.onclick = function() {
-    studyCat.src = normalSrc;
-    messageBox.classList.add("hidden");
-  };
-
-  setTimeout(() => {
-    if (audioUnlocked) triggerCatMood("📌 New lesson unlocked: 'Time Management 101'", "notification");
-  }, 8000);
-});
-</script>
-
-<!-- Cat Sounds -->
-<audio id="catMeow" src="assets/cat-meow.mp3" preload="auto"></audio>
-<audio id="catMeow2" src="assets/cat-meow2.mp3" preload="auto"></audio>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const cat = document.getElementById('studyCatWidget');
-    cat.classList.add('cat-visible');
+    // Example: trigger notification after 8 seconds
+    setTimeout(() => {
+      if (audioUnlocked) triggerCatMood("📌 New lesson unlocked: 'Time Management 101'", "notification");
+    }, 8000);
   });
-</script>
+  </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const sidebar = document.getElementById('sidebar');
-  const openBtn = document.getElementById('mobile-menu-button');
-  const closeBtn = document.getElementById('mobile-menu-button-close');
-  const body = document.body;
+  <!-- Cat Sounds -->
+  <audio id="catMeow" src="assets/cat-meow.mp3" preload="auto"></audio>
+  <audio id="catMeow2" src="assets/cat-meow2.mp3" preload="auto"></audio>
 
-  function toggleSidebar(show = true) {
-    if (show) {
-      sidebar.classList.add('open');
-      body.classList.add('sidebar-open');
-    } else {
-      sidebar.classList.remove('open');
-      body.classList.remove('sidebar-open');
+  <script>
+    // Show the cat widget with fade-in on page load, no interaction required
+    document.addEventListener('DOMContentLoaded', function() {
+      const cat = document.getElementById('studyCatWidget');
+      cat.classList.add('cat-visible');
+    });
+  </script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const openBtn = document.getElementById('mobile-menu-button');
+    const closeBtn = document.getElementById('mobile-menu-button-close');
+    const body = document.body;
+
+    function toggleSidebar(show = true) {
+      if (show) {
+        sidebar.classList.add('open');
+        body.classList.add('sidebar-open');
+      } else {
+        sidebar.classList.remove('open');
+        body.classList.remove('sidebar-open');
+      }
     }
-  }
 
-  openBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleSidebar(true);
-  });
+    openBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleSidebar(true);
+    });
 
-  closeBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleSidebar(false);
-  });
-
-  document.addEventListener('click', function (e) {
-    if (
-      window.innerWidth < 768 &&
-      sidebar.classList.contains('open') &&
-      !sidebar.contains(e.target) &&
-      !openBtn.contains(e.target)
-    ) {
+    closeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
       toggleSidebar(false);
-    }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (
+        window.innerWidth < 768 &&
+        sidebar.classList.contains('open') &&
+        !sidebar.contains(e.target) &&
+        !openBtn.contains(e.target)
+      ) {
+        toggleSidebar(false);
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 768) {
+        toggleSidebar(false);
+      }
+    });
   });
+  </script>
 
-  window.addEventListener('resize', function () {
-    if (window.innerWidth >= 768) {
-      toggleSidebar(false);
-    }
-  });
-});
-</script>
-
-<script>
-// Show auth modal after 5 seconds only if user is not logged in
-setTimeout(function() {
-  var modal = document.getElementById('auth-modal');
-  var token = localStorage.getItem('token');
-  if ((!token || token === 'undefined' || token.length < 20) && modal) {
-    modal.style.display = 'flex';
-  }
-}, 5000);
-</script>
-
-<script>
-window.addEventListener('DOMContentLoaded', function() {
-  setTimeout(function() {
-    var loader = document.getElementById('pageLoader');
-    if (loader) loader.style.display = 'none';
-  }, 4000); // fallback: hide after 4 seconds no matter what
-});
-</script>
-
-</body>
-</html>
+  </body>
+  </html> 
