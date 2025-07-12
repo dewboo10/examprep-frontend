@@ -445,7 +445,9 @@
         showAdminMsg('Answer Index must be between 0 and 3.', true); btn.disabled = false; spinner.style.display = 'none'; return;
       }
       try {
-        const res = await fetch(`${API_BASE}/questions/${id}`, {
+        // Use MongoDB _id for the API call, not the custom id field
+        const mongoId = window._editQuestionObj._id;
+        const res = await fetch(`${API_BASE}/questions/${mongoId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
