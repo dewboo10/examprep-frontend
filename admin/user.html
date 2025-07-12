@@ -175,6 +175,10 @@
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
       color: #fff;
     }
+    .tier-mid {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      color: #92400e;
+    }
     .tier-free {
       background: #e5e7eb;
       color: #374151;
@@ -380,6 +384,7 @@
         <select id="tierFilter">
           <option value="">All Tiers</option>
           <option value="free">Free</option>
+          <option value="mid">Mid</option>
           <option value="premium">Premium</option>
         </select>
         <select id="statusFilter">
@@ -441,6 +446,7 @@
         <label>Tier</label>
         <select id="editTier" required>
           <option value="free">Free</option>
+          <option value="mid">Mid</option>
           <option value="premium">Premium</option>
         </select>
         
@@ -549,11 +555,12 @@
     function updateStats(users) {
       const total = users.length;
       const premium = users.filter(u => u.tier === 'premium').length;
+      const mid = users.filter(u => u.tier === 'mid').length;
       const free = users.filter(u => u.tier === 'free').length;
       const active = users.filter(u => u.status === 'active').length;
 
       document.getElementById('totalUsers').textContent = total;
-      document.getElementById('premiumUsers').textContent = premium;
+      document.getElementById('premiumUsers').textContent = premium + mid; // Combine mid and premium
       document.getElementById('freeUsers').textContent = free;
       document.getElementById('activeUsers').textContent = active;
     }
