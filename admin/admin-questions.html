@@ -404,6 +404,11 @@
 
     document.getElementById('editForm').onsubmit = async function(e) {
       e.preventDefault();
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
       const btn = document.getElementById('editSubmitBtn');
       const spinner = document.getElementById('editSpinner');
       btn.disabled = true; spinner.style.display = '';
@@ -440,7 +445,7 @@
         showAdminMsg('Answer Index must be between 0 and 3.', true); btn.disabled = false; spinner.style.display = 'none'; return;
       }
       try {
-        await fetch(`${API_BASE}/questions/${id}`, {
+        const res = await fetch(`${API_BASE}/questions/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -448,11 +453,21 @@
           },
           body: JSON.stringify({ exam, day, section, id, img, passage, question, options, answerIndex, explanation, video, videoUrl, videoStart, type })
         });
+        if (!res.ok) {
+          let msg = 'Failed to update question.';
+          try {
+            const err = await res.json();
+            msg += ' ' + (err.message || JSON.stringify(err));
+          } catch {}
+          showAdminMsg(msg, true);
+          btn.disabled = false; spinner.style.display = 'none';
+          return;
+        }
         closeEditModal();
         fetchQuestions();
         showAdminMsg('Question updated successfully!');
       } catch (e) {
-        showAdminMsg('Failed to update question.', true);
+        showAdminMsg('Failed to update question. ' + e.message, true);
       }
       btn.disabled = false; spinner.style.display = 'none';
     };
