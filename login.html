@@ -101,7 +101,7 @@
         
         if (res.ok) {
           localStorage.setItem("token", data.token);
-          localStorage.setItem("username", data.username);
+          localStorage.setItem("username", data.user.name);
           
           // Show success feedback
           errorMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700');

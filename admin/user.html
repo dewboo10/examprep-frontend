@@ -5,460 +5,1157 @@
   <title>Admin - User Management</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Poppins', Arial, sans-serif;
+    * {
       margin: 0;
-      background: #f6f8fa;
-      color: #222;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #1f2937;
+      line-height: 1.6;
+      display: flex;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 280px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      color: #1f2937;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .sidebar-header p {
+      font-size: 0.9rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .nav-section {
+      margin-bottom: 2rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      padding-left: 0.5rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1rem;
+      border-radius: 12px;
+      color: #374151;
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: width 0.3s ease;
+      z-index: 0;
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+      width: 100%;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: white;
+      transform: translateX(4px);
+    }
+
+    .nav-link i {
+      z-index: 1;
+      position: relative;
+      font-size: 1.1rem;
+    }
+
+    .nav-link span {
+      z-index: 1;
+      position: relative;
+    }
+
+    .nav-link.active {
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 2rem;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .admin-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: #f8fafc;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .admin-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .admin-details h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.25rem;
+    }
+
+    .admin-details p {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .logout-btn {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 2rem 0;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
     .container {
       max-width: 1200px;
-      margin: 2rem auto;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px 0 rgba(80, 40, 120, 0.08);
-      padding: 2.5rem 2rem 2rem 2rem;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      color: #4f46e5;
-      letter-spacing: -1px;
+
+    /* Header Section */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .header-actions {
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header p {
+      color: #6b7280;
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card.premium::before {
+      background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .stat-card.free::before {
+      background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .stat-card.active::before {
+      background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    .stat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .stat-card.premium .stat-icon {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .stat-card.free .stat-icon {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .stat-card.active .stat-icon {
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .stat-change {
+      font-size: 0.9rem;
+      color: #059669;
+      font-weight: 600;
+    }
+
+    /* Controls Section */
+    .controls {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .controls-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       flex-wrap: wrap;
       gap: 1rem;
     }
+
+    .controls-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
     .search-filters {
       display: flex;
       gap: 1rem;
       align-items: center;
       flex-wrap: wrap;
     }
+
     .search-box {
       position: relative;
-      min-width: 300px;
+      min-width: 320px;
     }
+
     .search-box input {
       width: 100%;
-      padding: 0.7rem 1rem 0.7rem 2.5rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.8rem;
+      padding: 0.875rem 1rem 0.875rem 3rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
       font-size: 1rem;
+      font-family: 'Inter', sans-serif;
       background: #f9fafb;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: all 0.3s ease;
     }
+
     .search-box input:focus {
       outline: none;
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: white;
     }
+
     .search-box i {
       position: absolute;
-      left: 0.8rem;
+      left: 1rem;
       top: 50%;
       transform: translateY(-50%);
       color: #9ca3af;
+      font-size: 1.1rem;
     }
-    .filters select {
-      padding: 0.7rem 1rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.8rem;
+
+    .filter-select {
+      padding: 0.875rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
       font-size: 1rem;
+      font-family: 'Inter', sans-serif;
       background: #f9fafb;
-      min-width: 120px;
+      min-width: 140px;
+      transition: all 0.3s ease;
     }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: white;
+    }
+
     .export-btn {
-      background: linear-gradient(100deg, #059669 0%, #10b981 100%);
-      color: #fff;
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      color: white;
       border: none;
-      border-radius: 0.8rem;
-      padding: 0.7rem 1.2rem;
+      border-radius: 12px;
+      padding: 0.875rem 1.5rem;
       font-size: 1rem;
       font-weight: 600;
+      font-family: 'Inter', sans-serif;
       cursor: pointer;
-      box-shadow: 0 2px 8px 0 rgba(5, 150, 105, 0.15);
-      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
+
     .export-btn:hover {
-      background: linear-gradient(100deg, #047857 0%, #059669 100%);
-      box-shadow: 0 4px 16px 0 rgba(5, 150, 105, 0.2);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
     }
-    .stats-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
+
+    /* Table Section */
+    .table-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       margin-bottom: 2rem;
+      max-height: 500px;
+      overflow-y: auto;
     }
-    .stat-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #fff;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      text-align: center;
-      box-shadow: 0 4px 16px 0 rgba(102, 126, 234, 0.15);
+
+    .table-header {
+      padding: 2rem 2rem 1rem 2rem;
+      border-bottom: 1px solid #e5e7eb;
     }
-    .stat-card.premium {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    }
-    .stat-card.free {
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    }
-    .stat-card.active {
-      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    }
-    .stat-number {
-      font-size: 2rem;
+
+    .table-title {
+      font-size: 1.5rem;
       font-weight: 700;
+      color: #1f2937;
       margin-bottom: 0.5rem;
     }
-    .stat-label {
-      font-size: 0.9rem;
-      opacity: 0.9;
+
+    .table-subtitle {
+      color: #6b7280;
+      font-size: 1rem;
     }
+
     table {
-      border-collapse: collapse;
       width: 100%;
-      background: #fff;
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 2px 12px 0 rgba(80, 40, 120, 0.06);
+      border-collapse: collapse;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
     }
-    th, td {
-      border-bottom: 1px solid #f1f1f1;
-      padding: 1rem 0.8rem;
-      text-align: left;
-      font-size: 0.95rem;
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #f8fafc;
     }
+
     th {
       background: #f8fafc;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
       font-weight: 600;
-      color: #4f46e5;
-      letter-spacing: 0.5px;
+      color: #374151;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid #e5e7eb;
     }
-    tr:last-child td {
-      border-bottom: none;
+
+    td {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: middle;
     }
+
     tr:hover {
       background: #f8fafc;
     }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
     .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-weight: 600;
-      font-size: 1rem;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
+
+    .user-details h4 {
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.25rem;
+    }
+
+    .user-details p {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
     .tier-badge {
-      padding: 0.3rem 0.8rem;
-      border-radius: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
+
     .tier-premium {
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      color: #fff;
+      color: white;
+      box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
     }
+
     .tier-mid {
       background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
       color: #92400e;
+      box-shadow: 0 4px 12px rgba(252, 182, 159, 0.3);
     }
+
     .tier-free {
-      background: #e5e7eb;
+      background: #f3f4f6;
       color: #374151;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
+
     .status-badge {
-      padding: 0.3rem 0.8rem;
-      border-radius: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
+
     .status-active {
       background: #dcfce7;
       color: #166534;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
     }
+
     .status-inactive {
       background: #fef2f2;
       color: #dc2626;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
     }
+
     .actions {
       display: flex;
       gap: 0.5rem;
     }
+
     .action-btn {
-      background: none;
+      width: 40px;
+      height: 40px;
       border: none;
-      color: #6366f1;
-      font-size: 1rem;
+      border-radius: 10px;
       cursor: pointer;
-      transition: color 0.2s;
-      padding: 0.3rem;
-      border-radius: 0.4rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
     }
-    .action-btn:hover {
-      background: #f3f4f6;
-      color: #4f46e5;
+
+    .action-btn.edit {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
-    .action-btn.danger:hover {
-      background: #fef2f2;
-      color: #dc2626;
+
+    .action-btn.edit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
     }
+
+    .action-btn.delete {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    .action-btn.delete:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Modal Styles */
     .modal-bg {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
       z-index: 1000;
       display: none;
       align-items: center;
       justify-content: center;
-    }
-    .modal {
-      background: #fff;
-      border-radius: 1rem;
-      box-shadow: 0 8px 32px 0 rgba(80, 40, 120, 0.2);
       padding: 2rem;
-      min-width: 400px;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+      padding: 2.5rem;
+      min-width: 500px;
       max-width: 90vw;
       max-height: 90vh;
       overflow-y: auto;
+      animation: modalSlideIn 0.3s ease;
     }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
     .modal h3 {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      color: #4f46e5;
+      color: #1f2937;
       margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
+
     .modal label {
       display: block;
       margin-bottom: 0.5rem;
       color: #374151;
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
-    .modal input, .modal select {
+
+    .modal input,
+    .modal select {
       width: 100%;
-      padding: 0.7rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.5rem;
+      padding: 0.875rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
       font-size: 1rem;
-      margin-bottom: 1rem;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
     }
+
+    .modal input:focus,
+    .modal select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
     .modal-actions {
       display: flex;
       gap: 1rem;
       justify-content: flex-end;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
+
     .btn {
-      padding: 0.7rem 1.5rem;
-      border-radius: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: 12px;
       border: none;
       font-weight: 600;
+      font-family: 'Inter', sans-serif;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
+      font-size: 1rem;
     }
+
     .btn-primary {
-      background: linear-gradient(100deg, #7c3aed 0%, #6366f1 100%);
-      color: #fff;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     }
+
     .btn-primary:hover {
-      background: linear-gradient(100deg, #6d28d9 0%, #4f46e5 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
     }
+
     .btn-secondary {
       background: #f3f4f6;
       color: #374151;
+      border: 2px solid #e5e7eb;
     }
+
     .btn-secondary:hover {
       background: #e5e7eb;
     }
+
     .btn-danger {
-      background: #dc2626;
-      color: #fff;
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
     }
+
     .btn-danger:hover {
-      background: #b91c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
     }
-    .loading {
-      text-align: center;
-      padding: 2rem;
-      color: #6b7280;
+
+    /* Message Display */
+    .message {
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      display: none;
     }
-    .error {
+
+    .message.success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .message.error {
       background: #fef2f2;
       color: #dc2626;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
+      border: 1px solid #fecaca;
     }
-    .success {
-      background: #f0fdf4;
-      color: #166534;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
+
+    /* Loading States */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: #6b7280;
     }
+
+    .loading i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #667eea;
+    }
+
+    /* Pagination */
     .pagination {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 1rem;
-      margin-top: 2rem;
+      padding: 2rem;
+      background: #f8fafc;
+      border-top: 1px solid #e5e7eb;
     }
+
     .pagination button {
-      padding: 0.5rem 1rem;
-      border: 1px solid #d1d5db;
-      background: #fff;
-      border-radius: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border: 2px solid #e5e7eb;
+      background: white;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
     }
-    .pagination button:hover {
-      background: #f3f4f6;
+
+    .pagination button:hover:not(:disabled) {
+      border-color: #667eea;
+      background: #f8fafc;
     }
+
     .pagination button.active {
-      background: #6366f1;
-      color: #fff;
-      border-color: #6366f1;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-color: #667eea;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
     }
+
     .pagination button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
+
+    .page-info {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 240px;
+        padding: 1.5rem 1rem;
+      }
+      
+      .main {
+        padding: 1.5rem;
+      }
+      
+      .stats-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    }
+
     @media (max-width: 768px) {
-      .container { padding: 1rem; margin: 1rem; }
-      .header-actions { flex-direction: column; align-items: stretch; }
+      body {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 1rem;
+      }
+      
+      .sidebar-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+      }
+      
+      .nav-section {
+        margin-bottom: 1rem;
+      }
+      
+      .main {
+        padding: 1rem;
+      }
+      
+      .header { padding: 1.5rem; }
+      .header h1 { font-size: 2rem; }
+      .controls-header { flex-direction: column; align-items: stretch; }
       .search-filters { flex-direction: column; }
       .search-box { min-width: auto; }
-      .stats-cards { grid-template-columns: 1fr; }
-      table { font-size: 0.9rem; }
-      th, td { padding: 0.7rem 0.5rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .modal { min-width: auto; padding: 1.5rem; }
+      th, td { padding: 1rem 0.75rem; }
+      .user-info { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #6b7280;
+    }
+
+    .empty-state i {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: #d1d5db;
+    }
+
+    .empty-state h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+
+    .empty-state p {
+      font-size: 1rem;
+      color: #6b7280;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1><i class="fas fa-users"></i> User Management</h1>
-    
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>
+        <i class="fas fa-cogs"></i>
+        Admin Panel
+      </h2>
+      <p>Exam Prep Platform</p>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-section-title">Main Navigation</div>
+      <a href="dashboard.html" class="nav-link">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="admin-questions.html" class="nav-link">
+        <i class="fas fa-question"></i>
+        <span>Questions</span>
+      </a>
+      <a href="mock.html" class="nav-link">
+        <i class="fas fa-list-ol"></i>
+        <span>Mock Tests</span>
+      </a>
+      <a href="user.html" class="nav-link active">
+        <i class="fas fa-users"></i>
+        <span>Users</span>
+      </a>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-section-title">Management</div>
+      <a href="#" class="nav-link">
+        <i class="fas fa-bell"></i>
+        <span>Notifications</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="fas fa-chart-bar"></i>
+        <span>Analytics</span>
+      </a>
+      <a href="#" class="nav-link">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-info">
+        <div class="admin-avatar">A</div>
+        <div class="admin-details">
+          <h4>Admin User</h4>
+          <p>Super Administrator</p>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+    <!-- Header Section -->
+    <div class="header">
+      <h1>
+        <i class="fas fa-users"></i>
+        User Management Dashboard
+      </h1>
+      <p>Manage your platform's users, monitor their activity, and control access levels with powerful admin tools.</p>
+    </div>
+
     <!-- Stats Cards -->
-    <div class="stats-cards">
+    <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-number" id="totalUsers">—</div>
-        <div class="stat-label">Total Users</div>
+        <div class="stat-header">
+          <div>
+            <div class="stat-number" id="totalUsers">—</div>
+            <div class="stat-label">Total Users</div>
+            <div class="stat-change">+12% this month</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
       </div>
+
       <div class="stat-card premium">
-        <div class="stat-number" id="premiumUsers">—</div>
-        <div class="stat-label">Premium Users</div>
+        <div class="stat-header">
+          <div>
+            <div class="stat-number" id="premiumUsers">—</div>
+            <div class="stat-label">Premium Users</div>
+            <div class="stat-change">+8% this month</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-crown"></i>
+          </div>
+        </div>
       </div>
+
       <div class="stat-card free">
-        <div class="stat-number" id="freeUsers">—</div>
-        <div class="stat-label">Free Users</div>
+        <div class="stat-header">
+          <div>
+            <div class="stat-number" id="freeUsers">—</div>
+            <div class="stat-label">Free Users</div>
+            <div class="stat-change">+15% this month</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-user-friends"></i>
+          </div>
+        </div>
       </div>
+
       <div class="stat-card active">
-        <div class="stat-number" id="activeUsers">—</div>
-        <div class="stat-label">Active Today</div>
+        <div class="stat-header">
+          <div>
+            <div class="stat-number" id="activeUsers">—</div>
+            <div class="stat-label">Active Today</div>
+            <div class="stat-change">+5% vs yesterday</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Header Actions -->
-    <div class="header-actions">
-      <div class="search-filters">
-        <div class="search-box">
-          <i class="fas fa-search"></i>
-          <input type="text" id="searchInput" placeholder="Search users by name or email...">
+    <!-- Controls Section -->
+    <div class="controls">
+      <div class="controls-header">
+        <div class="controls-title">
+          <i class="fas fa-filter"></i>
+          User Controls & Filters
         </div>
-        <select id="tierFilter">
-          <option value="">All Tiers</option>
-          <option value="free">Free</option>
-          <option value="mid">Mid</option>
-          <option value="premium">Premium</option>
-        </select>
-        <select id="statusFilter">
-          <option value="">All Status</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
+        <div class="search-filters">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search users by name or email...">
+          </div>
+          <select id="tierFilter" class="filter-select">
+            <option value="">All Tiers</option>
+            <option value="free">Free Users</option>
+            <option value="mid">Mid Tier</option>
+            <option value="premium">Premium Users</option>
+          </select>
+          <select id="statusFilter" class="filter-select">
+            <option value="">All Status</option>
+            <option value="active">Active Users</option>
+            <option value="inactive">Inactive Users</option>
+          </select>
+          <button class="export-btn" onclick="exportUsers()">
+            <i class="fas fa-download"></i>
+            Export CSV
+          </button>
+        </div>
       </div>
-      <button class="export-btn" onclick="exportUsers()">
-        <i class="fas fa-download"></i>
-        Export CSV
-      </button>
     </div>
 
     <!-- Message Display -->
-    <div id="message"></div>
+    <div id="message" class="message"></div>
 
-    <!-- Users Table -->
-    <table>
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Email</th>
-          <th>Tier</th>
-          <th>Status</th>
-          <th>Registered</th>
-          <th>Last Login</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="usersTableBody">
-        <tr>
-          <td colspan="7" class="loading">
-            <i class="fas fa-spinner fa-spin"></i> Loading users...
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Table Section -->
+    <div class="table-container">
+      <div class="table-header">
+        <div class="table-title">
+          <i class="fas fa-table"></i>
+          User Directory
+        </div>
+        <div class="table-subtitle">
+          Manage user accounts, permissions, and subscription tiers
+        </div>
+      </div>
 
-    <!-- Pagination -->
-    <div class="pagination" id="pagination" style="display: none;">
-      <button onclick="changePage(-1)" id="prevBtn">Previous</button>
-      <span id="pageInfo">Page 1 of 1</span>
-      <button onclick="changePage(1)" id="nextBtn">Next</button>
+      <table>
+        <thead>
+          <tr>
+            <th>User Profile</th>
+            <th>Contact Info</th>
+            <th>Subscription</th>
+            <th>Account Status</th>
+            <th>Registration Date</th>
+            <th>Last Activity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody">
+          <tr>
+            <td colspan="7" class="loading">
+              <i class="fas fa-spinner fa-spin"></i>
+              <div>Loading user data...</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination" style="display: none;">
+        <button onclick="changePage(-1)" id="prevBtn">
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <span class="page-info" id="pageInfo">Page 1 of 1</span>
+        <button onclick="changePage(1)" id="nextBtn">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
     </div>
-  </div>
+  </main>
 
   <!-- Edit User Modal -->
   <div class="modal-bg" id="editModal">
     <div class="modal">
-      <h3><i class="fas fa-edit"></i> Edit User</h3>
+      <h3>
+        <i class="fas fa-edit"></i>
+        Edit User Profile
+      </h3>
       <form id="editForm">
-        <label>Name</label>
-        <input type="text" id="editName" required>
+        <label>Full Name</label>
+        <input type="text" id="editName" required placeholder="Enter user's full name">
         
-        <label>Email</label>
-        <input type="email" id="editEmail" required>
+        <label>Email Address</label>
+        <input type="email" id="editEmail" required placeholder="Enter user's email">
         
-        <label>Tier</label>
+        <label>Subscription Tier</label>
         <select id="editTier" required>
-          <option value="free">Free</option>
-          <option value="mid">Mid</option>
-          <option value="premium">Premium</option>
+          <option value="free">Free Plan</option>
+          <option value="mid">Mid Tier</option>
+          <option value="premium">Premium Plan</option>
         </select>
         
-        <label>Status</label>
+        <label>Account Status</label>
         <select id="editStatus" required>
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
         </select>
         
         <div class="modal-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="button" class="btn btn-secondary" onclick="closeEditModal()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
         </div>
       </form>
     </div>
@@ -467,11 +1164,20 @@
   <!-- Delete Confirmation Modal -->
   <div class="modal-bg" id="deleteModal">
     <div class="modal">
-      <h3><i class="fas fa-exclamation-triangle"></i> Confirm Delete</h3>
-      <p>Are you sure you want to delete this user? This action cannot be undone.</p>
+      <h3>
+        <i class="fas fa-exclamation-triangle"></i>
+        Confirm User Deletion
+      </h3>
+      <p style="color: #6b7280; margin-bottom: 1.5rem;">
+        Are you sure you want to permanently delete this user? This action cannot be undone and will remove all user data from the system.
+      </p>
       <div class="modal-actions">
-        <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
-        <button class="btn btn-danger" onclick="confirmDelete()">Delete User</button>
+        <button class="btn btn-secondary" onclick="closeDeleteModal()">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+        <button class="btn btn-danger" onclick="confirmDelete()">
+          <i class="fas fa-trash"></i> Delete User
+        </button>
       </div>
     </div>
   </div>
@@ -511,7 +1217,7 @@
     function showMessage(message, type = 'success') {
       const msgEl = document.getElementById('message');
       msgEl.textContent = message;
-      msgEl.className = type;
+      msgEl.className = `message ${type}`;
       msgEl.style.display = 'block';
       setTimeout(() => {
         msgEl.style.display = 'none';
@@ -543,8 +1249,10 @@
         showMessage('Failed to fetch users: ' + error.message, 'error');
         document.getElementById('usersTableBody').innerHTML = `
           <tr>
-            <td colspan="7" class="error">
-              Failed to load users. Please check your connection and try again.
+            <td colspan="7" class="empty-state">
+              <i class="fas fa-exclamation-triangle"></i>
+              <h3>Connection Error</h3>
+              <p>Unable to load user data. Please check your connection and try again.</p>
             </td>
           </tr>
         `;
@@ -559,10 +1267,10 @@
       const free = users.filter(u => u.tier === 'free').length;
       const active = users.filter(u => u.status === 'active').length;
 
-      document.getElementById('totalUsers').textContent = total;
-      document.getElementById('premiumUsers').textContent = premium + mid; // Combine mid and premium
-      document.getElementById('freeUsers').textContent = free;
-      document.getElementById('activeUsers').textContent = active;
+      document.getElementById('totalUsers').textContent = total.toLocaleString();
+      document.getElementById('premiumUsers').textContent = (premium + mid).toLocaleString();
+      document.getElementById('freeUsers').textContent = free.toLocaleString();
+      document.getElementById('activeUsers').textContent = active.toLocaleString();
     }
 
     // Render users table
@@ -575,8 +1283,10 @@
       if (pageUsers.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="7" class="loading">
-              No users found matching your criteria.
+            <td colspan="7" class="empty-state">
+              <i class="fas fa-search"></i>
+              <h3>No Users Found</h3>
+              <p>No users match your current search criteria. Try adjusting your filters.</p>
             </td>
           </tr>
         `;
@@ -586,17 +1296,22 @@
       tbody.innerHTML = pageUsers.map(user => `
         <tr>
           <td>
-            <div style="display: flex; align-items: center; gap: 0.8rem;">
+            <div class="user-info">
               <div class="user-avatar">
                 ${user.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
-              <div>
-                <div style="font-weight: 600;">${user.name || 'N/A'}</div>
-                <div style="font-size: 0.8rem; color: #6b7280;">ID: ${user._id}</div>
+              <div class="user-details">
+                <h4>${user.name || 'N/A'}</h4>
+                <p>ID: ${user._id}</p>
               </div>
             </div>
           </td>
-          <td>${user.email || 'N/A'}</td>
+          <td>
+            <div>
+              <div style="font-weight: 600; color: #1f2937;">${user.email || 'N/A'}</div>
+              <div style="font-size: 0.875rem; color: #6b7280;">${user.role || 'user'}</div>
+            </div>
+          </td>
           <td>
             <span class="tier-badge tier-${user.tier || 'free'}">
               ${user.tier || 'free'}
@@ -607,13 +1322,31 @@
               ${user.status || 'active'}
             </span>
           </td>
-          <td>${user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</td>
-          <td>${user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}</td>
+          <td>
+            <div>
+              <div style="font-weight: 500; color: #1f2937;">
+                ${user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+              </div>
+              <div style="font-size: 0.875rem; color: #6b7280;">
+                ${user.createdAt ? new Date(user.createdAt).toLocaleTimeString() : ''}
+              </div>
+            </div>
+          </td>
+          <td>
+            <div>
+              <div style="font-weight: 500; color: #1f2937;">
+                ${user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}
+              </div>
+              <div style="font-size: 0.875rem; color: #6b7280;">
+                ${user.lastLogin ? new Date(user.lastLogin).toLocaleTimeString() : ''}
+              </div>
+            </div>
+          </td>
           <td class="actions">
-            <button class="action-btn" title="Edit" onclick="editUser('${user._id}')">
+            <button class="action-btn edit" title="Edit User" onclick="editUser('${user._id}')">
               <i class="fas fa-edit"></i>
             </button>
-            <button class="action-btn danger" title="Delete" onclick="deleteUser('${user._id}')">
+            <button class="action-btn delete" title="Delete User" onclick="deleteUser('${user._id}')">
               <i class="fas fa-trash"></i>
             </button>
           </td>
@@ -669,7 +1402,7 @@
       }
 
       pagination.style.display = 'flex';
-      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages} (${totalItems} users)`;
       prevBtn.disabled = currentPage === 1;
       nextBtn.disabled = currentPage === totalPages;
     }
@@ -693,7 +1426,6 @@
       document.getElementById('editTier').value = user.tier || 'free';
       document.getElementById('editStatus').value = user.status || 'active';
 
-      // Store user ID for form submission
       document.getElementById('editForm').dataset.userId = userId;
       document.getElementById('editModal').style.display = 'flex';
     }
@@ -731,7 +1463,7 @@
 
         showMessage('User deleted successfully');
         closeDeleteModal();
-        fetchUsers(); // Refresh the list
+        fetchUsers();
       } catch (error) {
         console.error('Error deleting user:', error);
         showMessage('Failed to delete user: ' + error.message, 'error');
@@ -741,12 +1473,13 @@
     // Export functionality
     function exportUsers() {
       const csvContent = [
-        ['Name', 'Email', 'Tier', 'Status', 'Registered', 'Last Login'],
+        ['Name', 'Email', 'Tier', 'Status', 'Role', 'Registered', 'Last Login'],
         ...filteredUsers.map(user => [
           user.name || 'N/A',
           user.email || 'N/A',
           user.tier || 'free',
           user.status || 'active',
+          user.role || 'user',
           user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A',
           user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'
         ])
@@ -793,7 +1526,7 @@
 
         showMessage('User updated successfully');
         closeEditModal();
-        fetchUsers(); // Refresh the list
+        fetchUsers();
       } catch (error) {
         console.error('Error updating user:', error);
         showMessage('Failed to update user: ' + error.message, 'error');
@@ -812,6 +1545,14 @@
       fetchUsers();
       setupFilters();
     });
+
+    // Logout function
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('adminToken');
+        window.location.href = '../login.html';
+      }
+    }
   </script>
 </body>
 </html> 
