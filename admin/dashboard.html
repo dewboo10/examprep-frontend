@@ -634,6 +634,10 @@
         <i class="fas fa-question"></i>
         <span>Questions</span>
       </a>
+      <a href="topics.html" class="nav-link">
+        <i class="fas fa-tags"></i>
+        <span>Topics</span>
+      </a>
       <a href="mock.html" class="nav-link">
         <i class="fas fa-list-ol"></i>
         <span>Mock Tests</span>
@@ -740,6 +744,17 @@
           </div>
           <div class="stat-icon">
             <i class="fas fa-bolt"></i>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card topic">
+        <div class="stat-header">
+          <div>
+            <div class="stat-number" id="topicCount">—</div>
+            <div class="stat-label">Topics</div>
+          </div>
+          <div class="stat-icon">
+            <i class="fas fa-tags"></i>
           </div>
         </div>
       </div>
@@ -1109,7 +1124,22 @@
         }
       });
     });
+
+    // Fetch and display topic count
+    async function fetchTopicCount() {
+      try {
+        const token = localStorage.getItem('adminToken') || '';
+        const res = await fetch('https://examprep-backend.onrender.com/api/admin/topics', {
+          headers: { Authorization: 'Bearer ' + token }
+        });
+        const data = await res.json();
+        const count = (data && data.topics) ? data.topics.length : 0;
+        document.getElementById('topicCount').textContent = count;
+      } catch (e) {
+        document.getElementById('topicCount').textContent = '—';
+      }
+    }
+    fetchTopicCount();
   </script>
 </body>
-</html> 
 </html> 

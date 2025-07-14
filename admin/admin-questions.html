@@ -563,6 +563,10 @@
         <i class="fas fa-question"></i>
         <span>Questions</span>
       </a>
+      <a href="topics.html" class="nav-link">
+        <i class="fas fa-tags"></i>
+        <span>Topics</span>
+      </a>
       <a href="mock.html" class="nav-link">
         <i class="fas fa-list-ol"></i>
         <span>Mock Tests</span>
@@ -625,7 +629,106 @@
           <input type="file" id="csvFileInput" accept=".csv" style="display:none;" onchange="handleCSVSelected(event)">
           <button type="button" onclick="document.getElementById('csvFileInput').click()" class="upload-btn"><i class="fas fa-upload"></i> Bulk Upload (CSV)</button>
         </label>
-        <span style="font-size:0.9em;color:#6b7280;">CSV columns: <b>id,question,option1,option2,option3,option4,answerIndex,explanation,chapter,exam,day,section,type</b></span>
+        <div id="csvPreviewContainer" style="margin-top:1em;"></div>
+        <div id="csvConfirmContainer" style="margin-top:0.5em;"></div>
+        <!-- Improved CSV columns info -->
+        <style>
+          #csvColumnsInfoBox {
+            margin: 0.7em 0 0.5em 0;
+            padding: 0.7em 1em;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            max-width: 900px;
+            min-width: 0;
+            font-size: 0.97em;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+          }
+          #csvColumnsInfoBox .csv-cols-grid {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr 1px 1fr;
+            gap: 0.5em 1.5em;
+            align-items: start;
+          }
+          #csvColumnsInfoBox .csv-cols-divider {
+            background: #e5e7eb;
+            width: 1px;
+            min-height: 100px;
+            height: 100%;
+            margin: 0 0.5em;
+          }
+          #csvColumnsInfoBox ul {
+            margin: 0.2em 0 0 1.1em;
+            padding: 0;
+            list-style: disc;
+          }
+          #csvColumnsInfoBox li {
+            margin-bottom: 0.18em;
+            line-height: 1.45;
+            font-size: 0.97em;
+          }
+          #csvColumnsInfoBox .csv-cols-section {
+            margin-bottom: 0.5em;
+          }
+          #csvColumnsInfoBox .csv-cols-section-title {
+            font-weight: 600;
+            margin-bottom: 0.2em;
+          }
+          #csvColumnsInfoBox .csv-cols-required { color: #059669; }
+          #csvColumnsInfoBox .csv-cols-mock { color: #7c3aed; }
+          #csvColumnsInfoBox .csv-cols-optional { color: #6b7280; }
+          #csvColumnsInfoBox .csv-cols-mock span { color: #6366f1; }
+          @media (max-width: 900px) {
+            #csvColumnsInfoBox .csv-cols-grid {
+              grid-template-columns: 1fr 1px 1fr;
+            }
+            #csvColumnsInfoBox .csv-cols-divider:nth-child(2) { display: none; }
+          }
+          @media (max-width: 700px) {
+            #csvColumnsInfoBox .csv-cols-grid {
+              grid-template-columns: 1fr;
+            }
+            #csvColumnsInfoBox .csv-cols-divider { display: none; }
+          }
+        </style>
+        <div id="csvColumnsInfoBox">
+          <div style="font-weight:600;margin-bottom:0.3em;">CSV Columns:</div>
+          <div class="csv-cols-grid">
+            <div>
+              <div class="csv-cols-section csv-cols-section-title csv-cols-required">Required for all questions:</div>
+              <ul>
+                <li><b>id</b> – Unique question ID</li>
+                <li><b>question</b> – The question text</li>
+                <li><b>option1</b>, <b>option2</b>, <b>option3</b>, <b>option4</b> – Four answer options</li>
+                <li><b>answerIndex</b> – Correct option (0-based: 0,1,2,3)</li>
+                <li><b>type</b> – <span style='color:#6366f1'>mock</span> or <span style='color:#6366f1'>practice</span></li>
+                <li><b>topics</b> – Comma-separated topic names</li>
+                <li><b>level</b> – e.g. Easy, Medium, Hard</li>
+              </ul>
+            </div>
+            <div class="csv-cols-divider"></div>
+            <div>
+              <div class="csv-cols-section csv-cols-section-title csv-cols-mock">Required for <span>mock</span> questions:</div>
+              <ul>
+                <li><b>mock_code</b> – Code of the mock test to assign this question to</li>
+                <li><b>day</b> – Day number</li>
+                <li><b>section</b> – Section name</li>
+              </ul>
+            </div>
+            <div class="csv-cols-divider"></div>
+            <div>
+              <div class="csv-cols-section csv-cols-section-title csv-cols-optional">Optional:</div>
+              <ul>
+                <li><b>explanation</b> – Solution or explanation</li>
+                <li><b>chapter</b> – Chapter name</li>
+                <li><b>exam</b> – Exam code/name</li>
+                <li><b>difficulty</b> – e.g. Medium, Hard</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <button type="button" onclick="downloadQuestionsCSV()" class="download-btn"><i class="fas fa-download"></i> Download All as CSV</button>
         <button type="button" onclick="downloadTemplateCSV()" class="download-btn"><i class="fas fa-file-csv"></i> Download Template CSV</button>
       </div>
@@ -720,6 +823,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script>
     // Set your backend API base URL here
     // const API_BASE = 'http://localhost:5050/api/admin'; // For local testing
@@ -1065,16 +1169,71 @@
       }
       btn.disabled = false; spinner.style.display = 'none';
     };
-    window.handleCSVSelected = async function(event) {
+    window.handleCSVSelected = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const previewDiv = document.getElementById('csvPreviewContainer');
+      const confirmDiv = document.getElementById('csvConfirmContainer');
+      previewDiv.innerHTML = '<b>Parsing CSV...</b>';
+      confirmDiv.innerHTML = '';
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+          const data = results.data;
+          const errors = results.errors;
+          if (errors && errors.length) {
+            previewDiv.innerHTML = '<span style="color:#e11d48">CSV Parse Error: ' + errors[0].message + '</span>';
+            confirmDiv.innerHTML = '';
+            return;
+          }
+          if (!data.length) {
+            previewDiv.innerHTML = '<span style="color:#e11d48">No rows found in CSV.</span>';
+            confirmDiv.innerHTML = '';
+            return;
+          }
+          // Required fields
+          const requiredAll = ['id','question','option1','option2','option3','option4','answerIndex','type','topics','level'];
+          const requiredMock = ['mock_code','day','section'];
+          let missingRows = [];
+          const rowCount = data.length;
+          data.forEach((row, i) => {
+            let missing = [];
+            requiredAll.forEach(col => { if (!row[col]) missing.push(col); });
+            if ((row.type||'').toLowerCase() === 'mock') {
+              requiredMock.forEach(col => { if (!row[col]) missing.push(col); });
+            }
+            if (missing.length) missingRows.push({row: i+1, fields: missing});
+          });
+          if (missingRows.length) {
+            let html = `<div style='color:#e11d48;font-weight:500;'>Missing required fields in CSV (${missingRows.length} of ${rowCount} row${rowCount>1?'s':''}):</div><ul style='color:#e11d48;margin:0.5em 0 0 1.2em;'>`;
+            missingRows.slice(0,10).forEach(r => {
+              html += `<li>Row ${r.row}: <b>${r.fields.join(', ')}</b></li>`;
+            });
+            if (missingRows.length > 10) html += `<li>...and ${missingRows.length-10} more rows</li>`;
+            html += '</ul>';
+            previewDiv.innerHTML = html;
+            confirmDiv.innerHTML = '';
+          } else {
+            previewDiv.innerHTML = `<div style='color:#059669;font-weight:500;'>All required fields present in all ${rowCount} row${rowCount>1?'s':''}.</div>`;
+            confirmDiv.innerHTML = `<button id='csvConfirmBtn' class='upload-btn' style='margin-top:0.7em;'><i class='fas fa-check'></i> Confirm & Upload</button>`;
+            document.getElementById('csvConfirmBtn').onclick = function() {
+              uploadCSVFile(file);
+            };
+          }
+        }
+      });
+      document.getElementById('csvFileInput').value = '';
+    }
+    async function uploadCSVFile(file) {
       let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
       if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
         ADMIN_TOKEN = prompt('Enter your admin JWT token:');
         localStorage.setItem('adminToken', ADMIN_TOKEN);
       }
-      const file = event.target.files[0];
-      if (!file) return;
       const formData = new FormData();
       formData.append('file', file);
+      showAdminMsg('Uploading CSV...');
       const res = await fetch(`${API_BASE}/questions/upload-csv`, {
         method: 'POST',
         headers: { Authorization: 'Bearer ' + ADMIN_TOKEN },
@@ -1087,7 +1246,8 @@
         const err = await res.json().catch(() => ({}));
         showAdminMsg('CSV upload failed: ' + (err.message || 'Invalid file or schema.'), true);
       }
-      document.getElementById('csvFileInput').value = '';
+      document.getElementById('csvPreviewContainer').innerHTML = '';
+      document.getElementById('csvConfirmContainer').innerHTML = '';
     }
 
     window.downloadQuestionsCSV = async function() {
@@ -1177,9 +1337,9 @@
     document.getElementById('editType').addEventListener('change', updateEditMockFieldsRequired);
     updateEditMockFieldsRequired();
     window.downloadTemplateCSV = function() {
-      const header = ['id','question','option1','option2','option3','option4','answerIndex','explanation','chapter','exam','day','section','type'];
-      const exampleMock = ['32','What is the capital of France?','Berlin','Madrid','Paris','Rome','3','Paris is the capital of France.','Geography','Midterm','1','A','mock'];
-      const examplePractice = ['f','What is H2O commonly known as?','Oxygen','Hydrogen','Water','Carbon Dioxide','3','H2O is the chemical formula for water.','Science','Midterm','','','practice'];
+      const header = ['id','question','option1','option2','option3','option4','answerIndex','explanation','chapter','exam','day','section','type','topics','level','difficulty','mock_code'];
+      const exampleMock = ['32','What is the capital of France?','Berlin','Madrid','Paris','Rome','2','Paris is the capital of France.','Geography','Midterm','1','A','mock','Europe','Easy','Medium','CAT2024-MOCK1'];
+      const examplePractice = ['f','What is H2O commonly known as?','Oxygen','Hydrogen','Water','Carbon Dioxide','2','H2O is the chemical formula for water.','Science','Midterm','','','practice','Science','Easy','',''];
       const csv = [header.join(','), exampleMock.join(','), examplePractice.join(',')].join('\r\n');
       const blob = new Blob([csv], { type: 'text/csv' });
       const a = document.createElement('a');
