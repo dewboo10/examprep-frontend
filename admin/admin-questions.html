@@ -741,17 +741,11 @@
         <div id="csvPreviewContainer" style="margin-top:1em;"></div>
         <div id="csvConfirmContainer" style="margin-top:0.5em;"></div>
       </div>
-      <!-- Bulk Delete Button -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin:1.5em 0 0.5em 0;">
-        <div></div>
-        <button id="bulkDeleteBtn" class="bulk-delete-btn" disabled onclick="bulkDeleteQuestions()"><i class="fas fa-trash"></i> Delete Selected</button>
-      </div>
       <!-- Table Card -->
       <div class="card">
         <table id="questionsTable">
           <thead>
             <tr>
-              <th><input type="checkbox" id="selectAllQuestions" onclick="toggleSelectAllQuestions(this)"></th>
               <th>ID</th>
               <th>Question</th>
               <th>Section</th>
@@ -920,7 +914,6 @@
       questions.forEach(q => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" class="question-select" value="${q._id || q.id}" onchange="updateBulkDeleteBtn()"></td>
           <td>${q.id || q._id}</td>
           <td>${q.question}</td>
           <td>${q.section || ''}</td>
@@ -1422,23 +1415,6 @@
         localStorage.removeItem('adminToken');
         window.location.href = '../login.html';
       }
-    }
-
-    // Add JS for select all and enabling/disabling bulk delete button
-    function toggleSelectAllQuestions(checkbox) {
-      const checkboxes = document.querySelectorAll('.question-select');
-      checkboxes.forEach(cb => { cb.checked = checkbox.checked; });
-      updateBulkDeleteBtn();
-    }
-    function updateBulkDeleteBtn() {
-      const anyChecked = Array.from(document.querySelectorAll('.question-select')).some(cb => cb.checked);
-      document.getElementById('bulkDeleteBtn').disabled = !anyChecked;
-    }
-
-    // Add stub for bulkDeleteQuestions (to be implemented)
-    function bulkDeleteQuestions() {
-      // TODO: Implement bulk delete logic
-      alert('Bulk delete coming soon!');
     }
   </script>
 </body>
