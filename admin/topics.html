@@ -235,11 +235,11 @@
     <div class="container">
       <h1><i class="fas fa-tags"></i> Manage Topics</h1>
       <div class="search-add-bar">
-        <input type="text" placeholder="Search topics...">
-        <button><i class="fas fa-plus"></i> Add Topic</button>
+        <input type="text" id="searchTopic" placeholder="Search topics...">
+        <button onclick="showAddModal()"><i class="fas fa-plus"></i> Add Topic</button>
       </div>
       <div class="topics-table-card">
-        <table>
+        <table id="topicsTable">
           <thead>
             <tr>
               <th>Name</th>
@@ -254,174 +254,187 @@
         </table>
       </div>
     </div>
-  </main>
-  <!-- Add/Edit Modal -->
-  <div id="modalBg" class="modal-bg" style="display:none;">
-    <div class="modal">
-      <h3 id="modalTitle"><i class="fas fa-plus"></i> Add Topic</h3>
-      <form id="topicForm">
-        <label>Topic Name: <input id="topicName" required></label>
-        <label>Sections (comma-separated): <input id="topicSections"></label>
-        <div class="modal-actions">
-          <button type="submit" class="save"><i class="fas fa-save"></i> Save</button>
-          <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <!-- Delete Modal -->
-  <div id="deleteModalBg" class="modal-bg" style="display:none;">
-    <div class="modal">
-      <h3><i class="fas fa-trash"></i> Delete Topic</h3>
-      <p>Are you sure you want to delete this topic?</p>
-      <div class="modal-actions">
-        <button type="button" class="cancel" onclick="closeDeleteModal()">Cancel</button>
-        <button type="button" class="save" style="background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);" onclick="confirmDeleteTopic()"><i class="fas fa-trash"></i> Delete</button>
+    <!-- Add/Edit Modal -->
+    <div id="modalBg" class="modal-bg" style="display:none;">
+      <div class="modal">
+        <h3 id="modalTitle"><i class="fas fa-plus"></i> Add Topic</h3>
+        <form id="topicForm">
+          <label>Topic Name: <input id="topicName" required></label>
+          <label>Sections (comma-separated): <input id="topicSections"></label>
+          <div class="modal-actions">
+            <button type="submit" class="save"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="cancel" onclick="closeModal()">Cancel</button>
+          </div>
+        </form>
       </div>
     </div>
-  </div>
-  <script>
-    // API base
-    const API_BASE = 'https://examprep-backend.onrender.com/api/admin';
-    let topics = [];
-    let editingTopicId = null;
-    let deletingTopicId = null;
-    let isLoading = false;
-    // Token management
-    function isTokenExpired(token) {
-      if (!token) return true;
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        if (!payload.exp) return false;
-        const now = Math.floor(Date.now() / 1000);
-        return payload.exp < now;
-      } catch (e) { return true; }
-    }
-    function getAdminToken() {
-      let token = localStorage.getItem('adminToken') || '';
-      if (!token || isTokenExpired(token)) {
-        token = prompt('Enter your admin JWT token:');
-        localStorage.setItem('adminToken', token);
+    <!-- Delete Modal -->
+    <div id="deleteModalBg" class="modal-bg" style="display:none;">
+      <div class="modal">
+        <h3><i class="fas fa-trash"></i> Delete Topic</h3>
+        <p>Are you sure you want to delete this topic?</p>
+        <div class="modal-actions">
+          <button type="button" class="cancel" onclick="closeDeleteModal()">Cancel</button>
+          <button type="button" class="save" style="background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);" onclick="confirmDeleteTopic()"><i class="fas fa-trash"></i> Delete</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Debug: script loaded
+      console.log('Admin Topics script loaded');
+      // API base
+      const API_BASE = 'https://examprep-backend.onrender.com/api/admin';
+      let topics = [];
+      let editingTopicId = null;
+      let deletingTopicId = null;
+      let isLoading = false;
+      // Token management
+      function isTokenExpired(token) {
+        if (!token) return true;
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          if (!payload.exp) return false;
+          const now = Math.floor(Date.now() / 1000);
+          return payload.exp < now;
+        } catch (e) { return true; }
       }
-      return token;
-    }
-    // Render topics
-    function renderTopics() {
-      const tbody = document.querySelector('#topicsTable tbody');
-      const search = document.getElementById('searchTopic').value.toLowerCase();
-      const filtered = topics.filter(t => t.name.toLowerCase().includes(search));
-      if (isLoading) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#888;padding:2em;">Loading...</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = filtered.length ? filtered.map(t => `
-        <tr>
-          <td>${t.name}</td>
-          <td>${(t.sections||[]).join(', ')}</td>
-          <td>${t.questionCount ?? 0}</td>
-          <td class="actions">
-            <button class="action-btn" title="Edit" onclick="showEditModal('${t._id}')"><i class="fas fa-edit"></i></button>
-            <button class="action-btn delete" title="Delete" onclick="showDeleteModal('${t.name}')"><i class="fas fa-trash"></i></button>
-          </td>
-        </tr>
-      `).join('') : `<tr><td colspan="4" style="text-align:center;color:#6b7280;padding:2em;">No topics found.</td></tr>`;
-    }
-    document.getElementById('searchTopic').addEventListener('input', renderTopics);
-    // Fetch topics from API
-    async function fetchTopics() {
-      isLoading = true;
-      renderTopics();
-      const token = getAdminToken();
-      try {
-        const res = await fetch(`${API_BASE}/topics`, {
-          headers: { Authorization: 'Bearer ' + token }
-        });
-        if (!res.ok) throw new Error('Failed to fetch topics');
-        const data = await res.json();
-        topics = (data && data.topics) ? data.topics.map(t => ({ ...t, name: t.topic })) : [];
-      } catch (e) {
-        topics = [];
-        alert('Error loading topics: ' + e.message);
-      }
-      isLoading = false;
-      renderTopics();
-    }
-    // Add/Edit Modal
-    function showAddModal() {
-      editingTopicId = null;
-      document.getElementById('modalTitle').innerHTML = '<i class="fas fa-plus"></i> Add Topic';
-      document.getElementById('topicName').value = '';
-      document.getElementById('topicSections').value = '';
-      document.getElementById('modalBg').style.display = 'flex';
-    }
-    function showEditModal(id) {
-      editingTopicId = id;
-      const topic = topics.find(t => t._id === id);
-      document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Topic';
-      document.getElementById('topicName').value = topic.name;
-      document.getElementById('topicSections').value = (topic.sections||[]).join(', ');
-      document.getElementById('modalBg').style.display = 'flex';
-    }
-    function closeModal() { document.getElementById('modalBg').style.display = 'none'; }
-    document.getElementById('topicForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const name = document.getElementById('topicName').value.trim();
-      const sections = document.getElementById('topicSections').value.split(',').map(s => s.trim()).filter(Boolean);
-      if (!name) return;
-      const token = getAdminToken();
-      try {
-        if (editingTopicId) {
-          // Edit
-          const res = await fetch(`${API_BASE}/topics/${name}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
-            body: JSON.stringify({ sections })
-          });
-          if (!res.ok) throw new Error('Failed to update topic');
-        } else {
-          // Add
-          const res = await fetch(`${API_BASE}/topics`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
-            body: JSON.stringify({ topic: name, sections })
-          });
-          if (!res.ok) throw new Error('Failed to add topic');
+      function getAdminToken() {
+        let token = localStorage.getItem('adminToken') || '';
+        if (!token || isTokenExpired(token)) {
+          token = prompt('Enter your admin JWT token:');
+          localStorage.setItem('adminToken', token);
         }
-        closeModal();
-        fetchTopics();
-      } catch (e) {
-        alert('Error saving topic: ' + e.message);
+        return token;
       }
-    };
-    // Delete Modal
-    function showDeleteModal(topicName) {
-      deletingTopicId = topicName;
-      document.getElementById('deleteModalBg').style.display = 'flex';
-    }
-    function closeDeleteModal() { document.getElementById('deleteModalBg').style.display = 'none'; }
-    async function confirmDeleteTopic() {
-      const token = getAdminToken();
-      try {
-        const res = await fetch(`${API_BASE}/topics/${encodeURIComponent(deletingTopicId)}`, {
-          method: 'DELETE',
-          headers: { Authorization: 'Bearer ' + token }
-        });
-        if (!res.ok) throw new Error('Failed to delete topic');
-        closeDeleteModal();
-        fetchTopics();
-      } catch (e) {
-        alert('Error deleting topic: ' + e.message);
+      // Render topics
+      function renderTopics() {
+        const tbody = document.querySelector('#topicsTable tbody');
+        const search = document.getElementById('searchTopic').value.toLowerCase();
+        const filtered = topics.filter(t => t.topic.toLowerCase().includes(search));
+        if (isLoading) {
+          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#888;padding:2em;">Loading...</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = filtered.length ? filtered.map(t => `
+          <tr>
+            <td>${t.topic}</td>
+            <td>${(t.sections||[]).join(', ')}</td>
+            <td>${t.questionCount ?? 0}</td>
+            <td class="actions">
+              <button class="action-btn" title="Edit" onclick="showEditModal('${t._id}')"><i class="fas fa-edit"></i></button>
+              <button class="action-btn delete" title="Delete" onclick="showDeleteModal('${t.topic}')"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        `).join('') : `<tr><td colspan="4" style="text-align:center;color:#6b7280;padding:2em;">No topics found.</td></tr>`;
       }
-    }
-    // Initial fetch
-    document.addEventListener('DOMContentLoaded', fetchTopics);
-    // Logout function
-    function logout() {
-      if (confirm('Are you sure you want to logout?')) {
-        localStorage.removeItem('adminToken');
-        window.location.href = '../login.html';
+      document.getElementById('searchTopic').addEventListener('input', renderTopics);
+      // Fetch topics from API
+      async function fetchTopics() {
+        console.log('fetchTopics called');
+        isLoading = true;
+        renderTopics();
+        const token = getAdminToken();
+        try {
+          const res = await fetch(`${API_BASE}/topics`, {
+            headers: { Authorization: 'Bearer ' + token }
+          });
+          if (!res.ok) throw new Error('Failed to fetch topics');
+          const data = await res.json();
+          console.log('Topics API response:', data);
+          topics = (data && data.topics) ? data.topics : [];
+        } catch (e) {
+          topics = [];
+          alert('Error loading topics: ' + e.message);
+          console.error('Error in fetchTopics:', e);
+        }
+        isLoading = false;
+        renderTopics();
       }
-    }
-  </script>
-</body>
+      // Add/Edit Modal
+      function showAddModal() {
+        editingTopicId = null;
+        document.getElementById('modalTitle').innerHTML = '<i class="fas fa-plus"></i> Add Topic';
+        document.getElementById('topicName').value = '';
+        document.getElementById('topicSections').value = '';
+        document.getElementById('modalBg').style.display = 'flex';
+      }
+      function showEditModal(id) {
+        editingTopicId = id;
+        const topic = topics.find(t => t._id === id);
+        document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Edit Topic';
+        document.getElementById('topicName').value = topic.topic;
+        document.getElementById('topicSections').value = (topic.sections||[]).join(', ');
+        document.getElementById('modalBg').style.display = 'flex';
+      }
+      function closeModal() { document.getElementById('modalBg').style.display = 'none'; }
+      document.getElementById('topicForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const name = document.getElementById('topicName').value.trim();
+        const sections = document.getElementById('topicSections').value.split(',').map(s => s.trim()).filter(Boolean);
+        if (!name) return;
+        const token = getAdminToken();
+        try {
+          if (editingTopicId) {
+            // Edit
+            const res = await fetch(`${API_BASE}/topics/${name}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+              body: JSON.stringify({ sections })
+            });
+            if (!res.ok) throw new Error('Failed to update topic');
+          } else {
+            // Add
+            const res = await fetch(`${API_BASE}/topics`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+              body: JSON.stringify({ topic: name, sections })
+            });
+            if (!res.ok) throw new Error('Failed to add topic');
+          }
+          closeModal();
+          fetchTopics();
+        } catch (e) {
+          alert('Error saving topic: ' + e.message);
+          console.error('Error in topicForm submit:', e);
+        }
+      };
+      // Delete Modal
+      function showDeleteModal(topicName) {
+        deletingTopicId = topicName;
+        document.getElementById('deleteModalBg').style.display = 'flex';
+      }
+      function closeDeleteModal() { document.getElementById('deleteModalBg').style.display = 'none'; }
+      async function confirmDeleteTopic() {
+        const token = getAdminToken();
+        try {
+          const res = await fetch(`${API_BASE}/topics/${encodeURIComponent(deletingTopicId)}`, {
+            method: 'DELETE',
+            headers: { Authorization: 'Bearer ' + token }
+          });
+          if (!res.ok) throw new Error('Failed to delete topic');
+          closeDeleteModal();
+          fetchTopics();
+        } catch (e) {
+          alert('Error deleting topic: ' + e.message);
+          console.error('Error in confirmDeleteTopic:', e);
+        }
+      }
+      // Initial fetch
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOMContentLoaded');
+        try {
+          fetchTopics();
+        } catch (e) {
+          console.error('Error calling fetchTopics on DOMContentLoaded:', e);
+        }
+      });
+      // Logout function
+      function logout() {
+        if (confirm('Are you sure you want to logout?')) {
+          localStorage.removeItem('adminToken');
+          window.location.href = '../login.html';
+        }
+      }
+    </script>
+  </body>
 </html> 
