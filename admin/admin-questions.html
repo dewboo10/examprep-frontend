@@ -1172,6 +1172,7 @@
     window.handleCSVSelected = function(event) {
       const file = event.target.files[0];
       if (!file) return;
+      window._lastCSVFile = file; // Store the file for upload
       const previewDiv = document.getElementById('csvPreviewContainer');
       const confirmDiv = document.getElementById('csvConfirmContainer');
       previewDiv.innerHTML = '<b>Parsing CSV...</b>';
@@ -1225,28 +1226,7 @@
             previewDiv.innerHTML = `<div style='color:#059669;font-weight:500;'>All required fields present and valid in all ${rowCount} row${rowCount>1?'s':''}.</div>`;
             confirmDiv.innerHTML = `<button id='csvConfirmBtn' class='upload-btn' style='margin-top:0.7em;'><i class='fas fa-check'></i> Confirm & Upload</button>`;
             document.getElementById('csvConfirmBtn').onclick = function() {
-              // Build payload as array of question objects
-              const questions = data.map(row => ({
-                id: row.id.trim(),
-                day: row.day ? Number(row.day) : undefined,
-                question: row.question.trim(),
-                section: row.section ? row.section.trim() : '',
-                options: [row.option1, row.option2, row.option3, row.option4].filter(Boolean),
-                answerIndex: parseInt(row.answerIndex, 10),
-                explanation: row.explanation ? row.explanation.trim() : '',
-                exam: row.exam ? row.exam.trim() : '',
-                topics: row.topics ? row.topics.split(',').map(t => t.trim()) : [],
-                type: row.type.trim(),
-                level: row.level ? row.level.trim() : '',
-                difficulty: row.difficulty ? row.difficulty.trim() : '',
-                mock_code: row.mock_code ? row.mock_code.trim() : '',
-                img: row.img ? row.img.trim() : '',
-                passage: row.passage ? row.passage.trim() : '',
-                video: row.video ? row.video.trim() : '',
-                videoUrl: row.videoUrl ? row.videoUrl.trim() : '',
-                videoStart: row.videoStart ? row.videoStart.trim() : ''
-              }));
-              uploadQuestionsBulk(questions);
+              uploadCSVFile(window._lastCSVFile);
             };
           }
         }
@@ -1279,35 +1259,35 @@
     }
 
     // New bulk upload function for JSON array of questions
-    async function uploadQuestionsBulk(questions) {
-      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
-      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
-        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
-        localStorage.setItem('adminToken', ADMIN_TOKEN);
-      }
-      showAdminMsg('Uploading questions...');
-      try {
-        const res = await fetch(`${API_BASE}/questions/upload-csv`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + ADMIN_TOKEN
-          },
-          body: JSON.stringify({ questions })
-        });
-        if (res.ok) {
-          showAdminMsg('Questions uploaded successfully!');
-          fetchQuestions();
-        } else {
-          const err = await res.json().catch(() => ({}));
-          showAdminMsg('Upload failed: ' + (err.message || 'Invalid data.'), true);
-        }
-      } catch (e) {
-        showAdminMsg('Network or server error.', true);
-      }
-      document.getElementById('csvPreviewContainer').innerHTML = '';
-      document.getElementById('csvConfirmContainer').innerHTML = '';
-    }
+    // async function uploadQuestionsBulk(questions) {
+    //   let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+    //   if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+    //     ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+    //     localStorage.setItem('adminToken', ADMIN_TOKEN);
+    //   }
+    //   showAdminMsg('Uploading questions...');
+    //   try {
+    //     const res = await fetch(`${API_BASE}/questions/upload-csv`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         Authorization: 'Bearer ' + ADMIN_TOKEN
+    //       },
+    //       body: JSON.stringify({ questions })
+    //     });
+    //     if (res.ok) {
+    //       showAdminMsg('Questions uploaded successfully!');
+    //       fetchQuestions();
+    //     } else {
+    //       const err = await res.json().catch(() => ({}));
+    //       showAdminMsg('Upload failed: ' + (err.message || 'Invalid data.'), true);
+    //     }
+    //   } catch (e) {
+    //     showAdminMsg('Network or server error.', true);
+    //   }
+    //   document.getElementById('csvPreviewContainer').innerHTML = '';
+    //   document.getElementById('csvConfirmContainer').innerHTML = '';
+    // }
 
     window.downloadQuestionsCSV = async function() {
       let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
