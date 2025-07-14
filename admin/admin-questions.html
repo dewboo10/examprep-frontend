@@ -1278,6 +1278,37 @@
       document.getElementById('csvConfirmContainer').innerHTML = '';
     }
 
+    // New bulk upload function for JSON array of questions
+    async function uploadQuestionsBulk(questions) {
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
+      showAdminMsg('Uploading questions...');
+      try {
+        const res = await fetch(`${API_BASE}/questions/upload-csv`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + ADMIN_TOKEN
+          },
+          body: JSON.stringify({ questions })
+        });
+        if (res.ok) {
+          showAdminMsg('Questions uploaded successfully!');
+          fetchQuestions();
+        } else {
+          const err = await res.json().catch(() => ({}));
+          showAdminMsg('Upload failed: ' + (err.message || 'Invalid data.'), true);
+        }
+      } catch (e) {
+        showAdminMsg('Network or server error.', true);
+      }
+      document.getElementById('csvPreviewContainer').innerHTML = '';
+      document.getElementById('csvConfirmContainer').innerHTML = '';
+    }
+
     window.downloadQuestionsCSV = async function() {
       let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
       if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
