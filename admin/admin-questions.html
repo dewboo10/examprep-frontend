@@ -208,6 +208,8 @@
       padding: 2.5rem;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
+      max-width: 1200px;
+      margin: 2.5em auto 2em auto;
     }
 
     h1 {
@@ -540,6 +542,70 @@
     .container {
       animation: fadeInUp 0.6s ease forwards;
     }
+    .card {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 2em 1.5em 1.5em 1.5em;
+      margin-top: 1.5em;
+    }
+    .bulk-delete-btn {
+      background: linear-gradient(135deg,#ef4444 0%,#dc2626 100%);
+      color: white;
+      font-weight: 700;
+      font-size: 1.08em;
+      padding: 0.7em 2.1em;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(239,68,68,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.7em;
+      border: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .bulk-delete-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    @media (max-width: 1024px) {
+      .container {
+        padding: 1.5rem;
+      }
+      .card {
+        padding: 1.2em 0.7em 1em 0.7em;
+      }
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 0.7rem;
+      }
+      .card {
+        padding: 0.7em 0.2em 0.7em 0.2em;
+      }
+    }
+    /* Table tweaks for premium look */
+    #questionsTable th, #questionsTable td {
+      padding: 1rem 0.75rem;
+      font-size: 1rem;
+    }
+    #questionsTable th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #374151;
+      letter-spacing: 0.5px;
+    }
+    #questionsTable tr:hover {
+      background: #f9fafb;
+    }
+    #questionsTable td.actions {
+      min-width: 120px;
+    }
+    /* Checkbox alignment */
+    #questionsTable th:first-child, #questionsTable td:first-child {
+      text-align: center;
+      width: 40px;
+    }
   </style>
 </head>
 <body>
@@ -613,9 +679,52 @@
     <div class="container">
       <h1><i class="fas fa-question"></i> Manage Questions</h1>
       <div id="adminMsg" style="margin-bottom:1rem;min-height:28px;font-weight:600;"></div>
+      <!-- CSV Upload Info Box (PREMIUM STYLE, moved above filters) -->
+      <div id="csvColumnsInfoBox" style="margin:2em auto 2em auto;max-width:1100px;background:linear-gradient(135deg,#f8fafc 60%,#e0e7ff 100%);box-shadow:0 8px 32px rgba(102,126,234,0.10),0 1.5px 8px rgba(76,70,229,0.08);border-radius:22px;padding:2.5em 2.5em 2em 2.5em;display:block;">
+        <div style="font-size:1.35em;font-weight:800;letter-spacing:0.01em;margin-bottom:1.1em;color:#3730a3;display:flex;align-items:center;gap:0.7em;"><i class="fas fa-file-csv" style="font-size:1.3em;color:#6366f1;"></i> CSV Upload Format & Requirements</div>
+        <div style="display:flex;flex-wrap:wrap;gap:2.5em;justify-content:space-between;">
+          <div style="flex:1 1 320px;min-width:260px;">
+            <div style="font-weight:700;color:#059669;margin-bottom:0.3em;">Required for <span style='color:#3730a3'>ALL</span> questions:</div>
+            <ul style="margin-left:1.2em;font-size:1.08em;line-height:1.7;">
+                <li><b>id</b> – Unique question ID</li>
+                <li><b>question</b> – The question text</li>
+              <li><b>section</b> – Section name</li>
+                <li><b>option1</b>, <b>option2</b>, <b>option3</b>, <b>option4</b> – Four answer options</li>
+                <li><b>answerIndex</b> – Correct option (0-based: 0,1,2,3)</li>
+              <li><b>exam</b> – Exam code/name</li>
+                <li><b>topics</b> – Comma-separated topic names</li>
+              <li><b>type</b> – <span style='color:#6366f1'>mock</span> or <span style='color:#6366f1'>practice</span></li>
+                <li><b>level</b> – e.g. Easy, Medium, Hard</li>
+              </ul>
+            </div>
+          <div style="flex:1 1 320px;min-width:260px;">
+            <div style="font-weight:700;color:#7c3aed;margin-bottom:0.3em;">Required for <span style='color:#6366f1'>MOCK</span> questions:</div>
+            <ul style="margin-left:1.2em;font-size:1.08em;line-height:1.7;">
+              <li><b>mock_code</b> – Code of the mock test</li>
+                <li><b>day</b> – Day number</li>
+                <li><b>section</b> – Section name</li>
+              </ul>
+            </div>
+          <div style="flex:1 1 320px;min-width:260px;">
+            <div style="font-weight:700;color:#6b7280;margin-bottom:0.3em;">Optional fields:</div>
+            <ul style="margin-left:1.2em;font-size:1.08em;line-height:1.7;">
+                <li><b>explanation</b> – Solution or explanation</li>
+              <li><b>para</b> – Paragraph/passage</li>
+              <li><b>img</b> – Image URL</li>
+              <li><b>video</b> – Video name</li>
+              <li><b>videoUrl</b> – Video URL</li>
+              <li><b>videoStart</b> – Video start time (seconds)</li>
+              </ul>
+            </div>
+          </div>
+        <div style="margin-top:2em;text-align:center;">
+          <button onclick="downloadTemplateCSV()" class="download-btn" style="font-size:1.15em;padding:0.8em 2.2em;border-radius:12px;"><i class="fas fa-file-csv"></i> Download Sample CSV</button>
+        </div>
+      </div>
+      <!-- Filters (move below info box, modern style, no default values) -->
       <div class="filters">
-        <label>Exam: <input id="exam" value="CAT"></label>
-        <label>Day: <input id="day" type="number" value="1"></label>
+        <label>Exam: <input id="exam" placeholder="Exam code (e.g. CAT)" style="min-width:120px;"></label>
+        <label>Day: <input id="day" type="number" placeholder="Day #" style="min-width:80px;"></label>
         <label>Type: 
           <select id="type">
             <option value="">All</option>
@@ -623,7 +732,7 @@
             <option value="practice">Practice</option>
           </select>
         </label>
-        <button onclick="fetchQuestions()"><i class="fas fa-search"></i> Fetch Questions</button>
+        <button onclick="fetchQuestions()"><i class="fas fa-search"></i> Filter</button>
         <button onclick="showCreateModal()" class="create-btn"><i class="fas fa-plus"></i> Create New Question</button>
         <label style="display:flex;align-items:center;gap:0.5rem;">
           <input type="file" id="csvFileInput" accept=".csv" style="display:none;" onchange="handleCSVSelected(event)">
@@ -631,119 +740,28 @@
         </label>
         <div id="csvPreviewContainer" style="margin-top:1em;"></div>
         <div id="csvConfirmContainer" style="margin-top:0.5em;"></div>
-        <!-- Improved CSV columns info -->
-        <style>
-          #csvColumnsInfoBox {
-            margin: 0.7em 0 0.5em 0;
-            padding: 0.7em 1em;
-            background: #f8fafc;
-            border-radius: 10px;
-            border: 1px solid #e5e7eb;
-            max-width: 900px;
-            min-width: 0;
-            font-size: 0.97em;
-            margin-left: auto;
-            margin-right: auto;
-            box-sizing: border-box;
-          }
-          #csvColumnsInfoBox .csv-cols-grid {
-            display: grid;
-            grid-template-columns: 1fr 1px 1fr 1px 1fr;
-            gap: 0.5em 1.5em;
-            align-items: start;
-          }
-          #csvColumnsInfoBox .csv-cols-divider {
-            background: #e5e7eb;
-            width: 1px;
-            min-height: 100px;
-            height: 100%;
-            margin: 0 0.5em;
-          }
-          #csvColumnsInfoBox ul {
-            margin: 0.2em 0 0 1.1em;
-            padding: 0;
-            list-style: disc;
-          }
-          #csvColumnsInfoBox li {
-            margin-bottom: 0.18em;
-            line-height: 1.45;
-            font-size: 0.97em;
-          }
-          #csvColumnsInfoBox .csv-cols-section {
-            margin-bottom: 0.5em;
-          }
-          #csvColumnsInfoBox .csv-cols-section-title {
-            font-weight: 600;
-            margin-bottom: 0.2em;
-          }
-          #csvColumnsInfoBox .csv-cols-required { color: #059669; }
-          #csvColumnsInfoBox .csv-cols-mock { color: #7c3aed; }
-          #csvColumnsInfoBox .csv-cols-optional { color: #6b7280; }
-          #csvColumnsInfoBox .csv-cols-mock span { color: #6366f1; }
-          @media (max-width: 900px) {
-            #csvColumnsInfoBox .csv-cols-grid {
-              grid-template-columns: 1fr 1px 1fr;
-            }
-            #csvColumnsInfoBox .csv-cols-divider:nth-child(2) { display: none; }
-          }
-          @media (max-width: 700px) {
-            #csvColumnsInfoBox .csv-cols-grid {
-              grid-template-columns: 1fr;
-            }
-            #csvColumnsInfoBox .csv-cols-divider { display: none; }
-          }
-        </style>
-        <div id="csvColumnsInfoBox">
-          <div style="font-weight:600;margin-bottom:0.3em;">CSV Columns:</div>
-          <div class="csv-cols-grid">
-            <div>
-              <div class="csv-cols-section csv-cols-section-title csv-cols-required">Required for all questions:</div>
-              <ul>
-                <li><b>id</b> – Unique question ID</li>
-                <li><b>question</b> – The question text</li>
-                <li><b>option1</b>, <b>option2</b>, <b>option3</b>, <b>option4</b> – Four answer options</li>
-                <li><b>answerIndex</b> – Correct option (0-based: 0,1,2,3)</li>
-                <li><b>type</b> – <span style='color:#6366f1'>mock</span> or <span style='color:#6366f1'>practice</span></li>
-                <li><b>topics</b> – Comma-separated topic names</li>
-                <li><b>level</b> – e.g. Easy, Medium, Hard</li>
-              </ul>
-            </div>
-            <div class="csv-cols-divider"></div>
-            <div>
-              <div class="csv-cols-section csv-cols-section-title csv-cols-mock">Required for <span>mock</span> questions:</div>
-              <ul>
-                <li><b>mock_code</b> – Code of the mock test to assign this question to</li>
-                <li><b>day</b> – Day number</li>
-                <li><b>section</b> – Section name</li>
-              </ul>
-            </div>
-            <div class="csv-cols-divider"></div>
-            <div>
-              <div class="csv-cols-section csv-cols-section-title csv-cols-optional">Optional:</div>
-              <ul>
-                <li><b>explanation</b> – Solution or explanation</li>
-                <li><b>chapter</b> – Chapter name</li>
-                <li><b>exam</b> – Exam code/name</li>
-                <li><b>difficulty</b> – e.g. Medium, Hard</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <button type="button" onclick="downloadQuestionsCSV()" class="download-btn"><i class="fas fa-download"></i> Download All as CSV</button>
-        <button type="button" onclick="downloadTemplateCSV()" class="download-btn"><i class="fas fa-file-csv"></i> Download Template CSV</button>
       </div>
-      <table id="questionsTable">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Question</th>
-            <th>Section</th>
-            <th>Type</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <!-- Bulk Delete Button -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:1.5em 0 0.5em 0;">
+        <div></div>
+        <button id="bulkDeleteBtn" class="bulk-delete-btn" disabled onclick="bulkDeleteQuestions()"><i class="fas fa-trash"></i> Delete Selected</button>
+      </div>
+      <!-- Table Card -->
+      <div class="card">
+        <table id="questionsTable">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAllQuestions" onclick="toggleSelectAllQuestions(this)"></th>
+              <th>ID</th>
+              <th>Question</th>
+              <th>Section</th>
+              <th>Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </main>
 
@@ -850,32 +868,30 @@
         }
         localStorage.setItem('adminToken', ADMIN_TOKEN);
       }
-      
       const exam = document.getElementById('exam').value;
       const day = document.getElementById('day').value;
       const type = document.getElementById('type').value;
-      
-      let url = `${API_BASE}/questions?exam=${encodeURIComponent(exam)}&day=${encodeURIComponent(day)}`;
-      if (type) url += `&type=${encodeURIComponent(type)}`;
-      
+      let url = `${API_BASE}/questions`;
+      const params = [];
+      if (exam) params.push(`exam=${encodeURIComponent(exam)}`);
+      if (day) params.push(`day=${encodeURIComponent(day)}`);
+      if (type) params.push(`type=${encodeURIComponent(type)}`);
+      if (params.length) url += `?${params.join('&')}`;
       try {
         showAdminMsg('Fetching questions...', false);
         const res = await fetch(url, {
           headers: { Authorization: 'Bearer ' + ADMIN_TOKEN }
         });
-        
         if (res.status === 401) {
           showAdminMsg('Session expired or unauthorized. Please log in again.', true);
           localStorage.removeItem('adminToken');
           return;
         }
-        
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({}));
           showAdminMsg(`Failed to fetch questions: ${errorData.message || res.statusText}`, true);
           return;
         }
-        
         const questions = await res.json();
         renderQuestions(questions);
         showAdminMsg(`Successfully fetched ${questions.length} questions.`);
@@ -904,6 +920,7 @@
       questions.forEach(q => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
+          <td><input type="checkbox" class="question-select" value="${q._id || q.id}" onchange="updateBulkDeleteBtn()"></td>
           <td>${q.id || q._id}</td>
           <td>${q.question}</td>
           <td>${q.section || ''}</td>
@@ -1405,6 +1422,23 @@
         localStorage.removeItem('adminToken');
         window.location.href = '../login.html';
       }
+    }
+
+    // Add JS for select all and enabling/disabling bulk delete button
+    function toggleSelectAllQuestions(checkbox) {
+      const checkboxes = document.querySelectorAll('.question-select');
+      checkboxes.forEach(cb => { cb.checked = checkbox.checked; });
+      updateBulkDeleteBtn();
+    }
+    function updateBulkDeleteBtn() {
+      const anyChecked = Array.from(document.querySelectorAll('.question-select')).some(cb => cb.checked);
+      document.getElementById('bulkDeleteBtn').disabled = !anyChecked;
+    }
+
+    // Add stub for bulkDeleteQuestions (to be implemented)
+    function bulkDeleteQuestions() {
+      // TODO: Implement bulk delete logic
+      alert('Bulk delete coming soon!');
     }
   </script>
 </body>
