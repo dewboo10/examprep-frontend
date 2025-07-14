@@ -1193,9 +1193,10 @@
             return;
           }
           // Required fields
-          const requiredAll = ['id','question','option1','option2','option3','option4','answerIndex','type','topics','level'];
+          const requiredAll = ['id','question','option1','option2','answerIndex','type','topics','level'];
           const requiredMock = ['mock_code','day','section'];
           let missingRows = [];
+          let invalidRows = [];
           const rowCount = data.length;
           data.forEach((row, i) => {
             let missing = [];
@@ -1203,10 +1204,16 @@
             if ((row.type||'').toLowerCase() === 'mock') {
               requiredMock.forEach(col => { if (!row[col]) missing.push(col); });
             }
+            // At least two options
+            const options = [row.option1, row.option2, row.option3, row.option4].filter(Boolean);
+            if (options.length < 2) missing.push('At least two options (option1, option2)');
+            // answerIndex valid
+            const answerIndex = parseInt(row.answerIndex, 10);
+            if (isNaN(answerIndex) || answerIndex < 0 || answerIndex >= options.length) missing.push('Valid answerIndex (0-based)');
             if (missing.length) missingRows.push({row: i+1, fields: missing});
           });
           if (missingRows.length) {
-            let html = `<div style='color:#e11d48;font-weight:500;'>Missing required fields in CSV (${missingRows.length} of ${rowCount} row${rowCount>1?'s':''}):</div><ul style='color:#e11d48;margin:0.5em 0 0 1.2em;'>`;
+            let html = `<div style='color:#e11d48;font-weight:500;'>Missing/invalid required fields in CSV (${missingRows.length} of ${rowCount} row${rowCount>1?'s':''}):</div><ul style='color:#e11d48;margin:0.5em 0 0 1.2em;'>`;
             missingRows.slice(0,10).forEach(r => {
               html += `<li>Row ${r.row}: <b>${r.fields.join(', ')}</b></li>`;
             });
@@ -1215,10 +1222,31 @@
             previewDiv.innerHTML = html;
             confirmDiv.innerHTML = '';
           } else {
-            previewDiv.innerHTML = `<div style='color:#059669;font-weight:500;'>All required fields present in all ${rowCount} row${rowCount>1?'s':''}.</div>`;
+            previewDiv.innerHTML = `<div style='color:#059669;font-weight:500;'>All required fields present and valid in all ${rowCount} row${rowCount>1?'s':''}.</div>`;
             confirmDiv.innerHTML = `<button id='csvConfirmBtn' class='upload-btn' style='margin-top:0.7em;'><i class='fas fa-check'></i> Confirm & Upload</button>`;
             document.getElementById('csvConfirmBtn').onclick = function() {
-              uploadCSVFile(file);
+              // Build payload as array of question objects
+              const questions = data.map(row => ({
+                id: row.id.trim(),
+                day: row.day ? Number(row.day) : undefined,
+                question: row.question.trim(),
+                section: row.section ? row.section.trim() : '',
+                options: [row.option1, row.option2, row.option3, row.option4].filter(Boolean),
+                answerIndex: parseInt(row.answerIndex, 10),
+                explanation: row.explanation ? row.explanation.trim() : '',
+                exam: row.exam ? row.exam.trim() : '',
+                topics: row.topics ? row.topics.split(',').map(t => t.trim()) : [],
+                type: row.type.trim(),
+                level: row.level ? row.level.trim() : '',
+                difficulty: row.difficulty ? row.difficulty.trim() : '',
+                mock_code: row.mock_code ? row.mock_code.trim() : '',
+                img: row.img ? row.img.trim() : '',
+                passage: row.passage ? row.passage.trim() : '',
+                video: row.video ? row.video.trim() : '',
+                videoUrl: row.videoUrl ? row.videoUrl.trim() : '',
+                videoStart: row.videoStart ? row.videoStart.trim() : ''
+              }));
+              uploadQuestionsBulk(questions);
             };
           }
         }
@@ -1337,15 +1365,24 @@
     document.getElementById('editType').addEventListener('change', updateEditMockFieldsRequired);
     updateEditMockFieldsRequired();
     window.downloadTemplateCSV = function() {
-      const header = ['id','question','option1','option2','option3','option4','answerIndex','explanation','chapter','exam','day','section','type','topics','level','difficulty','mock_code'];
-      const exampleMock = ['32','What is the capital of France?','Berlin','Madrid','Paris','Rome','2','Paris is the capital of France.','Geography','Midterm','1','A','mock','Europe','Easy','Medium','CAT2024-MOCK1'];
-      const examplePractice = ['f','What is H2O commonly known as?','Oxygen','Hydrogen','Water','Carbon Dioxide','2','H2O is the chemical formula for water.','Science','Midterm','','','practice','Science','Easy','',''];
+      const header = [
+        'id','day','question','section','option1','option2','option3','option4','answerIndex','explanation','exam','topics','type','level','difficulty','mock_code','img','passage','video','videoUrl','videoStart'
+      ];
+      const exampleMock = [
+        'M1','1','What is the square root of 16?','QA','4','8','16','2','0','The square root of 16 is 4.','CAT','Arithmetic','mock','easy','easy','Mock1','','','','',''
+      ];
+      const examplePractice = [
+        'P1','','Who discovered gravity?','VARC','Newton','Einstein','','','0','Newton discovered gravity.','CAT','Physics','practice','medium','medium','','','','',''
+      ];
       const csv = [header.join(','), exampleMock.join(','), examplePractice.join(',')].join('\r\n');
       const blob = new Blob([csv], { type: 'text/csv' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'questions_template.csv';
+      a.download = 'sample_questions_template.csv';
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
     // Initial fetch
