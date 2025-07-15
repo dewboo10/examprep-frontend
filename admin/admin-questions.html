@@ -719,6 +719,7 @@
           </div>
         <div style="margin-top:2em;text-align:center;">
           <button onclick="downloadTemplateCSV()" class="download-btn" style="font-size:1.15em;padding:0.8em 2.2em;border-radius:12px;"><i class="fas fa-file-csv"></i> Download Sample CSV</button>
+          <button onclick="downloadCSVReadme()" class="download-btn" style="font-size:1.15em;padding:0.8em 2.2em;border-radius:12px;margin-left:1em;"><i class="fas fa-book"></i> Download CSV Instructions</button>
         </div>
       </div>
       <!-- Filters (move below info box, modern style, no default values) -->
@@ -1404,6 +1405,35 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    }
+
+    window.downloadCSVReadme = async function() {
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        if (!ADMIN_TOKEN) return;
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
+      try {
+        const res = await fetch(`${API_BASE}/download-csv-readme`, {
+          headers: { Authorization: 'Bearer ' + ADMIN_TOKEN }
+        });
+        if (!res.ok) {
+          showAdminMsg('Failed to download instructions. Please check your authentication.', true);
+          return;
+        }
+        const blob = await res.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'CSV-Upload-Instructions.md';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+        showAdminMsg('Instructions downloaded!');
+      } catch (e) {
+        showAdminMsg('Error downloading instructions.', true);
+      }
     }
 
     // Initial fetch
