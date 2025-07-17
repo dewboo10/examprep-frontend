@@ -1,4 +1,4 @@
-import { getBaseUrl, apiFetch } from './api.js';
+import { getBaseUrl, apiFetch } from './api.mjs';
 
 const API_BASE = getBaseUrl();
 

@@ -1,4 +1,4 @@
-import { apiFetch } from './api.js';
+import { apiFetch } from './api.mjs';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
