@@ -47,6 +47,15 @@ function hideLoader() {
   loader.style.display = "none";
 }
 
+function showLoginModal() {
+  setTimeout(() => {
+    const modal = document.getElementById('auth-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }, 10000); // 10 seconds delay
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   showLoader(); // ✅ Show loader immediately
 
