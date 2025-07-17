@@ -1,8 +1,9 @@
 // dashboard.js
 
-console.log('DASHBOARD MODULE LOADED');
-
-import { getBaseUrl, apiFetch } from './api.js';
+console.log("🚀 Dashboard script is running");
+import { AUTH_API, QUIZ_API, apiFetch } from './api.js';
+console.log("✅ AUTH_API:", AUTH_API);
+console.log("✅ QUIZ_API:", QUIZ_API);
 
 async function loadUserAndQuizzes() {
   console.log("🚀 Dashboard script is running");
