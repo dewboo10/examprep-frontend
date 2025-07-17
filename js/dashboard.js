@@ -4,6 +4,33 @@ console.log('DASHBOARD MODULE LOADED');
 
 import { getBaseUrl, apiFetch } from './api.js';
 
+async function loadUserAndQuizzes() {
+  console.log("🚀 Dashboard script is running");
+
+  const token = localStorage.getItem('token');
+  console.log("📦 Token found in localStorage:", token);
+
+  if (!token) {
+    console.warn("⚠️ No token found — user probably not logged in");
+    return;
+  }
+
+  try {
+    const user = await apiFetch(`${AUTH_API}/me`, 'GET', null, true);
+    console.log("✅ User fetched successfully:", user);
+
+    document.getElementById('username').innerText = user.name || 'User';
+
+    const quizzes = await apiFetch(`${QUIZ_API}/submitted`, 'GET', null, true);
+    console.log("✅ Quizzes fetched:", quizzes);
+
+    displayQuizzes(quizzes);
+
+  } catch (err) {
+    console.error("🔥 Error in loadUserAndQuizzes:", err.message);
+  }
+}
+
 const API_BASE = getBaseUrl();
 const AUTH_API = `${API_BASE}/api/auth`;
 
