@@ -11,15 +11,4 @@ export function apiFetch(endpoint, options = {}) {
     const url = baseUrl.replace(/\/$/, '') + endpoint;
     console.log('API FETCH:', url, options);
     return fetch(url, options);
-}
-
-export function getUserInfo(token) {
-  return fetch(`${window.VITE_BASE_URL}/api/auth/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(res => {
-    if (!res.ok) throw new Error("Invalid token");
-    return res.json();
-  });
 } 
