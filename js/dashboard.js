@@ -59,6 +59,32 @@ function showLoginModal() {
 document.addEventListener('DOMContentLoaded', async () => {
   showLoader(); // ✅ Show loader immediately
 
+  // Attach event listeners for auth-related buttons
+  document.getElementById('login-btn')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (typeof loginUser === 'function') loginUser();
+  });
+  document.getElementById('register-link')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (typeof showRegisterForm === 'function') showRegisterForm();
+  });
+  document.getElementById('send-otp-btn')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (typeof sendOTP === 'function') sendOTP();
+  });
+  document.getElementById('verify-otp-btn')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (typeof verifyOTP === 'function') verifyOTP();
+  });
+  document.getElementById('register-btn')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (typeof registerUser === 'function') registerUser();
+  });
+  document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (typeof logout === 'function') logout();
+  });
+
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
   const usernameEl = document.getElementById('username');

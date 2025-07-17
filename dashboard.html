@@ -768,7 +768,7 @@
     </main>
     <!-- 🔐 Login/Register Modal -->
   <!-- Auth Modal -->
-  <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white rounded-lg p-6 w-full max-w-md">
       <h2 class="text-xl font-semibold mb-4 text-center">Welcome to Exam Prep</h2>
 
@@ -776,8 +776,8 @@
       <div id="login-form">
         <input id="login-email" type="email" placeholder="Email" class="w-full border p-2 mb-3 rounded" />
         <input id="login-password" type="password" placeholder="Password" class="w-full border p-2 mb-3 rounded" />
-        <button onclick="loginUser()" class="w-full bg-blue-600 text-white py-2 rounded">Login</button>
-        <p class="text-sm text-center mt-2">New user? <a href="#" onclick="showRegisterForm()" class="text-blue-600">Register instead</a></p>
+        <button id="login-btn" class="w-full bg-blue-600 text-white py-2 rounded">Login</button>
+        <p class="text-sm text-center mt-2">New user? <a href="#" id="register-link" class="text-blue-600">Register instead</a></p>
       </div>
 
       <!-- Register Form with OTP -->
@@ -790,19 +790,19 @@
       <!-- Step 1: Email input -->
       <div id="step-1">
         <input type="email" id="email-input" placeholder="Enter your email" class="w-full p-2 border border-gray-300 rounded mb-4">
-        <button onclick="sendOTP()" class="w-full bg-blue-600 text-white p-2 rounded">Send OTP</button>
+        <button id="send-otp-btn" class="w-full bg-blue-600 text-white p-2 rounded">Send OTP</button>
       </div>
 
       <!-- Step 2: OTP input (hidden by default) -->
       <div id="step-2" class="hidden">
         <input type="text" id="otp-input" placeholder="Enter the OTP" class="w-full p-2 border border-gray-300 rounded mb-4">
-        <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-2 rounded">Verify OTP</button>
+        <button id="verify-otp-btn" class="w-full bg-green-600 text-white p-2 rounded">Verify OTP</button>
       </div>
       <!-- Step 3: Register User -->
   <div id="step-3" class="hidden">
     <input id="reg-name" type="text" placeholder="Your Name" class="w-full p-2 border border-gray-300 rounded mb-3">
     <input id="reg-password" type="password" placeholder="Create Password" class="w-full p-2 border border-gray-300 rounded mb-3">
-    <button onclick="registerUser()" class="w-full bg-indigo-600 text-white p-2 rounded">Complete Registration</button>
+    <button id="register-btn" class="w-full bg-indigo-600 text-white p-2 rounded">Complete Registration</button>
   </div>
 
     </div>
