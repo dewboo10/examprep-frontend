@@ -108,9 +108,10 @@
     </main>
   </div>
   <script>
+    window.VITE_BASE_URL = 'https://examprep-backend.onrender.com';
     // Utility for API base URL
     function getBaseUrl() {
-      return import.meta.env.VITE_BASE_URL || 'https://examprep-backend.onrender.com';
+      return window.VITE_BASE_URL || 'https://examprep-backend.onrender.com';
     }
     function apiFetch(endpoint, options = {}) {
       const baseUrl = getBaseUrl();

@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- javascript -->
 <script src="js/select-exam.js" defer></script>
+  <script>window.VITE_BASE_URL = 'https://examprep-backend.onrender.com';</script>
 
   <style>
     :root {
@@ -120,7 +121,7 @@
 <script>
 // Utility for API base URL
 function getBaseUrl() {
-  return import.meta.env.VITE_BASE_URL || 'https://examprep-backend.onrender.com';
+  return window.VITE_BASE_URL || 'https://examprep-backend.onrender.com';
 }
 function apiFetch(endpoint, options = {}) {
   const baseUrl = getBaseUrl();

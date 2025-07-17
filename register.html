@@ -8,6 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <script>window.VITE_BASE_URL = 'https://examprep-backend.onrender.com';</script>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg animate__animated animate__fadeIn">
@@ -75,7 +76,7 @@
   <script>
     // Utility for API base URL
     function getBaseUrl() {
-      return import.meta.env.VITE_BASE_URL || 'https://examprep-backend.onrender.com';
+      return window.VITE_BASE_URL || 'https://examprep-backend.onrender.com';
     }
     function apiFetch(endpoint, options = {}) {
       const baseUrl = getBaseUrl();
