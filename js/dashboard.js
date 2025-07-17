@@ -1,7 +1,12 @@
 // dashboard.js
 
 console.log("🚀 Dashboard script is running");
-import { AUTH_API, QUIZ_API, apiFetch } from './api.mjs';
+import { apiFetch } from './api.mjs';
+
+const API_BASE = window.VITE_BASE_URL;
+const AUTH_API = `${API_BASE}/api/auth`;
+const QUIZ_API = `${API_BASE}/api/quiz`;
+
 console.log("✅ AUTH_API:", AUTH_API);
 console.log("✅ QUIZ_API:", QUIZ_API);
 
@@ -92,7 +97,6 @@ async function fetchDashboardData() {
   document.body.classList.remove("overflow-hidden"); // ✅ Allow scrolling after loading
 }
 }
-
 
 
 
