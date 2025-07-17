@@ -153,6 +153,7 @@ function sendOTP() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email })
   })
+    .then(res => res.json())
     .then(data => {
       if (data.message) {
         localStorage.setItem("tempEmail", email);
@@ -161,6 +162,7 @@ function sendOTP() {
         document.getElementById("step-2").classList.remove("hidden");
         document.getElementById("otp-message").textContent = data.message;
         document.getElementById("otp-message").classList.remove("hidden");
+        alert("OTP sent successfully!");
       } else {
         alert("Failed to send OTP");
       }
