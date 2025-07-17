@@ -7,8 +7,11 @@ export function getBaseUrl() {
 }
 
 export function apiFetch(endpoint, options = {}) {
-    const baseUrl = getBaseUrl();
-    const url = baseUrl.replace(/\/$/, '') + endpoint;
+    let url = endpoint;
+    if (!/^https?:\/\//.test(endpoint)) {
+        const baseUrl = getBaseUrl();
+        url = baseUrl.replace(/\/$/, '') + (endpoint.startsWith('/') ? endpoint : '/' + endpoint);
+    }
     console.log('API FETCH:', url, options);
     return fetch(url, options);
 } 
