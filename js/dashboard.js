@@ -5,6 +5,7 @@ import { getBaseUrl, apiFetch } from './api.js';
 const API_BASE = getBaseUrl();
 const AUTH_API = `${API_BASE}/api/auth`;
 
+
 const loader = document.getElementById("pageLoader");
 
 function showLoader() {
