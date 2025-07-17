@@ -376,7 +376,7 @@
     <script>
       // Utility for API base URL
       function getBaseUrl() {
-        return window.VITE_BASE_URL || 'https://parikshaprep.in';
+        return import.meta.env.VITE_BASE_URL || 'https://examprep-backend.onrender.com';
       }
       function apiFetch(endpoint, options = {}) {
         const baseUrl = getBaseUrl();
