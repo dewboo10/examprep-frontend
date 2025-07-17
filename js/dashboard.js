@@ -15,9 +15,7 @@ function hideLoader() {
   loader.style.display = "none";
 }
 
-
-
-window.onload = async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   showLoader(); // ✅ Show loader immediately
 
   const token = localStorage.getItem('token');
@@ -49,7 +47,7 @@ window.onload = async () => {
     hideLoader(); // Hide loader before showing login modal
     showLoginModal();
   }
-};
+});
 
 // ✅ New wrapped loader-aware dashboard data fetch
 async function fetchDashboardData() {
