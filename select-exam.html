@@ -118,6 +118,15 @@
 
 
 <script>
+// Utility for API base URL
+function getBaseUrl() {
+  return window.VITE_BASE_URL || 'https://parikshaprep.in';
+}
+function apiFetch(endpoint, options = {}) {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl.replace(/\/$/, '') + endpoint;
+  return fetch(url, options);
+}
   function selectExam(examCode) {
     localStorage.setItem('selectedExam', examCode);
   }
@@ -138,7 +147,7 @@
     };
 
     try {
-      const response = await fetch('https://examprep-backend.onrender.com/api/exams');
+      const response = await apiFetch('/api/exams');
       const exams = await response.json();
 
       const container = document.getElementById('exam-grid-container');

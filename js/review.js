@@ -1,3 +1,5 @@
+import { apiFetch } from './api.js';
+
 document.addEventListener("DOMContentLoaded", async () => {
   const loader = document.getElementById("pageLoader");
   const mainContent = document.getElementById("main-content");
@@ -44,10 +46,10 @@ const hideLoader = () => {
   try {
     // 1. Get all questions
     const [questionRes, submissionRes] = await Promise.all([
-      fetch(`https://examprep-backend.onrender.com/api/questions?exam=${exam}&day=${day}`, {
+      apiFetch(`/api/questions?exam=${exam}&day=${day}`, {
         headers: { Authorization: `Bearer ${token}` }
       }),
-      fetch(`https://examprep-backend.onrender.com/api/mock/review?exam=${exam}&day=${day}`, {
+      apiFetch(`/api/mock/review?exam=${exam}&day=${day}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
     ]);

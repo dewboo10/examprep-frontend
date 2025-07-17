@@ -66,6 +66,15 @@
   </div>
 
   <script>
+    // Utility for API base URL
+    function getBaseUrl() {
+      return window.VITE_BASE_URL || 'https://parikshaprep.in';
+    }
+    function apiFetch(endpoint, options = {}) {
+      const baseUrl = getBaseUrl();
+      const url = baseUrl.replace(/\/$/, '') + endpoint;
+      return fetch(url, options);
+    }
     // Password visibility toggle
     document.getElementById('toggle-password').addEventListener('click', function() {
       const passwordField = document.getElementById('password');
@@ -91,7 +100,7 @@
       const password = document.getElementById("password").value.trim();
 
       try {
-        const res = await fetch("https://examprep-backend.onrender.com/api/auth/login", {
+        const res = await apiFetch("/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })

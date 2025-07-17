@@ -1,3 +1,5 @@
+import { apiFetch } from './api.js';
+
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('custom-mock-form');
   const messageDiv = document.getElementById('form-message');
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     try {
-      const res = await fetch('https://examprep-backend.onrender.com/api/mock/custom/custom-generate', {
+      const res = await apiFetch('/api/mock/custom/custom-generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

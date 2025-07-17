@@ -1,9 +1,11 @@
+import { apiFetch } from './api.js';
+
 document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
   if (!token) return alert("❌ You must be logged in");
 
   try {
-    const res = await fetch('https://examprep-backend.onrender.com/api/performance', {
+    const res = await apiFetch('/api/performance', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,

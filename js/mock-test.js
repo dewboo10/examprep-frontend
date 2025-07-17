@@ -1,4 +1,6 @@
-const API_BASE = 'https://examprep-backend.onrender.com';
+import { getBaseUrl, apiFetch } from './api.js';
+
+const API_BASE = getBaseUrl();
 
 // Exam section durations in seconds
 const EXAM_SECTION_DURATIONS = {
@@ -126,11 +128,11 @@ async function loadQuestions() {
     const day = localStorage.getItem('selectedDay') || 1;
     const token = localStorage.getItem('token');
 
-    const response = await fetch(`${API_BASE}/api/questions?exam=${exam}&day=${day}`, {
+    const response = await apiFetch(`/api/questions?exam=${exam}&day=${day}`, {
         headers: { 'Authorization': `Bearer ${token}` }
     });
     
-    state.questions = await response.json();
+    state.questions = response.data;
     initializeState();
 }
 
@@ -447,7 +449,7 @@ async function submitTest() {
 
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${API_BASE}/api/mock/submit`, {
+        const response = await apiFetch('/api/mock/submit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -461,7 +463,7 @@ async function submitTest() {
                 timeSpent: Object.values(state.sectionTimes).reduce((a, b) => a + b, 0)
             })
         });
-        const result = await response.json();
+        const result = response.data;
         if (result.success) {
             localStorage.removeItem("testStartTime");
             localStorage.removeItem(`mockState_${exam}_Day${day}`);
@@ -509,11 +511,11 @@ function loadPersistedState() {
 // Check if test already submitted
 async function checkAlreadySubmitted(exam, day, token) {
     try {
-        const res = await fetch(`${API_BASE}/api/mock?exam=${exam}&day=${day}`, {
+        const res = await apiFetch(`/api/mock?exam=${exam}&day=${day}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         
-        const data = await res.json();
+        const data = res.data;
         if (data.submitted) {
             alert("You've already submitted this test.");
             window.location.href = "/dashboard.html";

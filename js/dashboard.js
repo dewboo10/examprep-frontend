@@ -1,6 +1,8 @@
 // dashboard.js
 
-const API_BASE = 'https://examprep-backend.onrender.com';
+import { getBaseUrl, apiFetch } from './api.js';
+
+const API_BASE = getBaseUrl();
 const AUTH_API = `${API_BASE}/api/auth`;
 
 const loader = document.getElementById("pageLoader");
@@ -86,12 +88,11 @@ function sendOTP() {
   const email = document.getElementById("email-input").value.trim();
   if (!email) return alert("Please enter your email.");
 
-  fetch(`${AUTH_API}/send-otp`, {
+  apiFetch('/api/auth/send-otp', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email })
   })
-    .then(res => res.json())
     .then(data => {
       if (data.message) {
         localStorage.setItem("tempEmail", email);
@@ -116,7 +117,7 @@ async function verifyOTP() {
   if (!otp) return alert("Please enter the OTP.");
 
   try {
-    const res = await fetch(`${AUTH_API}/verify-otp`, {
+    const res = await apiFetch(`${AUTH_API}/verify-otp`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, otp })
@@ -145,7 +146,7 @@ console.log("Registering with:", { name, email, password }); // ✅
   if (!name || !email || !password) return alert("All fields are required");
 
   try {
-    const res = await fetch(`${AUTH_API}/register`, {
+    const res = await apiFetch(`${AUTH_API}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password })
@@ -185,7 +186,7 @@ async function loginUser() {
   const email = document.getElementById('login-email').value;
   const password = document.getElementById('login-password').value;
 
-  const res = await fetch(`${AUTH_API}/login`, {
+  const res = await apiFetch(`${AUTH_API}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
@@ -245,7 +246,7 @@ function displayQuizzes(quizzes, containerId) {
 
 async function fetchQuizSummary() {
   try {
-    const response = await fetch(`${API_BASE}/api/dashboard/quiz-summary`, {
+    const response = await apiFetch(`${API_BASE}/api/dashboard/quiz-summary`, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     });
     const { completed, accuracy, streak, timeSpent } = await response.json();
@@ -260,7 +261,7 @@ async function fetchQuizSummary() {
 
 async function fetchRecentQuizzes() {
   try {
-    const res = await fetch(`${API_BASE}/api/dashboard/recent-quizzes`, {
+    const res = await apiFetch(`${API_BASE}/api/dashboard/recent-quizzes`, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     });
     const data = await res.json();
@@ -272,7 +273,7 @@ async function fetchRecentQuizzes() {
 
 async function fetchMockList() {
   try {
-    const res = await fetch(`${API_BASE}/api/mock`, {
+    const res = await apiFetch(`${API_BASE}/api/mock`, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     });
 

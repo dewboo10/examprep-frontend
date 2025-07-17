@@ -108,6 +108,15 @@
     </main>
   </div>
   <script>
+    // Utility for API base URL
+    function getBaseUrl() {
+      return window.VITE_BASE_URL || 'https://parikshaprep.in';
+    }
+    function apiFetch(endpoint, options = {}) {
+      const baseUrl = getBaseUrl();
+      const url = baseUrl.replace(/\/$/, '') + endpoint;
+      return fetch(url, options);
+    }
   document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
     if (!token) {
