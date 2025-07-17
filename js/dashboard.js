@@ -1,5 +1,7 @@
 // dashboard.js
 
+console.log('DASHBOARD MODULE LOADED');
+
 import { getBaseUrl, apiFetch } from './api.js';
 
 const API_BASE = getBaseUrl();
