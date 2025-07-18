@@ -951,144 +951,11 @@
        }
      }
 
-     // Fetch recent activity
-     async function fetchRecentActivity() {
-       const token = getAdminToken();
-       try {
-         const response = await fetch(`${API_BASE}/activity`, {
-           headers: {
-             'Authorization': `Bearer ${token}`
-           }
-         });
-
-         if (!response.ok) {
-           const errorData = await response.json().catch(() => ({}));
-           console.error('Activity API Error:', errorData);
-           
-           if (response.status === 401) {
-             // Token expired or invalid
-             localStorage.removeItem('adminToken');
-             alert('Authentication failed. Please log in again.');
-             return;
-           } else if (response.status === 404) {
-             console.error('Activity endpoint not found - backend may not be deployed or endpoint missing');
-             showNoActivity();
-             return;
-           } else if (response.status === 500) {
-             console.error('Activity endpoint server error:', errorData);
-             console.log('This usually means:');
-             console.log('1. Activity model/collection not created in database');
-             console.log('2. Database connection issues');
-             console.log('3. Missing middleware or dependencies');
-             console.log('4. Error in activity route logic');
-             showActivityError();
-             return;
-           }
-           
-           throw new Error(`HTTP error! status: ${response.status} - ${errorData.message || 'Unknown error'}`);
-         }
-
-         const activities = await response.json();
-         renderActivity(activities);
-
-       } catch (error) {
-         console.error('Error fetching activity:', error);
-         // Show fallback activity or empty state
-         showNoActivity();
-       }
-     }
-
-     // Render activity list
-     function renderActivity(activities) {
-       const activityList = document.getElementById('activityList');
-       const activityLoading = document.getElementById('activityLoading');
-       const noActivity = document.getElementById('noActivity');
-
-       // Hide loading
-       activityLoading.style.display = 'none';
-
-       if (!activities || activities.length === 0) {
-         showNoActivity();
-         return;
-       }
-
-       // Show activity list
-       activityList.style.display = 'block';
-       noActivity.style.display = 'none';
-
-       activityList.innerHTML = activities.map(activity => {
-         const icon = getActivityIcon(activity.type);
-         const timeAgo = getTimeAgo(activity.timestamp);
-         
-         return `
-           <li class="activity-item">
-             <div class="activity-icon">
-               <i class="${icon}"></i>
-             </div>
-             <div class="activity-content">
-               <h4>${activity.title}</h4>
-               <p>${activity.description}</p>
-               <small style="color: #9ca3af; font-size: 0.8rem;">by ${activity.adminName}</small>
-             </div>
-             <div class="activity-time">${timeAgo}</div>
-           </li>
-         `;
-       }).join('');
-     }
-
-     // Show no activity state
-     function showNoActivity() {
-       document.getElementById('activityLoading').style.display = 'none';
-       document.getElementById('activityList').style.display = 'none';
-       document.getElementById('noActivity').style.display = 'block';
-       document.getElementById('activityError').style.display = 'none';
-     }
-
-     // Show activity error state
-     function showActivityError() {
-       document.getElementById('activityLoading').style.display = 'none';
-       document.getElementById('activityList').style.display = 'none';
-       document.getElementById('noActivity').style.display = 'none';
-       document.getElementById('activityError').style.display = 'block';
-     }
-
-     // Get activity icon based on type
-     function getActivityIcon(type) {
-       const icons = {
-         'question_created': 'fas fa-question',
-         'question_updated': 'fas fa-edit',
-         'question_deleted': 'fas fa-trash',
-         'mock_created': 'fas fa-list-ol',
-         'mock_updated': 'fas fa-edit',
-         'mock_deleted': 'fas fa-trash',
-         'user_updated': 'fas fa-user-edit',
-         'user_deleted': 'fas fa-user-times',
-         'csv_uploaded': 'fas fa-file-csv',
-         'settings_changed': 'fas fa-cog',
-         'default': 'fas fa-info-circle'
-       };
-       return icons[type] || icons.default;
-     }
-
-     // Get time ago string
-     function getTimeAgo(timestamp) {
-       const now = new Date();
-       const activityTime = new Date(timestamp);
-       const diffInSeconds = Math.floor((now - activityTime) / 1000);
-
-       if (diffInSeconds < 60) {
-         return 'Just now';
-       } else if (diffInSeconds < 3600) {
-         const minutes = Math.floor(diffInSeconds / 60);
-         return `${minutes} min ago`;
-       } else if (diffInSeconds < 86400) {
-         const hours = Math.floor(diffInSeconds / 3600);
-         return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-       } else {
-         const days = Math.floor(diffInSeconds / 86400);
-         return `${days} day${days > 1 ? 's' : ''} ago`;
-       }
-     }
+     // Remove fetchRecentActivity and related UI
+    // Remove the entire <div class="recent-activity"> ... </div> block from the HTML
+    // Remove the fetchRecentActivity function and its setInterval calls from the script
+    // Remove renderActivity, showNoActivity, showActivityError, getActivityIcon, getTimeAgo functions
+    // Remove any references to activityList, activityLoading, noActivity, activityError
 
     // Logout function
     function logout() {
@@ -1102,13 +969,12 @@
      document.addEventListener('DOMContentLoaded', function() {
        // Try to fetch data directly - if token is invalid, the functions will handle it
     fetchStats();
-       fetchRecentActivity();
        
        // Refresh stats every 5 minutes
        setInterval(fetchStats, 5 * 60 * 1000);
        
        // Refresh activity every 2 minutes
-       setInterval(fetchRecentActivity, 2 * 60 * 1000);
+       // setInterval(fetchRecentActivity, 2 * 60 * 1000); // This line is removed
      });
 
     // Add smooth scrolling for better UX
