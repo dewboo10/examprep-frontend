@@ -741,6 +741,16 @@
         </label>
         <div id="csvPreviewContainer" style="margin-top:1em;"></div>
         <div id="csvConfirmContainer" style="margin-top:0.5em;"></div>
+        <!-- CSV Upload Progress Bar Integration -->
+        <form id="csvUploadForm" style="margin-top:1em;">
+          <input type="file" id="csvFile" name="file" required style="display:none;" />
+          <button type="button" id="csvUploadBtn" class="upload-btn" onclick="document.getElementById('csvFile').click()"><i class="fas fa-upload"></i> Upload CSV (Progress)</button>
+        </form>
+        <div id="progressContainer" style="display:none;margin-top:1em;">
+          <progress id="uploadProgress" value="0" max="100" style="width:200px;"></progress>
+          <span id="progressText"></span>
+        </div>
+        <div id="uploadResult" style="margin-top:0.5em;"></div>
       </div>
       <!-- Table Card -->
       <div class="card">
@@ -1445,6 +1455,86 @@
         localStorage.removeItem('adminToken');
         window.location.href = '../login.html';
       }
+    }
+
+    // CSV Upload Progress Bar Integration
+    document.getElementById('csvFile').addEventListener('change', function() {
+      const fileInput = document.getElementById('csvFile');
+      const file = fileInput.files[0];
+      if (!file) return;
+      document.getElementById('csvUploadForm').dispatchEvent(new Event('submit'));
+    });
+    document.getElementById('csvUploadForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('csvFile');
+      const file = fileInput.files[0];
+      if (!file) return;
+      const btn = document.getElementById('csvUploadBtn');
+      btn.disabled = true;
+      const formData = new FormData();
+      formData.append('file', file);
+      // Start upload
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      if (!ADMIN_TOKEN || isTokenExpired(ADMIN_TOKEN)) {
+        ADMIN_TOKEN = prompt('Enter your admin JWT token:');
+        localStorage.setItem('adminToken', ADMIN_TOKEN);
+      }
+      const res = await fetch(`${API_BASE}/questions/upload-csv`, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + ADMIN_TOKEN
+        },
+        body: formData
+      });
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        document.getElementById('uploadResult').textContent = 'Failed to start upload.';
+        btn.disabled = false;
+        return;
+      }
+      const uploadId = data.uploadId;
+      if (!uploadId) {
+        document.getElementById('uploadResult').textContent = 'Failed to start upload.';
+        btn.disabled = false;
+        return;
+      }
+      document.getElementById('progressContainer').style.display = '';
+      pollProgress(uploadId, btn);
+    });
+    async function pollProgress(uploadId, btn) {
+      const progressBar = document.getElementById('uploadProgress');
+      const progressText = document.getElementById('progressText');
+      const resultDiv = document.getElementById('uploadResult');
+      let ADMIN_TOKEN = localStorage.getItem('adminToken') || '';
+      let interval = setInterval(async () => {
+        const res = await fetch(`${API_BASE}/questions/upload-progress/${uploadId}`, {
+          headers: {
+            'Authorization': 'Bearer ' + ADMIN_TOKEN
+          }
+        });
+        if (!res.ok) {
+          progressText.textContent = 'Upload not found or expired.';
+          clearInterval(interval);
+          btn.disabled = false;
+          return;
+        }
+        const data = await res.json();
+        progressBar.max = data.total || 1;
+        progressBar.value = data.current || 0;
+        progressText.textContent = `Processed ${data.current} of ${data.total} rows. Status: ${data.status}`;
+        if (data.status === 'done') {
+          resultDiv.textContent = `Upload complete! Inserted: ${data.inserted || 0}`;
+          clearInterval(interval);
+          btn.disabled = false;
+          fetchQuestions();
+        } else if (data.status === 'error') {
+          resultDiv.textContent = `Upload failed: ${data.error || (data.errors && data.errors.join(', '))}`;
+          clearInterval(interval);
+          btn.disabled = false;
+        }
+      }, 1000);
     }
   </script>
 </body>
