@@ -376,7 +376,7 @@
         try {
           if (editingTopicId) {
             // Edit
-            const res = await fetch(`${API_BASE}/topics/${name}`, {
+            const res = await fetch(`${API_BASE}/topics/${encodeURIComponent(name)}`, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
               body: JSON.stringify({ sections })

@@ -22,12 +22,12 @@ async function loadUserAndQuizzes() {
   }
 
   try {
-    const user = await apiFetch(`${AUTH_API}/me`, 'GET', null, true);
+    const user = await apiFetch(`${AUTH_API}/me`, { method: 'GET', headers: { 'Authorization': `Bearer ${token}` } });
     console.log("✅ User fetched successfully:", user);
 
     document.getElementById('username').innerText = user.name || 'User';
 
-    const quizzes = await apiFetch(`${QUIZ_API}/submitted`, 'GET', null, true);
+    const quizzes = await apiFetch(`${QUIZ_API}/submitted`, { method: 'GET', headers: { 'Authorization': `Bearer ${token}` } });
     console.log("✅ Quizzes fetched:", quizzes);
 
     displayQuizzes(quizzes);
@@ -148,7 +148,7 @@ function sendOTP() {
   const email = document.getElementById("email-input").value.trim();
   if (!email) return alert("Please enter your email.");
 
-  apiFetch('/api/auth/send-otp', {
+  apiFetch(`${AUTH_API}/send-otp`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email })
@@ -203,7 +203,7 @@ async function registerUser() {
   const name = document.getElementById('reg-name')?.value;
   const password = document.getElementById('reg-password')?.value;
   const email = localStorage.getItem('tempEmail');
-console.log("Registering with:", { name, email, password }); // ✅ 
+  console.log("Registering with:", { name, email, password }); // ✅ 
 
   if (!name || !email || !password) return alert("All fields are required");
 
