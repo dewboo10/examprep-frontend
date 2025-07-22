@@ -123,17 +123,24 @@
 /* Minimal, modern sidebar scrollbar */
 .sidebar-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #a5b4fc #f3f4f6;
+  scrollbar-color: #6366f1 #e0e7ff;
+  overflow-x: hidden !important;
 }
 .sidebar-scrollbar::-webkit-scrollbar {
   width: 7px;
-  background: #f3f4f6;
+  height: 0 !important;
+  background: transparent;
 }
 .sidebar-scrollbar::-webkit-scrollbar-thumb {
-  background: #a5b4fc;
+  background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
   border-radius: 6px;
+  min-height: 40px;
 }
 .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #6366f1;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+}
+.sidebar-scrollbar::-webkit-scrollbar-horizontal {
+  display: none !important;
+  height: 0 !important;
 }
   

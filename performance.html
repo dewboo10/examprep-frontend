@@ -25,7 +25,7 @@
   </button>
 
   <!-- Sidebar -->
-  <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto">
+  <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto transition-transform duration-300 transform -translate-x-full md:translate-x-0 md:block">
     <!-- Sidebar Header with Close Button -->
     <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
       <div class="flex items-center">
@@ -58,7 +58,7 @@
     </div>
     </a>
     <!-- Navigation Links -->
-    <nav class="flex-1 overflow-y-auto sidebar-scrollbar space-y-1 mb-4">
+    <nav class="flex-1 overflow-y-auto custom-scrollbar space-y-1 mb-4">
       <a href="dashboard.html" class="menu-item flex items-center p-3 rounded-xl text-gray-700 font-medium">
         <i class="fas fa-home mr-3 text-indigo-500"></i>
         Dashboard
@@ -131,11 +131,19 @@
     function toggleSidebar(show = true) {
       if (show) {
         sidebar.classList.add('open');
+        sidebar.classList.remove('-translate-x-full');
         body.classList.add('sidebar-open');
       } else {
         sidebar.classList.remove('open');
+        sidebar.classList.add('-translate-x-full');
         body.classList.remove('sidebar-open');
       }
+    }
+
+    // Hide sidebar by default on mobile
+    if (window.innerWidth < 768) {
+      sidebar.classList.remove('open');
+      sidebar.classList.add('-translate-x-full');
     }
 
     openBtn?.addEventListener('click', (e) => {
@@ -161,7 +169,13 @@
 
     window.addEventListener('resize', function () {
       if (window.innerWidth >= 768) {
-        toggleSidebar(false);
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('open');
+        body.classList.remove('sidebar-open');
+      } else {
+        sidebar.classList.remove('open');
+        sidebar.classList.add('-translate-x-full');
+        body.classList.remove('sidebar-open');
       }
     });
   });

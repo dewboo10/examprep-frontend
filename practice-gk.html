@@ -118,19 +118,6 @@
         html, body { overflow-x: hidden !important; }
 
         @media (max-width: 767px) {
-            #sidebar {
-                left: 0;
-                top: 0;
-                z-index: 50;
-                width: 280px;
-                height: 100vh;
-                background: #fff;
-                transition: transform 0.3s ease;
-                transform: translateX(-100%);
-            }
-            #sidebar.open {
-                transform: translateX(0);
-            }
             body.sidebar-open {
                 overflow: hidden;
             }
@@ -172,7 +159,7 @@
       <i class="fas fa-bars text-xl text-indigo-600"></i>
     </button>
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto block">
+    <aside id="sidebar" class="custom-scrollbar fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto transform transition-transform duration-300 -translate-x-full md:translate-x-0 md:block">
         <!-- Sidebar Header with Close Button -->
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
             <div class="flex items-center">
@@ -450,38 +437,56 @@
       const openBtn = document.getElementById('mobile-menu-button');
       const closeBtn = document.getElementById('mobile-menu-button-close');
       const body = document.body;
-      function toggleSidebar(show = true) {
-        if (show) {
-          sidebar.classList.add('open');
-          body.classList.add('sidebar-open');
-        } else {
-          sidebar.classList.remove('open');
-          body.classList.remove('sidebar-open');
-        }
+
+      function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+        body.classList.add('sidebar-open');
       }
-      openBtn?.addEventListener('click', (e) => {
+      function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+        body.classList.remove('sidebar-open');
+      }
+
+      openBtn?.addEventListener('click', function (e) {
         e.stopPropagation();
-        toggleSidebar(true);
+        openSidebar();
       });
-      closeBtn?.addEventListener('click', (e) => {
+      closeBtn?.addEventListener('click', function (e) {
         e.stopPropagation();
-        toggleSidebar(false);
+        closeSidebar();
       });
+
+      // Click outside to close (on mobile)
       document.addEventListener('click', function (e) {
         if (
           window.innerWidth < 768 &&
-          sidebar.classList.contains('open') &&
           !sidebar.contains(e.target) &&
           !openBtn.contains(e.target)
         ) {
-          toggleSidebar(false);
+          closeSidebar();
         }
       });
+
+      // Responsive: reset on resize
       window.addEventListener('resize', function () {
         if (window.innerWidth >= 768) {
-          toggleSidebar(false);
+          sidebar.classList.remove('-translate-x-full');
+          sidebar.classList.add('translate-x-0');
+          body.classList.remove('sidebar-open');
+        } else {
+          closeSidebar();
         }
       });
+
+      // Initial state
+      if (window.innerWidth < 768) {
+        closeSidebar();
+      } else {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+      }
     });
     </script>
     <script>
@@ -521,41 +526,10 @@
     document.querySelectorAll('section, footer').forEach(el => {
       observer.observe(el);
     });
-
-    // Sidebar toggle logic
-    const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('mobile-menu-button');
-    const closeBtn = document.getElementById('mobile-menu-button-close');
-
-    if (toggleBtn && closeBtn && sidebar) {
-      toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
-      });
-
-      closeBtn.addEventListener('click', () => {
-        sidebar.classList.remove('open');
-      });
-    }
   });
 </script>
 
-    <!-- Mobile Sidebar -->
-<div id="mobileSidebar" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
-    <div class="flex justify-between items-center px-4 py-4 border-b">
-        <span class="text-xl font-bold text-blue-600">Menu</span>
-        <button id="closeSidebar" class="text-gray-600 hover:text-red-500 text-2xl">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-    <nav class="flex flex-col space-y-4 px-4 py-6 text-lg text-gray-700">
-        <a href="dashboard.html" class="hover:text-blue-600">Dashboard</a>
-        <a href="practice-quant.html" class="hover:text-blue-600">Quant</a>
-        <a href="practice-logical.html" class="hover:text-blue-600 font-semibold text-blue-600">Logical</a>
-        <a href="practice-verbal.html" class="hover:text-blue-600">Verbal</a>
-        <a href="practice-gk.html" class="hover:text-blue-600">GK</a>
-        <a href="resources.html" class="hover:text-blue-600">Resources</a>
-    </nav>
-</div>
+    <!-- Remove the separate mobileSidebar -->
 
 <script src="js/main.js" defer></script>
 </body>

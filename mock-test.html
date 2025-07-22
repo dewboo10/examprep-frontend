@@ -20,7 +20,7 @@
   </button>
 
   <!-- Sidebar -->
-  <aside id="sidebar" class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto">
+  <aside id="sidebar" class="custom-scrollbar fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-50 p-4 flex flex-col overflow-y-auto transform transition-transform duration-300 -translate-x-full md:translate-x-0 md:block">
     <!-- Sidebar Header with Close Button -->
     <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
       <div class="flex items-center">
@@ -123,42 +123,55 @@
     const closeBtn = document.getElementById('mobile-menu-button-close');
     const body = document.body;
 
-    function toggleSidebar(show = true) {
-      if (show) {
-        sidebar.classList.add('open');
-        body.classList.add('sidebar-open');
-      } else {
-        sidebar.classList.remove('open');
-        body.classList.remove('sidebar-open');
-      }
+    function openSidebar() {
+      sidebar.classList.remove('-translate-x-full');
+      sidebar.classList.add('translate-x-0');
+      body.classList.add('sidebar-open');
+    }
+    function closeSidebar() {
+      sidebar.classList.add('-translate-x-full');
+      sidebar.classList.remove('translate-x-0');
+      body.classList.remove('sidebar-open');
     }
 
-    openBtn?.addEventListener('click', (e) => {
+    openBtn?.addEventListener('click', function (e) {
       e.stopPropagation();
-      toggleSidebar(true);
+      openSidebar();
+    });
+    closeBtn?.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeSidebar();
     });
 
-    closeBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleSidebar(false);
-    });
-
+    // Click outside to close (on mobile)
     document.addEventListener('click', function (e) {
       if (
         window.innerWidth < 768 &&
-        sidebar.classList.contains('open') &&
         !sidebar.contains(e.target) &&
         !openBtn.contains(e.target)
       ) {
-        toggleSidebar(false);
+        closeSidebar();
       }
     });
 
+    // Responsive: reset on resize
     window.addEventListener('resize', function () {
       if (window.innerWidth >= 768) {
-        toggleSidebar(false);
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+        body.classList.remove('sidebar-open');
+      } else {
+        closeSidebar();
       }
     });
+
+    // Initial state
+    if (window.innerWidth < 768) {
+      closeSidebar();
+    } else {
+      sidebar.classList.remove('-translate-x-full');
+      sidebar.classList.add('translate-x-0');
+    }
   });
   </script>
   <script>
@@ -207,12 +220,16 @@ window.addEventListener('DOMContentLoaded', function() {
     <div style="padding:1.2rem 1.5rem;border-radius:1rem;background:rgba(255,255,255,0.98);box-shadow:0 2px 12px #0001;text-align:center;max-width:90vw;min-width:220px;font-family:'Poppins',sans-serif;">
       <div style="font-size:2.3rem;margin-bottom:0.7rem;animation: construction-bounce 1.2s infinite alternate;font-family:'Poppins',sans-serif;letter-spacing:-1px;">🚧</div>
       <div style="font-size:1.08rem;color:#334155;line-height:1.7;font-family:'Poppins',sans-serif;font-weight:500;letter-spacing:0.01em;">Mock Test is not available right now.<br>We're working on it!</div>
+      <a href="dashboard.html" style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.5rem;padding:0.6rem 1.4rem;background:#4f46e5;color:#fff;font-weight:600;border-radius:0.7rem;box-shadow:0 2px 8px #6366f122;text-decoration:none;font-size:1rem;transition:background 0.2s;">
+        <i class='fas fa-arrow-left'></i> Back to Dashboard
+      </a>
     </div>
     <style>
       @keyframes construction-bounce {
         0% { transform: translateY(0); }
         100% { transform: translateY(-10px); }
       }
+      a[href="dashboard.html"]:hover { background: #3730a3; }
     </style>
   `;
   document.body.appendChild(msg);

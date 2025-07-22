@@ -740,10 +740,15 @@
               <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold flex items-center"><i class="fas fa-mobile-alt mr-1"></i> Android</span>
               <span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold flex items-center"><i class="fab fa-apple mr-1"></i> iOS</span>
             </div>
-            <a href="assets/app-debug.apk"  download="ParikshaPrep.apk" class="get-app-btn px-3 py-1.5 text-sm font-semibold mt-1 flex items-center gap-2 w-full justify-center transition-all duration-200">
-              <i class="fas fa-download"></i> Get Started
-            </a>
-            <div id="appPromoDetails"></div>
+            <p class="text-xs text-gray-500 text-center mt-3 mb-1">Tap a button below to download the app for your device.</p>
+            <div class="mt-1 w-full flex flex-col sm:flex-row gap-2 justify-center items-center">
+              <a href="assets/app-debug.apk" download="ParikshaPrep.apk" class="flex items-center gap-2 px-4 py-2 bg-green-100 hover:bg-green-200 text-green-700 font-semibold rounded-full text-base shadow-sm transition-all duration-200">
+                <i class="fab fa-android text-lg"></i> Android
+              </a>
+              <a href="#" class="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 font-semibold rounded-full text-base shadow-sm cursor-not-allowed" tabindex="-1" aria-disabled="true">
+                <i class="fab fa-apple text-lg"></i> iOS
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -924,16 +929,19 @@
 
   <script>
     // Show more details after 15 seconds
-    setTimeout(() => {
-      const details = document.getElementById('appPromoDetails');
-      if (details) {
-        details.innerHTML = `
-          <div class="mt-4 p-3 bg-blue-50 rounded-lg text-blue-800 text-center animate__animated animate__fadeInUp">
-            <strong>Coming soon:</strong> Web app, more features, and exclusive content for early users!
-          </div>
-        `;
-      }
-    }, 15000);
+    // setTimeout(() => {
+    //   const details = document.getElementById('appPromoDetails');
+    //   if (details) {
+    //     details.innerHTML = `
+    //       <div class="mt-4 p-3 bg-blue-50 rounded-lg text-blue-800 text-center animate__animated animate__fadeInUp">
+    //         <strong>Download the Exam Prep App for Android:</strong><br>
+    //         <a href="assets/app-debug.apk" download="ParikshaPrep.apk" class="inline-flex items-center gap-2 mt-2 px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold shadow hover:bg-indigo-700 transition">
+    //           <i class="fas fa-download"></i> Download APK
+    //         </a>
+    //       </div>
+    //     `;
+    //   }
+    // }, 15000);
   </script>
 
   
