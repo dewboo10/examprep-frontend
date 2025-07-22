@@ -19,3 +19,17 @@ document.addEventListener('DOMContentLoaded', function() {
     usernameEl.textContent = username;
   }
 });
+
+if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+  window.Capacitor.Plugins.App.addListener('backButton', function({ canGoBack }) {
+    if (canGoBack) {
+      window.history.back();
+    } else {
+      if (window.location.pathname.endsWith('dashboard.html')) {
+        window.Capacitor.Plugins.App.exitApp();
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    }
+  });
+}
