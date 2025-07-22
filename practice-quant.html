@@ -223,6 +223,28 @@
                 z-index: 40;
             }
         }
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: #6366f1 #e0e7ff;
+          overflow-x: hidden;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 7px;
+          height: 0px;
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
+          border-radius: 6px;
+          min-height: 40px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar-horizontal {
+          display: none;
+          height: 0 !important;
+        }
     </style>
 </head>
 <body class="gradient-bg min-h-screen">
