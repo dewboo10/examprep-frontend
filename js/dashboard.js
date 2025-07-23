@@ -218,6 +218,7 @@ async function registerUser() {
     if (res.ok) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('username', data.user.name);
+      localStorage.setItem('user', JSON.stringify(data.user)); // Store full user object
       alert("Registration successful!");
       document.getElementById('auth-modal')?.classList.add('hidden');
       window.location.href = 'select-exam.html';
@@ -259,6 +260,7 @@ async function loginUser() {
   if (res.ok) {
     localStorage.setItem('token', data.token);
     localStorage.setItem('username', data.user.name);
+    localStorage.setItem('user', JSON.stringify(data.user)); // Store full user object
     alert("Login successful!");
     document.getElementById('auth-modal')?.classList.add('hidden');
     window.location.href = 'select-exam.html';

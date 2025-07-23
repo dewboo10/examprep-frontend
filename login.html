@@ -112,7 +112,7 @@
         if (res.ok) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("username", data.user.name);
-          
+          localStorage.setItem("user", JSON.stringify(data.user)); // Store full user object
           // Show success feedback
           errorMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700');
           errorMessage.classList.add('bg-green-100', 'text-green-700');
@@ -165,5 +165,6 @@
       return true;
     }
   </script>
+      <script src="js/main.js" defer></script>
 </body>
 </html>
