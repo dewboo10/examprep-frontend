@@ -826,13 +826,20 @@
         
         mocks.forEach(mock => {
           const tr = document.createElement('tr');
+          // Defensive: Only show the number of questions, never the full array or object
+          let numQuestions = 0;
+          if (typeof mock.numQuestions === 'number') {
+            numQuestions = mock.numQuestions;
+          } else if (Array.isArray(mock.questions)) {
+            numQuestions = mock.questions.length;
+          }
           tr.innerHTML = `
             <td>${mock.id || mock._id}</td>
             <td>${mock.name}</td>
             <td>${mock.exam}</td>
             <td>${mock.day}</td>
             <td>${mock.status}</td>
-            <td>${mock.numQuestions || (mock.questions ? mock.questions.length : 0)}</td>
+            <td>${numQuestions}</td>
             <td>${mock.createdAt ? new Date(mock.createdAt).toLocaleString() : ''}</td>
             <td>${mock.updatedAt ? new Date(mock.updatedAt).toLocaleString() : ''}</td>
             <td class="actions">
@@ -1124,7 +1131,7 @@
       }
     }
     // Initial fetch
-    fetchMocks();
+    // Do not fetch mocks by default. Only fetch when user clicks Search.
 
     // Logout function
     function logout() {

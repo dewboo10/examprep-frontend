@@ -55,7 +55,7 @@
       </button>
 
       <div class="text-center text-sm text-gray-600">
-        <a href="#" class="text-indigo-600 hover:underline">Forgot password?</a>
+        <a href="#" id="forgot-password-link" class="text-indigo-600 hover:underline">Forgot password?</a>
       </div>
     </form>
 
@@ -63,6 +63,22 @@
       <p>New to Exam Prep? 
         <a href="register.html" class="text-indigo-600 font-semibold hover:underline ml-1">Create an account</a>
       </p>
+    </div>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgot-password-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <h2 class="text-xl font-semibold mb-4 text-center">Forgot Password</h2>
+      <form id="forgot-password-form" class="space-y-4">
+        <input type="email" id="forgot-email" placeholder="Enter your email" required
+          class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+          Send Reset Link
+        </button>
+        <div id="forgot-password-message" class="text-center text-sm mt-2"></div>
+      </form>
+      <button id="close-forgot-modal" class="mt-4 w-full text-gray-500 hover:text-indigo-600 text-sm">Cancel</button>
     </div>
   </div>
 
@@ -163,6 +179,59 @@
       }
       errorElement.classList.add('hidden');
       return true;
+    }
+
+    // Forgot Password Modal Logic
+    const forgotLink = document.getElementById('forgot-password-link');
+    const forgotModal = document.getElementById('forgot-password-modal');
+    const closeForgotModal = document.getElementById('close-forgot-modal');
+    const forgotForm = document.getElementById('forgot-password-form');
+    const forgotMsg = document.getElementById('forgot-password-message');
+
+    forgotLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      forgotModal.classList.remove('hidden');
+      forgotMsg.textContent = '';
+      forgotForm.reset();
+    });
+
+    closeForgotModal.addEventListener('click', function() {
+      forgotModal.classList.add('hidden');
+    });
+
+    forgotForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      forgotMsg.textContent = 'Sending...';
+      const email = document.getElementById('forgot-email').value.trim();
+      // Use dynamic base URL if available
+      const baseUrl = window.VITE_BASE_URL || 'http://localhost:5050';
+      try {
+        const res = await fetch(baseUrl.replace(/\/$/, '') + '/api/auth/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          forgotMsg.textContent = data.message || 'If this email exists, a reset link has been sent.';
+          forgotMsg.className = 'text-green-600 text-center text-sm mt-2';
+        } else {
+          forgotMsg.textContent = data.message || 'Something went wrong.';
+          forgotMsg.className = 'text-red-600 text-center text-sm mt-2';
+        }
+      } catch (err) {
+        forgotMsg.textContent = 'Network error. Please try again.';
+        forgotMsg.className = 'text-red-600 text-center text-sm mt-2';
+      }
+    });
+
+    // Auto-open forgot password modal if URL hash is #forgot
+    if (window.location.hash === '#forgot') {
+      setTimeout(() => {
+        forgotModal.classList.remove('hidden');
+        forgotMsg.textContent = '';
+        forgotForm.reset();
+      }, 200);
     }
   </script>
       <script src="js/main.js" defer></script>
