@@ -397,7 +397,34 @@
     </main>
     <script src="js/main.js" defer></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebar = document.getElementById('sidebar');
+      const openBtn = document.getElementById('mobile-menu-button');
+      const closeBtn = document.getElementById('mobile-menu-button-close');
+
+      function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+      }
+      function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+      }
+
+      if (openBtn) openBtn.addEventListener('click', openSidebar);
+      if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+
+      // Optional: close sidebar when clicking outside on mobile
+      document.addEventListener('click', function (e) {
+        if (
+          window.innerWidth < 768 &&
+          sidebar &&
+          !sidebar.contains(e.target) &&
+          !openBtn.contains(e.target)
+        ) {
+          closeSidebar();
+        }
+      });
+
+      // Existing username logic
       const username = localStorage.getItem('username');
       const usernameEl = document.getElementById('username');
       if (usernameEl) {
