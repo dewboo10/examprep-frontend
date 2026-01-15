@@ -132,7 +132,11 @@ async function loadQuestions() {
         headers: { 'Authorization': `Bearer ${token}` }
     });
     
-    state.questions = response.data;
+    const data = await response.json();
+    state.questions = data.data || data.questions || data;
+    if (!state.questions) {
+        throw new Error('Invalid questions data from API');
+    }
     initializeState();
 }
 
@@ -463,7 +467,7 @@ async function submitTest() {
                 timeSpent: Object.values(state.sectionTimes).reduce((a, b) => a + b, 0)
             })
         });
-        const result = response.data;
+        const result = await response.json();
         if (result.success) {
             localStorage.removeItem("testStartTime");
             localStorage.removeItem(`mockState_${exam}_Day${day}`);
@@ -515,8 +519,8 @@ async function checkAlreadySubmitted(exam, day, token) {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         
-        const data = res.data;
-        if (data.submitted) {
+        const data = await res.json();
+        if (data && data.success && data.submitted) {
             alert("You've already submitted this test.");
             window.location.href = "/dashboard.html";
         }
