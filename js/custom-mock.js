@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // AI Generate
   async function generateWithAI(topic, difficulty, numberOfQuestions, token) {
-    const res = await apiFetch('/api/mock/custom/custom-generate', {
+    const res = await apiFetch('/api/mock/custom-generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
