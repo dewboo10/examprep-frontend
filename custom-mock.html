@@ -9,14 +9,35 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
-  <main class="flex-1 flex items-center justify-center">
+  <main class="flex-1 flex items-center justify-center p-4">
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md animate__animated animate__fadeInDown">
-      <h2 class="text-2xl font-bold mb-6 text-center">Create Custom Mock</h2>
+      <h2 class="text-2xl font-bold mb-2 text-center">Create Custom Mock</h2>
+      
+      <!-- Mode Toggle -->
+      <div class="flex items-center justify-center mb-6 p-3 bg-gray-100 rounded-lg">
+        <span class="text-sm font-medium mr-3">AI Generation</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" id="mode-toggle" class="sr-only peer">
+          <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        </label>
+        <span class="text-sm font-medium ml-3">Database</span>
+      </div>
+      
+      <div id="mode-label" class="text-center text-xs text-gray-500 mb-4">AI Generation Mode</div>
+
       <form id="custom-mock-form" class="space-y-5">
+        <!-- Topic field - text input for AI, select for DB -->
         <div>
           <label for="topic" class="block text-sm font-medium mb-1">Topic</label>
           <input type="text" id="topic" name="topic" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. speed time, inverse ratio" required />
+          
+          <!-- Hidden select for database mode -->
+          <select id="topic-select" name="topic-select" class="hidden w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="">Loading topics...</option>
+          </select>
+          <small class="text-gray-500 block mt-1" id="topic-hint">Enter a custom topic for AI to generate questions</small>
         </div>
+
         <div>
           <label for="difficulty" class="block text-sm font-medium mb-1">Difficulty</label>
           <select id="difficulty" name="difficulty" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
@@ -26,12 +47,14 @@
             <option value="hard">Hard</option>
           </select>
         </div>
+
         <div>
           <label for="numQuestions" class="block text-sm font-medium mb-1">Number of Questions</label>
-          <input type="number" id="numQuestions" name="numQuestions" min="1" max="50" value="10" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+          <input type="number" id="numQuestions" name="numQuestions" min="1" max="100" value="10" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
         </div>
+
         <button type="submit" id="generate-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition">Generate Test</button>
-        <div id="form-message" class="text-center text-sm mt-2"></div>
+        <div id="form-message" class="text-center text-sm mt-2 text-red-600"></div>
       </form>
     </div>
   </main>
