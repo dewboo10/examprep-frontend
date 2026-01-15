@@ -49,8 +49,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const numberOfQuestions = parseInt(form.numQuestions.value, 10);
     const token = localStorage.getItem('token');
 
-    if (!topic || !difficulty || !numberOfQuestions) {
-      messageDiv.textContent = 'Please fill all fields.';
+    // Validate all fields
+    if (!topic) {
+      messageDiv.textContent = `Please select a ${useDatabase ? 'topic from the database' : 'topic'}.`;
+      generateBtn.disabled = false;
+      generateBtn.textContent = useDatabase ? 'Load From Database' : 'Generate Test';
+      return;
+    }
+    
+    if (!difficulty) {
+      messageDiv.textContent = 'Please select a difficulty level.';
+      generateBtn.disabled = false;
+      generateBtn.textContent = useDatabase ? 'Load From Database' : 'Generate Test';
+      return;
+    }
+    
+    if (!numberOfQuestions || numberOfQuestions < 1) {
+      messageDiv.textContent = 'Please enter a valid number of questions.';
       generateBtn.disabled = false;
       generateBtn.textContent = useDatabase ? 'Load From Database' : 'Generate Test';
       return;
@@ -92,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Fetch from database
   async function fetchFromDatabase(topic, difficulty, numberOfQuestions, token) {
+    console.log("🔍 Fetching from database:", { topic, difficulty, numberOfQuestions });
     const res = await apiFetch('/api/mock/from-database', {
       method: 'POST',
       headers: {
@@ -105,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })
     });
     const data = await res.json();
+    console.log("✅ Database response:", data);
     if (!res.ok) {
       throw new Error(data.message || data.error);
     }
@@ -138,21 +155,36 @@ document.addEventListener('DOMContentLoaded', function () {
       const res = await apiFetch('/api/mock/filters');
       const data = await res.json();
       
+      console.log("✅ Filters loaded:", data);
+      
       if (data.success && topicSelect) {
         const select = topicSelect;
         select.innerHTML = '<option value="">Select a topic...</option>';
         
         if (data.topics && data.topics.length > 0) {
+          console.log(`📚 Found ${data.topics.length} topics from database`);
           data.topics.forEach(topic => {
             const option = document.createElement('option');
             option.value = topic;
             option.textContent = topic;
             select.appendChild(option);
           });
+        } else {
+          console.warn("⚠️ No topics found in database");
         }
+        
+        // Show total questions
+        if (data.totalQuestions) {
+          console.log(`📊 Total questions in database: ${data.totalQuestions}`);
+        }
+      } else {
+        console.error("❌ Failed response from filters API:", data);
       }
     } catch (err) {
-      console.error("Failed to load topics:", err);
+      console.error("❌ Failed to load topics:", err);
+      if (topicSelect) {
+        topicSelect.innerHTML = '<option value="">Error loading topics</option>';
+      }
     }
   }
 }); 
