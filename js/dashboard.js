@@ -143,18 +143,22 @@ function openOTPModal() {
   document.getElementById("step-3")?.classList.add("hidden");
   document.getElementById("otp-message").classList.add("hidden");
 }
-
 function sendOTP() {
   const email = document.getElementById("email-input").value.trim();
   if (!email) return alert("Please enter your email.");
 
+  const btn = document.getElementById('send-otp-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  // ✅ apiFetch already returns parsed JSON — do NOT call .json() again
   apiFetch(`${AUTH_API}/send-otp`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email })
   })
-    .then(res => res.json())
     .then(data => {
+      console.log("✅ sendOTP response:", data);
       if (data.message) {
         localStorage.setItem("tempEmail", email);
         document.getElementById("otp-step-title").textContent = "Step 2: Enter OTP";
@@ -162,17 +166,55 @@ function sendOTP() {
         document.getElementById("step-2").classList.remove("hidden");
         document.getElementById("otp-message").textContent = data.message;
         document.getElementById("otp-message").classList.remove("hidden");
-        alert("OTP sent successfully!");
       } else {
-        alert("Failed to send OTP");
+        alert(data.error || "Failed to send OTP");
       }
     })
     .catch(err => {
-      console.error(err);
-      alert("Something went wrong.");
+      console.error("❌ sendOTP error:", err);
+      alert("Something went wrong: " + err.message);
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = 'Send OTP';
     });
 }
 
+async function verifyOTP() {
+  const email = localStorage.getItem("tempEmail");
+  const otp = document.getElementById("otp-input").value.trim();
+  if (!otp) return alert("Please enter the OTP.");
+
+  const btn = document.getElementById('verify-otp-btn');
+  btn.disabled = true;
+  btn.textContent = 'Verifying...';
+
+  try {
+    // ✅ apiFetch already returns parsed JSON — do NOT call .json() again
+    const data = await apiFetch(`${AUTH_API}/verify-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, otp })
+    });
+
+    console.log("✅ verifyOTP response:", data);
+
+    if (data.message || data.success) {
+      alert("OTP verified!");
+      document.getElementById("step-2").classList.add("hidden");
+      document.getElementById("step-3").classList.remove("hidden");
+      document.getElementById("otp-step-title").textContent = "Step 3: Complete Registration";
+    } else {
+      alert(data.error || "Invalid OTP");
+    }
+  } catch (err) {
+    console.error("❌ verifyOTP error:", err);
+    alert("Server error: " + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Verify OTP';
+  }
+}
 async function verifyOTP() {
   const email = localStorage.getItem("tempEmail");
   const otp = document.getElementById("otp-input").value.trim();
