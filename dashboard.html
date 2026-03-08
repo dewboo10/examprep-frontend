@@ -609,7 +609,7 @@
       </div>
 
    
-      <!-- <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
+       <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
         <div class="flex items-center justify-between">
           <div>
             <h3 class="text-3xl font-bold text-yellow-700" data-kpi="streak">0</h3>
@@ -1006,6 +1006,171 @@
   </script>
     <script>window.VITE_BASE_URL = 'https://examprep-backend.onrender.com';</script>
     <script type="module" src="js/dashboard.js"></script>
-    <!--JAVASCRIPT-->
+<!--JAVASCRIPT-->
+<script>
+  // =============================================
+  // SELF-CONTAINED AUTH HANDLER (independent of dashboard.js)
+  // =============================================
+  const BASE_URL = 'https://examprep-backend.onrender.com';
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // ── Helper: show/hide elements ──
+    const show = id => document.getElementById(id)?.classList.remove('hidden');
+    const hide = id => document.getElementById(id)?.classList.add('hidden');
+
+    // ── Open OTP modal when "Register instead" is clicked ──
+    document.getElementById('register-link')?.addEventListener('click', function (e) {
+      e.preventDefault();
+      hide('auth-modal');
+      show('otp-modal');
+    });
+
+    // ── STEP 1: Send OTP ──
+    document.getElementById('send-otp-btn')?.addEventListener('click', async function () {
+      const email = document.getElementById('email-input')?.value?.trim();
+      if (!email) return alert('Please enter your email');
+
+      this.disabled = true;
+      this.textContent = 'Sending...';
+
+      try {
+        const res = await fetch(`${BASE_URL}/api/auth/send-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        console.log('Send OTP response:', data);
+
+        if (res.ok) {
+          hide('step-1');
+          show('step-2');
+          document.getElementById('otp-step-title').textContent = 'Step 2: Enter OTP';
+          const msg = document.getElementById('otp-message');
+          if (msg) { msg.textContent = 'OTP sent to ' + email; msg.classList.remove('hidden'); }
+        } else {
+          alert(data.message || 'Failed to send OTP');
+        }
+      } catch (err) {
+        console.error('Send OTP error:', err);
+        alert('Network error. Please try again.');
+      } finally {
+        this.disabled = false;
+        this.textContent = 'Send OTP';
+      }
+    });
+
+    // ── STEP 2: Verify OTP ──
+    document.getElementById('verify-otp-btn')?.addEventListener('click', async function () {
+      const email = document.getElementById('email-input')?.value?.trim();
+      const otp   = document.getElementById('otp-input')?.value?.trim();
+      if (!otp) return alert('Please enter the OTP');
+
+      this.disabled = true;
+      this.textContent = 'Verifying...';
+
+      try {
+        const res = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp })
+        });
+        const data = await res.json();
+        console.log('Verify OTP response:', data);
+
+        if (res.ok) {
+          hide('step-2');
+          show('step-3');
+          document.getElementById('otp-step-title').textContent = 'Step 3: Complete Registration';
+          hide('otp-message');
+        } else {
+          alert(data.message || 'Invalid OTP');
+        }
+      } catch (err) {
+        console.error('Verify OTP error:', err);
+        alert('Network error. Please try again.');
+      } finally {
+        this.disabled = false;
+        this.textContent = 'Verify OTP';
+      }
+    });
+
+    // ── STEP 3: Register ──
+    document.getElementById('register-btn')?.addEventListener('click', async function () {
+      const email    = document.getElementById('email-input')?.value?.trim();
+      const name     = document.getElementById('reg-name')?.value?.trim();
+      const password = document.getElementById('reg-password')?.value;
+      if (!name || !password) return alert('Please fill all fields');
+
+      this.disabled = true;
+      this.textContent = 'Registering...';
+
+      try {
+        const res = await fetch(`${BASE_URL}/api/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, name, password })
+        });
+        const data = await res.json();
+        console.log('Register response:', data);
+
+        if (res.ok) {
+          if (data.token) localStorage.setItem('token', data.token);
+          if (data.email || email) localStorage.setItem('email', data.email || email);
+          if (data.name  || name)  localStorage.setItem('username', data.name || name);
+          hide('otp-modal');
+          alert('Registration successful! Welcome, ' + (name || 'User'));
+          window.location.reload();
+        } else {
+          alert(data.message || 'Registration failed');
+        }
+      } catch (err) {
+        console.error('Register error:', err);
+        alert('Network error. Please try again.');
+      } finally {
+        this.disabled = false;
+        this.textContent = 'Complete Registration';
+      }
+    });
+
+    // ── LOGIN ──
+    document.getElementById('login-btn')?.addEventListener('click', async function () {
+      const email    = document.getElementById('login-email')?.value?.trim();
+      const password = document.getElementById('login-password')?.value;
+      if (!email || !password) return alert('Please enter email and password');
+
+      this.disabled = true;
+      this.textContent = 'Logging in...';
+
+      try {
+        const res = await fetch(`${BASE_URL}/api/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        console.log('Login response:', data);
+
+        if (res.ok) {
+          if (data.token) localStorage.setItem('token', data.token);
+          if (data.email) localStorage.setItem('email', data.email);
+          if (data.name)  localStorage.setItem('username', data.name);
+          hide('auth-modal');
+          window.location.reload();
+        } else {
+          alert(data.message || 'Login failed. Check your credentials.');
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        alert('Network error. Please try again.');
+      } finally {
+        this.disabled = false;
+        this.textContent = 'Login';
+      }
+    });
+
+  });
+</script>
   </body>
   </html> 
