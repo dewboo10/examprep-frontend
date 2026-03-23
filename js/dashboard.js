@@ -215,31 +215,6 @@ async function verifyOTP() {
     btn.textContent = 'Verify OTP';
   }
 }
-async function verifyOTP() {
-  const email = localStorage.getItem("tempEmail");
-  const otp = document.getElementById("otp-input").value.trim();
-  if (!otp) return alert("Please enter the OTP.");
-
-  try {
-    const res = await apiFetch(`${AUTH_API}/verify-otp`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, otp })
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      alert("OTP verified!");
-      document.getElementById("step-2").classList.add("hidden");
-      document.getElementById("step-3").classList.remove("hidden");
-    } else {
-      alert(data.error || "Invalid OTP");
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Server error");
-  }
-}
 
 async function registerUser() {
   const name = document.getElementById('reg-name')?.value;
