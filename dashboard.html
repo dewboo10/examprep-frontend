@@ -1019,11 +1019,10 @@
     const show = id => document.getElementById(id)?.classList.remove('hidden');
     const hide = id => document.getElementById(id)?.classList.add('hidden');
 
-    // ── Open OTP modal when "Register instead" is clicked ──
+    // ── Register should go to dedicated register page, no modal popup ──
     document.getElementById('register-link')?.addEventListener('click', function (e) {
       e.preventDefault();
-      hide('auth-modal');
-      show('otp-modal');
+      window.location.href = 'register.html';
     });
 
     // ── STEP 1: Send OTP ──

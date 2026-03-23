@@ -47,14 +47,7 @@ function hideLoader() {
   loader.style.display = "none";
 }
 
-function showLoginModal() {
-  setTimeout(() => {
-    const modal = document.getElementById('auth-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-    }
-  }, 10000); // 10 seconds delay
-}
+// Auth modal is disabled (no popups for register/login in dashboard flow)
 
 document.addEventListener('DOMContentLoaded', async () => {
   showLoader(); // ✅ Show loader immediately
@@ -111,8 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fetchDashboardData();
     hideLoader(); // ✅ Hide loader only after all dashboard data has been fetched
   } else {
-    hideLoader(); // Hide loader before showing login modal
-    showLoginModal();
+    hideLoader(); // No auth modal popup in this flow
   }
 });
 
