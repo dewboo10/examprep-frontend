@@ -157,7 +157,10 @@ function sendOTP() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email })
   })
-    .then(data => {
+    .then(res =>
+      res.json().then(data => ({ ok: res.ok, status: res.status, data }))
+    )
+    .then(({ok, data}) => {
       console.log("✅ sendOTP response:", data);
       if (data.message) {
         localStorage.setItem("tempEmail", email);
